@@ -110,3 +110,7 @@ pnpm dlx shadcn@latest add https://originui.com/r/legacy/comp-01.json
 ## 贡献说明
 
 我们欢迎你为 TimKit UI 做出贡献！请阅读我们的[贡献指南](CONTRIBUTING.md)，了解如何提交改进和新增组件。
+
+## 模板家架构示例
+
+本仓库现引入了 Block-Template-Page 三层解耦的示例实现。`blocks/TextBlock.tsx` 定义了一个带有元数据的基础区块，并在 `templates/SimpleTemplate.tsx` 中组合使用。通过访问 `/template-demo` 路径即可查看页面效果，后续可在此基础上扩展更多区块与模板。
