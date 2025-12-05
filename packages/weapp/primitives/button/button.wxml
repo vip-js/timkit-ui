@@ -1,0 +1,10 @@
+<view
+  class="tk-button {{variantClass}} {{sizeClass}} {{disabled ? 'is-disabled' : ''}} {{loading ? 'is-loading' : ''}}"
+  bindtap="handleTap"
+  hover-class="is-hover"
+>
+  <slot name="icon-left"></slot>
+  <text class="tk-button__label">{{ label }}</text>
+  <slot name="icon-right"></slot>
+  <view wx:if="{{loading}}" class="tk-button__spinner"></view>
+</view>

@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "jsx": "preserve",
+        "jsxImportSource": "vue",
+    },
+    "include": [
+        "src",
+        "env.d.ts",
+    ]
+}
