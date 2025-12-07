@@ -1,0 +1,18 @@
+{
+  "name": "color-picker-radio-group",
+  "type": "registry:block",
+  "description": "Color picker radio group",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "radio-groups"
+    ],
+    "mdxBody": "\n<FUIColorPickerRadioGroup />\n",
+    "category": "radio-groups",
+    "isActive": false
+  },
+  "categories": [
+    "radio-groups"
+  ]
+}

@@ -1,0 +1,7 @@
+
+
+> @timui/weapp@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/weapp
+> tsx build.ts
+
+Building @timui/weapp...
+Build complete! Artifacts in /Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist

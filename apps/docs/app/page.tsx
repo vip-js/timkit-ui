@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { getCategories } from "@/lib/catalog"
-import SearchButton from "@/components/search-button"
-import { SubscribeBottom } from "@/components/subscribe-form"
-import SupportedFrameworks from "@/components/supported-frameworks"
+import { getCategories } from '@/lib/catalog'
+import SearchButton from '@/components/search-button'
+import { SubscribeBottom } from '@/components/subscribe-form'
+import SupportedFrameworks from '@/components/supported-frameworks'
 
 export default function Page() {
   const categories = getCategories()
@@ -17,6 +17,14 @@ export default function Page() {
         <p className="text-muted-foreground mb-8 text-lg">
           开源组件库，复制即用，助您快速搭建应用界面
         </p>
+        <div className="bg-muted/60 text-muted-foreground border-muted/60 mb-6 rounded-lg border p-4 text-sm leading-relaxed">
+          <div className="font-medium text-foreground">硬性要求</div>
+          <ul className="mt-2 space-y-1">
+            <li>React 19 + React DOM 19</li>
+            <li>Tailwind CSS v4（v3 需按兼容指引接入）</li>
+            <li>Node.js 18 或更高（建议 CI 同步升级）</li>
+          </ul>
+        </div>
         <SearchButton />
       </div>
 
@@ -52,13 +60,8 @@ type CategoryCardProps = {
   isNew?: boolean
 }
 
-function CategoryCard({
-  slug,
-  name,
-  componentsCount,
-  isNew = false,
-}: CategoryCardProps) {
-  const href = `/${slug}`
+function CategoryCard({ slug, name, componentsCount, isNew = false }: CategoryCardProps) {
+  const href = `/components#${slug}`
   const imageBasePath = `/thumbs/${slug}`
   const alt = `${name} 组件`
   const isComingSoon = componentsCount === undefined
@@ -113,8 +116,8 @@ function CategoryCard({
         </h2>
         <p className="text-muted-foreground text-[13px]">
           {!isComingSoon
-            ? `${componentsCount} ${componentsCount === 1 ? "个组件" : "个组件"}`
-            : "-"}
+            ? `${componentsCount} ${componentsCount === 1 ? '个组件' : '个组件'}`
+            : '-'}
         </p>
       </div>
     </div>

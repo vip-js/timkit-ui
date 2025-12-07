@@ -1,0 +1,18 @@
+{
+  "name": "secondary-hero-section",
+  "type": "registry:block",
+  "description": "Secondary Hero Section",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "heroes"
+    ],
+    "mdxBody": "\n<FUISecondaryHeroSection />\n",
+    "category": "heroes",
+    "isActive": false
+  },
+  "categories": [
+    "heroes"
+  ]
+}

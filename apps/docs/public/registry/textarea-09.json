@@ -1,0 +1,32 @@
+{
+  "name": "textarea-09",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/textarea.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/textarea/textarea-09.tsx",
+      "type": "registry:component",
+      "target": "components/ui/textarea-09.tsx",
+      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Disabled textarea</Label>\n      <Textarea id={id} disabled placeholder=\"Leave a comment\" />\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "label",
+      "textarea",
+      "disabled"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "textarea"
+  },
+  "categories": [
+    "textarea"
+  ]
+}

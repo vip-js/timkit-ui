@@ -1,0 +1,44 @@
+.tk-toast {
+  position: fixed;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 16rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  border: 1px solid #e4e4e7;
+}
+.tk-toast-icon {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 9999rpx;
+  background: #ecfdf3;
+  color: #047857;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tk-toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.tk-toast-title {
+  color: #09090b;
+  font-weight: 600;
+}
+.tk-toast-desc {
+  color: #52525b;
+  font-size: 24rpx;
+}
+.tk-toast-close {
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  font-size: 28rpx;
+}

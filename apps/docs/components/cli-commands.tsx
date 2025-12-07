@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@timkit/web"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'
 
-import { useConfig } from "@/hooks/use-config"
-import CopyButton from "@/components/copy-button"
+import { useConfig } from '@/hooks/use-config'
+import CopyButton from '@/components/copy-button'
 
 export default function CliCommands({ name }: { name: string }) {
   const [config, setConfig] = useConfig()
-  const packageManager = config.packageManager || "pnpm"
+  const packageManager = config.packageManager || 'pnpm'
 
   const commands = {
     pnpm: `pnpm dlx shadcn@latest add https://originui.com/r/${name}.json`,
@@ -23,7 +23,7 @@ export default function CliCommands({ name }: { name: string }) {
         onValueChange={(value) => {
           setConfig({
             ...config,
-            packageManager: value as "pnpm" | "npm" | "yarn" | "bun",
+            packageManager: value as 'pnpm' | 'npm' | 'yarn' | 'bun',
           })
         }}
         className="rounded-md bg-zinc-950 dark:bg-zinc-900"
@@ -56,9 +56,7 @@ export default function CliCommands({ name }: { name: string }) {
         </TabsList>
         {Object.entries(commands).map(([pkg, command]) => (
           <TabsContent className="m-0" key={pkg} value={pkg}>
-            <pre className="overflow-auto p-4 font-mono text-[12.8px] text-zinc-100">
-              {command}
-            </pre>
+            <pre className="overflow-auto p-4 font-mono text-[12.8px] text-zinc-100">{command}</pre>
           </TabsContent>
         ))}
       </Tabs>

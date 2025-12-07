@@ -1,0 +1,60 @@
+{
+  "name": "checkbox",
+  "type": "registry:ui",
+  "dependencies": [
+    "@radix-ui/react-checkbox"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/checkbox.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox.tsx",
+      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as CheckboxPrimitive from '@radix-ui/react-checkbox'\nimport { cn } from '@timui/shared'\nimport { cva } from 'class-variance-authority'\n\nconst checkboxStyles = cva(\n  'peer border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex size-4 shrink-0 items-center justify-center rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50'\n)\n\nfunction Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {\n  return (\n    <CheckboxPrimitive.Root\n      data-slot=\"checkbox\"\n      className={cn(checkboxStyles(), className)}\n      {...props}\n    >\n      <CheckboxPrimitive.Indicator\n        data-slot=\"checkbox-indicator\"\n        className=\"grid place-content-center text-current\"\n      >\n        {props.checked === 'indeterminate' ? (\n          <svg\n            width=\"9\"\n            height=\"9\"\n            viewBox=\"0 0 9 9\"\n            fill=\"currentcolor\"\n            xmlns=\"http://www.w3.org/2000/svg\"\n          >\n            <path\n              fillRule=\"evenodd\"\n              clipRule=\"evenodd\"\n              d=\"M0.75 4.5C0.75 4.08579 1.08579 3.75 1.5 3.75H7.5C7.91421 3.75 8.25 4.08579 8.25 4.5C8.25 4.91421 7.91421 5.25 7.5 5.25H1.5C1.08579 5.25 0.75 4.91421 0.75 4.5Z\"\n            />\n          </svg>\n        ) : (\n          <svg\n            width=\"9\"\n            height=\"9\"\n            viewBox=\"0 0 9 9\"\n            fill=\"currentcolor\"\n            xmlns=\"http://www.w3.org/2000/svg\"\n          >\n            <path\n              fillRule=\"evenodd\"\n              clipRule=\"evenodd\"\n              d=\"M8.53547 0.62293C8.88226 0.849446 8.97976 1.3142 8.75325 1.66099L4.5083 8.1599C4.38833 8.34356 4.19397 8.4655 3.9764 8.49358C3.75883 8.52167 3.53987 8.45309 3.3772 8.30591L0.616113 5.80777C0.308959 5.52987 0.285246 5.05559 0.563148 4.74844C0.84105 4.44128 1.31533 4.41757 1.62249 4.69547L3.73256 6.60459L7.49741 0.840706C7.72393 0.493916 8.18868 0.396414 8.53547 0.62293Z\"\n            />\n          </svg>\n        )}\n      </CheckboxPrimitive.Indicator>\n    </CheckboxPrimitive.Root>\n  )\n}\n\nexport { Checkbox }\n"
+    },
+    {
+      "path": "registry/default/vue/checkbox.vue",
+      "target": "components/ui/checkbox.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type CheckboxRootEmits, type CheckboxRootProps, CheckboxRoot, CheckboxIndicator, useForwardPropsEmits } from \"radix-vue\";\nimport { cn, checkboxStyles } from \"@timui/shared\";\nimport { computed } from \"vue\";\nimport { Check } from \"lucide-vue-next\";\n\nconst props = defineProps<CheckboxRootProps & { class?: string }>();\nconst emits = defineEmits<CheckboxRootEmits>();\n\nconst delegatedProps = computed(() => {\n  const { class: _, ...delegated } = props;\n  return delegated;\n});\n\nconst forwarded = useForwardPropsEmits(delegatedProps, emits);\n</script>\n\n<template>\n  <CheckboxRoot\n    v-bind=\"forwarded\"\n    :class=\"cn(checkboxStyles(), props.class)\"\n  >\n    <CheckboxIndicator\n      class=\"flex h-full w-full items-center justify-center text-current\"\n    >\n      <slot>\n        <Check class=\"h-4 w-4\" />\n      </slot>\n    </CheckboxIndicator>\n  </CheckboxRoot>\n</template>\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox/checkbox.json",
+      "target": "components/ui/checkbox/checkbox.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true,\n  \"usingComponents\": {}\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox/checkbox.ts",
+      "target": "components/ui/checkbox/checkbox.ts",
+      "type": "registry:component",
+      "content": "import { checkboxStyles } from '@timui/shared'\n\nimport { resolveClasses } from '../../utils'\n\nComponent({\n  properties: {\n    checked: {\n      type: Boolean,\n      value: false,\n    },\n    disabled: {\n      type: Boolean,\n      value: false,\n    },\n    className: {\n      type: String,\n      value: '',\n    },\n  },\n\n  data: {\n    computedClass: '',\n  },\n\n  observers: {\n    'checked, disabled, className': function (checked, disabled, className) {\n      // 1. Get CVA base string\n      const cvaClass = checkboxStyles()\n\n      // 2. Resolve to Weapp atomic utilities\n      // We manually toggle data attributes in class string for Weapp resolver if needed,\n      // But `checkboxStyles` uses `data-[state=checked]`.\n      // We need to conditionally append these classes based on props.\n\n      // Hack/Adapter: manually inject the state class so tailwind-merge/resolveClasses can handle it?\n      // Or better: `checkboxStyles({ className })` doesn't handle state variants passed as props, relying on data attributes.\n      // We need to implement a \"State Simulator\" in Weapp.\n\n      // Let's modify resolveClasses or just conditional string concat.\n      // \"data-[state=checked]:bg-primary\" -> In web this matches attribute.\n      // In Weapp, we don't have attribute selectors in WXSS easily mapping to Tailwind unless we generated specific state classes.\n\n      // Simplified approach for Weapp:\n      // We probably generated utilities like `data-state-checked:bg-primary` (replacing [ ] with -).\n      // Let's assume our utility generator handles this.\n\n      const stateClass = checked ? 'data-state-checked' : 'data-state-unchecked'\n      const disabledClass = disabled ? 'disabled' : ''\n\n      const resolved = resolveClasses(`${cvaClass} ${className} ${stateClass} ${disabledClass}`)\n\n      this.setData({ computedClass: resolved })\n    },\n  },\n\n  methods: {\n    toggle() {\n      if (this.data.disabled) return\n      const newValue = !this.data.checked\n      this.triggerEvent('change', { checked: newValue })\n      // Controlled mode usually requires parent to update, but we can optimistically update or wait?\n      // Standard Weapp: internal state + event.\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox/checkbox.wxml",
+      "target": "components/ui/checkbox/checkbox.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{computedClass}}\" bindtap=\"toggle\" hover-class=\"none\">\n  <block wx:if=\"{{checked}}\">\n    <!-- Check Icon -->\n    <view class=\"flex items-center justify-center text-current\">\n        <image src=\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E\" class=\"w-3 h-3 text-current\" />\n    </view>\n  </block>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox/checkbox.wxss",
+      "target": "components/ui/checkbox/checkbox.wxss",
+      "type": "registry:component",
+      "content": "@import \"../../utilities.wxss\";\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox/index.ts",
+      "target": "components/ui/checkbox/index.ts",
+      "type": "registry:component",
+      "content": "import checkboxSchema from '../../../core/schemas/checkbox'\nimport type { WeappPrimitive } from '../../types'\n\nconst basePath = 'packages/weapp/primitives/checkbox'\n\n// Fallback schema if not exists in core?\n// We need to check if checkboxSchema exists. If not, mock it or use generic.\n// Assuming it might not exist yet if I didn't create it. Defaulting to generic object for now.\nconst schema = checkboxSchema || {\n  name: 'checkbox',\n  cssVars: [],\n  tokens: [],\n}\n\nexport const weappCheckbox: WeappPrimitive = {\n  name: 'checkbox',\n  schema: schema as any,\n  description: 'Weapp Checkbox (Custom View)',\n  files: {\n    wxml: `${basePath}/checkbox.wxml`,\n    wxss: `${basePath}/checkbox.wxss`,\n    logic: `${basePath}/checkbox.ts`,\n    config: `${basePath}/checkbox.json`,\n  },\n}\n\nexport default weappCheckbox\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue",
+      "weapp"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

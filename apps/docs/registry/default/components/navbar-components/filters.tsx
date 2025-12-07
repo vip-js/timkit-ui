@@ -1,13 +1,10 @@
-import { useId } from "react"
-import {
-  Button,
-  Checkbox,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@timkit/web"
-import { ListFilterIcon } from "lucide-react"
+import { useId } from 'react'
+import { ListFilterIcon } from 'lucide-react'
+
+import { Button } from '../../ui/button'
+import { Checkbox } from '../../ui/checkbox'
+import { Label } from '../../ui/label'
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 export default function Component() {
   const id = useId()

@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useDroppable } from "@dnd-kit/core"
-import { cn } from "@timkit/shared"
+import { useDroppable } from '@dnd-kit/core'
+import { cn } from '@timui/shared'
 
-import { useCalendarDnd } from "@/registry/default/components/event-calendar"
+import { useCalendarDnd } from '@/registry/default/components/event-calendar'
 
 interface DroppableCellProps {
   id: string
@@ -37,7 +37,7 @@ export function DroppableCell({
     time !== undefined
       ? `${Math.floor(time)}:${Math.round((time - Math.floor(time)) * 60)
           .toString()
-          .padStart(2, "0")}`
+          .padStart(2, '0')}`
       : null
 
   return (
@@ -45,7 +45,7 @@ export function DroppableCell({
       ref={setNodeRef}
       onClick={onClick}
       className={cn(
-        "data-dragging:bg-accent flex h-full flex-col overflow-hidden px-0.5 py-1 sm:px-1",
+        'data-dragging:bg-accent flex h-full flex-col overflow-hidden px-0.5 py-1 sm:px-1',
         className
       )}
       title={formattedTime ? `${formattedTime}` : undefined}

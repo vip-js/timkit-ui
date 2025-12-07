@@ -1,0 +1,18 @@
+{
+  "name": "modal-with-newsletter",
+  "type": "registry:block",
+  "description": "Modal with Newsletter",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "modals"
+    ],
+    "mdxBody": "\n<FUIModalWithNewsletter />\n",
+    "category": "modals",
+    "isActive": false
+  },
+  "categories": [
+    "modals"
+  ]
+}

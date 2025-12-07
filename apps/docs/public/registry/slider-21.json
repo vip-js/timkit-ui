@@ -1,0 +1,35 @@
+{
+  "name": "slider-21",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/button.json",
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/slider.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/slider/slider-21.tsx",
+      "type": "registry:component",
+      "target": "components/ui/slider-21.tsx",
+      "content": "'use client'\n\nimport { useState } from 'react'\n\nimport { Button } from '../../ui/button'\nimport { Label } from '../../ui/label'\nimport { Slider } from '../../ui/slider'\n\nexport default function Component() {\n  const min_price = 5\n  const max_price = 1240\n  const [value, setValue] = useState([min_price, max_price])\n\n  const formatPrice = (price: number) => {\n    return price === max_price ? `$${price.toLocaleString()}+` : `$${price.toLocaleString()}`\n  }\n\n  return (\n    <div className=\"*:not-first:mt-3\">\n      <Label className=\"tabular-nums\">\n        From {formatPrice(value[0])} to {formatPrice(value[1])}\n      </Label>\n      <div className=\"flex items-center gap-4\">\n        <Slider\n          value={value}\n          onValueChange={setValue}\n          min={min_price}\n          max={max_price}\n          aria-label=\"Price range slider\"\n        />\n        <Button variant=\"outline\">Go</Button>\n      </div>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "slider",
+      "range slider",
+      "label",
+      "button",
+      "radix"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "slider"
+  },
+  "categories": [
+    "slider"
+  ]
+}

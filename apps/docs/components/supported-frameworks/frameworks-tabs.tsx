@@ -1,38 +1,38 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import supportedFrameworksJSON from "@/utils/supportedFrameworksJSON"
-import * as Tabs from "@radix-ui/react-tabs"
-import { m } from "framer-motion"
+import { useState } from 'react'
+import supportedFrameworksJSON from '@/utils/supportedFrameworksJSON'
+import * as Tabs from '@radix-ui/react-tabs'
+import { m } from 'framer-motion'
 
-import { IconHTML, IconReact, IconSvelte, IconVue } from "@/components/icons"
-import LazyMotionWrapper from "@/components/lazy-motion-wrapper"
-import SyntaxHeighlight from "@/components/syntax-heighlight"
-import TabsTrigger from "@/components/tabs-trigger"
+import { IconHTML, IconReact, IconSvelte, IconVue } from '@/components/icons'
+import LazyMotionWrapper from '@/components/lazy-motion-wrapper'
+import SyntaxHeighlight from '@/components/syntax-heighlight'
+import { TabsTrigger } from '@/components/tabs-trigger'
 
-export default () => {
-  const [selectedTab, setSelectedTab] = useState("html")
+const FrameworksTabs = () => {
+  const [selectedTab, setSelectedTab] = useState('html')
 
   const tabs = [
     {
-      name: "HTML",
+      name: 'HTML',
       icon: <IconHTML />,
-      value: "html",
+      value: 'html',
     },
     {
-      name: "React.js",
+      name: 'React.js',
       icon: <IconReact />,
-      value: "react",
+      value: 'react',
     },
     {
-      name: "Vue.js",
+      name: 'Vue.js',
       icon: <IconVue />,
-      value: "vue",
+      value: 'vue',
     },
     {
-      name: "Svelte.js",
+      name: 'Svelte.js',
       icon: <IconSvelte />,
-      value: "svelte",
+      value: 'svelte',
     },
   ]
 
@@ -62,11 +62,7 @@ export default () => {
           value={item.value}
         >
           <LazyMotionWrapper>
-            <m.div
-              className="opacity-0"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.9 }}
-            >
+            <m.div className="opacity-0" animate={{ opacity: 1 }} transition={{ duration: 0.9 }}>
               <SyntaxHeighlight code={item.code} />
             </m.div>
           </LazyMotionWrapper>
@@ -75,3 +71,5 @@ export default () => {
     </Tabs.Root>
   )
 }
+
+export default FrameworksTabs

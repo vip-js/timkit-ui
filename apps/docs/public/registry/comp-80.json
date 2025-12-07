@@ -1,0 +1,30 @@
+{
+  "name": "comp-80",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/button.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/comp-80.tsx",
+      "type": "registry:component",
+      "target": "components/ui/comp-80.tsx",
+      "content": "import { Button } from '@timui/react'\n\nexport default function Component() {\n  return <Button className=\"rounded-full\">Button</Button>\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "button"
+    ],
+    "style": 2,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "button"
+  },
+  "categories": [
+    "button"
+  ]
+}

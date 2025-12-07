@@ -1,18 +1,31 @@
 {
-    "name": "timkit-ui-monorepo",
-    "private": true,
-    "scripts": {
-        "build": "pnpm -r build",
-        "dev": "pnpm -r dev",
-        "lint": "pnpm -r lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
-    },
-    "devDependencies": {
-        "eslint-config-prettier": "^10.1.8",
-        "prettier": "^3.5.3",
-        "tsx": "^4.19.3",
-        "turbo": "^2.0.0",
-        "typescript": "^5.8.2"
-    },
-    "packageManager": "pnpm@9.0.0"
+  "name": "timkit-ui-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "release:react": "pnpm --filter @timui/react run build && pnpm --filter @timui/react publish --access public --no-git-checks",
+    "registry:build:all": "tsx scripts/build-registry-all.ts",
+    "audit:parity": "tsx scripts/audit-parity.ts",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
+    "@tailwindcss/cli": "^4.1.17",
+    "@vitest/ui": "^4.0.15",
+    "eslint-config-prettier": "^10.1.8",
+    "gray-matter": "^4.0.3",
+    "jsdom": "^27.2.0",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.1.1",
+    "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.19.3",
+    "turbo": "^2.0.0",
+    "typescript": "^5.8.2",
+    "vitest": "^4.0.15"
+  },
+  "packageManager": "pnpm@9.0.0"
 }

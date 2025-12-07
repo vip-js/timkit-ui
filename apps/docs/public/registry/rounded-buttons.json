@@ -1,0 +1,19 @@
+{
+  "name": "rounded-buttons",
+  "type": "registry:block",
+  "description": "Rounded Buttons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUIRoundedButtons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

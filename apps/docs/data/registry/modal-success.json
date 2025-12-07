@@ -1,0 +1,18 @@
+{
+  "name": "modal-success",
+  "type": "registry:block",
+  "description": "Modal Success",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "modals"
+    ],
+    "mdxBody": "\n<FUIModalSuccess />\n",
+    "category": "modals",
+    "isActive": false
+  },
+  "categories": [
+    "modals"
+  ]
+}

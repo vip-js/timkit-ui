@@ -1,0 +1,19 @@
+{
+  "name": "alert-success-with-link",
+  "type": "registry:block",
+  "description": "Alert Success with link",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertSuccessWithLink />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

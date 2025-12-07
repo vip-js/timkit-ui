@@ -1,0 +1,35 @@
+{
+  "name": "comp-398",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/avatar.json",
+    "https://originui.com/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/comp-398.tsx",
+      "type": "registry:component",
+      "target": "components/ui/comp-398.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage, Badge } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <div className=\"relative\">\n      <Avatar>\n        <AvatarImage src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <Badge className=\"border-background absolute -top-1.5 left-full min-w-5 -translate-x-3.5 px-1\">\n        6\n      </Badge>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "avatar",
+      "user",
+      "profile",
+      "badge",
+      "chip"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "avatar"
+  },
+  "categories": [
+    "avatar"
+  ]
+}

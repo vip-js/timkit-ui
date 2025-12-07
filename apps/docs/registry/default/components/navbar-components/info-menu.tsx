@@ -1,17 +1,13 @@
+import { BookIcon, InfoIcon, LifeBuoyIcon, MessageCircleMoreIcon } from 'lucide-react'
+
+import { Button } from '../../ui/button'
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@timkit/web"
-import {
-  BookIcon,
-  InfoIcon,
-  LifeBuoyIcon,
-  MessageCircleMoreIcon,
-} from "lucide-react"
+} from '../../ui/dropdown-menu'
 
 export default function InfoMenu() {
   return (
@@ -23,11 +19,7 @@ export default function InfoMenu() {
           className="size-8 rounded-full shadow-none"
           aria-label="Open edit menu"
         >
-          <InfoIcon
-            className="text-muted-foreground"
-            size={16}
-            aria-hidden="true"
-          />
+          <InfoIcon className="text-muted-foreground" size={16} aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="pb-2">
@@ -55,11 +47,7 @@ export default function InfoMenu() {
           asChild
         >
           <a href="#">
-            <MessageCircleMoreIcon
-              size={16}
-              className="opacity-60"
-              aria-hidden="true"
-            />
+            <MessageCircleMoreIcon size={16} className="opacity-60" aria-hidden="true" />
             Contact us
           </a>
         </DropdownMenuItem>

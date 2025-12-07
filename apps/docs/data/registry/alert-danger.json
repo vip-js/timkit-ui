@@ -1,0 +1,19 @@
+{
+  "name": "alert-danger",
+  "type": "registry:block",
+  "description": "Alert Danger",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertDanger />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

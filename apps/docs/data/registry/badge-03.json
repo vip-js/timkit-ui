@@ -1,0 +1,31 @@
+{
+  "name": "badge-03",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/badge/badge-03.tsx",
+      "type": "registry:component",
+      "target": "components/ui/badge-03.tsx",
+      "content": "import { ZapIcon } from 'lucide-react'\n\nimport { Badge } from '../../ui/badge'\n\nexport default function Component() {\n  return (\n    <Badge>\n      <ZapIcon className=\"-ms-0.5 opacity-60\" size={12} aria-hidden=\"true\" />\n      Badge\n    </Badge>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "badge",
+      "chip"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "badge"
+  },
+  "categories": [
+    "badge"
+  ]
+}

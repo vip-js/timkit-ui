@@ -1,0 +1,19 @@
+{
+  "name": "alert-warning",
+  "type": "registry:block",
+  "description": "Alert Warning",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertWarning />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

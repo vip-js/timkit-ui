@@ -13,7 +13,8 @@ node_modules
 /.next/
 /out/
 .next/
-apps/docs/.next/
+apps/*/.next/
+**/.next/
 
 # production
 /build
@@ -38,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated registry
+registry-all.json
+catalog-all.json
+apps/docs/public/registry-all.json
+apps/docs/public/catalog-all.json

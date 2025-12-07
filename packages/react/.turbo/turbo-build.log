@@ -1,0 +1,19 @@
+
+
+> @timui/react@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/react
+> tsc --emitDeclarationOnly --declaration --outDir dist && tsup
+
+[34mCLI[39m Building entry: src/index.ts
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Using tsup config: /Users/jiawei01.mao/sine/timkit-ui/packages/web/tsup.config.ts
+[34mCLI[39m Target: esnext
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+dist/index.mjs (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.mjs" was ignored.
+dist/index.js (1:0): Module level directives cause errors when bundled, "use client" in "dist/index.js" was ignored.
+[32mESM[39m [1mdist/index.mjs [22m[32m115.06 KB[39m
+[32mESM[39m ⚡️ Build success in 274ms
+[32mCJS[39m [1mdist/index.js [22m[32m128.28 KB[39m
+[32mCJS[39m ⚡️ Build success in 274ms

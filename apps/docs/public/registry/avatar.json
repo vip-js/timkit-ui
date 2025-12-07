@@ -1,0 +1,29 @@
+{
+  "name": "avatar",
+  "type": "registry:ui",
+  "dependencies": [
+    "@radix-ui/react-avatar"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/avatar.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/avatar.tsx",
+      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as AvatarPrimitive from '@radix-ui/react-avatar'\nimport { cn } from '@timui/shared'\nimport { cva } from 'class-variance-authority'\n\nconst avatarVariants = cva('relative flex size-8 shrink-0 overflow-hidden rounded-full')\n\nconst avatarImageVariants = cva('aspect-square size-full')\n\nconst avatarFallbackVariants = cva(\n  'bg-secondary flex size-full items-center justify-center rounded-[inherit] text-xs'\n)\n\nfunction Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      className={cn(avatarVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {\n  return (\n    <AvatarPrimitive.Image\n      data-slot=\"avatar-image\"\n      className={cn(avatarImageVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarFallback({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(avatarFallbackVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarFallback, AvatarImage }\n"
+    },
+    {
+      "path": "registry/default/vue/avatar.vue",
+      "target": "components/ui/avatar.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { AvatarRoot, type AvatarRootProps } from \"radix-vue\";\nimport { cn } from \"@timui/shared\";\n\nconst props = defineProps<AvatarRootProps & { class?: HTMLAttributes[\"class\"] }>();\n\nconst delegatedProps = computed(() => {\n  const { class: _, ...delegated } = props;\n  return delegated;\n});\n</script>\n\n<template>\n  <AvatarRoot\n    v-bind=\"delegatedProps\"\n    :class=\"cn('relative flex size-8 shrink-0 overflow-hidden rounded-full', props.class)\"\n  >\n    <slot />\n  </AvatarRoot>\n</template>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

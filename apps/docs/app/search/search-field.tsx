@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { RiSearch2Line } from "@remixicon/react"
+import { useState } from 'react'
+import { RiSearch2Line } from '@remixicon/react'
 
-import { getAvailableTags } from "@/lib/utils"
-import type { RegistryTag } from "@/registry/registry-tags"
-import { registryTags } from "@/registry/registry-tags"
+import { getAvailableTags } from '@/lib/utils'
+import type { RegistryTag } from '@/registry/registry-tags'
+import { registryTags } from '@/registry/registry-tags'
 
-import MultipleSelector, { Option } from "./multiselect"
+import MultipleSelector, { Option } from './multiselect'
 
 interface SearchFieldProps {
   selectedTags: string[]
@@ -19,15 +19,12 @@ const baseOptions: Option[] = registryTags.map((tag) => ({
   label: tag,
 }))
 
-export default function SearchField({
-  selectedTags,
-  onTagChange,
-}: SearchFieldProps) {
-  const [inputValue, setInputValue] = useState("")
+export default function SearchField({ selectedTags, onTagChange }: SearchFieldProps) {
+  const [inputValue, setInputValue] = useState('')
   const handleMultipleSelectorChange = (selected: Option[]) => {
     const newTags = selected.map((tag) => tag.value as RegistryTag)
     onTagChange(newTags)
-    setInputValue("") // Reset the search input after selection
+    setInputValue('') // Reset the search input after selection
   }
 
   const selectedOptions = selectedTags
@@ -54,10 +51,8 @@ export default function SearchField({
       }))
       .sort((a, b) => {
         // Selected tags first
-        if (selectedTags.includes(a.value) && !selectedTags.includes(b.value))
-          return -1
-        if (!selectedTags.includes(a.value) && selectedTags.includes(b.value))
-          return 1
+        if (selectedTags.includes(a.value) && !selectedTags.includes(b.value)) return -1
+        if (!selectedTags.includes(a.value) && selectedTags.includes(b.value)) return 1
 
         // Then available tags
         const aAvailable = !a.disable
@@ -75,7 +70,7 @@ export default function SearchField({
       <div className="relative">
         <MultipleSelector
           commandProps={{
-            label: "Search components",
+            label: 'Search components',
             shouldFilter: false,
           }}
           inputProps={{
@@ -87,9 +82,7 @@ export default function SearchField({
           }}
           defaultOptions={baseOptions}
           options={getFilteredOptions().filter(
-            (option) =>
-              !inputValue ||
-              option.value.toLowerCase().includes(inputValue.toLowerCase())
+            (option) => !inputValue || option.value.toLowerCase().includes(inputValue.toLowerCase())
           )}
           value={selectedOptions}
           hidePlaceholderWhenSelected

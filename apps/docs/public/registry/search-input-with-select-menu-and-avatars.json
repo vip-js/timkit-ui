@@ -1,0 +1,19 @@
+{
+  "name": "search-input-with-select-menu-and-avatars",
+  "type": "registry:block",
+  "description": "Search Input with select menu and avatars",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "inputs"
+    ],
+    "mdxBody": "\n<FUISearchInputWithSelectMenuAndAvatars />\n",
+    "category": "inputs",
+    "isActive": false,
+    "migratedTo": "input"
+  },
+  "categories": [
+    "inputs"
+  ]
+}

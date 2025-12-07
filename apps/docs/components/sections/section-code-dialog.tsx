@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -16,20 +16,18 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timkit/web"
-import { CodeIcon } from "lucide-react"
+} from '@timui/react'
+import { CodeIcon } from 'lucide-react'
 
-import type { SectionCodeGroup } from "@/lib/sections"
-import CodeBlock from "@/components/code-block"
-import CopyButton from "@/components/copy-button"
+import type { SectionCodeGroup } from '@/lib/sections'
+import CodeBlock from '@/components/code-block'
+import CopyButton from '@/components/copy-button'
 
 const FILE_TRIGGER_STYLES =
-  "rounded-full border px-4 py-1.5 text-xs font-medium transition hover:bg-muted data-[active=true]:bg-foreground data-[active=true]:text-background"
+  'rounded-full border px-4 py-1.5 text-xs font-medium transition hover:bg-muted data-[active=true]:bg-foreground data-[active=true]:text-background'
 
 const emptyState = (
-  <p className="text-muted-foreground text-sm">
-    暂无可展示的源码，稍后再试或查看 React 版本。
-  </p>
+  <p className="text-muted-foreground text-sm">暂无可展示的源码，稍后再试或查看 React 版本。</p>
 )
 
 type SectionCodeDialogProps = {
@@ -37,11 +35,8 @@ type SectionCodeDialogProps = {
   codeGroups: SectionCodeGroup[]
 }
 
-export default function SectionCodeDialog({
-  codeGroups,
-  title,
-}: SectionCodeDialogProps) {
-  const [activeGroup, setActiveGroup] = useState(() => codeGroups[0]?.id ?? "")
+export default function SectionCodeDialog({ codeGroups, title }: SectionCodeDialogProps) {
+  const [activeGroup, setActiveGroup] = useState(() => codeGroups[0]?.id ?? '')
 
   const [activeFiles, setActiveFiles] = useState<Record<string, string>>(() => {
     const initial: Record<string, string> = {}
@@ -80,9 +75,7 @@ export default function SectionCodeDialog({
         </TooltipProvider>
         <DialogContent className="sm:max-w-[720px]">
           <DialogHeader>
-            <DialogTitle className="text-left">
-              {title ? `${title} - Code` : "Code"}
-            </DialogTitle>
+            <DialogTitle className="text-left">{title ? `${title} - Code` : 'Code'}</DialogTitle>
           </DialogHeader>
           {!codeGroups.length ? (
             emptyState
@@ -108,8 +101,7 @@ export default function SectionCodeDialog({
               {codeGroups.map((group) => {
                 const targetId = activeFiles[group.id]
                 const currentFile =
-                  group.files.find((file) => file.id === targetId) ??
-                  group.files[0]
+                  group.files.find((file) => file.id === targetId) ?? group.files[0]
 
                 return (
                   <TabsContent
@@ -128,11 +120,7 @@ export default function SectionCodeDialog({
                                 [group.id]: file.id,
                               }))
                             }
-                            data-active={
-                              activeFiles[group.id] === file.id
-                                ? "true"
-                                : "false"
-                            }
+                            data-active={activeFiles[group.id] === file.id ? 'true' : 'false'}
                             className={FILE_TRIGGER_STYLES}
                             type="button"
                           >
@@ -144,10 +132,7 @@ export default function SectionCodeDialog({
                     <div className="relative">
                       {currentFile && currentFile.code ? (
                         <>
-                          <CodeBlock
-                            code={currentFile.code}
-                            lang={group.language as any}
-                          />
+                          <CodeBlock code={currentFile.code} lang={group.language as any} />
                           <CopyButton componentSource={currentFile.code} />
                         </>
                       ) : (

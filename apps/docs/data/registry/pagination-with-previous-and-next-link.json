@@ -1,0 +1,18 @@
+{
+  "name": "pagination-with-previous-and-next-link",
+  "type": "registry:block",
+  "description": "Pagination with previous and next link",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "paginations"
+    ],
+    "mdxBody": "\n<FUIPaginationWithPreviousAndNextLink />\n",
+    "category": "paginations",
+    "isActive": false
+  },
+  "categories": [
+    "paginations"
+  ]
+}

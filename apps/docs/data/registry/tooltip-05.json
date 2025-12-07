@@ -1,0 +1,32 @@
+{
+  "name": "tooltip-05",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/button.json",
+    "https://originui.com/r/tooltip.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/tooltip/tooltip-05.tsx",
+      "type": "registry:component",
+      "target": "components/ui/tooltip-05.tsx",
+      "content": "import { GlobeIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\nimport { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'\n\nexport default function Component() {\n  return (\n    <TooltipProvider delayDuration={0}>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <Button variant=\"outline\" size=\"sm\">\n            W/ icon\n          </Button>\n        </TooltipTrigger>\n        <TooltipContent className=\"dark py-3\">\n          <div className=\"flex gap-3\">\n            <GlobeIcon className=\"mt-0.5 shrink-0 opacity-60\" size={16} aria-hidden=\"true\" />\n            <div className=\"space-y-1\">\n              <p className=\"text-[13px] font-medium\">Tooltip with title and icon</p>\n              <p className=\"text-muted-foreground text-xs\">\n                Tooltips are made to be highly customizable, with features like dynamic placement,\n                rich content, and a robust API.\n              </p>\n            </div>\n          </div>\n        </TooltipContent>\n      </Tooltip>\n    </TooltipProvider>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "tooltip",
+      "radix"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "tooltip"
+  },
+  "categories": [
+    "tooltip"
+  ]
+}

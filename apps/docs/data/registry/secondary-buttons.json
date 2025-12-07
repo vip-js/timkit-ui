@@ -1,0 +1,19 @@
+{
+  "name": "secondary-buttons",
+  "type": "registry:block",
+  "description": "Secondary Buttons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUISecondaryButtons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

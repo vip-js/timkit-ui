@@ -1,0 +1,33 @@
+{
+  "name": "comp-69",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/button.json",
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/textarea.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/comp-69.tsx",
+      "type": "registry:component",
+      "target": "components/ui/comp-69.tsx",
+      "content": "import { useId } from 'react'\nimport { Button, Label, Textarea } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with right button</Label>\n      <Textarea id={id} placeholder=\"Leave a comment\" />\n      <div className=\"flex justify-end\">\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "label",
+      "textarea",
+      "button"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "textarea"
+  },
+  "categories": [
+    "textarea"
+  ]
+}

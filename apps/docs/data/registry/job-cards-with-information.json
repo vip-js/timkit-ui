@@ -1,0 +1,18 @@
+{
+  "name": "job-cards-with-information",
+  "type": "registry:block",
+  "description": "Job Cards with information",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "cards"
+    ],
+    "mdxBody": "\n<FUIJobCardsWithInformation />\n",
+    "category": "cards",
+    "isActive": false
+  },
+  "categories": [
+    "cards"
+  ]
+}

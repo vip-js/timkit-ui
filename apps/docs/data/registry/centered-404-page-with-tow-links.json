@@ -1,0 +1,18 @@
+{
+  "name": "centered-404-page-with-tow-links",
+  "type": "registry:block",
+  "description": "Centered 404 Page with tow links",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "404-pages"
+    ],
+    "mdxBody": "\n<FUICentered404PageWithTowLinks />\n",
+    "category": "404-pages",
+    "isActive": false
+  },
+  "categories": [
+    "404-pages"
+  ]
+}

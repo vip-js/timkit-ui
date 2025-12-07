@@ -1,0 +1,35 @@
+{
+  "name": "calendar-date-picker-01",
+  "type": "registry:component",
+  "dependencies": [
+    "react-aria-components"
+  ],
+  "registryDependencies": [
+    "https://originui.com/r/calendar-rac.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/calendar-date-picker/calendar-date-picker-01.tsx",
+      "type": "registry:component",
+      "target": "components/ui/calendar-date-picker-01.tsx",
+      "content": "'use client'\n\nimport { useState } from 'react'\nimport { getLocalTimeZone, today } from '@internationalized/date'\nimport type { DateValue } from 'react-aria-components'\n\nimport { Calendar } from '../../ui/calendar'\n\nexport default function Component() {\n  const [date, setDate] = useState<DateValue | null>(today(getLocalTimeZone()))\n\n  return (\n    <div>\n      <Calendar\n        className=\"rounded-md border p-2\"\n        mode=\"single\"\n        selected={date as any}\n        onSelect={setDate as any}\n      />\n      <p\n        className=\"text-muted-foreground mt-4 text-center text-xs\"\n        role=\"region\"\n        aria-live=\"polite\"\n      >\n        Calendar -{' '}\n        <a\n          className=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateRangePicker.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "calendar",
+      "date",
+      "react aria"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "calendar-date-picker"
+  },
+  "categories": [
+    "calendar-date-picker"
+  ]
+}

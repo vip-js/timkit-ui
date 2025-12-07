@@ -25,8 +25,15 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@timui/react": [
+        "./registry/default/index"
+      ],
+      "@timui/react/*": [
+        "./registry/default/*"
       ]
     },
+    "baseUrl": ".",
     "target": "ES2017"
   },
   "include": [

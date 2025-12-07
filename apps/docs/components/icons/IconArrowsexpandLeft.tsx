@@ -1,11 +1,5 @@
 export const IconArrowsexpandLeft = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M8.41707 3.41715V1.75049H1.75037V8.41714H3.41703V4.59565L8.23228 9.41089L9.41082 8.23237L4.59557 3.41715H8.41707Z"
       fill="url(#paint0_linear_3267_7865)"

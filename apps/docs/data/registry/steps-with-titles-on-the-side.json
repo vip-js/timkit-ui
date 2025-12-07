@@ -1,0 +1,18 @@
+{
+  "name": "steps-with-titles-on-the-side",
+  "type": "registry:block",
+  "description": "Steps with titles on the side",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "steps"
+    ],
+    "mdxBody": "\n<FUIStepsWithTitlesOnTheSide />\n",
+    "category": "steps",
+    "isActive": false
+  },
+  "categories": [
+    "steps"
+  ]
+}

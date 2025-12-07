@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 import {
   Input,
   Label,
@@ -10,9 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
   Slider,
-} from "@timkit/web"
+} from '@timui/react'
 
-import CopyClass from "./copy-class"
+import CopyClass from './copy-class'
 
 interface Easing {
   name: string
@@ -23,7 +23,7 @@ interface EasingsProps {
   easings: Easing[]
 }
 
-type EasingFilter = "all" | "in" | "out" | "in-out"
+type EasingFilter = 'all' | 'in' | 'out' | 'in-out'
 
 const defaultConfig = {
   width: 140,
@@ -34,13 +34,9 @@ const defaultConfig = {
   pauseDuration: 1000,
 }
 
-type AnimationType = "translate" | "scale" | "rotate"
+type AnimationType = 'translate' | 'scale' | 'rotate'
 
-function useAnimationKey(
-  duration: number,
-  pauseDuration: number,
-  animationType: AnimationType
-) {
+function useAnimationKey(duration: number, pauseDuration: number, animationType: AnimationType) {
   const [key, setKey] = useState(0)
 
   useEffect(() => {
@@ -76,15 +72,15 @@ const EasingSVG = ({
     if (!easing.points.length || duration <= 0) return {}
 
     return {
-      ["--bezier-coordinates" as string]: easing.points.join(","),
-      ["--animation-duration" as string]: `${duration}s`,
-      ["--total-duration" as string]: `${duration + pauseDuration}s`,
-      animationName: "moveCircleVertically",
+      ['--bezier-coordinates' as string]: easing.points.join(','),
+      ['--animation-duration' as string]: `${duration}s`,
+      ['--total-duration' as string]: `${duration + pauseDuration}s`,
+      animationName: 'moveCircleVertically',
       animationDuration: `${duration}s`,
-      animationTimingFunction: `cubic-bezier(${easing.points.join(",")})`,
-      animationIterationCount: "1",
-      animationFillMode: "forwards",
-      animationDelay: "0s",
+      animationTimingFunction: `cubic-bezier(${easing.points.join(',')})`,
+      animationIterationCount: '1',
+      animationFillMode: 'forwards',
+      animationDelay: '0s',
     }
   }
 
@@ -155,12 +151,12 @@ const EasingSVG = ({
           r="4"
           className="fill-primary"
           style={{
-            animationName: "moveCircleHorizontally",
+            animationName: 'moveCircleHorizontally',
             animationDuration: `${duration}s`,
-            animationTimingFunction: "linear",
-            animationIterationCount: "1",
-            animationFillMode: "forwards",
-            animationDelay: "0s",
+            animationTimingFunction: 'linear',
+            animationIterationCount: '1',
+            animationFillMode: 'forwards',
+            animationDelay: '0s',
           }}
         />
       </g>
@@ -203,25 +199,25 @@ const AnimatedSquare = ({
     if (!easing.points.length || duration <= 0) return {}
 
     const baseStyle = {
-      ["--bezier-coordinates" as string]: easing.points.join(","),
-      ["--animation-duration" as string]: `${duration}s`,
-      ["--total-duration" as string]: `${duration + pauseDuration}s`,
+      ['--bezier-coordinates' as string]: easing.points.join(','),
+      ['--animation-duration' as string]: `${duration}s`,
+      ['--total-duration' as string]: `${duration + pauseDuration}s`,
     }
 
     const animationName = {
-      translate: "translateSquare",
-      scale: "scaleSquare",
-      rotate: "rotateSquare",
+      translate: 'translateSquare',
+      scale: 'scaleSquare',
+      rotate: 'rotateSquare',
     }[animationType]
 
     return {
       ...baseStyle,
       animationName,
       animationDuration: `${duration}s`,
-      animationTimingFunction: `cubic-bezier(${easing.points.join(",")})`,
-      animationIterationCount: "1",
-      animationFillMode: "forwards",
-      animationDelay: "0s",
+      animationTimingFunction: `cubic-bezier(${easing.points.join(',')})`,
+      animationIterationCount: '1',
+      animationFillMode: 'forwards',
+      animationDelay: '0s',
     }
   }
 
@@ -230,12 +226,12 @@ const AnimatedSquare = ({
   return (
     <div
       key={`${key}-${duration}-${pauseDuration}-${animationType}`}
-      className={`pointer-events-none flex w-full items-center ${animationType === "translate" ? "justify-start" : "justify-center"}`}
-      style={animationType === "translate" ? animationStyle : undefined}
+      className={`pointer-events-none flex w-full items-center ${animationType === 'translate' ? 'justify-start' : 'justify-center'}`}
+      style={animationType === 'translate' ? animationStyle : undefined}
     >
       <div
         className="animated-square from-primary to-primary/80 shadow-primary/10 h-10 w-10 rounded-md bg-linear-to-tr shadow-lg"
-        style={animationType !== "translate" ? animationStyle : undefined}
+        style={animationType !== 'translate' ? animationStyle : undefined}
       />
       <style jsx>{`
         @keyframes translateSquare {
@@ -269,12 +265,10 @@ const AnimatedSquare = ({
 
 export default function Easings({ easings }: EasingsProps) {
   const [duration, setDuration] = useState(defaultConfig.animationDuration)
-  const [tempDuration, setTempDuration] = useState(
-    defaultConfig.animationDuration
-  )
+  const [tempDuration, setTempDuration] = useState(defaultConfig.animationDuration)
   const pauseDuration = defaultConfig.pauseDuration
-  const [animationType, setAnimationType] = useState<AnimationType>("translate")
-  const [easingFilter, setEasingFilter] = useState<EasingFilter>("all")
+  const [animationType, setAnimationType] = useState<AnimationType>('translate')
+  const [easingFilter, setEasingFilter] = useState<EasingFilter>('all')
 
   const handleSliderChangeEnd = (value: number[]) => {
     setDuration(value[0])
@@ -300,24 +294,17 @@ export default function Easings({ easings }: EasingsProps) {
   }
 
   const getFilteredEasings = () => {
-    if (easingFilter === "all") return easings
+    if (easingFilter === 'all') return easings
 
     return easings.filter((easing) => {
       const name = easing.name.toLowerCase()
       switch (easingFilter) {
-        case "in":
-          return (
-            (name.startsWith("easein") && !name.includes("inout")) ||
-            name === "ease-in"
-          )
-        case "out":
-          return name.startsWith("easeout") || name === "ease-out"
-        case "in-out":
-          return (
-            name.startsWith("easeinout") ||
-            name === "ease-in-out" ||
-            name === "ease"
-          )
+        case 'in':
+          return (name.startsWith('easein') && !name.includes('inout')) || name === 'ease-in'
+        case 'out':
+          return name.startsWith('easeout') || name === 'ease-out'
+        case 'in-out':
+          return name.startsWith('easeinout') || name === 'ease-in-out' || name === 'ease'
         default:
           return true
       }
@@ -339,6 +326,8 @@ export default function Easings({ easings }: EasingsProps) {
                 onValueChange={handleSliderChange}
                 onValueCommit={handleSliderChangeEnd}
                 className="w-[180px]"
+                defaultValue={[0]}
+                tooltipContent={undefined}
               />
               <Input
                 type="number"
@@ -363,11 +352,19 @@ export default function Easings({ easings }: EasingsProps) {
                 <SelectTrigger className="h-9 w-[100px]">
                   <SelectValue placeholder="Select animation type" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="in">In</SelectItem>
-                  <SelectItem value="out">Out</SelectItem>
-                  <SelectItem value="in-out">In-Out</SelectItem>
+                <SelectContent className="">
+                  <SelectItem value="all" className="">
+                    All
+                  </SelectItem>
+                  <SelectItem value="in" className="">
+                    In
+                  </SelectItem>
+                  <SelectItem value="out" className="">
+                    Out
+                  </SelectItem>
+                  <SelectItem value="in-out" className="">
+                    In-Out
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -375,17 +372,21 @@ export default function Easings({ easings }: EasingsProps) {
               <Label>Animation type</Label>
               <Select
                 value={animationType}
-                onValueChange={(value: AnimationType) =>
-                  setAnimationType(value)
-                }
+                onValueChange={(value: AnimationType) => setAnimationType(value)}
               >
                 <SelectTrigger className="h-9 w-[180px]">
                   <SelectValue placeholder="Select animation type" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="translate">Translate</SelectItem>
-                  <SelectItem value="scale">Scale</SelectItem>
-                  <SelectItem value="rotate">Rotate</SelectItem>
+                <SelectContent className="">
+                  <SelectItem value="linear" className="">
+                    Linear
+                  </SelectItem>
+                  <SelectItem value="ease" className="">
+                    Ease
+                  </SelectItem>
+                  <SelectItem value="cubic" className="">
+                    Cubic
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -399,9 +400,7 @@ export default function Easings({ easings }: EasingsProps) {
             key={`${easing.name}-${easingFilter}`}
             className="group bg-muted/65 relative flex aspect-square flex-col items-center justify-center gap-4 rounded-xl"
           >
-            <div className="pt-6 text-center text-sm font-medium">
-              {easing.name}
-            </div>
+            <div className="pt-6 text-center text-sm font-medium">{easing.name}</div>
 
             <div className="flex w-full grow flex-col items-start justify-center px-8">
               <div className="mb-4 flex w-full justify-center">
@@ -426,9 +425,7 @@ export default function Easings({ easings }: EasingsProps) {
             <div className="flex items-center justify-center gap-2 pb-5">
               {/* Using decodeURIComponent to properly escape special characters in the class name.
                   Without this, Tailwind shows a warning: The class ... is ambiguous and matches multiple utilities. */}
-              <CopyClass
-                value={`ease-[cubic-bezier(${easing.points.join(",")})]`}
-              />
+              <CopyClass value={`ease-[cubic-bezier(${easing.points.join(',')})]`} />
             </div>
           </div>
         ))}

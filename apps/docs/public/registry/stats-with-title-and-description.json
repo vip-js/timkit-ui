@@ -1,0 +1,18 @@
+{
+  "name": "stats-with-title-and-description",
+  "type": "registry:block",
+  "description": "Stats with title and description",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "stats"
+    ],
+    "mdxBody": "\n<FUIStatsWithTitleAndDescription />\n",
+    "category": "stats",
+    "isActive": false
+  },
+  "categories": [
+    "stats"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "comp-240",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/slider.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/comp-240.tsx",
+      "type": "registry:component",
+      "target": "components/ui/comp-240.tsx",
+      "content": "import { Label, Slider } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <div className=\"*:not-first:mt-4\">\n      <Label>Simple slider</Label>\n      <Slider defaultValue={[25]} aria-label=\"Simple slider\" />\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "slider",
+      "label",
+      "radix"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "slider"
+  },
+  "categories": [
+    "slider"
+  ]
+}

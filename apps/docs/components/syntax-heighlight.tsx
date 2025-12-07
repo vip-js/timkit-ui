@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import Prism from "prismjs"
+import Prism from 'prismjs'
 
-import "prismjs/components/prism-jsx"
+import 'prismjs/components/prism-jsx'
 
-import { useEffect, useRef } from "react"
-import mergeTW from "@/utils/mergeTW"
+import { useEffect, useRef } from 'react'
+import mergeTW from '@/utils/mergeTW'
 
 export default function SyntaxHighlight({
   code,
-  className = "",
+  className = '',
 }: {
   code: string
   className?: string

@@ -1,0 +1,18 @@
+{
+  "name": "login-with-grid-provider",
+  "type": "registry:block",
+  "description": "Login with grid provider",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "authentication"
+    ],
+    "mdxBody": "\n<FUILoginWithGridProvider />\n",
+    "category": "authentication",
+    "isActive": false
+  },
+  "categories": [
+    "authentication"
+  ]
+}

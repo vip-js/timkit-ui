@@ -1,11 +1,11 @@
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
 
-import { categories } from "../config/components"
-import sections from "../sections/sections.json"
+import { categories } from '../config/components'
+import sections from '../sections/sections.json'
 
-const OUTPUT_DIR = path.join(process.cwd(), "catalog")
-const OUTPUT_FILE = path.join(OUTPUT_DIR, "catalog.json")
+const OUTPUT_DIR = path.join(process.cwd(), 'catalog')
+const OUTPUT_FILE = path.join(OUTPUT_DIR, 'catalog.json')
 
 const main = () => {
   const payload = {

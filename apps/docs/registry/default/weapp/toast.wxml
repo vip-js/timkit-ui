@@ -1,0 +1,8 @@
+<view class="tk-toast">
+  <view class="tk-toast-icon">✓</view>
+  <view class="tk-toast-body">
+    <text class="tk-toast-title">保存成功</text>
+    <text class="tk-toast-desc">你的更改已同步。</text>
+  </view>
+  <button class="tk-toast-close" aria-label="Close">✕</button>
+</view>

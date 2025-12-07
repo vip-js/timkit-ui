@@ -1,0 +1,18 @@
+{
+  "name": "modal-dialog",
+  "type": "registry:block",
+  "description": "Modal Dialog",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "modals"
+    ],
+    "mdxBody": "\n<FUIModalDialog />\n",
+    "category": "modals",
+    "isActive": false
+  },
+  "categories": [
+    "modals"
+  ]
+}

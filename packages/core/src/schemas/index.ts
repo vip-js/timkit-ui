@@ -1,8 +1,8 @@
-export type ComponentPlatform = "web" | "wechat"
+export type ComponentPlatform = 'web' | 'wechat'
 
 export interface ComponentProp {
   name: string
-  type: "string" | "number" | "boolean" | "enum" | "event"
+  type: 'string' | 'number' | 'boolean' | 'enum' | 'event'
   required?: boolean
   description: string
   values?: string[]
@@ -47,8 +47,8 @@ export interface ComponentSchema {
   supportedPlatforms: ComponentPlatform[]
 }
 
-export { default as buttonSchema } from "./button"
-export { default as badgeSchema } from "./badge"
-export { default as toggleSchema } from "./toggle"
-export { default as toastSchema } from "./toast"
-export { default as navigationMenuSchema } from "./navigation-menu"
+export { default as buttonSchema } from './button'
+export { default as badgeSchema } from './badge'
+export { default as toggleSchema } from './toggle'
+export { default as toastSchema } from './toast'
+export { default as navigationMenuSchema } from './navigation-menu'

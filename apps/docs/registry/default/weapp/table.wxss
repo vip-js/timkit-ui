@@ -1,0 +1,39 @@
+.tk-table {
+  border: 1px solid #e4e4e7;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #fff;
+}
+.tk-table-row {
+  display: flex;
+  padding: 12rpx;
+  border-bottom: 1px solid #f4f4f5;
+}
+.tk-table-row:last-child {
+  border-bottom: none;
+}
+.tk-table-head {
+  background: #fafafa;
+  font-weight: 600;
+}
+.tk-cell {
+  flex: 1;
+  font-size: 28rpx;
+  color: #09090b;
+}
+.tk-right {
+  text-align: right;
+}
+.tk-status {
+  border-radius: 9999rpx;
+  padding: 4rpx 12rpx;
+  font-size: 24rpx;
+}
+.tk-ok {
+  background: #ecfdf3;
+  color: #047857;
+}
+.tk-warn {
+  background: #fef9c3;
+  color: #92400e;
+}

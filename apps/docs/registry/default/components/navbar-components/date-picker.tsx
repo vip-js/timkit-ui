@@ -1,17 +1,14 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { cn } from "@timkit/shared"
-import {
-  Button,
-  Calendar,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@timkit/web"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
-import { DateRange } from "react-day-picker"
+import { useState } from 'react'
+import { cn } from '@timui/shared'
+import { format } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
+import { DateRange } from 'react-day-picker'
+
+import { Button } from '../../ui/button'
+import { Calendar } from '../../ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 export default function DatePicker() {
   const [date, setDate] = useState<DateRange | undefined>()
@@ -29,18 +26,17 @@ export default function DatePicker() {
             className="text-muted-foreground/80 -ms-1 shrink-0 transition-colors"
             aria-hidden="true"
           />
-          <span className={cn("truncate", !date && "font-medium")}>
+          <span className={cn('truncate', !date && 'font-medium')}>
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
+                  {format(date.from, 'LLL dd, y')} - {format(date.to, 'LLL dd, y')}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                format(date.from, 'LLL dd, y')
               )
             ) : (
-              "Date"
+              'Date'
             )}
           </span>
         </Button>

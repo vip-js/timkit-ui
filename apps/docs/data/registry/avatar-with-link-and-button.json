@@ -1,0 +1,18 @@
+{
+  "name": "avatar-with-link-and-button",
+  "type": "registry:block",
+  "description": "Avatar with link and button",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "avatars"
+    ],
+    "mdxBody": "\n<FUIAvatarWithLinkAndButton />\n",
+    "category": "avatars",
+    "isActive": false
+  },
+  "categories": [
+    "avatars"
+  ]
+}

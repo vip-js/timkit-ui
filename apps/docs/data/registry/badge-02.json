@@ -1,0 +1,31 @@
+{
+  "name": "badge-02",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/badge/badge-02.tsx",
+      "type": "registry:component",
+      "target": "components/ui/badge-02.tsx",
+      "content": "import { Badge } from '../../ui/badge'\n\nexport default function Component() {\n  return <Badge className=\"rounded\">Badge</Badge>\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "badge",
+      "chip"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "badge"
+  },
+  "categories": [
+    "badge"
+  ]
+}

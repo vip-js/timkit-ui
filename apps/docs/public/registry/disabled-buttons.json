@@ -1,0 +1,19 @@
+{
+  "name": "disabled-buttons",
+  "type": "registry:block",
+  "description": "Disabled Buttons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUIDisabledButtons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

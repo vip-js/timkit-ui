@@ -1,0 +1,26 @@
+{
+  "name": "textarea",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "registry/default/ui/textarea.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/textarea.tsx",
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from '@timui/shared'\n\nfunction Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {\n  return (\n    <textarea\n      data-slot=\"textarea\"\n      className={cn(\n        'border-input placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex min-h-19.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',\n        className\n      )}\n      {...props}\n    />\n  )\n}\nTextarea.displayName = 'Textarea'\n\nexport { Textarea }\n"
+    },
+    {
+      "path": "registry/default/vue/textarea.vue",
+      "target": "components/ui/textarea.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn } from \"@timui/shared\";\nimport { computed, type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n  modelValue?: string | number;\n}>();\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue,\n  set: (value) => {\n    emits(\"update:modelValue\", value as string | number);\n  },\n});\n</script>\n\n<template>\n  <textarea\n    v-model=\"modelValue\"\n    :class=\"\n      cn(\n        'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',\n        props.class,\n      )\n    \"\n  />\n</template>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

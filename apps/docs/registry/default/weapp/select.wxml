@@ -1,0 +1,5 @@
+<view class="tk-select">
+  <picker range="{{options}}" bindchange="onChange">
+    <view class="tk-select-display">{{selected}}</view>
+  </picker>
+</view>

@@ -1,24 +1,25 @@
 {
-    "name": "@timkit/cli",
-    "version": "0.0.1",
-    "private": true,
-    "bin": {
-        "timkit": "./dist/index.js"
-    },
-    "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts --tsconfig tsconfig.json",
-        "lint": "eslint .",
-        "typecheck": "tsc --noEmit"
-    },
-    "dependencies": {
-        "commander": "^12.0.0",
-        "prompts": "^2.4.2",
-        "zod": "^3.22.4"
-    },
-    "devDependencies": {
-        "@types/node": "^20.0.0",
-        "@types/prompts": "^2.4.9",
-        "tsup": "^8.5.1",
-        "typescript": "^5.8.2"
-    }
+  "name": "@timui/cli",
+  "version": "0.0.1",
+  "private": true,
+  "bin": {
+    "timkit": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --tsconfig tsconfig.json",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@timui/core": "workspace:^",
+    "commander": "^12.0.0",
+    "prompts": "^2.4.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.5.1",
+    "typescript": "^5.8.2"
+  }
 }

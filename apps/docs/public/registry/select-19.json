@@ -1,0 +1,32 @@
+{
+  "name": "select-19",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/select.json",
+    "https://originui.com/r/label.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/select/select-19.tsx",
+      "type": "registry:component",
+      "target": "components/ui/select-19.tsx",
+      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"[--ring:var(--color-indigo-300)] *:not-first:mt-2 in-[.dark]:[--ring:var(--color-indigo-900)]\">\n      <Label htmlFor={id}>Select with colored border and ring</Label>\n      <Select defaultValue=\"1\">\n        <SelectTrigger id={id}>\n          <SelectValue placeholder=\"Select framework\" />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectItem value=\"1\">React</SelectItem>\n          <SelectItem value=\"2\">Next.js</SelectItem>\n          <SelectItem value=\"3\">Astro</SelectItem>\n          <SelectItem value=\"4\">Gatsby</SelectItem>\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "label",
+      "select",
+      "radix"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "select"
+  },
+  "categories": [
+    "select"
+  ]
+}

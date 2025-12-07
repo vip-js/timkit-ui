@@ -1,15 +1,22 @@
 {
-    "name": "@timkit/weapp",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "build": "echo 'Weapp build not implemented yet'",
-        "lint": "eslint ."
-    },
-    "dependencies": {
-        "@timkit/tokens": "workspace:*"
-    },
-    "devDependencies": {
-        "typescript": "^5.8.2"
-    }
+  "name": "@timui/weapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "tsx build.ts",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "generate:utils": "tsx ../../scripts/build-weapp-utilities.ts"
+  },
+  "miniprogram": "dist",
+  "dependencies": {
+    "@timui/shared": "workspace:*",
+    "@timui/tokens": "workspace:*",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.1",
+    "glob": "^13.0.0",
+    "miniprogram-api-typings": "^3.12.2",
+    "typescript": "^5.8.2"
+  }
 }

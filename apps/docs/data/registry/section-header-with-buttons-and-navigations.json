@@ -1,0 +1,18 @@
+{
+  "name": "section-header-with-buttons-and-navigations",
+  "type": "registry:block",
+  "description": "Section Header with buttons and navigations",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "section-headers"
+    ],
+    "mdxBody": "\n<FUISectionHeaderWithButtonsAndNavigations />\n",
+    "category": "section-headers",
+    "isActive": false
+  },
+  "categories": [
+    "section-headers"
+  ]
+}

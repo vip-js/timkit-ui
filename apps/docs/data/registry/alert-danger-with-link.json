@@ -1,0 +1,19 @@
+{
+  "name": "alert-danger-with-link",
+  "type": "registry:block",
+  "description": "Alert Danger with link",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertDangerWithLink />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

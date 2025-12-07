@@ -1,0 +1,47 @@
+{
+  "name": "input",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "registry/default/ui/input.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/input.tsx",
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from '@timui/shared'\n\nfunction Input({ className, type, ...props }: React.ComponentProps<'input'>) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        'border-input file:text-foreground placeholder:text-muted-foreground/70 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',\n        'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',\n        'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',\n        type === 'search' &&\n          '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',\n        type === 'file' &&\n          'text-muted-foreground/70 file:border-input file:text-foreground p-0 pr-3 italic file:me-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-sm file:font-medium file:not-italic',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n"
+    },
+    {
+      "path": "registry/default/vue/input.vue",
+      "target": "components/ui/input.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn } from \"@timui/shared\";\n\ninterface Props {\n  defaultValue?: string | number;\n  modelValue?: string | number;\n  class?: HTMLAttributes[\"class\"];\n  type?: string;\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  type: \"text\",\n});\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue ?? props.defaultValue,\n  set: (value) => emits(\"update:modelValue\", value as string),\n});\n\nconst calculatedClass = computed(() => {\n  return cn(\n    \"border-input file:text-foreground placeholder:text-muted-foreground/70 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\",\n    \"focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]\",\n    \"aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive\",\n    props.type === \"search\" &&\n      \"[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none\",\n    props.type === \"file\" &&\n      \"text-muted-foreground/70 file:border-input file:text-foreground p-0 pr-3 italic file:me-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-sm file:font-medium file:not-italic\",\n    props.class\n  );\n});\n</script>\n\n<template>\n  <input\n    :type=\"type\"\n    :class=\"calculatedClass\"\n    v-model=\"modelValue\"\n    data-slot=\"input\"\n  />\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/input.html",
+      "target": "components/ui/input.html",
+      "type": "registry:component",
+      "content": "<input\n  type=\"text\"\n  placeholder=\"Placeholder\"\n  class=\"border-input placeholder:text-muted-foreground block w-full rounded-md border bg-white px-3 py-2 text-sm shadow-sm transition focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black/10 disabled:opacity-50 disabled:cursor-not-allowed\"\n/>\n"
+    },
+    {
+      "path": "registry/default/svelte/input.svelte",
+      "target": "components/ui/input.svelte",
+      "type": "registry:component",
+      "content": "<script lang=\"ts\">\n  export let value: string = \"\"\n  export let placeholder: string = \"Placeholder\"\n  export let type: string = \"text\"\n  export let invalid: boolean = false\n\n  const base =\n    \"border-input placeholder:text-muted-foreground block w-full rounded-md border bg-white px-3 py-2 text-sm shadow-sm transition focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black/10 disabled:opacity-50 disabled:cursor-not-allowed\"\n  $: classes = base + (invalid ? \" border-red-500 ring-red-100\" : \"\")\n</script>\n\n<input\n  bind:value\n  {placeholder}\n  {type}\n  class={classes}\n  aria-invalid={invalid}\n/>\n\n"
+    },
+    {
+      "path": "registry/default/weapp/input.wxml",
+      "target": "components/ui/input.wxml",
+      "type": "registry:component",
+      "content": "<input \n  class=\"tk-input {{extClass}}\" \n  value=\"{{value}}\" \n  type=\"{{type}}\" \n  password=\"{{password}}\" \n  placeholder=\"{{placeholder}}\" \n  placeholder-class=\"tk-input-placeholder\" \n  disabled=\"{{disabled}}\" \n  bindinput=\"handleInput\"\n  bindfocus=\"handleFocus\"\n  bindblur=\"handleBlur\"\n/>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue",
+      "weapp",
+      "html",
+      "svelte"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "team-section-centred-with-large-images",
+  "type": "registry:block",
+  "description": "Team Section centred with large images",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "team-sections"
+    ],
+    "mdxBody": "\n<FUITeamSectionCentredWithLargeImages />\n",
+    "category": "team-sections",
+    "isActive": false
+  },
+  "categories": [
+    "team-sections"
+  ]
+}

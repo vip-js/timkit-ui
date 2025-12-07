@@ -1,7 +1,8 @@
-"use client"
+'use client'
 
-import { JSX, useEffect, useState } from "react"
-import { DialogDescription } from "@radix-ui/react-dialog"
+import { JSX, useEffect, useState } from 'react'
+import { DialogDescription } from '@radix-ui/react-dialog'
+import type { RegistryItem } from '@timui/core'
 import {
   Button,
   Dialog,
@@ -13,55 +14,45 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timkit/web"
-import { CodeIcon } from "lucide-react"
-import type { RegistryItem } from "shadcn/registry"
+} from '@timui/react'
+import { CodeIcon } from 'lucide-react'
 
-import { convertRegistryPaths } from "@/lib/utils"
-import ComponentCli from "@/components/cli-commands"
-import CodeBlock, { highlight } from "@/components/code-block"
-import CopyButton from "@/components/copy-button"
-import OpenInV0 from "@/components/open-in-v0"
+import { convertRegistryPaths } from '@/lib/utils'
+import ComponentCli from '@/components/cli-commands'
+import CodeBlock, { highlight } from '@/components/code-block'
+import CopyButton from '@/components/copy-button'
+import OpenInV0 from '@/components/open-in-v0'
 
-export default function ComponentDetails({
-  component,
-}: {
-  component: RegistryItem
-}) {
+export default function ComponentDetails({ component }: { component: RegistryItem }) {
   const [code, setCode] = useState<string | null>(null)
-  const [highlightedCode, setHighlightedCode] = useState<JSX.Element | null>(
-    null
-  )
+  const [highlightedCode, setHighlightedCode] = useState<JSX.Element | null>(null)
 
   useEffect(() => {
     const handleEmptyCode = () => {
-      setCode("")
+      setCode('')
       setHighlightedCode(null)
     }
 
     const loadCode = async () => {
       try {
-        const response = await fetch(`/r/${component.name}.json`)
+        // Optimization: Fetch specific file instead of monolithic registry
+        const response = await fetch(`/registry/${component.name}.json`)
         if (!response.ok) {
           handleEmptyCode()
           return
         }
 
-        const contentType = response.headers.get("content-type")
-        if (!contentType || !contentType.includes("application/json")) {
-          handleEmptyCode()
-          return
-        }
-
-        const data = await response.json()
-        const codeContent = convertRegistryPaths(data.files[0].content) || ""
+        const item = (await response.json()) as RegistryItem
+        const firstFile = item?.files?.[0]
+        const rawCode = firstFile?.content || ''
+        const codeContent = convertRegistryPaths(rawCode)
         setCode(codeContent)
 
         // Pre-highlight the code
-        const highlighted = await highlight(codeContent, "tsx")
+        const highlighted = await highlight(codeContent, 'tsx')
         setHighlightedCode(highlighted)
       } catch (error) {
-        console.error("Failed to load code:", error)
+        console.error('Failed to load code:', error)
         handleEmptyCode()
       }
     }
@@ -71,9 +62,7 @@ export default function ComponentDetails({
 
   return (
     <div className="absolute top-2 right-2 flex gap-2 peer-data-comp-loading:hidden">
-      <OpenInV0
-        componentSource={`https://originui.com/r/${component.name}.json`}
-      />
+      <OpenInV0 componentSource={`https://originui.com/r/${component.name}.json`} />
       <Dialog>
         <TooltipProvider delayDuration={0}>
           <Tooltip>
@@ -107,9 +96,9 @@ export default function ComponentDetails({
             <div className="space-y-4">
               <p className="text-lg font-semibold tracking-tight">Code</p>
               <div className="relative">
-                {code === "" ? (
+                {code === '' ? (
                   <p className="text-muted-foreground text-sm">
-                    No code available. If you think this is an error, please{" "}
+                    No code available. If you think this is an error, please{' '}
                     <a
                       href="https://github.com/origin-space/originui/issues"
                       target="_blank"
@@ -122,11 +111,7 @@ export default function ComponentDetails({
                   </p>
                 ) : (
                   <>
-                    <CodeBlock
-                      code={code}
-                      lang="tsx"
-                      preHighlighted={highlightedCode}
-                    />
+                    <CodeBlock code={code} lang="tsx" preHighlighted={highlightedCode} />
                     <CopyButton componentSource={code} />
                   </>
                 )}

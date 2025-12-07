@@ -1,0 +1,6 @@
+
+
+> @timui/tokens@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/tokens
+> tsx build.ts
+
+Tokens built successfully (css, wxss, tailwind, json)!

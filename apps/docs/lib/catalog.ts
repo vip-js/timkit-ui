@@ -1,9 +1,22 @@
-import catalogData from "@/catalog/catalog.json"
+import catalogData from '@/data/catalog-all.json'
 
-export type CatalogCategory = (typeof catalogData)["categories"][number]
-export type CatalogSection = (typeof catalogData)["sections"][number]
+export type CatalogCategory = (typeof catalogData.categories)[number]
+// Explicitly define CatalogSection to avoid 'never' type when JSON array is empty
+export type CatalogSection = {
+  id: string
+  name: string
+  slug: string
+  description?: string
+  items?: string[]
+  category: string
+  count: number
+  section_name: string
+}
 
-export const catalog = catalogData
+export const catalog = {
+  categories: catalogData.categories,
+  sections: catalogData.sections as unknown as CatalogSection[],
+}
 
 export const getCategories = () => catalog.categories
 

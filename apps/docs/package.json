@@ -1,24 +1,24 @@
 {
-  "name": "@timkit/docs",
-  "version": "0.1.0",
+  "name": "@timui/docs",
+  "version": "0.0.1",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "pnpm format:write && next build",
+    "dev": "pnpm verify:data && next dev --turbopack",
+    "build": "pnpm registry:build:all && pnpm format:write && pnpm verify:data && next build",
     "registry:build": "shadcn build",
+    "registry:build:all": "tsx ../../scripts/build-registry-all.ts",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "catalog:build": "node --import tsx --no-warnings ../../scripts/build-catalog.ts",
+    "catalog:build": "tsx ../../scripts/build-registry-all.ts",
+    "verify:data": "tsx ../../scripts/check-registry-data.ts",
     "tokens:build": "tsx ../../packages/tokens/build.ts",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
-    "@timkit/web": "workspace:*",
-    "@timkit/shared": "workspace:*",
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -55,6 +55,9 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@remixicon/react": "^4.6.0",
     "@tanstack/react-table": "^8.21.2",
+    "@timui/core": "workspace:^",
+    "@timui/shared": "workspace:*",
+    "@timui/react": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
@@ -102,49 +105,11 @@
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "raw-loader": "^4.0.2",
     "rimraf": "^6.0.1",
     "shiki": "^2.5.0",
     "tailwindcss": "^4.1.1",
     "tw-animate-css": "^1.2.5",
     "typescript": "^5.8.2"
-  },
-  "prettier": {
-    "endOfLine": "lf",
-    "semi": false,
-    "singleQuote": false,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "importOrder": [
-      "^(react/(.*)$)|^(react$)",
-      "^(next/(.*)$)|^(next$)",
-      "<THIRD_PARTY_MODULES>",
-      "",
-      "^types$",
-      "^@/types/(.*)$",
-      "^@/config/(.*)$",
-      "^@/lib/(.*)$",
-      "^@/hooks/(.*)$",
-      "^@/components/ui/(.*)$",
-      "^@/components/(.*)$",
-      "^@/registry/(.*)$",
-      "^@/styles/(.*)$",
-      "^@/app/(.*)$",
-      "",
-      "^[./]"
-    ],
-    "importOrderSeparation": false,
-    "importOrderSortSpecifiers": true,
-    "importOrderBuiltinModulesToTop": true,
-    "importOrderParserPlugins": [
-      "typescript",
-      "jsx",
-      "decorators-legacy"
-    ],
-    "importOrderMergeDuplicateImports": true,
-    "importOrderCombineTypeAndValueImports": true,
-    "plugins": [
-      "@ianvs/prettier-plugin-sort-imports",
-      "prettier-plugin-tailwindcss"
-    ]
   }
 }

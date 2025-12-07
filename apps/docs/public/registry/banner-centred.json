@@ -1,0 +1,18 @@
+{
+  "name": "banner-centred",
+  "type": "registry:block",
+  "description": "Banner centred",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "banners"
+    ],
+    "mdxBody": "\n<FUIBannerCentred />\n",
+    "category": "banners",
+    "isActive": false
+  },
+  "categories": [
+    "banners"
+  ]
+}

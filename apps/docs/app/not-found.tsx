@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@timkit/web"
+import Link from 'next/link'
+import { Button } from '@timui/react'
 
-import PageHeader from "@/components/page-header"
+import PageHeader from '@/components/page-header'
 
 export default function NotFound() {
   return (

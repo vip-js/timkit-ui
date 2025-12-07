@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import componentsNames from "@/componentsNames"
-import type { MDXRemoteSerializeResult } from "next-mdx-remote"
+import componentsNames from '@/componentsNames'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-import type { SectionCodeGroup } from "@/lib/sections"
-import MDXRemoteClient from "@/components/mdx-remote-client"
-import SectionCodeDialog from "@/components/sections/section-code-dialog"
+import type { SectionCodeGroup } from '@/lib/sections'
+import MDXRemoteClient from '@/components/mdx-remote-client'
+import SectionCodeDialog from '@/components/sections/section-code-dialog'
 
 type Props = {
   mdxSource: MDXRemoteSerializeResult
@@ -13,11 +13,7 @@ type Props = {
   title?: string
 }
 
-export default function SectionExampleClient({
-  mdxSource,
-  codeGroups,
-  title,
-}: Props) {
+export default function SectionExampleClient({ mdxSource, codeGroups, title }: Props) {
   return (
     <>
       <MDXRemoteClient mdxSource={mdxSource} components={componentsNames} />

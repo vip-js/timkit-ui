@@ -1,11 +1,5 @@
-export default () => (
-  <svg
-    width="20"
-    height="30"
-    viewBox="0 0 22 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+const IconRadix = () => (
+  <svg width="20" height="30" viewBox="0 0 22 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clipPath="url(#clip0_1302_665)">
       <path
         d="M10.24 32C4.58463 32 2.00272e-05 27.4154 2.00272e-05 21.76C2.00272e-05 16.1046 4.58463 11.52 10.24 11.52V32Z"
@@ -24,3 +18,5 @@ export default () => (
     </defs>
   </svg>
 )
+
+export default IconRadix

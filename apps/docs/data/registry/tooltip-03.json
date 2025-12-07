@@ -1,0 +1,32 @@
+{
+  "name": "tooltip-03",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/button.json",
+    "https://originui.com/r/tooltip.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/tooltip/tooltip-03.tsx",
+      "type": "registry:component",
+      "target": "components/ui/tooltip-03.tsx",
+      "content": "import { Button } from '../../ui/button'\nimport { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'\n\nexport default function Component() {\n  return (\n    <TooltipProvider delayDuration={0}>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <Button variant=\"outline\" size=\"sm\">\n            W/ arrow\n          </Button>\n        </TooltipTrigger>\n        <TooltipContent className=\"dark px-2 py-1 text-xs\" showArrow={true}>\n          This tooltip has an arrow\n        </TooltipContent>\n      </Tooltip>\n    </TooltipProvider>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "tooltip",
+      "radix"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "tooltip"
+  },
+  "categories": [
+    "tooltip"
+  ]
+}

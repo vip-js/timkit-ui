@@ -3,14 +3,14 @@ export default [
     code: `<div class="max-w-2xl mx-auto px-4">
   <div class="items-start justify-between sm:flex">
       <div>
-          <h4 class="text-gray-800 text-xl font-semibold">Team members</h4>
-          <p class="mt-2 text-gray-600 text-base sm:text-sm">Give your team members access to manage the system.</p>
+          <h4 class="text-gray-800 text-xl font-semibold">团队成员</h4>
+          <p class="mt-2 text-gray-600 text-base sm:text-sm">为团队成员提供系统管理权限。</p>
       </div>
       <a href="javascript:void(0)" class="inline-flex items-center justify-center gap-1 py-2 px-3 mt-2 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg sm:mt-0">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
           </svg>
-          New member
+         添加成员
       </a>
   </div>
   <ul class="mt-12 divide-y">
@@ -27,7 +27,7 @@ export default [
       <!-- Repeat the above block for each member in your 'members' array -->
   </ul>
 </div>`,
-    value: "html",
+    value: 'html',
   },
   {
     code: `const members = [
@@ -54,8 +54,8 @@ export default () => (
     <div className="max-w-2xl mx-auto px-4">
         <div className="items-start justify-between sm:flex">
             <div>
-                <h4 className="text-gray-800 text-xl font-semibold">Team members</h4>
-                <p className="mt-2 text-gray-600 text-base sm:text-sm">Give your team members access to manage the system.</p>
+                <h4 className="text-gray-800 text-xl font-semibold">团队成员</h4>
+                <p className="mt-2 text-gray-600 text-base sm:text-sm">为团队成员提供系统管理权限。</p>
             </div>
             <a href="javascript:void(0)" className="inline-flex items-center justify-center gap-1 py-2 px-3 mt-2 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg sm:mt-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -81,15 +81,15 @@ export default () => (
         </ul>
     </div>
 )`,
-    value: "react",
+    value: 'react',
   },
   {
     code: `<template>
   <div class="max-w-2xl mx-auto px-4">
     <div class="items-start justify-between sm:flex">
       <div>
-        <h4 class="text-gray-800 text-xl font-semibold">Team members</h4>
-        <p class="mt-2 text-gray-600 text-base sm:text-sm">Give your team members access to manage the system.</p>
+        <h4 class="text-gray-800 text-xl font-semibold">团队成员</h4>
+        <p class="mt-2 text-gray-600 text-base sm:text-sm">为团队成员提供系统管理权限。</p>
       </div>
       <a href="javascript:void(0)" class="inline-flex items-center justify-center gap-1 py-2 px-3 mt-2 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg sm:mt-0">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" :stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -142,7 +142,7 @@ export default {
   },
 };
 </script>`,
-    value: "vue",
+    value: 'vue',
   },
   {
     code: `<script>
@@ -174,8 +174,8 @@ export default {
 <div class="max-w-2xl mx-auto px-4">
   <div class="items-start justify-between sm:flex">
     <div>
-      <h4 class="text-gray-800 text-xl font-semibold">Team members</h4>
-      <p class="mt-2 text-gray-600 text-base sm:text-sm">Give your team members access to manage the system.</p>
+      <h4 class="text-gray-800 text-xl font-semibold">团队成员</h4>
+      <p class="mt-2 text-gray-600 text-base sm:text-sm">为团队成员提供系统管理权限。</p>
     </div>
     <a href="javascript:void(0)" class="inline-flex items-center justify-center gap-1 py-2 px-3 mt-2 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg sm:mt-0">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -198,6 +198,6 @@ export default {
     {/each}
   </ul>
 </div>`,
-    value: "svelte",
+    value: 'svelte',
   },
 ]

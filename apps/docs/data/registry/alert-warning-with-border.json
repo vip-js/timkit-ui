@@ -1,0 +1,19 @@
+{
+  "name": "alert-warning-with-border",
+  "type": "registry:block",
+  "description": "Alert Warning with border",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertWarningWithBorder />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

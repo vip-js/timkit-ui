@@ -1,0 +1,19 @@
+{
+  "name": "alert-info-with-link",
+  "type": "registry:block",
+  "description": "Alert Info with link",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertInfoWithLink />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

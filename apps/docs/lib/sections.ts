@@ -3,17 +3,15 @@ type TailEntry = {
   code?: string
 }
 
-type FrameworkKey = "react" | "vue" | "html" | "svelte"
+type FrameworkKey = 'react' | 'vue' | 'html' | 'svelte'
 
-const FRAMEWORK_CONFIG: Record<
-  FrameworkKey,
-  { label: string; tailKey: string; language: string }
-> = {
-  react: { label: "React", tailKey: "jsxTail", language: "tsx" },
-  vue: { label: "Vue", tailKey: "vueTail", language: "vue" },
-  html: { label: "HTML", tailKey: "htmlTail", language: "html" },
-  svelte: { label: "Svelte", tailKey: "svelteTail", language: "svelte" },
-}
+const FRAMEWORK_CONFIG: Record<FrameworkKey, { label: string; tailKey: string; language: string }> =
+  {
+    react: { label: 'React', tailKey: 'jsxTail', language: 'tsx' },
+    vue: { label: 'Vue', tailKey: 'vueTail', language: 'vue' },
+    html: { label: 'HTML', tailKey: 'htmlTail', language: 'html' },
+    svelte: { label: 'Svelte', tailKey: 'svelteTail', language: 'svelte' },
+  }
 
 export type SectionCodeFile = {
   id: string
@@ -29,12 +27,9 @@ export type SectionCodeGroup = {
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null
+  typeof value === 'object' && value !== null
 
-export const extractSectionCode = (
-  ltr: unknown,
-  prefix: string
-): SectionCodeGroup[] => {
+export const extractSectionCode = (ltr: unknown, prefix: string): SectionCodeGroup[] => {
   if (!isRecord(ltr)) return []
 
   const groups: SectionCodeGroup[] = []
@@ -56,7 +51,7 @@ export const extractSectionCode = (
       .map((entry, idx) => ({
         id: `${prefix}-${framework}-${idx}`,
         label: entry.label ?? config.label,
-        code: entry.code ?? "",
+        code: entry.code ?? '',
       }))
       .filter((file) => file.code.trim().length > 0)
 

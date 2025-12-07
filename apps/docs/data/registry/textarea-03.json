@@ -1,0 +1,32 @@
+{
+  "name": "textarea-03",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/textarea.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/textarea/textarea-03.tsx",
+      "type": "registry:component",
+      "target": "components/ui/textarea-03.tsx",
+      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with helper text</Label>\n      <Textarea id={id} placeholder=\"Leave a comment\" />\n      <p className=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Please add as many details as you can\n      </p>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "label",
+      "textarea",
+      "helper"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "textarea"
+  },
+  "categories": [
+    "textarea"
+  ]
+}

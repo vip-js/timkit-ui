@@ -1,15 +1,28 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "outDir": "dist",
-        "strict": true,
-        "declaration": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": [
+      "miniprogram-api-typings"
+    ],
+    "paths": {
+      "@timui/*": [
+        "../*/src"
+      ]
     },
-    "include": [
-        "src"
-    ]
+    "composite": false
+  },
+  "include": [
+    "src",
+    "primitives",
+    "../shared/src",
+    "../tokens/src"
+  ]
 }

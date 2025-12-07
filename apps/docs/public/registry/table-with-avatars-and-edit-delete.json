@@ -1,0 +1,18 @@
+{
+  "name": "table-with-avatars-and-edit-delete",
+  "type": "registry:block",
+  "description": "Table with avatars and edit delete",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "tables"
+    ],
+    "mdxBody": "\n<FUITableWithAvatarsAndEditDelete />\n",
+    "category": "tables",
+    "isActive": false
+  },
+  "categories": [
+    "tables"
+  ]
+}

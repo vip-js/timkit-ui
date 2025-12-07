@@ -18,10 +18,6 @@
     }
   ],
   "meta": {
-    "tags": [
-      "input",
-      "label",
-      "phone"
-    ]
+    "tags": ["input", "label", "phone"]
   }
 }

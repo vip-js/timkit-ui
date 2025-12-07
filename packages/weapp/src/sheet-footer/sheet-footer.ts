@@ -1,0 +1,16 @@
+import { sheetFooterVariants } from '@timui/shared'
+
+import { resolveClasses } from '../utils'
+
+Component({
+  properties: {
+    extClass: { type: String, value: '' },
+  },
+  data: { baseClass: '' },
+  observers: {
+    extClass: function (extClass) {
+      const { baseClass } = resolveClasses(sheetFooterVariants(), extClass)
+      this.setData({ baseClass })
+    },
+  },
+})

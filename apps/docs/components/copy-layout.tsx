@@ -1,14 +1,9 @@
-"use client"
+'use client'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@timkit/web"
-import { CheckIcon, TerminalIcon } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
+import { CheckIcon, TerminalIcon } from 'lucide-react'
 
-import { useCopy } from "@/hooks/use-copy"
+import { useCopy } from '@/hooks/use-copy'
 
 const CopyLayout = ({ command }: { command: string | undefined }) => {
   const { copied, copy } = useCopy()
@@ -19,8 +14,8 @@ const CopyLayout = ({ command }: { command: string | undefined }) => {
         <TooltipTrigger asChild>
           <button
             className="inline-flex items-center gap-1 text-sm hover:underline max-sm:hidden"
-            onClick={() => copy(command || "")}
-            aria-label={copied ? "Copied" : "Copy command"}
+            onClick={() => copy(command || '')}
+            aria-label={copied ? 'Copied' : 'Copy command'}
             disabled={copied}
           >
             {copied ? (

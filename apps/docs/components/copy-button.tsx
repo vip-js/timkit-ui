@@ -1,15 +1,9 @@
-"use client"
+'use client'
 
-import {
-  Button,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@timkit/web"
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 
-import { useCopy } from "@/hooks/use-copy"
-import { cn } from "@/registry/default/lib/utils"
+import { useCopy } from '@/hooks/use-copy'
+import { cn } from '@/registry/default/lib/utils'
 
 const CopyButton = ({
   componentSource,
@@ -21,7 +15,7 @@ const CopyButton = ({
   const { copied, copy } = useCopy()
 
   return (
-    <div className={cn("dark absolute top-2 right-2", className)}>
+    <div className={cn('dark absolute top-2 right-2', className)}>
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -29,14 +23,14 @@ const CopyButton = ({
               variant="ghost"
               size="icon"
               className="text-muted-foreground hover:text-foreground transition-none hover:bg-transparent disabled:opacity-100"
-              onClick={() => copy(componentSource || "")}
-              aria-label={copied ? "Copied" : "Copy component source"}
+              onClick={() => copy(componentSource || '')}
+              aria-label={copied ? 'Copied' : 'Copy component source'}
               disabled={copied}
             >
               <div
                 className={cn(
-                  "transition-all",
-                  copied ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                  'transition-all',
+                  copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
                 )}
               >
                 <svg
@@ -54,8 +48,8 @@ const CopyButton = ({
               </div>
               <div
                 className={cn(
-                  "absolute transition-all",
-                  copied ? "scale-0 opacity-0" : "scale-100 opacity-100"
+                  'absolute transition-all',
+                  copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
                 )}
               >
                 <svg
@@ -71,9 +65,7 @@ const CopyButton = ({
               </div>
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="text-muted-foreground px-2 py-1 text-xs">
-            Copy
-          </TooltipContent>
+          <TooltipContent className="text-muted-foreground px-2 py-1 text-xs">Copy</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </div>

@@ -1,0 +1,35 @@
+{
+  "name": "input-18",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/input.json",
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/select-native.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/input/input-18.tsx",
+      "type": "registry:component",
+      "target": "components/ui/input-18.tsx",
+      "content": "import { useId } from 'react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\nimport { SelectNative } from '../../ui/select-native'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with end select</Label>\n      <div className=\"flex rounded-md shadow-xs\">\n        <Input\n          id={id}\n          className=\"-me-px rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"google\"\n          type=\"text\"\n        />\n        <SelectNative className=\"text-muted-foreground hover:text-foreground w-fit rounded-s-none shadow-none\">\n          <option>.com</option>\n          <option>.org</option>\n          <option>.net</option>\n        </SelectNative>\n      </div>\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "input",
+      "label",
+      "select",
+      "native select"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "inputs"
+  },
+  "categories": [
+    "inputs",
+    "input"
+  ]
+}

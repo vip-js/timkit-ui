@@ -1,17 +1,13 @@
 {
-    "name": "@timkit/tokens",
-    "version": "0.0.1",
-    "private": true,
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts --tsconfig tsconfig.json",
-        "lint": "eslint .",
-        "typecheck": "tsc --noEmit"
-    },
-    "devDependencies": {
-        "tsup": "^8.0.0",
-        "typescript": "^5.8.2"
-    }
+  "name": "@timui/tokens",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "tsx build.ts",
+    "clean": "rm -rf dist",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint ."
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
 }

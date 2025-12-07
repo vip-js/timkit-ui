@@ -1,7 +1,7 @@
-import FrameworksTabs from "./frameworks-tabs"
-import PreviewCard from "./preview-card"
+import FrameworksTabs from './frameworks-tabs'
+import PreviewCard from './preview-card'
 
-export default () => {
+const SupportedFrameworks = () => {
   return (
     <section className="mt-32">
       <div className="custom-screen">
@@ -17,3 +17,5 @@ export default () => {
     </section>
   )
 }
+
+export default SupportedFrameworks

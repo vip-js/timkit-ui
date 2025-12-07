@@ -1,0 +1,18 @@
+{
+  "name": "basic-stats",
+  "type": "registry:block",
+  "description": "Basic Stats",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "stats"
+    ],
+    "mdxBody": "\n<FUIBasicStats />\n",
+    "category": "stats",
+    "isActive": false
+  },
+  "categories": [
+    "stats"
+  ]
+}

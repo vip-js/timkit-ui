@@ -1,0 +1,19 @@
+{
+  "name": "alert-info-linear",
+  "type": "registry:block",
+  "description": "Alert Info linear",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "alerts"
+    ],
+    "mdxBody": "\n<FUIAlertInfoLinear />\n",
+    "category": "alerts",
+    "isActive": false,
+    "migratedTo": "alert-dialog"
+  },
+  "categories": [
+    "alerts"
+  ]
+}

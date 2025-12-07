@@ -1,0 +1,3 @@
+<button class="{{baseClass}} {{extClass}}" hover-class="{{hoverClass}}" bindtap="handleTap">
+  <slot></slot>
+</button>

@@ -60,5 +60,5 @@ export type BlogPost = {
   metaDescription: string
 }
 
-export type Dir = "ltr" | "rtl"
-export type TechStack = "jsxTail" | "jsxCss"
+export type Dir = 'ltr' | 'rtl'
+export type TechStack = 'jsxTail' | 'jsxCss'

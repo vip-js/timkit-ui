@@ -1,14 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import * as React from 'react'
+import { ChevronsUpDown } from 'lucide-react'
+
+import { Button } from '../../ui/button'
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@timkit/web"
-import { ChevronsUpDown } from "lucide-react"
+} from '../../ui/dropdown-menu'
 
 export default function TeamSwitcher({
   teams,
@@ -34,10 +35,7 @@ export default function TeamSwitcher({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         {teams.map((project) => (
-          <DropdownMenuItem
-            key={project}
-            onSelect={() => setSelectedProject(project)}
-          >
+          <DropdownMenuItem key={project} onSelect={() => setSelectedProject(project)}>
             {project}
           </DropdownMenuItem>
         ))}

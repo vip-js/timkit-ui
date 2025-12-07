@@ -1,29 +1,37 @@
 {
-    "name": "@timkit/shared",
-    "version": "0.0.1",
-    "private": true,
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
-    "types": "dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
-        },
-        "./package.json": "./package.json"
+  "name": "@timui/shared",
+  "version": "0.0.1",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts --tsconfig tsconfig.json",
-        "lint": "eslint .",
-        "typecheck": "tsc --noEmit"
+    "./tailwind-preset": {
+      "types": "./dist/styles/tailwind-preset.d.ts",
+      "import": "./dist/styles/tailwind-preset.mjs",
+      "require": "./dist/styles/tailwind-preset.js"
     },
-    "devDependencies": {
-        "tsup": "^8.0.0",
-        "typescript": "^5.8.2"
-    },
-    "dependencies": {
-        "clsx": "^2.1.1",
-        "tailwind-merge": "^3.1.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.1.0"
+  }
 }

@@ -1,0 +1,31 @@
+{
+  "name": "comp-414",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/comp-414.tsx",
+      "type": "registry:component",
+      "target": "components/ui/comp-414.tsx",
+      "content": "import { Badge } from '@timui/react'\n\nexport default function Component() {\n  return <Badge className=\"rounded\">Badge</Badge>\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "badge",
+      "chip"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "badge"
+  },
+  "categories": [
+    "badge"
+  ]
+}

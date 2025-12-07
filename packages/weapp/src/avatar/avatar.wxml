@@ -1,0 +1,6 @@
+<view class="{{baseClass}}">
+  <image wx:if="{{src}}" class="{{imageClass}}" src="{{src}}" alt="{{alt}}" mode="aspectFill" />
+  <view wx:else class="{{fallbackClass}}">
+    <slot></slot>
+  </view>
+</view>

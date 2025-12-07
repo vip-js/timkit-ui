@@ -1,0 +1,32 @@
+{
+  "name": "badge-10",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/badge.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/badge/badge-10.tsx",
+      "type": "registry:component",
+      "target": "components/ui/badge-10.tsx",
+      "content": "import { Badge } from '../../ui/badge'\n\nexport default function Component() {\n  return (\n    <Badge variant=\"outline\" className=\"gap-1.5\">\n      <span className=\"size-1.5 rounded-full bg-red-500\" aria-hidden=\"true\"></span>\n      Badge\n    </Badge>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "badge",
+      "chip",
+      "status"
+    ],
+    "style": 1,
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "badge"
+  },
+  "categories": [
+    "badge"
+  ]
+}

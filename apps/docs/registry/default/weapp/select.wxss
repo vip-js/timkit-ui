@@ -1,0 +1,10 @@
+.tk-select {
+  padding: 8rpx 12rpx;
+  border: 1px solid #e4e4e7;
+  border-radius: 12rpx;
+  background: #fff;
+}
+.tk-select-display {
+  color: #09090b;
+  font-size: 28rpx;
+}

@@ -1,4 +1,4 @@
-export default () => (
+const IconAlpinejs = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
     <path
       fill="#77c1d2"
@@ -14,3 +14,5 @@ export default () => (
     />
   </svg>
 )
+
+export default IconAlpinejs

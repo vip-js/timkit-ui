@@ -1,0 +1,18 @@
+{
+  "name": "logo-grid-with-tow-rows",
+  "type": "registry:block",
+  "description": "Logo Grid with tow rows",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "logo-grid"
+    ],
+    "mdxBody": "\n<FUILogoGridWithTowRows />\n",
+    "category": "logo-grid",
+    "isActive": false
+  },
+  "categories": [
+    "logo-grid"
+  ]
+}

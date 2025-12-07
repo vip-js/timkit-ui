@@ -1,0 +1,18 @@
+{
+  "name": "login-with-google-provider",
+  "type": "registry:block",
+  "description": "Login with google provider",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "authentication"
+    ],
+    "mdxBody": "\n<FUILoginWithGoogleProvider />\n",
+    "category": "authentication",
+    "isActive": false
+  },
+  "categories": [
+    "authentication"
+  ]
+}

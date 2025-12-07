@@ -1,0 +1,18 @@
+{
+  "name": "primary-faqs",
+  "type": "registry:block",
+  "description": "Primary FAQs",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "faqs"
+    ],
+    "mdxBody": "\n<FUIPrimaryFaqs />\n",
+    "category": "faqs",
+    "isActive": false
+  },
+  "categories": [
+    "faqs"
+  ]
+}

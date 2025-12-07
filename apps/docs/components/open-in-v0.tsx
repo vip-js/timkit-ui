@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
-import Link from "next/link"
+import Link from 'next/link'
 import {
   buttonVariants,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timkit/web"
+} from '@timui/react'
 
-import { cn } from "@/registry/default/lib/utils"
+import { cn } from '@/registry/default/lib/utils'
 
 const OpenInV0 = ({ componentSource }: { componentSource: string }) => {
   return (
@@ -19,10 +19,10 @@ const OpenInV0 = ({ componentSource }: { componentSource: string }) => {
           <Link
             className={cn(
               buttonVariants({
-                variant: "ghost",
-                size: "icon",
+                variant: 'ghost',
+                size: 'icon',
               }),
-              "text-muted-foreground/80 hover:text-foreground transition-none hover:bg-transparent disabled:opacity-100 lg:opacity-0 lg:group-focus-within/item:opacity-100 lg:group-hover/item:opacity-100"
+              'text-muted-foreground/80 hover:text-foreground transition-none hover:bg-transparent disabled:opacity-100 lg:opacity-0 lg:group-focus-within/item:opacity-100 lg:group-hover/item:opacity-100'
             )}
             href={`https://v0.dev/chat/api/open?url=${encodeURIComponent(componentSource)}`}
             target="_blank"

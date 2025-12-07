@@ -1,0 +1,10 @@
+<view 
+  class="{{baseClass}}" 
+  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  bindtap="handleTap"
+>
+  <view 
+    class="{{thumbClass}}" 
+    data-state="{{checked ? 'checked' : 'unchecked'}}"
+  ></view>
+</view>

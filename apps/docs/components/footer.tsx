@@ -6,11 +6,9 @@ export default function Footer() {
         aria-hidden="true"
       ></div>
       <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-center">
+        <p className="text-muted-foreground text-sm">&copy; {new Date().getFullYear()} Timkit UI</p>
         <p className="text-muted-foreground text-sm">
-          &copy; {new Date().getFullYear()} Timkit UI
-        </p>
-        <p className="text-muted-foreground text-sm">
-          A project by{" "}
+          A project by{' '}
           <a
             className="text-foreground decoration-border font-medium underline underline-offset-4 hover:no-underline"
             href="https://x.com/pacovitiello"
@@ -18,8 +16,8 @@ export default function Footer() {
             rel="noopener noreferrer"
           >
             Pasquale
-          </a>{" "}
-          and{" "}
+          </a>{' '}
+          and{' '}
           <a
             className="text-foreground decoration-border font-medium underline underline-offset-4 hover:no-underline"
             href="https://x.com/DavidePacilio"

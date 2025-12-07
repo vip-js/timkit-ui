@@ -1,0 +1,17 @@
+<script lang="ts">
+  export let title = "保存成功"
+  export let description = "你的更改已同步。"
+</script>
+
+<div class="fixed inset-x-0 top-4 flex justify-center px-4">
+  <div class="flex w-full max-w-sm items-start gap-3 rounded-xl bg-white p-4 shadow-lg ring-1 ring-zinc-200">
+    <div class="mt-0.5 h-6 w-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-semibold">
+      ✓
+    </div>
+    <div class="flex-1">
+      <p class="text-sm font-semibold text-zinc-900">{title}</p>
+      <p class="text-sm text-zinc-600">{description}</p>
+    </div>
+    <button class="rounded-md p-1 text-zinc-500 hover:bg-zinc-100" aria-label="Close">✕</button>
+  </div>
+</div>

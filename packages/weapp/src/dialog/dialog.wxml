@@ -1,0 +1,9 @@
+<root-portal wx:if="{{open}}">
+  <view class="{{overlayClass}}" data-state="open" bindtap="close" catchtouchmove="noop"></view>
+  <view class="{{contentClass}}" data-state="open">
+    <slot></slot>
+    <view class="{{closeClass}}" bindtap="close">
+      <text>✕</text>
+    </view>
+  </view>
+</root-portal>

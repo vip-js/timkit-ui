@@ -1,0 +1,18 @@
+{
+  "name": "select-menu-with-icon",
+  "type": "registry:block",
+  "description": "Select Menu with icon",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "select-menus"
+    ],
+    "mdxBody": "\n<FUISelectMenuWithIcon />\n",
+    "category": "select-menus",
+    "isActive": false
+  },
+  "categories": [
+    "select-menus"
+  ]
+}

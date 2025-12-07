@@ -1,0 +1,19 @@
+{
+  "name": "email-input",
+  "type": "registry:block",
+  "description": "Email Input",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "inputs"
+    ],
+    "mdxBody": "\n<FUIEmailInput />\n",
+    "category": "inputs",
+    "isActive": false,
+    "migratedTo": "input"
+  },
+  "categories": [
+    "inputs"
+  ]
+}

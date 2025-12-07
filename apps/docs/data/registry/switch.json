@@ -1,0 +1,29 @@
+{
+  "name": "switch",
+  "type": "registry:ui",
+  "dependencies": [
+    "@radix-ui/react-switch"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/switch.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/switch.tsx",
+      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as SwitchPrimitive from '@radix-ui/react-switch'\nimport { cn } from '@timui/shared'\nimport { cva } from 'class-variance-authority'\n\nconst switchVariants = cva(\n  'peer inline-flex h-6 w-10 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input'\n)\n\nconst switchThumbVariants = cva(\n  'bg-background pointer-events-none block size-5 rounded-full shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0'\n)\n\nfunction Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {\n  return (\n    <SwitchPrimitive.Root data-slot=\"switch\" className={cn(switchVariants(), className)} {...props}>\n      <SwitchPrimitive.Thumb data-slot=\"switch-thumb\" className={cn(switchThumbVariants())} />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { Switch }\n"
+    },
+    {
+      "path": "registry/default/vue/switch.vue",
+      "target": "components/ui/switch.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport {\n  SwitchRoot,\n  type SwitchRootEmits,\n  type SwitchRootProps,\n  SwitchThumb,\n  useForwardPropsEmits,\n} from \"radix-vue\";\nimport { cn } from \"@timui/shared\";\n\nconst props = defineProps<SwitchRootProps & { class?: HTMLAttributes[\"class\"] }>();\nconst emits = defineEmits<SwitchRootEmits>();\n\nconst delegatedProps = computed(() => {\n  const { class: _, ...delegated } = props;\n  return delegated;\n});\n\nconst forwarded = useForwardPropsEmits(delegatedProps, emits);\n</script>\n\n<template>\n  <SwitchRoot\n    v-bind=\"forwarded\"\n    :class=\"\n      cn(\n        'peer inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input',\n        props.class,\n      )\n    \"\n  >\n    <SwitchThumb\n      :class=\"\n        cn(\n          'pointer-events-none block size-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0',\n        )\n      \"\n    />\n  </SwitchRoot>\n</template>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

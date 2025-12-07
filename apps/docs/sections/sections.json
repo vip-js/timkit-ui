@@ -279,7 +279,7 @@
     "count": 7,
     "isNew": false
   },
-    {
+  {
     "category": "Application",
     "slug": "/sidebars",
     "section_name": "Sidebars",
@@ -299,7 +299,7 @@
     "count": 4,
     "isNew": true
   },
-    {
+  {
     "category": "Application",
     "slug": "/context-menus",
     "section_name": "Context Menu",
@@ -308,6 +308,5 @@
     "description": "Beautifully designed, fully responsive, expertly crafted Context Menu examples",
     "count": 2,
     "isNew": true
-
   }
 ]

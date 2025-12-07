@@ -1,0 +1,18 @@
+{
+  "name": "centred-cta",
+  "type": "registry:block",
+  "description": "Centred CTA",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "cta-sections"
+    ],
+    "mdxBody": "\n<FUICentredCta />\n",
+    "category": "cta-sections",
+    "isActive": false
+  },
+  "categories": [
+    "cta-sections"
+  ]
+}

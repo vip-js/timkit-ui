@@ -1,0 +1,31 @@
+{
+  "name": "textarea-17",
+  "type": "registry:component",
+  "registryDependencies": [
+    "https://originui.com/r/label.json",
+    "https://originui.com/r/textarea.json"
+  ],
+  "files": [
+    {
+      "path": "registry/default/components/textarea/textarea-17.tsx",
+      "type": "registry:component",
+      "target": "components/ui/textarea-17.tsx",
+      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with no resize</Label>\n      <Textarea id={id} className=\"[resize:none]\" placeholder=\"Leave a comment\" />\n    </div>\n  )\n}\n"
+    }
+  ],
+  "meta": {
+    "tags": [
+      "label",
+      "textarea"
+    ],
+    "frameworks": [
+      "react"
+    ],
+    "placeholder": false,
+    "clientOnly": false,
+    "category": "textarea"
+  },
+  "categories": [
+    "textarea"
+  ]
+}

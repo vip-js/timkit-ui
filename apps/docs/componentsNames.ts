@@ -1,596 +1,803 @@
-import FUI404PageWithImage from "./previewsComponents/FUI404PageWithImage.jsx"
-import FUI404PageWithListOfItems from "./previewsComponents/FUI404PageWithListOfItems.jsx"
-import FUI404PageWithLogo from "./previewsComponents/FUI404PageWithLogo.jsx"
-import FUIAlertDanger from "./previewsComponents/FUIAlertDanger.jsx"
-import FUIAlertDangerWithDescription from "./previewsComponents/FUIAlertDangerWithDescription.jsx"
-import FUIAlertDangerWithLink from "./previewsComponents/FUIAlertDangerWithLink.jsx"
-import FUIAlertInfo from "./previewsComponents/FUIAlertInfo.jsx"
-import FUIAlertInfoLinear from "./previewsComponents/FUIAlertInfoLinear.jsx"
-import FUIAlertInfoWithLink from "./previewsComponents/FUIAlertInfoWithLink.jsx"
-import FUIAlertSuccess from "./previewsComponents/FUIAlertSuccess.jsx"
-import FUIAlertSuccessWithLink from "./previewsComponents/FUIAlertSuccessWithLink.jsx"
-import FUIAlertWarning from "./previewsComponents/FUIAlertWarning.jsx"
-import FUIAlertWarningWithBorder from "./previewsComponents/FUIAlertWarningWithBorder.jsx"
-import FUIAmountInput from "./previewsComponents/FUIAmountInput.jsx"
-import FUIAmountInputWithSelectInRight from "./previewsComponents/FUIAmountInputWithSelectInRight.jsx"
-import FUIAvatarGroupStacked from "./previewsComponents/FUIAvatarGroupStacked.jsx"
-import FUIAvatarGroupStackedWithJoinButton from "./previewsComponents/FUIAvatarGroupStackedWithJoinButton.jsx"
-import FUIAvatarGroupStackedWithText from "./previewsComponents/FUIAvatarGroupStackedWithText.jsx"
-import FUIAvatars from "./previewsComponents/FUIAvatars.jsx"
-import FUIAvatarsWithInfo from "./previewsComponents/FUIAvatarsWithInfo.jsx"
-import FUIAvatarsWithNotification from "./previewsComponents/FUIAvatarsWithNotification.jsx"
-import FUIAvatarWithLinkAndButton from "./previewsComponents/FUIAvatarWithLinkAndButton.jsx"
-import FUIBannerCentred from "./previewsComponents/FUIBannerCentred.jsx"
-import FUIBannerCentredWithBadge from "./previewsComponents/FUIBannerCentredWithBadge.jsx"
-import FUIBannerCentredWithLink from "./previewsComponents/FUIBannerCentredWithLink.jsx"
-import FUIBannerWithLink from "./previewsComponents/FUIBannerWithLink.jsx"
-import FUIBannerWithUnderlineLink from "./previewsComponents/FUIBannerWithUnderlineLink.jsx"
-import FUIBasic404Page from "./previewsComponents/FUIBasic404Page.jsx"
-import FUIBasicContextMenu from "./previewsComponents/FUIBasicContextMenu.jsx"
-import FUIBasicFeatureSection from "./previewsComponents/FUIBasicFeatureSection.jsx"
-import FUIBasicLoginForm from "./previewsComponents/FUIBasicLoginForm.jsx"
-import FUIBasicPricingSection from "./previewsComponents/FUIBasicPricingSection.jsx"
-import FUIBasicRadioGroup from "./previewsComponents/FUIBasicRadioGroup.jsx"
-import FUIBasicStats from "./previewsComponents/FUIBasicStats.jsx"
-import FUIBasicSteps from "./previewsComponents/FUIBasicSteps.jsx"
-import FUIBasicTable from "./previewsComponents/FUIBasicTable.jsx"
-import FUIBasicTabs from "./previewsComponents/FUIBasicTabs.jsx"
-import FUIBlogCardsPrimary from "./previewsComponents/FUIBlogCardsPrimary.jsx"
-import FUIBlogCardsSecondary from "./previewsComponents/FUIBlogCardsSecondary.jsx"
-import FUIBlogSectionWithPostsCard from "./previewsComponents/FUIBlogSectionWithPostsCard.jsx"
-import FUIButtonsWithIconAndText from "./previewsComponents/FUIButtonsWithIconAndText.jsx"
-import FUIButtonsWithIcons from "./previewsComponents/FUIButtonsWithIcons.jsx"
-import FUIButtonsWithLowColors from "./previewsComponents/FUIButtonsWithLowColors.jsx"
-import FUIButtonsWithShadow from "./previewsComponents/FUIButtonsWithShadow.jsx"
-import FUICentered404PageWithTowLinks from "./previewsComponents/FUICentered404PageWithTowLinks.jsx"
-import FUICenteredContactSection from "./previewsComponents/FUICenteredContactSection.jsx"
-import FUICentredCta from "./previewsComponents/FUICentredCta.jsx"
-import FUICentredCtaWithTwoLinks from "./previewsComponents/FUICentredCtaWithTwoLinks.jsx"
-import FUIColorPickerRadioGroup from "./previewsComponents/FUIColorPickerRadioGroup.jsx"
-import FUIContactSectionWithDividedColumns from "./previewsComponents/FUIContactSectionWithDividedColumns.jsx"
-import FUIContactSectionWithFourColumns from "./previewsComponents/FUIContactSectionWithFourColumns.jsx"
-import FUIContactSectionWithImage from "./previewsComponents/FUIContactSectionWithImage.jsx"
-import FUIContactSectionWithInfo from "./previewsComponents/FUIContactSectionWithInfo.jsx"
-import FUIContextMenuWithSubmenu from "./previewsComponents/FUIContextMenuWithSubmenu.jsx"
-import FUICtaWithBlueBackground from "./previewsComponents/FUICtaWithBlueBackground.jsx"
-import FUICtaWithImage from "./previewsComponents/FUICtaWithImage.jsx"
-import FUICtaWithLinkOnTheSide from "./previewsComponents/FUICtaWithLinkOnTheSide.jsx"
-import FUIDarkContactSection from "./previewsComponents/FUIDarkContactSection.jsx"
-import FUIDarkCta from "./previewsComponents/FUIDarkCta.jsx"
-import FUIDarkCtaWithLinkOnTheSide from "./previewsComponents/FUIDarkCtaWithLinkOnTheSide.jsx"
-import FUIDarkFaqsWithDividedRows from "./previewsComponents/FUIDarkFaqsWithDividedRows.jsx"
-import FUIDarkFeatureSection from "./previewsComponents/FUIDarkFeatureSection.jsx"
-import FUIDarkFooter from "./previewsComponents/FUIDarkFooter.jsx"
-import FUIDarkHeroSection from "./previewsComponents/FUIDarkHeroSection.jsx"
-import FUIDarkLogoGrid from "./previewsComponents/FUIDarkLogoGrid.jsx"
-import FUIDarkPricingSectionWithTwoPlans from "./previewsComponents/FUIDarkPricingSectionWithTwoPlans.jsx"
-import FUIDarkStats from "./previewsComponents/FUIDarkStats.jsx"
-import FUIDarkStatsWithInCards from "./previewsComponents/FUIDarkStatsWithInCards.jsx"
-import FUIDefaultButtonsWithIcons from "./previewsComponents/FUIDefaultButtonsWithIcons.jsx"
-import FUIDefaultSelectMenu from "./previewsComponents/FUIDefaultSelectMenu.jsx"
-import FUIDisabledButtons from "./previewsComponents/FUIDisabledButtons.jsx"
-import FUIDividedFeatureSection from "./previewsComponents/FUIDividedFeatureSection.jsx"
-import FUIDividedLogoGrid from "./previewsComponents/FUIDividedLogoGrid.jsx"
-import FUIEmailInput from "./previewsComponents/FUIEmailInput.jsx"
-import FUIFaqsWithDividedRows from "./previewsComponents/FUIFaqsWithDividedRows.jsx"
-import FUIFaqsWithSearchBox from "./previewsComponents/FUIFaqsWithSearchBox.jsx"
-import FUIFaqsWithShadow from "./previewsComponents/FUIFaqsWithShadow.jsx"
-import FUIFaqsWithTitles from "./previewsComponents/FUIFaqsWithTitles.jsx"
-import FUIFeatureSectionWithCards from "./previewsComponents/FUIFeatureSectionWithCards.jsx"
-import FUIFeatureSectionWithCheckIcons from "./previewsComponents/FUIFeatureSectionWithCheckIcons.jsx"
-import FUIFeatureSectionWithImage from "./previewsComponents/FUIFeatureSectionWithImage.jsx"
-import FUIFeatureSectionWithLinks from "./previewsComponents/FUIFeatureSectionWithLinks.jsx"
-import FUIFeatureSectionWithThreeColumns from "./previewsComponents/FUIFeatureSectionWithThreeColumns.jsx"
-import FUIFooterWithDescriptionAndTitle from "./previewsComponents/FUIFooterWithDescriptionAndTitle.jsx"
-import FUIFooterWithDownloadLinks from "./previewsComponents/FUIFooterWithDownloadLinks.jsx"
-import FUIFooterWithNewsletter from "./previewsComponents/FUIFooterWithNewsletter.jsx"
-import FUIHeroSectionWithBottomImage from "./previewsComponents/FUIHeroSectionWithBottomImage.jsx"
-import FUIHeroSectionWithGradientBackground from "./previewsComponents/FUIHeroSectionWithGradientBackground.jsx"
-import FUIHeroSectionWithImage from "./previewsComponents/FUIHeroSectionWithImage.jsx"
-import FUIHeroSectionWithLogoClouds from "./previewsComponents/FUIHeroSectionWithLogoClouds.jsx"
-import FUIHeroSectionWithVideo from "./previewsComponents/FUIHeroSectionWithVideo.jsx"
-import FUIIntegrationsCard from "./previewsComponents/FUIIntegrationsCard.jsx"
-import FUIJobCards from "./previewsComponents/FUIJobCards.jsx"
-import FUIJobCardsWithInformation from "./previewsComponents/FUIJobCardsWithInformation.jsx"
-import FUILoginWithGoogleProvider from "./previewsComponents/FUILoginWithGoogleProvider.jsx"
-import FUILoginWithGridProvider from "./previewsComponents/FUILoginWithGridProvider.jsx"
-import FUILoginWithListedProvider from "./previewsComponents/FUILoginWithListedProvider.jsx"
-import FUILogoGridWithHeader from "./previewsComponents/FUILogoGridWithHeader.jsx"
-import FUILogoGridWithTitle from "./previewsComponents/FUILogoGridWithTitle.jsx"
-import FUILogoGridWithTowRows from "./previewsComponents/FUILogoGridWithTowRows.jsx"
-import FUIModalDanger from "./previewsComponents/FUIModalDanger.jsx"
-import FUIModalDialog from "./previewsComponents/FUIModalDialog.jsx"
-import FUIModalSuccess from "./previewsComponents/FUIModalSuccess.jsx"
-import FUIModalWithNewsletter from "./previewsComponents/FUIModalWithNewsletter.jsx"
-import FUIModalWithShareableLink from "./previewsComponents/FUIModalWithShareableLink.jsx"
-import FUINavbarWithAdvencedDropdown from "./previewsComponents/FUINavbarWithAdvencedDropdown.jsx"
-import FUINavbarWithBlackButton from "./previewsComponents/FUINavbarWithBlackButton.jsx"
-import FUINavbarWithDividedItems from "./previewsComponents/FUINavbarWithDividedItems.jsx"
-import FUINavbarWithSearchBox from "./previewsComponents/FUINavbarWithSearchBox.jsx"
-import FUINavbarWithSubmenu from "./previewsComponents/FUINavbarWithSubmenu.jsx"
-import FUINewsletterStacked from "./previewsComponents/FUINewsletterStacked.jsx"
-import FUINewsletterWithAGradientBackground from "./previewsComponents/FUINewsletterWithAGradientBackground.jsx"
-import FUINewsletterWithBackground from "./previewsComponents/FUINewsletterWithBackground.jsx"
-import FUINewsletterWithDescription from "./previewsComponents/FUINewsletterWithDescription.jsx"
-import FUIPaginationStacked from "./previewsComponents/FUIPaginationStacked.jsx"
-import FUIPaginationWithCurrentPageInfo from "./previewsComponents/FUIPaginationWithCurrentPageInfo.jsx"
-import FUIPaginationWithPreviousAndNextLink from "./previewsComponents/FUIPaginationWithPreviousAndNextLink.jsx"
-import FUIPasswordInput from "./previewsComponents/FUIPasswordInput.jsx"
-import FUIPaymentCardsRadioGroup from "./previewsComponents/FUIPaymentCardsRadioGroup.jsx"
-import FUIPhoneNumberInput from "./previewsComponents/FUIPhoneNumberInput.jsx"
-import FUIPricingCardsRadioGroup from "./previewsComponents/FUIPricingCardsRadioGroup.jsx"
-import FUIPricingSectionWithBadge from "./previewsComponents/FUIPricingSectionWithBadge.jsx"
-import FUIPricingSectionWithOnePlan from "./previewsComponents/FUIPricingSectionWithOnePlan.jsx"
-import FUIPricingSectionWithTable from "./previewsComponents/FUIPricingSectionWithTable.jsx"
-import FUIPricingSectionWithTwoPlans from "./previewsComponents/FUIPricingSectionWithTwoPlans.jsx"
-import FUIPrimaryButtons from "./previewsComponents/FUIPrimaryButtons.jsx"
-import FUIPrimaryCta from "./previewsComponents/FUIPrimaryCta.jsx"
-import FUIPrimaryFaqs from "./previewsComponents/FUIPrimaryFaqs.jsx"
-import FUIPrimaryFooter from "./previewsComponents/FUIPrimaryFooter.jsx"
-import FUIPrimaryHeroSection from "./previewsComponents/FUIPrimaryHeroSection.jsx"
-import FUIPrimaryNavbar from "./previewsComponents/FUIPrimaryNavbar.jsx"
-import FUIPrimaryNewsletter from "./previewsComponents/FUIPrimaryNewsletter.jsx"
-import FUIPrimarySelectMenu from "./previewsComponents/FUIPrimarySelectMenu.jsx"
-import FUIRoundedButtons from "./previewsComponents/FUIRoundedButtons.jsx"
-import FUISearchInput from "./previewsComponents/FUISearchInput.jsx"
-import FUISearchInputWithSelectMenu from "./previewsComponents/FUISearchInputWithSelectMenu.jsx"
-import FUISearchInputWithSelectMenuAndAvatars from "./previewsComponents/FUISearchInputWithSelectMenuAndAvatars.jsx"
-import FUISecondaryButtons from "./previewsComponents/FUISecondaryButtons.jsx"
-import FUISecondaryCta from "./previewsComponents/FUISecondaryCta.jsx"
-import FUISecondaryFaqs from "./previewsComponents/FUISecondaryFaqs.jsx"
-import FUISecondaryFooter from "./previewsComponents/FUISecondaryFooter.jsx"
-import FUISecondaryHeroSection from "./previewsComponents/FUISecondaryHeroSection.jsx"
-import FUISecondaryNavbar from "./previewsComponents/FUISecondaryNavbar.jsx"
-import FUISecondaryNewsletter from "./previewsComponents/FUISecondaryNewsletter.jsx"
-import FUISectionHeaderWithButtons from "./previewsComponents/FUISectionHeaderWithButtons.jsx"
-import FUISectionHeaderWithButtonsAndNavigations from "./previewsComponents/FUISectionHeaderWithButtonsAndNavigations.jsx"
-import FUISectionHeaderWithDescriptionAndButton from "./previewsComponents/FUISectionHeaderWithDescriptionAndButton.jsx"
-import FUISectionHeaderWithNavigations from "./previewsComponents/FUISectionHeaderWithNavigations.jsx"
-import FUISectionHeaderWithSearchBox from "./previewsComponents/FUISectionHeaderWithSearchBox.jsx"
-import FUISelectMenuWithAvatars from "./previewsComponents/FUISelectMenuWithAvatars.jsx"
-import FUISelectMenuWithIcon from "./previewsComponents/FUISelectMenuWithIcon.jsx"
-import FUISelectMenuWithSearchBox from "./previewsComponents/FUISelectMenuWithSearchBox.jsx"
-import FUISelectMenuWithSearchBox2 from "./previewsComponents/FUISelectMenuWithSearchBox2.jsx"
-import FUISidebarWithItemsInBottom from "./previewsComponents/FUISidebarWithItemsInBottom.jsx"
-import FUISidebarWithListOfLessons from "./previewsComponents/FUISidebarWithListOfLessons.jsx"
-import FUISidebarWithSubmenu from "./previewsComponents/FUISidebarWithSubmenu.jsx"
-import FUISidebarWithTooltip from "./previewsComponents/FUISidebarWithTooltip.jsx"
-import FUISignUpWithGoogleProvider from "./previewsComponents/FUISignUpWithGoogleProvider.jsx"
-import FUISignUpWithLeftBackground from "./previewsComponents/FUISignUpWithLeftBackground.jsx"
-import FUISignUpWithNameEmailPasswordOrGoogle from "./previewsComponents/FUISignUpWithNameEmailPasswordOrGoogle.jsx"
-import FUIStatsOnTheSide from "./previewsComponents/FUIStatsOnTheSide.jsx"
-import FUIStatsWithImage from "./previewsComponents/FUIStatsWithImage.jsx"
-import FUIStatsWithTitleAndDescription from "./previewsComponents/FUIStatsWithTitleAndDescription.jsx"
-import FUIStatusSelectMenu from "./previewsComponents/FUIStatusSelectMenu.jsx"
-import FUIStepsWithChevrons from "./previewsComponents/FUIStepsWithChevrons.jsx"
-import FUIStepsWithLine from "./previewsComponents/FUIStepsWithLine.jsx"
-import FUIStepsWithTitlesOnTheBottom from "./previewsComponents/FUIStepsWithTitlesOnTheBottom.jsx"
-import FUIStepsWithTitlesOnTheSide from "./previewsComponents/FUIStepsWithTitlesOnTheSide.jsx"
-import FUITableWithAvatars from "./previewsComponents/FUITableWithAvatars.jsx"
-import FUITableWithAvatarsAndEditDelete from "./previewsComponents/FUITableWithAvatarsAndEditDelete.jsx"
-import FUITableWithBorderedColumn from "./previewsComponents/FUITableWithBorderedColumn.jsx"
-import FUITableWithCheckbox from "./previewsComponents/FUITableWithCheckbox.jsx"
-import FUITableWithEditAndDelete from "./previewsComponents/FUITableWithEditAndDelete.jsx"
-import FUITableWithManageButton from "./previewsComponents/FUITableWithManageButton.jsx"
-import FUITableWithTabs from "./previewsComponents/FUITableWithTabs.jsx"
-import FUITabsWithBackgroundColor from "./previewsComponents/FUITabsWithBackgroundColor.jsx"
-import FUITabsWithIcons from "./previewsComponents/FUITabsWithIcons.jsx"
-import FUITabsWithoutUnderline from "./previewsComponents/FUITabsWithoutUnderline.jsx"
-import FUITeamMembersCard from "./previewsComponents/FUITeamMembersCard.jsx"
-import FUITeamSectionCentredWithLargeImages from "./previewsComponents/FUITeamSectionCentredWithLargeImages.jsx"
-import FUITeamSectionWithAvatars from "./previewsComponents/FUITeamSectionWithAvatars.jsx"
-import FUITeamSectionWithCentredAvatars from "./previewsComponents/FUITeamSectionWithCentredAvatars.jsx"
-import FUITeamSectionWithInfo from "./previewsComponents/FUITeamSectionWithInfo.jsx"
-import FUITeamSectionWithVerticalImages from "./previewsComponents/FUITeamSectionWithVerticalImages.jsx"
-import FUITeamWithLargeAvatars from "./previewsComponents/FUITeamWithLargeAvatars.jsx"
-import FUITestimonialCentered from "./previewsComponents/FUITestimonialCentered.jsx"
-import FUITestimonialCenteredWithLogo from "./previewsComponents/FUITestimonialCenteredWithLogo.jsx"
-import FUITestimonialGrid from "./previewsComponents/FUITestimonialGrid.jsx"
-import FUITestimonialWithBackgroundColor from "./previewsComponents/FUITestimonialWithBackgroundColor.jsx"
-import FUITestimonialWithSlider from "./previewsComponents/FUITestimonialWithSlider.jsx"
-import FUITestimonialWithThreeColumn from "./previewsComponents/FUITestimonialWithThreeColumn.jsx"
-import FUIUploadFileCard from "./previewsComponents/FUIUploadFileCard.jsx"
-import FUIUsernameInput from "./previewsComponents/FUIUsernameInput.jsx"
-import FUIVerificationCodeInput from "./previewsComponents/FUIVerificationCodeInput.jsx"
-import FUIVerticalTabs from "./previewsComponents/FUIVerticalTabs.jsx"
-import FUIVerticalTabsWithoutLine from "./previewsComponents/FUIVerticalTabsWithoutLine.jsx"
-import FUIWebsiteUrlInput from "./previewsComponents/FUIWebsiteUrlInput.jsx"
-import FUIWithPreviousAndNextLink from "./previewsComponents/FUIWithPreviousAndNextLink.jsx"
-
-export default {
-  FUIWithPreviousAndNextLink,
-
-  FUITableWithBorderedColumn,
-
-  FUITestimonialCentered,
-
-  FUIAvatarsWithInfo,
-
-  FUIDefaultSelectMenu,
-
-  FUIPrimaryButtons,
-
-  FUIDarkCta,
-
-  FUITestimonialWithBackgroundColor,
-
-  FUIFooterWithNewsletter,
-
-  FUISidebarWithItemsInBottom,
-
-  FUIBasicContextMenu,
-
-  FUIPricingCardsRadioGroup,
-
-  FUILoginWithGridProvider,
-
-  FUINavbarWithAdvencedDropdown,
-
-  FUISelectMenuWithSearchBox2,
-
-  FUISidebarWithSubmenu,
-
-  FUIStatsWithTitleAndDescription,
-
-  FUIBasicPricingSection,
-
-  FUIBannerWithUnderlineLink,
-
-  FUIVerticalTabs,
-
-  FUIDarkFooter,
-
-  FUIPrimaryFaqs,
-
-  FUISidebarWithListOfLessons,
-
-  FUINewsletterStacked,
-
-  FUINavbarWithSearchBox,
-
-  FUI404PageWithLogo,
-
-  FUIContactSectionWithDividedColumns,
-
-  FUILogoGridWithTitle,
-
-  FUI404PageWithImage,
-
-  FUISidebarWithTooltip,
-
-  FUISecondaryFooter,
-
-  FUINavbarWithSubmenu,
-
-  FUICtaWithLinkOnTheSide,
-
-  FUITestimonialGrid,
-
-  FUIFeatureSectionWithCards,
-
-  FUIDividedFeatureSection,
-
-  FUIPricingSectionWithBadge,
-
-  FUITeamSectionCentredWithLargeImages,
-
-  FUIDarkStatsWithInCards,
-
-  FUIStepsWithTitlesOnTheBottom,
-
-  FUINewsletterWithDescription,
-
-  FUISignUpWithNameEmailPasswordOrGoogle,
-
-  FUISignUpWithLeftBackground,
-
-  FUIAlertInfoLinear,
-
-  FUIFooterWithDescriptionAndTitle,
-
-  FUITabsWithIcons,
-
-  FUIContextMenuWithSubmenu,
-
-  FUINavbarWithBlackButton,
-
-  FUIVerificationCodeInput,
-
-  FUITableWithManageButton,
-
-  FUIHeroSectionWithVideo,
-
-  FUIPrimaryNavbar,
-
-  FUITableWithAvatarsAndEditDelete,
-
-  FUITeamSectionWithAvatars,
-
-  FUIButtonsWithLowColors,
-
-  FUIStepsWithTitlesOnTheSide,
-
-  FUIPasswordInput,
-
-  FUITabsWithBackgroundColor,
-
-  FUIModalDialog,
-
-  FUISecondaryButtons,
-
-  FUIHeroSectionWithGradientBackground,
-
-  FUIPricingSectionWithOnePlan,
-
-  FUIPrimaryCta,
-
-  FUISectionHeaderWithButtonsAndNavigations,
-
-  FUIDarkPricingSectionWithTwoPlans,
-
-  FUITestimonialCenteredWithLogo,
-
-  FUIButtonsWithIcons,
-
-  FUIAvatarWithLinkAndButton,
-
-  FUIAlertSuccessWithLink,
-
-  FUIDarkContactSection,
-
-  FUIDefaultButtonsWithIcons,
-
-  FUISearchInputWithSelectMenu,
-
-  FUIFeatureSectionWithLinks,
-
-  FUITableWithTabs,
-
-  FUIAlertSuccess,
-
-  FUIDarkFaqsWithDividedRows,
-
-  FUIModalWithNewsletter,
-
-  FUIAlertDangerWithLink,
-
-  FUITableWithEditAndDelete,
-
-  FUIStatsWithImage,
-
-  FUISectionHeaderWithDescriptionAndButton,
-
-  FUIPrimaryHeroSection,
-
-  FUIPrimarySelectMenu,
-
-  FUIBannerCentredWithLink,
-
-  FUINewsletterWithAGradientBackground,
-
-  FUIUsernameInput,
-
-  FUILoginWithListedProvider,
-
-  FUIAmountInput,
-
-  FUIAvatarsWithNotification,
-
-  FUITestimonialWithSlider,
-
-  FUIJobCards,
-
-  FUIContactSectionWithImage,
-
-  FUIBasicStats,
-
-  FUIHeroSectionWithLogoClouds,
-
-  FUIPricingSectionWithTwoPlans,
-
-  FUIFooterWithDownloadLinks,
-
-  FUISearchInput,
-
-  FUIBasic404Page,
-
-  FUINewsletterWithBackground,
-
-  FUIButtonsWithShadow,
-
-  FUIAlertWarning,
-
-  FUIFaqsWithShadow,
-
-  FUISelectMenuWithSearchBox,
-
-  FUIBasicTabs,
-
-  FUISecondaryCta,
-
-  FUIModalDanger,
-
-  FUIFaqsWithSearchBox,
-
-  FUIDarkFeatureSection,
-
-  FUIAmountInputWithSelectInRight,
-
-  FUIEmailInput,
-
-  FUIPricingSectionWithTable,
-
-  FUICtaWithImage,
-
-  FUIPaginationWithCurrentPageInfo,
-
-  FUIAlertDanger,
-
-  FUIStepsWithChevrons,
-
-  FUIDisabledButtons,
-
-  FUILoginWithGoogleProvider,
-
-  FUITableWithAvatars,
-
-  FUISectionHeaderWithNavigations,
-
-  FUIPrimaryFooter,
-
-  FUISecondaryNavbar,
-
-  FUIJobCardsWithInformation,
-
-  FUIBlogCardsPrimary,
-
-  FUIDarkLogoGrid,
-
-  FUIPaginationWithPreviousAndNextLink,
-
-  FUIModalWithShareableLink,
-
-  FUISignUpWithGoogleProvider,
-
-  FUIFeatureSectionWithThreeColumns,
-
-  FUITabsWithoutUnderline,
-
-  FUIStepsWithLine,
-
-  FUIContactSectionWithInfo,
-
-  FUIRoundedButtons,
-
-  FUICtaWithBlueBackground,
-
-  FUIWebsiteUrlInput,
-
-  FUIFeatureSectionWithCheckIcons,
-
-  FUIFeatureSectionWithImage,
-
-  FUIFaqsWithDividedRows,
-
-  FUIBannerWithLink,
-
-  FUIBasicSteps,
-
-  FUISecondaryFaqs,
-
-  FUITestimonialWithThreeColumn,
-
-  FUITeamSectionWithInfo,
-
-  FUIDarkCtaWithLinkOnTheSide,
-
-  FUITeamWithLargeAvatars,
-
-  FUIAvatarGroupStackedWithText,
-
-  FUIBlogCardsSecondary,
-
-  FUIStatsOnTheSide,
-
-  FUIDarkHeroSection,
-
-  FUIColorPickerRadioGroup,
-
-  FUIAlertInfo,
-
-  FUIStatusSelectMenu,
-
-  FUIAlertDangerWithDescription,
-
-  FUITeamMembersCard,
-
-  FUIFaqsWithTitles,
-
-  FUIDividedLogoGrid,
-
-  FUIPhoneNumberInput,
-
-  FUISelectMenuWithIcon,
-
-  FUICentredCtaWithTwoLinks,
-
-  FUIAvatarGroupStacked,
-
-  FUICentered404PageWithTowLinks,
-
-  FUIAlertInfoWithLink,
-
-  FUIBlogSectionWithPostsCard,
-
-  FUIHeroSectionWithImage,
-
-  FUISectionHeaderWithSearchBox,
-
-  FUIBasicTable,
-
-  FUIBasicFeatureSection,
-
-  FUIModalSuccess,
-
-  FUI404PageWithListOfItems,
-
-  FUIBannerCentred,
-
-  FUICenteredContactSection,
-
-  FUISecondaryNewsletter,
-
-  FUIHeroSectionWithBottomImage,
-
-  FUICentredCta,
-
-  FUIAvatars,
-
-  FUIContactSectionWithFourColumns,
-
-  FUISectionHeaderWithButtons,
-
-  FUIBannerCentredWithBadge,
-
-  FUIPrimaryNewsletter,
-
-  FUISelectMenuWithAvatars,
-
-  FUIPaymentCardsRadioGroup,
-
-  FUIBasicLoginForm,
-
-  FUILogoGridWithTowRows,
-
-  FUIDarkStats,
-
-  FUIAlertWarningWithBorder,
-
-  FUIButtonsWithIconAndText,
-
-  FUIIntegrationsCard,
-
-  FUITeamSectionWithCentredAvatars,
-
-  FUIAvatarGroupStackedWithJoinButton,
-
-  FUIUploadFileCard,
-
-  FUISearchInputWithSelectMenuAndAvatars,
-
-  FUINavbarWithDividedItems,
-
-  FUIBasicRadioGroup,
-
-  FUITableWithCheckbox,
-
-  FUISecondaryHeroSection,
-
-  FUIPaginationStacked,
-
-  FUITeamSectionWithVerticalImages,
-
-  FUIVerticalTabsWithoutLine,
-
-  FUILogoGridWithHeader,
+import AlertDanger from './previews/AlertDanger.jsx'
+import AlertDangerWithDescription from './previews/AlertDangerWithDescription.jsx'
+import AlertDangerWithLink from './previews/AlertDangerWithLink.jsx'
+import AlertInfo from './previews/AlertInfo.jsx'
+import AlertInfoLinear from './previews/AlertInfoLinear.jsx'
+import AlertInfoWithLink from './previews/AlertInfoWithLink.jsx'
+import AlertSuccess from './previews/AlertSuccess.jsx'
+import AlertSuccessWithLink from './previews/AlertSuccessWithLink.jsx'
+import AlertWarning from './previews/AlertWarning.jsx'
+import AlertWarningWithBorder from './previews/AlertWarningWithBorder.jsx'
+import AmountInput from './previews/AmountInput.jsx'
+import AmountInputWithSelectInRight from './previews/AmountInputWithSelectInRight.jsx'
+import AvatarGroupStacked from './previews/AvatarGroupStacked.jsx'
+import AvatarGroupStackedWithJoinButton from './previews/AvatarGroupStackedWithJoinButton.jsx'
+import AvatarGroupStackedWithText from './previews/AvatarGroupStackedWithText.jsx'
+import Avatars from './previews/Avatars.jsx'
+import AvatarsWithInfo from './previews/AvatarsWithInfo.jsx'
+import AvatarsWithNotification from './previews/AvatarsWithNotification.jsx'
+import AvatarWithLinkAndButton from './previews/AvatarWithLinkAndButton.jsx'
+import BannerCentred from './previews/BannerCentred.jsx'
+import BannerCentredWithBadge from './previews/BannerCentredWithBadge.jsx'
+import BannerCentredWithLink from './previews/BannerCentredWithLink.jsx'
+import BannerWithLink from './previews/BannerWithLink.jsx'
+import BannerWithUnderlineLink from './previews/BannerWithUnderlineLink.jsx'
+import Basic404Page from './previews/Basic404Page.jsx'
+import BasicContextMenu from './previews/BasicContextMenu.jsx'
+import BasicFeatureSection from './previews/BasicFeatureSection.jsx'
+import BasicLoginForm from './previews/BasicLoginForm.jsx'
+import BasicPricingSection from './previews/BasicPricingSection.jsx'
+import BasicRadioGroup from './previews/BasicRadioGroup.jsx'
+import BasicStats from './previews/BasicStats.jsx'
+import BasicSteps from './previews/BasicSteps.jsx'
+import BasicTable from './previews/BasicTable.jsx'
+import BasicTabs from './previews/BasicTabs.jsx'
+import BlogCardsPrimary from './previews/BlogCardsPrimary.jsx'
+import BlogCardsSecondary from './previews/BlogCardsSecondary.jsx'
+import BlogSectionWithPostsCard from './previews/BlogSectionWithPostsCard.jsx'
+import ButtonsWithIconAndText from './previews/ButtonsWithIconAndText.jsx'
+import ButtonsWithIcons from './previews/ButtonsWithIcons.jsx'
+import ButtonsWithLowColors from './previews/ButtonsWithLowColors.jsx'
+import ButtonsWithShadow from './previews/ButtonsWithShadow.jsx'
+import Centered404PageWithTowLinks from './previews/Centered404PageWithTowLinks.jsx'
+import CenteredContactSection from './previews/CenteredContactSection.jsx'
+import CentredCta from './previews/CentredCta.jsx'
+import CentredCtaWithTwoLinks from './previews/CentredCtaWithTwoLinks.jsx'
+import ColorPickerRadioGroup from './previews/ColorPickerRadioGroup.jsx'
+import ContactSectionWithDividedColumns from './previews/ContactSectionWithDividedColumns.jsx'
+import ContactSectionWithFourColumns from './previews/ContactSectionWithFourColumns.jsx'
+import ContactSectionWithImage from './previews/ContactSectionWithImage.jsx'
+import ContactSectionWithInfo from './previews/ContactSectionWithInfo.jsx'
+import ContextMenuWithSubmenu from './previews/ContextMenuWithSubmenu.jsx'
+import CtaWithBlueBackground from './previews/CtaWithBlueBackground.jsx'
+import CtaWithImage from './previews/CtaWithImage.jsx'
+import CtaWithLinkOnTheSide from './previews/CtaWithLinkOnTheSide.jsx'
+import DarkContactSection from './previews/DarkContactSection.jsx'
+import DarkCta from './previews/DarkCta.jsx'
+import DarkCtaWithLinkOnTheSide from './previews/DarkCtaWithLinkOnTheSide.jsx'
+import DarkFaqsWithDividedRows from './previews/DarkFaqsWithDividedRows.jsx'
+import DarkFeatureSection from './previews/DarkFeatureSection.jsx'
+import DarkFooter from './previews/DarkFooter.jsx'
+import DarkHeroSection from './previews/DarkHeroSection.jsx'
+import DarkLogoGrid from './previews/DarkLogoGrid.jsx'
+import DarkPricingSectionWithTwoPlans from './previews/DarkPricingSectionWithTwoPlans.jsx'
+import DarkStats from './previews/DarkStats.jsx'
+import DarkStatsWithInCards from './previews/DarkStatsWithInCards.jsx'
+import DefaultButtonsWithIcons from './previews/DefaultButtonsWithIcons.jsx'
+import DefaultSelectMenu from './previews/DefaultSelectMenu.jsx'
+import DisabledButtons from './previews/DisabledButtons.jsx'
+import DividedFeatureSection from './previews/DividedFeatureSection.jsx'
+import DividedLogoGrid from './previews/DividedLogoGrid.jsx'
+import EmailInput from './previews/EmailInput.jsx'
+import FaqsWithDividedRows from './previews/FaqsWithDividedRows.jsx'
+import FaqsWithSearchBox from './previews/FaqsWithSearchBox.jsx'
+import FaqsWithShadow from './previews/FaqsWithShadow.jsx'
+import FaqsWithTitles from './previews/FaqsWithTitles.jsx'
+import FeatureSectionWithCards from './previews/FeatureSectionWithCards.jsx'
+import FeatureSectionWithCheckIcons from './previews/FeatureSectionWithCheckIcons.jsx'
+import FeatureSectionWithImage from './previews/FeatureSectionWithImage.jsx'
+import FeatureSectionWithLinks from './previews/FeatureSectionWithLinks.jsx'
+import FeatureSectionWithThreeColumns from './previews/FeatureSectionWithThreeColumns.jsx'
+import FooterWithDescriptionAndTitle from './previews/FooterWithDescriptionAndTitle.jsx'
+import FooterWithDownloadLinks from './previews/FooterWithDownloadLinks.jsx'
+import FooterWithNewsletter from './previews/FooterWithNewsletter.jsx'
+import HeroSectionWithBottomImage from './previews/HeroSectionWithBottomImage.jsx'
+import HeroSectionWithGradientBackground from './previews/HeroSectionWithGradientBackground.jsx'
+import HeroSectionWithImage from './previews/HeroSectionWithImage.jsx'
+import HeroSectionWithLogoClouds from './previews/HeroSectionWithLogoClouds.jsx'
+import HeroSectionWithVideo from './previews/HeroSectionWithVideo.jsx'
+import IntegrationsCard from './previews/IntegrationsCard.jsx'
+import JobCards from './previews/JobCards.jsx'
+import JobCardsWithInformation from './previews/JobCardsWithInformation.jsx'
+import LoginWithGoogleProvider from './previews/LoginWithGoogleProvider.jsx'
+import LoginWithGridProvider from './previews/LoginWithGridProvider.jsx'
+import LoginWithListedProvider from './previews/LoginWithListedProvider.jsx'
+import LogoGridWithHeader from './previews/LogoGridWithHeader.jsx'
+import LogoGridWithTitle from './previews/LogoGridWithTitle.jsx'
+import LogoGridWithTowRows from './previews/LogoGridWithTowRows.jsx'
+import ModalDanger from './previews/ModalDanger.jsx'
+import ModalDialog from './previews/ModalDialog.jsx'
+import ModalSuccess from './previews/ModalSuccess.jsx'
+import ModalWithNewsletter from './previews/ModalWithNewsletter.jsx'
+import ModalWithShareableLink from './previews/ModalWithShareableLink.jsx'
+import NavbarWithAdvencedDropdown from './previews/NavbarWithAdvencedDropdown.jsx'
+import NavbarWithBlackButton from './previews/NavbarWithBlackButton.jsx'
+import NavbarWithDividedItems from './previews/NavbarWithDividedItems.jsx'
+import NavbarWithSearchBox from './previews/NavbarWithSearchBox.jsx'
+import NavbarWithSubmenu from './previews/NavbarWithSubmenu.jsx'
+import NewsletterStacked from './previews/NewsletterStacked.jsx'
+import NewsletterWithAGradientBackground from './previews/NewsletterWithAGradientBackground.jsx'
+import NewsletterWithBackground from './previews/NewsletterWithBackground.jsx'
+import NewsletterWithDescription from './previews/NewsletterWithDescription.jsx'
+import Page404PageWithImage from './previews/Page404PageWithImage.jsx'
+import Page404PageWithListOfItems from './previews/Page404PageWithListOfItems.jsx'
+import Page404PageWithLogo from './previews/Page404PageWithLogo.jsx'
+import PaginationStacked from './previews/PaginationStacked.jsx'
+import PaginationWithCurrentPageInfo from './previews/PaginationWithCurrentPageInfo.jsx'
+import PaginationWithPreviousAndNextLink from './previews/PaginationWithPreviousAndNextLink.jsx'
+import PasswordInput from './previews/PasswordInput.jsx'
+import PaymentCardsRadioGroup from './previews/PaymentCardsRadioGroup.jsx'
+import PhoneNumberInput from './previews/PhoneNumberInput.jsx'
+import PricingCardsRadioGroup from './previews/PricingCardsRadioGroup.jsx'
+import PricingSectionWithBadge from './previews/PricingSectionWithBadge.jsx'
+import PricingSectionWithOnePlan from './previews/PricingSectionWithOnePlan.jsx'
+import PricingSectionWithTable from './previews/PricingSectionWithTable.jsx'
+import PricingSectionWithTwoPlans from './previews/PricingSectionWithTwoPlans.jsx'
+import PrimaryButtons from './previews/PrimaryButtons.jsx'
+import PrimaryCta from './previews/PrimaryCta.jsx'
+import PrimaryFaqs from './previews/PrimaryFaqs.jsx'
+import PrimaryFooter from './previews/PrimaryFooter.jsx'
+import PrimaryHeroSection from './previews/PrimaryHeroSection.jsx'
+import PrimaryNavbar from './previews/PrimaryNavbar.jsx'
+import PrimaryNewsletter from './previews/PrimaryNewsletter.jsx'
+import PrimarySelectMenu from './previews/PrimarySelectMenu.jsx'
+import RoundedButtons from './previews/RoundedButtons.jsx'
+import SearchInput from './previews/SearchInput.jsx'
+import SearchInputWithSelectMenu from './previews/SearchInputWithSelectMenu.jsx'
+import SearchInputWithSelectMenuAndAvatars from './previews/SearchInputWithSelectMenuAndAvatars.jsx'
+import SecondaryButtons from './previews/SecondaryButtons.jsx'
+import SecondaryCta from './previews/SecondaryCta.jsx'
+import SecondaryFaqs from './previews/SecondaryFaqs.jsx'
+import SecondaryFooter from './previews/SecondaryFooter.jsx'
+import SecondaryHeroSection from './previews/SecondaryHeroSection.jsx'
+import SecondaryNavbar from './previews/SecondaryNavbar.jsx'
+import SecondaryNewsletter from './previews/SecondaryNewsletter.jsx'
+import SectionHeaderWithButtons from './previews/SectionHeaderWithButtons.jsx'
+import SectionHeaderWithButtonsAndNavigations from './previews/SectionHeaderWithButtonsAndNavigations.jsx'
+import SectionHeaderWithDescriptionAndButton from './previews/SectionHeaderWithDescriptionAndButton.jsx'
+import SectionHeaderWithNavigations from './previews/SectionHeaderWithNavigations.jsx'
+import SectionHeaderWithSearchBox from './previews/SectionHeaderWithSearchBox.jsx'
+import SelectMenuWithAvatars from './previews/SelectMenuWithAvatars.jsx'
+import SelectMenuWithIcon from './previews/SelectMenuWithIcon.jsx'
+import SelectMenuWithSearchBox from './previews/SelectMenuWithSearchBox.jsx'
+import SelectMenuWithSearchBox2 from './previews/SelectMenuWithSearchBox2.jsx'
+import SidebarWithItemsInBottom from './previews/SidebarWithItemsInBottom.jsx'
+import SidebarWithListOfLessons from './previews/SidebarWithListOfLessons.jsx'
+import SidebarWithSubmenu from './previews/SidebarWithSubmenu.jsx'
+import SidebarWithTooltip from './previews/SidebarWithTooltip.jsx'
+import SignUpWithGoogleProvider from './previews/SignUpWithGoogleProvider.jsx'
+import SignUpWithLeftBackground from './previews/SignUpWithLeftBackground.jsx'
+import SignUpWithNameEmailPasswordOrGoogle from './previews/SignUpWithNameEmailPasswordOrGoogle.jsx'
+import StatsOnTheSide from './previews/StatsOnTheSide.jsx'
+import StatsWithImage from './previews/StatsWithImage.jsx'
+import StatsWithTitleAndDescription from './previews/StatsWithTitleAndDescription.jsx'
+import StatusSelectMenu from './previews/StatusSelectMenu.jsx'
+import StepsWithChevrons from './previews/StepsWithChevrons.jsx'
+import StepsWithLine from './previews/StepsWithLine.jsx'
+import StepsWithTitlesOnTheBottom from './previews/StepsWithTitlesOnTheBottom.jsx'
+import StepsWithTitlesOnTheSide from './previews/StepsWithTitlesOnTheSide.jsx'
+import TableWithAvatars from './previews/TableWithAvatars.jsx'
+import TableWithAvatarsAndEditDelete from './previews/TableWithAvatarsAndEditDelete.jsx'
+import TableWithBorderedColumn from './previews/TableWithBorderedColumn.jsx'
+import TableWithCheckbox from './previews/TableWithCheckbox.jsx'
+import TableWithEditAndDelete from './previews/TableWithEditAndDelete.jsx'
+import TableWithManageButton from './previews/TableWithManageButton.jsx'
+import TableWithTabs from './previews/TableWithTabs.jsx'
+import TabsWithBackgroundColor from './previews/TabsWithBackgroundColor.jsx'
+import TabsWithIcons from './previews/TabsWithIcons.jsx'
+import TabsWithoutUnderline from './previews/TabsWithoutUnderline.jsx'
+import TeamMembersCard from './previews/TeamMembersCard.jsx'
+import TeamSectionCentredWithLargeImages from './previews/TeamSectionCentredWithLargeImages.jsx'
+import TeamSectionWithAvatars from './previews/TeamSectionWithAvatars.jsx'
+import TeamSectionWithCentredAvatars from './previews/TeamSectionWithCentredAvatars.jsx'
+import TeamSectionWithInfo from './previews/TeamSectionWithInfo.jsx'
+import TeamSectionWithVerticalImages from './previews/TeamSectionWithVerticalImages.jsx'
+import TeamWithLargeAvatars from './previews/TeamWithLargeAvatars.jsx'
+import TestimonialCentered from './previews/TestimonialCentered.jsx'
+import TestimonialCenteredWithLogo from './previews/TestimonialCenteredWithLogo.jsx'
+import TestimonialGrid from './previews/TestimonialGrid.jsx'
+import TestimonialWithBackgroundColor from './previews/TestimonialWithBackgroundColor.jsx'
+import TestimonialWithSlider from './previews/TestimonialWithSlider.jsx'
+import TestimonialWithThreeColumn from './previews/TestimonialWithThreeColumn.jsx'
+import UploadFileCard from './previews/UploadFileCard.jsx'
+import UsernameInput from './previews/UsernameInput.jsx'
+import VerificationCodeInput from './previews/VerificationCodeInput.jsx'
+import VerticalTabs from './previews/VerticalTabs.jsx'
+import VerticalTabsWithoutLine from './previews/VerticalTabsWithoutLine.jsx'
+import WebsiteUrlInput from './previews/WebsiteUrlInput.jsx'
+import WithPreviousAndNextLink from './previews/WithPreviousAndNextLink.jsx'
+
+const components = {
+  Page404PageWithImage,
+  Page404PageWithListOfItems,
+  Page404PageWithLogo,
+  AlertDanger,
+  AlertDangerWithDescription,
+  AlertDangerWithLink,
+  AlertInfo,
+  AlertInfoLinear,
+  AlertInfoWithLink,
+  AlertSuccess,
+  AlertSuccessWithLink,
+  AlertWarning,
+  AlertWarningWithBorder,
+  AmountInput,
+  AmountInputWithSelectInRight,
+  AvatarGroupStacked,
+  AvatarGroupStackedWithJoinButton,
+  AvatarGroupStackedWithText,
+  AvatarWithLinkAndButton,
+  Avatars,
+  AvatarsWithInfo,
+  AvatarsWithNotification,
+  BannerCentred,
+  BannerCentredWithBadge,
+  BannerCentredWithLink,
+  BannerWithLink,
+  BannerWithUnderlineLink,
+  Basic404Page,
+  BasicContextMenu,
+  BasicFeatureSection,
+  BasicLoginForm,
+  BasicPricingSection,
+  BasicRadioGroup,
+  BasicStats,
+  BasicSteps,
+  BasicTable,
+  BasicTabs,
+  BlogCardsPrimary,
+  BlogCardsSecondary,
+  BlogSectionWithPostsCard,
+  ButtonsWithIconAndText,
+  ButtonsWithIcons,
+  ButtonsWithLowColors,
+  ButtonsWithShadow,
+  Centered404PageWithTowLinks,
+  CenteredContactSection,
+  CentredCta,
+  CentredCtaWithTwoLinks,
+  ColorPickerRadioGroup,
+  ContactSectionWithDividedColumns,
+  ContactSectionWithFourColumns,
+  ContactSectionWithImage,
+  ContactSectionWithInfo,
+  ContextMenuWithSubmenu,
+  CtaWithBlueBackground,
+  CtaWithImage,
+  CtaWithLinkOnTheSide,
+  DarkContactSection,
+  DarkCta,
+  DarkCtaWithLinkOnTheSide,
+  DarkFaqsWithDividedRows,
+  DarkFeatureSection,
+  DarkFooter,
+  DarkHeroSection,
+  DarkLogoGrid,
+  DarkPricingSectionWithTwoPlans,
+  DarkStats,
+  DarkStatsWithInCards,
+  DefaultButtonsWithIcons,
+  DefaultSelectMenu,
+  DisabledButtons,
+  DividedFeatureSection,
+  DividedLogoGrid,
+  EmailInput,
+  FaqsWithDividedRows,
+  FaqsWithSearchBox,
+  FaqsWithShadow,
+  FaqsWithTitles,
+  FeatureSectionWithCards,
+  FeatureSectionWithCheckIcons,
+  FeatureSectionWithImage,
+  FeatureSectionWithLinks,
+  FeatureSectionWithThreeColumns,
+  FooterWithDescriptionAndTitle,
+  FooterWithDownloadLinks,
+  FooterWithNewsletter,
+  HeroSectionWithBottomImage,
+  HeroSectionWithGradientBackground,
+  HeroSectionWithImage,
+  HeroSectionWithLogoClouds,
+  HeroSectionWithVideo,
+  IntegrationsCard,
+  JobCards,
+  JobCardsWithInformation,
+  LoginWithGoogleProvider,
+  LoginWithGridProvider,
+  LoginWithListedProvider,
+  LogoGridWithHeader,
+  LogoGridWithTitle,
+  LogoGridWithTowRows,
+  ModalDanger,
+  ModalDialog,
+  ModalSuccess,
+  ModalWithNewsletter,
+  ModalWithShareableLink,
+  NavbarWithAdvencedDropdown,
+  NavbarWithBlackButton,
+  NavbarWithDividedItems,
+  NavbarWithSearchBox,
+  NavbarWithSubmenu,
+  NewsletterStacked,
+  NewsletterWithAGradientBackground,
+  NewsletterWithBackground,
+  NewsletterWithDescription,
+  PaginationStacked,
+  PaginationWithCurrentPageInfo,
+  PaginationWithPreviousAndNextLink,
+  PasswordInput,
+  PaymentCardsRadioGroup,
+  PhoneNumberInput,
+  PricingCardsRadioGroup,
+  PricingSectionWithBadge,
+  PricingSectionWithOnePlan,
+  PricingSectionWithTable,
+  PricingSectionWithTwoPlans,
+  PrimaryButtons,
+  PrimaryCta,
+  PrimaryFaqs,
+  PrimaryFooter,
+  PrimaryHeroSection,
+  PrimaryNavbar,
+  PrimaryNewsletter,
+  PrimarySelectMenu,
+  RoundedButtons,
+  SearchInput,
+  SearchInputWithSelectMenu,
+  SearchInputWithSelectMenuAndAvatars,
+  SecondaryButtons,
+  SecondaryCta,
+  SecondaryFaqs,
+  SecondaryFooter,
+  SecondaryHeroSection,
+  SecondaryNavbar,
+  SecondaryNewsletter,
+  SectionHeaderWithButtons,
+  SectionHeaderWithButtonsAndNavigations,
+  SectionHeaderWithDescriptionAndButton,
+  SectionHeaderWithNavigations,
+  SectionHeaderWithSearchBox,
+  SelectMenuWithAvatars,
+  SelectMenuWithIcon,
+  SelectMenuWithSearchBox,
+  SelectMenuWithSearchBox2,
+  SidebarWithItemsInBottom,
+  SidebarWithListOfLessons,
+  SidebarWithSubmenu,
+  SidebarWithTooltip,
+  SignUpWithGoogleProvider,
+  SignUpWithLeftBackground,
+  SignUpWithNameEmailPasswordOrGoogle,
+  StatsOnTheSide,
+  StatsWithImage,
+  StatsWithTitleAndDescription,
+  StatusSelectMenu,
+  StepsWithChevrons,
+  StepsWithLine,
+  StepsWithTitlesOnTheBottom,
+  StepsWithTitlesOnTheSide,
+  TableWithAvatars,
+  TableWithAvatarsAndEditDelete,
+  TableWithBorderedColumn,
+  TableWithCheckbox,
+  TableWithEditAndDelete,
+  TableWithManageButton,
+  TableWithTabs,
+  TabsWithBackgroundColor,
+  TabsWithIcons,
+  TabsWithoutUnderline,
+  TeamMembersCard,
+  TeamSectionCentredWithLargeImages,
+  TeamSectionWithAvatars,
+  TeamSectionWithCentredAvatars,
+  TeamSectionWithInfo,
+  TeamSectionWithVerticalImages,
+  TeamWithLargeAvatars,
+  TestimonialCentered,
+  TestimonialCenteredWithLogo,
+  TestimonialGrid,
+  TestimonialWithBackgroundColor,
+  TestimonialWithSlider,
+  TestimonialWithThreeColumn,
+  UploadFileCard,
+  UsernameInput,
+  VerificationCodeInput,
+  VerticalTabs,
+  VerticalTabsWithoutLine,
+  WebsiteUrlInput,
+  WithPreviousAndNextLink,
 }
+
+const legacyComponents = {
+  TKPreview404PageWithImage: WithPreviousAndNextLink,
+  TKPreview404PageWithListOfItems: WithPreviousAndNextLink,
+  TKPreview404PageWithLogo: WithPreviousAndNextLink,
+  TKPreviewAlertDanger: WithPreviousAndNextLink,
+  TKPreviewAlertDangerWithDescription: WithPreviousAndNextLink,
+  TKPreviewAlertDangerWithLink: WithPreviousAndNextLink,
+  TKPreviewAlertInfo: WithPreviousAndNextLink,
+  TKPreviewAlertInfoLinear: WithPreviousAndNextLink,
+  TKPreviewAlertInfoWithLink: WithPreviousAndNextLink,
+  TKPreviewAlertSuccess: WithPreviousAndNextLink,
+  TKPreviewAlertSuccessWithLink: WithPreviousAndNextLink,
+  TKPreviewAlertWarning: WithPreviousAndNextLink,
+  TKPreviewAlertWarningWithBorder: WithPreviousAndNextLink,
+  TKPreviewAmountInput: WithPreviousAndNextLink,
+  TKPreviewAmountInputWithSelectInRight: WithPreviousAndNextLink,
+  TKPreviewAvatarGroupStacked: WithPreviousAndNextLink,
+  TKPreviewAvatarGroupStackedWithJoinButton: WithPreviousAndNextLink,
+  TKPreviewAvatarGroupStackedWithText: WithPreviousAndNextLink,
+  TKPreviewAvatarWithLinkAndButton: WithPreviousAndNextLink,
+  TKPreviewAvatars: WithPreviousAndNextLink,
+  TKPreviewAvatarsWithInfo: WithPreviousAndNextLink,
+  TKPreviewAvatarsWithNotification: WithPreviousAndNextLink,
+  TKPreviewBannerCentred: WithPreviousAndNextLink,
+  TKPreviewBannerCentredWithBadge: WithPreviousAndNextLink,
+  TKPreviewBannerCentredWithLink: WithPreviousAndNextLink,
+  TKPreviewBannerWithLink: WithPreviousAndNextLink,
+  TKPreviewBannerWithUnderlineLink: WithPreviousAndNextLink,
+  TKPreviewBasic404Page: WithPreviousAndNextLink,
+  TKPreviewBasicContextMenu: WithPreviousAndNextLink,
+  TKPreviewBasicFeatureSection: WithPreviousAndNextLink,
+  TKPreviewBasicLoginForm: WithPreviousAndNextLink,
+  TKPreviewBasicPricingSection: WithPreviousAndNextLink,
+  TKPreviewBasicRadioGroup: WithPreviousAndNextLink,
+  TKPreviewBasicStats: WithPreviousAndNextLink,
+  TKPreviewBasicSteps: WithPreviousAndNextLink,
+  TKPreviewBasicTable: WithPreviousAndNextLink,
+  TKPreviewBasicTabs: WithPreviousAndNextLink,
+  TKPreviewBlogCardsPrimary: WithPreviousAndNextLink,
+  TKPreviewBlogCardsSecondary: WithPreviousAndNextLink,
+  TKPreviewBlogSectionWithPostsCard: WithPreviousAndNextLink,
+  TKPreviewButtonsWithIconAndText: WithPreviousAndNextLink,
+  TKPreviewButtonsWithIcons: WithPreviousAndNextLink,
+  TKPreviewButtonsWithLowColors: WithPreviousAndNextLink,
+  TKPreviewButtonsWithShadow: WithPreviousAndNextLink,
+  TKPreviewCentered404PageWithTowLinks: WithPreviousAndNextLink,
+  TKPreviewCenteredContactSection: WithPreviousAndNextLink,
+  TKPreviewCentredCta: WithPreviousAndNextLink,
+  TKPreviewCentredCtaWithTwoLinks: WithPreviousAndNextLink,
+  TKPreviewColorPickerRadioGroup: WithPreviousAndNextLink,
+  TKPreviewContactSectionWithDividedColumns: WithPreviousAndNextLink,
+  TKPreviewContactSectionWithFourColumns: WithPreviousAndNextLink,
+  TKPreviewContactSectionWithImage: WithPreviousAndNextLink,
+  TKPreviewContactSectionWithInfo: WithPreviousAndNextLink,
+  TKPreviewContextMenuWithSubmenu: WithPreviousAndNextLink,
+  TKPreviewCtaWithBlueBackground: WithPreviousAndNextLink,
+  TKPreviewCtaWithImage: WithPreviousAndNextLink,
+  TKPreviewCtaWithLinkOnTheSide: WithPreviousAndNextLink,
+  TKPreviewDarkContactSection: WithPreviousAndNextLink,
+  TKPreviewDarkCta: WithPreviousAndNextLink,
+  TKPreviewDarkCtaWithLinkOnTheSide: WithPreviousAndNextLink,
+  TKPreviewDarkFaqsWithDividedRows: WithPreviousAndNextLink,
+  TKPreviewDarkFeatureSection: WithPreviousAndNextLink,
+  TKPreviewDarkFooter: WithPreviousAndNextLink,
+  TKPreviewDarkHeroSection: WithPreviousAndNextLink,
+  TKPreviewDarkLogoGrid: WithPreviousAndNextLink,
+  TKPreviewDarkPricingSectionWithTwoPlans: WithPreviousAndNextLink,
+  TKPreviewDarkStats: WithPreviousAndNextLink,
+  TKPreviewDarkStatsWithInCards: WithPreviousAndNextLink,
+  TKPreviewDefaultButtonsWithIcons: WithPreviousAndNextLink,
+  TKPreviewDefaultSelectMenu: WithPreviousAndNextLink,
+  TKPreviewDisabledButtons: WithPreviousAndNextLink,
+  TKPreviewDividedFeatureSection: WithPreviousAndNextLink,
+  TKPreviewDividedLogoGrid: WithPreviousAndNextLink,
+  TKPreviewEmailInput: WithPreviousAndNextLink,
+  TKPreviewFaqsWithDividedRows: WithPreviousAndNextLink,
+  TKPreviewFaqsWithSearchBox: WithPreviousAndNextLink,
+  TKPreviewFaqsWithShadow: WithPreviousAndNextLink,
+  TKPreviewFaqsWithTitles: WithPreviousAndNextLink,
+  TKPreviewFeatureSectionWithCards: WithPreviousAndNextLink,
+  TKPreviewFeatureSectionWithCheckIcons: WithPreviousAndNextLink,
+  TKPreviewFeatureSectionWithImage: WithPreviousAndNextLink,
+  TKPreviewFeatureSectionWithLinks: WithPreviousAndNextLink,
+  TKPreviewFeatureSectionWithThreeColumns: WithPreviousAndNextLink,
+  TKPreviewFooterWithDescriptionAndTitle: WithPreviousAndNextLink,
+  TKPreviewFooterWithDownloadLinks: WithPreviousAndNextLink,
+  TKPreviewFooterWithNewsletter: WithPreviousAndNextLink,
+  TKPreviewHeroSectionWithBottomImage: WithPreviousAndNextLink,
+  TKPreviewHeroSectionWithGradientBackground: WithPreviousAndNextLink,
+  TKPreviewHeroSectionWithImage: WithPreviousAndNextLink,
+  TKPreviewHeroSectionWithLogoClouds: WithPreviousAndNextLink,
+  TKPreviewHeroSectionWithVideo: WithPreviousAndNextLink,
+  TKPreviewIntegrationsCard: WithPreviousAndNextLink,
+  TKPreviewJobCards: WithPreviousAndNextLink,
+  TKPreviewJobCardsWithInformation: WithPreviousAndNextLink,
+  TKPreviewLoginWithGoogleProvider: WithPreviousAndNextLink,
+  TKPreviewLoginWithGridProvider: WithPreviousAndNextLink,
+  TKPreviewLoginWithListedProvider: WithPreviousAndNextLink,
+  TKPreviewLogoGridWithHeader: WithPreviousAndNextLink,
+  TKPreviewLogoGridWithTitle: WithPreviousAndNextLink,
+  TKPreviewLogoGridWithTowRows: WithPreviousAndNextLink,
+  TKPreviewModalDanger: WithPreviousAndNextLink,
+  TKPreviewModalDialog: WithPreviousAndNextLink,
+  TKPreviewModalSuccess: WithPreviousAndNextLink,
+  TKPreviewModalWithNewsletter: WithPreviousAndNextLink,
+  TKPreviewModalWithShareableLink: WithPreviousAndNextLink,
+  TKPreviewNavbarWithAdvencedDropdown: WithPreviousAndNextLink,
+  TKPreviewNavbarWithBlackButton: WithPreviousAndNextLink,
+  TKPreviewNavbarWithDividedItems: WithPreviousAndNextLink,
+  TKPreviewNavbarWithSearchBox: WithPreviousAndNextLink,
+  TKPreviewNavbarWithSubmenu: WithPreviousAndNextLink,
+  TKPreviewNewsletterStacked: WithPreviousAndNextLink,
+  TKPreviewNewsletterWithAGradientBackground: WithPreviousAndNextLink,
+  TKPreviewNewsletterWithBackground: WithPreviousAndNextLink,
+  TKPreviewNewsletterWithDescription: WithPreviousAndNextLink,
+  TKPreviewPaginationStacked: WithPreviousAndNextLink,
+  TKPreviewPaginationWithCurrentPageInfo: WithPreviousAndNextLink,
+  TKPreviewPaginationWithPreviousAndNextLink: WithPreviousAndNextLink,
+  TKPreviewPasswordInput: WithPreviousAndNextLink,
+  TKPreviewPaymentCardsRadioGroup: WithPreviousAndNextLink,
+  TKPreviewPhoneNumberInput: WithPreviousAndNextLink,
+  TKPreviewPricingCardsRadioGroup: WithPreviousAndNextLink,
+  TKPreviewPricingSectionWithBadge: WithPreviousAndNextLink,
+  TKPreviewPricingSectionWithOnePlan: WithPreviousAndNextLink,
+  TKPreviewPricingSectionWithTable: WithPreviousAndNextLink,
+  TKPreviewPricingSectionWithTwoPlans: WithPreviousAndNextLink,
+  TKPreviewPrimaryButtons: WithPreviousAndNextLink,
+  TKPreviewPrimaryCta: WithPreviousAndNextLink,
+  TKPreviewPrimaryFaqs: WithPreviousAndNextLink,
+  TKPreviewPrimaryFooter: WithPreviousAndNextLink,
+  TKPreviewPrimaryHeroSection: WithPreviousAndNextLink,
+  TKPreviewPrimaryNavbar: WithPreviousAndNextLink,
+  TKPreviewPrimaryNewsletter: WithPreviousAndNextLink,
+  TKPreviewPrimarySelectMenu: WithPreviousAndNextLink,
+  TKPreviewRoundedButtons: WithPreviousAndNextLink,
+  TKPreviewSearchInput: WithPreviousAndNextLink,
+  TKPreviewSearchInputWithSelectMenu: WithPreviousAndNextLink,
+  TKPreviewSearchInputWithSelectMenuAndAvatars: WithPreviousAndNextLink,
+  TKPreviewSecondaryButtons: WithPreviousAndNextLink,
+  TKPreviewSecondaryCta: WithPreviousAndNextLink,
+  TKPreviewSecondaryFaqs: WithPreviousAndNextLink,
+  TKPreviewSecondaryFooter: WithPreviousAndNextLink,
+  TKPreviewSecondaryHeroSection: WithPreviousAndNextLink,
+  TKPreviewSecondaryNavbar: WithPreviousAndNextLink,
+  TKPreviewSecondaryNewsletter: WithPreviousAndNextLink,
+  TKPreviewSectionHeaderWithButtons: WithPreviousAndNextLink,
+  TKPreviewSectionHeaderWithButtonsAndNavigations: WithPreviousAndNextLink,
+  TKPreviewSectionHeaderWithDescriptionAndButton: WithPreviousAndNextLink,
+  TKPreviewSectionHeaderWithNavigations: WithPreviousAndNextLink,
+  TKPreviewSectionHeaderWithSearchBox: WithPreviousAndNextLink,
+  TKPreviewSelectMenuWithAvatars: WithPreviousAndNextLink,
+  TKPreviewSelectMenuWithIcon: WithPreviousAndNextLink,
+  TKPreviewSelectMenuWithSearchBox: WithPreviousAndNextLink,
+  TKPreviewSelectMenuWithSearchBox2: WithPreviousAndNextLink,
+  TKPreviewSidebarWithItemsInBottom: WithPreviousAndNextLink,
+  TKPreviewSidebarWithListOfLessons: WithPreviousAndNextLink,
+  TKPreviewSidebarWithSubmenu: WithPreviousAndNextLink,
+  TKPreviewSidebarWithTooltip: WithPreviousAndNextLink,
+  TKPreviewSignUpWithGoogleProvider: WithPreviousAndNextLink,
+  TKPreviewSignUpWithLeftBackground: WithPreviousAndNextLink,
+  TKPreviewSignUpWithNameEmailPasswordOrGoogle: WithPreviousAndNextLink,
+  TKPreviewStatsOnTheSide: WithPreviousAndNextLink,
+  TKPreviewStatsWithImage: WithPreviousAndNextLink,
+  TKPreviewStatsWithTitleAndDescription: WithPreviousAndNextLink,
+  TKPreviewStatusSelectMenu: WithPreviousAndNextLink,
+  TKPreviewStepsWithChevrons: WithPreviousAndNextLink,
+  TKPreviewStepsWithLine: WithPreviousAndNextLink,
+  TKPreviewStepsWithTitlesOnTheBottom: WithPreviousAndNextLink,
+  TKPreviewStepsWithTitlesOnTheSide: WithPreviousAndNextLink,
+  TKPreviewTableWithAvatars: WithPreviousAndNextLink,
+  TKPreviewTableWithAvatarsAndEditDelete: WithPreviousAndNextLink,
+  TKPreviewTableWithBorderedColumn: WithPreviousAndNextLink,
+  TKPreviewTableWithCheckbox: WithPreviousAndNextLink,
+  TKPreviewTableWithEditAndDelete: WithPreviousAndNextLink,
+  TKPreviewTableWithManageButton: WithPreviousAndNextLink,
+  TKPreviewTableWithTabs: WithPreviousAndNextLink,
+  TKPreviewTabsWithBackgroundColor: WithPreviousAndNextLink,
+  TKPreviewTabsWithIcons: WithPreviousAndNextLink,
+  TKPreviewTabsWithoutUnderline: WithPreviousAndNextLink,
+  TKPreviewTeamMembersCard: WithPreviousAndNextLink,
+  TKPreviewTeamSectionCentredWithLargeImages: WithPreviousAndNextLink,
+  TKPreviewTeamSectionWithAvatars: WithPreviousAndNextLink,
+  TKPreviewTeamSectionWithCentredAvatars: WithPreviousAndNextLink,
+  TKPreviewTeamSectionWithInfo: WithPreviousAndNextLink,
+  TKPreviewTeamSectionWithVerticalImages: WithPreviousAndNextLink,
+  TKPreviewTeamWithLargeAvatars: WithPreviousAndNextLink,
+  TKPreviewTestimonialCentered: WithPreviousAndNextLink,
+  TKPreviewTestimonialCenteredWithLogo: WithPreviousAndNextLink,
+  TKPreviewTestimonialGrid: WithPreviousAndNextLink,
+  TKPreviewTestimonialWithBackgroundColor: WithPreviousAndNextLink,
+  TKPreviewTestimonialWithSlider: WithPreviousAndNextLink,
+  TKPreviewTestimonialWithThreeColumn: WithPreviousAndNextLink,
+  TKPreviewUploadFileCard: WithPreviousAndNextLink,
+  TKPreviewUsernameInput: WithPreviousAndNextLink,
+  TKPreviewVerificationCodeInput: WithPreviousAndNextLink,
+  TKPreviewVerticalTabs: WithPreviousAndNextLink,
+  TKPreviewVerticalTabsWithoutLine: WithPreviousAndNextLink,
+  TKPreviewWebsiteUrlInput: WithPreviousAndNextLink,
+  TKPreviewWithPreviousAndNextLink: WithPreviousAndNextLink,
+}
+
+const fuiLegacyComponents = {
+  FUI404PageWithImage: WithPreviousAndNextLink,
+  FUI404PageWithListOfItems: WithPreviousAndNextLink,
+  FUI404PageWithLogo: WithPreviousAndNextLink,
+  FUIAlertDanger: WithPreviousAndNextLink,
+  FUIAlertDangerWithDescription: WithPreviousAndNextLink,
+  FUIAlertDangerWithLink: WithPreviousAndNextLink,
+  FUIAlertInfo: WithPreviousAndNextLink,
+  FUIAlertInfoLinear: WithPreviousAndNextLink,
+  FUIAlertInfoWithLink: WithPreviousAndNextLink,
+  FUIAlertSuccess: WithPreviousAndNextLink,
+  FUIAlertSuccessWithLink: WithPreviousAndNextLink,
+  FUIAlertWarning: WithPreviousAndNextLink,
+  FUIAlertWarningWithBorder: WithPreviousAndNextLink,
+  FUIAmountInput: WithPreviousAndNextLink,
+  FUIAmountInputWithSelectInRight: WithPreviousAndNextLink,
+  FUIAvatarGroupStacked: WithPreviousAndNextLink,
+  FUIAvatarGroupStackedWithJoinButton: WithPreviousAndNextLink,
+  FUIAvatarGroupStackedWithText: WithPreviousAndNextLink,
+  FUIAvatarWithLinkAndButton: WithPreviousAndNextLink,
+  FUIAvatars: WithPreviousAndNextLink,
+  FUIAvatarsWithInfo: WithPreviousAndNextLink,
+  FUIAvatarsWithNotification: WithPreviousAndNextLink,
+  FUIBannerCentred: WithPreviousAndNextLink,
+  FUIBannerCentredWithBadge: WithPreviousAndNextLink,
+  FUIBannerCentredWithLink: WithPreviousAndNextLink,
+  FUIBannerWithLink: WithPreviousAndNextLink,
+  FUIBannerWithUnderlineLink: WithPreviousAndNextLink,
+  FUIBasic404Page: WithPreviousAndNextLink,
+  FUIBasicContextMenu: WithPreviousAndNextLink,
+  FUIBasicFeatureSection: WithPreviousAndNextLink,
+  FUIBasicLoginForm: WithPreviousAndNextLink,
+  FUIBasicPricingSection: WithPreviousAndNextLink,
+  FUIBasicRadioGroup: WithPreviousAndNextLink,
+  FUIBasicStats: WithPreviousAndNextLink,
+  FUIBasicSteps: WithPreviousAndNextLink,
+  FUIBasicTable: WithPreviousAndNextLink,
+  FUIBasicTabs: WithPreviousAndNextLink,
+  FUIBlogCardsPrimary: WithPreviousAndNextLink,
+  FUIBlogCardsSecondary: WithPreviousAndNextLink,
+  FUIBlogSectionWithPostsCard: WithPreviousAndNextLink,
+  FUIButtonsWithIconAndText: WithPreviousAndNextLink,
+  FUIButtonsWithIcons: WithPreviousAndNextLink,
+  FUIButtonsWithLowColors: WithPreviousAndNextLink,
+  FUIButtonsWithShadow: WithPreviousAndNextLink,
+  FUICentered404PageWithTowLinks: WithPreviousAndNextLink,
+  FUICenteredContactSection: WithPreviousAndNextLink,
+  FUICentredCta: WithPreviousAndNextLink,
+  FUICentredCtaWithTwoLinks: WithPreviousAndNextLink,
+  FUIColorPickerRadioGroup: WithPreviousAndNextLink,
+  FUIContactSectionWithDividedColumns: WithPreviousAndNextLink,
+  FUIContactSectionWithFourColumns: WithPreviousAndNextLink,
+  FUIContactSectionWithImage: WithPreviousAndNextLink,
+  FUIContactSectionWithInfo: WithPreviousAndNextLink,
+  FUIContextMenuWithSubmenu: WithPreviousAndNextLink,
+  FUICtaWithBlueBackground: WithPreviousAndNextLink,
+  FUICtaWithImage: WithPreviousAndNextLink,
+  FUICtaWithLinkOnTheSide: WithPreviousAndNextLink,
+  FUIDarkContactSection: WithPreviousAndNextLink,
+  FUIDarkCta: WithPreviousAndNextLink,
+  FUIDarkCtaWithLinkOnTheSide: WithPreviousAndNextLink,
+  FUIDarkFaqsWithDividedRows: WithPreviousAndNextLink,
+  FUIDarkFeatureSection: WithPreviousAndNextLink,
+  FUIDarkFooter: WithPreviousAndNextLink,
+  FUIDarkHeroSection: WithPreviousAndNextLink,
+  FUIDarkLogoGrid: WithPreviousAndNextLink,
+  FUIDarkPricingSectionWithTwoPlans: WithPreviousAndNextLink,
+  FUIDarkStats: WithPreviousAndNextLink,
+  FUIDarkStatsWithInCards: WithPreviousAndNextLink,
+  FUIDefaultButtonsWithIcons: WithPreviousAndNextLink,
+  FUIDefaultSelectMenu: WithPreviousAndNextLink,
+  FUIDisabledButtons: WithPreviousAndNextLink,
+  FUIDividedFeatureSection: WithPreviousAndNextLink,
+  FUIDividedLogoGrid: WithPreviousAndNextLink,
+  FUIEmailInput: WithPreviousAndNextLink,
+  FUIFaqsWithDividedRows: WithPreviousAndNextLink,
+  FUIFaqsWithSearchBox: WithPreviousAndNextLink,
+  FUIFaqsWithShadow: WithPreviousAndNextLink,
+  FUIFaqsWithTitles: WithPreviousAndNextLink,
+  FUIFeatureSectionWithCards: WithPreviousAndNextLink,
+  FUIFeatureSectionWithCheckIcons: WithPreviousAndNextLink,
+  FUIFeatureSectionWithImage: WithPreviousAndNextLink,
+  FUIFeatureSectionWithLinks: WithPreviousAndNextLink,
+  FUIFeatureSectionWithThreeColumns: WithPreviousAndNextLink,
+  FUIFooterWithDescriptionAndTitle: WithPreviousAndNextLink,
+  FUIFooterWithDownloadLinks: WithPreviousAndNextLink,
+  FUIFooterWithNewsletter: WithPreviousAndNextLink,
+  FUIHeroSectionWithBottomImage: WithPreviousAndNextLink,
+  FUIHeroSectionWithGradientBackground: WithPreviousAndNextLink,
+  FUIHeroSectionWithImage: WithPreviousAndNextLink,
+  FUIHeroSectionWithLogoClouds: WithPreviousAndNextLink,
+  FUIHeroSectionWithVideo: WithPreviousAndNextLink,
+  FUIIntegrationsCard: WithPreviousAndNextLink,
+  FUIJobCards: WithPreviousAndNextLink,
+  FUIJobCardsWithInformation: WithPreviousAndNextLink,
+  FUILoginWithGoogleProvider: WithPreviousAndNextLink,
+  FUILoginWithGridProvider: WithPreviousAndNextLink,
+  FUILoginWithListedProvider: WithPreviousAndNextLink,
+  FUILogoGridWithHeader: WithPreviousAndNextLink,
+  FUILogoGridWithTitle: WithPreviousAndNextLink,
+  FUILogoGridWithTowRows: WithPreviousAndNextLink,
+  FUIModalDanger: WithPreviousAndNextLink,
+  FUIModalDialog: WithPreviousAndNextLink,
+  FUIModalSuccess: WithPreviousAndNextLink,
+  FUIModalWithNewsletter: WithPreviousAndNextLink,
+  FUIModalWithShareableLink: WithPreviousAndNextLink,
+  FUINavbarWithAdvencedDropdown: WithPreviousAndNextLink,
+  FUINavbarWithBlackButton: WithPreviousAndNextLink,
+  FUINavbarWithDividedItems: WithPreviousAndNextLink,
+  FUINavbarWithSearchBox: WithPreviousAndNextLink,
+  FUINavbarWithSubmenu: WithPreviousAndNextLink,
+  FUINewsletterStacked: WithPreviousAndNextLink,
+  FUINewsletterWithAGradientBackground: WithPreviousAndNextLink,
+  FUINewsletterWithBackground: WithPreviousAndNextLink,
+  FUINewsletterWithDescription: WithPreviousAndNextLink,
+  FUIPaginationStacked: WithPreviousAndNextLink,
+  FUIPaginationWithCurrentPageInfo: WithPreviousAndNextLink,
+  FUIPaginationWithPreviousAndNextLink: WithPreviousAndNextLink,
+  FUIPasswordInput: WithPreviousAndNextLink,
+  FUIPaymentCardsRadioGroup: WithPreviousAndNextLink,
+  FUIPhoneNumberInput: WithPreviousAndNextLink,
+  FUIPricingCardsRadioGroup: WithPreviousAndNextLink,
+  FUIPricingSectionWithBadge: WithPreviousAndNextLink,
+  FUIPricingSectionWithOnePlan: WithPreviousAndNextLink,
+  FUIPricingSectionWithTable: WithPreviousAndNextLink,
+  FUIPricingSectionWithTwoPlans: WithPreviousAndNextLink,
+  FUIPrimaryButtons: WithPreviousAndNextLink,
+  FUIPrimaryCta: WithPreviousAndNextLink,
+  FUIPrimaryFaqs: WithPreviousAndNextLink,
+  FUIPrimaryFooter: WithPreviousAndNextLink,
+  FUIPrimaryHeroSection: WithPreviousAndNextLink,
+  FUIPrimaryNavbar: WithPreviousAndNextLink,
+  FUIPrimaryNewsletter: WithPreviousAndNextLink,
+  FUIPrimarySelectMenu: WithPreviousAndNextLink,
+  FUIRoundedButtons: WithPreviousAndNextLink,
+  FUISearchInput: WithPreviousAndNextLink,
+  FUISearchInputWithSelectMenu: WithPreviousAndNextLink,
+  FUISearchInputWithSelectMenuAndAvatars: WithPreviousAndNextLink,
+  FUISecondaryButtons: WithPreviousAndNextLink,
+  FUISecondaryCta: WithPreviousAndNextLink,
+  FUISecondaryFaqs: WithPreviousAndNextLink,
+  FUISecondaryFooter: WithPreviousAndNextLink,
+  FUISecondaryHeroSection: WithPreviousAndNextLink,
+  FUISecondaryNavbar: WithPreviousAndNextLink,
+  FUISecondaryNewsletter: WithPreviousAndNextLink,
+  FUISectionHeaderWithButtons: WithPreviousAndNextLink,
+  FUISectionHeaderWithButtonsAndNavigations: WithPreviousAndNextLink,
+  FUISectionHeaderWithDescriptionAndButton: WithPreviousAndNextLink,
+  FUISectionHeaderWithNavigations: WithPreviousAndNextLink,
+  FUISectionHeaderWithSearchBox: WithPreviousAndNextLink,
+  FUISelectMenuWithAvatars: WithPreviousAndNextLink,
+  FUISelectMenuWithIcon: WithPreviousAndNextLink,
+  FUISelectMenuWithSearchBox: WithPreviousAndNextLink,
+  FUISelectMenuWithSearchBox2: WithPreviousAndNextLink,
+  FUISidebarWithItemsInBottom: WithPreviousAndNextLink,
+  FUISidebarWithListOfLessons: WithPreviousAndNextLink,
+  FUISidebarWithSubmenu: WithPreviousAndNextLink,
+  FUISidebarWithTooltip: WithPreviousAndNextLink,
+  FUISignUpWithGoogleProvider: WithPreviousAndNextLink,
+  FUISignUpWithLeftBackground: WithPreviousAndNextLink,
+  FUISignUpWithNameEmailPasswordOrGoogle: WithPreviousAndNextLink,
+  FUIStatsOnTheSide: WithPreviousAndNextLink,
+  FUIStatsWithImage: WithPreviousAndNextLink,
+  FUIStatsWithTitleAndDescription: WithPreviousAndNextLink,
+  FUIStatusSelectMenu: WithPreviousAndNextLink,
+  FUIStepsWithChevrons: WithPreviousAndNextLink,
+  FUIStepsWithLine: WithPreviousAndNextLink,
+  FUIStepsWithTitlesOnTheBottom: WithPreviousAndNextLink,
+  FUIStepsWithTitlesOnTheSide: WithPreviousAndNextLink,
+  FUITableWithAvatars: WithPreviousAndNextLink,
+  FUITableWithAvatarsAndEditDelete: WithPreviousAndNextLink,
+  FUITableWithBorderedColumn: WithPreviousAndNextLink,
+  FUITableWithCheckbox: WithPreviousAndNextLink,
+  FUITableWithEditAndDelete: WithPreviousAndNextLink,
+  FUITableWithManageButton: WithPreviousAndNextLink,
+  FUITableWithTabs: WithPreviousAndNextLink,
+  FUITabsWithBackgroundColor: WithPreviousAndNextLink,
+  FUITabsWithIcons: WithPreviousAndNextLink,
+  FUITabsWithoutUnderline: WithPreviousAndNextLink,
+  FUITeamMembersCard: WithPreviousAndNextLink,
+  FUITeamSectionCentredWithLargeImages: WithPreviousAndNextLink,
+  FUITeamSectionWithAvatars: WithPreviousAndNextLink,
+  FUITeamSectionWithCentredAvatars: WithPreviousAndNextLink,
+  FUITeamSectionWithInfo: WithPreviousAndNextLink,
+  FUITeamSectionWithVerticalImages: WithPreviousAndNextLink,
+  FUITeamWithLargeAvatars: WithPreviousAndNextLink,
+  FUITestimonialCentered: WithPreviousAndNextLink,
+  FUITestimonialCenteredWithLogo: WithPreviousAndNextLink,
+  FUITestimonialGrid: WithPreviousAndNextLink,
+  FUITestimonialWithBackgroundColor: WithPreviousAndNextLink,
+  FUITestimonialWithSlider: WithPreviousAndNextLink,
+  FUITestimonialWithThreeColumn: WithPreviousAndNextLink,
+  FUIUploadFileCard: WithPreviousAndNextLink,
+  FUIUsernameInput: WithPreviousAndNextLink,
+  FUIVerificationCodeInput: WithPreviousAndNextLink,
+  FUIVerticalTabs: WithPreviousAndNextLink,
+  FUIVerticalTabsWithoutLine: WithPreviousAndNextLink,
+  FUIWebsiteUrlInput: WithPreviousAndNextLink,
+  FUIWithPreviousAndNextLink: WithPreviousAndNextLink,
+}
+
+export default { ...components, ...legacyComponents, ...fuiLegacyComponents }

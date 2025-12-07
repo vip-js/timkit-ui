@@ -1,0 +1,18 @@
+{
+  "name": "upload-file-card",
+  "type": "registry:block",
+  "description": "Upload file card",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "cards"
+    ],
+    "mdxBody": "\n<FUIUploadFileCard />\n",
+    "category": "cards",
+    "isActive": false
+  },
+  "categories": [
+    "cards"
+  ]
+}

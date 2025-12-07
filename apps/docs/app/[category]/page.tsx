@@ -1,13 +1,13 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
-import { getCategories, getCategoryBySlug } from "@/lib/catalog"
-import { getComponentsByNames } from "@/lib/utils"
-import ComponentCard from "@/components/component-card"
-import ComponentExample from "@/components/component-example"
-import Cta from "@/components/cta"
-import PageGrid from "@/components/page-grid"
-import PageHeader from "@/components/page-header"
+import { getCategories, getCategoryBySlug } from '@/lib/catalog'
+import { getComponentsByNames } from '@/lib/utils'
+import ComponentCard from '@/components/component-card'
+import ComponentExample from '@/components/component-example'
+import Cta from '@/components/cta'
+import PageGrid from '@/components/page-grid'
+import PageHeader from '@/components/page-header'
 
 type Props = {
   params: Promise<{ category: string }>
@@ -21,19 +21,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   // Get components to check count
-  const components = getComponentsByNames(
-    category.components.map((item) => item.name)
-  )
+  const components = getComponentsByNames(category.components.map((item) => item.name))
 
   const isSingleComponent = components.length === 1
 
   // Custom title and description for event-calendar
-  if (category.slug === "event-calendar") {
+  if (category.slug === 'event-calendar') {
     return {
-      title:
-        "Event calendar component built with React and Tailwind CSS - Timkit UI",
+      title: 'Event calendar component built with React and Tailwind CSS - Timkit UI',
       description:
-        "An event calendar component built with React and Tailwind CSS. Originally built in v0 and currently in early alpha stage.",
+        'An event calendar component built with React and Tailwind CSS. Originally built in v0 and currently in early alpha stage.',
     }
   }
 
@@ -60,18 +57,15 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  const components = getComponentsByNames(
-    category.components.map((item) => item.name)
-  )
+  const components = getComponentsByNames(category.components.map((item) => item.name))
 
   // Determine the description text based on category
   const getDescriptionText = () => {
     // Special case for event-calendar
-    if (category.slug === "event-calendar") {
+    if (category.slug === 'event-calendar') {
       return (
         <span className="block text-balance">
-          An event calendar component built with React and Tailwind CSS.
-          Originally built in{" "}
+          An event calendar component built with React and Tailwind CSS. Originally built in{' '}
           <a
             href="https://v0.dev"
             target="_blank"
@@ -79,8 +73,8 @@ export default async function Page({ params }: Props) {
             className="text-primary hover:underline"
           >
             v0
-          </a>{" "}
-          and currently in early alpha stage.{" "}
+          </a>{' '}
+          and currently in early alpha stage.{' '}
           <a
             href="https://github.com/origin-space/event-calendar"
             target="_blank"

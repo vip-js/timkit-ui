@@ -1,11 +1,14 @@
-"use client"
+'use client'
 
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-export default ({
-  mdxSource,
-  components,
-}: {
+type Props = {
   mdxSource: MDXRemoteSerializeResult
   components?: any
-}) => <MDXRemote {...mdxSource} components={components} />
+}
+
+const MDXRemoteClient = ({ mdxSource, components }: Props) => (
+  <MDXRemote {...mdxSource} components={components} />
+)
+
+export default MDXRemoteClient

@@ -1,0 +1,19 @@
+{
+  "name": "default-buttons-with-icons",
+  "type": "registry:block",
+  "description": "Default Buttons with icons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUIDefaultButtonsWithIcons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

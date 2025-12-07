@@ -1,7 +1,7 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
-import CopyLayout from "@/components/copy-layout"
+import CopyLayout from '@/components/copy-layout'
 
 interface CardProps {
   card: {

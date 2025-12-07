@@ -1,11 +1,12 @@
-"use client"
+'use client'
 
-import { useId, useState } from "react"
-import { RadioGroup, RadioGroupItem } from "@timkit/web"
+import { useId, useState } from 'react'
+
+import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 
 export default function AppToggle() {
   const id = useId()
-  const [selectedValue, setSelectedValue] = useState("on")
+  const [selectedValue, setSelectedValue] = useState('on')
 
   return (
     <div className="bg-input/50 inline-flex h-8 rounded-md p-0.5">

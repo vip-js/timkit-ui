@@ -1,12 +1,15 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "jsx": "preserve",
-        "jsxImportSource": "vue",
-    },
-    "include": [
-        "src",
-        "env.d.ts",
-    ]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "declaration": false,
+    "declarationMap": false,
+    "composite": false
+  },
+  "include": [
+    "src",
+    "env.d.ts",
+    "../shared/src"
+  ]
 }

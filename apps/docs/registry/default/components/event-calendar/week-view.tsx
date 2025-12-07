@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import React, { useMemo } from "react"
-import { cn } from "@timkit/shared"
+import React, { useMemo } from 'react'
+import { cn } from '@timui/shared'
 import {
   addHours,
   areIntervalsOverlapping,
@@ -17,7 +17,7 @@ import {
   isToday,
   startOfDay,
   startOfWeek,
-} from "date-fns"
+} from 'date-fns'
 
 import {
   DraggableEvent,
@@ -27,11 +27,8 @@ import {
   useCurrentTimeIndicator,
   WeekCellsHeight,
   type CalendarEvent,
-} from "@/registry/default/components/event-calendar"
-import {
-  EndHour,
-  StartHour,
-} from "@/registry/default/components/event-calendar/constants"
+} from '@/registry/default/components/event-calendar'
+import { EndHour, StartHour } from '@/registry/default/components/event-calendar/constants'
 
 interface WeekViewProps {
   currentDate: Date
@@ -49,22 +46,14 @@ interface PositionedEvent {
   zIndex: number
 }
 
-export function WeekView({
-  currentDate,
-  events,
-  onEventSelect,
-  onEventCreate,
-}: WeekViewProps) {
+export function WeekView({ currentDate, events, onEventSelect, onEventCreate }: WeekViewProps) {
   const days = useMemo(() => {
     const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 })
     const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 })
     return eachDayOfInterval({ start: weekStart, end: weekEnd })
   }, [currentDate])
 
-  const weekStart = useMemo(
-    () => startOfWeek(currentDate, { weekStartsOn: 0 }),
-    [currentDate]
-  )
+  const weekStart = useMemo(() => startOfWeek(currentDate, { weekStartsOn: 0 }), [currentDate])
 
   const hours = useMemo(() => {
     const dayStart = startOfDay(currentDate)
@@ -142,13 +131,10 @@ export function WeekView({
 
         // Adjust start and end times if they're outside this day
         const adjustedStart = isSameDay(day, eventStart) ? eventStart : dayStart
-        const adjustedEnd = isSameDay(day, eventEnd)
-          ? eventEnd
-          : addHours(dayStart, 24)
+        const adjustedEnd = isSameDay(day, eventEnd) ? eventEnd : addHours(dayStart, 24)
 
         // Calculate top position and height
-        const startHour =
-          getHours(adjustedStart) + getMinutes(adjustedStart) / 60
+        const startHour = getHours(adjustedStart) + getMinutes(adjustedStart) / 60
         const endHour = getHours(adjustedEnd) + getMinutes(adjustedEnd) / 60
 
         // Adjust the top calculation to account for the new start time
@@ -213,16 +199,13 @@ export function WeekView({
   }
 
   const showAllDaySection = allDayEvents.length > 0
-  const { currentTimePosition, currentTimeVisible } = useCurrentTimeIndicator(
-    currentDate,
-    "week"
-  )
+  const { currentTimePosition, currentTimeVisible } = useCurrentTimeIndicator(currentDate, 'week')
 
   return (
     <div data-slot="week-view" className="flex h-full flex-col">
       <div className="bg-background/80 border-border/70 sticky top-0 z-30 grid grid-cols-8 border-b backdrop-blur-md">
         <div className="text-muted-foreground/70 py-2 text-center text-sm">
-          <span className="max-[479px]:sr-only">{format(new Date(), "O")}</span>
+          <span className="max-[479px]:sr-only">{format(new Date(), 'O')}</span>
         </div>
         {days.map((day) => (
           <div
@@ -231,9 +214,9 @@ export function WeekView({
             data-today={isToday(day) || undefined}
           >
             <span className="sm:hidden" aria-hidden="true">
-              {format(day, "E")[0]} {format(day, "d")}
+              {format(day, 'E')[0]} {format(day, 'd')}
             </span>
-            <span className="max-sm:hidden">{format(day, "EEE dd")}</span>
+            <span className="max-sm:hidden">{format(day, 'EEE dd')}</span>
           </div>
         ))}
       </div>
@@ -270,8 +253,7 @@ export function WeekView({
                     const isLastDay = isSameDay(day, eventEnd)
 
                     // Check if this is the first day in the current week view
-                    const isFirstVisibleDay =
-                      dayIndex === 0 && isBefore(eventStart, weekStart)
+                    const isFirstVisibleDay = dayIndex === 0 && isBefore(eventStart, weekStart)
                     const shouldShowTitle = isFirstDay || isFirstVisibleDay
 
                     return (
@@ -285,10 +267,7 @@ export function WeekView({
                       >
                         {/* Show title if it's the first day of the event or the first visible day in the week */}
                         <div
-                          className={cn(
-                            "truncate",
-                            !shouldShowTitle && "invisible"
-                          )}
+                          className={cn('truncate', !shouldShowTitle && 'invisible')}
                           aria-hidden={!shouldShowTitle}
                         >
                           {event.title}
@@ -312,7 +291,7 @@ export function WeekView({
             >
               {index > 0 && (
                 <span className="bg-background text-muted-foreground/70 absolute -top-3 left-0 flex h-6 w-16 max-w-full items-center justify-end pe-2 text-[10px] sm:pe-4 sm:text-xs">
-                  {format(hour, "h a")}
+                  {format(hour, 'h a')}
                 </span>
               )}
             </div>
@@ -380,14 +359,11 @@ export function WeekView({
                         date={day}
                         time={quarterHourTime}
                         className={cn(
-                          "absolute h-[calc(var(--week-cells-height)/4)] w-full",
-                          quarter === 0 && "top-0",
-                          quarter === 1 &&
-                            "top-[calc(var(--week-cells-height)/4)]",
-                          quarter === 2 &&
-                            "top-[calc(var(--week-cells-height)/4*2)]",
-                          quarter === 3 &&
-                            "top-[calc(var(--week-cells-height)/4*3)]"
+                          'absolute h-[calc(var(--week-cells-height)/4)] w-full',
+                          quarter === 0 && 'top-0',
+                          quarter === 1 && 'top-[calc(var(--week-cells-height)/4)]',
+                          quarter === 2 && 'top-[calc(var(--week-cells-height)/4*2)]',
+                          quarter === 3 && 'top-[calc(var(--week-cells-height)/4*3)]'
                         )}
                         onClick={() => {
                           const startTime = new Date(day)

@@ -1,0 +1,19 @@
+{
+  "name": "primary-buttons",
+  "type": "registry:block",
+  "description": "Primary Buttons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUIPrimaryButtons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "default-select-menu",
+  "type": "registry:block",
+  "description": "Default Select Menu",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "select-menus"
+    ],
+    "mdxBody": "\n<FUIDefaultSelectMenu />\n",
+    "category": "select-menus",
+    "isActive": false
+  },
+  "categories": [
+    "select-menus"
+  ]
+}

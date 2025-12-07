@@ -1,0 +1,18 @@
+{
+  "name": "pagination-with-current-page-info",
+  "type": "registry:block",
+  "description": "Pagination with current page info",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "paginations"
+    ],
+    "mdxBody": "\n<FUIPaginationWithCurrentPageInfo />\n",
+    "category": "paginations",
+    "isActive": false
+  },
+  "categories": [
+    "paginations"
+  ]
+}

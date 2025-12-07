@@ -1,4 +1,4 @@
-import { Button } from "@timkit/web"
+import { Button } from '@timui/react'
 
 export default function TestButtonPage() {
   return (

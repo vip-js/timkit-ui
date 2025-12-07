@@ -1,0 +1,17 @@
+<view class="tk-table">
+  <view class="tk-table-row tk-table-head">
+    <text class="tk-cell">Name</text>
+    <text class="tk-cell">Role</text>
+    <text class="tk-cell tk-right">Status</text>
+  </view>
+  <view class="tk-table-row">
+    <text class="tk-cell">Alice</text>
+    <text class="tk-cell">Designer</text>
+    <text class="tk-cell tk-right tk-status tk-ok">Active</text>
+  </view>
+  <view class="tk-table-row">
+    <text class="tk-cell">Bob</text>
+    <text class="tk-cell">Engineer</text>
+    <text class="tk-cell tk-right tk-status tk-warn">Pending</text>
+  </view>
+</view>

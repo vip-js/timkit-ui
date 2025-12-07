@@ -1,0 +1,18 @@
+{
+  "name": "table-with-manage-button",
+  "type": "registry:block",
+  "description": "Table with manage button",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "tables"
+    ],
+    "mdxBody": "\n<FUITableWithManageButton />\n",
+    "category": "tables",
+    "isActive": false
+  },
+  "categories": [
+    "tables"
+  ]
+}

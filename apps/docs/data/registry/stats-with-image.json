@@ -1,0 +1,18 @@
+{
+  "name": "stats-with-image",
+  "type": "registry:block",
+  "description": "Stats with image",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "stats"
+    ],
+    "mdxBody": "\n<FUIStatsWithImage />\n",
+    "category": "stats",
+    "isActive": false
+  },
+  "categories": [
+    "stats"
+  ]
+}

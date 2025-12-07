@@ -1,0 +1,19 @@
+{
+  "name": "buttons-with-icons",
+  "type": "registry:block",
+  "description": "Buttons with icons",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "buttons"
+    ],
+    "mdxBody": "\n<FUIButtonsWithIcons />\n",
+    "category": "buttons",
+    "isActive": false,
+    "migratedTo": "button"
+  },
+  "categories": [
+    "buttons"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "pricing-section-with-badge",
+  "type": "registry:block",
+  "description": "Pricing Section with badge",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "pricing-sections"
+    ],
+    "mdxBody": "\n<FUIPricingSectionWithBadge />\n",
+    "category": "pricing-sections",
+    "isActive": false
+  },
+  "categories": [
+    "pricing-sections"
+  ]
+}

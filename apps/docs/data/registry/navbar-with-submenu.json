@@ -1,0 +1,18 @@
+{
+  "name": "navbar-with-submenu",
+  "type": "registry:block",
+  "description": "Navbar with submenu",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "navbars"
+    ],
+    "mdxBody": "\n<FUINavbarWithSubmenu />\n",
+    "category": "navbars",
+    "isActive": false
+  },
+  "categories": [
+    "navbars"
+  ]
+}

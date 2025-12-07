@@ -1,0 +1,18 @@
+{
+  "name": "divided-logo-grid",
+  "type": "registry:block",
+  "description": "Divided Logo Grid",
+  "files": [],
+  "meta": {
+    "frameworks": [],
+    "tags": [
+      "logo-grid"
+    ],
+    "mdxBody": "\n<FUIDividedLogoGrid />\n",
+    "category": "logo-grid",
+    "isActive": false
+  },
+  "categories": [
+    "logo-grid"
+  ]
+}

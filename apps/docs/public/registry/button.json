@@ -1,0 +1,68 @@
+{
+  "name": "button",
+  "type": "registry:ui",
+  "dependencies": [
+    "@radix-ui/react-slot"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/button.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx",
+      "content": "import * as React from 'react'\nimport { Slot } from '@radix-ui/react-slot'\nimport { cn } from '@timui/shared'\n\nimport { buttonVariants, type ButtonVariants } from './button-variants'\n\nexport interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {\n  asChild?: boolean\n}\n\nconst Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\n  ({ className, variant, size, asChild = false, ...props }, ref) => {\n    const Comp = asChild ? Slot : 'button'\n    return (\n      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />\n    )\n  }\n)\nButton.displayName = 'Button'\n\nexport { Button, buttonVariants }\n"
+    },
+    {
+      "path": "registry/default/vue/button.vue",
+      "target": "components/ui/button.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { type PrimitiveProps, Primitive } from \"radix-vue\";\nimport { type VariantProps } from \"class-variance-authority\";\nimport { cn, buttonVariants } from \"@timui/shared\";\n\ninterface Props extends /* @vue-ignore */ PrimitiveProps {\n  variant?: VariantProps<typeof buttonVariants>[\"variant\"];\n  size?: VariantProps<typeof buttonVariants>[\"size\"];\n  class?: HTMLAttributes[\"class\"];\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  as: \"button\",\n});\n\nconst calculatedClass = computed(() => {\n  return cn(buttonVariants({ variant: props.variant, size: props.size }), props.class);\n});\n</script>\n\n<template>\n  <Primitive :as=\"as\" :as-child=\"asChild\" :class=\"calculatedClass\">\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/weapp/button/button.ts",
+      "target": "components/ui/button/button.ts",
+      "type": "registry:component",
+      "content": "Component({\n  options: {\n    addGlobalClass: true,\n    multipleSlots: true,\n  },\n  properties: {\n    label: {\n      type: String,\n      value: '',\n    },\n    variant: {\n      type: String,\n      value: 'primary',\n    },\n    size: {\n      type: String,\n      value: 'md',\n    },\n    disabled: {\n      type: Boolean,\n      value: false,\n    },\n    loading: {\n      type: Boolean,\n      value: false,\n    },\n  },\n  data: {\n    variantClass: 'primary',\n    sizeClass: 'size-md',\n  },\n  observers: {\n    'variant,size': function () {\n      this.updateClasses()\n    },\n  },\n  lifetimes: {\n    attached() {\n      this.updateClasses()\n    },\n  },\n  methods: {\n    updateClasses() {\n      const variant = ['primary', 'secondary', 'ghost', 'destructive'].includes(this.data.variant)\n        ? this.data.variant\n        : 'primary'\n\n      const size = ['sm', 'md', 'lg'].includes(this.data.size) ? this.data.size : 'md'\n\n      this.setData({\n        variantClass: variant,\n        sizeClass: `size-${size}`,\n      })\n    },\n    handleTap(event) {\n      if (this.data.disabled || this.data.loading) return\n      this.triggerEvent('press', event?.detail ?? {})\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/button/button.wxml",
+      "target": "components/ui/button/button.wxml",
+      "type": "registry:component",
+      "content": "<view\n  class=\"tk-button {{variantClass}} {{sizeClass}} {{disabled ? 'is-disabled' : ''}} {{loading ? 'is-loading' : ''}}\"\n  bindtap=\"handleTap\"\n  hover-class=\"is-hover\"\n>\n  <slot name=\"icon-left\"></slot>\n  <text class=\"tk-button__label\">{{ label }}</text>\n  <slot name=\"icon-right\"></slot>\n  <view wx:if=\"{{loading}}\" class=\"tk-button__spinner\"></view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/button/button.wxss",
+      "target": "components/ui/button/button.wxss",
+      "type": "registry:component",
+      "content": ".tk-button {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: var(--spacing-sm);\n  border-radius: var(--radius-md);\n  font-size: var(--typography-md);\n  font-weight: 600;\n  line-height: 1;\n  padding: var(--spacing-sm) var(--spacing-lg);\n  color: var(--color-onPrimary);\n  background-color: var(--color-primary);\n  border: 1px solid transparent;\n  transition: opacity 150ms linear;\n}\n\n.tk-button__label {\n  white-space: nowrap;\n}\n\n.tk-button__spinner {\n  width: 16px;\n  height: 16px;\n  border-radius: 999px;\n  border: 2px solid rgba(255, 255, 255, 0.4);\n  border-top-color: var(--color-onPrimary);\n  animation: tk-spin 600ms linear infinite;\n  margin-left: 4px;\n}\n\n@keyframes tk-spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n.tk-button.is-hover {\n  opacity: 0.92;\n}\n\n.tk-button:active,\n.tk-button.is-loading {\n  opacity: 0.72;\n}\n\n.tk-button.is-disabled {\n  opacity: 0.4;\n  pointer-events: none;\n}\n\n.tk-button.primary {\n  background-color: var(--color-primary);\n  color: var(--color-onPrimary);\n}\n\n.tk-button.secondary {\n  background-color: var(--color-secondary);\n  color: var(--color-onSecondary);\n  border-color: var(--color-border);\n}\n\n.tk-button.ghost {\n  background-color: transparent;\n  color: var(--color-foreground);\n  border-color: var(--color-border);\n}\n\n.tk-button.destructive {\n  background-color: var(--color-destructive);\n  color: var(--color-onDestructive);\n}\n\n.tk-button.size-sm {\n  padding: var(--spacing-sm) var(--spacing-md);\n  border-radius: var(--radius-sm);\n  font-size: var(--typography-sm);\n}\n\n.tk-button.size-lg {\n  padding: var(--spacing-lg) calc(var(--spacing-lg) * 1.3);\n  border-radius: var(--radius-lg);\n  font-size: var(--typography-lg);\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/button/index.ts",
+      "target": "components/ui/button/index.ts",
+      "type": "registry:component",
+      "content": "import buttonSchema from '../../../core/schemas/button'\nimport type { WeappPrimitive } from '../../types'\n\nconst basePath = 'packages/weapp/primitives/button'\n\nexport const weappButton: WeappPrimitive = {\n  name: 'button',\n  schema: buttonSchema,\n  description:\n    '微信小程序版本的 Button，遵循核心 schema，提供 primary / secondary / ghost / destructive 等语义样式。',\n  files: {\n    wxml: `${basePath}/button.wxml`,\n    wxss: `${basePath}/button.wxss`,\n    logic: `${basePath}/button.ts`,\n  },\n  tokens: buttonSchema.tokens,\n}\n\nexport default weappButton\n"
+    },
+    {
+      "path": "registry/default/html/button.html",
+      "target": "components/ui/button.html",
+      "type": "registry:component",
+      "content": "<button class=\"inline-flex items-center justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-black/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black disabled:opacity-50 disabled:cursor-not-allowed\">\n  Button\n</button>\n"
+    },
+    {
+      "path": "registry/default/svelte/button.svelte",
+      "target": "components/ui/button.svelte",
+      "type": "registry:component",
+      "content": "<script lang=\"ts\">\n  export let label: string = \"Button\"\n  export let variant: \"default\" | \"ghost\" = \"default\"\n\n  const base =\n    \"inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed\"\n\n  $: classes =\n    base +\n    (variant === \"ghost\"\n      ? \" text-zinc-900 hover:bg-zinc-100\"\n      : \" bg-black text-white shadow-sm hover:bg-black/85 focus-visible:ring-black\")\n</script>\n\n<button class={classes}>\n  <slot>{label}</slot>\n</button>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue",
+      "weapp",
+      "html",
+      "svelte"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

@@ -6,15 +6,15 @@ Component({
   properties: {
     label: {
       type: String,
-      value: "",
+      value: '',
     },
     variant: {
       type: String,
-      value: "primary",
+      value: 'primary',
     },
     size: {
       type: String,
-      value: "md",
+      value: 'md',
     },
     disabled: {
       type: Boolean,
@@ -26,11 +26,11 @@ Component({
     },
   },
   data: {
-    variantClass: "primary",
-    sizeClass: "size-md",
+    variantClass: 'primary',
+    sizeClass: 'size-md',
   },
   observers: {
-    "variant,size": function () {
+    'variant,size': function () {
       this.updateClasses()
     },
   },
@@ -41,15 +41,11 @@ Component({
   },
   methods: {
     updateClasses() {
-      const variant = ["primary", "secondary", "ghost", "destructive"].includes(
-        this.data.variant
-      )
+      const variant = ['primary', 'secondary', 'ghost', 'destructive'].includes(this.data.variant)
         ? this.data.variant
-        : "primary"
+        : 'primary'
 
-      const size = ["sm", "md", "lg"].includes(this.data.size)
-        ? this.data.size
-        : "md"
+      const size = ['sm', 'md', 'lg'].includes(this.data.size) ? this.data.size : 'md'
 
       this.setData({
         variantClass: variant,
@@ -58,7 +54,7 @@ Component({
     },
     handleTap(event) {
       if (this.data.disabled || this.data.loading) return
-      this.triggerEvent("press", event?.detail ?? {})
+      this.triggerEvent('press', event?.detail ?? {})
     },
   },
 })

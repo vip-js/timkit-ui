@@ -1,0 +1,40 @@
+{
+  "name": "table",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "registry/default/ui/table.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/table.tsx",
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from '@timui/shared'\n\nfunction Table({ className, ...props }: React.ComponentProps<'table'>) {\n  return (\n    <div className=\"relative w-full overflow-auto\">\n      <table\n        data-slot=\"table\"\n        className={cn('w-full caption-bottom text-sm', className)}\n        {...props}\n      />\n    </div>\n  )\n}\n\nfunction TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {\n  return <thead data-slot=\"table-header\" className={cn(className)} {...props} />\n}\n\nfunction TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {\n  return (\n    <tbody\n      data-slot=\"table-body\"\n      className={cn('[&_tr:last-child]:border-0', className)}\n      {...props}\n    />\n  )\n}\n\nfunction TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {\n  return (\n    <tfoot\n      data-slot=\"table-footer\"\n      className={cn('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', className)}\n      {...props}\n    />\n  )\n}\n\nfunction TableRow({ className, ...props }: React.ComponentProps<'tr'>) {\n  return (\n    <tr\n      data-slot=\"table-row\"\n      className={cn(\n        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableHead({ className, ...props }: React.ComponentProps<'th'>) {\n  return (\n    <th\n      data-slot=\"table-head\"\n      className={cn(\n        'text-muted-foreground h-12 px-3 text-left align-middle font-medium has-[role=checkbox]:w-px [&:has([role=checkbox])]:pr-0',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TableCell({ className, ...props }: React.ComponentProps<'td'>) {\n  return (\n    <td\n      data-slot=\"table-cell\"\n      className={cn('p-3 align-middle [&:has([role=checkbox])]:pr-0', className)}\n      {...props}\n    />\n  )\n}\n\nfunction TableCaption({ className, ...props }: React.ComponentProps<'caption'>) {\n  return (\n    <caption\n      data-slot=\"table-caption\"\n      className={cn('text-muted-foreground mt-4 text-sm', className)}\n      {...props}\n    />\n  )\n}\n\nexport { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow }\n"
+    },
+    {
+      "path": "registry/default/html/table.html",
+      "target": "components/ui/table.html",
+      "type": "registry:component",
+      "content": "<div class=\"overflow-hidden rounded-xl border border-zinc-200 shadow-sm\">\n  <table class=\"min-w-full divide-y divide-zinc-200\">\n    <thead class=\"bg-zinc-50 text-left text-sm font-semibold text-zinc-600\">\n      <tr>\n        <th class=\"px-4 py-3\">Name</th>\n        <th class=\"px-4 py-3\">Role</th>\n        <th class=\"px-4 py-3 text-right\">Status</th>\n      </tr>\n    </thead>\n    <tbody class=\"divide-y divide-zinc-200 bg-white text-sm text-zinc-800\">\n      <tr>\n        <td class=\"px-4 py-3 font-medium\">Alice</td>\n        <td class=\"px-4 py-3\">Designer</td>\n        <td class=\"px-4 py-3 text-right\">\n          <span class=\"rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700\">Active</span>\n        </td>\n      </tr>\n      <tr>\n        <td class=\"px-4 py-3 font-medium\">Bob</td>\n        <td class=\"px-4 py-3\">Engineer</td>\n        <td class=\"px-4 py-3 text-right\">\n          <span class=\"rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700\">Pending</span>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+    },
+    {
+      "path": "registry/default/svelte/table.svelte",
+      "target": "components/ui/table.svelte",
+      "type": "registry:component",
+      "content": "<script lang=\"ts\">\n  export let rows = [\n    { name: \"Alice\", role: \"Designer\", status: \"Active\" },\n    { name: \"Bob\", role: \"Engineer\", status: \"Pending\" },\n  ]\n</script>\n\n<div class=\"overflow-hidden rounded-xl border border-zinc-200 shadow-sm\">\n  <table class=\"min-w-full divide-y divide-zinc-200\">\n    <thead class=\"bg-zinc-50 text-left text-sm font-semibold text-zinc-600\">\n      <tr>\n        <th class=\"px-4 py-3\">Name</th>\n        <th class=\"px-4 py-3\">Role</th>\n        <th class=\"px-4 py-3 text-right\">Status</th>\n      </tr>\n    </thead>\n    <tbody class=\"divide-y divide-zinc-200 bg-white text-sm text-zinc-800\">\n      {#each rows as row}\n        <tr>\n          <td class=\"px-4 py-3 font-medium\">{row.name}</td>\n          <td class=\"px-4 py-3\">{row.role}</td>\n          <td class=\"px-4 py-3 text-right\">\n            <span class=\"rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700\">\n              {row.status}\n            </span>\n          </td>\n        </tr>\n      {/each}\n    </tbody>\n  </table>\n</div>\n\n"
+    },
+    {
+      "path": "registry/default/weapp/table.wxml",
+      "target": "components/ui/table.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"tk-table\">\n  <view class=\"tk-table-row tk-table-head\">\n    <text class=\"tk-cell\">Name</text>\n    <text class=\"tk-cell\">Role</text>\n    <text class=\"tk-cell tk-right\">Status</text>\n  </view>\n  <view class=\"tk-table-row\">\n    <text class=\"tk-cell\">Alice</text>\n    <text class=\"tk-cell\">Designer</text>\n    <text class=\"tk-cell tk-right tk-status tk-ok\">Active</text>\n  </view>\n  <view class=\"tk-table-row\">\n    <text class=\"tk-cell\">Bob</text>\n    <text class=\"tk-cell\">Engineer</text>\n    <text class=\"tk-cell tk-right tk-status tk-warn\">Pending</text>\n  </view>\n</view>\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "weapp",
+      "html",
+      "svelte"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

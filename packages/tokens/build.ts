@@ -1,65 +1,69 @@
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-import { themeTokens } from "./theme"
+import { semantic } from './src/theme'
 
-type FlattenTokenMap = Record<string, string>
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const DIST_DIR = path.join(__dirname, 'dist')
 
-const DIST_DIR = path.join(process.cwd(), "packages/tokens/dist")
-const CSS_FILE = path.join(DIST_DIR, "theme.css")
-const WXSS_FILE = path.join(DIST_DIR, "theme.wxss")
-
-const ensureDist = () => {
-  fs.mkdirSync(DIST_DIR, { recursive: true })
+function toCssVarName(path: string[]): string {
+  return `--${path.join('-')}`
 }
 
-const flattenTokens = (
-  tokens: Record<string, unknown>,
-  prefix: string[] = []
-): FlattenTokenMap => {
-  const acc: FlattenTokenMap = {}
-  Object.entries(tokens).forEach(([key, value]) => {
-    if (typeof value === "string") {
-      acc[[...prefix, key].join(".")] = value
-      return
+function processTokens(
+  obj: any,
+  prefix: string[] = [],
+  callback: (path: string[], value: string) => void
+) {
+  for (const [key, value] of Object.entries(obj)) {
+    const currentPath = [...prefix, key]
+    if (typeof value === 'string') {
+      callback(currentPath, value)
+    } else if (typeof value === 'object' && value !== null) {
+      processTokens(value, currentPath, callback)
     }
+  }
+}
 
-    if (typeof value === "object" && value !== null) {
-      Object.assign(acc, flattenTokens(value as Record<string, unknown>, [...prefix, key]))
+function build() {
+  if (!fs.existsSync(DIST_DIR)) {
+    fs.mkdirSync(DIST_DIR, { recursive: true })
+  }
+
+  const cssVars: string[] = []
+  const wxssVars: string[] = []
+  const themeEntries: string[] = []
+
+  processTokens(semantic, [], (path, value) => {
+    const varName = toCssVarName(path)
+    cssVars.push(`${varName}: ${value};`)
+    wxssVars.push(`${varName}: ${value};`)
+
+    // Tailwind v4 @theme mapping
+    if (!path.includes('radius')) {
+      themeEntries.push(`--color-${path.join('-')}: var(${varName});`)
+    } else {
+      themeEntries.push(`--${path.join('-')}: var(${varName});`)
     }
   })
-  return acc
+
+  // 1. theme.css (Native CSS Variables)
+  const cssContent = `:root {\n  ${cssVars.join('\n  ')}\n}\n`
+  fs.writeFileSync(path.join(DIST_DIR, 'theme.css'), cssContent)
+
+  // 2. theme.wxss (WeChat Miniprogram)
+  const wxssContent = `page {\n  ${wxssVars.join('\n  ')}\n}\n`
+  fs.writeFileSync(path.join(DIST_DIR, 'theme.wxss'), wxssContent)
+
+  // 3. tailwind.css (Tailwind v4 @theme configuration)
+  const tailwindContent = `@theme {\n  ${themeEntries.join('\n  ')}\n}\n`
+  fs.writeFileSync(path.join(DIST_DIR, 'tailwind.css'), tailwindContent)
+
+  // 4. JSON
+  fs.writeFileSync(path.join(DIST_DIR, 'tokens.json'), JSON.stringify(semantic, null, 2))
+
+  console.log('Tokens built successfully (css, wxss, tailwind, json)!')
 }
 
-const formatDeclaration = (key: string, value: string) =>
-  `  --${key.replace(/\./g, "-")}: ${value};`
-
-const writeCss = (tokens: FlattenTokenMap) => {
-  const declarations = Object.entries(tokens)
-    .map(([key, value]) => formatDeclaration(key, value))
-    .join("\n")
-
-  const css = `:root {\n${declarations}\n}\n`
-  fs.writeFileSync(CSS_FILE, css)
-}
-
-const writeWxss = (tokens: FlattenTokenMap) => {
-  const declarations = Object.entries(tokens)
-    .map(([key, value]) => formatDeclaration(key, value))
-    .join("\n")
-
-  // 在微信端通过 page selector 注入 CSS 变量，供自定义组件消费
-  const wxss = `page {\n${declarations}\n}\n`
-  fs.writeFileSync(WXSS_FILE, wxss)
-}
-
-const main = () => {
-  ensureDist()
-  const flatTokens = flattenTokens(themeTokens as unknown as Record<string, unknown>)
-  writeCss(flatTokens)
-  writeWxss(flatTokens)
-  // eslint-disable-next-line no-console
-  console.log(`Generated ${Object.keys(flatTokens).length} design tokens for web & weapp.`)
-}
-
-main()
+build()
