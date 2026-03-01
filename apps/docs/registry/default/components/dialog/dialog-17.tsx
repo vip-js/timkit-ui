@@ -1,23 +1,23 @@
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
-import { CreditCardIcon, StoreIcon } from 'lucide-react'
-import { usePaymentInputs } from 'react-payment-inputs'
-import images, { type CardImages } from 'react-payment-inputs/images'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
 import {
+  Badge,
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+  Input,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
+} from '@timui/react'
+import { CreditCardIcon, StoreIcon } from 'lucide-react'
+import { usePaymentInputs } from 'react-payment-inputs'
+import images, { type CardImages } from 'react-payment-inputs/images'
 
 export default function Component() {
   const id = useId()

@@ -1,0 +1,142 @@
+<view class="*:not-first:mt-2">
+      <label for="select-41-id">Select with search</label>
+      <popover >
+        <popover-trigger asChild>
+          <button id="select-41-id"
+            variant="outline"
+            role="combobox"
+            class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
+          >
+            <span>
+              'Select framework'
+            </span>
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+          </button>
+        </popover-trigger>
+        <popover-content
+          class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0"
+          align="start"
+        >
+          <command>
+            <command-input placeholder="Search framework..." />
+            <command-list>
+              <command-empty>No framework found.</command-empty>
+              <command-group>
+                
+                  <command-item
+                    value="next.js" >
+                    Next.js
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="sveltekit" >
+                    SvelteKit
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="nuxt.js" >
+                    Nuxt.js
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="remix" >
+                    Remix
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="astro" >
+                    Astro
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="angular" >
+                    Angular
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="vue" >
+                    Vue.js
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="react" >
+                    React
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="ember" >
+                    Ember.js
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="gatsby" >
+                    Gatsby
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="eleventy" >
+                    Eleventy
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="solid" >
+                    SolidJS
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="preact" >
+                    Preact
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="qwik" >
+                    Qwik
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="alpine" >
+                    Alpine.js
+                    
+                  </command-item>
+                
+
+                  <command-item
+                    value="lit" >
+                    Lit
+                    
+                  </command-item>
+                
+              </command-group>
+            </command-list>
+          </command>
+        </popover-content>
+      </popover>
+    </view>

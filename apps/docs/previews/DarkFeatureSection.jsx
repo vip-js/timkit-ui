@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card } from "@timui/react";
 
 export default function DarkFeatureSection() {
-
     const features = [
         {
             icon:
@@ -34,7 +27,6 @@ export default function DarkFeatureSection() {
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue."
         },
     ]
-
     return (
         <section className="relative py-28 bg-gray-900">
             <div className="relative z-10 max-w-screen-xl mx-auto px-4 text-gray-300 justify-between gap-24 lg:flex md:px-8">
@@ -50,7 +42,7 @@ export default function DarkFeatureSection() {
                     <ul className="grid gap-8 sm:grid-cols-2">
                         {
                             features.map((item, idx) => (
-                                <li key={idx} className="flex gap-x-4">
+                                <Card key={idx} className="flex gap-x-4 bg-gray-800 border-gray-700 text-gray-300">
                                     <div className="flex-none w-12 h-12 bg-gray-700 text-cyan-400 rounded-lg flex items-center justify-center">
                                         {item.icon}
                                     </div>
@@ -62,7 +54,7 @@ export default function DarkFeatureSection() {
                                             {item.desc}
                                         </p>
                                     </div>
-                                </li>
+                                </Card>
                             ))
                         }
                     </ul>

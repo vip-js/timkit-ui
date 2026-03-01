@@ -156,7 +156,7 @@ export const categories: ComponentCategory[] = [
       { name: 'comp-97' },
       { name: 'comp-98' },
       { name: 'comp-99' },
-      { name: 'comp-100' },
+
       { name: 'comp-101' },
       { name: 'comp-129' },
       { name: 'comp-130' },
@@ -191,8 +191,8 @@ export const categories: ComponentCategory[] = [
     ],
   },
   {
-    slug: 'calendar-date-picker',
-    name: 'Calendar & Date picker',
+    slug: 'calendar',
+    name: 'Calendar',
     components: [
       { name: 'comp-487' },
       { name: 'comp-488' },
@@ -218,6 +218,12 @@ export const categories: ComponentCategory[] = [
       { name: 'comp-508' },
       { name: 'comp-509' },
       { name: 'comp-510' },
+    ],
+  },
+  {
+    slug: 'date-picker',
+    name: 'Date picker',
+    components: [
       { name: 'comp-41' },
       { name: 'comp-42' },
       { name: 'comp-511' },

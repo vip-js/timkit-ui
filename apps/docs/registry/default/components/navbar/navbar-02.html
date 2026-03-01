@@ -1,0 +1,55 @@
+
+  <header class="border-b px-4 md:px-6">
+    <div class="flex h-16 items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <a href="#" class="text-primary hover:text-primary/90">
+          <logo />
+        </a>
+        <navigation-menu class="max-md:hidden">
+          <navigation-menu-list class="gap-2">
+            <navigation-menu-item>
+              <navigation-menu-link
+                class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                href="#"
+                active
+              >
+                Home
+              </navigation-menu-link>
+            </navigation-menu-item>
+            <navigation-menu-item>
+              <navigation-menu-link
+                class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                href="#"
+              >
+                Features
+              </navigation-menu-link>
+            </navigation-menu-item>
+            <navigation-menu-item>
+              <navigation-menu-link
+                class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                href="#"
+              >
+                Pricing
+              </navigation-menu-link>
+            </navigation-menu-item>
+            <navigation-menu-item>
+              <navigation-menu-link
+                class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                href="#"
+              >
+                About
+              </navigation-menu-link>
+            </navigation-menu-item>
+          </navigation-menu-list>
+        </navigation-menu>
+      </div>
+      <div class="flex items-center gap-2">
+        <button asChild variant="ghost" size="sm" class="text-sm">
+          <a href="#">Sign In</a>
+        </button>
+        <button asChild size="sm" class="text-sm">
+          <a href="#">Get Started</a>
+        </button>
+      </div>
+    </div>
+  </header>

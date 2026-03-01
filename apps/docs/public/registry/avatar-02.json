@@ -2,14 +2,32 @@
   "name": "avatar-02",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/avatar.json"
+    "https://ui.timkit.cn/r/avatar.json"
   ],
   "files": [
     {
       "path": "registry/default/components/avatar/avatar-02.tsx",
       "type": "registry:component",
       "target": "components/ui/avatar-02.tsx",
-      "content": "import { Avatar, AvatarFallback } from '../../ui/avatar'\n\nexport default function Component() {\n  return (\n    <Avatar>\n      <AvatarFallback>KK</AvatarFallback>\n    </Avatar>\n  )\n}\n"
+      "content": "import { Avatar, AvatarFallback } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Avatar>\n      <AvatarFallback>KK</AvatarFallback>\n    </Avatar>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-02.vue",
+      "target": "components/ui/avatar-02.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\n</script>\n\n<template>\n<Avatar>\n      <AvatarFallback>KK</AvatarFallback>\n    </Avatar>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-02.html",
+      "target": "components/ui/avatar-02.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"avatar\" class=\"relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full\">\n      <div data-slot=\"avatar-fallback\" class=\"flex h-full w-full items-center justify-center rounded-full bg-muted\">KK</div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-02.wxml",
+      "target": "components/ui/avatar-02/avatar-02.wxml",
+      "type": "registry:component",
+      "content": "<avatar>\n      <avatar-fallback>KK</avatar-fallback>\n    </avatar>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "avatars"
+    "category": "avatars",
+    "title": "Avatar · Fallback only"
   },
   "categories": [
     "avatars",

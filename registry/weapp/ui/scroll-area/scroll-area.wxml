@@ -1,0 +1,8 @@
+<scroll-view 
+  class="{{className}}" 
+  scroll-y="{{orientation === 'vertical' || orientation === 'both'}}" 
+  scroll-x="{{orientation === 'horizontal' || orientation === 'both'}}"
+  enable-flex
+>
+  <slot></slot>
+</scroll-view>

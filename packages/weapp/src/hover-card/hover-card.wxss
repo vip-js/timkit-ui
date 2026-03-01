@@ -1,0 +1,15 @@
+.hover-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.hover-card-content {
+  margin-top: 10rpx;
+  min-width: 260rpx;
+  border: 1px solid #e5e7eb;
+  border-radius: 12rpx;
+  background: #ffffff;
+  padding: 16rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.12);
+}

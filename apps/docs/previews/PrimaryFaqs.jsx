@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card, CardContent } from "@timui/react";
 
 export default function PrimaryFaqs() {
-
     const faqsList = [
         {
             q: "What are some random questions to ask?",
@@ -32,9 +26,8 @@ export default function PrimaryFaqs() {
         {
             q: "What do you wish you had more talent doing?",
             a: "If you've been searching for a way to get random questions, you've landed on the correct webpage. We created the Random Question Generator to ask you as many random questions as your heart desires."
-        },        
+        },
     ]
-  
     return (
         <section className="leading-relaxed max-w-screen-xl py-12 mx-auto px-4 md:px-8">
             <div className="space-y-3 text-center">
@@ -48,17 +41,19 @@ export default function PrimaryFaqs() {
             <div className="mt-14 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3">
                 {
                     faqsList.map((item, idx) => (
-                        <div 
+                        <Card
                             className="space-y-3 mt-5"
                             key={idx}
                         >
-                            <h4 className="text-xl text-gray-700 font-medium">
-                                {item.q}
-                            </h4>
-                            <p className="text-gray-500">
-                                {item.a}
-                            </p>
-                        </div>
+                            <CardContent className="p-0 space-y-3">
+                                <h4 className="text-xl text-gray-700 font-medium">
+                                    {item.q}
+                                </h4>
+                                <p className="text-gray-500">
+                                    {item.a}
+                                </p>
+                            </CardContent>
+                        </Card>
                     ))
                 }
             </div>

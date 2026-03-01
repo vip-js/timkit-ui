@@ -2,14 +2,14 @@
   "name": "button-18",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/button/button-18.tsx",
       "type": "registry:component",
       "target": "components/ui/button-18.tsx",
-      "content": "import { ChevronDownIcon } from 'lucide-react'\n\nimport { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'\nimport { Button } from '../../ui/button'\n\nexport default function Component() {\n  return (\n    <Button variant=\"ghost\" className=\"h-auto p-0 hover:bg-transparent\">\n      <Avatar>\n        <AvatarImage src=\"./avatar.jpg\" alt=\"Profile image\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <ChevronDownIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n    </Button>\n  )\n}\n"
+      "content": "import { Avatar, AvatarFallback, AvatarImage, Button } from '@timui/react'\nimport { ChevronDownIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <Button variant=\"ghost\" className=\"h-auto p-0 hover:bg-transparent\">\n      <Avatar>\n        <AvatarImage src=\"./avatar.jpg\" alt=\"Profile image\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <ChevronDownIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n    </Button>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -26,7 +26,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "buttons"
+    "category": "buttons",
+    "title": "Button · With icon"
   },
   "categories": [
     "buttons",

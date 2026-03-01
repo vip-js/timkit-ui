@@ -1,4 +1,13 @@
 import {
+  Badge,
+  ScrollArea,
+  ScrollBar,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@timui/react'
+import {
   BoxIcon,
   ChartLine,
   HouseIcon,
@@ -6,10 +15,6 @@ import {
   SettingsIcon,
   UsersRoundIcon,
 } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { ScrollArea, ScrollBar } from '../../ui/scroll-area'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
 
 export default function Component() {
   return (

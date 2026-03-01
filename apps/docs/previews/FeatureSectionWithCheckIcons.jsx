@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, CardContent } from "@timui/react";
 export default function FeatureSectionWithCheckIcons() {
-
     const features = [
         {
             title: "Fast Refresh",
@@ -34,7 +27,6 @@ export default function FeatureSectionWithCheckIcons() {
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue, nisl eget molestie varius, enim ex faucibus purus."
         },
     ]
-
     return (
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -53,19 +45,21 @@ export default function FeatureSectionWithCheckIcons() {
                     <ul className="grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
                         {
                             features.map((item, idx) => (
-                                <li key={idx} className="space-y-3">
+                                <Card key={idx} className="space-y-3 p-0 border-none shadow-none bg-transparent">
                                     <div className="w-12 h-12 border text-indigo-600 rounded-lg flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                         </svg>
                                     </div>
+                                    <CardContent className="p-0">
                                     <h4 className="text-lg text-gray-800 font-semibold">
                                         {item.title}
                                     </h4>
                                     <p>
                                         {item.desc}
                                     </p>
-                                </li>
+                                </CardContent>
+                                </Card>
                             ))
                         }
                     </ul>
@@ -74,4 +68,3 @@ export default function FeatureSectionWithCheckIcons() {
         </section>
     )
 }
-        

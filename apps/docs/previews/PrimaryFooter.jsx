@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Separator } from "@timui/react";
 
 export default function PrimaryFooter() {
-
     const footerNavs = [
         {
             href: 'javascript:void()',
@@ -25,7 +18,6 @@ export default function PrimaryFooter() {
             href: 'javascript:void()',
             name: 'Careers'
         },
-
         {
             href: 'javascript:void()',
             name: 'Suuport'
@@ -50,6 +42,7 @@ export default function PrimaryFooter() {
                     ))
                 }
             </ul>
+            <Separator className="mt-8" />
             <div className="mt-8 items-center justify-between sm:flex">
                 <div className="mt-4 sm:mt-0">
                     &copy; 2022 Float UI All rights reserved.
@@ -63,7 +56,6 @@ export default function PrimaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-blue-700" viewBox="0 0 20 20">
@@ -71,7 +63,6 @@ export default function PrimaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-blue-500" viewBox="0 0 20 20">
@@ -79,7 +70,6 @@ export default function PrimaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-red-600" viewBox="0 0 20 20">

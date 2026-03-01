@@ -1,6 +1,5 @@
 import { useId } from 'react'
-
-import { Checkbox } from '../../ui/checkbox'
+import { Checkbox } from '@timui/react'
 
 export default function Component() {
   const id = useId()

@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Calendar } from '@timui/react'
 import { format } from 'date-fns'
 import { DayButtonProps } from 'react-day-picker'
-
-import { Calendar } from '../../ui/calendar'
 
 const GOOD_PRICE_THRESHOLD = 100
 

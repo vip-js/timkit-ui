@@ -1,0 +1,37 @@
+<view class="p-3">
+    <!-- Header -->
+    <view class="flex items-center justify-between pb-4">
+        <view class="text-sm font-medium">
+             <!-- Current Month/Year -->
+             {{api.visibleRange.start.month}} / {{api.visibleRange.start.year}}
+             <!-- Need formatting util or just expose raw? api.visibleRangeText? -->
+             <!-- Zag usually provides formatted text. -->
+        </view>
+        <view class="flex items-center space-x-1">
+             <button bindtap="handlePrev" class="h-7 w-7 p-0 flex items-center justify-center rounded-md border text-sm">&lt;</button>
+             <button bindtap="handleNext" class="h-7 w-7 p-0 flex items-center justify-center rounded-md border text-sm">&gt;</button>
+        </view>
+    </view>
+    
+    <!-- Grid -->
+    <view class="w-full border-collapse space-y-1">
+        <view class="flex">
+            <view class="h-9 w-9 text-[0.8rem] font-normal text-muted-foreground flex items-center justify-center" wx:for="{{api.weekDays}}" wx:key="short">{{item.short}}</view>
+        </view>
+        <view class="flex flex-col space-y-1">
+            <view class="flex" wx:for="{{weeks}}" wx:key="index" wx:for-item="week">
+                <view wx:for="{{week}}" wx:key="day" wx:for-item="day" class="p-0 relative">
+                     <view 
+                        class="h-9 w-9 p-0 font-normal text-sm flex items-center justify-center rounded-md aria-selected:bg-primary aria-selected:text-primary-foreground aria-selected:opacity-100 hover:bg-accent hover:text-accent-foreground data-[today]:bg-accent data-[today]:text-accent-foreground opacity-50 data-[outside-range]:opacity-50"
+                        bindtap="handleDayClick"
+                        data-date="{{day.value}}"
+                        data-state="{{api.getDayProps({ value: day.value })['data-state']}}"
+                        aria-selected="{{api.getDayProps({ value: day.value })['aria-selected']}}"
+                     >
+                        {{day.day}}
+                     </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

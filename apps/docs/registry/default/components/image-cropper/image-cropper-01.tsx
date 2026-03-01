@@ -1,21 +1,23 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeftIcon, CircleUserRoundIcon, XIcon, ZoomInIcon, ZoomOutIcon } from 'lucide-react'
-
-import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '../../ui/cropper'
 import {
+  Button,
+  Cropper,
+  CropperCropArea,
+  CropperDescription,
+  CropperImage,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../ui/dialog'
-import { Slider } from '../../ui/slider'
+  Slider,
+} from '@timui/react'
+import { ArrowLeftIcon, CircleUserRoundIcon, XIcon, ZoomInIcon, ZoomOutIcon } from 'lucide-react'
+
+import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
 
 // Define type for pixel crop area
 type Area = { x: number; y: number; width: number; height: number }

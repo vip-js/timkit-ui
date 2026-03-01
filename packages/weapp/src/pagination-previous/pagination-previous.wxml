@@ -1,0 +1,3 @@
+<button class="{{className}}" data-slot="pagination-previous" aria-label="Go to previous page">
+  <slot></slot>
+</button>

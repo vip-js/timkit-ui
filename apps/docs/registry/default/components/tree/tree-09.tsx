@@ -8,9 +8,8 @@ import {
   syncDataLoaderFeature,
 } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
+import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
 import { FolderIcon, FolderOpenIcon } from 'lucide-react'
-
-import { Tree, TreeItem, TreeItemLabel } from '../../ui/tree'
 
 interface Item {
   name: string

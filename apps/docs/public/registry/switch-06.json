@@ -2,15 +2,15 @@
   "name": "switch-06",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/switch.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/switch.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/switch/switch-06.tsx",
       "type": "registry:component",
       "target": "components/ui/switch-06.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Switch } from '../../ui/switch'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"inline-flex items-center gap-2\">\n      <Switch\n        id={id}\n        className=\"[&_span]:border-input h-3 w-9 border-none outline-offset-[6px] [&_span]:border\"\n      />\n      <Label htmlFor={id} className=\"sr-only\">\n        M2-style switch\n      </Label>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Label, Switch } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"inline-flex items-center gap-2\">\n      <Switch\n        id={id}\n        className=\"[&_span]:border-input h-3 w-9 border-none outline-offset-[6px] [&_span]:border\"\n      />\n      <Label htmlFor={id} className=\"sr-only\">\n        M2-style switch\n      </Label>\n    </div>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -24,7 +24,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "switch"
+    "category": "switch",
+    "title": "Switch · With label"
   },
   "categories": [
     "switch"

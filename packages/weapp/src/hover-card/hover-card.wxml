@@ -1,0 +1,14 @@
+<view class="hover-card {{extClass}}">
+  <view class="hover-card-trigger" bindtouchstart="onTriggerEnter" bindtouchend="onTriggerLeave">
+    <slot name="trigger" />
+  </view>
+
+  <view
+    wx:if="{{open}}"
+    class="hover-card-content"
+    bindtouchstart="onContentEnter"
+    bindtouchend="onContentLeave"
+  >
+    <slot />
+  </view>
+</view>

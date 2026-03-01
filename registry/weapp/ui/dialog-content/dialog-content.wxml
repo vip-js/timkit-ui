@@ -1,0 +1,24 @@
+<root-portal wx:if="{{!contentApi.hidden}}">
+  <!-- Use root-portal to break out of flow -->
+  <!-- Note: root-portal allows full screen overlay. -->
+  <!-- We might need Overlay component to be inside here too, or handled separately. -->
+  <!-- Zag structures it as: Overlay + Content siblings usually. -->
+  <!-- But in WeApp, parent Dialog renders slots. -->
+  <!-- If Overlay and Content are separate slots, they might show up inline. -->
+  <!-- WeApp usually puts Overlay+Dialog in a root-portal or page-container. -->
+  <!-- For now, we put Content in root-portal. Overlay also needs one? -->
+  <!-- Or we assume user wraps them in a wrapper? -->
+  <!-- Let's put standard dialog structure in styles. -->
+  
+  <view 
+    class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg {{contentApi.className}}"
+    id="{{contentApi.id}}"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="{{contentApi['aria-labelledby']}}"
+    aria-describedby="{{contentApi['aria-describedby']}}"
+    data-state="{{contentApi['data-state']}}"
+  >
+    <slot />
+  </view>
+</root-portal>

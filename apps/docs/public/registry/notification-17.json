@@ -2,14 +2,32 @@
   "name": "notification-17",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/notification/notification-17.tsx",
       "type": "registry:component",
       "target": "components/ui/notification-17.tsx",
-      "content": "import { XIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\n\nexport default function Component() {\n  return (\n    // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.\n    <div className=\"bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg\">\n      <div className=\"flex gap-3\">\n        <img\n          className=\"size-9 rounded-full\"\n          src=\"/avatar-32-01.jpg\"\n          width={32}\n          height={32}\n          alt=\"Mary Palmer\"\n        />\n        <div className=\"flex grow flex-col gap-3\">\n          <div className=\"space-y-1\">\n            <p className=\"text-muted-foreground text-sm\">\n              <a className=\"text-foreground font-medium hover:underline\" href=\"#\">\n                Mary Palmer\n              </a>{' '}\n              mentioned you in{' '}\n              <a className=\"text-foreground font-medium hover:underline\" href=\"#\">\n                project-campaign-02\n              </a>\n              .\n            </p>\n            <p className=\"text-muted-foreground text-xs\">2 min ago</p>\n          </div>\n          <div className=\"flex gap-2\">\n            <Button size=\"sm\">Accept</Button>\n            <Button size=\"sm\" variant=\"outline\">\n              Decline\n            </Button>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          className=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close notification\"\n        >\n          <XIcon\n            size={16}\n            className=\"opacity-60 transition-opacity group-hover:opacity-100\"\n            aria-hidden=\"true\"\n          />\n        </Button>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { Button } from '@timui/react'\nimport { XIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.\n    <div className=\"bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg\">\n      <div className=\"flex gap-3\">\n        <img\n          className=\"size-9 rounded-full\"\n          src=\"/avatar-32-01.jpg\"\n          width={32}\n          height={32}\n          alt=\"Mary Palmer\"\n        />\n        <div className=\"flex grow flex-col gap-3\">\n          <div className=\"space-y-1\">\n            <p className=\"text-muted-foreground text-sm\">\n              <a className=\"text-foreground font-medium hover:underline\" href=\"#\">\n                Mary Palmer\n              </a>{' '}\n              mentioned you in{' '}\n              <a className=\"text-foreground font-medium hover:underline\" href=\"#\">\n                project-campaign-02\n              </a>\n              .\n            </p>\n            <p className=\"text-muted-foreground text-xs\">2 min ago</p>\n          </div>\n          <div className=\"flex gap-2\">\n            <Button size=\"sm\">Accept</Button>\n            <Button size=\"sm\" variant=\"outline\">\n              Decline\n            </Button>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          className=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close notification\"\n        >\n          <XIcon\n            size={16}\n            className=\"opacity-60 transition-opacity group-hover:opacity-100\"\n            aria-hidden=\"true\"\n          />\n        </Button>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/notification/notification-17.vue",
+      "target": "components/ui/notification-17.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <div class=\"bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg\">\n      <div class=\"flex gap-3\">\n        <img\n          class=\"size-9 rounded-full\"\n          src=\"/avatar-32-01.jpg\" width=\"32\" height=\"32\"\n          alt=\"Mary Palmer\"\n        />\n        <div class=\"flex grow flex-col gap-3\">\n          <div class=\"space-y-1\">\n            <p class=\"text-muted-foreground text-sm\">\n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                Mary Palmer\n              </a> \n              mentioned you in \n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                project-campaign-02\n              </a>\n              .\n            </p>\n            <p class=\"text-muted-foreground text-xs\">2 min ago</p>\n          </div>\n          <div class=\"flex gap-2\">\n            <Button size=\"sm\">Accept</Button>\n            <Button size=\"sm\" variant=\"outline\">\n              Decline\n            </Button>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close notification\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </Button>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/notification/notification-17.html",
+      "target": "components/ui/notification-17.html",
+      "type": "registry:component",
+      "content": "// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <div class=\"bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg\">\n      <div class=\"flex gap-3\">\n        <img\n          class=\"size-9 rounded-full\"\n          src=\"/avatar-32-01.jpg\" width=\"32\" height=\"32\"\n          alt=\"Mary Palmer\"\n        />\n        <div class=\"flex grow flex-col gap-3\">\n          <div class=\"space-y-1\">\n            <p class=\"text-muted-foreground text-sm\">\n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                Mary Palmer\n              </a> \n              mentioned you in \n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                project-campaign-02\n              </a>\n              .\n            </p>\n            <p class=\"text-muted-foreground text-xs\">2 min ago</p>\n          </div>\n          <div class=\"flex gap-2\">\n            <button size=\"sm\">Accept</button>\n            <button size=\"sm\" variant=\"outline\">\n              Decline\n            </button>\n          </div>\n        </div>\n        <button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close notification\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/notification/notification-17.wxml",
+      "target": "components/ui/notification-17/notification-17.wxml",
+      "type": "registry:component",
+      "content": "// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <view class=\"bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg\">\n      <view class=\"flex gap-3\">\n        <img\n          class=\"size-9 rounded-full\"\n          src=\"/avatar-32-01.jpg\" width=\"32\" height=\"32\"\n          alt=\"Mary Palmer\"\n        />\n        <view class=\"flex grow flex-col gap-3\">\n          <view class=\"space-y-1\">\n            <p class=\"text-muted-foreground text-sm\">\n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                Mary Palmer\n              </a> \n              mentioned you in \n              <a class=\"text-foreground font-medium hover:underline\" href=\"#\">\n                project-campaign-02\n              </a>\n              .\n            </p>\n            <p class=\"text-muted-foreground text-xs\">2 min ago</p>\n          </view>\n          <view class=\"flex gap-2\">\n            <button size=\"sm\">Accept</button>\n            <button size=\"sm\" variant=\"outline\">\n              Decline\n            </button>\n          </view>\n        </view>\n        <button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close notification\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     "colSpan": 2,
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "notification"
+    "category": "notification",
+    "title": "Notification · Dismissible"
   },
   "categories": [
     "notification"

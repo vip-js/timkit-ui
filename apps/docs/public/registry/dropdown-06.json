@@ -2,15 +2,33 @@
   "name": "dropdown-06",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/dropdown-menu.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/dropdown-menu.json"
   ],
   "files": [
     {
       "path": "registry/default/components/dropdown/dropdown-06.tsx",
       "type": "registry:component",
       "target": "components/ui/dropdown-06.tsx",
-      "content": "'use client'\n\nimport { useState } from 'react'\nimport { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'\nimport { ChevronDownIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuTrigger,\n} from '../../ui/dropdown-menu'\n\ntype Checked = DropdownMenuCheckboxItemProps['checked']\n\nexport default function Component() {\n  const [nextjs, setNextjs] = useState<Checked>(false)\n  const [sveltekit, setSveltekit] = useState<Checked>(true)\n  const [astro, setAstro] = useState<Checked>(false)\n  const [remix, setRemix] = useState<Checked>(false)\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Checkbox items\n          <ChevronDownIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuCheckboxItem checked={nextjs} onCheckedChange={setNextjs}>\n          Next.js\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={sveltekit} onCheckedChange={setSveltekit}>\n          SvelteKit\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={remix} onCheckedChange={setRemix} disabled>\n          Remix\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={astro} onCheckedChange={setAstro}>\n          Astro\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}\n"
+      "content": "'use client'\n\nimport { useState } from 'react'\nimport {\n  Button,\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuTrigger,\n} from '@timui/react'\nimport { ChevronDownIcon } from 'lucide-react'\n\ntype Checked = boolean\n\nexport default function Component() {\n  const [nextjs, setNextjs] = useState<Checked>(false)\n  const [sveltekit, setSveltekit] = useState<Checked>(true)\n  const [astro, setAstro] = useState<Checked>(false)\n  const [remix, setRemix] = useState<Checked>(false)\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Checkbox items\n          <ChevronDownIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuCheckboxItem checked={nextjs} onCheckedChange={setNextjs}>\n          Next.js\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={sveltekit} onCheckedChange={setSveltekit}>\n          SvelteKit\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={remix} onCheckedChange={setRemix} disabled>\n          Remix\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem checked={astro} onCheckedChange={setAstro}>\n          Astro\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-06.vue",
+      "target": "components/ui/dropdown-06.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n<DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Checkbox items\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuCheckboxItem >\n          Next.js\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem >\n          SvelteKit\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem disabled>\n          Remix\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem >\n          Astro\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-06.html",
+      "target": "components/ui/dropdown-06.html",
+      "type": "registry:component",
+      "content": "<dropdown-menu>\n      <dropdown-menu-trigger asChild>\n        <button variant=\"outline\">\n          Checkbox items\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </dropdown-menu-trigger>\n      <dropdown-menu-content>\n        <dropdown-menu-checkbox-item >\n          Next.js\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item >\n          SvelteKit\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item disabled>\n          Remix\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item >\n          Astro\n        </dropdown-menu-checkbox-item>\n      </dropdown-menu-content>\n    </dropdown-menu>"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-06.wxml",
+      "target": "components/ui/dropdown-06/dropdown-06.wxml",
+      "type": "registry:component",
+      "content": "<dropdown-menu>\n      <dropdown-menu-trigger asChild>\n        <button variant=\"outline\">\n          Checkbox items\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </dropdown-menu-trigger>\n      <dropdown-menu-content>\n        <dropdown-menu-checkbox-item >\n          Next.js\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item >\n          SvelteKit\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item disabled>\n          Remix\n        </dropdown-menu-checkbox-item>\n        <dropdown-menu-checkbox-item >\n          Astro\n        </dropdown-menu-checkbox-item>\n      </dropdown-menu-content>\n    </dropdown-menu>"
     }
   ],
   "meta": {
@@ -21,11 +39,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "dropdown"
+    "category": "dropdown",
+    "title": "Dropdown · Disabled State"
   },
   "categories": [
     "dropdown"

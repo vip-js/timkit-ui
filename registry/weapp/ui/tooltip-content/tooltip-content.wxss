@@ -1,0 +1,2 @@
+/* tooltip-content.wxss */
+@import "../../lib/utils.wxss";

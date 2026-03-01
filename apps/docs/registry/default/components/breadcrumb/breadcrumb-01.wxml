@@ -1,0 +1,20 @@
+<breadcrumb>
+  <breadcrumb-list>
+    <breadcrumb-item>
+      <breadcrumb-link>Home</breadcrumb-link>
+    </breadcrumb-item>
+    <breadcrumb-separator />
+    <breadcrumb-item>
+      <breadcrumb-ellipsis />
+      <text class="sr-only">Toggle menu</text>
+    </breadcrumb-item>
+    <breadcrumb-separator />
+    <breadcrumb-item>
+      <breadcrumb-link>Components</breadcrumb-link>
+    </breadcrumb-item>
+    <breadcrumb-separator />
+    <breadcrumb-item>
+      <breadcrumb-page>Breadcrumb</breadcrumb-page>
+    </breadcrumb-item>
+  </breadcrumb-list>
+</breadcrumb>

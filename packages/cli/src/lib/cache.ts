@@ -2,7 +2,8 @@ import fs from 'fs'
 import os from 'os'
 import path from 'path'
 
-const CACHE_DIR = path.join(os.homedir(), '.timkit', 'cache')
+const CACHE_DIR =
+  process.env.TIMUI_CACHE_DIR || path.join(os.homedir(), '.timui', 'cache')
 const REGISTRY_INDEX_CACHE = path.join(CACHE_DIR, 'registry-index.json')
 const REGISTRY_ITEMS_DIR = path.join(CACHE_DIR, 'items')
 

@@ -1,0 +1,9 @@
+<view 
+  id="{{api.rootProps.id}}"
+  class="{{className}}" 
+  role="radiogroup"
+  data-orientation="{{api.orientation}}"
+  data-disabled="{{api.disabled}}"
+>
+  <slot></slot>
+</view>

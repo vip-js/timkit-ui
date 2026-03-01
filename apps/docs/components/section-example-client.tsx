@@ -1,6 +1,6 @@
 'use client'
 
-import componentsNames from '@/componentsNames'
+import componentsNames from '@/components-names'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 import type { SectionCodeGroup } from '@/lib/sections'

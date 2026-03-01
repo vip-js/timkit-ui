@@ -1,33 +1,33 @@
 export default function Footer() {
   return (
-    <footer className="before:bg-[linear-gradient(to_right,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))] relative mt-16 py-8 before:absolute before:-inset-x-32 before:top-0 before:h-px md:mt-20">
-      <div
-        className="before:bg-ring/50 after:bg-ring/50 before:absolute before:-top-px before:-left-12 before:z-10 before:-ml-px before:size-[3px] after:absolute after:-top-px after:-right-12 after:z-10 after:-mr-px after:size-[3px]"
-        aria-hidden="true"
-      ></div>
-      <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-center">
-        <p className="text-muted-foreground text-sm">&copy; {new Date().getFullYear()} Timkit UI</p>
-        <p className="text-muted-foreground text-sm">
-          A project by{' '}
+    <footer className="relative mt-16 border-t border-border/60 px-6 py-10 md:mt-24">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="flex flex-col gap-6 text-sm md:flex-row md:items-center md:justify-between">
+        <div className="space-y-2">
+          <div className="text-base font-semibold text-foreground">Timkit UI</div>
+          <p className="text-muted-foreground">
+            设计灵感来自 Linear 的清晰与秩序，用于快速搭建现代产品体验。
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+          <span>&copy; {new Date().getFullYear()}</span>
           <a
-            className="text-foreground decoration-border font-medium underline underline-offset-4 hover:no-underline"
+            className="font-medium text-foreground transition hover:text-primary"
             href="https://x.com/pacovitiello"
             target="_blank"
             rel="noopener noreferrer"
           >
             Pasquale
-          </a>{' '}
-          and{' '}
+          </a>
           <a
-            className="text-foreground decoration-border font-medium underline underline-offset-4 hover:no-underline"
+            className="font-medium text-foreground transition hover:text-primary"
             href="https://x.com/DavidePacilio"
             target="_blank"
             rel="noopener noreferrer"
           >
             Davide
           </a>
-          .
-        </p>
+        </div>
       </div>
     </footer>
   )

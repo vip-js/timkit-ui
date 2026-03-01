@@ -1,9 +1,7 @@
 'use client'
 
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 import { PlusIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   return (

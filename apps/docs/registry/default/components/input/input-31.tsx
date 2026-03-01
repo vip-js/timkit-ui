@@ -1,6 +1,5 @@
 import { useId } from 'react'
-
-import { Input } from '../../ui/input'
+import { Input } from '@timui/react'
 
 export default function Component() {
   const id = useId()

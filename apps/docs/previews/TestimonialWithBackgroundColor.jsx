@@ -1,11 +1,5 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, CardContent, Avatar } from "@timui/react";
 export default function TestimonialWithBackgroundColor() {
     return (
         <section className="relative py-28 bg-blue-600">

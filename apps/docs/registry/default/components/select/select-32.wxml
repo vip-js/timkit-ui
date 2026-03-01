@@ -1,0 +1,42 @@
+<view class="*:not-first:mt-2">
+      <label for="select-32-id">Status select</label>
+      <select defaultValue="1">
+        <select-trigger id="select-32-id"
+          class="[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0"
+        >
+          <select-value placeholder="Select status" />
+        </select-trigger>
+        <select-content class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0">
+          <select-item value="1">
+            <span class="flex items-center gap-2">
+              <status-dot class="text-emerald-600" />
+              <span class="truncate">Completed</span>
+            </span>
+          </select-item>
+          <select-item value="2">
+            <span class="flex items-center gap-2">
+              <status-dot class="text-blue-500" />
+              <span class="truncate">In Progress</span>
+            </span>
+          </select-item>
+          <select-item value="3">
+            <span class="flex items-center gap-2">
+              <status-dot class="text-amber-500" />
+              <span class="truncate">Pending</span>
+            </span>
+          </select-item>
+          <select-item value="4">
+            <span class="flex items-center gap-2">
+              <status-dot class="text-gray-500" />
+              <span class="truncate">Cancelled</span>
+            </span>
+          </select-item>
+          <select-item value="5">
+            <span class="flex items-center gap-2">
+              <status-dot class="text-red-500" />
+              <span class="truncate">Failed</span>
+            </span>
+          </select-item>
+        </select-content>
+      </select>
+    </view>

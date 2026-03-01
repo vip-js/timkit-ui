@@ -2,16 +2,34 @@
   "name": "checkbox-12",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/checkbox.json",
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/input.json"
+    "https://ui.timkit.cn/r/checkbox.json",
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/input.json"
   ],
   "files": [
     {
       "path": "registry/default/components/checkbox/checkbox-12.tsx",
       "type": "registry:component",
       "target": "components/ui/checkbox-12.tsx",
-      "content": "'use client'\n\nimport { useEffect, useId, useRef, useState } from 'react'\n\nimport { Checkbox } from '../../ui/checkbox'\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const checkboxId = useId()\n  const inputId = useId()\n  const [checked, setChecked] = useState<boolean | 'indeterminate'>(false)\n  const inputRef = useRef<HTMLInputElement>(null)\n\n  useEffect(() => {\n    if (checked === true && inputRef.current) {\n      inputRef.current.focus()\n    }\n  }, [checked])\n\n  return (\n    <div>\n      <div className=\"flex items-start gap-2\">\n        <Checkbox\n          id={checkboxId}\n          checked={checked}\n          onCheckedChange={setChecked}\n          aria-describedby={`${checkboxId}-description`}\n          aria-controls={inputId}\n        />\n        <div className=\"grow\">\n          <div className=\"grid gap-2\">\n            <Label htmlFor={checkboxId}>Checkbox with expansion</Label>\n            <p id={`${checkboxId}-description`} className=\"text-muted-foreground text-xs\">\n              You can use this checkbox with a label and a description.\n            </p>\n          </div>\n          {/* Expandable field */}\n          <div\n            role=\"region\"\n            id={inputId}\n            aria-labelledby={checkboxId}\n            className=\"grid transition-all ease-in-out data-[state=collapsed]:grid-rows-[0fr] data-[state=collapsed]:opacity-0 data-[state=expanded]:grid-rows-[1fr] data-[state=expanded]:opacity-100\"\n            data-state={checked ? 'expanded' : 'collapsed'}\n          >\n            <div className=\"pointer-events-none -m-2 overflow-hidden p-2\">\n              <div className=\"pointer-events-auto mt-3\">\n                <Input\n                  ref={inputRef}\n                  type=\"text\"\n                  id=\"checkbox-11-additional-info\"\n                  placeholder=\"Enter details\"\n                  aria-label=\"Additional Information\"\n                  disabled={!checked}\n                />\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "'use client'\n\nimport { useEffect, useId, useRef, useState } from 'react'\nimport { Checkbox, Input, Label } from '@timui/react'\n\nexport default function Component() {\n  const checkboxId = useId()\n  const inputId = useId()\n  const [checked, setChecked] = useState<boolean | 'indeterminate'>(false)\n  const inputRef = useRef<HTMLInputElement>(null)\n\n  useEffect(() => {\n    if (checked === true && inputRef.current) {\n      inputRef.current.focus()\n    }\n  }, [checked])\n\n  return (\n    <div>\n      <div className=\"flex items-start gap-2\">\n        <Checkbox\n          id={checkboxId}\n          checked={checked}\n          onCheckedChange={setChecked}\n          aria-describedby={`${checkboxId}-description`}\n          aria-controls={inputId}\n        />\n        <div className=\"grow\">\n          <div className=\"grid gap-2\">\n            <Label htmlFor={checkboxId}>Checkbox with expansion</Label>\n            <p id={`${checkboxId}-description`} className=\"text-muted-foreground text-xs\">\n              You can use this checkbox with a label and a description.\n            </p>\n          </div>\n          {/* Expandable field */}\n          <div\n            role=\"region\"\n            id={inputId}\n            aria-labelledby={checkboxId}\n            className=\"grid transition-all ease-in-out data-[state=collapsed]:grid-rows-[0fr] data-[state=collapsed]:opacity-0 data-[state=expanded]:grid-rows-[1fr] data-[state=expanded]:opacity-100\"\n            data-state={checked ? 'expanded' : 'collapsed'}\n          >\n            <div className=\"pointer-events-none -m-2 overflow-hidden p-2\">\n              <div className=\"pointer-events-auto mt-3\">\n                <Input\n                  ref={inputRef}\n                  type=\"text\"\n                  id=\"checkbox-11-additional-info\"\n                  placeholder=\"Enter details\"\n                  aria-label=\"Additional Information\"\n                  disabled={!checked}\n                />\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-12.vue",
+      "target": "components/ui/checkbox-12.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div>\n      <div class=\"flex items-start gap-2\">\n        <Checkbox id=\"checkbox-12-id\" aria-describedby=\"checkbox-12-id-description\"\n        />\n        <div class=\"grow\">\n          <div class=\"grid gap-2\">\n            <Label for=\"checkbox-12-id\">Checkbox with expansion</Label>\n            <p id=\"checkbox-12-id\" class=\"text-muted-foreground text-xs\">\n              You can use this checkbox with a label and a description.\n            </p>\n          </div>\n          \n          <div\n            role=\"region\" id=\"checkbox-12-id\"\n            class=\"grid transition-all ease-in-out data-[state=collapsed]:grid-rows-[0fr] data-[state=collapsed]:opacity-0 data-[state=expanded]:grid-rows-[1fr] data-[state=expanded]:opacity-100\"\n            data-state='collapsed'\n          >\n            <div class=\"pointer-events-none -m-2 overflow-hidden p-2\">\n              <div class=\"pointer-events-auto mt-3\">\n                <Input\n                  type=\"text\"\n                  id=\"checkbox-11-additional-info\"\n                  placeholder=\"Enter details\"\n                  aria-label=\"Additional Information\"\n                />\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-12.html",
+      "target": "components/ui/checkbox-12.html",
+      "type": "registry:component",
+      "content": "<div>\n      <div class=\"flex items-start gap-2\">\n        <checkbox id=\"checkbox-12-id\" aria-describedby=\"checkbox-12-id-description\"\n        />\n        <div class=\"grow\">\n          <div class=\"grid gap-2\">\n            <label for=\"checkbox-12-id\">Checkbox with expansion</label>\n            <p id=\"checkbox-12-id\" class=\"text-muted-foreground text-xs\">\n              You can use this checkbox with a label and a description.\n            </p>\n          </div>\n          \n          <div\n            role=\"region\" id=\"checkbox-12-id\"\n            class=\"grid transition-all ease-in-out data-[state=collapsed]:grid-rows-[0fr] data-[state=collapsed]:opacity-0 data-[state=expanded]:grid-rows-[1fr] data-[state=expanded]:opacity-100\"\n            data-state='collapsed'\n          >\n            <div class=\"pointer-events-none -m-2 overflow-hidden p-2\">\n              <div class=\"pointer-events-auto mt-3\">\n                <input\n                  type=\"text\"\n                  id=\"checkbox-11-additional-info\"\n                  placeholder=\"Enter details\"\n                  aria-label=\"Additional Information\"\n                />\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-12.wxml",
+      "target": "components/ui/checkbox-12/checkbox-12.wxml",
+      "type": "registry:component",
+      "content": "<view>\n      <view class=\"flex items-start gap-2\">\n        <checkbox id=\"checkbox-12-id\" aria-describedby=\"checkbox-12-id-description\"\n        />\n        <view class=\"grow\">\n          <view class=\"grid gap-2\">\n            <label for=\"checkbox-12-id\">Checkbox with expansion</label>\n            <p id=\"checkbox-12-id\" class=\"text-muted-foreground text-xs\">\n              You can use this checkbox with a label and a description.\n            </p>\n          </view>\n          \n          <view\n            role=\"region\" id=\"checkbox-12-id\"\n            class=\"grid transition-all ease-in-out data-[state=collapsed]:grid-rows-[0fr] data-[state=collapsed]:opacity-0 data-[state=expanded]:grid-rows-[1fr] data-[state=expanded]:opacity-100\"\n            data-state='collapsed'\n          >\n            <view class=\"pointer-events-none -m-2 overflow-hidden p-2\">\n              <view class=\"pointer-events-auto mt-3\">\n                <input\n                  type=\"text\"\n                  id=\"checkbox-11-additional-info\"\n                  placeholder=\"Enter details\"\n                  aria-label=\"Additional Information\"\n                />\n              </view>\n            </view>\n          </view>\n        </view>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -22,11 +40,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "checkbox"
+    "category": "checkbox",
+    "title": "Checkbox · With label"
   },
   "categories": [
     "checkbox"

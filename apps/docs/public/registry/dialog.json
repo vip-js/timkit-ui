@@ -2,38 +2,191 @@
   "name": "dialog",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-dialog"
+    "@timui/core"
+  ],
+  "registryDependencies": [
+    "use-machine"
   ],
   "files": [
     {
       "path": "registry/default/ui/dialog.tsx",
       "type": "registry:ui",
       "target": "components/ui/dialog.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as DialogPrimitive from '@radix-ui/react-dialog'\nimport { cn } from '@timui/shared'\nimport { cva } from 'class-variance-authority'\nimport { XIcon } from 'lucide-react'\n\nconst dialogOverlayVariants = cva(\n  'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80'\n)\n\nconst dialogContentVariants = cva(\n  'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 grid max-h-[calc(100%-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-xl border p-6 shadow-lg duration-200 sm:max-w-100'\n)\n\nconst dialogCloseVariants = cva(\n  'group focus-visible:border-ring focus-visible:ring-ring/50 absolute top-3 right-3 flex size-7 items-center justify-center rounded transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none'\n)\n\nconst dialogHeaderVariants = cva('flex flex-col gap-1 text-center sm:text-left')\n\nconst dialogFooterVariants = cva('flex flex-col-reverse gap-3 sm:flex-row sm:justify-end')\n\nconst dialogTitleVariants = cva('text-lg leading-none font-semibold')\n\nconst dialogDescriptionVariants = cva('text-muted-foreground text-sm')\n\nfunction Dialog({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {\n  return <DialogPrimitive.Root data-slot=\"dialog\" {...props} />\n}\n\nfunction DialogTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {\n  return <DialogPrimitive.Trigger data-slot=\"dialog-trigger\" {...props} />\n}\n\nfunction DialogPortal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) {\n  return <DialogPrimitive.Portal data-slot=\"dialog-portal\" {...props} />\n}\n\nfunction DialogClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {\n  return <DialogPrimitive.Close data-slot=\"dialog-close\" {...props} />\n}\n\nfunction DialogOverlay({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {\n  return (\n    <DialogPrimitive.Overlay\n      data-slot=\"dialog-overlay\"\n      className={cn(dialogOverlayVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogContent({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content>) {\n  return (\n    <DialogPortal>\n      <DialogOverlay />\n      <DialogPrimitive.Content\n        data-slot=\"dialog-content\"\n        className={cn(dialogContentVariants(), className)}\n        {...props}\n      >\n        {children}\n        <DialogPrimitive.Close className={dialogCloseVariants()}>\n          <XIcon size={16} className=\"opacity-60 transition-opacity group-hover:opacity-100\" />\n          <span className=\"sr-only\">Close</span>\n        </DialogPrimitive.Close>\n      </DialogPrimitive.Content>\n    </DialogPortal>\n  )\n}\n\nfunction DialogHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"alert-dialog-header\"\n      className={cn(dialogHeaderVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"alert-dialog-footer\"\n      className={cn(dialogFooterVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      data-slot=\"alert-dialog-title\"\n      className={cn(dialogTitleVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      data-slot=\"alert-dialog-description\"\n      className={cn(dialogDescriptionVariants(), className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Dialog,\n  DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogOverlay,\n  DialogPortal,\n  DialogTitle,\n  DialogTrigger,\n}\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\nimport { createPortal } from 'react-dom'\n\nimport { Slot } from './slot'\n\nconst DialogContext = React.createContext<{\n  open: boolean\n  setOpen: (open: boolean) => void\n  modal: boolean\n} | null>(null)\n\nfunction useDialog() {\n  const context = React.useContext(DialogContext)\n  if (!context) {\n    throw new Error('Dialog components must be used within Dialog')\n  }\n  return context\n}\n\nconst Dialog = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & {\n    open?: boolean\n    defaultOpen?: boolean\n    onOpenChange?: (open: boolean) => void\n    modal?: boolean\n  }\n>(({ children, open, defaultOpen, onOpenChange, modal = true, ...props }, ref) => {\n  const [isOpen, setIsOpen] = React.useState<boolean>(\n    open !== undefined ? open : (defaultOpen ?? false)\n  )\n\n  // Sync controlled state\n  React.useEffect(() => {\n    if (open !== undefined) {\n      setIsOpen(open)\n    }\n  }, [open])\n\n  const handleOpenChange = React.useCallback(\n    (value: boolean) => {\n      if (open === undefined) {\n        setIsOpen(value)\n      }\n      onOpenChange?.(value)\n    },\n    [open, onOpenChange]\n  )\n\n  const contextValue = React.useMemo(\n    () => ({\n      open: isOpen,\n      setOpen: handleOpenChange,\n      modal,\n    }),\n    [isOpen, handleOpenChange, modal]\n  )\n\n  return <DialogContext.Provider value={contextValue}>{children}</DialogContext.Provider>\n})\nDialog.displayName = 'Dialog'\n\nconst DialogTrigger = React.forwardRef<\n  HTMLButtonElement,\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }\n>(({ className, onClick, asChild = false, ...props }, ref) => {\n  const { setOpen } = useDialog()\n  const Comp = asChild ? Slot : 'button'\n  return (\n    <Comp\n      ref={ref}\n      data-slot=\"dialog-trigger\"\n      type=\"button\"\n      onClick={(e) => {\n        setOpen(true)\n        onClick?.(e)\n      }}\n      className={cn(className)}\n      {...props}\n    />\n  )\n})\nDialogTrigger.displayName = 'DialogTrigger'\n\nconst DialogPortal = ({ children }: { children: React.ReactNode }) => {\n  const { open } = useDialog()\n\n  // Only render when open for simplicity in docs preview\n  if (!open) return null\n  if (typeof window === 'undefined') return null\n\n  return createPortal(<div data-slot=\"dialog-portal\">{children}</div>, document.body)\n}\nDialogPortal.displayName = 'DialogPortal'\n\nconst DialogOverlay = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, onClick, ...props }, ref) => {\n    const { setOpen } = useDialog()\n    return (\n      <div\n        ref={ref}\n        data-slot=\"dialog-overlay\"\n        data-state=\"open\"\n        onClick={(e) => {\n          setOpen(false)\n          onClick?.(e)\n        }}\n        className={cn(\n          'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',\n          className\n        )}\n        {...props}\n      />\n    )\n  }\n)\nDialogOverlay.displayName = 'DialogOverlay'\n\ntype DialogContentProps = React.HTMLAttributes<HTMLDivElement> & {\n  onOpenAutoFocus?: (event: React.SyntheticEvent) => void\n}\n\nconst DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(\n  ({ className, children, onOpenAutoFocus: _onOpenAutoFocus, ...props }, ref) => {\n    const { setOpen } = useDialog()\n\n    return (\n      <DialogPortal>\n        <DialogOverlay />\n        <div\n          ref={ref}\n          data-slot=\"dialog-content\"\n          data-state=\"open\"\n          className={cn(\n            'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',\n            className\n          )}\n          {...props}\n        >\n          {children}\n          <button\n            data-slot=\"dialog-close\"\n            type=\"button\"\n            onClick={() => setOpen(false)}\n            className=\"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground\"\n          >\n            <svg\n              aria-hidden=\"true\"\n              viewBox=\"0 0 24 24\"\n              fill=\"none\"\n              stroke=\"currentColor\"\n              strokeWidth=\"2\"\n              strokeLinecap=\"round\"\n              strokeLinejoin=\"round\"\n              className=\"h-4 w-4\"\n            >\n              <path d=\"M18 6 6 18\" />\n              <path d=\"m6 6 12 12\" />\n            </svg>\n            <span className=\"sr-only\">Close</span>\n          </button>\n        </div>\n      </DialogPortal>\n    )\n  }\n)\nDialogContent.displayName = 'DialogContent'\n\nconst DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />\n)\nDialogHeader.displayName = 'DialogHeader'\n\nconst DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div\n    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}\n    {...props}\n  />\n)\nDialogFooter.displayName = 'DialogFooter'\n\nconst DialogTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(\n  ({ className, ...props }, ref) => (\n    <h2\n      ref={ref}\n      data-slot=\"dialog-title\"\n      className={cn('text-lg font-semibold leading-none tracking-tight', className)}\n      {...props}\n    />\n  )\n)\nDialogTitle.displayName = 'DialogTitle'\n\ntype DialogDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> & {\n  asChild?: boolean\n}\n\nconst DialogDescription = React.forwardRef<HTMLParagraphElement, DialogDescriptionProps>(\n  ({ className, asChild, children, ...props }, ref) => {\n    if (asChild) {\n      return (\n        <Slot\n          data-slot=\"dialog-description\"\n          className={cn('text-muted-foreground text-sm', className)}\n          {...props}\n        >\n          {children}\n        </Slot>\n      )\n    }\n\n    return (\n      <p\n        ref={ref}\n        data-slot=\"dialog-description\"\n        className={cn('text-muted-foreground text-sm', className)}\n        {...props}\n      >\n        {children}\n      </p>\n    )\n  }\n)\nDialogDescription.displayName = 'DialogDescription'\n\n// Helper for close trigger\ntype DialogCloseProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {\n  asChild?: boolean\n}\n\nconst DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(\n  ({ className, onClick, asChild, children, ...props }, ref) => {\n    const { setOpen } = useDialog()\n    const sharedProps = {\n      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {\n        setOpen(false)\n        onClick?.(e)\n      },\n      className: cn(className),\n      ...props,\n    }\n\n    if (asChild) {\n      return (\n        <Slot data-slot=\"dialog-close\" {...sharedProps}>\n          {children}\n        </Slot>\n      )\n    }\n\n    return (\n      <button ref={ref} data-slot=\"dialog-close\" type=\"button\" {...sharedProps}>\n        {children}\n      </button>\n    )\n  }\n)\nDialogClose.displayName = 'DialogClose'\n\nexport {\n  Dialog,\n  DialogPortal,\n  DialogOverlay,\n  DialogClose,\n  DialogTrigger,\n  DialogContent,\n  DialogHeader,\n  DialogFooter,\n  DialogTitle,\n  DialogDescription,\n}\n"
     },
     {
-      "path": "registry/default/vue/dialog.vue",
-      "target": "components/ui/dialog.vue",
+      "path": "registry/default/vue/dialog/dialog-content.vue",
+      "target": "components/ui/dialog/dialog-content.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { DialogRoot, type DialogRootEmits, type DialogRootProps, useForwardPropsEmits } from \"radix-vue\";\n\nconst props = defineProps<DialogRootProps>();\nconst emits = defineEmits<DialogRootEmits>();\n\nconst forwarded = useForwardPropsEmits(props, emits);\n</script>\n\n<template>\n  <DialogRoot v-bind=\"forwarded\">\n    <slot />\n  </DialogRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport {\n  dialogOverlayVariants,\n  dialogContentVariants,\n  dialogCloseVariants,\n  dialogCloseIconVariants,\n  dialogPositionerVariants,\n  cn,\n} from \"@/lib/utils\";\nimport { useDialogContext } from \"./use-dialog-context\";\nimport Presence from \"../presence/presence.vue\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n\nconst api = useDialogContext();\n</script>\n\n<template>\n  <Teleport to=\"body\">\n    <Presence\n      :present=\"api?.open ?? false\"\n      :unmountOnExit=\"true\"\n      v-bind=\"api?.getBackdropProps?.()\"\n      data-slot=\"dialog-overlay\"\n      data-state=\"open\"\n      :class=\"cn(dialogOverlayVariants())\"\n    />\n    <Presence\n      :present=\"api?.open ?? false\"\n      :unmountOnExit=\"true\"\n      v-bind=\"api?.getPositionerProps?.()\"\n      :class=\"cn(dialogPositionerVariants())\"\n    >\n      <div\n        v-bind=\"api?.getContentProps?.()\"\n        data-slot=\"dialog-content\"\n        data-state=\"open\"\n        :class=\"cn(dialogContentVariants(), props.class)\"\n      >\n        <slot />\n\n        <button\n          v-bind=\"api?.getCloseTriggerProps?.()\"\n          data-slot=\"dialog-close\"\n          :class=\"cn(dialogCloseVariants())\"\n        >\n          <svg\n            aria-hidden=\"true\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            :class=\"dialogCloseIconVariants()\"\n          >\n            <path d=\"M18 6 6 18\" />\n            <path d=\"m6 6 12 12\" />\n          </svg>\n          <span class=\"sr-only\">Close</span>\n        </button>\n      </div>\n    </Presence>\n  </Teleport>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog-description.vue",
+      "target": "components/ui/dialog/dialog-description.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, dialogDescriptionVariants } from \"@/lib/utils\";\nimport { useDialogContext } from \"./use-dialog-context\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\nconst api = useDialogContext();\n</script>\n\n<template>\n  <p\n    v-bind=\"api.getDescriptionProps()\"\n    data-slot=\"dialog-description\"\n    :class=\"cn(dialogDescriptionVariants(), props.class)\"\n  >\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog-footer.vue",
+      "target": "components/ui/dialog/dialog-footer.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn, dialogFooterVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <div data-slot=\"dialog-footer\" :class=\"cn(dialogFooterVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog-header.vue",
+      "target": "components/ui/dialog/dialog-header.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn, dialogHeaderVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <div data-slot=\"dialog-header\" :class=\"cn(dialogHeaderVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog-title.vue",
+      "target": "components/ui/dialog/dialog-title.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn } from \"@/lib/utils\";\nimport { useDialogContext } from \"./use-dialog-context\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\nconst api = useDialogContext();\n</script>\n\n<template>\n  <h2\n    v-bind=\"api.getTitleProps()\"\n    data-slot=\"dialog-title\"\n    :class=\"cn('text-lg font-semibold leading-none tracking-tight', props.class)\"\n  >\n    <slot />\n  </h2>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog-trigger.vue",
+      "target": "components/ui/dialog/dialog-trigger.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { useDialogContext } from \"./use-dialog-context\";\n\nconst api = useDialogContext();\n</script>\n\n<template>\n  <button v-bind=\"api.getTriggerProps()\" data-slot=\"dialog-trigger\">\n    <slot />\n  </button>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/dialog.vue",
+      "target": "components/ui/dialog/dialog.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { useDialog, type UseDialogProps, type UseDialogEmits } from \"./use-dialog\";\nimport { DialogProvider } from \"./use-dialog-context\";\n\nconst props = defineProps<UseDialogProps>();\nconst emit = defineEmits<UseDialogEmits>();\n\nconst api = useDialog(props, emit);\nDialogProvider(api);\n</script>\n\n<template>\n  <slot />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/use-dialog-context.ts",
+      "target": "components/ui/dialog/use-dialog-context.ts",
+      "type": "registry:component",
+      "content": "import { createContext } from \"../../hooks/create-context\"\nimport type { dialogConnect } from \"@/lib/utils\"\nimport type { ComputedRef } from \"vue\"\n\nexport type DialogContext = ComputedRef<ReturnType<typeof dialogConnect>>\n\nexport const [DialogProvider, useDialogContext] = createContext<DialogContext>({\n    id: \"DialogContext\",\n    providerName: \"<Dialog />\",\n})\n"
+    },
+    {
+      "path": "registry/default/vue/dialog/use-dialog.ts",
+      "target": "components/ui/dialog/use-dialog.ts",
+      "type": "registry:component",
+      "content": "import { computed, watch } from 'vue'\nimport type { DialogVueProps as CoreDialogProps } from \"@/lib/utils\"\nimport { normalizeProps, useMachine } from '@zag-js/vue'\nimport { dialogConnect, dialogMachine } from \"@/lib/utils\"\n\nexport interface UseDialogProps extends Omit<CoreDialogProps, 'id'> {\n    id?: string\n    defaultOpen?: boolean\n}\n\nexport interface UseDialogEmits {\n    (e: 'update:open', value: boolean): void\n    (e: 'openChange', value: boolean): void\n}\n\nlet staticId = 0\n\nexport function useDialog(props: UseDialogProps, emit: UseDialogEmits) {\n    const localId = `dialog-${++staticId}`\n\n    const machineProps = computed(() => ({\n        id: props.id ?? localId,\n        open: props.open,\n        defaultOpen: props.defaultOpen,\n        modal: props.modal !== false,\n        onOpenChange(details: { open: boolean }) {\n            emit('update:open', details.open)\n            emit('openChange', details.open)\n        },\n    }))\n\n    const service = useMachine(dialogMachine, machineProps)\n    const api = computed(() => dialogConnect(service, normalizeProps))\n\n    // Controlled component sync logic\n    watch(\n        () => props.open,\n        (val?: boolean) => {\n            if (val !== undefined && val !== api.value.open) {\n                api.value.setOpen(val)\n            }\n        }\n    )\n\n    return api\n}\n"
     },
     {
       "path": "registry/default/html/dialog.html",
       "target": "components/ui/dialog.html",
       "type": "registry:component",
-      "content": "<div class=\"rounded-xl border border-zinc-200 bg-white p-6 shadow-xl max-w-lg mx-auto\">\n  <h3 class=\"text-lg font-semibold text-zinc-900\">Dialog title</h3>\n  <p class=\"text-sm text-zinc-600 mt-2\">This is a static dialog preview. Wire it up with your preferred dialog lib.</p>\n  <div class=\"mt-4 flex justify-end gap-2\">\n    <button class=\"rounded-md px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-100\">Cancel</button>\n    <button class=\"rounded-md bg-black px-3 py-1.5 text-sm font-medium text-white hover:bg-black/85\">Confirm</button>\n  </div>\n</div>\n"
-    },
-    {
-      "path": "registry/default/svelte/dialog.svelte",
-      "target": "components/ui/dialog.svelte",
-      "type": "registry:component",
-      "content": "<script lang=\"ts\">\n  export let title = \"Dialog title\"\n  export let description = \"This is a static dialog preview. Wire it up with your dialog lib.\"\n</script>\n\n<div class=\"max-w-lg rounded-xl border border-zinc-200 bg-white p-6 shadow-xl\">\n  <h3 class=\"text-lg font-semibold text-zinc-900\">{title}</h3>\n  <p class=\"mt-2 text-sm text-zinc-600\">{description}</p>\n  <div class=\"mt-4 flex justify-end gap-2\">\n    <button class=\"rounded-md px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-100\">\n      Cancel\n    </button>\n    <button class=\"rounded-md bg-black px-3 py-1.5 text-sm font-medium text-white hover:bg-black/85\">\n      Confirm\n    </button>\n  </div>\n</div>\n\n"
+      "content": "<!-- Dialog Trigger -->\n<button data-dialog-trigger=\"my-dialog\" data-slot=\"dialog-trigger\"\n    class=\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\">\n    Open Dialog\n</button>\n\n<!-- Dialog Overlay & Content -->\n<div id=\"my-dialog\" class=\"fixed inset-0 z-50 flex items-start justify-center sm:items-center hidden\" role=\"dialog\"\n    aria-modal=\"true\">\n    <div\n        data-slot=\"dialog-overlay\"\n        class=\"fixed inset-0 z-50 bg-black/80 transition-opacity data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\">\n    </div>\n    <div\n        data-slot=\"dialog-content\"\n        class=\"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg\">\n        <div data-slot=\"dialog-header\" class=\"flex flex-col space-y-1.5 text-center sm:text-left\">\n            <h2 data-slot=\"dialog-title\" class=\"text-lg font-semibold leading-none tracking-tight\">Edit profile</h2>\n            <p data-slot=\"dialog-description\" class=\"text-sm text-muted-foreground\">Make changes to your profile here. Click save when you're done.</p>\n        </div>\n\n        <!-- Content here -->\n\n        <div data-slot=\"dialog-footer\" class=\"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2\">\n            <button\n                class=\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2\">Cancel</button>\n            <button\n                class=\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2\">Save\n                changes</button>\n        </div>\n\n        <button data-slot=\"dialog-close\"\n            class=\"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\"\n                stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"h-4 w-4\">\n                <path d=\"M18 6 6 18\" />\n                <path d=\"m6 6 12 12\" />\n            </svg>\n            <span class=\"sr-only\">Close</span>\n        </button>\n    </div>\n</div>\n"
     },
     {
       "path": "registry/default/weapp/dialog.wxml",
       "target": "components/ui/dialog.wxml",
       "type": "registry:component",
-      "content": "<root-portal wx:if=\"{{open}}\">\n  <view class=\"{{overlayClass}}\" data-state=\"open\" bindtap=\"close\" catchtouchmove=\"noop\"></view>\n  <view class=\"{{contentClass}}\" data-state=\"open\">\n    <slot></slot>\n    <view class=\"{{closeClass}}\" bindtap=\"close\">\n      <text>✕</text>\n    </view>\n  </view>\n</root-portal>\n"
+      "content": "<root-portal wx:if=\"{{open}}\">\n  <view class=\"{{overlayClass}}\" data-slot=\"dialog-overlay\" data-state=\"open\" bindtap=\"close\" catchtouchmove=\"noop\"></view>\n  <view class=\"{{contentClass}}\" data-slot=\"dialog-content\" data-state=\"open\">\n    <slot></slot>\n    <view class=\"{{closeClass}}\" data-slot=\"dialog-close\" bindtap=\"close\">\n      <text>✕</text>\n    </view>\n  </view>\n</root-portal>\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog.wxss",
+      "target": "components/ui/dialog.wxss",
+      "type": "registry:component",
+      "content": "@import \"../utilities.wxss\";\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog.ts",
+      "target": "components/ui/dialog.ts",
+      "type": "registry:component",
+      "content": "import {\n  dialogCloseVariants,\n  dialogContentVariants,\n  dialogOverlayVariants,\n  resolveClasses,\n} from '../utils'\n\nComponent({\n  properties: {\n    open: {\n      type: Boolean,\n      value: false,\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n  data: {\n    contentClass: '',\n    overlayClass: '',\n    closeClass: '',\n  },\n  observers: {\n    'extClass, open': function (extClass, open) {\n      // We map 'data-state' to simple class logic if needed,\n      // but strictly 'open' controls visibility in WXML via root-portal wx:if.\n      // However, for exit animations to work, we might need a lingering state?\n      // For now, simple wx:if.\n      // We pass `data-state=\"open\"` to the classes just in case utilities use it.\n      // Actually resolveClasses resolves static classes.\n      // If variants use `data-[state=open]`, resolveClasses needs a variant prop?\n      // cva({ state: 'open' })?\n      // React \"data-state\" is an attribute. Tailwind uses attribute selector.\n      // Weapp `root-portal` content needs `data-state=\"open\"`.\n\n      const contentClass = resolveClasses(dialogContentVariants(), extClass)\n      const overlayClass = resolveClasses(dialogOverlayVariants())\n      const closeClass = resolveClasses(dialogCloseVariants())\n\n      this.setData({\n        contentClass,\n        overlayClass,\n        closeClass,\n      })\n    },\n  },\n  methods: {\n    close() {\n      this.triggerEvent('close')\n    },\n    noop() {},\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-description/dialog-description.wxml",
+      "target": "components/ui/dialog-description/dialog-description.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\" data-slot=\"dialog-description\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-description/dialog-description.wxss",
+      "target": "components/ui/dialog-description/dialog-description.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/dialog-description/dialog-description.json",
+      "target": "components/ui/dialog-description/dialog-description.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-description/dialog-description.ts",
+      "target": "components/ui/dialog-description/dialog-description.ts",
+      "type": "registry:component",
+      "content": "import { dialogDescriptionVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(dialogDescriptionVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-footer/dialog-footer.wxml",
+      "target": "components/ui/dialog-footer/dialog-footer.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\" data-slot=\"dialog-footer\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-footer/dialog-footer.wxss",
+      "target": "components/ui/dialog-footer/dialog-footer.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/dialog-footer/dialog-footer.json",
+      "target": "components/ui/dialog-footer/dialog-footer.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-footer/dialog-footer.ts",
+      "target": "components/ui/dialog-footer/dialog-footer.ts",
+      "type": "registry:component",
+      "content": "import { dialogFooterVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(dialogFooterVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-header/dialog-header.wxml",
+      "target": "components/ui/dialog-header/dialog-header.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\" data-slot=\"dialog-header\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-header/dialog-header.wxss",
+      "target": "components/ui/dialog-header/dialog-header.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/dialog-header/dialog-header.json",
+      "target": "components/ui/dialog-header/dialog-header.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-header/dialog-header.ts",
+      "target": "components/ui/dialog-header/dialog-header.ts",
+      "type": "registry:component",
+      "content": "import { dialogHeaderVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(dialogHeaderVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-title/dialog-title.wxml",
+      "target": "components/ui/dialog-title/dialog-title.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\" data-slot=\"dialog-title\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-title/dialog-title.wxss",
+      "target": "components/ui/dialog-title/dialog-title.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/dialog-title/dialog-title.json",
+      "target": "components/ui/dialog-title/dialog-title.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/dialog-title/dialog-title.ts",
+      "target": "components/ui/dialog-title/dialog-title.ts",
+      "type": "registry:component",
+      "content": "import { dialogTitleVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(dialogTitleVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
     }
   ],
   "meta": {
@@ -41,8 +194,7 @@
       "react",
       "vue",
       "weapp",
-      "html",
-      "svelte"
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

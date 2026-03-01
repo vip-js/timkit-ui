@@ -2,15 +2,33 @@
   "name": "pagination-01",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/pagination.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/pagination.json"
   ],
   "files": [
     {
       "path": "registry/default/components/pagination/pagination-01.tsx",
       "type": "registry:component",
       "target": "components/ui/pagination-01.tsx",
-      "content": "import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\nimport { Pagination, PaginationContent, PaginationItem } from '../../ui/pagination'\n\ntype PaginationProps = {\n  currentPage: number\n  totalPages: number\n}\n\nexport default function Component({ currentPage, totalPages }: PaginationProps) {\n  return (\n    <Pagination>\n      <PaginationContent className=\"w-full justify-between gap-3\">\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            className=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled={currentPage === 1 ? true : undefined}\n            role={currentPage === 1 ? 'link' : undefined}\n            asChild\n          >\n            <a href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}>\n              <ChevronLeftIcon className=\"-ms-1 opacity-60\" size={16} aria-hidden=\"true\" />\n              Previous\n            </a>\n          </Button>\n        </PaginationItem>\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            className=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled={currentPage === totalPages ? true : undefined}\n            role={currentPage === totalPages ? 'link' : undefined}\n            asChild\n          >\n            <a href={currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}>\n              Next\n              <ChevronRightIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n            </a>\n          </Button>\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n  )\n}\n"
+      "content": "import { Button, Pagination, PaginationContent, PaginationItem } from '@timui/react'\nimport { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'\n\ntype PaginationProps = {\n  currentPage: number\n  totalPages: number\n}\n\nexport default function Component({ currentPage, totalPages }: PaginationProps) {\n  return (\n    <Pagination>\n      <PaginationContent className=\"w-full justify-between gap-3\">\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            className=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled={currentPage === 1 ? true : undefined}\n            role={currentPage === 1 ? 'link' : undefined}\n            asChild\n          >\n            <a href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}>\n              <ChevronLeftIcon className=\"-ms-1 opacity-60\" size={16} aria-hidden=\"true\" />\n              Previous\n            </a>\n          </Button>\n        </PaginationItem>\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            className=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled={currentPage === totalPages ? true : undefined}\n            role={currentPage === totalPages ? 'link' : undefined}\n            asChild\n          >\n            <a href={currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}>\n              Next\n              <ChevronRightIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n            </a>\n          </Button>\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-01.vue",
+      "target": "components/ui/pagination-01.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n<Pagination>\n      <PaginationContent class=\"w-full justify-between gap-3\">\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-ms-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n              Previous\n            </a>\n          </Button>\n        </PaginationItem>\n        <PaginationItem>\n          <Button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n              Next\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </Button>\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-01.html",
+      "target": "components/ui/pagination-01.html",
+      "type": "registry:component",
+      "content": "<pagination>\n      <pagination-content class=\"w-full justify-between gap-3\">\n        <pagination-item>\n          <button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-ms-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n              Previous\n            </a>\n          </button>\n        </pagination-item>\n        <pagination-item>\n          <button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n              Next\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </button>\n        </pagination-item>\n      </pagination-content>\n    </pagination>"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-01.wxml",
+      "target": "components/ui/pagination-01/pagination-01.wxml",
+      "type": "registry:component",
+      "content": "<pagination>\n      <pagination-content class=\"w-full justify-between gap-3\">\n        <pagination-item>\n          <button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-ms-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n              Previous\n            </a>\n          </button>\n        </pagination-item>\n        <pagination-item>\n          <button\n            variant=\"outline\"\n            class=\"aria-disabled:pointer-events-none aria-disabled:opacity-50\"\n            aria-disabled=undefined\n            role=undefined\n            asChild\n          >\n            <a href=\"#/page/pagination-01-id\">\n              Next\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </button>\n        </pagination-item>\n      </pagination-content>\n    </pagination>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
     ],
     "colSpan": 2,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "paginations"
+    "category": "paginations",
+    "title": "Pagination · Disabled State"
   },
   "categories": [
     "paginations",

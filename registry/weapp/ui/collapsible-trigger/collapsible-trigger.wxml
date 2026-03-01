@@ -1,0 +1,8 @@
+<button 
+  class="{{triggerApi.className}}" 
+  id="{{triggerApi.id}}"
+  bindtap="handleClick"
+  data-state="{{triggerApi['data-state']}}"
+>
+  <slot />
+</button>

@@ -1,49 +1,91 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
-import { cn } from '@timui/shared'
+import type {
+  AssertNoExtraKeys,
+  RadioGroupProps as CoreRadioGroupProps,
+  RadioGroupItemProps as CoreRadioGroupItemProps,
+} from '@timui/core'
+import { createTimEvent, radioGroupConnect, radioGroupMachine } from '@timui/core'
+import {
+  cn,
+  radioGroupIndicatorIconVariants,
+  radioGroupIndicatorVariants,
+  radioGroupItemVariants,
+  radioGroupVariants,
+} from '@timui/core'
+import { mergeProps } from '@zag-js/react'
+import { CircleIcon } from 'lucide-react'
+import { RadioGroupProvider, useRadioGroupContext } from './radio-group/use-radio-group-context'
+import { useRadioGroup } from './radio-group/use-radio-group'
 
-function RadioGroup({
-  className,
-  ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
-  return (
-    <RadioGroupPrimitive.Root
-      data-slot="radio-group"
-      className={cn('grid gap-3', className)}
-      {...props}
-    />
-  )
-}
+type RadioGroupProps = CoreRadioGroupProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreRadioGroupProps>
+type _RadioGroupPropsGuard = AssertNoExtraKeys<
+  RadioGroupProps,
+  CoreRadioGroupProps & React.HTMLAttributes<HTMLDivElement>
+>
 
-function RadioGroupItem({
-  className,
-  ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
-  return (
-    <RadioGroupPrimitive.Item
-      data-slot="radio-group-item"
-      className={cn(
-        'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
-        className
-      )}
-      {...props}
-    >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center text-current">
-        <svg
-          width="6"
-          height="6"
-          viewBox="0 0 6 6"
-          fill="currentcolor"
-          xmlns="http://www.w3.org/2000/svg"
+const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+  (
+    { className, value, defaultValue, onValueChange, disabled, required, name, id, ...props },
+    ref
+  ) => {
+    const api = useRadioGroup({ value, defaultValue, onValueChange, disabled, required, name, id })
+    const rootProps = api.getRootProps()
+    const mergedRootProps = mergeProps(rootProps, props)
+    const { className: rootClassName, ...rootRest } = mergedRootProps
+
+    return (
+      <RadioGroupProvider value={api}>
+        <div
+          {...rootRest}
+          ref={ref}
+          data-slot="radio-group"
+          className={cn(radioGroupVariants(), rootClassName, className)}
+        />
+      </RadioGroupProvider>
+    )
+  }
+)
+RadioGroup.displayName = "RadioGroup"
+
+type RadioGroupItemProps = CoreRadioGroupItemProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreRadioGroupItemProps>
+type _RadioGroupItemPropsGuard = AssertNoExtraKeys<
+  RadioGroupItemProps,
+  CoreRadioGroupItemProps & React.HTMLAttributes<HTMLDivElement>
+>
+
+const RadioGroupItem = React.forwardRef<HTMLDivElement, RadioGroupItemProps>(
+  ({ className, value, disabled: itemDisabled, ...props }, ref) => {
+    const api = useRadioGroupContext()
+    const itemProps = api.getItemProps({ value, disabled: itemDisabled })
+    const controlProps = api.getItemControlProps({ value, disabled: itemDisabled })
+    const hiddenInputProps = api.getItemHiddenInputProps({ value, disabled: itemDisabled })
+    const itemState = api.getItemState({ value, disabled: itemDisabled })
+    const mergedControlProps = mergeProps(controlProps, props)
+    const { className: controlClassName, ...controlRest } = mergedControlProps
+
+    return (
+      <label {...itemProps} data-slot="radio-group-item">
+        <div
+          {...controlRest}
+          ref={ref}
+          data-slot="radio-control"
+          className={cn(radioGroupItemVariants(), controlClassName, className)}
         >
-          <circle cx="3" cy="3" r="3" />
-        </svg>
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
-  )
-}
+          <span data-slot="radio-indicator" className={radioGroupIndicatorVariants()}>
+            {itemState.checked && (
+              <CircleIcon className={radioGroupIndicatorIconVariants()} strokeWidth={0} />
+            )}
+          </span>
+        </div>
+        <input {...hiddenInputProps} />
+      </label>
+    )
+  }
+)
+RadioGroupItem.displayName = "RadioGroupItem"
 
 export { RadioGroup, RadioGroupItem }

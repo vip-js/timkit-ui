@@ -1,122 +1,149 @@
 'use client'
 
 import * as React from 'react'
-import * as SliderPrimitive from '@radix-ui/react-slider'
-import { cn } from '@timui/shared'
+import { cn, sliderMachine } from '@timui/core'
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip'
+import { useMachine } from '../hooks/use-machine'
 
-function Slider({
-  className,
-  defaultValue,
-  value,
-  min = 0,
-  max = 100,
-  showTooltip = false,
-  tooltipContent,
-  onValueChange,
-  ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root> & {
-  showTooltip?: boolean
-  tooltipContent?: (value: number) => React.ReactNode
-}) {
-  const [internalValues, setInternalValues] = React.useState<number[]>(
-    Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]
-  )
-
-  React.useEffect(() => {
-    if (value !== undefined) {
-      setInternalValues(Array.isArray(value) ? value : [value])
-    }
-  }, [value])
-
-  const handleValueChange = (newValue: number[]) => {
-    setInternalValues(newValue)
-    onValueChange?.(newValue)
+const Slider = React.forwardRef<
+  HTMLDivElement,
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'value' | 'defaultValue'> & {
+    value?: number[]
+    defaultValue?: number[]
+    min?: number
+    max?: number
+    step?: number
+    orientation?: 'horizontal' | 'vertical'
+    showTooltip?: boolean
+    tooltipContent?: (value: number) => string
+    onValueChange?: (value: number[]) => void
+    onValueCommit?: (value: number[]) => void
+    disabled?: boolean
   }
+>(
+  (
+    {
+      className,
+      value,
+      defaultValue,
+      min = 0,
+      max = 100,
+      step = 1,
+      orientation = 'horizontal',
+      showTooltip: _showTooltip,
+      tooltipContent: _tooltipContent,
+      onValueChange,
+      onValueCommit,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    void _showTooltip
+    void _tooltipContent
+    const initialValue = value !== undefined ? value : defaultValue || [min]
 
-  const [showTooltipState, setShowTooltipState] = React.useState(false)
+    const [state, send] = useMachine(sliderMachine, {
+      context: {
+        value: initialValue,
+        min,
+        max,
+        step,
+        disabled,
+      },
+    })
 
-  const handlePointerDown = () => {
-    if (showTooltip) {
-      setShowTooltipState(true)
-    }
-  }
+    const currentValue = state.context.value[0] // Support single thumb for now
 
-  const handlePointerUp = React.useCallback(() => {
-    if (showTooltip) {
-      setShowTooltipState(false)
-    }
-  }, [showTooltip])
-
-  React.useEffect(() => {
-    if (showTooltip) {
-      document.addEventListener('pointerup', handlePointerUp)
-      return () => {
-        document.removeEventListener('pointerup', handlePointerUp)
+    // Sync
+    React.useEffect(() => {
+      if (value !== undefined && JSON.stringify(value) !== JSON.stringify(state.context.value)) {
+        send({ type: 'VALUE.SET', value })
       }
+    }, [value, send, state.context.value])
+
+    const trackRef = React.useRef<HTMLDivElement>(null)
+
+    const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+      event.preventDefault() // prevent selection
+      const track = trackRef.current
+      if (!track) return
+
+      track.setPointerCapture(event.pointerId)
+
+      const updateValue = (clientX: number, clientY: number) => {
+        const rect = track.getBoundingClientRect()
+        const percent =
+          orientation === 'vertical'
+            ? 1 - Math.min(Math.max((clientY - rect.top) / rect.height, 0), 1)
+            : Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1)
+        const rawValue = min + percent * (max - min)
+        const steppedValue = Math.round(rawValue / step) * step
+        // Clamp
+        const finalValue = Math.min(Math.max(steppedValue, min), max)
+
+        if (finalValue !== currentValue) {
+          const nextValue = [finalValue]
+          send({ type: 'VALUE.SET', value: nextValue })
+          onValueChange?.(nextValue)
+        }
+      }
+
+      updateValue(event.clientX, event.clientY)
+
+      const handlePointerMove = (e: PointerEvent) => {
+        updateValue(e.clientX, e.clientY)
+      }
+
+      const handlePointerUp = (e: PointerEvent) => {
+        track.releasePointerCapture(e.pointerId)
+        track.removeEventListener('pointermove', handlePointerMove)
+        track.removeEventListener('pointerup', handlePointerUp)
+
+        // Commit value
+        if (state.context.value) {
+          onValueCommit?.(state.context.value)
+        }
+      }
+
+      track.addEventListener('pointermove', handlePointerMove)
+      track.addEventListener('pointerup', handlePointerUp)
     }
-  }, [showTooltip, handlePointerUp])
 
-  const renderThumb = (value: number) => {
-    const thumb = (
-      <SliderPrimitive.Thumb
-        data-slot="slider-thumb"
-        className="border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] outline-none hover:ring-4 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50"
-        onPointerDown={handlePointerDown}
-      />
-    )
-
-    if (!showTooltip) return thumb
+    const percent = ((currentValue - min) / (max - min)) * 100
 
     return (
-      <TooltipProvider>
-        <Tooltip open={showTooltipState}>
-          <TooltipTrigger asChild>{thumb}</TooltipTrigger>
-          <TooltipContent
-            className="px-2 py-1 text-xs"
-            sideOffset={8}
-            side={props.orientation === 'vertical' ? 'right' : 'top'}
-          >
-            <p>{tooltipContent ? tooltipContent(value) : value}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <div
+        ref={ref}
+        data-slot="slider"
+        data-orientation={orientation}
+        data-disabled={disabled}
+        className={cn(
+          'relative flex w-full touch-none select-none items-center data-[disabled=true]:opacity-50',
+          className
+        )}
+        {...props}
+      >
+        <div
+          ref={trackRef}
+          className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary cursor-pointer"
+          onPointerDown={handlePointerDown}
+        >
+          <div
+            data-slot="slider-range"
+            className="absolute h-full bg-primary"
+            style={{ width: `${percent}%` }}
+          />
+        </div>
+        <div
+          data-slot="slider-thumb"
+          className="pointer-events-none absolute block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          style={{ left: `${percent}%`, transform: 'translateX(-50%)' }}
+        />
+      </div>
     )
   }
-
-  return (
-    <SliderPrimitive.Root
-      data-slot="slider"
-      defaultValue={defaultValue}
-      value={value}
-      min={min}
-      max={max}
-      className={cn(
-        'relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
-        className
-      )}
-      onValueChange={handleValueChange}
-      {...props}
-    >
-      <SliderPrimitive.Track
-        data-slot="slider-track"
-        className={cn(
-          'bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5'
-        )}
-      >
-        <SliderPrimitive.Range
-          data-slot="slider-range"
-          className={cn(
-            'bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full'
-          )}
-        />
-      </SliderPrimitive.Track>
-      {Array.from({ length: internalValues.length }, (_, index) => (
-        <React.Fragment key={index}>{renderThumb(internalValues[index])}</React.Fragment>
-      ))}
-    </SliderPrimitive.Root>
-  )
-}
+)
+Slider.displayName = 'Slider'
 
 export { Slider }

@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
-
-import { Checkbox } from '../../ui/checkbox'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
+import { Checkbox, Input, Label } from '@timui/react'
 
 export default function Component() {
   const checkboxId = useId()

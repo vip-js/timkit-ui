@@ -1,12 +1,11 @@
-import { Shuffle } from 'lucide-react'
-
 import {
   Stepper,
   StepperIndicator,
   StepperItem,
   StepperSeparator,
   StepperTrigger,
-} from '../../ui/stepper'
+} from '@timui/react'
+import { Shuffle } from 'lucide-react'
 
 export default function Component() {
   return (

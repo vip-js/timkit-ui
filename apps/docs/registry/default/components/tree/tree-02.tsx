@@ -3,8 +3,7 @@
 import React from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
-
-import { Tree, TreeItem, TreeItemLabel } from '../../ui/tree'
+import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
 
 interface Item {
   name: string

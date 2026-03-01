@@ -1,7 +1,5 @@
+import { Avatar, AvatarFallback, AvatarImage, Button } from '@timui/react'
 import { ChevronDownIcon } from 'lucide-react'
-
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
-import { Button } from '../../ui/button'
 
 export default function Component() {
   return (

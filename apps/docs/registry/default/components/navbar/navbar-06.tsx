@@ -1,20 +1,28 @@
 import { useId } from 'react'
+import {
+  Button,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
 import { FileTextIcon, GlobeIcon, HomeIcon, LayersIcon, UsersIcon } from 'lucide-react'
 
 import Logo from '@/registry/default/components/navbar-components/logo'
 import ThemeToggle from '@/registry/default/components/navbar-components/theme-toggle'
 import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
-import { Button } from '../../ui/button'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 // Navigation links with icons for desktop icon-only navigation
 const navigationLinks = [

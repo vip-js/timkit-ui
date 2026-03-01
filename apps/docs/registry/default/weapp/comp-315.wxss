@@ -1,0 +1,12 @@
+.page { padding: 24rpx; }
+.btn { border-radius: 12rpx; padding: 16rpx 24rpx; font-size: 28rpx; border: 1px solid #e4e4e7; background: #fff; }
+.btn.solid { background: #111827; color: #fff; border-color: #111827; }
+.btn.outline { background: #fff; color: #111827; }
+.mask { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 999; }
+.dialog { width: 90vw; max-width: 640rpx; max-height: 80vh; background: #fff; border-radius: 16rpx; overflow: hidden; display: flex; flex-direction: column; }
+.header { padding: 24rpx; font-size: 32rpx; font-weight: 700; }
+.body { padding: 0 24rpx 8rpx; max-height: 60vh; }
+.item { padding: 12rpx 0; }
+.title { font-size: 28rpx; font-weight: 600; color: #111827; display: block; }
+.desc { display: block; margin-top: 6rpx; font-size: 24rpx; color: #4b5563; line-height: 1.5; }
+.footer { display: flex; gap: 16rpx; padding: 16rpx 24rpx 24rpx; }

@@ -1,7 +1,5 @@
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 import { GlobeIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   return (

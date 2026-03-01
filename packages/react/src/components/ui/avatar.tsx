@@ -1,50 +1,65 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as AvatarPrimitive from '@radix-ui/react-avatar'
-import { cn } from '@timui/shared'
-import { cva } from 'class-variance-authority'
+import { avatarFallbackVariants, avatarImageVariants, avatarVariants, cn } from '@timui/core'
+import { useAvatar } from './avatar/use-avatar'
+import { AvatarProvider, useAvatarContext } from './avatar/use-avatar-context'
 
-const avatarVariants = cva('relative flex size-8 shrink-0 overflow-hidden rounded-full')
+const Avatar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const api = useAvatar({ id: React.useId() })
 
-const avatarImageVariants = cva('aspect-square size-full')
-
-const avatarFallbackVariants = cva(
-  'bg-secondary flex size-full items-center justify-center rounded-[inherit] text-xs'
-)
-
-function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
   return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
-      className={cn(avatarVariants(), className)}
-      {...props}
-    />
+    <AvatarProvider value={api}>
+      <div
+        ref={ref}
+        className={cn(avatarVariants(), className)}
+        {...api.getRootProps()}
+        {...props}
+      />
+    </AvatarProvider>
   )
-}
+})
+Avatar.displayName = "Avatar"
 
-function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+const AvatarImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement> & { onLoadingStatusChange?: (status: 'loaded' | 'error') => void }
+>(({ className, src, srcSet, alt, onLoadingStatusChange: _onLoadingStatusChange, ...props }, ref) => {
+  const api = useAvatarContext()
+  void _onLoadingStatusChange
+
   return (
-    <AvatarPrimitive.Image
-      data-slot="avatar-image"
+    <img
+      ref={ref}
+      src={src}
+      srcSet={srcSet}
+      alt={alt}
       className={cn(avatarImageVariants(), className)}
+      {...api.getImageProps()}
       {...props}
     />
   )
-}
+})
+AvatarImage.displayName = "AvatarImage"
 
-function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+const AvatarFallback = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => {
+  const api = useAvatarContext()
+
   return (
-    <AvatarPrimitive.Fallback
-      data-slot="avatar-fallback"
+    <span
+      ref={ref}
       className={cn(avatarFallbackVariants(), className)}
+      {...api.getFallbackProps()}
       {...props}
     />
   )
-}
+})
+AvatarFallback.displayName = "AvatarFallback"
 
-export { Avatar, AvatarFallback, AvatarImage }
+export { Avatar, AvatarImage, AvatarFallback }

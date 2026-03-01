@@ -1,0 +1,9 @@
+<view class="*:not-first:mt-2">
+      <view class="flex items-center justify-between gap-1">
+        <label for="input-04-id" class="leading-6">
+          Input with hint
+        </label>
+        <span class="text-muted-foreground text-sm">Optional</span>
+      </view>
+      <input id="input-04-id" placeholder="Email" type="email" />
+    </view>

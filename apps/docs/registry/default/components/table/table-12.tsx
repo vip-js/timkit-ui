@@ -1,12 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
-
-import { Badge } from '../../ui/badge'
-import { Checkbox } from '../../ui/checkbox'
 import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  RowSelectionState,
+  useReactTable,
+} from '@tanstack/react-table'
+import { cn } from '@timui/core'
+import {
+  Badge,
+  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -14,7 +19,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../../ui/table'
+} from '@timui/react'
 
 type Item = {
   id: string
@@ -34,14 +39,18 @@ const columns: ColumnDef<Item>[] = [
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!(value?.detail?.checked ?? value))
+        }
+        onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
+        onClick={() => row.toggleSelected(!row.getIsSelected())}
         aria-label="Select row"
       />
     ),
@@ -93,6 +102,7 @@ const columns: ColumnDef<Item>[] = [
 
 export default function Component() {
   const [data, setData] = useState<Item[]>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
   useEffect(() => {
     async function fetchPosts() {
@@ -109,6 +119,12 @@ export default function Component() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.id,
+    state: {
+      rowSelection,
+    },
   })
 
   return (

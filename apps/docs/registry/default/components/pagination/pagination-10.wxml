@@ -1,0 +1,84 @@
+<view class="flex items-center justify-between gap-8">
+      
+      <view class="flex items-center gap-3">
+        <label for="pagination-10-id">Rows per page</label>
+        <select defaultValue="25">
+          <select-trigger id="pagination-10-id" class="w-fit whitespace-nowrap">
+            <select-value placeholder="Select number of results" />
+          </select-trigger>
+          <select-content class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
+            <select-item value="10">10</select-item>
+            <select-item value="25">25</select-item>
+            <select-item value="50">50</select-item>
+            <select-item value="100">100</select-item>
+          </select-content>
+        </select>
+      </view>
+
+      
+      <view class="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap">
+        <p class="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite">
+          <span class="text-foreground">1-25</span> of 
+          <span class="text-foreground">100</span>
+        </p>
+      </view>
+
+      
+      <view>
+        <pagination>
+          <pagination-content>
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-10-id"
+                aria-label="Go to first page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-10-id"
+                aria-label="Go to previous page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-10-id"
+                aria-label="Go to next page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-10-id"
+                aria-label="Go to last page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+          </pagination-content>
+        </pagination>
+      </view>
+    </view>

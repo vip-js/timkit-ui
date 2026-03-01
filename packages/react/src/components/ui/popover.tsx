@@ -1,55 +1,89 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as PopoverPrimitive from '@radix-ui/react-popover'
-import { cn } from '@timui/shared'
-import { cva } from 'class-variance-authority'
-
-const popoverContentVariants = cva(
-  'z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2'
-)
-
-function Popover({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Root>) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />
-}
-
-function PopoverTrigger({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
-}
-
-function PopoverContent({
-  className,
-  align = 'center',
-  sideOffset = 4,
-  showArrow = false,
+import { createPortal } from 'react-dom'
+import { mergeProps } from '@zag-js/react'
+import type { Placement } from '@zag-js/popper'
+import { cn, popoverContentVariants } from '@timui/core'
+import { Slot } from './slot'
+import { usePopover, type UsePopoverProps } from './popover/use-popover'
+import { PopoverProvider, usePopoverContext } from './popover/use-popover-context'
+const Popover = ({
+  children,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content> & {
-  showArrow?: boolean
-}) {
+}: UsePopoverProps & { children: React.ReactNode }) => {
+  const api = usePopover(props)
+  return <PopoverProvider value={api}>{children}</PopoverProvider>
+}
+Popover.displayName = "Popover"
+
+const PopoverTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
+>(({ className, onClick, asChild = false, ...props }, ref) => {
+  const api = usePopoverContext()
+
+  const Comp = asChild ? Slot : "button"
+  const triggerProps = api.getTriggerProps()
+  const mergedProps = mergeProps(triggerProps, props)
+
   return (
-    <PopoverPrimitive.Portal>
-      <PopoverPrimitive.Content
-        data-slot="popover-content"
-        align={align}
-        sideOffset={sideOffset}
-        className={cn(
-          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 rounded-md border p-4 shadow-md outline-hidden',
-          className
-        )}
-        {...props}
-      >
-        {props.children}
-        {showArrow && (
-          <PopoverPrimitive.Arrow className="fill-popover -my-px drop-shadow-[0_1px_0_var(--border)]" />
-        )}
-      </PopoverPrimitive.Content>
-    </PopoverPrimitive.Portal>
+    <Comp
+      ref={ref}
+      data-slot="popover-trigger"
+      type="button"
+      className={cn(className)}
+      {...mergedProps}
+    />
   )
-}
+})
+PopoverTrigger.displayName = "PopoverTrigger"
 
-function PopoverAnchor({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Anchor>) {
-  return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
-}
+const PopoverContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    align?: "center" | "start" | "end"
+    side?: "top" | "bottom" | "left" | "right"
+    sideOffset?: number
+    showArrow?: boolean
+  }
+>(({ className, align = "center", side = "bottom", sideOffset = 4, showArrow = false, style, children, ...props }, ref) => {
+  const api = usePopoverContext()
+  const placement = (align === "center" ? side : `${side}-${align}`) as Placement
+  React.useEffect(() => {
+    if (!api.open) return
+    api.reposition({ placement, gutter: sideOffset })
+  }, [api, placement, sideOffset])
+  if (!api.open) return null
+  if (typeof window === 'undefined') return null
 
-export { Popover, PopoverAnchor, PopoverContent, PopoverTrigger }
+  const positionerProps = api.getPositionerProps()
+  const contentProps = api.getContentProps()
+  const mergedProps = mergeProps(contentProps, props) as React.HTMLAttributes<HTMLDivElement>
+
+  return createPortal(
+    <div {...positionerProps} style={{ ...positionerProps.style, zIndex: 50 }}>
+      <div
+        ref={ref}
+        data-slot="popover-content"
+        data-state="open"
+        data-align={align}
+        style={{ ...mergedProps.style, ...style }}
+        className={cn(popoverContentVariants(), showArrow ? "relative" : undefined, className)}
+        {...mergedProps}
+      >
+        {children}
+        {showArrow ? (
+          <span
+            data-slot="popover-arrow"
+            className="absolute -top-1 left-6 h-2 w-2 rotate-45 border border-border bg-popover"
+          />
+        ) : null}
+      </div>
+    </div>,
+    document.body
+  )
+})
+PopoverContent.displayName = "PopoverContent"
+
+export { Popover, PopoverTrigger, PopoverContent }

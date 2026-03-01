@@ -1,13 +1,7 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@timui/react";
 
 export default function TableWithManageButton() {
-
     const tableItems = [
         {
             name: "Solo learn app",
@@ -45,8 +39,6 @@ export default function TableWithManageButton() {
             plan: "Annually subscription"
         },
     ]
-
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 md:px-8">
             <div className="items-start justify-between md:flex">
@@ -59,49 +51,46 @@ export default function TableWithManageButton() {
                     </p>
                 </div>
                 <div className="mt-3 md:mt-0">
-                    <a
-                        href="javascript:void(0)"
-                        className="inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
-                    >
+                    <Button size="sm">
                         Add product
-                    </a>
+                    </Button>
                 </div>
             </div>
             <div className="mt-12 relative h-max overflow-auto">
-                <table className="w-full table-auto text-sm text-left">
-                    <thead className="text-gray-600 font-medium border-b">
-                        <tr>
-                            <th className="py-3 pr-6">name</th>
-                            <th className="py-3 pr-6">date</th>
-                            <th className="py-3 pr-6">status</th>
-                            <th className="py-3 pr-6">Purchase</th>
-                            <th className="py-3 pr-6">price</th>
-                            <th className="py-3 pr-6"></th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-600 divide-y">
+                <Table className="w-full table-auto text-sm text-left">
+                    <TableHeader className="text-gray-600 font-medium border-b">
+                        <TableRow>
+                            <TableHead className="py-3 pr-6">name</TableHead>
+                            <TableHead className="py-3 pr-6">date</TableHead>
+                            <TableHead className="py-3 pr-6">status</TableHead>
+                            <TableHead className="py-3 pr-6">Purchase</TableHead>
+                            <TableHead className="py-3 pr-6">price</TableHead>
+                            <TableHead className="py-3 pr-6"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody className="text-gray-600 divide-y">
                         {
                             tableItems.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td className="pr-6 py-4 whitespace-nowrap">{item.name}</td>
-                                    <td className="pr-6 py-4 whitespace-nowrap">{item.date}</td>
-                                    <td className="pr-6 py-4 whitespace-nowrap">
+                                <TableRow key={idx}>
+                                    <TableCell className="pr-6 py-4 whitespace-nowrap">{item.name}</TableCell>
+                                    <TableCell className="pr-6 py-4 whitespace-nowrap">{item.date}</TableCell>
+                                    <TableCell className="pr-6 py-4 whitespace-nowrap">
                                         <span className={`px-3 py-2 rounded-full font-semibold text-xs ${item.status == "Active" ? "text-green-600 bg-green-50" : "text-blue-600 bg-blue-50"}`}>
                                             {item.status}
                                         </span>
-                                    </td>
-                                    <td className="pr-6 py-4 whitespace-nowrap">{item.plan}</td>
-                                    <td className="pr-6 py-4 whitespace-nowrap">{item.price}</td>
-                                    <td className="text-right whitespace-nowrap">
-                                        <a href="javascript:void()" className="py-1.5 px-3 text-gray-600 hover:text-gray-500 duration-150 hover:bg-gray-50 border rounded-lg">
+                                    </TableCell>
+                                    <TableCell className="pr-6 py-4 whitespace-nowrap">{item.plan}</TableCell>
+                                    <TableCell className="pr-6 py-4 whitespace-nowrap">{item.price}</TableCell>
+                                    <TableCell className="text-right whitespace-nowrap">
+                                        <Button variant="ghost" size="sm" className="py-1.5 px-3">
                                             Manage
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
                             ))
                         }
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         </div>
     )

@@ -1,0 +1,15 @@
+<input 
+  class="{{inputApi.className}}"
+  id="{{inputApi.id}}"
+  value="{{value}}"
+  placeholder="{{inputApi.placeholder}}"
+  disabled="{{inputApi.disabled}}"
+  bindinput="handleInput"
+  bindconfirm="handleConfirm"
+  bindfocus="handleFocus"
+  bindblur="handleBlur"
+  role="combobox"
+  aria-expanded="{{inputApi['aria-expanded']}}"
+  aria-controls="{{inputApi['aria-controls']}}"
+  aria-autocomplete="{{inputApi['aria-autocomplete']}}"
+/>

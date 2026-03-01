@@ -1,0 +1,3 @@
+<view class="{{className}}" role="navigation" aria-label="pagination">
+  <slot></slot>
+</view>

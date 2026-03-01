@@ -1,11 +1,9 @@
 'use client'
 
 import { useId } from 'react'
+import { Label, Textarea } from '@timui/react'
 
 import { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'
-
-import { Label } from '../../ui/label'
-import { Textarea } from '../../ui/textarea'
 
 export default function Component() {
   const id = useId()

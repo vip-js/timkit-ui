@@ -1,0 +1,9 @@
+<view 
+  class="{{className}} flex items-center justify-center"
+  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  bindtap="handleTap"
+>
+  <view class="flex items-center justify-center text-current" wx:if="{{checked}}">
+    <image class="w-2.5 h-2.5 bg-current rounded-full" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgNiA2IiBmaWxsPSJjdXJyZW50Y29sb3IiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMyIgY3k9IjMiIHI9IjMiIC8+PC9zdmc+" />
+  </view>
+</view>

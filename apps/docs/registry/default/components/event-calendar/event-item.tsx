@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import type { DraggableAttributes } from '@dnd-kit/core'
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { differenceInMinutes, format, getMinutes, isPast } from 'date-fns'
 
 import {

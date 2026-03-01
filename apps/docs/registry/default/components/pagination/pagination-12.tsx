@@ -1,17 +1,16 @@
 import { useId } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { usePagination } from '@/registry/default/hooks/use-pagination'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 import {
+  Input,
+  Label,
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-} from '../../ui/pagination'
+} from '@timui/react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+
+import { usePagination } from '@/registry/default/hooks/use-pagination'
 
 type PaginationProps = {
   currentPage: number

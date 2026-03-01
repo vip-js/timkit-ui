@@ -2,19 +2,106 @@
   "name": "timeline",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-slot"
+    "@timui/core"
   ],
   "files": [
     {
       "path": "registry/default/ui/timeline.tsx",
       "type": "registry:ui",
       "target": "components/ui/timeline.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport { Slot } from '@radix-ui/react-slot'\nimport { cn } from '@timui/shared'\n\n// Types\ntype TimelineContextValue = {\n  activeStep: number\n  setActiveStep: (step: number) => void\n}\n\n// Context\nconst TimelineContext = React.createContext<TimelineContextValue | undefined>(undefined)\n\nconst useTimeline = () => {\n  const context = React.useContext(TimelineContext)\n  if (!context) {\n    throw new Error('useTimeline must be used within a Timeline')\n  }\n  return context\n}\n\n// Components\ninterface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {\n  defaultValue?: number\n  value?: number\n  onValueChange?: (value: number) => void\n  orientation?: 'horizontal' | 'vertical'\n}\n\nfunction Timeline({\n  defaultValue = 1,\n  value,\n  onValueChange,\n  orientation = 'vertical',\n  className,\n  ...props\n}: TimelineProps) {\n  const [activeStep, setInternalStep] = React.useState(defaultValue)\n\n  const setActiveStep = React.useCallback(\n    (step: number) => {\n      if (value === undefined) {\n        setInternalStep(step)\n      }\n      onValueChange?.(step)\n    },\n    [value, onValueChange]\n  )\n\n  const currentStep = value ?? activeStep\n\n  return (\n    <TimelineContext.Provider value={{ activeStep: currentStep, setActiveStep }}>\n      <div\n        data-slot=\"timeline\"\n        className={cn(\n          'group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',\n          className\n        )}\n        data-orientation={orientation}\n        {...props}\n      />\n    </TimelineContext.Provider>\n  )\n}\n\n// TimelineContent\nfunction TimelineContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      data-slot=\"timeline-content\"\n      className={cn('text-muted-foreground text-sm', className)}\n      {...props}\n    />\n  )\n}\n\n// TimelineDate\ninterface TimelineDateProps extends React.HTMLAttributes<HTMLTimeElement> {\n  asChild?: boolean\n}\n\nfunction TimelineDate({ asChild = false, className, ...props }: TimelineDateProps) {\n  const Comp = asChild ? Slot : 'time'\n\n  return (\n    <Comp\n      data-slot=\"timeline-date\"\n      className={cn(\n        'text-muted-foreground mb-1 block text-xs font-medium group-data-[orientation=vertical]/timeline:max-sm:h-4',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n// TimelineHeader\nfunction TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div data-slot=\"timeline-header\" className={cn(className)} {...props} />\n}\n\n// TimelineIndicator\ninterface TimelineIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {\n  asChild?: boolean\n}\n\nfunction TimelineIndicator({\n  asChild = false,\n  className,\n  children,\n  ...props\n}: TimelineIndicatorProps) {\n  return (\n    <div\n      data-slot=\"timeline-indicator\"\n      className={cn(\n        'border-primary/20 group-data-completed/timeline-item:border-primary absolute size-4 rounded-full border-2 group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:left-0 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:top-0 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2',\n        className\n      )}\n      aria-hidden=\"true\"\n      {...props}\n    >\n      {children}\n    </div>\n  )\n}\n\n// TimelineItem\ninterface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  step: number\n}\n\nfunction TimelineItem({ step, className, ...props }: TimelineItemProps) {\n  const { activeStep } = useTimeline()\n\n  return (\n    <div\n      data-slot=\"timeline-item\"\n      className={cn(\n        'group/timeline-item has-[+[data-completed]]:[&_[data-slot=timeline-separator]]:bg-primary relative flex flex-1 flex-col gap-0.5 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=vertical]/timeline:not-last:pb-12',\n        className\n      )}\n      data-completed={step <= activeStep || undefined}\n      {...props}\n    />\n  )\n}\n\n// TimelineSeparator\nfunction TimelineSeparator({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      data-slot=\"timeline-separator\"\n      className={cn(\n        'bg-primary/10 absolute self-start group-last/timeline-item:hidden group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:h-0.5 group-data-[orientation=horizontal]/timeline:w-[calc(100%-1rem-0.25rem)] group-data-[orientation=horizontal]/timeline:translate-x-4.5 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:h-[calc(100%-1rem-0.25rem)] group-data-[orientation=vertical]/timeline:w-0.5 group-data-[orientation=vertical]/timeline:-translate-x-1/2 group-data-[orientation=vertical]/timeline:translate-y-4.5',\n        className\n      )}\n      aria-hidden=\"true\"\n      {...props}\n    />\n  )\n}\n\n// TimelineTitle\nfunction TimelineTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {\n  return (\n    <h3 data-slot=\"timeline-title\" className={cn('text-sm font-medium', className)} {...props} />\n  )\n}\n\nexport {\n  Timeline,\n  TimelineContent,\n  TimelineDate,\n  TimelineHeader,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineSeparator,\n  TimelineTitle,\n}\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\n\nimport { Slot } from './slot'\n\n// Types\ntype TimelineContextValue = {\n  activeStep: number\n  setActiveStep: (step: number) => void\n}\n\n// Context\nconst TimelineContext = React.createContext<TimelineContextValue | undefined>(undefined)\n\nconst useTimeline = () => {\n  const context = React.useContext(TimelineContext)\n  if (!context) {\n    throw new Error('useTimeline must be used within a Timeline')\n  }\n  return context\n}\n\n// Components\ninterface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {\n  defaultValue?: number\n  value?: number\n  onValueChange?: (value: number) => void\n  orientation?: 'horizontal' | 'vertical'\n}\n\nfunction Timeline({\n  defaultValue = 1,\n  value,\n  onValueChange,\n  orientation = 'vertical',\n  className,\n  ...props\n}: TimelineProps) {\n  const [activeStep, setInternalStep] = React.useState(defaultValue)\n\n  const setActiveStep = React.useCallback(\n    (step: number) => {\n      if (value === undefined) {\n        setInternalStep(step)\n      }\n      onValueChange?.(step)\n    },\n    [value, onValueChange]\n  )\n\n  const currentStep = value ?? activeStep\n\n  return (\n    <TimelineContext.Provider value={{ activeStep: currentStep, setActiveStep }}>\n      <div\n        data-slot=\"timeline\"\n        className={cn(\n          'group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',\n          className\n        )}\n        data-orientation={orientation}\n        {...props}\n      />\n    </TimelineContext.Provider>\n  )\n}\n\n// TimelineContent\nfunction TimelineContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      data-slot=\"timeline-content\"\n      className={cn('text-muted-foreground text-sm', className)}\n      {...props}\n    />\n  )\n}\n\n// TimelineDate\ninterface TimelineDateProps extends React.HTMLAttributes<HTMLTimeElement> {\n  asChild?: boolean\n}\n\nfunction TimelineDate({ asChild = false, className, ...props }: TimelineDateProps) {\n  const Comp = asChild ? Slot : 'time'\n\n  return (\n    <Comp\n      data-slot=\"timeline-date\"\n      className={cn(\n        'text-muted-foreground mb-1 block text-xs font-medium group-data-[orientation=vertical]/timeline:max-sm:h-4',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n// TimelineHeader\nfunction TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div data-slot=\"timeline-header\" className={cn(className)} {...props} />\n}\n\n// TimelineIndicator\ninterface TimelineIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {\n  asChild?: boolean\n}\n\nfunction TimelineIndicator({\n  asChild = false,\n  className,\n  children,\n  ...props\n}: TimelineIndicatorProps) {\n  return (\n    <div\n      data-slot=\"timeline-indicator\"\n      className={cn(\n        'border-primary/20 group-data-completed/timeline-item:border-primary absolute size-4 rounded-full border-2 group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:left-0 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:top-0 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2',\n        className\n      )}\n      aria-hidden=\"true\"\n      {...props}\n    >\n      {children}\n    </div>\n  )\n}\n\n// TimelineItem\ninterface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  step: number\n}\n\nfunction TimelineItem({ step, className, ...props }: TimelineItemProps) {\n  const { activeStep } = useTimeline()\n\n  return (\n    <div\n      data-slot=\"timeline-item\"\n      className={cn(\n        'group/timeline-item has-[+[data-completed]]:[&_[data-slot=timeline-separator]]:bg-primary relative flex flex-1 flex-col gap-0.5 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=vertical]/timeline:not-last:pb-12',\n        className\n      )}\n      data-completed={step <= activeStep || undefined}\n      {...props}\n    />\n  )\n}\n\n// TimelineSeparator\nfunction TimelineSeparator({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      data-slot=\"timeline-separator\"\n      className={cn(\n        'bg-primary/10 absolute self-start group-last/timeline-item:hidden group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:h-0.5 group-data-[orientation=horizontal]/timeline:w-[calc(100%-1rem-0.25rem)] group-data-[orientation=horizontal]/timeline:translate-x-4.5 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:h-[calc(100%-1rem-0.25rem)] group-data-[orientation=vertical]/timeline:w-0.5 group-data-[orientation=vertical]/timeline:-translate-x-1/2 group-data-[orientation=vertical]/timeline:translate-y-4.5',\n        className\n      )}\n      aria-hidden=\"true\"\n      {...props}\n    />\n  )\n}\n\n// TimelineTitle\nfunction TimelineTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {\n  return (\n    <h3 data-slot=\"timeline-title\" className={cn('text-sm font-medium', className)} {...props} />\n  )\n}\n\nexport {\n  Timeline,\n  TimelineContent,\n  TimelineDate,\n  TimelineHeader,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineSeparator,\n  TimelineTitle,\n}\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-content.vue",
+      "target": "components/ui/timeline/timeline-content.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, timelineContentVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div\n    data-slot=\"timeline-content\"\n    :class=\"cn(timelineContentVariants(), props.class)\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-context.ts",
+      "target": "components/ui/timeline/timeline-context.ts",
+      "type": "registry:component",
+      "content": "import { createContext } from \"radix-vue\";\nimport type { Ref } from \"vue\";\n\nexport interface TimelineContextValue {\n    activeStep: Ref<number>;\n    setActiveStep: (step: number) => void;\n    orientation: Ref<\"horizontal\" | \"vertical\">;\n}\n\nexport const [injectTimelineContext, provideTimelineContext] =\n    createContext<TimelineContextValue>(\"Timeline\");\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-date.vue",
+      "target": "components/ui/timeline/timeline-date.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { Primitive, type PrimitiveProps } from '../../primitive';\nimport { cn, timelineDateVariants } from \"@/lib/utils\";\n\nconst props = withDefaults(\n  defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>(),\n  {\n    as: \"time\",\n  }\n);\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"timeline-date\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(timelineDateVariants(), props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-header.vue",
+      "target": "components/ui/timeline/timeline-header.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, timelineHeaderVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div data-slot=\"timeline-header\" :class=\"cn(timelineHeaderVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-indicator.vue",
+      "target": "components/ui/timeline/timeline-indicator.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { Primitive, type PrimitiveProps } from '../../primitive';\nimport { cn, timelineIndicatorVariants } from \"@/lib/utils\";\n\nconst props = defineProps<PrimitiveProps & { class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <Primitive\n    data-slot=\"timeline-indicator\"\n    :as=\"as\"\n    :as-child=\"asChild\"\n    :class=\"cn(timelineIndicatorVariants(), props.class)\"\n    aria-hidden=\"true\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-item.vue",
+      "target": "components/ui/timeline/timeline-item.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, timelineItemVariants } from \"@/lib/utils\";\nimport { injectTimelineContext } from \"./timeline-context\";\n\nconst props = defineProps<{\n  step: number;\n  class?: HTMLAttributes[\"class\"];\n}>();\n\nconst context = injectTimelineContext();\n\nif (!context) {\n  throw new Error(\"TimelineItem must be used within a Timeline\");\n}\n</script>\n\n<template>\n  <div\n    data-slot=\"timeline-item\"\n    :class=\"cn(timelineItemVariants(), props.class)\"\n    :data-completed=\"props.step <= context.activeStep.value ? '' : undefined\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-separator.vue",
+      "target": "components/ui/timeline/timeline-separator.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, timelineSeparatorVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div\n    data-slot=\"timeline-separator\"\n    :class=\"cn(timelineSeparatorVariants(), props.class)\"\n    aria-hidden=\"true\"\n  />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline-title.vue",
+      "target": "components/ui/timeline/timeline-title.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport { cn, timelineTitleVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <h3 data-slot=\"timeline-title\" :class=\"cn(timelineTitleVariants(), props.class)\">\n    <slot />\n  </h3>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/timeline/timeline.vue",
+      "target": "components/ui/timeline/timeline.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed, ref, toRef } from \"vue\";\nimport { cn, timelineVariants } from \"@/lib/utils\";\nimport { provideTimelineContext } from \"./timeline-context\";\n\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"];\n    defaultValue?: number;\n    modelValue?: number;\n    orientation?: \"horizontal\" | \"vertical\";\n  }>(),\n  {\n    defaultValue: 1,\n    orientation: \"vertical\",\n  }\n);\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: number): void;\n}>();\n\nconst internalStep = ref(props.defaultValue);\nconst step = computed({\n  get: () => props.modelValue ?? internalStep.value,\n  set: (v) => {\n    internalStep.value = v;\n    emits(\"update:modelValue\", v);\n  },\n});\n\nprovideTimelineContext({\n  activeStep: step,\n  setActiveStep: (v: number) => {\n    step.value = v;\n  },\n  orientation: toRef(props, \"orientation\"),\n});\n</script>\n\n<template>\n  <div\n    data-slot=\"timeline\"\n    :class=\"cn(timelineVariants(), props.class)\"\n    :data-orientation=\"orientation\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/timeline.html",
+      "target": "components/ui/timeline.html",
+      "type": "registry:component",
+      "content": "<ol data-slot=\"timeline\" class=\"space-y-4\">\n  <li class=\"flex gap-3\">\n    <span class=\"mt-1 inline-block h-2 w-2 rounded-full bg-primary\"></span>\n    <div>\n      <p class=\"text-sm font-medium\">Design Contract</p>\n      <p class=\"text-xs text-muted-foreground\">Define schema and variants.</p>\n    </div>\n  </li>\n  <li class=\"flex gap-3\">\n    <span class=\"mt-1 inline-block h-2 w-2 rounded-full bg-primary\"></span>\n    <div>\n      <p class=\"text-sm font-medium\">Multi-end Adapter</p>\n      <p class=\"text-xs text-muted-foreground\">Implement React/Vue/WeApp/HTML.</p>\n    </div>\n  </li>\n</ol>\n"
+    },
+    {
+      "path": "registry/default/weapp/timeline.wxml",
+      "target": "components/ui/timeline.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}} timeline\">\n  <view \n    wx:for=\"{{items}}\" \n    wx:key=\"index\"\n    class=\"timeline-item\"\n    data-last=\"{{index === items.length - 1}}\"\n  >\n    <!-- Dot -->\n    <view class=\"timeline-dot\" data-type=\"{{item.type || 'default'}}\"></view>\n    \n    <!-- Line -->\n    <view \n      wx:if=\"{{index < items.length - 1}}\"\n      class=\"timeline-line\"\n    ></view>\n\n    <!-- Content -->\n    <view class=\"timeline-content\">\n      <view class=\"timeline-title\">{{item.title}}</view>\n      <view wx:if=\"{{item.description}}\" class=\"timeline-description\">\n        {{item.description}}\n      </view>\n      <view wx:if=\"{{item.time}}\" class=\"timeline-time\">\n        {{item.time}}\n      </view>\n    </view>\n  </view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/timeline.wxss",
+      "target": "components/ui/timeline.wxss",
+      "type": "registry:component",
+      "content": "/* weapp component styles */\n"
+    },
+    {
+      "path": "registry/default/weapp/timeline.ts",
+      "target": "components/ui/timeline.ts",
+      "type": "registry:component",
+      "content": "import { timelineVariants } from '../utils'\n\nComponent({\n    options: {\n        styleIsolation: 'apply-shared',\n    },\n\n    properties: {\n        items: { type: Array, value: [] },\n        orientation: { type: String, value: 'vertical' },\n        extClass: { type: String, value: '' },\n    },\n\n    data: {\n        className: '',\n    },\n\n    lifetimes: {\n        attached() {\n            this.updateClassName()\n        },\n    },\n\n    observers: {\n        'orientation, extClass': function () {\n            this.updateClassName()\n        },\n    },\n\n    methods: {\n        updateClassName() {\n            // Use core package's timelineVariants for consistent styling\n            const { baseClass } = timelineVariants({\n                className: this.properties.extClass\n            })\n\n            this.setData({ className: baseClass })\n        },\n    },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/timeline.json",
+      "target": "components/ui/timeline.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true,\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

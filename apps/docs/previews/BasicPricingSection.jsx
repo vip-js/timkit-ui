@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card, Button } from "@timui/react";
 
 export default function BasicPricingSection() {
-
     const plans = [
         {
             name: "Basic plan",
@@ -20,7 +13,6 @@ export default function BasicPricingSection() {
                 "Suspendisse a leo",
                 "Praesent quis venenatis ipsum",
                 "Duis non diam vel tortor",
-
             ],
         },
         {
@@ -50,7 +42,6 @@ export default function BasicPricingSection() {
             ],
         },
     ];
-
     return (
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -67,7 +58,7 @@ export default function BasicPricingSection() {
                 <div className='mt-16 space-y-6 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-3'>
                     {
                         plans.map((item, idx) => (
-                            <div key={idx} className='relative flex-1 flex items-stretch flex-col p-8 rounded-xl border-2'>
+                            <Card key={idx} className='relative flex-1 flex items-stretch flex-col p-8'>
                                 <div>
                                     <span className='text-indigo-600 font-medium'>
                                         {item.name}
@@ -96,11 +87,11 @@ export default function BasicPricingSection() {
                                     }
                                 </ul>
                                 <div className="flex-1 flex items-end">
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                                    <Button className='w-full'>
                                         Get Started
-                                    </button>
+                                    </Button>
                                 </div>
-                            </div>
+                            </Card>
                         ))
                     }
                 </div>

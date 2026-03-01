@@ -1,0 +1,6 @@
+<alert class="rounded-md border border-amber-500/50 px-4 py-3 text-amber-600">
+  <view class="flex gap-3">
+    <text class="me-3 -mt-0.5 inline-flex opacity-60">!</text>
+    <alert-description class="text-sm text-current">Some information is missing!</alert-description>
+  </view>
+</alert>

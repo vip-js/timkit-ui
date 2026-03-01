@@ -1,8 +1,7 @@
 'use client'
-'use client'
 
 import { Cropper as CropperPrimitive } from '@origin-space/image-cropper'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 
 function Cropper({ className, ...props }: React.ComponentProps<typeof CropperPrimitive.Root>) {
   return (

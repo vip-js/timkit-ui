@@ -1,4 +1,13 @@
 import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@timui/react'
+import {
   BoltIcon,
   ChevronDownIcon,
   CopyPlusIcon,
@@ -6,16 +15,6 @@ import {
   Layers2Icon,
   TrashIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
 
 export default function Component() {
   return (

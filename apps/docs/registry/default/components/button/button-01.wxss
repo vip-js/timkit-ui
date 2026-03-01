@@ -1,0 +1,12 @@
+/* Ensure button styling is applied */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #18181b; /* primary */
+  color: #fafafa;
+  padding: 8px 16px;
+}

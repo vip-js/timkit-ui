@@ -1,8 +1,6 @@
 import { useId } from 'react'
+import { Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'
 import { ClockIcon } from 'lucide-react'
-
-import { Label } from '../../ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 
 export default function Component() {
   const id = useId()

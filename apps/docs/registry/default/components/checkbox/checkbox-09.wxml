@@ -1,0 +1,14 @@
+<view class="grid gap-3">
+      <view class="flex items-center gap-2">
+        <checkbox id="checkbox-09-id" />
+        <label for="checkbox-09-id">React</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <checkbox id="checkbox-09-id" />
+        <label for="checkbox-09-id">Next.js</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <checkbox id="checkbox-09-id" />
+        <label for="checkbox-09-id">Astro</label>
+      </view>
+    </view>

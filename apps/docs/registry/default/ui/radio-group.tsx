@@ -1,49 +1,118 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
-import { cn } from '@timui/shared'
+import { cn, radioGroupMachine } from '@timui/core'
+import { CircleIcon } from 'lucide-react'
 
-function RadioGroup({
-  className,
-  ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
-  return (
-    <RadioGroupPrimitive.Root
-      data-slot="radio-group"
-      className={cn('grid gap-3', className)}
-      {...props}
-    />
-  )
+import { useMachine } from '../hooks/use-machine'
+
+// Context
+const RadioGroupContext = React.createContext<{
+  state: any
+  send: (event: any) => void
+  disabled?: boolean
+  required?: boolean
+  name?: string
+} | null>(null)
+
+function useRadioGroup() {
+  const context = React.useContext(RadioGroupContext)
+  if (!context) {
+    throw new Error('RadioGroupItem must be used within RadioGroup')
+  }
+  return context
 }
 
-function RadioGroupItem({
-  className,
-  ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+const RadioGroup = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    value?: string
+    defaultValue?: string
+    onValueChange?: (value: string) => void
+    disabled?: boolean
+    required?: boolean
+    name?: string
+  }
+>(({ className, value, defaultValue, onValueChange, disabled, required, name, ...props }, ref) => {
+  const [state, send] = useMachine(radioGroupMachine, {
+    context: {
+      value: value !== undefined ? value : defaultValue,
+      disabled,
+      required,
+      name,
+    },
+  })
+
+  // Sync controlled value
+  React.useEffect(() => {
+    if (value !== undefined && value !== state.context.value) {
+      send({ type: 'VALUE.SET', value })
+    }
+  }, [value, send, state.context.value])
+
+  const contextValue = React.useMemo(
+    () => ({
+      state,
+      send: (evt: any) => {
+        send(evt)
+        if (evt.type === 'VALUE.SET') {
+          onValueChange?.(evt.value)
+        }
+      },
+      disabled,
+      required,
+      name,
+    }),
+    [state, send, disabled, required, name, onValueChange]
+  )
+
   return (
-    <RadioGroupPrimitive.Item
-      data-slot="radio-group-item"
+    <RadioGroupContext.Provider value={contextValue}>
+      <div role="radiogroup" className={cn('grid gap-2', className)} ref={ref} {...props} />
+    </RadioGroupContext.Provider>
+  )
+})
+RadioGroup.displayName = 'RadioGroup'
+
+const RadioGroupItem = React.forwardRef<
+  HTMLButtonElement,
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'value'> & { value: string }
+>(({ className, value, disabled: itemDisabled, ...props }, ref) => {
+  const { state, send, disabled: groupDisabled, required, name } = useRadioGroup()
+
+  const isChecked = state.context.value === value
+  const isDisabled = groupDisabled || itemDisabled
+
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={isChecked}
+      data-state={isChecked ? 'checked' : 'unchecked'}
+      disabled={isDisabled}
+      aria-required={required}
+      name={name}
+      value={value}
+      ref={ref}
+      onClick={() => {
+        if (!isDisabled) {
+          send({ type: 'VALUE.SET', value })
+        }
+      }}
       className={cn(
-        'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+        'aspect-square h-4 w-4 rounded-full border border-primary text-primary hover:shadow-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center text-current">
-        <svg
-          width="6"
-          height="6"
-          viewBox="0 0 6 6"
-          fill="currentcolor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="3" cy="3" r="3" />
-        </svg>
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
+      <span data-slot="radio-indicator" className="flex items-center justify-center">
+        {isChecked && (
+          <CircleIcon className="h-2.5 w-2.5 fill-current text-current" strokeWidth={0} />
+        )}
+      </span>
+    </button>
   )
-}
+})
+RadioGroupItem.displayName = 'RadioGroupItem'
 
 export { RadioGroup, RadioGroupItem }

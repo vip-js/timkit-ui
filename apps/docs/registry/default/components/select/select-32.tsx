@@ -1,7 +1,5 @@
 import { useId } from 'react'
-
-import { Label } from '../../ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'
 
 function StatusDot({ className }: { className?: string }) {
   return (

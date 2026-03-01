@@ -1,11 +1,11 @@
 'use client'
-'use client'
 
 import * as React from 'react'
 import { createContext, useContext } from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react'
+
+import { Slot } from './slot'
 
 // Types
 type StepperContextValue = {

@@ -1,0 +1,3 @@
+<view class="{{groupApi.className}}" id="{{groupApi.id}}">
+    <slot />
+</view>

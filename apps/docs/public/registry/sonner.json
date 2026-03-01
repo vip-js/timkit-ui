@@ -10,12 +10,19 @@
       "path": "registry/default/ui/sonner.tsx",
       "type": "registry:ui",
       "target": "components/ui/sonner.tsx",
-      "content": "'use client'\n'use client'\n\nimport { useTheme } from 'next-themes'\nimport { Toaster as Sonner, ToasterProps } from 'sonner'\n\nconst SonnerToaster = ({ ...props }: ToasterProps) => {\n  const { theme = 'system' } = useTheme()\n\n  return (\n    <Sonner\n      theme={theme as ToasterProps['theme']}\n      className=\"toaster group\"\n      style={\n        {\n          '--normal-bg': 'var(--popover)',\n          '--normal-text': 'var(--popover-foreground)',\n          '--normal-border': 'var(--border)',\n        } as React.CSSProperties\n      }\n      toastOptions={{\n        classNames: {\n          description: 'text-muted-foreground!',\n        },\n      }}\n      {...props}\n    />\n  )\n}\n\nexport { SonnerToaster }\n"
+      "content": "'use client'\n\nimport { useTheme } from 'next-themes'\nimport { Toaster as Sonner, ToasterProps } from 'sonner'\n\nconst SonnerToaster = ({ ...props }: ToasterProps) => {\n  const { theme = 'system' } = useTheme()\n\n  return (\n    <Sonner\n      theme={theme as ToasterProps['theme']}\n      className=\"toaster group\"\n      style={\n        {\n          '--normal-bg': 'var(--popover)',\n          '--normal-text': 'var(--popover-foreground)',\n          '--normal-border': 'var(--border)',\n        } as React.CSSProperties\n      }\n      toastOptions={{\n        classNames: {\n          description: 'text-muted-foreground!',\n        },\n      }}\n      {...props}\n    />\n  )\n}\n\nexport { SonnerToaster }\n"
+    },
+    {
+      "path": "registry/default/vue/sonner.vue",
+      "target": "components/ui/sonner.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Toaster as Sonner, type ToasterProps } from \"vue-sonner\";\n\nconst props = defineProps<ToasterProps>();\n</script>\n\n<template>\n  <Sonner\n    class=\"toaster group\"\n    v-bind=\"props\"\n    :toast-options=\"{\n      classes: {\n        toast:\n          'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',\n        description: 'group-[.toast]:text-muted-foreground',\n        actionButton:\n          'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',\n        cancelButton:\n          'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',\n      },\n    }\"\n  />\n</template>\n"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue"
     ],
     "placeholder": false,
     "clientOnly": false

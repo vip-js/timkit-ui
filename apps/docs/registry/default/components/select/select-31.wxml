@@ -1,0 +1,14 @@
+<view class="*:not-first:mt-2">
+      <label for="select-31-id">Select with right indicator</label>
+      <select defaultValue="1">
+        <select-trigger id="select-31-id">
+          <select-value placeholder="Select framework" />
+        </select-trigger>
+        <select-content class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+    </view>

@@ -1,10 +1,4 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function CtaWithBlueBackground() {
     return (
@@ -19,9 +13,9 @@ export default function CtaWithBlueBackground() {
                     </p>
                 </div>
                 <div className="mt-4">
-                    <a href="javascript:void(0)" className="inline-block py-2 px-4 text-gray-800 font-medium bg-white duration-150 hover:bg-gray-100 active:bg-gray-200 rounded-full">
+                    <Button className="bg-white text-gray-800 hover:bg-gray-100 rounded-full">
                         Get started
-                    </a>
+                    </Button>
                 </div>
             </div>
             <div className="absolute top-0 w-full h-full" style={{ background: "linear-gradient(268.24deg, rgba(59, 130, 246, 0.76) 50%, rgba(59, 130, 246, 0.545528) 80.61%, rgba(55, 48, 163, 0) 117.35%)" }}></div>

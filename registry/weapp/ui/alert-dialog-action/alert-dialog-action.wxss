@@ -1,0 +1,2 @@
+/* alert-dialog-action.wxss */
+@import "../../lib/utils.wxss";

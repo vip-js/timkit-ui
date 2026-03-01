@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Separator } from "@timui/react";
 export default function FaqsWithTitles() {
-
     const faqsList = [
         {
             label: "Payment",
@@ -49,7 +42,6 @@ export default function FaqsWithTitles() {
             ]
         },
     ]
-
     return (
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -59,7 +51,7 @@ export default function FaqsWithTitles() {
                     </h3>
                     <div className='mt-3 text-gray-600 dark:text-gray-400'>
                         <p>
-                            Can’t find the answer you’re looking for? feel free to{" "}
+                            Can't find the answer you're looking for? feel free to{" "}
                             <a
                                 className='text-indigo-600 font-semibold whitespace-nowrap'
                                 href='sosowei@163.com'>
@@ -69,7 +61,7 @@ export default function FaqsWithTitles() {
                         </p>
                     </div>
                 </div>
-                <div className='mt-12 divide-y sm:mt-20'>
+                <div className='mt-12 sm:mt-20'>
                     {
                         faqsList.map((list, idx) => (
                             <div key={idx} className="py-5 gap-x-12 first:pt-0 sm:flex">
@@ -93,6 +85,7 @@ export default function FaqsWithTitles() {
                                         </li>
                                     ))}
                                 </ul>
+                                {idx < faqsList.length - 1 && <Separator className="sm:hidden" />}
                             </div>
                         ))
                     }
@@ -101,4 +94,3 @@ export default function FaqsWithTitles() {
         </section>
     );
 };
-        

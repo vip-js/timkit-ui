@@ -10,6 +10,6 @@
   "include": [
     "src",
     "env.d.ts",
-    "../shared/src"
+    "../core/src"
   ]
 }

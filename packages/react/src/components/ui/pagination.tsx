@@ -1,7 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@timui/shared'
+import {
+  cn,
+  paginationEllipsisVariants,
+  paginationListVariants,
+  paginationNextVariants,
+  paginationPreviousVariants,
+  paginationRootVariants,
+} from '@timui/core'
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react'
 
 import { Button, buttonVariants } from './button'
@@ -12,7 +19,7 @@ function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
       role="navigation"
       aria-label="pagination"
       data-slot="pagination"
-      className={cn('mx-auto flex w-full justify-center', className)}
+      className={cn(paginationRootVariants(), className)}
       {...props}
     />
   )
@@ -22,7 +29,7 @@ function PaginationContent({ className, ...props }: React.ComponentProps<'ul'>) 
   return (
     <ul
       data-slot="pagination-content"
-      className={cn('flex flex-row items-center gap-1', className)}
+      className={cn(paginationListVariants(), className)}
       {...props}
     />
   )
@@ -61,7 +68,7 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn('gap-1 px-2.5 sm:pe-4', className)}
+      className={cn(paginationPreviousVariants(), className)}
       {...props}
     >
       <ChevronLeftIcon size={16} />
@@ -75,7 +82,7 @@ function PaginationNext({ className, ...props }: React.ComponentProps<typeof Pag
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn('gap-1 px-2.5 sm:ps-4', className)}
+      className={cn(paginationNextVariants(), className)}
       {...props}
     >
       <span>Next</span>
@@ -89,7 +96,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn('flex size-9 items-center justify-center', className)}
+      className={cn(paginationEllipsisVariants(), className)}
       {...props}
     >
       <MoreHorizontalIcon size={16} />

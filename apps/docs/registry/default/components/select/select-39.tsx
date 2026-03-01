@@ -1,8 +1,7 @@
 import { useId } from 'react'
-import { cn } from '@timui/shared'
-
-import { Label } from '../../ui/label'
+import { cn } from '@timui/core'
 import {
+  Label,
   Select,
   SelectContent,
   SelectGroup,
@@ -10,7 +9,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../../ui/select'
+} from '@timui/react'
 
 const Square = ({ className, children }: { className?: string; children: React.ReactNode }) => (
   <span

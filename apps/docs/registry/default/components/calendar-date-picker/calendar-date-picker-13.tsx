@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Calendar } from '@timui/react'
 import type { WeekNumberProps } from 'react-day-picker'
-
-import { Calendar } from '../../ui/calendar'
 
 export default function Component() {
   const [date, setDate] = useState<Date | undefined>(new Date())

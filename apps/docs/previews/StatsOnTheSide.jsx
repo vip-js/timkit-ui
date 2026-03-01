@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card, CardContent } from "@timui/react";
 
 export default function StatsOnTheSide() {
-
     const stats = [
         {
             data: "35K",
@@ -26,7 +20,6 @@ export default function StatsOnTheSide() {
             title: "Total revenue"
         },
     ]
-
     return (
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-x-12 justify-between md:px-8 lg:flex">
@@ -43,8 +36,12 @@ export default function StatsOnTheSide() {
                         {
                             stats.map((item, idx) => (
                                 <li key={idx} className="text-center w-full px-4 py-6 sm:w-auto lg:py-4">
-                                    <h4 className="text-4xl text-indigo-600 font-semibold">{item.data}</h4>
-                                    <p className="mt-3 font-medium">{item.title}</p>
+                                    <Card className="bg-transparent border-0 shadow-none">
+                                        <CardContent className="p-0">
+                                            <h4 className="text-4xl text-indigo-600 font-semibold">{item.data}</h4>
+                                            <p className="mt-3 font-medium">{item.title}</p>
+                                        </CardContent>
+                                    </Card>
                                 </li>
                             ))
                         }

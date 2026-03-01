@@ -1,0 +1,29 @@
+<div class="relative inline-block text-left">
+    <!-- Trigger -->
+    <button type="button" data-slot="dropdown-menu-trigger"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+        aria-expanded="true" aria-haspopup="true">
+        Options
+    </button>
+
+    <!-- Content (Open) -->
+    <div data-slot="dropdown-menu-content" class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+        role="menu" tabindex="-1">
+        <div data-slot="dropdown-menu-item" class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            role="menuitem">
+            Profile
+        </div>
+        <div data-slot="dropdown-menu-item" class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            role="menuitem">
+            Billing
+        </div>
+        <div data-slot="dropdown-menu-item" class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            role="menuitem">
+            Team
+        </div>
+        <div data-slot="dropdown-menu-item" class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            role="menuitem">
+            Subscription
+        </div>
+    </div>
+</div>

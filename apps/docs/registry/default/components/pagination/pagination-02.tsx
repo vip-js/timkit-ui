@@ -1,7 +1,5 @@
+import { Button, Pagination, PaginationContent, PaginationItem } from '@timui/react'
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Pagination, PaginationContent, PaginationItem } from '../../ui/pagination'
 
 type PaginationProps = {
   currentPage: number

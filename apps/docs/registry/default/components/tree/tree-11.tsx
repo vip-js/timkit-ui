@@ -18,8 +18,7 @@ import {
   RiImageLine,
   RiReactjsLine,
 } from '@remixicon/react'
-
-import { Tree, TreeItem, TreeItemLabel } from '../../ui/tree'
+import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
 
 interface Item {
   name: string

@@ -22,7 +22,7 @@
   "include": [
     "src",
     "primitives",
-    "../shared/src",
+    "../core/src",
     "../tokens/src"
   ]
 }

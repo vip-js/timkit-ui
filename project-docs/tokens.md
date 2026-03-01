@@ -21,11 +21,11 @@
 
 ## 使用方式
 
-1. 安装 `@timui/shared`，引入 Tailwind v4 预设：`import { timkitTailwindPreset } from "@timui/shared"`.
+1. 安装 `@timui/core`，引入 Tailwind v4 预设：`import { timkitTailwindPreset } from "@timui/core"`.
 2. Tailwind v4（默认）：
 
    ```ts
-   import { timkitTailwindPreset } from '@timui/shared'
+   import { timkitTailwindPreset } from '@timui/core'
    import { defineConfig } from 'tailwindcss'
 
    export default defineConfig({

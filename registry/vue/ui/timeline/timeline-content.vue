@@ -1,0 +1,12 @@
+<script setup lang="ts">
+import { type HTMLAttributes, inject, type ComputedRef } from 'vue'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<{ class?: HTMLAttributes['class'] }>()
+</script>
+
+<template>
+  <div data-slot="timeline-content" :class="cn('text-muted-foreground text-sm', props.class)">
+    <slot />
+  </div>
+</template>

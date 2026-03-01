@@ -1,8 +1,0 @@
-<view class="{{computedClass}}" bindtap="toggle" hover-class="none">
-  <block wx:if="{{checked}}">
-    <!-- Check Icon -->
-    <view class="flex items-center justify-center text-current">
-        <image src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E" class="w-3 h-3 text-current" />
-    </view>
-  </block>
-</view>

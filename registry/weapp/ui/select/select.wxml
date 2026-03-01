@@ -1,0 +1,14 @@
+<view class="{{api.rootProps.className}}" id="{{api.rootProps.id}}">
+  <view wx:if="{{label}}" class="{{api.labelProps.className}}" id="{{api.labelProps.id}}" bindtap="{{api.labelProps.onClick}}">
+    <!-- Optional Label Slot or Prop -->
+    <!-- {{label}} -->
+    <slot name="label" />
+  </view>
+  <slot />
+  <!-- Hidden select for form submission if needed -->
+  <view class="{{api.hiddenSelectProps.className}}" hidden>
+      <select name="{{name}}" value="{{value}}" multiple="{{multiple}}">
+        <option wx:for="{{items}}" wx:key="value" value="{{item.value}}">{{item.label}}</option>
+      </select>
+  </view>
+</view>

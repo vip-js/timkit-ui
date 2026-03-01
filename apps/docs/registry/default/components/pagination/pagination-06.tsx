@@ -1,5 +1,3 @@
-import { usePagination } from '@/registry/default/hooks/use-pagination'
-
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +6,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '../../ui/pagination'
+} from '@timui/react'
+
+import { usePagination } from '@/registry/default/hooks/use-pagination'
 
 type PaginationProps = {
   currentPage: number

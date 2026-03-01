@@ -1,10 +1,8 @@
 'use client'
 
 import { useId, useRef, useState } from 'react'
+import { Input, Label } from '@timui/react'
 import { CircleXIcon } from 'lucide-react'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

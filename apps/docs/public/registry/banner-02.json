@@ -6,7 +6,25 @@
       "path": "registry/default/components/banner/banner-02.tsx",
       "type": "registry:component",
       "target": "components/ui/banner-02.tsx",
-      "content": "import { ArrowRightIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <div className=\"dark bg-muted text-foreground px-4 py-3\">\n      <p className=\"flex justify-center text-sm\">\n        <a href=\"#\" className=\"group\">\n          <span className=\"me-1 text-base leading-none\">✨</span>\n          Introducing transactional and marketing emails\n          <ArrowRightIcon\n            className=\"ms-2 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n            size={16}\n            aria-hidden=\"true\"\n          />\n        </a>\n      </p>\n    </div>\n  )\n}\n"
+      "content": "import { Banner, BannerContent, BannerDescription } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Banner className=\"dark bg-muted text-foreground px-4 py-3\">\n      <BannerContent className=\"justify-center\">\n        <BannerDescription className=\"text-sm text-foreground\">\n          <a href=\"#\" className=\"group\">\n            <span className=\"me-1 text-base leading-none\">✨</span>\n            Introducing transactional and marketing emails\n            <svg\n              className=\"ms-2 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n              width={16}\n              height={16}\n              viewBox=\"0 0 24 24\"\n              fill=\"none\"\n              stroke=\"currentColor\"\n              strokeWidth=\"2\"\n              strokeLinecap=\"round\"\n              strokeLinejoin=\"round\"\n              aria-hidden=\"true\"\n            >\n              <path d=\"M5 12h14\" />\n              <path d=\"m13 5 7 7-7 7\" />\n            </svg>\n          </a>\n        </BannerDescription>\n      </BannerContent>\n    </Banner>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-02.vue",
+      "target": "components/ui/banner-02.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Banner, BannerContent, BannerDescription } from '@/components/ui/banner'\n</script>\n\n<template>\n  <Banner class=\"dark bg-muted text-foreground px-4 py-3\">\n    <BannerContent class=\"justify-center\">\n      <BannerDescription class=\"text-sm text-foreground\">\n        <a href=\"#\" class=\"group\">\n          <span class=\"me-1 text-base leading-none\">✨</span>\n          Introducing transactional and marketing emails\n          <svg\n            class=\"ms-2 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n            width=\"16\"\n            height=\"16\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            aria-hidden=\"true\"\n          >\n            <path d=\"M5 12h14\" />\n            <path d=\"m13 5 7 7-7 7\" />\n          </svg>\n        </a>\n      </BannerDescription>\n    </BannerContent>\n  </Banner>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-02.html",
+      "target": "components/ui/banner-02.html",
+      "type": "registry:component",
+      "content": "<div class=\"dark bg-muted text-foreground px-4 py-3\" data-slot=\"banner\">\n  <div class=\"justify-center flex w-full items-center gap-3\" data-slot=\"banner-content\">\n    <div class=\"text-sm text-muted-foreground text-foreground\" data-slot=\"banner-description\">\n      <a href=\"#\" class=\"group\">\n        <span class=\"me-1 text-base leading-none\">✨</span>\n        Introducing transactional and marketing emails\n        <svg\n          class=\"ms-2 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n          width=\"16\"\n          height=\"16\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M5 12h14\" />\n          <path d=\"m13 5 7 7-7 7\" />\n        </svg>\n      </a>\n    </div>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-02.wxml",
+      "target": "components/ui/banner-02/banner-02.wxml",
+      "type": "registry:component",
+      "content": "<banner class=\"dark bg-muted text-foreground px-4 py-3\">\n  <banner-content class=\"justify-center\">\n    <banner-description class=\"text-sm text-foreground\">\n      <view class=\"group\">\n        <text class=\"me-1 text-base leading-none\">✨</text>\n        Introducing transactional and marketing emails\n        <svg\n          class=\"ms-2 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n          width=\"16\"\n          height=\"16\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M5 12h14\" />\n          <path d=\"m13 5 7 7-7 7\" />\n        </svg>\n      </view>\n    </banner-description>\n  </banner-content>\n</banner>\n"
     }
   ],
   "meta": {
@@ -15,11 +33,15 @@
     ],
     "colSpan": 3,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "banners"
+    "category": "banners",
+    "title": "Banner · Interactive State"
   },
   "categories": [
     "banners",

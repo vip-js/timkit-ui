@@ -1,8 +1,7 @@
 'use client'
 
+import { DateInput, TimeField } from '@timui/react'
 import { Label } from 'react-aria-components'
-
-import { DateInput, TimeField } from '../../ui/datefield-rac'
 
 export default function Component() {
   return (

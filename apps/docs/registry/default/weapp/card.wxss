@@ -1,0 +1,2 @@
+/* packages/weapp/src/card/card.wxss */
+@import "../utilities.wxss";

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false)

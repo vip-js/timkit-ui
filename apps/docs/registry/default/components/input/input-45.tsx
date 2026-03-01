@@ -1,11 +1,10 @@
 'use client'
 
 import { useId } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Label } from '@timui/react'
 import { OTPInput, SlotProps } from 'input-otp'
 import { MinusIcon } from 'lucide-react'
-
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, CardContent } from "@timui/react";
 export default function DarkStatsWithInCards() {
-
     const stats = [
         {
             data: "35K",
@@ -22,7 +15,6 @@ export default function DarkStatsWithInCards() {
             title: "Total revenue"
         },
     ]
-
     return (
         <section className="py-28 bg-gray-900">
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -38,10 +30,12 @@ export default function DarkStatsWithInCards() {
                     <ul className="flex flex-col gap-4 items-center justify-center sm:flex-row">
                         {
                             stats.map((item, idx) => (
-                                <li key={idx} className="w-full text-center bg-gray-800 px-12 py-4 rounded-lg sm:w-auto">
-                                    <h4 className="text-4xl text-white font-semibold">{item.data}</h4>
-                                    <p className="mt-3 text-gray-400 font-medium">{item.title}</p>
-                                </li>
+                                <Card key={idx} className="w-full text-center bg-gray-800 px-12 py-4 rounded-lg sm:w-auto border-0">
+                                    <CardContent className="p-0">
+                                        <h4 className="text-4xl text-white font-semibold">{item.data}</h4>
+                                        <p className="mt-3 text-gray-400 font-medium">{item.title}</p>
+                                    </CardContent>
+                                </Card>
                             ))
                         }
                     </ul>

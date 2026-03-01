@@ -1,0 +1,45 @@
+.command {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  border: 1px solid #e5e7eb;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  background: #ffffff;
+}
+
+.command-input {
+  border: 1px solid #d1d5db;
+  border-radius: 8rpx;
+  padding: 12rpx;
+  font-size: 28rpx;
+}
+
+.command-empty {
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.command-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.command-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx;
+  border-radius: 8rpx;
+  background: #f9fafb;
+}
+
+.command-item-value {
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.is-disabled {
+  opacity: 0.5;
+}

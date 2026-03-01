@@ -1,0 +1,12 @@
+<alert class="rounded-md border px-4 py-3">
+  <view class="flex gap-3">
+    <text class="mt-0.5 shrink-0 text-red-500 opacity-60">!</text>
+    <view class="grow space-y-1">
+      <alert-title class="text-sm font-medium text-current">Password does not meet requirements:</alert-title>
+      <view class="text-muted-foreground list-inside list-disc text-sm">
+      <view>Minimum 8 characters</view>
+      <view>Inlcude a special character</view>
+      </view>
+    </view>
+  </view>
+</alert>

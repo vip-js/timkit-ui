@@ -1,8 +1,26 @@
-<root-portal wx:if="{{open}}">
-  <view class="{{overlayClass}}" data-state="open" bindtap="close" catchtouchmove="noop"></view>
-  <view class="{{contentClass}}" data-state="open">
+<root-portal wx:if="{{api.open}}">
+  <view 
+    class="{{overlayClass}}" 
+    data-slot="dialog-overlay" 
+    data-state="{{api.open ? 'open' : 'closed'}}" 
+    bindtap="onBackdropTap" 
+    catchtouchmove="noop"
+  ></view>
+  <view 
+    class="{{contentClass}}" 
+    data-slot="dialog-content" 
+    data-state="{{api.open ? 'open' : 'closed'}}"
+    id="{{api.contentProps.id}}"
+    role="{{api.contentProps.role}}"
+    aria-modal="{{api.contentProps['aria-modal']}}"
+    aria-label="{{api.contentProps['aria-label']}}"
+  >
     <slot></slot>
-    <view class="{{closeClass}}" bindtap="close">
+    <view 
+      class="{{closeClass}}" 
+      data-slot="dialog-close" 
+      bindtap="onCloseTap"
+    >
       <text>✕</text>
     </view>
   </view>

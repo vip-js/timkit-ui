@@ -1,14 +1,10 @@
 'use client'
 
 import React, { useRef } from 'react'
+import { Button, Input, Label, Slider } from '@timui/react'
 import { RotateCcwIcon } from 'lucide-react'
 
 import { useSliderWithInput } from '@/registry/default/hooks/use-slider-with-input'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
 
 export default function Component() {
   // Create refs to store reset functions

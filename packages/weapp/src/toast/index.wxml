@@ -1,0 +1,10 @@
+<view class="{{toastClass}}" role="status">
+  <view class="flex-1">
+    <view wx:if="{{title}}" class="{{titleClass}}">{{title}}</view>
+    <view wx:if="{{description}}" class="{{descriptionClass}}">{{description}}</view>
+  </view>
+  <view wx:if="{{showClose}}" class="{{closeClass}}" bindtap="handleClose">
+    <!-- Icon or Text for close -->
+    <text>×</text>
+  </view>
+</view>

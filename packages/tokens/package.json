@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "tsx build.ts",
+    "build": "node --import tsx build.ts",
     "clean": "rm -rf dist",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint ."
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "devDependencies": {
     "typescript": "^5.8.2"

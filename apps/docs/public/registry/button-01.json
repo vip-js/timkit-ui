@@ -2,14 +2,44 @@
   "name": "button-01",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/button/button-01.tsx",
       "type": "registry:component",
       "target": "components/ui/button-01.tsx",
-      "content": "import { Button } from '../../ui/button'\n\nexport default function Component() {\n  return <Button>Button</Button>\n}\n"
+      "content": "import { Button } from '@timui/react'\n\nexport default function Component() {\n  return <Button>Button</Button>\n}\n"
+    },
+    {
+      "path": "registry/default/components/button/button-01.vue",
+      "target": "components/ui/button-01.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Button } from '@/components/ui/button'\n</script>\n\n<template>\n  <Button variant=\"default\" size=\"default\">Primary</Button>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/button/button-01.html",
+      "target": "components/ui/button-01.html",
+      "type": "registry:component",
+      "content": "<button\n  data-slot=\"button\"\n  class=\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2\"\n>\n  Primary\n</button>\n"
+    },
+    {
+      "path": "registry/default/components/button/button-01.wxml",
+      "target": "components/ui/button-01/button-01.wxml",
+      "type": "registry:component",
+      "content": "<button\n  data-slot=\"button\"\n  class=\"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2\"\n>\n  Primary\n</button>\n"
+    },
+    {
+      "path": "registry/default/components/button/button-01.wxss",
+      "target": "components/ui/button-01/button-01.wxss",
+      "type": "registry:component",
+      "content": "/* Ensure button styling is applied */\n.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 6px;\n  font-size: 14px;\n  font-weight: 500;\n  background-color: #18181b; /* primary */\n  color: #fafafa;\n  padding: 8px 16px;\n}\n"
+    },
+    {
+      "path": "registry/default/components/button/button-01.json",
+      "target": "components/ui/button-01/button-01.json",
+      "type": "registry:component",
+      "content": "{\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
@@ -18,11 +48,15 @@
     ],
     "style": 2,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "buttons"
+    "category": "buttons",
+    "title": "Button · Basic button"
   },
   "categories": [
     "buttons",

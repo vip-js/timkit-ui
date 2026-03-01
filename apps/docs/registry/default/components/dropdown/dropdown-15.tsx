@@ -1,15 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react'
 
 type Theme = 'light' | 'dark' | 'system'
 

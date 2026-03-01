@@ -1,0 +1,3 @@
+<view class="{{className}} card">
+  <slot></slot>
+</view>

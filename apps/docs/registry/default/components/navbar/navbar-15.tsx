@@ -1,9 +1,5 @@
-import { BotMessageSquareIcon, MessageCircleDashedIcon } from 'lucide-react'
-
-import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Select,
   SelectContent,
   SelectGroup,
@@ -11,7 +7,10 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../../ui/select'
+} from '@timui/react'
+import { BotMessageSquareIcon, MessageCircleDashedIcon } from 'lucide-react'
+
+import UserMenu from '@/registry/default/components/navbar-components/user-menu'
 
 export default function Component() {
   return (

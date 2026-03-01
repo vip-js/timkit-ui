@@ -1,0 +1,3 @@
+<view class="{{className}} border-b">
+  <slot></slot>
+</view>

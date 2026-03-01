@@ -1,0 +1,40 @@
+<view class="{{className}} pagination">
+  <!-- Previous Button -->
+  <view 
+    class="pagination-btn pagination-prev"
+    bindtap="onPrevTap"
+    data-disabled="{{!api.previousPage}}"
+  >
+    <text>上一页</text>
+  </view>
+
+  <!-- Page Numbers -->
+  <view class="pagination-pages">
+    <block wx:for="{{api.pages}}" wx:key="index">
+      <view 
+        wx:if="{{item.type === 'page'}}"
+        class="pagination-page"
+        data-page="{{item.value}}"
+        data-current="{{item.value === api.page}}"
+        bindtap="onPageTap"
+      >
+        {{item.value}}
+      </view>
+      <text 
+        wx:elif="{{item.type === 'ellipsis'}}"
+        class="pagination-ellipsis"
+      >
+        ...
+      </text>
+    </block>
+  </view>
+
+  <!-- Next Button -->
+  <view 
+    class="pagination-btn pagination-next"
+    bindtap="onNextTap"
+    data-disabled="{{!api.nextPage}}"
+  >
+    <text>下一页</text>
+  </view>
+</view>

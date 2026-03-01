@@ -1,5 +1,4 @@
-import { Label } from '../../ui/label'
-import { MultipleSelector, Option } from '../../ui/multiselect'
+import { Label, MultipleSelector, Option } from '@timui/react'
 
 const frameworks: Option[] = [
   {

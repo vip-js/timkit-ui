@@ -8,25 +8,34 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   PaginationState,
+  RowSelectionState,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'lucide-react'
-
-import { usePagination } from '@/registry/default/hooks/use-pagination'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
+import { cn } from '@timui/core'
 import {
+  Badge,
+  Button,
+  Checkbox,
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-} from '../../ui/pagination'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@timui/react'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'lucide-react'
+
+import { usePagination } from '@/registry/default/hooks/use-pagination'
 
 type Item = {
   id: string
@@ -46,14 +55,18 @@ const columns: ColumnDef<Item>[] = [
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!(value?.detail?.checked ?? value))
+        }
+        onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
         aria-label="Select all rows"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
+        onClick={() => row.toggleSelected(!row.getIsSelected())}
         aria-label="Select row"
       />
     ),
@@ -126,6 +139,7 @@ export default function Component() {
   ])
 
   const [data, setData] = useState<Item[]>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   useEffect(() => {
     async function fetchPosts() {
       const res = await fetch(
@@ -146,9 +160,13 @@ export default function Component() {
     enableSortingRemoval: false,
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
     state: {
       sorting,
       pagination,
+      rowSelection,
     },
   })
 
@@ -318,7 +336,7 @@ export default function Component() {
         <div className="flex flex-1 justify-end">
           <Select
             value={table.getState().pagination.pageSize.toString()}
-            onValueChange={(value) => {
+            onValueChange={(value: string) => {
               table.setPageSize(Number(value))
             }}
             aria-label="Results per page"

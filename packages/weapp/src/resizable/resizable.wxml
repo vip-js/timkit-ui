@@ -1,0 +1,16 @@
+<view class="resizable {{extClass}}">
+  <view class="panels">
+    <view class="panel panel-left" style="width: {{leftPercent}}%;">
+      <slot name="left" />
+    </view>
+    <view class="panel panel-right" style="width: {{100 - leftPercent}}%;">
+      <slot name="right" />
+    </view>
+  </view>
+  <slider
+    min="{{minPercent}}"
+    max="{{maxPercent}}"
+    value="{{leftPercent}}"
+    bindchange="onSliderChange"
+  />
+</view>

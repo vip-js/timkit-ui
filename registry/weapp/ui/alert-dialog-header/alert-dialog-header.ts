@@ -1,0 +1,3 @@
+Component({
+    // Just a wrapper
+})

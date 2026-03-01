@@ -1,5 +1,4 @@
 /* packages/weapp/src/button/button.wxss */
-@import "../utilities.wxss";
 
 /* Additional resets for Weapp Button if not covered by tailwind utilities */
 button {

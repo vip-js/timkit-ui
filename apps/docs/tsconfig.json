@@ -17,6 +17,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
     "plugins": [
       {
         "name": "next"
@@ -31,6 +34,9 @@
       ],
       "@timui/react/*": [
         "./registry/default/*"
+      ],
+      "@/components/ui/*": [
+        "./registry/default/ui/*"
       ]
     },
     "baseUrl": ".",
@@ -40,7 +46,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "**/*.js",
+    "**/*.jsx"
   ],
   "exclude": [
     "node_modules"

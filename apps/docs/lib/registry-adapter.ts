@@ -1,18 +1,27 @@
-import { RegistryItem } from '@timui/core'
+import type { RegistryItem } from '@timui/core'
 
-import { ComponentData } from '@/components/preview/preview-app'
+import type { ComponentData } from '@/components/preview/preview-app'
 
-import { SectionCodeGroup } from './sections'
+import type { SectionCodeGroup } from './sections'
 
 export function adaptRegistryItemToComponentData(item: RegistryItem, slug: string): ComponentData {
   // 1. Construct Code Groups
   const codeGroups: SectionCodeGroup[] = []
 
   // Group files by extension
+  const files = item.files || []
   const frameworks = {
-    react: item.files?.filter((f) => f.path.endsWith('.tsx') || f.path.endsWith('.jsx')) || [],
-    vue: item.files?.filter((f) => f.path.endsWith('.vue')) || [],
-    html: item.files?.filter((f) => f.path.endsWith('.html')) || [],
+    react: files.filter((f) => f.path.endsWith('.tsx') || f.path.endsWith('.jsx')),
+    vue: files.filter((f) => f.path.endsWith('.vue')),
+    html: files.filter((f) => f.path.endsWith('.html')),
+    weapp: files.filter(
+      (f) =>
+        f.path.endsWith('.wxml') ||
+        f.path.endsWith('.wxss') ||
+        f.path.endsWith('.wxs') ||
+        f.path.toLowerCase().includes('weapp') ||
+        f.path.endsWith('.ts')
+    ),
   }
 
   if (frameworks.react.length > 0) {
@@ -49,6 +58,27 @@ export function adaptRegistryItemToComponentData(item: RegistryItem, slug: strin
         label: 'HTML',
         code: f.content || '',
       })),
+    })
+  }
+  if (frameworks.weapp.length > 0) {
+    const combinedWeapp = frameworks.weapp
+      .map((f) => {
+        const ext = f.path.split('.').pop() || ''
+        const header = `// ${f.path}`
+        return `${header}\n${f.content || ''}`
+      })
+      .join('\n\n')
+    codeGroups.push({
+      id: `${item.name}-weapp`,
+      label: 'Weapp',
+      language: 'weapp',
+      files: [
+        {
+          id: `${item.name}-weapp-0`,
+          label: 'Weapp',
+          code: combinedWeapp,
+        },
+      ],
     })
   }
 

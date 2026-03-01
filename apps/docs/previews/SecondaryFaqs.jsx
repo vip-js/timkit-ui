@@ -1,60 +1,52 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card, CardContent } from "@timui/react";
 
 export default function SecondaryFaqs() {
-  
 function FaqsCard(props) {
-
     const answerElRef = React.useRef()
     const [state, setState] = React.useState(false)
     const [answerH, setAnswerH] = React.useState('0px')
     const { faqsList, idx } = props
-
     const handleOpenAnswer = () => {
         const answerElH = answerElRef.current.childNodes[0].offsetHeight
         setState(!state)
         setAnswerH(`${answerElH + 20}px`)
     }
-
     return (
-        <div 
-            className="space-y-3 mt-5 overflow-hidden border-b"
+        <Card
+            className="space-y-3 mt-5 overflow-hidden border-b bg-transparent shadow-none"
             key={idx}
             onClick={handleOpenAnswer}
         >
-            <h4 className="cursor-pointer pb-5 flex items-center justify-between text-lg text-gray-700 font-medium">
-                {faqsList.q}
-                {
-                    state ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                        </svg>
-                    ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                        </svg>
-                    )
-                }
-            </h4>
-            <div
-                ref={answerElRef} className="duration-300"
-                style={state ? {height: answerH } : {height: '0px'}}
-            >
-                <div>
-                    <p className="text-gray-500 duration-300">
-                        {faqsList.a}
-                    </p>
+            <CardContent className="p-0 space-y-3">
+                <h4 className="cursor-pointer pb-5 flex items-center justify-between text-lg text-gray-700 font-medium">
+                    {faqsList.q}
+                    {
+                        state ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                        )
+                    }
+                </h4>
+                <div
+                    ref={answerElRef} className="duration-300"
+                    style={state ? {height: answerH } : {height: '0px'}}
+                >
+                    <div>
+                        <p className="text-gray-500 duration-300">
+                            {faqsList.a}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </CardContent>
+        </Card>
     )
 }
-
     const faqsList = [
         {
             q: "What are some random questions to ask?",
@@ -77,7 +69,6 @@ function FaqsCard(props) {
             a: "If you've been searching for a way to get random questions, you've landed on the correct webpage. We created the Random Question Generator to ask you as many random questions as your heart desires."
         }
     ]
-  
     return (
         <section className="leading-relaxed max-w-screen-xl py-12 mx-auto px-4 md:px-8">
             <div className="space-y-3 text-center">

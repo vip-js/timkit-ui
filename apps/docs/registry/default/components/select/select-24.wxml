@@ -1,0 +1,15 @@
+<view class="*:not-first:mt-2">
+      <label for="select-24-id">Select with auto-width</label>
+      <select defaultValue="1">
+        
+        <select-trigger id="select-24-id" class="w-auto max-w-full min-w-48">
+          <select-value placeholder="Select framework" />
+        </select-trigger>
+        <select-content>
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+    </view>

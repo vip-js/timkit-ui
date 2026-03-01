@@ -1,0 +1,7 @@
+<label 
+  class="{{className}}"
+  for="{{for}}"
+  bindtap="onTap"
+>
+  <slot></slot>
+</label>

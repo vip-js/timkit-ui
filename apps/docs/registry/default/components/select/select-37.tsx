@@ -1,7 +1,6 @@
 import { useId } from 'react'
-
-import { Label } from '../../ui/label'
 import {
+  Label,
   Select,
   SelectContent,
   SelectGroup,
@@ -9,7 +8,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../../ui/select'
+} from '@timui/react'
 
 const countries = [
   {

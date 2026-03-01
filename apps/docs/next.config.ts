@@ -1,7 +1,14 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
 import type { NextConfig } from 'next'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const nextConfig: NextConfig = {
   /* config options here */
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -40,26 +47,16 @@ const nextConfig: NextConfig = {
   },
   webpack: (config) => {
     config.module.rules.push({
-      test: /\.(html|svelte|vue|wxml|wxss)$/,
+      test: /\.(html|vue|wxml|wxss)$/,
       type: 'asset/source',
     })
     return config
   },
-  transpilePackages: [
-    '@timui/react',
-    '@timui/core',
-    '@timui/shared',
-    '@timui/tokens',
-    '@timui/vue',
-    '@timui/weapp',
-  ],
+  transpilePackages: ['@timui/react', '@timui/core', '@timui/tokens', '@timui/vue', '@timui/weapp'],
   turbopack: {
+    root: path.join(__dirname, '..', '..'),
     rules: {
       '*.html': {
-        loaders: ['raw-loader'],
-        as: '*.js',
-      },
-      '*.svelte': {
         loaders: ['raw-loader'],
         as: '*.js',
       },

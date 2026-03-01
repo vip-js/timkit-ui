@@ -1,0 +1,5 @@
+
+
+> @timui/html@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/html
+> node --import tsx ../../scripts/build-html-package.ts
+

@@ -1,0 +1,14 @@
+<view 
+  id="{{api.rootProps.id}}"
+  class="{{rootClass}}" 
+  role="progressbar" 
+  aria-valuemin="{{api.min}}"
+  aria-valuenow="{{api.value}}" 
+  aria-valuemax="{{api.max}}"
+  data-state="{{api.state}}"
+>
+  <view 
+    class="{{indicatorClass}}" 
+    style="transform: translateX(-{{100 - api.percent}}%)"
+  ></view>
+</view>

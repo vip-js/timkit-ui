@@ -2,26 +2,133 @@
   "name": "popover",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-popover"
+    "@timui/core"
+  ],
+  "registryDependencies": [
+    "use-machine"
   ],
   "files": [
     {
       "path": "registry/default/ui/popover.tsx",
       "type": "registry:ui",
       "target": "components/ui/popover.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as PopoverPrimitive from '@radix-ui/react-popover'\nimport { cn } from '@timui/shared'\nimport { cva } from 'class-variance-authority'\n\nconst popoverContentVariants = cva(\n  'z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2'\n)\n\nfunction Popover({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Root>) {\n  return <PopoverPrimitive.Root data-slot=\"popover\" {...props} />\n}\n\nfunction PopoverTrigger({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {\n  return <PopoverPrimitive.Trigger data-slot=\"popover-trigger\" {...props} />\n}\n\nfunction PopoverContent({\n  className,\n  align = 'center',\n  sideOffset = 4,\n  showArrow = false,\n  ...props\n}: React.ComponentProps<typeof PopoverPrimitive.Content> & {\n  showArrow?: boolean\n}) {\n  return (\n    <PopoverPrimitive.Portal>\n      <PopoverPrimitive.Content\n        data-slot=\"popover-content\"\n        align={align}\n        sideOffset={sideOffset}\n        className={cn(\n          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 rounded-md border p-4 shadow-md outline-hidden',\n          className\n        )}\n        {...props}\n      >\n        {props.children}\n        {showArrow && (\n          <PopoverPrimitive.Arrow className=\"fill-popover -my-px drop-shadow-[0_1px_0_var(--border)]\" />\n        )}\n      </PopoverPrimitive.Content>\n    </PopoverPrimitive.Portal>\n  )\n}\n\nfunction PopoverAnchor({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Anchor>) {\n  return <PopoverPrimitive.Anchor data-slot=\"popover-anchor\" {...props} />\n}\n\nexport { Popover, PopoverAnchor, PopoverContent, PopoverTrigger }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn, popoverConnect, popoverContentVariants, popoverMachine } from \"@/lib/utils\"\nimport { mergeProps, normalizeProps, useMachine } from '@zag-js/react'\nimport { createPortal } from 'react-dom'\n\nimport { Slot } from './slot'\n\ntype Placement =\n  | 'top'\n  | 'top-start'\n  | 'top-end'\n  | 'bottom'\n  | 'bottom-start'\n  | 'bottom-end'\n  | 'left'\n  | 'left-start'\n  | 'left-end'\n  | 'right'\n  | 'right-start'\n  | 'right-end'\n\nconst PopoverContext = React.createContext<{\n  api: ReturnType<typeof popoverConnect>\n} | null>(null)\n\nfunction usePopover() {\n  const context = React.useContext(PopoverContext)\n  if (!context) {\n    throw new Error('Popover components must be used within Popover')\n  }\n  return context\n}\n\nconst Popover = ({\n  children,\n  open,\n  defaultOpen,\n  onOpenChange,\n  modal = false,\n  ids,\n}: {\n  children: React.ReactNode\n  open?: boolean\n  defaultOpen?: boolean\n  onOpenChange?: (open: boolean) => void\n  modal?: boolean\n  ids?: {\n    anchor?: string\n    trigger?: string\n    content?: string\n    title?: string\n    description?: string\n    closeTrigger?: string\n    positioner?: string\n    arrow?: string\n  }\n}) => {\n  const service = useMachine(popoverMachine, {\n    id: React.useId(),\n    open,\n    defaultOpen,\n    modal,\n    ids,\n    onOpenChange: (details) => onOpenChange?.(details.open),\n  })\n\n  const api = React.useMemo(() => popoverConnect(service, normalizeProps), [service])\n\n  return <PopoverContext.Provider value={{ api }}>{children}</PopoverContext.Provider>\n}\nPopover.displayName = 'Popover'\n\nconst PopoverTrigger = React.forwardRef<\n  HTMLButtonElement,\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }\n>(({ className, onClick, asChild = false, children, ...props }, ref) => {\n  const { api } = usePopover()\n\n  const Comp = asChild ? Slot : 'button'\n  const triggerProps = api.getTriggerProps()\n  const mergedProps = mergeProps(triggerProps, props)\n\n  if (asChild) {\n    return (\n      <Comp ref={ref} data-slot=\"popover-trigger\" className={cn(className)} {...mergedProps}>\n        {children}\n      </Comp>\n    )\n  }\n\n  return (\n    <Comp\n      ref={ref}\n      type=\"button\"\n      data-slot=\"popover-trigger\"\n      className={cn(className)}\n      {...mergedProps}\n    >\n      {children}\n    </Comp>\n  )\n})\nPopoverTrigger.displayName = 'PopoverTrigger'\n\nconst PopoverContent = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & {\n    align?: 'center' | 'start' | 'end'\n    side?: 'top' | 'bottom' | 'left' | 'right'\n    sideOffset?: number\n    showArrow?: boolean\n  }\n>(\n  (\n    {\n      className,\n      align = 'center',\n      side = 'bottom',\n      sideOffset = 4,\n      showArrow = false,\n      style,\n      children,\n      ...props\n    },\n    ref\n  ) => {\n    const { api } = usePopover()\n    const isOpen = api.open\n\n    const placement = (align === 'center' ? side : `${side}-${align}`) as Placement\n    React.useLayoutEffect(() => {\n      if (!api.open || typeof window === 'undefined') return\n      api.reposition({ placement, gutter: sideOffset })\n    }, [api, placement, sideOffset])\n\n    if (!isOpen) return null\n    if (typeof window === 'undefined') return null\n\n    const positionerProps = api.getPositionerProps()\n    const contentProps = api.getContentProps()\n    const mergedProps = mergeProps(contentProps, props)\n\n    return createPortal(\n      <div {...positionerProps} style={{ ...positionerProps.style, zIndex: 50 }}>\n        <div\n          ref={ref}\n          data-slot=\"popover-content\"\n          data-state=\"open\"\n          data-align={align}\n          style={{ ...mergedProps.style, ...style }}\n          className={cn(popoverContentVariants(), showArrow ? 'relative' : undefined, className)}\n          {...mergedProps}\n        >\n          {children}\n          {showArrow ? (\n            <span\n              data-slot=\"popover-arrow\"\n              className=\"absolute -top-1 left-6 h-2 w-2 rotate-45 border border-border bg-popover\"\n            />\n          ) : null}\n        </div>\n      </div>,\n      document.body\n    )\n  }\n)\nPopoverContent.displayName = 'PopoverContent'\n\nexport { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }\n\nconst PopoverAnchor = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  (props, ref) => <div ref={ref} {...props} />\n)\nPopoverAnchor.displayName = 'PopoverAnchor'\n"
     },
     {
-      "path": "registry/default/vue/popover.vue",
-      "target": "components/ui/popover.vue",
+      "path": "registry/default/vue/popover/popover-content.vue",
+      "target": "components/ui/popover/popover-content.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { PopoverRoot, type PopoverRootEmits, type PopoverRootProps, useForwardPropsEmits } from \"radix-vue\";\n\nconst props = defineProps<PopoverRootProps>();\nconst emits = defineEmits<PopoverRootEmits>();\n\nconst forwarded = useForwardPropsEmits(props, emits);\n</script>\n\n<template>\n  <PopoverRoot v-bind=\"forwarded\">\n    <slot />\n  </PopoverRoot>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { computed, watch } from \"vue\";\nimport { cn, popoverContentVariants } from \"@/lib/utils\";\nimport { usePopoverContext } from \"./use-popover-context\";\nimport Presence from \"../presence/presence.vue\";\nimport type { Placement } from \"@zag-js/popper\";\n\ndefineOptions({\n  inheritAttrs: false,\n});\n\nconst props = withDefaults(\n  defineProps<{\n    class?: string;\n    align?: \"center\" | \"start\" | \"end\";\n    side?: \"top\" | \"bottom\" | \"left\" | \"right\";\n    sideOffset?: number;\n  }>(),\n  {\n    align: \"center\",\n    side: \"bottom\",\n    sideOffset: 4,\n  }\n);\n\nconst context = usePopoverContext();\nconst isOpen = computed(() => context.value.open ?? false);\nconst positionerProps = computed(() => context.value.getPositionerProps?.() ?? {});\nconst contentProps = computed(() => context.value.getContentProps?.() ?? {});\nconst placement = computed(() =>\n  props.align === \"center\" ? props.side : `${props.side}-${props.align}`,\n);\n\nwatch(\n  () => [placement.value, props.sideOffset],\n  () => {\n    context.value.reposition?.({ placement: placement.value as Placement, gutter: props.sideOffset });\n  },\n  { immediate: true }\n);\n</script>\n\n<template>\n  <Teleport to=\"body\">\n    <Presence :present=\"isOpen\" :unmountOnExit=\"true\" v-bind=\"positionerProps\" style=\"z-index: 50\">\n      <div\n        v-bind=\"contentProps\"\n        data-slot=\"popover-content\"\n        data-state=\"open\"\n        :data-align=\"props.align\"\n        :class=\"cn(popoverContentVariants(), props.class)\"\n      >\n        <slot />\n      </div>\n    </Presence>\n  </Teleport>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/popover/popover-trigger.vue",
+      "target": "components/ui/popover/popover-trigger.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type Component, type HTMLAttributes } from \"vue\";\nimport { cn } from \"@/lib/utils\";\nimport { Primitive } from '../../primitive';\nimport { usePopoverContext } from \"./use-popover-context\";\n\nconst props = withDefaults(\n  defineProps<{\n    as?: string | Component;\n    asChild?: boolean;\n    class?: HTMLAttributes[\"class\"];\n  }>(),\n  {\n    as: \"button\",\n  }\n);\n\nconst context = usePopoverContext();\nconst triggerProps = computed(() => ({\n  ...(context.value.getTriggerProps?.() ?? {}),\n  type: props.asChild ? undefined : \"button\",\n  \"data-slot\": \"popover-trigger\",\n}));\n</script>\n\n<template>\n  <Primitive\n    :as=\"props.as\"\n    :as-child=\"props.asChild\"\n    :class=\"cn(props.class)\"\n    v-bind=\"triggerProps\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/popover/popover.vue",
+      "target": "components/ui/popover/popover.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from \"vue\";\nimport type { PositioningOptions } from \"@zag-js/popper\";\nimport { usePopover } from \"./use-popover\";\nimport { PopoverProvider } from \"./use-popover-context\";\n\nconst props = defineProps<{\n  open?: boolean;\n  defaultOpen?: boolean;\n  modal?: boolean;\n  closeOnInteractOutside?: boolean;\n  closeOnEscape?: boolean;\n  positioning?: PositioningOptions;\n  id?: string;\n  class?: HTMLAttributes[\"class\"];\n}>();\n\nconst emit = defineEmits([\"update:open\", \"change\"]);\n\nconst api = usePopover(props, emit);\nPopoverProvider(api);\n</script>\n\n<template>\n  <slot />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/popover/use-popover-context.ts",
+      "target": "components/ui/popover/use-popover-context.ts",
+      "type": "registry:component",
+      "content": "import { createContext } from \"../../hooks/create-context\"\nimport type { usePopover } from \"./use-popover\"\n\nexport type UsePopoverReturn = ReturnType<typeof usePopover>\n\nexport const [PopoverProvider, usePopoverContext] = createContext<UsePopoverReturn>({\n    id: \"popoverContext\",\n    providerName: \"<Popover />\",\n})\n"
+    },
+    {
+      "path": "registry/default/vue/popover/use-popover.ts",
+      "target": "components/ui/popover/use-popover.ts",
+      "type": "registry:component",
+      "content": "import { computed, watch } from 'vue'\nimport { normalizeProps, useMachine } from '@zag-js/vue'\nimport { popoverConnect, popoverMachine } from \"@/lib/utils\"\nimport type { PositioningOptions } from '@zag-js/popper'\n\nexport interface UsePopoverProps {\n    id?: string\n    open?: boolean\n    defaultOpen?: boolean\n    modal?: boolean\n    closeOnInteractOutside?: boolean\n    closeOnEscape?: boolean\n    positioning?: PositioningOptions\n}\n\nexport interface UsePopoverEmits {\n    (e: 'update:open', value: boolean): void\n    (e: 'change', value: boolean): void\n}\n\nlet staticId = 0\n\nexport function usePopover(props: UsePopoverProps, emit: UsePopoverEmits) {\n    const localId = `popover-${++staticId}`\n\n    const machineProps = computed(() => ({\n        id: props.id ?? localId,\n        open: props.open,\n        defaultOpen: props.open === undefined ? props.defaultOpen : undefined,\n        modal: props.modal,\n        closeOnInteractOutside: props.closeOnInteractOutside,\n        closeOnEscape: props.closeOnEscape,\n        positioning: props.positioning,\n        onOpenChange(details: { open: boolean }) {\n            emit('update:open', details.open)\n            emit('change', details.open)\n        },\n    }))\n\n    const service = useMachine(popoverMachine, machineProps)\n    const api = computed(() => popoverConnect(service, normalizeProps))\n\n    watch(\n        () => props.open,\n        (val?: boolean) => {\n            if (val !== undefined && val !== api.value.open) {\n                api.value.setOpen(val)\n            }\n        }\n    )\n\n    return api\n}\n"
+    },
+    {
+      "path": "registry/default/html/popover.html",
+      "target": "components/ui/popover.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"popover\" class=\"relative inline-flex\">\n  <button data-slot=\"popover-trigger\" class=\"inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm\">\n    Open popover\n  </button>\n  <div\n    data-slot=\"popover-content\"\n    class=\"absolute z-50 mt-2 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md\"\n  >\n    Popover content\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/weapp/popover.wxml",
+      "target": "components/ui/popover.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <!-- Trigger -->\n  <view \n    id=\"{{api.triggerProps.id}}\"\n    bindtap=\"onTriggerTap\"\n    data-state=\"{{api.open ? 'open' : 'closed'}}\"\n  >\n    <slot name=\"trigger\"></slot>\n  </view>\n\n  <!-- Backdrop (if modal) -->\n  <view \n    wx:if=\"{{api.open && modal}}\"\n    class=\"popover-backdrop\"\n    bindtap=\"onBackdropTap\"\n  ></view>\n\n  <!-- Content -->\n  <view \n    wx:if=\"{{api.open}}\"\n    id=\"{{api.contentProps.id}}\"\n    class=\"popover-content\"\n    data-state=\"{{api.open ? 'open' : 'closed'}}\"\n  >\n    <view class=\"popover-arrow\" wx:if=\"{{showArrow}}\"></view>\n    \n    <view class=\"popover-header\" wx:if=\"{{title}}\">\n      <text class=\"popover-title\">{{title}}</text>\n      <view \n        class=\"popover-close\" \n        bindtap=\"onCloseTap\"\n      >×</view>\n    </view>\n\n    <view class=\"popover-body\">\n      <slot name=\"content\"></slot>\n    </view>\n  </view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/popover.wxss",
+      "target": "components/ui/popover.wxss",
+      "type": "registry:component",
+      "content": "/* weapp component styles */\n"
+    },
+    {
+      "path": "registry/default/weapp/popover.ts",
+      "target": "components/ui/popover.ts",
+      "type": "registry:component",
+      "content": "import { setupPopoverMachine } from './use-popover'\n\ntype WeappPopoverApi = {\n  triggerProps?: { onClick?: () => void }\n  open?: () => void\n  close?: () => void\n}\n\ntype WeappService = {\n  setContext: (context: Record<string, object>) => void\n}\ntype MachineEvent = string | { type: string; [key: string]: object }\ntype MachineSend = (event: MachineEvent) => void\n\ntype WeappPopoverInternal = WechatMiniprogram.Component.InstanceMethods<WeappPopoverApi> & {\n  _service?: WeappService\n  _cleanup?: () => void\n  _send?: (event: object) => void\n  _connect?: (state: object, send: MachineSend) => WeappPopoverApi\n  data: {\n    api: WeappPopoverApi\n  }\n  properties: {\n    open: boolean\n    modal: boolean\n    portalled: boolean\n    closeOnInteractOutside: boolean\n    id: string\n    extClass: string\n  }\n}\n\nComponent({\n  options: {\n    styleIsolation: 'apply-shared',\n    pureDataPattern: /^_/,\n  },\n\n  properties: {\n    open: { type: Boolean, value: false },\n    modal: { type: Boolean, value: false },\n    portalled: { type: Boolean, value: true },\n    closeOnInteractOutside: { type: Boolean, value: true },\n    id: { type: String, value: 'popover' },\n    extClass: { type: String, value: '' },\n  },\n\n  data: {\n    api: {} as WeappPopoverApi,\n    className: '',\n  },\n\n  lifetimes: {\n    attached() {\n      const self = this as WeappPopoverInternal\n      const { controller, connect } = setupPopoverMachine(self)\n\n      self._service = controller.service as WeappService\n      self._cleanup = controller.start()\n      self._send = controller.send as MachineSend\n      self._connect = connect\n    },\n    detached() {\n      const self = this as WeappPopoverInternal\n      self._cleanup?.()\n    },\n  },\n\n  observers: {\n    'state': function (state) {\n      const self = this as WeappPopoverInternal\n      if (!state || !self._send || !self._connect) return\n      const api = self._connect(state, self._send) as WeappPopoverApi\n      this.setData({ api, className: this.properties.extClass })\n    },\n\n    'open': function (val) {\n      const self = this as WeappPopoverInternal\n      if (self._service) {\n        if (val) {\n          self.data.api.open?.()\n        } else {\n          self.data.api.close?.()\n        }\n      }\n    },\n  },\n\n  methods: {\n    onTriggerTap() {\n      const self = this as WeappPopoverInternal\n      self.data.api.triggerProps?.onClick?.()\n    },\n    onBackdropTap() {\n      const self = this as WeappPopoverInternal\n      self.data.api.close?.()\n    },\n    onCloseTap() {\n      const self = this as WeappPopoverInternal\n      self.data.api.close?.()\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/popover.json",
+      "target": "components/ui/popover.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true,\n  \"usingComponents\": {}\n}"
+    },
+    {
+      "path": "registry/default/weapp/popover-content/popover-content.wxml",
+      "target": "components/ui/popover-content/popover-content.wxml",
+      "type": "registry:component",
+      "content": "<root-portal wx:if=\"{{visible}}\">\n  <!-- Transparent overlay for clicking outside (simplified) -->\n  <view class=\"fixed inset-0 z-40\" bindtap=\"hide\" catchtouchmove=\"noop\"></view>\n  \n  <view id=\"popover-content\" class=\"fixed z-50 {{baseClass}}\" style=\"{{style}}\" catchtap=\"noop\">\n    <slot></slot>\n  </view>\n</root-portal>\n"
+    },
+    {
+      "path": "registry/default/weapp/popover-content/popover-content.wxss",
+      "target": "components/ui/popover-content/popover-content.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/popover-content/popover-content.json",
+      "target": "components/ui/popover-content/popover-content.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/popover-content/popover-content.ts",
+      "target": "components/ui/popover-content/popover-content.ts",
+      "type": "registry:component",
+      "content": "import { popoverContentVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  relations: {\n    '../popover/popover': {\n      type: 'parent',\n    },\n  },\n  externalClasses: ['ext-class'],\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: {\n    visible: false,\n    style: 'opacity: 0;', // Initial hidden\n    className: '',\n  },\n  observers: {\n    extClass: function (extClass: string) {\n      this.setData({\n        // Simulating data-state for variants if needed?\n        // Shared variant uses `data-[state=open]:animate-in`.\n        // WeApp won't trigger that animation naturally without state change.\n        // For now, allow base classes.\n        className: popoverContentVariants({ className: extClass })\n      })\n    }\n  },\n  methods: {\n    showForMeasure() {\n      this.setData({\n        visible: true,\n        style: 'opacity: 0; pointer-events: none;',\n      })\n    },\n    updatePosition(top: number, left: number) {\n      this.setData({\n        style: `top: ${top}px; left: ${left}px; opacity: 1; transition: opacity 0.2s;`,\n      })\n    },\n    hide() {\n      this.setData({ visible: false, style: 'opacity: 0;' })\n    },\n    getRect() {\n      return new Promise((resolve) => {\n        this.createSelectorQuery()\n          .select('#popover-content')\n          .boundingClientRect((rect) => {\n            resolve(rect)\n          })\n          .exec()\n      })\n    },\n    noop() { },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/popover-trigger/popover-trigger.wxml",
+      "target": "components/ui/popover-trigger/popover-trigger.wxml",
+      "type": "registry:component",
+      "content": "<view id=\"popover-trigger\" class=\"inline-block\" bindtap=\"onTap\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/popover-trigger/popover-trigger.wxss",
+      "target": "components/ui/popover-trigger/popover-trigger.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/popover-trigger/popover-trigger.json",
+      "target": "components/ui/popover-trigger/popover-trigger.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/popover-trigger/popover-trigger.ts",
+      "target": "components/ui/popover-trigger/popover-trigger.ts",
+      "type": "registry:component",
+      "content": "Component({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  relations: {\n    '../popover/popover': {\n      type: 'parent',\n    },\n  },\n  methods: {\n    onTap() {\n      const parents = this.getRelationNodes('../popover/popover')\n      if (parents.length) {\n        parents[0].toggle()\n      }\n    },\n    getRect() {\n      return new Promise((resolve) => {\n        this.createSelectorQuery()\n          .select('#popover-trigger')\n          .boundingClientRect((rect) => {\n            resolve(rect)\n          })\n          .exec()\n      })\n    },\n  },\n})\n"
     }
   ],
   "meta": {
     "frameworks": [
       "react",
-      "vue"
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

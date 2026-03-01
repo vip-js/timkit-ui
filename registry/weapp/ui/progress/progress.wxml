@@ -1,0 +1,9 @@
+<view 
+  class="relative h-2 w-full overflow-hidden rounded-full bg-secondary {{api.rootProps.className}}"
+  id="{{api.rootProps.id}}"
+>
+  <view 
+    class="h-full w-full flex-1 bg-primary transition-all {{api.trackProps.className}}"
+    style="transform: translateX(-{{100 - percent}}%);"
+  />
+</view>

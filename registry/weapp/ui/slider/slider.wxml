@@ -1,0 +1,11 @@
+<view 
+  class="{{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+>
+  <view class="{{api.trackProps.className}}">
+    <view class="{{api.rangeProps.className}}" />
+  </view>
+  <block wx:for="{{api.value}}" wx:key="index">
+      <view class="{{api.getThumbProps({index}).className}}" />
+  </block>
+</view>

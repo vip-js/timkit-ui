@@ -1,0 +1,52 @@
+<!-- Trigger Area (Input-like) -->
+<view class="relative">
+    <label class="block text-sm font-medium mb-1" wx:if="{{label}}">{{label}}</label>
+    <view 
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        bindtap="onTriggerTap"
+    >
+        <text class="{{api.valueValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{api.valueValue || placeholder}} 
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+</view>
+
+<!-- Picker ActionSheet -->
+<root-portal wx:if="{{api.open}}">
+    <!-- Backdrop -->
+    <view class="fixed inset-0 z-50 bg-black/80 animate-in fade-in-0" bindtap="onBackdropTap"></view>
+    
+    <!-- Content (Slide up from bottom) -->
+    <view class="fixed inset-x-0 bottom-0 z-50 rounded-t-xl bg-popover p-4 shadow-lg animate-in slide-in-from-bottom border-t border-border">
+        <!-- Header -->
+        <view class="flex items-center justify-between mb-4">
+             <text class="text-lg font-semibold">{{label || 'Select'}}</text>
+             <view class="p-2 -mr-2" bindtap="onBackdropTap">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             </view>
+        </view>
+        
+        <!-- List -->
+        <scroll-view scroll-y class="max-h-[60vh]">
+            <view class="flex flex-col space-y-1">
+                <block wx:for="{{items}}" wx:key="value">
+                    <view 
+                        class="flex cursor-default select-none items-center rounded-sm px-2 py-3 text-sm outline-none active:bg-accent active:text-accent-foreground data-[selected]:bg-accent data-[selected]:text-accent-foreground"
+                        data-state="{{api.value.includes(item.value) ? 'checked' : 'unchecked'}}" 
+                        data-selected="{{api.valueValue === item.value ? '' : undefined}}" 
+                        mark:value="{{item.value}}"
+                        bindtap="onItemTap"
+                    >
+                        <!-- Check icon -->
+                         <view class="mr-2 flex h-4 w-4 items-center justify-center opacity-{{api.valueValue === item.value ? 100 : 0}}">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                         </view>
+                        
+                        <text class="flex-1">{{item.label}}</text>
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+    </view>
+</root-portal>

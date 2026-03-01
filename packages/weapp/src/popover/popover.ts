@@ -1,63 +1,103 @@
-Component({
-  relations: {
-    '../popover-trigger/popover-trigger': {
-      type: 'child', // Trigger usually inside
-    },
-    '../popover-content/popover-content': {
-      type: 'child', // Content usually inside
-    },
-  },
+import { setupPopoverMachine } from './use-popover'
+
+type WeappPopoverApi = {
+  triggerProps?: { onClick?: () => void }
+  open?: () => void
+  close?: () => void
+}
+
+type WeappService = {
+  setContext: (context: Record<string, object>) => void
+}
+type MachineEvent = string | { type: string; [key: string]: object }
+type MachineSend = (event: MachineEvent) => void
+
+type WeappPopoverInternal = WechatMiniprogram.Component.InstanceMethods<WeappPopoverApi> & {
+  _service?: WeappService
+  _cleanup?: () => void
+  _send?: (event: object) => void
+  _connect?: (state: object, send: MachineSend) => WeappPopoverApi
   data: {
-    visible: false,
+    api: WeappPopoverApi
+  }
+  properties: {
+    open: boolean
+    modal: boolean
+    portalled: boolean
+    closeOnInteractOutside: boolean
+    id: string
+    extClass: string
+  }
+}
+
+Component({
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  properties: {
+    open: { type: Boolean, value: false },
+    modal: { type: Boolean, value: false },
+    portalled: { type: Boolean, value: true },
+    closeOnInteractOutside: { type: Boolean, value: true },
+    id: { type: String, value: 'popover' },
+    extClass: { type: String, value: '' },
+  },
+
+  data: {
+    api: {} as WeappPopoverApi,
+    className: '',
+  },
+
+  lifetimes: {
+    attached() {
+      const self = this as WeappPopoverInternal
+      const { controller, connect } = setupPopoverMachine(self)
+
+      self._service = controller.service as WeappService
+      self._cleanup = controller.start()
+      self._send = controller.send as MachineSend
+      self._connect = connect
+    },
+    detached() {
+      const self = this as WeappPopoverInternal
+      self._cleanup?.()
+    },
+  },
+
+  observers: {
+    'state': function (state) {
+      const self = this as WeappPopoverInternal
+      if (!state || !self._send || !self._connect) return
+      const api = self._connect(state, self._send) as WeappPopoverApi
+      this.setData({ api, className: this.properties.extClass })
+    },
+
+    'open': function (val) {
+      const self = this as WeappPopoverInternal
+      if (self._service) {
+        if (val) {
+          self.data.api.open?.()
+        } else {
+          self.data.api.close?.()
+        }
+      }
+    },
+  },
+
   methods: {
-    toggle() {
-      if (this.data.visible) {
-        this.close()
-      } else {
-        this.open()
-      }
+    onTriggerTap() {
+      const self = this as WeappPopoverInternal
+      self.data.api.triggerProps?.onClick?.()
     },
-    async open() {
-      const triggers = this.getRelationNodes('../popover-trigger/popover-trigger')
-      const contents = this.getRelationNodes('../popover-content/popover-content')
-
-      if (!triggers.length || !contents.length) return
-
-      const trigger = triggers[0]
-      const content = contents[0]
-
-      // 1. Get Trigger Rect
-      const triggerRect = await trigger.getRect()
-      if (!triggerRect) return
-
-      // 2. Open content (invisible state to measure)
-      content.showForMeasure()
-
-      // 3. Get Content Rect (Wait for render)
-      // We need a small delay or ensure measure works
-      setTimeout(async () => {
-        const contentRect = await content.getRect()
-        if (!contentRect) return
-
-        // 4. Compute Position (Simple Bottom Center for now)
-        // International Standard requires auto-placement (floating-ui),
-        // but we start with Bottom Center + Offset 4px.
-        const top = triggerRect.bottom + 4
-        const left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2
-
-        // 5. Update Content
-        content.updatePosition(top, left)
-
-        this.setData({ visible: true })
-      }, 50)
+    onBackdropTap() {
+      const self = this as WeappPopoverInternal
+      self.data.api.close?.()
     },
-    close() {
-      const contents = this.getRelationNodes('../popover-content/popover-content')
-      if (contents.length) {
-        contents[0].hide()
-      }
-      this.setData({ visible: false })
+    onCloseTap() {
+      const self = this as WeappPopoverInternal
+      self.data.api.close?.()
     },
   },
 })

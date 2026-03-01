@@ -1,0 +1,38 @@
+<toast-provider swipeDirection="left">
+      <button variant="outline" >
+        Custom toast
+      </button>
+      <toast >
+        <view class="flex w-full justify-between gap-3">
+           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
+          <view class="flex grow flex-col gap-3">
+            <view class="space-y-1">
+              <toast-title>Your request was completed!</toast-title>
+              <toast-description>
+                It demonstrates that the task or request has been processed.
+              </toast-description>
+            </view>
+            <view>
+              <toast-action altText="Undo changes" asChild>
+                <button size="sm">Undo changes</button>
+              </toast-action>
+            </view>
+          </view>
+          <toast-close asChild>
+            <button
+              variant="ghost"
+              class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+              aria-label="Close notification"
+            >
+               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 transition-opacity group-hover:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
+            </button>
+          </toast-close>
+        </view>
+        <view class="contents" aria-hidden="true">
+          <view
+            class="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-emerald-500"}
+          />
+        </view>
+      </toast>
+      <toast-viewport class="sm:right-auto sm:left-0" />
+    </toast-provider>

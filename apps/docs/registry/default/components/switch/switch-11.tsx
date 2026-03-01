@@ -1,9 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
+import { Switch } from '@timui/react'
 import { MoonIcon, SunIcon } from 'lucide-react'
-
-import { Switch } from '../../ui/switch'
 
 export default function Component() {
   const id = useId()

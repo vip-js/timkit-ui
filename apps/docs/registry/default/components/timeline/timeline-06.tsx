@@ -1,5 +1,3 @@
-import { GitCompare, GitFork, GitMerge, GitPullRequest } from 'lucide-react'
-
 import {
   Timeline,
   TimelineContent,
@@ -9,7 +7,8 @@ import {
   TimelineItem,
   TimelineSeparator,
   TimelineTitle,
-} from '../../ui/timeline'
+} from '@timui/react'
+import { GitCompare, GitFork, GitMerge, GitPullRequest } from 'lucide-react'
 
 const items = [
   {

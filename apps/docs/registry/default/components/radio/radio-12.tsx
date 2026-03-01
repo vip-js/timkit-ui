@@ -1,7 +1,6 @@
 import { useId } from 'react'
 import { RiAppleLine, RiBankCardLine, RiPaypalLine } from '@remixicon/react'
-
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { RadioGroup, RadioGroupItem } from '@timui/react'
 
 export default function Component() {
   const id = useId()

@@ -1,0 +1,25 @@
+<view class="*:not-first:mt-2">
+      <label for="select-30-id">Timezone select</label>
+      <select defaultValue="Europe/London">
+        <select-trigger id="select-30-id">
+          <select-value placeholder="Select timezone" />
+        </select-trigger>
+        <select-content>
+          
+            <select-item key=Europe/London value=Europe/London>
+              (GMT+0) Europe/London
+            </select-item>
+          
+
+            <select-item key=America/New_York value=America/New_York>
+              (GMT-4) America/New York
+            </select-item>
+          
+
+            <select-item key=Asia/Shanghai value=Asia/Shanghai>
+              (GMT+8) Asia/Shanghai
+            </select-item>
+          
+        </select-content>
+      </select>
+    </view>

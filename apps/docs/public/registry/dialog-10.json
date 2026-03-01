@@ -2,16 +2,34 @@
   "name": "dialog-10",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/dialog.json",
-    "https://originui.com/r/textarea.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/dialog.json",
+    "https://ui.timkit.cn/r/textarea.json"
   ],
   "files": [
     {
       "path": "registry/default/components/dialog/dialog-10.tsx",
       "type": "registry:component",
       "target": "components/ui/dialog-10.tsx",
-      "content": "import { Button } from '../../ui/button'\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from '../../ui/dialog'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Feedback</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>Send us feedback</DialogTitle>\n          <DialogDescription>\n            Watch{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              tutorials\n            </a>\n            , read Timkit UI&lsquo;s{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              documentation\n            </a>\n            , or join our{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              Discord\n            </a>{' '}\n            for community help.\n          </DialogDescription>\n        </DialogHeader>\n        <form className=\"space-y-5\">\n          <Textarea\n            id=\"feedback\"\n            placeholder=\"How can we improve Timkit UI?\"\n            aria-label=\"Send feedback\"\n          />\n          <div className=\"flex flex-col sm:flex-row sm:justify-end\">\n            <Button type=\"button\">Send feedback</Button>\n          </div>\n        </form>\n      </DialogContent>\n    </Dialog>\n  )\n}\n"
+      "content": "import {\n  Button,\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n  Textarea,\n} from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Feedback</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>Send us feedback</DialogTitle>\n          <DialogDescription>\n            Watch{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              tutorials\n            </a>\n            , read Timkit UI&lsquo;s{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              documentation\n            </a>\n            , or join our{' '}\n            <a className=\"text-foreground hover:underline\" href=\"#\">\n              Discord\n            </a>{' '}\n            for community help.\n          </DialogDescription>\n        </DialogHeader>\n        <form className=\"space-y-5\">\n          <Textarea\n            id=\"feedback\"\n            placeholder=\"How can we improve Timkit UI?\"\n            aria-label=\"Send feedback\"\n          />\n          <div className=\"flex flex-col sm:flex-row sm:justify-end\">\n            <Button type=\"button\">Send feedback</Button>\n          </div>\n        </form>\n      </DialogContent>\n    </Dialog>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/dialog/dialog-10.vue",
+      "target": "components/ui/dialog-10.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'\nimport { Button } from '@/components/ui/button'\nimport { Textarea } from '@/components/ui/textarea'\n</script>\n<template>\n<Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Feedback</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>Send us feedback</DialogTitle>\n          <DialogDescription>\n            Watch \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              tutorials\n            </a>\n            , read Timkit UI&lsquo;s \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              documentation\n            </a>\n            , or join our \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              Discord\n            </a> \n            for community help.\n          </DialogDescription>\n        </DialogHeader>\n        <form class=\"space-y-5\">\n          <Textarea\n            id=\"feedback\"\n            placeholder=\"How can we improve Timkit UI?\"\n            aria-label=\"Send feedback\"\n          />\n          <div class=\"flex flex-col sm:flex-row sm:justify-end\">\n            <Button type=\"button\">Send feedback</Button>\n          </div>\n        </form>\n      </DialogContent>\n    </Dialog>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/dialog/dialog-10.html",
+      "target": "components/ui/dialog-10.html",
+      "type": "registry:component",
+      "content": "<dialog>\n      <dialog-trigger asChild>\n        <button variant=\"outline\">Feedback</button>\n      </dialog-trigger>\n      <dialog-content>\n        <dialog-header>\n          <dialog-title>Send us feedback</dialog-title>\n          <dialog-description>\n            Watch \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              tutorials\n            </a>\n            , read Timkit UI&lsquo;s \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              documentation\n            </a>\n            , or join our \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              Discord\n            </a> \n            for community help.\n          </dialog-description>\n        </dialog-header>\n        <form class=\"space-y-5\">\n          <textarea\n            id=\"feedback\"\n            placeholder=\"How can we improve Timkit UI?\"\n            aria-label=\"Send feedback\"\n          />\n          <div class=\"flex flex-col sm:flex-row sm:justify-end\">\n            <button type=\"button\">Send feedback</button>\n          </div>\n        </form>\n      </dialog-content>\n    </dialog>"
+    },
+    {
+      "path": "registry/default/components/dialog/dialog-10.wxml",
+      "target": "components/ui/dialog-10/dialog-10.wxml",
+      "type": "registry:component",
+      "content": "<dialog>\n      <dialog-trigger asChild>\n        <button variant=\"outline\">Feedback</button>\n      </dialog-trigger>\n      <dialog-content>\n        <dialog-header>\n          <dialog-title>Send us feedback</dialog-title>\n          <dialog-description>\n            Watch \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              tutorials\n            </a>\n            , read Timkit UI&lsquo;s \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              documentation\n            </a>\n            , or join our \n            <a class=\"text-foreground hover:underline\" href=\"#\">\n              Discord\n            </a> \n            for community help.\n          </dialog-description>\n        </dialog-header>\n        <form class=\"space-y-5\">\n          <textarea\n            id=\"feedback\"\n            placeholder=\"How can we improve Timkit UI?\"\n            aria-label=\"Send feedback\"\n          />\n          <view class=\"flex flex-col sm:flex-row sm:justify-end\">\n            <button type=\"button\">Send feedback</button>\n          </view>\n        </form>\n      </dialog-content>\n    </dialog>"
     }
   ],
   "meta": {
@@ -24,11 +42,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "dialog"
+    "category": "dialog",
+    "title": "Dialog · Send feedback"
   },
   "categories": [
     "dialog"

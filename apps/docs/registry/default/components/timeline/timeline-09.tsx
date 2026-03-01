@@ -1,4 +1,4 @@
-import { Timeline, TimelineContent, TimelineDate, TimelineItem } from '../../ui/timeline'
+import { Timeline, TimelineContent, TimelineDate, TimelineItem } from '@timui/react'
 
 const items = [
   {

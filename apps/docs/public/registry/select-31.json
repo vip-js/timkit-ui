@@ -2,15 +2,33 @@
   "name": "select-31",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/select.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/select.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/select/select-31.tsx",
       "type": "registry:component",
       "target": "components/ui/select-31.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Select with right indicator</Label>\n      <Select defaultValue=\"1\">\n        <SelectTrigger id={id}>\n          <SelectValue placeholder=\"Select framework\" />\n        </SelectTrigger>\n        <SelectContent className=\"[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2\">\n          <SelectItem value=\"1\">React</SelectItem>\n          <SelectItem value=\"2\">Next.js</SelectItem>\n          <SelectItem value=\"3\">Astro</SelectItem>\n          <SelectItem value=\"4\">Gatsby</SelectItem>\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Select with right indicator</Label>\n      <Select defaultValue=\"1\">\n        <SelectTrigger id={id}>\n          <SelectValue placeholder=\"Select framework\" />\n        </SelectTrigger>\n        <SelectContent className=\"[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2\">\n          <SelectItem value=\"1\">React</SelectItem>\n          <SelectItem value=\"2\">Next.js</SelectItem>\n          <SelectItem value=\"3\">Astro</SelectItem>\n          <SelectItem value=\"4\">Gatsby</SelectItem>\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/select/select-31.vue",
+      "target": "components/ui/select-31.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"select-31-id\">Select with right indicator</Label>\n      <Select defaultValue=\"1\">\n        <SelectTrigger id=\"select-31-id\">\n          <SelectValue placeholder=\"Select framework\" />\n        </SelectTrigger>\n        <SelectContent class=\"[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2\">\n          <SelectItem value=\"1\">React</SelectItem>\n          <SelectItem value=\"2\">Next.js</SelectItem>\n          <SelectItem value=\"3\">Astro</SelectItem>\n          <SelectItem value=\"4\">Gatsby</SelectItem>\n        </SelectContent>\n      </Select>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/select/select-31.html",
+      "target": "components/ui/select-31.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"select-31-id\">Select with right indicator</label>\n      <select defaultValue=\"1\">\n        <select-trigger id=\"select-31-id\">\n          <select-value placeholder=\"Select framework\" />\n        </select-trigger>\n        <select-content class=\"[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2\">\n          <select-item value=\"1\">React</select-item>\n          <select-item value=\"2\">Next.js</select-item>\n          <select-item value=\"3\">Astro</select-item>\n          <select-item value=\"4\">Gatsby</select-item>\n        </select-content>\n      </select>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/select/select-31.wxml",
+      "target": "components/ui/select-31/select-31.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"select-31-id\">Select with right indicator</label>\n      <select defaultValue=\"1\">\n        <select-trigger id=\"select-31-id\">\n          <select-value placeholder=\"Select framework\" />\n        </select-trigger>\n        <select-content class=\"[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2\">\n          <select-item value=\"1\">React</select-item>\n          <select-item value=\"2\">Next.js</select-item>\n          <select-item value=\"3\">Astro</select-item>\n          <select-item value=\"4\">Gatsby</select-item>\n        </select-content>\n      </select>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "select"
+    "category": "select",
+    "title": "Select · With label"
   },
   "categories": [
     "select"

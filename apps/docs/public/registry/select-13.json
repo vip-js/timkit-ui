@@ -2,14 +2,32 @@
   "name": "select-13",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/select-native.json"
+    "https://ui.timkit.cn/r/select-native.json"
   ],
   "files": [
     {
       "path": "registry/default/components/select/select-13.tsx",
       "type": "registry:component",
       "target": "components/ui/select-13.tsx",
-      "content": "import { useId } from 'react'\n\nimport { SelectNative } from '../../ui/select-native'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"group relative\">\n      <label\n        htmlFor={id}\n        className=\"bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-[select:disabled]:opacity-50\"\n      >\n        Select with overlapping label (native)\n      </label>\n      <SelectNative id={id} defaultValue=\"\">\n        <option value=\"\" disabled>\n          Select framework\n        </option>\n        <option value=\"1\">React</option>\n        <option value=\"2\">Next.js</option>\n        <option value=\"3\">Astro</option>\n        <option value=\"4\">Gatsby</option>\n      </SelectNative>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { SelectNative } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"group relative\">\n      <label\n        htmlFor={id}\n        className=\"bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-[select:disabled]:opacity-50\"\n      >\n        Select with overlapping label (native)\n      </label>\n      <SelectNative id={id} defaultValue=\"\">\n        <option value=\"\" disabled>\n          Select framework\n        </option>\n        <option value=\"1\">React</option>\n        <option value=\"2\">Next.js</option>\n        <option value=\"3\">Astro</option>\n        <option value=\"4\">Gatsby</option>\n      </SelectNative>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/select/select-13.vue",
+      "target": "components/ui/select-13.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { SelectNative } from '@/components/ui/select-native'\n</script>\n<template>\n<div class=\"group relative\">\n      <label for=\"select-13-id\"\n        class=\"bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-[select:disabled]:opacity-50\"\n      >\n        Select with overlapping label (native)\n      </label>\n      <SelectNative id=\"select-13-id\" defaultValue=\"\">\n        <option value=\"\" disabled>\n          Select framework\n        </option>\n        <option value=\"1\">React</option>\n        <option value=\"2\">Next.js</option>\n        <option value=\"3\">Astro</option>\n        <option value=\"4\">Gatsby</option>\n      </SelectNative>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/select/select-13.html",
+      "target": "components/ui/select-13.html",
+      "type": "registry:component",
+      "content": "<div class=\"group relative\">\n      <label for=\"select-13-id\"\n        class=\"bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-[select:disabled]:opacity-50\"\n      >\n        Select with overlapping label (native)\n      </label>\n      <select-native id=\"select-13-id\" defaultValue=\"\">\n        <option value=\"\" disabled>\n          Select framework\n        </option>\n        <option value=\"1\">React</option>\n        <option value=\"2\">Next.js</option>\n        <option value=\"3\">Astro</option>\n        <option value=\"4\">Gatsby</option>\n      </select-native>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/select/select-13.wxml",
+      "target": "components/ui/select-13/select-13.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"group relative\">\n      <label for=\"select-13-id\"\n        class=\"bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-[select:disabled]:opacity-50\"\n      >\n        Select with overlapping label (native)\n      </label>\n      <select-native id=\"select-13-id\" defaultValue=\"\">\n        <option value=\"\" disabled>\n          Select framework\n        </option>\n        <option value=\"1\">React</option>\n        <option value=\"2\">Next.js</option>\n        <option value=\"3\">Astro</option>\n        <option value=\"4\">Gatsby</option>\n      </select-native>\n    </view>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
       "native select"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "select"
+    "category": "select",
+    "title": "Select · With label"
   },
   "categories": [
     "select"

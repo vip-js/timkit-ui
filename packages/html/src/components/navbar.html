@@ -1,0 +1,22 @@
+<header data-slot="navbar" class="w-full border-b">
+  <div data-slot="navbar-content" class="flex h-16 items-center justify-between gap-4 px-4">
+    <div data-slot="navbar-brand" class="flex items-center gap-2">
+      <a href="#" class="text-primary font-semibold">Brand</a>
+    </div>
+    <nav data-slot="navbar-nav" class="flex items-center gap-4">
+      <a data-slot="navbar-item" href="#" class="text-sm text-muted-foreground hover:text-foreground">
+        Home
+      </a>
+      <a data-slot="navbar-item" href="#" class="text-sm text-muted-foreground hover:text-foreground">
+        Features
+      </a>
+      <a data-slot="navbar-item" href="#" class="text-sm text-muted-foreground hover:text-foreground">
+        Pricing
+      </a>
+    </nav>
+    <div data-slot="navbar-actions" class="flex items-center gap-2">
+      <button class="text-sm">Sign in</button>
+      <button class="text-sm font-medium">Get started</button>
+    </div>
+  </div>
+</header>

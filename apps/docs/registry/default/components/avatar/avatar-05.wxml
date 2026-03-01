@@ -1,0 +1,9 @@
+<view class="relative">
+      <avatar>
+        <avatar-image src="./avatar-80-07.jpg" alt="Kelly King" ></avatar-image>
+        <avatar-fallback>KK</avatar-fallback>
+      </avatar>
+      <text class="border-background absolute -end-0.5 -bottom-0.5 size-3 rounded-full border-2 bg-emerald-500">
+        <text class="sr-only">Online</text>
+      </text>
+    </view>

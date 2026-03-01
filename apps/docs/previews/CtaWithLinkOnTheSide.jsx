@@ -1,10 +1,4 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function CtaWithLinkOnTheSide() {
     return (
@@ -19,9 +13,9 @@ export default function CtaWithLinkOnTheSide() {
                     </p>
                 </div>
                 <div className="flex-none mt-4 md:mt-0">
-                    <a href="javascript:void(0)" className="inline-block py-2 px-4 text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-md hover:shadow-none">
+                    <Button>
                         Learn more
-                    </a>
+                    </Button>
                 </div>
             </div>
         </section>

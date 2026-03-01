@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, Separator } from "@timui/react";
 export default function FaqsWithShadow() {
-
     const faqsList = [
         {
             q: "What are some random questions to ask?",
@@ -34,7 +27,6 @@ export default function FaqsWithShadow() {
             a: "That's exactly the reason we created this random question generator. There are hundreds of random questions to choose from so you're able to find the perfect random question to ask friends."
         }
     ]
-
     return (
         <div className="leading-relaxed py-12 mx-4 md:mx-8">
             <div className="text-center space-y-3">
@@ -42,10 +34,10 @@ export default function FaqsWithShadow() {
                     Frequently Asked Questions
                 </h1>
                 <p className="text-gray-500 max-w-lg mx-auto">
-                    Answered all frequently asked questions. Can’t find the answer you’re looking for? feel free to contact us.
+                    Answered all frequently asked questions. Can't find the answer you're looking for? feel free to contact us.
                 </p>
             </div>
-            <div className="relative bg-white rounded-md mt-10 md:max-w-3xl lg:max-w-4xl xl:max-w-5xl sm:mx-auto" style={{boxShadow: '0px 7px 20px 7px #F1F1F1'}}>
+            <Card className="relative bg-white rounded-md mt-10 md:max-w-3xl lg:max-w-4xl xl:max-w-5xl sm:mx-auto" style={{boxShadow: '0px 7px 20px 7px #F1F1F1'}}>
                 <div className="grid gap-4 py-8 md:grid-cols-2">
                     {
                         faqsList.map((item, idx) => (
@@ -60,9 +52,8 @@ export default function FaqsWithShadow() {
                         ))
                     }
                 </div>
-                <span className="w-0.5 h-full bg-gray-200 m-auto absolute top-0 left-0 right-0 hidden md:block"></span>
-            </div>
+                <Separator orientation="vertical" className="w-0.5 h-full bg-gray-200 m-auto absolute top-0 left-0 right-0 hidden md:block" />
+            </Card>
         </div>
     )
 }
-        

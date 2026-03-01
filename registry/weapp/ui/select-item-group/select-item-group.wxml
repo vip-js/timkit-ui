@@ -1,0 +1,8 @@
+<view 
+    class="{{groupApi.className}}"
+    id="{{groupApi.id}}"
+    role="group"
+    aria-labelledby="{{groupApi['aria-labelledby']}}"
+>
+  <slot />
+</view>

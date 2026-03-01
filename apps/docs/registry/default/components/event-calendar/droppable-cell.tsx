@@ -1,7 +1,7 @@
 'use client'
 
 import { useDroppable } from '@dnd-kit/core'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 
 import { useCalendarDnd } from '@/registry/default/components/event-calendar'
 

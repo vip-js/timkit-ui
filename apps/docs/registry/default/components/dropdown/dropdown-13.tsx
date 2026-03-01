@@ -1,13 +1,12 @@
-import { BookIcon, InfoIcon, LifeBuoyIcon, MessageCircleMoreIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { BookIcon, InfoIcon, LifeBuoyIcon, MessageCircleMoreIcon } from 'lucide-react'
 
 export default function Component() {
   return (

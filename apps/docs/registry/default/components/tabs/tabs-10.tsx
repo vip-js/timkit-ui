@@ -1,7 +1,5 @@
+import { ScrollArea, ScrollBar, Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'
 import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-react'
-
-import { ScrollArea, ScrollBar } from '../../ui/scroll-area'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
 
 export default function Component() {
   return (

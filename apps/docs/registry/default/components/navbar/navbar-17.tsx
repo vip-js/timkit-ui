@@ -1,8 +1,3 @@
-import { BookmarkIcon, HomeIcon } from 'lucide-react'
-
-import DatePicker from '@/registry/default/components/navbar-components/date-picker'
-import Filters from '@/registry/default/components/navbar-components/filters'
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,8 +5,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '../../ui/breadcrumb'
-import { Button } from '../../ui/button'
+  Button,
+} from '@timui/react'
+import { BookmarkIcon, HomeIcon } from 'lucide-react'
+
+import DatePicker from '@/registry/default/components/navbar-components/date-picker'
+import Filters from '@/registry/default/components/navbar-components/filters'
 
 export default function Component() {
   return (

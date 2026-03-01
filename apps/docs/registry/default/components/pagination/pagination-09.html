@@ -1,0 +1,98 @@
+<div class="flex items-center justify-between gap-3">
+      
+      <p class="text-muted-foreground flex-1 text-sm whitespace-nowrap" aria-live="polite">
+        Page <span class="text-foreground"></span> of 
+        <span class="text-foreground"></span>
+      </p>
+
+      
+      <div class="grow">
+        <pagination>
+          <pagination-content>
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-09-id"
+                aria-label="Go to previous page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+
+            
+            
+
+            
+            
+              <pagination-item>
+                <pagination-link href="#/page/1">
+                  1
+                </pagination-link>
+              </pagination-item>
+            
+
+              <pagination-item>
+                <pagination-link href="#/page/2">
+                  2
+                </pagination-link>
+              </pagination-item>
+            
+
+              <pagination-item>
+                <pagination-link href="#/page/3">
+                  3
+                </pagination-link>
+              </pagination-item>
+            
+
+              <pagination-item>
+                <pagination-link href="#/page/4">
+                  4
+                </pagination-link>
+              </pagination-item>
+            
+
+              <pagination-item>
+                <pagination-link href="#/page/5">
+                  5
+                </pagination-link>
+              </pagination-item>
+            
+
+            
+            
+
+            
+            <pagination-item>
+              <pagination-link
+                class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                href="#/page/pagination-09-id"
+                aria-label="Go to next page"
+                aria-disabled=undefined
+                role=undefined
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </pagination-link>
+            </pagination-item>
+          </pagination-content>
+        </pagination>
+      </div>
+
+      
+      <div class="flex flex-1 justify-end">
+        <select defaultValue="10" aria-label="Results per page">
+          <select-trigger id="results-per-page" class="w-fit whitespace-nowrap">
+            <select-value placeholder="Select number of results" />
+          </select-trigger>
+          <select-content>
+            <select-item value="10">10 / page</select-item>
+            <select-item value="20">20 / page</select-item>
+            <select-item value="50">50 / page</select-item>
+            <select-item value="100">100 / page</select-item>
+          </select-content>
+        </select>
+      </div>
+    </div>

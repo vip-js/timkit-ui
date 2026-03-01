@@ -2,6 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import {
+  Button,
+  Calendar,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  ScrollArea,
+} from '@timui/react'
+import {
   eachMonthOfInterval,
   eachYearOfInterval,
   endOfYear,
@@ -12,11 +20,6 @@ import {
 } from 'date-fns'
 import { ChevronDownIcon } from 'lucide-react'
 import { CaptionLabelProps, MonthGridProps } from 'react-day-picker'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../ui/collapsible'
-import { ScrollArea } from '../../ui/scroll-area'
 
 export default function Component() {
   const today = new Date()

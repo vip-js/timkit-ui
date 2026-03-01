@@ -1,6 +1,5 @@
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
 import { CheckIcon, MonitorIcon, SmartphoneIcon, XIcon } from 'lucide-react'
-
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 const items = [
   {

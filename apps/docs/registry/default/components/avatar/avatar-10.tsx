@@ -1,5 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
-import { Badge } from '../../ui/badge'
+import { Avatar, AvatarFallback, AvatarImage, Badge } from '@timui/react'
 
 export default function Component() {
   return (

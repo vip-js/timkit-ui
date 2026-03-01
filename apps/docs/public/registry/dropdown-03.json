@@ -2,15 +2,33 @@
   "name": "dropdown-03",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/dropdown-menu.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/dropdown-menu.json"
   ],
   "files": [
     {
       "path": "registry/default/components/dropdown/dropdown-03.tsx",
       "type": "registry:component",
       "target": "components/ui/dropdown-03.tsx",
-      "content": "import { BoltIcon, ChevronDownIcon, CopyPlusIcon, FilesIcon, Layers2Icon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from '../../ui/dropdown-menu'\n\nexport default function Component() {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Menu with icons\n          <ChevronDownIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuItem>\n          <CopyPlusIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Copy\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <BoltIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Edit\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Layers2Icon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Group\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <FilesIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Clone\n        </DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}\n"
+      "content": "import {\n  Button,\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from '@timui/react'\nimport { BoltIcon, ChevronDownIcon, CopyPlusIcon, FilesIcon, Layers2Icon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Menu with icons\n          <ChevronDownIcon className=\"-me-1 opacity-60\" size={16} aria-hidden=\"true\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuItem>\n          <CopyPlusIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Copy\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <BoltIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Edit\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Layers2Icon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Group\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <FilesIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n          Clone\n        </DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-03.vue",
+      "target": "components/ui/dropdown-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n<DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Menu with icons\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuItem>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Copy\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Edit\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Group\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Clone\n        </DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-03.html",
+      "target": "components/ui/dropdown-03.html",
+      "type": "registry:component",
+      "content": "<dropdown-menu>\n      <dropdown-menu-trigger asChild>\n        <button variant=\"outline\">\n          Menu with icons\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </dropdown-menu-trigger>\n      <dropdown-menu-content>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Copy\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Edit\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Group\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Clone\n        </dropdown-menu-item>\n      </dropdown-menu-content>\n    </dropdown-menu>"
+    },
+    {
+      "path": "registry/default/components/dropdown/dropdown-03.wxml",
+      "target": "components/ui/dropdown-03/dropdown-03.wxml",
+      "type": "registry:component",
+      "content": "<dropdown-menu>\n      <dropdown-menu-trigger asChild>\n        <button variant=\"outline\">\n          Menu with icons\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"-me-1 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </dropdown-menu-trigger>\n      <dropdown-menu-content>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Copy\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Edit\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Group\n        </dropdown-menu-item>\n        <dropdown-menu-item>\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          Clone\n        </dropdown-menu-item>\n      </dropdown-menu-content>\n    </dropdown-menu>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "dropdown"
+    "category": "dropdown",
+    "title": "Dropdown · With icon"
   },
   "categories": [
     "dropdown"

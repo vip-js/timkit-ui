@@ -1,0 +1,11 @@
+<view
+  wx:if="{{visible}}"
+  id="dropdown-menu-content"
+  data-slot="dropdown-menu-content"
+  data-state="{{visible ? 'open' : 'closed'}}"
+  class="{{className}}"
+  style="{{style}}"
+  catchtouchmove="noop"
+>
+  <slot></slot>
+</view>

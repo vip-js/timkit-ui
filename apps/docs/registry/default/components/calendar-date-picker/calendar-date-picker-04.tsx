@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Calendar } from '../../ui/calendar'
+import { Calendar } from '@timui/react'
 
 export default function Component() {
   const [date, setDate] = useState<Date | undefined>(new Date())

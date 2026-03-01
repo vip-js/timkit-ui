@@ -1,0 +1,6 @@
+<alert class="rounded-md border px-4 py-3">
+  <view class="flex gap-3">
+    <text class="me-3 -mt-0.5 inline-flex text-red-500">!</text>
+    <alert-description class="text-sm text-current">An error occurred!</alert-description>
+  </view>
+</alert>

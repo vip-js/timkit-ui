@@ -10,10 +10,8 @@ import {
   TreeState,
 } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
+import { Input, Tree, TreeItem, TreeItemLabel } from '@timui/react'
 import { FolderIcon, FolderOpenIcon, SearchIcon } from 'lucide-react'
-
-import { Input } from '../../ui/input'
-import { Tree, TreeItem, TreeItemLabel } from '../../ui/tree'
 
 interface Item {
   name: string

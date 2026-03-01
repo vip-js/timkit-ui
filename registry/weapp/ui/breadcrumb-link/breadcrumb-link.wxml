@@ -1,0 +1,3 @@
+<view class="{{className}}" hover-class="opacity-70">
+  <slot></slot>
+</view>

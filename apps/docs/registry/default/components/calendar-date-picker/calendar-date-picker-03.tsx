@@ -1,10 +1,9 @@
 'use client'
 
 import { getLocalTimeZone, isWeekend, today } from '@internationalized/date'
+import { RangeCalendar } from '@timui/react'
 import { useLocale } from 'react-aria'
 import type { DateValue } from 'react-aria-components'
-
-import { RangeCalendar } from '../../ui/calendar-rac'
 
 export default function Component() {
   const now = today(getLocalTimeZone())

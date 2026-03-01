@@ -1,22 +1,21 @@
 'use client'
 
 import { useId } from 'react'
-import { CreditCardIcon, WalletIcon } from 'lucide-react'
-import { usePaymentInputs } from 'react-payment-inputs'
-import images, { type CardImages } from 'react-payment-inputs/images'
-
-import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
 import {
+  Button,
+  Checkbox,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
+  Input,
+  Label,
+} from '@timui/react'
+import { CreditCardIcon, WalletIcon } from 'lucide-react'
+import { usePaymentInputs } from 'react-payment-inputs'
+import images, { type CardImages } from 'react-payment-inputs/images'
 
 export default function Component() {
   const id = useId()

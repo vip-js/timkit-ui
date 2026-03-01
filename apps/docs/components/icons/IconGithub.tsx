@@ -1,4 +1,4 @@
-import mergeTW from '@/utils/mergeTW'
+import mergeTW from '@/utils/merge-tw'
 
 export const IconGithub = ({ className = '' }: { className?: string }) => (
   <svg

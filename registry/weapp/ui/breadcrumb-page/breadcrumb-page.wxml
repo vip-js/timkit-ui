@@ -1,0 +1,3 @@
+<view class="{{className}}" aria-current="page">
+  <slot></slot>
+</view>

@@ -1,15 +1,8 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button } from "@timui/react";
 
 export default function SecondaryHeroSection() {
-
     const [state, setState] = React.useState(false)
-
   // Replace javascript:void(0) path with your path
   const navigation = [
       { title: "Customers", path: "javascript:void(0)" },
@@ -18,7 +11,6 @@ export default function SecondaryHeroSection() {
       { title: "Partners", path: "javascript:void(0)" },
       { title: "Team", path: "javascript:void(0)" }
   ]
-  
     return (
         <>
             <header>
@@ -26,8 +18,8 @@ export default function SecondaryHeroSection() {
                     <div className="flex justify-between">
                         <a href="javascript:void(0)">
                             <img
-                                src="https://www.timkit-ui.com/logo.svg" 
-                                width={120} 
+                                src="https://www.timkit-ui.com/logo.svg"
+                                width={120}
                                 height={50}
                                 alt="Float UI logo"
                             />
@@ -41,7 +33,6 @@ export default function SecondaryHeroSection() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 ) : (
-
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
@@ -75,17 +66,17 @@ export default function SecondaryHeroSection() {
                         <p className="text-gray-800 py-3">
                             Subscribe to our newsletter and we'll save your time
                         </p>
-                        <form 
+                        <form
                             onSubmit={(e) => e.preventDefault()}
                             className="items-center space-y-3 sm:justify-center sm:space-x-3 sm:space-y-0 sm:flex lg:justify-start">
-                            <input
+                            <Input
                                 type="text"
                                 placeholder="Enter your email"
-                                className="text-gray-500 border outline-none p-3 rounded-md w-full sm:w-72"
+                                className="text-gray-500 w-full sm:w-72"
                             />
-                            <button className="outline-none bg-gray-700 text-white text-center px-4 py-3 rounded-md shadow w-full ring-offset-2 ring-gray-700 focus:ring-2  sm:w-auto">
-                                Subscribe 
-                            </button>
+                            <Button className="w-full sm:w-auto">
+                                Subscribe
+                            </Button>
                         </form>
                     </div>
                 </div>
@@ -96,4 +87,3 @@ export default function SecondaryHeroSection() {
         </>
     )
 }
-        

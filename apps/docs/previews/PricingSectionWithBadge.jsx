@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Badge, Button, Card, CardContent } from "@timui/react"
 export default function PricingSectionWithBadge() {
-
     const plans = [
         {
             name: "Basic plan",
@@ -22,7 +15,6 @@ export default function PricingSectionWithBadge() {
                 "Suspendisse a leo",
                 "Praesent quis venenatis ipsum",
                 "Duis non diam vel tortor",
-
             ],
         },
         {
@@ -56,7 +48,6 @@ export default function PricingSectionWithBadge() {
             ],
         },
     ];
-
     return (
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -73,13 +64,13 @@ export default function PricingSectionWithBadge() {
                 <div className='mt-16 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-3'>
                     {
                         plans.map((item, idx) => (
-                            <div key={idx} className={`relative flex-1 flex items-stretch flex-col rounded-xl border-2 mt-6 sm:mt-0 ${item.isMostPop ? "mt-10" : ""}`}>
+                            <Card key={idx} className={`relative flex-1 flex items-stretch flex-col rounded-xl border-2 mt-6 sm:mt-0 ${item.isMostPop ? "mt-10" : ""}`}>
                                 {
                                     item.isMostPop ? (
-                                        <span class="w-32 absolute -top-5 left-0 right-0 mx-auto px-3 py-2 rounded-full border shadow-md bg-white text-center text-gray-700 text-sm font-semibold">Most popular</span>
+                                        <Badge className="w-32 absolute -top-5 left-0 right-0 mx-auto px-3 py-2 rounded-full border shadow-md bg-white text-center text-gray-700 text-sm font-semibold">Most popular</Badge>
                                     ) : ""
                                 }
-                                <div className="p-8 space-y-4 border-b">
+                                <CardContent className="p-8 space-y-4 border-b">
                                     <span className='text-indigo-600 font-medium'>
                                         {item.name}
                                     </span>
@@ -89,10 +80,10 @@ export default function PricingSectionWithBadge() {
                                     <p>
                                         {item.desc}
                                     </p>
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                                    <Button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
                                         Get Started
-                                    </button>
-                                </div>
+                                    </Button>
+                                </CardContent>
                                 <ul className='p-8 space-y-3'>
                                     <li className="pb-2 text-gray-800 font-medium">
                                         <p>Features</p>
@@ -115,7 +106,7 @@ export default function PricingSectionWithBadge() {
                                         ))
                                     }
                                 </ul>
-                            </div>
+                            </Card>
                         ))
                     }
                 </div>
@@ -123,5 +114,4 @@ export default function PricingSectionWithBadge() {
         </section>
     );
 };
-
         

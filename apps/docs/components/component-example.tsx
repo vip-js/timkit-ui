@@ -30,7 +30,7 @@ export default function ComponentExample(props: ComponentExampleProps) {
 
     if (!hasRenderableCode) {
       return (
-        <div className="border-border/70 bg-muted/40 flex min-h-[300px] flex-col items-center justify-center rounded-xl border px-4 py-10 text-center">
+        <div className="border-border/60 bg-card/80 flex flex-col items-center justify-center rounded-2xl border border-dashed px-4 py-6 text-center shadow-[0_6px_18px_-14px_rgba(15,23,42,0.18)]">
           <p className="text-foreground font-semibold">预览占位：未找到组件源码</p>
           <p className="text-muted-foreground mt-2 text-sm">
             请补充 registry 中该组件的 files.content，或在 blocks-source.json 中添加代码。
@@ -44,7 +44,7 @@ export default function ComponentExample(props: ComponentExampleProps) {
       const firstFile = props.component.files?.[0]
       const code = firstFile?.content || ''
       return (
-        <div className="border-border/70 bg-card relative min-h-[300px] rounded-xl border px-4 py-10 sm:px-10">
+        <div className="border-border/60 bg-card/80 relative rounded-2xl border px-4 py-6 shadow-[0_6px_18px_-14px_rgba(15,23,42,0.18)] sm:px-8">
           <div className="text-muted-foreground absolute top-4 right-4 text-xs">
             无 React 预览，展示源码片段
           </div>
@@ -60,7 +60,7 @@ export default function ComponentExample(props: ComponentExampleProps) {
 
   return (
     <div
-      className="border-border/70 bg-card relative min-h-[300px] rounded-xl border px-4 py-10 sm:px-10"
+      className="border-border/60 bg-card/80 relative rounded-2xl border px-4 py-6 shadow-[0_6px_18px_-14px_rgba(15,23,42,0.18)] sm:px-8"
       data-component-example
     >
       {props.variant === 'registry' ? (

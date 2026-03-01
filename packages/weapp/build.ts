@@ -5,7 +5,7 @@ import { glob } from 'glob'
 import esbuild from 'esbuild'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const SRC_DIR = path.join(__dirname, 'primitives')
+const SRC_DIR = path.join(__dirname, 'src')
 const OUT_DIR = path.join(__dirname, 'dist')
 
 async function build() {
@@ -26,19 +26,31 @@ async function build() {
         fs.copyFileSync(srcPath, destPath)
     }
 
-    // 2. Compile TypeScript
-    const tsFiles = glob.sync('**/*.ts', { cwd: SRC_DIR })
-    const entryPoints = tsFiles.map(f => path.join(SRC_DIR, f))
+    // 2. Compile TypeScript/JavaScript
+    // We bundle dependencies (like @timui/core) so WeApp can run it without npm mess
+    const scriptFiles = glob.sync('**/*.{ts,js}', { cwd: SRC_DIR, ignore: ['**/*.d.ts'] })
+    const entryByStem = new Map<string, string>()
+
+    for (const file of scriptFiles) {
+        const stem = file.replace(/\.(ts|js)$/, '')
+        const previous = entryByStem.get(stem)
+        if (!previous || (file.endsWith('.ts') && previous.endsWith('.js'))) {
+            entryByStem.set(stem, file)
+        }
+    }
+
+    const entryPoints = Array.from(entryByStem.values()).map(f => path.join(SRC_DIR, f))
 
     if (entryPoints.length > 0) {
         await esbuild.build({
             entryPoints,
             outdir: OUT_DIR,
-            format: 'cjs', // Miniprogram uses CommonJS
-            platform: 'node', // Closest behavior to weapp environment
+            format: 'cjs',
+            platform: 'node',
             target: 'es2019',
-            bundle: false, // Do not bundle, keep file structure
+            bundle: true,
             sourcemap: false,
+            external: ['miniprogram-api-typings'], // Exclude weapp typings
         })
     }
 

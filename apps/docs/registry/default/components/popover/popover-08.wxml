@@ -1,0 +1,20 @@
+<view class="flex flex-col gap-4">
+      <popover>
+        <popover-trigger asChild>
+          <button variant="outline">Feedback</button>
+        </popover-trigger>
+        <popover-content class="w-72">
+          <h2 class="mb-2 text-sm font-semibold">Send us feedback</h2>
+          <form class="space-y-3">
+            <textarea
+              id="feedback"
+              placeholder="How can we improve Timkit UI?"
+              aria-label="Send feedback"
+            />
+            <view class="flex flex-col sm:flex-row sm:justify-end">
+              <button size="sm">Send feedback</button>
+            </view>
+          </form>
+        </popover-content>
+      </popover>
+    </view>

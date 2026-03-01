@@ -1,0 +1,11 @@
+<input 
+  class="flex-1 bg-transparent outline-none placeholder:text-muted-foreground {{inputApi.className}}"
+  id="{{inputApi.id}}"
+  value="{{inputValue}}"
+  placeholder="{{inputApi.placeholder}}"
+  disabled="{{inputApi.disabled}}"
+  bindinput="handleInput"
+  bindconfirm="handleConfirm"
+  bindblur="handleBlur"
+  bindfocus="handleFocus"
+/>

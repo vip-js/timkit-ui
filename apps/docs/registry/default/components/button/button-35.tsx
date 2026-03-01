@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group'
+import { ToggleGroup, ToggleGroupItem } from '@timui/react'
 
 export default function Component() {
   const [value, setValue] = useState<string>('left')

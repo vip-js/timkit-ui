@@ -1,0 +1,74 @@
+<banner class="dark bg-muted text-foreground px-4 py-3">
+  <banner-content class="gap-2 md:items-center">
+    <view class="flex grow gap-3 md:items-center">
+      <banner-icon class="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full max-md:mt-0.5">
+        <svg
+          class="opacity-80"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7z" />
+          <path d="m9 9 6 6" />
+          <circle cx="9" cy="9" r="1" />
+          <circle cx="15" cy="15" r="1" />
+        </svg>
+      </banner-icon>
+      <view class="flex grow flex-col justify-between gap-3 md:flex-row md:items-center">
+        <view class="space-y-0.5">
+          <banner-title>Black Friday Sale!</banner-title>
+          <banner-description class="text-sm">
+            It kicks off today and is available for just 24 hours—don&lsquo;t miss out!
+          </banner-description>
+        </view>
+        <banner-actions class="flex gap-3 max-md:flex-wrap">
+          <view class="divide-primary-foreground bg-primary/15 flex items-center divide-x rounded-md text-sm tabular-nums">
+            <text class="flex h-8 items-center justify-center p-2">
+              09
+              <text class="text-muted-foreground">h</text>
+            </text>
+            <text class="flex h-8 items-center justify-center p-2">
+              45
+              <text class="text-muted-foreground">m</text>
+            </text>
+            <text class="flex h-8 items-center justify-center p-2">
+              24
+              <text class="text-muted-foreground">s</text>
+            </text>
+          </view>
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs text-sm">
+            Buy now
+          </button>
+        </banner-actions>
+      </view>
+    </view>
+    <banner-actions class="shrink-0">
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+        aria-label="Close banner"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="opacity-60 transition-opacity group-hover:opacity-100"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18" />
+          <path d="M6 6 18 18" />
+        </svg>
+      </button>
+    </banner-actions>
+  </banner-content>
+</banner>

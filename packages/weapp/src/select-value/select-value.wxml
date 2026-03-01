@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="select-value">
+  <slot></slot>
+</view>

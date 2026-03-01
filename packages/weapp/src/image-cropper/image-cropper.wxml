@@ -1,0 +1,21 @@
+<view class="image-cropper {{extClass}}">
+  <view class="preview-wrap">
+    <image wx:if="{{src}}" src="{{src}}" mode="aspectFit" class="preview-image" />
+    <view wx:else class="preview-empty">No image selected</view>
+  </view>
+
+  <view class="sliders">
+    <text class="slider-label">X: {{cropX}}</text>
+    <slider min="0" max="100" value="{{cropX}}" bindchange="onXChange" disabled="{{disabled}}" />
+    <text class="slider-label">Y: {{cropY}}</text>
+    <slider min="0" max="100" value="{{cropY}}" bindchange="onYChange" disabled="{{disabled}}" />
+    <text class="slider-label">Width: {{cropWidth}}</text>
+    <slider min="10" max="100" value="{{cropWidth}}" bindchange="onWidthChange" disabled="{{disabled}}" />
+    <text class="slider-label">Height: {{cropHeight}}</text>
+    <slider min="10" max="100" value="{{cropHeight}}" bindchange="onHeightChange" disabled="{{disabled}}" />
+  </view>
+
+  <button class="apply-button" type="primary" bindtap="onApplyCrop" disabled="{{disabled}}">
+    Apply Crop
+  </button>
+</view>

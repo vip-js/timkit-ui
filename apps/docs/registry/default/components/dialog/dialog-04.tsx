@@ -1,5 +1,5 @@
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -8,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { ScrollArea } from '../../ui/scroll-area'
+  ScrollArea,
+} from '@timui/react'
 
 export default function Component() {
   return (

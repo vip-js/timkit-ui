@@ -1,0 +1,6 @@
+<view 
+  class="text-lg font-semibold {{titleApi.className}}" 
+  id="{{titleApi.id}}"
+>
+  <slot />
+</view>

@@ -1,10 +1,8 @@
 'use client'
 
 import { useId } from 'react'
+import { Input, Label } from '@timui/react'
 import { usePaymentInputs } from 'react-payment-inputs'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

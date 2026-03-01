@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Badge, Button } from '@timui/react'
 import { BellIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [count, setCount] = useState(3)

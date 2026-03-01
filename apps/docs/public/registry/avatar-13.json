@@ -7,6 +7,24 @@
       "type": "registry:component",
       "target": "components/ui/avatar-13.tsx",
       "content": "export default function Component() {\n  return (\n    <div className=\"flex -space-x-[0.525rem]\">\n      <img\n        className=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-03.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 01\"\n      />\n      <img\n        className=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-04.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 02\"\n      />\n      <img\n        className=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-05.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 03\"\n      />\n      <img\n        className=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-06.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 04\"\n      />\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-13.vue",
+      "target": "components/ui/avatar-13.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Avatar } from '@/components/ui/avatar'\n</script>\n\n<template>\n<div class=\"flex -space-x-[0.525rem]\">\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-03.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 01\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-04.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 02\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-05.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 03\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-06.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 04\"\n      />\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-13.html",
+      "target": "components/ui/avatar-13.html",
+      "type": "registry:component",
+      "content": "<div class=\"flex -space-x-[0.525rem]\">\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-03.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 01\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-04.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 02\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-05.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 03\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-06.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 04\"\n      />\n    </div>"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-13.wxml",
+      "target": "components/ui/avatar-13/avatar-13.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"flex -space-x-[0.525rem]\">\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-03.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 01\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-04.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 02\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-05.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 03\"\n      />\n      <img\n        class=\"ring-background rounded-full ring-2\"\n        src=\"/avatar-80-06.jpg\"\n        width={28}\n        height={28}\n        alt=\"Avatar 04\"\n      />\n    </view>"
     }
   ],
   "meta": {
@@ -16,11 +34,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "avatars"
+    "category": "avatars",
+    "title": "Avatar · Profile Pattern"
   },
   "categories": [
     "avatars",

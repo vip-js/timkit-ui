@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button, Stepper, StepperIndicator, StepperItem, StepperTrigger } from '@timui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Stepper, StepperIndicator, StepperItem, StepperTrigger } from '../../ui/stepper'
 
 const steps = [1, 2, 3, 4]
 

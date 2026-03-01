@@ -1,0 +1,3 @@
+<view class="accordion {{className}}" data-slot="accordion">
+  <slot></slot>
+</view>

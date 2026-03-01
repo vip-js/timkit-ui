@@ -1,0 +1,93 @@
+<fieldset class="space-y-4">
+      <legend class="text-foreground text-sm leading-none font-medium">Choose plan</legend>
+      <radio-group class="gap-0 -space-y-px rounded-md shadow-xs" defaultValue="2">
+        
+          <view
+            class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex flex-col gap-4 border p-4 outline-none first:rounded-t-md last:rounded-b-md has-data-[state=checked]:z-10"
+          >
+            <view class="flex items-center justify-between">
+              <view class="flex items-center gap-2">
+                <radio-group-item id="radio-15-id"
+                  value="1"
+                  class="after:absolute after:inset-0"-1"}-price"}
+                />
+                <label class="inline-flex items-start" for="radio-15-id">
+                  Hobby
+                  
+                </label>
+              </view>
+              <view id="radio-15-id"-1"}-price" class="text-muted-foreground text-xs leading-[inherit]"
+              >
+                $9/mo
+              </view>
+            </view>
+          </view>
+        
+
+          <view
+            class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex flex-col gap-4 border p-4 outline-none first:rounded-t-md last:rounded-b-md has-data-[state=checked]:z-10"
+          >
+            <view class="flex items-center justify-between">
+              <view class="flex items-center gap-2">
+                <radio-group-item id="radio-15-id"
+                  value="2"
+                  class="after:absolute after:inset-0"-2"}-price"}
+                />
+                <label class="inline-flex items-start" for="radio-15-id">
+                  Plus
+                  
+                </label>
+              </view>
+              <view id="radio-15-id"-2"}-price" class="text-muted-foreground text-xs leading-[inherit]"
+              >
+                $29/mo
+              </view>
+            </view>
+          </view>
+        
+
+          <view
+            class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex flex-col gap-4 border p-4 outline-none first:rounded-t-md last:rounded-b-md has-data-[state=checked]:z-10"
+          >
+            <view class="flex items-center justify-between">
+              <view class="flex items-center gap-2">
+                <radio-group-item id="radio-15-id"
+                  value="3"
+                  class="after:absolute after:inset-0"-3"}-price"}
+                />
+                <label class="inline-flex items-start" for="radio-15-id">
+                  Team
+                  
+                </label>
+              </view>
+              <view id="radio-15-id"-3"}-price" class="text-muted-foreground text-xs leading-[inherit]"
+              >
+                $49/mo
+              </view>
+            </view>
+          </view>
+        
+
+          <view
+            class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex flex-col gap-4 border p-4 outline-none first:rounded-t-md last:rounded-b-md has-data-[state=checked]:z-10"
+          >
+            <view class="flex items-center justify-between">
+              <view class="flex items-center gap-2">
+                <radio-group-item id="radio-15-id"
+                  value="4"
+                  class="after:absolute after:inset-0"-4"}-price"}
+                />
+                <label class="inline-flex items-start" for="radio-15-id">
+                  Enterprise
+                  
+                </label>
+              </view>
+              <view id="radio-15-id"-4"}-price" class="text-muted-foreground text-xs leading-[inherit]"
+              >
+                Custom
+              </view>
+            </view>
+          </view>
+        
+      </radio-group>
+    </fieldset>

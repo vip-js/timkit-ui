@@ -1,8 +1,5 @@
 import { useId } from 'react'
-
-import { Badge } from '../../ui/badge'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { Badge, Label, RadioGroup, RadioGroupItem } from '@timui/react'
 
 export default function Component() {
   const id = useId()

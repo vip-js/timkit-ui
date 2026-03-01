@@ -1,0 +1,28 @@
+<view class="{{className}}" data-disabled="{{disabled}}">
+  <!-- Decrement Button -->
+  <view 
+    class="stepper-decrement"
+    bindtap="onDecrementTap"
+    data-disabled="{{api.isAtMin || disabled}}"
+  >
+    <text>−</text>
+  </view>
+
+  <!-- Input -->
+  <input 
+    class="stepper-input"
+    type="digit"
+    value="{{api.value}}"
+    disabled="{{disabled || readOnly}}"
+    bindinput="onInput"
+  />
+
+  <!-- Increment Button -->
+  <view 
+    class="stepper-increment"
+    bindtap="onIncrementTap"
+    data-disabled="{{api.isAtMax || disabled}}"
+  >
+    <text>+</text>
+  </view>
+</view>

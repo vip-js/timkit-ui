@@ -1,5 +1,5 @@
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
+} from '@timui/react'
 
 export default function Component() {
   return (

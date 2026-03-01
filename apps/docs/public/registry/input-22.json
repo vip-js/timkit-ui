@@ -2,15 +2,33 @@
   "name": "input-22",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-22.tsx",
       "type": "registry:component",
       "target": "components/ui/input-22.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Button } from '../../ui/button'\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with button</Label>\n      <div className=\"flex gap-2\">\n        <Input id={id} className=\"flex-1\" placeholder=\"Email\" type=\"email\" />\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Button, Input, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with button</Label>\n      <div className=\"flex gap-2\">\n        <Input id={id} className=\"flex-1\" placeholder=\"Email\" type=\"email\" />\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-22.vue",
+      "target": "components/ui/input-22.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-22-id\">Input with button</Label>\n      <div class=\"flex gap-2\">\n        <Input id=\"input-22-id\" class=\"flex-1\" placeholder=\"Email\" type=\"email\" />\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-22.html",
+      "target": "components/ui/input-22.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-22-id\">Input with button</label>\n      <div class=\"flex gap-2\">\n        <input id=\"input-22-id\" class=\"flex-1\" placeholder=\"Email\" type=\"email\" />\n        <button variant=\"outline\">Send</button>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-22.wxml",
+      "target": "components/ui/input-22/input-22.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-22-id\">Input with button</label>\n      <view class=\"flex gap-2\">\n        <input id=\"input-22-id\" class=\"flex-1\" placeholder=\"Email\" type=\"email\" />\n        <button variant=\"outline\">Send</button>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "button"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

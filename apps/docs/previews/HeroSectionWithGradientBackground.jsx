@@ -1,15 +1,7 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button } from "@timui/react";
 
 export default function HeroSectionWithGradientBackground() {
-
     const [state, setState] = React.useState(false)
-
     // Replace javascript:void(0) paths with your paths
     const navigation = [
         { title: "Features", path: "javascript:void(0)" },
@@ -17,15 +9,12 @@ export default function HeroSectionWithGradientBackground() {
         { title: "Customers", path: "javascript:void(0)" },
         { title: "Pricing", path: "javascript:void(0)" }
     ]
-
     React.useEffect(() => {
         document.onclick = (e) => {
             const target = e.target;
             if (!target.closest(".menu-btn")) setState(false);
         };
     }, [])
-
-
     const Brand = () => (
         <div className="flex items-center justify-between py-5 md:block">
             <a href="javascript:void(0)">
@@ -55,7 +44,6 @@ export default function HeroSectionWithGradientBackground() {
             </div>
         </div>
     )
-
     return (
         <div className="bg-gray-900">
             <header>
@@ -79,12 +67,12 @@ export default function HeroSectionWithGradientBackground() {
                                     })
                                 }
                                 <li>
-                                    <a href="javascript:void(0)" className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-sky-500 hover:bg-sky-400 active:bg-sky-600 duration-150 rounded-full md:inline-flex">
+                                    <Button className="flex items-center justify-center gap-x-1 rounded-full bg-sky-500 hover:bg-sky-400">
                                         Get started
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                             <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
                                         </svg>
-                                    </a>
+                                    </Button>
                                 </li>
                             </ul>
                         </div>
@@ -103,17 +91,17 @@ export default function HeroSectionWithGradientBackground() {
                         <form
                             onSubmit={(e) => e.preventDefault()}
                             className="justify-center items-center gap-x-3 sm:flex">
-                            <input
+                            <Input
                                 type="text"
                                 placeholder="Enter your email"
-                                className="w-full px-3 py-2.5 text-gray-400 bg-gray-700 focus:bg-gray-900 duration-150 outline-none rounded-lg shadow sm:max-w-sm sm:w-auto"
+                                className="w-full sm:max-w-sm sm:w-auto bg-gray-700 focus:bg-gray-900 text-gray-400"
                             />
-                            <button className="flex items-center justify-center gap-x-2 py-2.5 px-4 mt-3 w-full text-sm text-white font-medium bg-sky-500 hover:bg-sky-400 active:bg-sky-600 duration-150 rounded-lg sm:mt-0 sm:w-auto">
+                            <Button className="flex items-center justify-center gap-x-2 sm:w-auto">
                                 Get started
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                     <path fillRule="evenodd" d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z" clipRule="evenodd" />
                                 </svg>
-                            </button>
+                            </Button>
                         </form>
                         <div className="flex justify-center items-center gap-x-4 text-gray-400 text-sm">
                             <div className="flex">

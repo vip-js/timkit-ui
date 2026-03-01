@@ -1,0 +1,24 @@
+<view class="{{className}}" role="group">
+  <slot></slot>
+</view>
+
+<!-- 使用示例：
+<toggle-group value="{{selectedValues}}" multiple="{{true}}" bind:change="handleChange">
+  <view 
+    class="toggle-item" 
+    data-value="option1"
+    data-pressed="{{api.value.includes('option1')}}"
+    bindtap="onItemTap"
+  >
+    选项 1
+  </view>
+  <view 
+    class="toggle-item" 
+    data-value="option2"
+    data-pressed="{{api.value.includes('option2')}}"
+    bindtap="onItemTap"
+  >
+    选项 2
+  </view>
+</toggle-group>
+-->

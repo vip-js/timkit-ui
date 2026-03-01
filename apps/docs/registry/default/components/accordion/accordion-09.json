@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "accordion": "../../ui/accordion",
+    "accordion-item": "../../ui/accordion-item/index"
+  }
+}

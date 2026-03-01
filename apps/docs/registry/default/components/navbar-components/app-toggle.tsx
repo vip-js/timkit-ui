@@ -1,8 +1,7 @@
 'use client'
 
 import { useId, useState } from 'react'
-
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { RadioGroup, RadioGroupItem } from '@timui/react'
 
 export default function AppToggle() {
   const id = useId()

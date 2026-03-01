@@ -1,5 +1,4 @@
-import { Button } from '../../ui/button'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../ui/hover-card'
+import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from '@timui/react'
 
 export default function HoverCardDemo() {
   return (

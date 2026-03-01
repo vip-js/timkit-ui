@@ -2,15 +2,33 @@
   "name": "checkbox-08",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/checkbox.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/checkbox.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/checkbox/checkbox-08.tsx",
       "type": "registry:component",
       "target": "components/ui/checkbox-08.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Checkbox } from '../../ui/checkbox'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"flex gap-6\">\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-a`} />\n        <Label htmlFor={`${id}-a`}>React</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-b`} />\n        <Label htmlFor={`${id}-b`}>Next.js</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-c`} />\n        <Label htmlFor={`${id}-c`}>Astro</Label>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Checkbox, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"flex gap-6\">\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-a`} />\n        <Label htmlFor={`${id}-a`}>React</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-b`} />\n        <Label htmlFor={`${id}-b`}>Next.js</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <Checkbox id={`${id}-c`} />\n        <Label htmlFor={`${id}-c`}>Astro</Label>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-08.vue",
+      "target": "components/ui/checkbox-08.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<div class=\"flex gap-6\">\n      <div class=\"flex items-center gap-2\">\n        <Checkbox id=\"checkbox-08-id\" />\n        <Label for=\"checkbox-08-id\">React</Label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <Checkbox id=\"checkbox-08-id\" />\n        <Label for=\"checkbox-08-id\">Next.js</Label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <Checkbox id=\"checkbox-08-id\" />\n        <Label for=\"checkbox-08-id\">Astro</Label>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-08.html",
+      "target": "components/ui/checkbox-08.html",
+      "type": "registry:component",
+      "content": "<div class=\"flex gap-6\">\n      <div class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">React</label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">Next.js</label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">Astro</label>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-08.wxml",
+      "target": "components/ui/checkbox-08/checkbox-08.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"flex gap-6\">\n      <view class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">React</label>\n      </view>\n      <view class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">Next.js</label>\n      </view>\n      <view class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-08-id\" />\n        <label for=\"checkbox-08-id\">Astro</label>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "checkbox"
+    "category": "checkbox",
+    "title": "Checkbox · With label"
   },
   "categories": [
     "checkbox"

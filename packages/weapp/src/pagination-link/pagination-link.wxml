@@ -1,0 +1,3 @@
+<button class="{{className}}" data-slot="pagination-link" aria-current="{{active ? 'page' : ''}}">
+  <slot></slot>
+</button>

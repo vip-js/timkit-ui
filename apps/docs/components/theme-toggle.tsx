@@ -1,16 +1,21 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiMoonClearLine, RiSunLine } from '@remixicon/react'
 import { useTheme } from 'next-themes'
 
 export default function ThemeToggle() {
-  const id = useId()
-  const { theme, setTheme } = useTheme()
+  const id = 'theme-toggle'
+  const { theme, setTheme, resolvedTheme } = useTheme()
   const [system, setSystem] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  // Prevent hydration mismatch by only rendering after mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const smartToggle = () => {
-    /* The smart toggle by @nrjdalal */
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches
     if (theme === 'system') {
       setTheme(prefersDarkScheme ? 'light' : 'dark')
@@ -27,26 +32,44 @@ export default function ThemeToggle() {
     }
   }
 
+  const getCurrentIcon = () => {
+    const active = theme === 'system' ? resolvedTheme : theme
+    return active === 'dark' ? 'dark' : 'light'
+  }
+
+  const isDark = getCurrentIcon() === 'dark'
+
+  // Render a placeholder during SSR to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center">
+        <button
+          className="linear-border linear-elevated-hover linear-bg-subtle-hover transition-linear flex size-9 cursor-pointer items-center justify-center rounded-md outline-none ring-foreground/50 focus-visible:ring-2"
+          aria-label="Toggle theme"
+          disabled
+        >
+          <RiSunLine size={16} aria-hidden="true" />
+          <span className="sr-only">Switch theme</span>
+        </button>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col justify-center">
-      <input
-        type="checkbox"
-        name="theme-toggle"
-        id={id}
-        className="peer sr-only"
-        checked={system}
-        onChange={smartToggle}
-        aria-label="Toggle dark mode"
-      />
-      <label
-        className="text-muted-foreground hover:text-foreground/80 peer-focus-visible:border-ring peer-focus-visible:ring-ring/50 relative inline-flex size-9 cursor-pointer items-center justify-center rounded transition-[color,box-shadow] outline-none peer-focus-visible:ring-[3px]"
-        htmlFor={id}
-        aria-hidden="true"
+    <div className="flex items-center justify-center">
+      <button
+        onClick={smartToggle}
+        className="linear-border linear-elevated-hover linear-bg-subtle-hover transition-linear flex size-9 cursor-pointer items-center justify-center rounded-md outline-none ring-foreground/50 focus-visible:ring-2"
+        aria-label="Toggle theme"
+        title={`Current theme: ${getCurrentIcon()}`}
       >
-        <RiSunLine className="dark:hidden" size={20} aria-hidden="true" />
-        <RiMoonClearLine className="hidden dark:block" size={20} aria-hidden="true" />
-        <span className="sr-only">Switch to system/light/dark version</span>
-      </label>
+        {isDark ? (
+          <RiMoonClearLine size={16} aria-hidden="true" />
+        ) : (
+          <RiSunLine size={16} aria-hidden="true" />
+        )}
+        <span className="sr-only">Switch theme</span>
+      </button>
     </div>
   )
 }

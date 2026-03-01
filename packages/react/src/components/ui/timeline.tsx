@@ -2,13 +2,23 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import { Slot } from './slot'
+import type { AssertNoExtraKeys, TimelineProps as CoreTimelineProps } from '@timui/core'
+import {
+  cn,
+  timelineContentVariants,
+  timelineDateVariants,
+  timelineHeaderVariants,
+  timelineIndicatorVariants,
+  timelineItemVariants,
+  timelineSeparatorVariants,
+  timelineTitleVariants,
+  timelineVariants,
+} from '@timui/core'
 
 // Types
 type TimelineContextValue = {
   activeStep: number
-  setActiveStep: (step: number) => void
 }
 
 // Context
@@ -23,43 +33,26 @@ const useTimeline = () => {
 }
 
 // Components
-interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue?: number
-  value?: number
-  onValueChange?: (value: number) => void
-  orientation?: 'horizontal' | 'vertical'
-}
+type TimelineProps = CoreTimelineProps & React.HTMLAttributes<HTMLDivElement>
+type _TimelinePropsGuard = AssertNoExtraKeys<
+  TimelineProps,
+  CoreTimelineProps & React.HTMLAttributes<HTMLDivElement>
+>
 
 function Timeline({
   defaultValue = 1,
   value,
-  onValueChange,
   orientation = 'vertical',
   className,
   ...props
 }: TimelineProps) {
-  const [activeStep, setInternalStep] = React.useState(defaultValue)
-
-  const setActiveStep = React.useCallback(
-    (step: number) => {
-      if (value === undefined) {
-        setInternalStep(step)
-      }
-      onValueChange?.(step)
-    },
-    [value, onValueChange]
-  )
-
-  const currentStep = value ?? activeStep
+  const currentStep = value ?? defaultValue
 
   return (
-    <TimelineContext.Provider value={{ activeStep: currentStep, setActiveStep }}>
+    <TimelineContext.Provider value={{ activeStep: currentStep }}>
       <div
         data-slot="timeline"
-        className={cn(
-          'group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
-          className
-        )}
+        className={cn(timelineVariants(), className)}
         data-orientation={orientation}
         {...props}
       />
@@ -72,7 +65,7 @@ function TimelineContent({ className, ...props }: React.HTMLAttributes<HTMLDivEl
   return (
     <div
       data-slot="timeline-content"
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn(timelineContentVariants(), className)}
       {...props}
     />
   )
@@ -89,10 +82,7 @@ function TimelineDate({ asChild = false, className, ...props }: TimelineDateProp
   return (
     <Comp
       data-slot="timeline-date"
-      className={cn(
-        'text-muted-foreground mb-1 block text-xs font-medium group-data-[orientation=vertical]/timeline:max-sm:h-4',
-        className
-      )}
+      className={cn(timelineDateVariants(), className)}
       {...props}
     />
   )
@@ -100,7 +90,9 @@ function TimelineDate({ asChild = false, className, ...props }: TimelineDateProp
 
 // TimelineHeader
 function TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div data-slot="timeline-header" className={cn(className)} {...props} />
+  return (
+    <div data-slot="timeline-header" className={cn(timelineHeaderVariants(), className)} {...props} />
+  )
 }
 
 // TimelineIndicator
@@ -117,10 +109,7 @@ function TimelineIndicator({
   return (
     <div
       data-slot="timeline-indicator"
-      className={cn(
-        'border-primary/20 group-data-completed/timeline-item:border-primary absolute size-4 rounded-full border-2 group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:left-0 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:top-0 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2',
-        className
-      )}
+      className={cn(timelineIndicatorVariants(), className)}
       aria-hidden="true"
       {...props}
     >
@@ -140,10 +129,7 @@ function TimelineItem({ step, className, ...props }: TimelineItemProps) {
   return (
     <div
       data-slot="timeline-item"
-      className={cn(
-        'group/timeline-item has-[+[data-completed]]:[&_[data-slot=timeline-separator]]:bg-primary relative flex flex-1 flex-col gap-0.5 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=vertical]/timeline:not-last:pb-12',
-        className
-      )}
+      className={cn(timelineItemVariants(), className)}
       data-completed={step <= activeStep || undefined}
       {...props}
     />
@@ -155,10 +141,7 @@ function TimelineSeparator({ className, ...props }: React.HTMLAttributes<HTMLDiv
   return (
     <div
       data-slot="timeline-separator"
-      className={cn(
-        'bg-primary/10 absolute self-start group-last/timeline-item:hidden group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:h-0.5 group-data-[orientation=horizontal]/timeline:w-[calc(100%-1rem-0.25rem)] group-data-[orientation=horizontal]/timeline:translate-x-4.5 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:h-[calc(100%-1rem-0.25rem)] group-data-[orientation=vertical]/timeline:w-0.5 group-data-[orientation=vertical]/timeline:-translate-x-1/2 group-data-[orientation=vertical]/timeline:translate-y-4.5',
-        className
-      )}
+      className={cn(timelineSeparatorVariants(), className)}
       aria-hidden="true"
       {...props}
     />
@@ -168,7 +151,7 @@ function TimelineSeparator({ className, ...props }: React.HTMLAttributes<HTMLDiv
 // TimelineTitle
 function TimelineTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 data-slot="timeline-title" className={cn('text-sm font-medium', className)} {...props} />
+    <h3 data-slot="timeline-title" className={cn(timelineTitleVariants(), className)} {...props} />
   )
 }
 

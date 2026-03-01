@@ -1,5 +1,4 @@
-import { Button } from '../../ui/button'
-import { Pagination, PaginationContent, PaginationItem } from '../../ui/pagination'
+import { Button, Pagination, PaginationContent, PaginationItem } from '@timui/react'
 
 type PaginationProps = {
   currentPage: number

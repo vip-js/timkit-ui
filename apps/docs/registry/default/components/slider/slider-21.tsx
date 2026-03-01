@@ -1,10 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Button } from '../../ui/button'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
+import { Button, Label, Slider } from '@timui/react'
 
 export default function Component() {
   const min_price = 5

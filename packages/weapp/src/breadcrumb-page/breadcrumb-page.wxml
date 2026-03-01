@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="breadcrumb-page">
+  <slot></slot>
+</view>

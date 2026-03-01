@@ -1,0 +1,25 @@
+<view class="accordion">
+  <!-- 14 -->
+  
+  <view class="accordion-item">
+    <view class="accordion-trigger">Accordion 14 · Panel 1</view>
+    <view class="accordion-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Panel 1 content goes here.
+    </view>
+  </view>
+
+  <view class="accordion-item">
+    <view class="accordion-trigger">Accordion 14 · Panel 2</view>
+    <view class="accordion-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Panel 2 content goes here.
+    </view>
+  </view>
+
+  <view class="accordion-item">
+    <view class="accordion-trigger">Accordion 14 · Panel 3</view>
+    <view class="accordion-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Panel 3 content goes here.
+    </view>
+  </view>
+
+</view>

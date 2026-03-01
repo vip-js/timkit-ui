@@ -1,8 +1,12 @@
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  buttonVariants,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+} from '@timui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { buttonVariants } from '../../ui/button'
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '../../ui/pagination'
 
 type PaginationProps = {
   currentPage: number

@@ -2,15 +2,33 @@
   "name": "input-10",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-10.tsx",
       "type": "registry:component",
       "target": "components/ui/input-10.tsx",
-      "content": "import { useId } from 'react'\nimport { MailIcon } from 'lucide-react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with end icon</Label>\n      <div className=\"relative\">\n        <Input id={id} className=\"peer pe-9\" placeholder=\"Email\" type=\"email\" />\n        <div className=\"text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50\">\n          <MailIcon size={16} aria-hidden=\"true\" />\n        </div>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Input, Label } from '@timui/react'\nimport { MailIcon } from 'lucide-react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with end icon</Label>\n      <div className=\"relative\">\n        <Input id={id} className=\"peer pe-9\" placeholder=\"Email\" type=\"email\" />\n        <div className=\"text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50\">\n          <MailIcon size={16} aria-hidden=\"true\" />\n        </div>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-10.vue",
+      "target": "components/ui/input-10.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-10-id\">Input with end icon</Label>\n      <div class=\"relative\">\n        <Input id=\"input-10-id\" class=\"peer pe-9\" placeholder=\"Email\" type=\"email\" />\n        <div class=\"text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </div>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-10.html",
+      "target": "components/ui/input-10.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-10-id\">Input with end icon</label>\n      <div class=\"relative\">\n        <input id=\"input-10-id\" class=\"peer pe-9\" placeholder=\"Email\" type=\"email\" />\n        <div class=\"text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </div>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-10.wxml",
+      "target": "components/ui/input-10/input-10.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-10-id\">Input with end icon</label>\n      <view class=\"relative\">\n        <input id=\"input-10-id\" class=\"peer pe-9\" placeholder=\"Email\" type=\"email\" />\n        <view class=\"text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </view>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
       "label"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

@@ -1,8 +1,6 @@
 import { useId } from 'react'
+import { Label, RadioGroup, RadioGroupItem } from '@timui/react'
 import { Brush, Eraser, Scissors, SwatchBook } from 'lucide-react'
-
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 
 export default function Component() {
   const id = useId()

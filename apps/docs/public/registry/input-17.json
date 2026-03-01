@@ -2,16 +2,34 @@
   "name": "input-17",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/select-native.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/select-native.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-17.tsx",
       "type": "registry:component",
       "target": "components/ui/input-17.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\nimport { SelectNative } from '../../ui/select-native'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with start select</Label>\n      <div className=\"flex rounded-md shadow-xs\">\n        <SelectNative className=\"text-muted-foreground hover:text-foreground w-fit rounded-e-none shadow-none\">\n          <option value=\"https://\">https://</option>\n          <option value=\"http://\">http://</option>\n          <option value=\"ftp://\">ftp://</option>\n          <option value=\"sftp://\">sftp://</option>\n          <option value=\"ws://\">ws://</option>\n          <option value=\"wss://\">wss://</option>\n        </SelectNative>\n        <Input\n          id={id}\n          className=\"-ms-px rounded-s-none shadow-none focus-visible:z-10\"\n          placeholder=\"192.168.1.1\"\n          type=\"text\"\n        />\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Input, Label, SelectNative } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with start select</Label>\n      <div className=\"flex rounded-md shadow-xs\">\n        <SelectNative className=\"text-muted-foreground hover:text-foreground w-fit rounded-e-none shadow-none\">\n          <option value=\"https://\">https://</option>\n          <option value=\"http://\">http://</option>\n          <option value=\"ftp://\">ftp://</option>\n          <option value=\"sftp://\">sftp://</option>\n          <option value=\"ws://\">ws://</option>\n          <option value=\"wss://\">wss://</option>\n        </SelectNative>\n        <Input\n          id={id}\n          className=\"-ms-px rounded-s-none shadow-none focus-visible:z-10\"\n          placeholder=\"192.168.1.1\"\n          type=\"text\"\n        />\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-17.vue",
+      "target": "components/ui/input-17.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { SelectNative } from '@/components/ui/select-native'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-17-id\">Input with start select</Label>\n      <div class=\"flex rounded-md shadow-xs\">\n        <SelectNative class=\"text-muted-foreground hover:text-foreground w-fit rounded-e-none shadow-none\">\n          <option value=\"https://\">https://</option>\n          <option value=\"http://\">http://</option>\n          <option value=\"ftp://\">ftp://</option>\n          <option value=\"sftp://\">sftp://</option>\n          <option value=\"ws://\">ws://</option>\n          <option value=\"wss://\">wss://</option>\n        </SelectNative>\n        <Input id=\"input-17-id\"\n          class=\"-ms-px rounded-s-none shadow-none focus-visible:z-10\"\n          placeholder=\"192.168.1.1\"\n          type=\"text\"\n        />\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-17.html",
+      "target": "components/ui/input-17.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-17-id\">Input with start select</label>\n      <div class=\"flex rounded-md shadow-xs\">\n        <select-native class=\"text-muted-foreground hover:text-foreground w-fit rounded-e-none shadow-none\">\n          <option value=\"https://\">https://</option>\n          <option value=\"http://\">http://</option>\n          <option value=\"ftp://\">ftp://</option>\n          <option value=\"sftp://\">sftp://</option>\n          <option value=\"ws://\">ws://</option>\n          <option value=\"wss://\">wss://</option>\n        </select-native>\n        <input id=\"input-17-id\"\n          class=\"-ms-px rounded-s-none shadow-none focus-visible:z-10\"\n          placeholder=\"192.168.1.1\"\n          type=\"text\"\n        />\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-17.wxml",
+      "target": "components/ui/input-17/input-17.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-17-id\">Input with start select</label>\n      <view class=\"flex rounded-md shadow-xs\">\n        <select-native class=\"text-muted-foreground hover:text-foreground w-fit rounded-e-none shadow-none\">\n          <option value=\"https://\">https://</option>\n          <option value=\"http://\">http://</option>\n          <option value=\"ftp://\">ftp://</option>\n          <option value=\"sftp://\">sftp://</option>\n          <option value=\"ws://\">ws://</option>\n          <option value=\"wss://\">wss://</option>\n        </select-native>\n        <input id=\"input-17-id\"\n          class=\"-ms-px rounded-s-none shadow-none focus-visible:z-10\"\n          placeholder=\"192.168.1.1\"\n          type=\"text\"\n        />\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -22,11 +40,15 @@
       "native select"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

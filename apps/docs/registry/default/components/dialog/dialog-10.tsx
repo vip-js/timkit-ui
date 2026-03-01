@@ -1,13 +1,13 @@
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Textarea } from '../../ui/textarea'
+  Textarea,
+} from '@timui/react'
 
 export default function Component() {
   return (

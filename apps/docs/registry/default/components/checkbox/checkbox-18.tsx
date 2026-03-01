@@ -1,10 +1,7 @@
 'use client'
 
 import { Fragment, useId } from 'react'
-
-import { Checkbox } from '../../ui/checkbox'
-import { CheckboxTree } from '../../ui/checkbox-tree'
-import { Label } from '../../ui/label'
+import { Checkbox, CheckboxTree, Label } from '@timui/react'
 
 interface TreeNode {
   id: string

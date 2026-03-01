@@ -1,0 +1,14 @@
+<view class="space-y-4">
+  <view class="text-xl font-bold">W/ chevron</view>
+  <accordion type="single" collapsible class="w-full" bind:change="handleValueChange" value="{{value}}">
+    <block wx:for="{{items}}" wx:key="id" wx:for-index="itemIndex" wx:for-item="item">
+      <accordion-item value="{{item.id}}" class="py-2">
+        <view slot="trigger" class="py-2 text-[15px] leading-6 hover:no-underline">
+          {{item.title}}
+        </view>
+
+<view slot="content" class="text-muted-foreground pb-2">{{item.content}}</view>
+      </accordion-item>
+    </block>
+  </accordion>
+</view>

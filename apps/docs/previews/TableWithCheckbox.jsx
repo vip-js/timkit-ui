@@ -1,13 +1,8 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Checkbox } from "@timui/react";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@timui/react";
 
 export default function TableWithCheckbox() {
-
     const tableItems = [
         {
             name: "Liam James",
@@ -40,25 +35,23 @@ export default function TableWithCheckbox() {
             salary: "$75K"
         },
     ]
-
     const [areAllChecked, setAllChecked] = React.useState(false)
     let [checkboxItems, setCheckboxItem] = React.useState({})
-
     // set or unset all checkbox items
-    const handleCheckboxItems = () => {
-        setAllChecked(!areAllChecked)
+    const handleCheckboxItems = (e) => {
+        const newCheckedState = !areAllChecked
+        setAllChecked(newCheckedState)
         tableItems.forEach((item, idx) => {
-            checkboxItems[`checkbox${idx}`] = !areAllChecked
+            checkboxItems[`checkbox${idx}`] = newCheckedState
             setCheckboxItem({ ...checkboxItems })
         })
     }
-
     // Update checked value
     const handleCheckboxChange = (e, idx) => {
         setAllChecked(false)
-        setCheckboxItem({ ...checkboxItems, [`checkbox${idx}`]: e.target.checked })
+        const checked = e.target?.checked ?? e
+        setCheckboxItem({ ...checkboxItems, [`checkbox${idx}`]: checked })
     }
-
     React.useEffect(() => {
         // Set properties with false value
         tableItems.forEach((item, idx) => {
@@ -66,14 +59,12 @@ export default function TableWithCheckbox() {
             setCheckboxItem({ ...checkboxItems })
         })
     }, [])
-
     React.useEffect(() => {
         // Check if all checkbox items are checked and update setAllChecked state
         const checkboxItemsVal = Object.values(checkboxItems)
         const checkedItems = checkboxItemsVal.filter(item => item == true)
         if (checkedItems.length == tableItems.length) setAllChecked(true)
     }, [checkboxItems])
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 md:px-8">
             <div className="items-start justify-between md:flex">
@@ -95,64 +86,53 @@ export default function TableWithCheckbox() {
                 </div>
             </div>
             <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-                <table className="w-full table-auto text-sm text-left">
-                    <thead className="text-gray-600 font-medium border-b">
-                        <tr>
-                            <th className="py-3 px-6 flex items-center gap-x-4">
-                                <div>
-                                    <input type="checkbox" id="checkbox-all-items" className="checkbox-item peer hidden"
-                                        checked={areAllChecked}
-                                        onChange={handleCheckboxItems}
-                                    />
-                                    <label
-                                        htmlFor="checkbox-all-items"
-                                        className="relative flex w-5 h-5 bg-white peer-checked:bg-indigo-600 rounded-md border ring-offset-2 ring-indigo-600 duration-150 peer-active:ring cursor-pointer after:absolute after:inset-x-0 after:top-[3px] after:m-auto after:w-1.5 after:h-2.5 after:border-r-2 after:border-b-2 after:border-white after:rotate-45"
-                                    >
-                                    </label>
-                                </div>
+                <Table className="w-full table-auto text-sm text-left">
+                    <TableHeader className="text-gray-600 font-medium border-b">
+                        <TableRow>
+                            <TableHead className="py-3 px-6 flex items-center gap-x-4">
+                                <Checkbox
+                                    id="checkbox-all-items"
+                                    checked={areAllChecked}
+                                    onCheckedChange={handleCheckboxItems}
+                                    className="w-5 h-5"
+                                />
                                 Username
-                            </th>
-                            <th className="py-3 px-6">Email</th>
-                            <th className="py-3 px-6">Position</th>
-                            <th className="py-3 px-6">Salary</th>
-                            <th className="py-3 px-6"></th>
-
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-600 divide-y">
+                            </TableHead>
+                            <TableHead className="py-3 px-6">Email</TableHead>
+                            <TableHead className="py-3 px-6">Position</TableHead>
+                            <TableHead className="py-3 px-6">Salary</TableHead>
+                            <TableHead className="py-3 px-6"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody className="text-gray-600 divide-y">
                         {
                             tableItems.map((item, idx) => (
-                                <tr key={idx} className="odd:bg-gray-50 even:bg-white">
-                                    <td className="px-6 py-4 whitespace-nowrap flex items-center gap-x-4">
-                                        <div>
-                                            <input type="checkbox" id={`checkbox-${idx}`} name={`checkbox-${idx}`} className="checkbox-item peer hidden"
-                                                checked={checkboxItems[`checkbox${idx}`]}
-                                                onChange={(e) => handleCheckboxChange(e, idx)}
-                                            />
-                                            <label
-                                                htmlFor={`checkbox-${idx}`}
-                                                className="relative flex w-5 h-5 bg-white peer-checked:bg-indigo-600 rounded-md border ring-offset-2 ring-indigo-600 duration-150 peer-active:ring cursor-pointer after:absolute after:inset-x-0 after:top-[3px] after:m-auto after:w-1.5 after:h-2.5 after:border-r-2 after:border-b-2 after:border-white after:rotate-45"
-                                            >
-                                            </label>
-                                        </div>
+                                <TableRow key={idx} className="odd:bg-gray-50 even:bg-white">
+                                    <TableCell className="px-6 py-4 whitespace-nowrap flex items-center gap-x-4">
+                                        <Checkbox
+                                            id={`checkbox-${idx}`}
+                                            checked={checkboxItems[`checkbox${idx}`]}
+                                            onCheckedChange={(e) => handleCheckboxChange(e, idx)}
+                                            className="w-5 h-5"
+                                        />
                                         {item.name}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.position}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.salary}</td>
-                                    <td className="text-right px-6 whitespace-nowrap">
+                                    </TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.email}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.position}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.salary}</TableCell>
+                                    <TableCell className="text-right px-6 whitespace-nowrap">
                                         <a href="javascript:void()" className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
                                             Edit
                                         </a>
                                         <button href="javascript:void()" className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
                                             Delete
                                         </button>
-                                    </td>
-                                </tr>
+                                    </TableCell>
+                                </TableRow>
                             ))
                         }
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         </div>
     )

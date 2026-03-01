@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="alert-title">
+  <slot></slot>
+</view>

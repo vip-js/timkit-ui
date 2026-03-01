@@ -6,7 +6,25 @@
       "path": "registry/default/components/alert/alert-10.tsx",
       "type": "registry:component",
       "target": "components/ui/alert-10.tsx",
-      "content": "import { ArrowRightIcon, TriangleAlert } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <div className=\"rounded-md border border-amber-500/50 px-4 py-3 text-amber-600\">\n      <div className=\"flex gap-3\">\n        <TriangleAlert className=\"mt-0.5 shrink-0 opacity-60\" size={16} aria-hidden=\"true\" />\n        <div className=\"flex grow justify-between gap-3\">\n          <p className=\"text-sm\">Some information is missing!</p>\n          <a href=\"#\" className=\"group text-sm font-medium whitespace-nowrap\">\n            Link\n            <ArrowRightIcon\n              className=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n              size={16}\n              aria-hidden=\"true\"\n            />\n          </a>\n        </div>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { Alert, AlertDescription } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Alert className=\"rounded-md border border-amber-500/50 px-4 py-3 text-amber-600\">\n      <div className=\"flex gap-3\">\n        <span className=\"mt-0.5 shrink-0 opacity-60\" aria-hidden=\"true\">\n          !\n        </span>\n        <div className=\"flex grow justify-between gap-3\">\n          <AlertDescription className=\"text-sm text-current\">\n            Some information is missing!\n          </AlertDescription>\n          <a href=\"#\" className=\"group text-sm font-medium whitespace-nowrap\">\n            Link\n            <span\n              className=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n              aria-hidden=\"true\"\n            >\n              -&gt;\n            </span>\n          </a>\n        </div>\n      </div>\n    </Alert>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-10.vue",
+      "target": "components/ui/alert-10.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Alert, AlertDescription } from '@/components/ui/alert'\n</script>\n\n<template>\n<Alert class=\"rounded-md border border-amber-500/50 px-4 py-3 text-amber-600\">\n  <div class=\"flex gap-3\">\n    <span class=\"mt-0.5 shrink-0 opacity-60\" aria-hidden=\"true\">!</span>\n    <div class=\"flex grow justify-between gap-3\">\n      <AlertDescription class=\"text-sm text-current\">Some information is missing!</AlertDescription>\n      <a href=\"#\" class=\"group text-sm font-medium whitespace-nowrap\">\n        Link\n        <span class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\" aria-hidden=\"true\">-&gt;</span>\n      </a>\n    </div>\n  </div>\n</Alert>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-10.html",
+      "target": "components/ui/alert-10.html",
+      "type": "registry:component",
+      "content": "<div class=\"rounded-md border border-amber-500/50 px-4 py-3 text-amber-600\" role=\"alert\" data-slot=\"alert\">\n  <div class=\"flex gap-3\">\n    <span class=\"mt-0.5 shrink-0 opacity-60\" aria-hidden=\"true\">!</span>\n    <div class=\"flex grow justify-between gap-3\">\n      <div class=\"text-sm text-current\" data-slot=\"alert-description\">Some information is missing!</div>\n      <a href=\"#\" class=\"group text-sm font-medium whitespace-nowrap\">\n        Link\n        <span class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\" aria-hidden=\"true\">-&gt;</span>\n      </a>\n    </div>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-10.wxml",
+      "target": "components/ui/alert-10/alert-10.wxml",
+      "type": "registry:component",
+      "content": "<alert class=\"rounded-md border border-amber-500/50 px-4 py-3 text-amber-600\">\n  <view class=\"flex gap-3\">\n    <text class=\"mt-0.5 shrink-0 opacity-60\">!</text>\n    <view class=\"flex grow justify-between gap-3\">\n      <alert-description class=\"text-sm text-current\">Some information is missing!</alert-description>\n      <view class=\"group text-sm font-medium whitespace-nowrap\">\n        Link\n        <text class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\">-&gt;</text>\n      </view>\n    </view>\n  </view>\n</alert>\n"
     }
   ],
   "meta": {
@@ -16,11 +34,15 @@
     ],
     "colSpan": 2,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "alerts"
+    "category": "alerts",
+    "title": "Alert · Warning variant"
   },
   "categories": [
     "alerts",

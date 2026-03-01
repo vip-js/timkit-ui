@@ -1,6 +1,7 @@
 'use client'
 
 import type React from 'react'
+import { Button } from '@timui/react'
 import {
   AlertCircleIcon,
   FileArchiveIcon,
@@ -16,8 +17,6 @@ import {
 } from 'lucide-react'
 
 import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
 
 const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
   const fileType = file.file instanceof File ? file.file.type : file.file.type

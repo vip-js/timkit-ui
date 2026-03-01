@@ -1,11 +1,9 @@
 'use client'
 
 import { useId } from 'react'
+import { Input, Label } from '@timui/react'
 
 import { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

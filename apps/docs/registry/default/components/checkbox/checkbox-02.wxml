@@ -1,0 +1,4 @@
+<view class="flex items-center gap-2">
+      <checkbox id="checkbox-02-id" />
+      <label for="checkbox-02-id">Indeterminate checkbox</label>
+    </view>

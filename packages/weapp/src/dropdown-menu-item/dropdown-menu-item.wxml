@@ -1,0 +1,8 @@
+<view
+  data-slot="dropdown-menu-item"
+  class="{{className}}"
+  data-disabled="{{disabled}}"
+  bindtap="onSelect"
+>
+  <slot></slot>
+</view>

@@ -1,0 +1,17 @@
+<radio-group
+      defaultValue="1"
+      class="[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]"
+    >
+      <view class="flex items-center gap-2">
+        <radio-group-item value="1" id="radio-02-id" />
+        <label for="radio-02-id">Option 1</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <radio-group-item value="2" id="radio-02-id" />
+        <label for="radio-02-id">Option 2</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <radio-group-item value="3" id="radio-02-id" />
+        <label for="radio-02-id">Option 3</label>
+      </view>
+    </radio-group>

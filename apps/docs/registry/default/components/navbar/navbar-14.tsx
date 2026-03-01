@@ -1,17 +1,18 @@
+import {
+  Button,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
 import { CompassIcon, FeatherIcon, HouseIcon, PlusIcon, SearchIcon } from 'lucide-react'
 
 import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
 import TeamSwitcher from '@/registry/default/components/navbar-components/team-switcher'
 import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
-import { Button } from '../../ui/button'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 const teams = ['Acme Inc.', 'Timkit UI', 'Junon']
 

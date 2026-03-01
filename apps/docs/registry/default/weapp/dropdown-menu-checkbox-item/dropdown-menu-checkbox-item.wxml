@@ -1,0 +1,16 @@
+<view
+  data-slot="dropdown-menu-checkbox-item"
+  class="{{className}}"
+  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  data-disabled="{{disabled}}"
+  bindtap="onToggle"
+>
+  <view class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <image
+      wx:if="{{checked}}"
+      class="h-4 w-4"
+      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMy41IDguNWwzIDMgNi03IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg=="
+    />
+  </view>
+  <slot></slot>
+</view>

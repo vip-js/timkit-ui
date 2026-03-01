@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, CardContent } from "@timui/react";
 export default function BlogCardsPrimary() {
-
     const posts = [
         {
             title: "What is SaaS? Software as a Service Explained",
@@ -46,7 +39,6 @@ export default function BlogCardsPrimary() {
             href: "javascript:void(0)"
         }
     ]
-    
     return (
         <section className="py-12 mx-auto px-4 max-w-screen-xl md:px-8">
             <div className="text-center">
@@ -60,10 +52,10 @@ export default function BlogCardsPrimary() {
             <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {
                     posts.map((items, key) => (
-                        <article className="max-w-md mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm" key={key}>
-                            <a href={items.href}>
+                        <Card className="max-w-md mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm" key={key}>
+                            <a href={items.href} className="block">
                                 <img src={items.img} loading="lazy" alt={items.title}  className="w-full h-48 rounded-t-md" />
-                                <div className="flex items-center mt-2 pt-3 ml-4 mr-2">
+                                <CardContent className="flex items-center mt-2 pt-3 ml-4 mr-2">
                                     <div className="flex-none w-10 h-10 rounded-full">
                                         <img src={items.authorLogo} className="w-full h-full rounded-full" alt={items.authorName} />
                                     </div>
@@ -71,15 +63,15 @@ export default function BlogCardsPrimary() {
                                         <span className="block text-gray-900">{items.authorName}</span>
                                         <span className="block text-gray-400 text-sm">{items.date}</span>
                                     </div>
-                                </div>
-                                <div className="pt-3 ml-4 mr-2 mb-3">
+                                </CardContent>
+                                <CardContent className="pt-3 ml-4 mr-2 mb-3">
                                     <h3 className="text-xl text-gray-900">
                                         {items.title}
                                     </h3>
                                     <p className="text-gray-400 text-sm mt-1">{items.desc}</p>
-                                </div>
+                                </CardContent>
                             </a>
-                        </article>
+                        </Card>
                     ))
                 }
             </div>

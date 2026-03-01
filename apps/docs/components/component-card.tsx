@@ -44,7 +44,7 @@ export default function ComponentCard({
     <div
       id={anchorId}
       className={cn(
-        'group/item relative border has-[[data-comp-loading=true]]:border-none',
+        'group/item relative vant-card-hover overflow-hidden',
         isSearchPage ? 'col-span-12 grid grid-cols-12' : cn(getColSpanClasses(), styleClasses),
         className
       )}

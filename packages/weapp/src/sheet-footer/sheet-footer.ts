@@ -1,8 +1,11 @@
-import { sheetFooterVariants } from '@timui/shared'
+import { sheetFooterVariants } from '@timui/core'
 
 import { resolveClasses } from '../utils'
 
 Component({
+  options: {
+    styleIsolation: "apply-shared",
+  },
   properties: {
     extClass: { type: String, value: '' },
   },

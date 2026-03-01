@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Button } from '../../ui/button'
-import { Stepper, StepperIndicator, StepperItem, StepperTrigger } from '../../ui/stepper'
+import { Button, Stepper, StepperIndicator, StepperItem, StepperTrigger } from '@timui/react'
 
 const steps = [1, 2, 3, 4]
 

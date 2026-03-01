@@ -1,0 +1,31 @@
+/* Fallback styles */
+.space-y-1 > view + view { margin-top: 4px; }
+.border-b { border-bottom: 1px solid #e5e5e5; }
+.flex { display: flex; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.py-4 { padding-top: 16px; padding-bottom: 16px; }
+.pb-4 { padding-bottom: 16px; }
+.pt-0 { padding-top: 0; }
+.font-medium { font-weight: 500; }
+.text-sm { font-size: 14px; }
+.overflow-hidden { overflow: hidden; }
+
+/* Animation state */
+.closed { display: none; }
+.open { display: block; animation: slideDown 0.2s ease-out; }
+
+/* Icon placeholder styling */
+.icon-chevron-down {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.rotate-180 .icon-chevron-down {
+   transform: rotate(225deg); /* 180 + 45 */
+}

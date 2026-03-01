@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { SyntheticEvent } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,11 +14,58 @@ import {
   getSortedRowModel,
   PaginationState,
   Row,
+  RowSelectionState,
   SortingState,
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  Badge,
+  Button,
+  Checkbox,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  Input,
+  Label,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@timui/react'
 import {
   ChevronDownIcon,
   ChevronFirstIcon,
@@ -34,42 +82,6 @@ import {
   PlusIcon,
   TrashIcon,
 } from 'lucide-react'
-
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '../../ui/alert-dialog'
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Pagination, PaginationContent, PaginationItem } from '../../ui/pagination'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 type Item = {
   id: string
@@ -102,14 +114,18 @@ const columns: ColumnDef<Item>[] = [
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!(value?.detail?.checked ?? value))
+        }
+        onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
+        onClick={() => row.toggleSelected(!row.getIsSelected())}
         aria-label="Select row"
       />
     ),
@@ -199,6 +215,7 @@ export default function Component() {
   ])
 
   const [data, setData] = useState<Item[]>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   useEffect(() => {
     async function fetchPosts() {
       const res = await fetch(
@@ -230,6 +247,9 @@ export default function Component() {
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     state: {
@@ -237,6 +257,7 @@ export default function Component() {
       pagination,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
   })
 
@@ -263,11 +284,11 @@ export default function Component() {
     return filterValue ?? []
   }, [table.getColumn('status')?.getFilterValue()])
 
-  const handleStatusChange = (checked: boolean, value: string) => {
+  const handleStatusChange = (checked: boolean | 'indeterminate', value: string) => {
     const filterValue = table.getColumn('status')?.getFilterValue() as string[]
     const newFilterValue = filterValue ? [...filterValue] : []
 
-    if (checked) {
+    if (checked === true) {
       newFilterValue.push(value)
     } else {
       const index = newFilterValue.indexOf(value)
@@ -339,7 +360,9 @@ export default function Component() {
                       <Checkbox
                         id={`${id}-${i}`}
                         checked={selectedStatuses.includes(value)}
-                        onCheckedChange={(checked: boolean) => handleStatusChange(checked, value)}
+                        onCheckedChange={(checked: boolean | 'indeterminate') =>
+                          handleStatusChange(checked, value)
+                        }
                       />
                       <Label
                         htmlFor={`${id}-${i}`}
@@ -375,8 +398,10 @@ export default function Component() {
                       key={column.id}
                       className="capitalize"
                       checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      onSelect={(event) => event.preventDefault()}
+                      onCheckedChange={(value: boolean | 'indeterminate') =>
+                        column.toggleVisibility(!!value)
+                      }
+                      onSelect={(event: SyntheticEvent) => event.preventDefault()}
                     >
                       {column.id}
                     </DropdownMenuCheckboxItem>
@@ -520,7 +545,7 @@ export default function Component() {
           </Label>
           <Select
             value={table.getState().pagination.pageSize.toString()}
-            onValueChange={(value) => {
+            onValueChange={(value: string) => {
               table.setPageSize(Number(value))
             }}
           >

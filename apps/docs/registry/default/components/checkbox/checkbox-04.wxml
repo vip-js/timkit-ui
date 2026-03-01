@@ -1,0 +1,4 @@
+<view class="flex items-center gap-2">
+      <checkbox id="checkbox-04-id" disabled />
+      <label for="checkbox-04-id">Disabled checkbox</label>
+    </view>

@@ -1,16 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDownIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { ChevronDownIcon } from 'lucide-react'
 
 const options = [
   {

@@ -1,25 +1,72 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as SwitchPrimitive from '@radix-ui/react-switch'
-import { cn } from '@timui/shared'
-import { cva } from 'class-variance-authority'
+import type { SwitchProps as CoreSwitchProps } from '@timui/core'
+import { switchConnect, switchMachine, createTimEvent } from '@timui/core'
+import { cn, switchRootVariants, switchThumbVariants, switchVariants } from '@timui/core'
+import { mergeProps } from '@zag-js/react'
+import { useSwitch } from './switch/use-switch'
 
-const switchVariants = cva(
-  'peer inline-flex h-6 w-10 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input'
+type SwitchProps = CoreSwitchProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof CoreSwitchProps>
+
+const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
+  (
+    {
+      className,
+      checked,
+      defaultChecked,
+      required,
+      onCheckedChange,
+      value = 'on',
+      disabled,
+      name,
+      id,
+      ...props
+    },
+    ref
+  ) => {
+    const api = useSwitch({
+      id,
+      checked,
+      defaultChecked,
+      required,
+      onCheckedChange,
+      value: value ?? 'on',
+      disabled,
+      name,
+    })
+    const rootProps = api.getRootProps()
+    const controlProps = api.getControlProps()
+    const thumbProps = api.getThumbProps()
+    const hiddenInputProps = api.getHiddenInputProps()
+    const mergedControlProps = mergeProps(controlProps, props)
+    const { className: controlClassName, ...controlRest } = mergedControlProps
+
+    return (
+      <label
+        {...rootProps}
+        data-slot="switch-root"
+        className={cn(switchRootVariants(), rootProps.className)}
+      >
+        <button
+          {...controlRest}
+          ref={ref}
+          type="button"
+          data-slot="switch"
+          className={cn(switchVariants(), controlClassName, className)}
+        >
+          <span
+            {...thumbProps}
+            data-slot="switch-thumb"
+            className={cn(switchThumbVariants(), thumbProps.className)}
+          />
+        </button>
+        <input {...hiddenInputProps} />
+      </label>
+    )
+  }
 )
-
-const switchThumbVariants = cva(
-  'bg-background pointer-events-none block size-5 rounded-full shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0'
-)
-
-function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {
-  return (
-    <SwitchPrimitive.Root data-slot="switch" className={cn(switchVariants(), className)} {...props}>
-      <SwitchPrimitive.Thumb data-slot="switch-thumb" className={cn(switchThumbVariants())} />
-    </SwitchPrimitive.Root>
-  )
-}
+Switch.displayName = 'Switch'
 
 export { Switch }

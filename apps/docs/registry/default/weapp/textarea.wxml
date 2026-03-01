@@ -1,0 +1,10 @@
+<textarea
+  class="{{className}}"
+  value="{{value}}"
+  placeholder="{{placeholder}}"
+  disabled="{{disabled}}"
+  bindinput="handleInput"
+  bindfocus="handleFocus"
+  bindblur="handleBlur"
+  placeholder-class="text-muted-foreground/70"
+></textarea>

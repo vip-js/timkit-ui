@@ -1,28 +1,19 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Button, Input } from "@timui/react";
 export default function SidebarWithListOfLessons() {
-
-
     const lessons = {
         rustLessons: [{ name: "Introduction to Rust", href: "javascript:void(0)" }, { name: "Installing and Setting up Rust", href: "javascript:void(0)" }, { name: "Basic Syntax and Data Types", href: "javascript:void(0)" }, { name: "Control Flow Statements", href: "javascript:void(0)" }, { name: "Functions and Modules", href: "javascript:void(0)" }, { name: "Ownership and Borrowing", href: "javascript:void(0)" }, { name: "Structs and Enums", href: "javascript:void(0)" }, { name: "Traits and Generics", href: "javascript:void(0)" }],
         cargoLessons: [{ name: "Introduction to Cargo", href: "javascript:void(0)" }, { name: "Installing and Configuring Cargo", href: "javascript:void(0)" }, { name: "Basic Cargo Commands", href: "javascript:void(0)" }, { name: "Working with Dependencies", href: "javascript:void(0)" }, { name: "Rust Workspaces with Cargo", href: "javascript:void(0)" }, { name: "Ownership and Borrowing", href: "javascript:void(0)" }, { name: "Structs and Enums", href: "javascript:void(0)" }, { name: "Traits and Generics", href: "javascript:void(0)" },]
     }
-
     return (
          <div style={{height: "800px"}}>
             <nav
                 className="fixed z-40 top-0 left-0 w-full h-full border-r bg-white space-y-8 overflow-auto sm:w-80">
                 <div className="sticky top-0 space-y-8 bg-white">
                     <div className='h-20 flex items-center px-4 border-b md:px-8'>
-                        <a href='javascript:void(0)' className='flex-none'>
+                        <Button variant="link" href='javascript:void(0)' className='flex-none'>
                             <img src="https://timkit-ui.com/logo.svg" width={140} className="mx-auto" />
-                        </a>
+                        </Button>
                     </div>
                     <div className='px-4 md:px-8'>
                         <div className='relative w-full'>
@@ -37,9 +28,8 @@ export default function SidebarWithListOfLessons() {
                                     clipRule='evenodd'
                                 />
                             </svg>
-                    
-                            <input
-                                placeholder='Search...' 
+                            <Input
+                                placeholder='Search...'
                                 type='email'
                                 className='w-full pl-12 pr-3 py-2 bg-white text-sm text-gray-500 bg-transparent outline-none border ring-blue-600 focus:ring-2 shadow-sm rounded-lg duration-200'
                             />
@@ -55,11 +45,11 @@ export default function SidebarWithListOfLessons() {
                                   <ul>
                                       {lessons?.rustLessons?.map((item, idx) => (
                                           <li key={idx}>
-                                              <a
+                                              <Button variant="ghost"
                                                   href={item?.href}
-                                                  className='block w-full py-2 px-4 border-l hover:border-indigo-600 hover:text-gray-900 duration-150'>
+                                                  className='block w-full py-2 px-4 border-l hover:border-indigo-600 hover:text-gray-900 duration-150 text-left justify-start'>
                                                   {item?.name}
-                                              </a>
+                                              </Button>
                                           </li>
                                       ))}
                                   </ul>
@@ -73,11 +63,11 @@ export default function SidebarWithListOfLessons() {
                                   <ul>
                                       {lessons?.cargoLessons?.map((item, idx) => (
                                           <li key={idx}>
-                                              <a
+                                              <Button variant="ghost"
                                                   href={item?.href}
-                                                  className='block w-full py-2 px-4 border-l hover:border-indigo-600 hover:text-gray-900 duration-150'>
+                                                  className='block w-full py-2 px-4 border-l hover:border-indigo-600 hover:text-gray-900 duration-150 text-left justify-start'>
                                                   {item?.name}
-                                              </a>
+                                              </Button>
                                           </li>
                                       ))}
                                   </ul>
@@ -88,5 +78,3 @@ export default function SidebarWithListOfLessons() {
         </div>
     );
 };
-
-        

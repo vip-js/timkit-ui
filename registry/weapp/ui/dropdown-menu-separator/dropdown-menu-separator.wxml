@@ -1,0 +1,6 @@
+<view 
+    class="-mx-1 my-1 h-px bg-muted {{separatorApi.className}}"
+    id="{{separatorApi.id}}"
+    role="separator"
+    aria-orientation="{{separatorApi['aria-orientation']}}"
+/>

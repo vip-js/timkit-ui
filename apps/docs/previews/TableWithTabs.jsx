@@ -1,16 +1,12 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@timui/react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@timui/react";
 
 export default function TableWithTabs() {
-
     const tableItems = [
         {
             label: "Pages",
+            value: "pages",
             title: "Top pages",
             items: [
                 {
@@ -37,6 +33,7 @@ export default function TableWithTabs() {
         },
         {
             label: "Countries",
+            value: "countries",
             title: "Top countries",
             items: [
                 {
@@ -63,6 +60,7 @@ export default function TableWithTabs() {
         },
         {
             label: "Devices",
+            value: "devices",
             title: "Top devices",
             items: [
                 {
@@ -88,8 +86,6 @@ export default function TableWithTabs() {
             ]
         },
     ]
-
-    const [selectedItem, setSelectedItem] = React.useState(0)
     const labelColors = {
         "Good": {
             color: "text-green-600 bg-green-50",
@@ -104,7 +100,6 @@ export default function TableWithTabs() {
             color: "text-red-600 bg-red-50",
         },
     }
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 md:px-8">
             <div className="max-w-lg">
@@ -115,42 +110,48 @@ export default function TableWithTabs() {
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </p>
             </div>
-            <div className="text-sm mt-12 overflow-x-auto">
-                <ul className="w-full border-b flex items-center gap-x-3 overflow-x-auto">
-                    {
-                        tableItems.map((item, idx) => (
-                            <li key={idx} className={`py-2 border-b-2 ${selectedItem == idx ? "border-indigo-600 text-indigo-600" : "border-white text-gray-500"}`}>
-                                <button className="py-2.5 px-4 rounded-lg duration-150 hover:text-indigo-600 hover:bg-gray-50 active:bg-gray-100 font-medium"
-                                    onClick={() => setSelectedItem(idx)}
-                                >
+            <div className="text-sm mt-12">
+                <Tabs defaultValue="pages">
+                    <TabsList className="w-full border-b flex items-center gap-x-3 overflow-x-auto">
+                        {tableItems.map((item, idx) => (
+                            <TabsTrigger
+                                key={idx}
+                                value={item.value}
+                                className="group outline-none py-1.5 border-b-2 border-white text-gray-500 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600"
+                            >
+                                <div className="py-2.5 px-4 rounded-lg duration-150 group-hover:text-indigo-600 group-hover:bg-gray-50 group-active:bg-gray-100 font-medium">
                                     {item.label}
-                                </button>
-                            </li>
-                        ))
-                    }
-                </ul>
-                <table className="w-full table-auto text-left">
-                    <thead className="text-gray-600 font-medium border-b">
-                        <tr>
-                            <th className="w-9/12 py-4 pr-6">{tableItems[selectedItem].title}</th>
-                            <th className="py-4 pr-6">Clicks</th>
-                            <th className="py-4 pr-6">Impression</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-600 divide-y">
-                        {
-                            tableItems[selectedItem].items.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td className="pr-6 py-4 whitespace-nowrap">{item.prop}</td>
-                                    <td className="pr-6 py-4 whitespace-nowrap text-indigo-600">{item.clicks}</td>
-                                    <td className="pr-6 py-4 whitespace-nowrap">
-                                        <span className={`py-2 px-3 rounded-full font-semibold text-xs ${labelColors[item?.impression]?.color || ""}`}>{item.impression}</span>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                                </div>
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                    {tableItems.map((item, idx) => (
+                        <TabsContent key={idx} value={item.value}>
+                            <div className="overflow-x-auto">
+                                <Table className="w-full table-auto text-left">
+                                    <TableHeader className="text-gray-600 font-medium border-b">
+                                        <TableRow>
+                                            <TableHead className="w-9/12 py-4 pr-6">{item.title}</TableHead>
+                                            <TableHead className="py-4 pr-6">Clicks</TableHead>
+                                            <TableHead className="py-4 pr-6">Impression</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody className="text-gray-600 divide-y">
+                                        {item.items.map((tableItem, itemIdx) => (
+                                            <TableRow key={itemIdx}>
+                                                <TableCell className="pr-6 py-4 whitespace-nowrap">{tableItem.prop}</TableCell>
+                                                <TableCell className="pr-6 py-4 whitespace-nowrap text-indigo-600">{tableItem.clicks}</TableCell>
+                                                <TableCell className="pr-6 py-4 whitespace-nowrap">
+                                                    <span className={`py-2 px-3 rounded-full font-semibold text-xs ${labelColors[tableItem?.impression]?.color || ""}`}>{tableItem.impression}</span>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </TabsContent>
+                    ))}
+                </Tabs>
             </div>
         </div>
     )

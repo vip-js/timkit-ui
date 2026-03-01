@@ -2,7 +2,7 @@
   "name": "toggle-group",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-toggle-group"
+    "@timui/core"
   ],
   "registryDependencies": [
     "toggle"
@@ -12,12 +12,51 @@
       "path": "registry/default/ui/toggle-group.tsx",
       "type": "registry:ui",
       "target": "components/ui/toggle-group.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group'\nimport { cn } from '@timui/shared'\nimport { type VariantProps } from 'class-variance-authority'\n\nimport { toggleVariants } from './toggle'\n\nconst ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({\n  size: 'default',\n  variant: 'default',\n})\n\nfunction ToggleGroup({\n  className,\n  variant,\n  size,\n  children,\n  ...props\n}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>) {\n  return (\n    <ToggleGroupPrimitive.Root\n      data-slot=\"toggle-group\"\n      data-variant={variant}\n      data-size={size}\n      className={cn(\n        'group/toggle-group flex items-center rounded-md data-[variant=outline]:shadow-xs',\n        className\n      )}\n      {...props}\n    >\n      <ToggleGroupContext.Provider value={{ variant, size }}>\n        {children}\n      </ToggleGroupContext.Provider>\n    </ToggleGroupPrimitive.Root>\n  )\n}\n\nfunction ToggleGroupItem({\n  className,\n  children,\n  variant,\n  size,\n  ...props\n}: React.ComponentProps<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>) {\n  const context = React.useContext(ToggleGroupContext)\n\n  return (\n    <ToggleGroupPrimitive.Item\n      data-slot=\"toggle-group-item\"\n      data-variant={context.variant || variant}\n      data-size={context.size || size}\n      className={cn(\n        toggleVariants({\n          variant: context.variant || variant,\n          size: context.size || size,\n        }),\n        'min-w-0 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l',\n        className\n      )}\n      {...props}\n    >\n      {children}\n    </ToggleGroupPrimitive.Item>\n  )\n}\n\nexport { ToggleGroup, ToggleGroupItem }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\nimport { cva, type VariantProps } from 'class-variance-authority'\n\nimport { Toggle, toggleVariants } from './toggle'\n\nconst ToggleGroupContext = React.createContext<{\n  size?: VariantProps<typeof toggleVariants>['size']\n  variant?: VariantProps<typeof toggleVariants>['variant']\n  value: string[]\n  onValueChange: (value: string, pressed: boolean) => void\n  type: 'single' | 'multiple'\n  disabled?: boolean\n} | null>(null)\n\nfunction useToggleGroup() {\n  return React.useContext(ToggleGroupContext)\n}\n\nconst ToggleGroup = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> &\n    VariantProps<typeof toggleVariants> & {\n      type: 'single' | 'multiple'\n      value?: string | string[]\n      defaultValue?: string | string[]\n      onValueChange?: (value: any) => void\n      disabled?: boolean\n    }\n>(\n  (\n    {\n      className,\n      variant,\n      size,\n      children,\n      type,\n      value,\n      defaultValue,\n      onValueChange,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    // Simple state management for group logic (Zag has toggleGroup but simple React state usually suffices for basic group)\n    // We'll mimic Radix behavior.\n    const [internalValue, setInternalValue] = React.useState<string[]>(() => {\n      if (value !== undefined) return Array.isArray(value) ? value : value ? [value] : []\n      if (defaultValue !== undefined)\n        return Array.isArray(defaultValue) ? defaultValue : defaultValue ? [defaultValue] : []\n      return []\n    })\n\n    const currentValue =\n      value !== undefined ? (Array.isArray(value) ? value : value ? [value] : []) : internalValue\n\n    const handleItemChange = (itemValue: string, pressed: boolean) => {\n      let nextValue: string[] = []\n      if (type === 'single') {\n        nextValue = pressed ? [itemValue] : []\n      } else {\n        if (pressed) {\n          nextValue = [...currentValue, itemValue]\n        } else {\n          nextValue = currentValue.filter((v) => v !== itemValue)\n        }\n      }\n\n      if (value === undefined) {\n        setInternalValue(nextValue)\n      }\n\n      if (onValueChange) {\n        onValueChange(type === 'single' ? nextValue[0] || '' : nextValue)\n      }\n    }\n\n    React.useEffect(() => {\n      if (value !== undefined) {\n        // Sync if needed, but derived state handles it\n      }\n    }, [value])\n\n    return (\n      <ToggleGroupContext.Provider\n        value={{\n          size,\n          variant,\n          value: currentValue,\n          onValueChange: handleItemChange,\n          type,\n          disabled,\n        }}\n      >\n        <div\n          ref={ref}\n          data-slot=\"toggle-group\"\n          role=\"group\"\n          className={cn('flex items-center justify-center gap-1', className)}\n          {...props}\n        >\n          {children}\n        </div>\n      </ToggleGroupContext.Provider>\n    )\n  }\n)\nToggleGroup.displayName = 'ToggleGroup'\n\nconst ToggleGroupItem = React.forwardRef<\n  HTMLButtonElement,\n  React.ComponentProps<typeof Toggle> & { value: string }\n>(({ className, children, value, ...props }, ref) => {\n  const context = useToggleGroup()\n  const isSelected = context?.value.includes(value)\n  const isDisabled = context?.disabled || props.disabled\n\n  return (\n    <Toggle\n      ref={ref}\n      data-slot=\"toggle-group-item\"\n      variant={context?.variant || props.variant}\n      size={context?.size || props.size}\n      pressed={isSelected}\n      disabled={isDisabled}\n      onPressedChange={(pressed: boolean) => {\n        context?.onValueChange(value, pressed)\n      }}\n      className={cn(className)}\n      {...props}\n    >\n      {children}\n    </Toggle>\n  )\n})\nToggleGroupItem.displayName = 'ToggleGroupItem'\n\nexport { ToggleGroup, ToggleGroupItem }\n"
+    },
+    {
+      "path": "registry/default/vue/toggle-group/toggle-group.vue",
+      "target": "components/ui/toggle-group/toggle-group.vue",
+      "type": "registry:component",
+      "content": "<script lang=\"ts\">\nexport { default } from '../toggle/toggle-group.vue'\n</script>\n"
+    },
+    {
+      "path": "registry/default/html/toggle-group.html",
+      "target": "components/ui/toggle-group.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"toggle-group\" class=\"inline-flex rounded-md border border-input p-1\">\n  <button type=\"button\" class=\"rounded-sm px-3 py-1.5 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground\" data-state=\"on\">\n    Left\n  </button>\n  <button type=\"button\" class=\"rounded-sm px-3 py-1.5 text-sm\">Center</button>\n  <button type=\"button\" class=\"rounded-sm px-3 py-1.5 text-sm\">Right</button>\n</div>\n"
+    },
+    {
+      "path": "registry/default/weapp/toggle-group.wxml",
+      "target": "components/ui/toggle-group.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\" role=\"group\">\n  <slot></slot>\n</view>\n\n<!-- 使用示例：\n<toggle-group value=\"{{selectedValues}}\" multiple=\"{{true}}\" bind:change=\"handleChange\">\n  <view \n    class=\"toggle-item\" \n    data-value=\"option1\"\n    data-pressed=\"{{api.value.includes('option1')}}\"\n    bindtap=\"onItemTap\"\n  >\n    选项 1\n  </view>\n  <view \n    class=\"toggle-item\" \n    data-value=\"option2\"\n    data-pressed=\"{{api.value.includes('option2')}}\"\n    bindtap=\"onItemTap\"\n  >\n    选项 2\n  </view>\n</toggle-group>\n-->\n"
+    },
+    {
+      "path": "registry/default/weapp/toggle-group.wxss",
+      "target": "components/ui/toggle-group.wxss",
+      "type": "registry:component",
+      "content": "/* weapp component styles */\n"
+    },
+    {
+      "path": "registry/default/weapp/toggle-group.ts",
+      "target": "components/ui/toggle-group.ts",
+      "type": "registry:component",
+      "content": "import { setupToggleGroupMachine } from './use-toggle-group'\n\ntype WeappToggleGroupApi = {\n  value?: string[]\n  setValue?: (value: string[]) => void\n}\n\ntype WeappService = {\n  setContext: (context: Record<string, object>) => void\n}\n\ntype ToggleGroupTapEvent = WechatMiniprogram.BaseEvent & {\n  currentTarget: {\n    dataset: {\n      value?: string\n    }\n  }\n}\n\ntype WeappToggleGroupInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {\n  _service?: WeappService\n  _cleanup?: () => void\n  _send?: (event: object) => void\n  data: {\n    api: WeappToggleGroupApi\n  }\n  properties: {\n    value: string[]\n    multiple: boolean\n    disabled: boolean\n    loop: boolean\n    id: string\n    extClass: string\n  }\n}\n\nComponent({\n  options: {\n    styleIsolation: 'apply-shared',\n    pureDataPattern: /^_/,\n  },\n\n  properties: {\n    value: { type: Array, value: [] },\n    multiple: { type: Boolean, value: false },\n    disabled: { type: Boolean, value: false },\n    loop: { type: Boolean, value: true },\n    id: { type: String, value: 'toggle-group' },\n    extClass: { type: String, value: '' },\n  },\n\n  data: {\n    api: {} as WeappToggleGroupApi,\n    className: '',\n  },\n\n  lifetimes: {\n    attached() {\n      const self = this as WeappToggleGroupInternal\n      const { service, cleanup, send } = setupToggleGroupMachine(this, {\n        id: this.properties.id,\n        value: this.properties.value,\n        multiple: this.properties.multiple,\n        disabled: this.properties.disabled,\n        loop: this.properties.loop,\n        onValueChange: (details) => {\n          this.triggerEvent('change', details)\n        }\n      })\n\n      self._service = service as WeappService\n      self._cleanup = cleanup\n      self._send = send as (event: object) => void\n    },\n    detached() {\n      const self = this as WeappToggleGroupInternal\n      self._cleanup?.()\n    },\n  },\n\n  observers: {\n    'state': function (state) {\n      const self = this as WeappToggleGroupInternal\n      if (!state || !self._send) return\n      const { connect } = setupToggleGroupMachine(this, { id: this.properties.id })\n      const api = connect(state, self._send) as WeappToggleGroupApi\n      this.setData({ api, className: this.properties.extClass })\n    },\n\n    'value': function (val) {\n      const self = this as WeappToggleGroupInternal\n      if (self._service) {\n        self._service.setContext({ value: val })\n      }\n    },\n  },\n\n  methods: {\n    onItemTap(e: ToggleGroupTapEvent) {\n      const self = this as WeappToggleGroupInternal\n      const value = e.currentTarget.dataset.value\n      if (value && self.data.api.setValue) {\n        const currentValue = self.data.api.value || []\n        if (this.properties.multiple) {\n          const newValue = currentValue.includes(value)\n            ? currentValue.filter((v) => v !== value)\n            : [...currentValue, value]\n          self.data.api.setValue(newValue)\n        } else {\n          self.data.api.setValue([value])\n        }\n      }\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/toggle-group.json",
+      "target": "components/ui/toggle-group.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true,\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

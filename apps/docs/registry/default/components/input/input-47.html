@@ -1,0 +1,29 @@
+
+  <div class="*:not-first:mt-2" dir="ltr">
+    <label>Phone number input</label>
+    <div class="border-input bg-background text-muted-foreground focus-within:border-ring focus-within:ring-ring/50 hover:bg-accent hover:text-foreground relative inline-flex items-center self-stretch rounded-s-md border py-2 ps-3 pe-2 transition-[color,box-shadow] outline-none focus-within:z-10 focus-within:ring-[3px]">
+      <div class="inline-flex items-center gap-1" aria-hidden="true">
+        <span class="text-muted-foreground/80">
+           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+        </span>
+      </div>
+      <select class="absolute inset-0 text-sm opacity-0" aria-label="Select country">
+        <option value="">Select a country</option>
+        <option value="US">United States +1</option>
+        <option value="FR">France +33</option>
+        <option value="JP">Japan +81</option>
+      </select>
+    </div>
+    <input data-slot="phone-input" class="-ms-px rounded-s-none shadow-none focus-visible:z-10" />
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <a
+        class="hover:text-foreground underline"
+        href="https://gitlab.com/catamphetamine/react-phone-number-input"
+        target="_blank"
+        rel="noopener nofollow"
+      >
+        react-phone-number-input
+      </a>
+    </p>
+  </div>

@@ -1,9 +1,9 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+
+import { Slot } from './slot'
 
 // Types
 type TimelineContextValue = {

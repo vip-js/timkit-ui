@@ -1,0 +1,7 @@
+<view 
+  class="{{itemApi.className}}"
+  id="{{itemApi.id}}"
+  data-state="{{itemApi['data-state']}}"
+>
+  <slot />
+</view>

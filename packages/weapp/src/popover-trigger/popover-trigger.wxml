@@ -1,3 +1,3 @@
-<view class="tk-popover-trigger inline-block" bindtap="onTap">
+<view id="popover-trigger" class="inline-block" bindtap="onTap">
   <slot></slot>
 </view>

@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Card, CardContent } from "@timui/react";
 
 export default function ContactSectionWithFourColumns() {
-
     const contactMethods = [
         {
             icon:
@@ -38,7 +32,6 @@ export default function ContactSectionWithFourColumns() {
             title: "Email"
         },
     ]
-
     return (
         <main className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -50,22 +43,24 @@ export default function ContactSectionWithFourColumns() {
                         Let us know how we can help
                     </p>
                     <p>
-                        We’re here to help and answer any question you might have, We look forward to hearing from you .
+                        We're here to help and answer any question you might have, We look forward to hearing from you .
                     </p>
                 </div>
                 <div>
                     <ul className="mt-12 flex flex-wrap gap-x-12 gap-y-6 items-center lg:gap-x-24">
                         {
                             contactMethods.map((item, idx) => (
-                                <li key={idx}>
-                                    <h4 className="text-gray-800 text-lg font-medium">{item.title}</h4>
-                                    <div className="mt-3 flex items-center gap-x-3">
-                                        <div className="flex-none text-gray-400">
-                                            {item.icon}
+                                <Card key={idx} className="bg-transparent border-0 shadow-none">
+                                    <CardContent className="p-0">
+                                        <h4 className="text-gray-800 text-lg font-medium">{item.title}</h4>
+                                        <div className="mt-3 flex items-center gap-x-3">
+                                            <div className="flex-none text-gray-400">
+                                                {item.icon}
+                                            </div>
+                                            <p>{item.contact}</p>
                                         </div>
-                                        <p>{item.contact}</p>
-                                    </div>
-                                </li>
+                                    </CardContent>
+                                </Card>
                             ))
                         }
                     </ul>
@@ -74,4 +69,3 @@ export default function ContactSectionWithFourColumns() {
         </main>
     )
 }
-        

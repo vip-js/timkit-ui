@@ -1,0 +1,45 @@
+<script setup lang="ts">
+import { Button } from '@/components/ui/button'
+</script>
+<template>
+<div class="flex flex-col gap-2">
+      
+      <div
+        class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
+      >
+        <input class="sr-only" aria-label="Upload image file" />
+        <div class="flex flex-col items-center justify-center px-4 py-3 text-center">
+            <div
+              class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
+              aria-hidden="true"
+            >
+               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            </div>
+            <p class="mb-1.5 text-sm font-medium">Drop your images here</p>
+            <p class="text-muted-foreground text-xs">
+              SVG, PNG, JPG or GIF (max. 5MB)
+            </p>
+            <Button variant="outline" class="mt-4" >
+               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ms-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              Select images
+            </Button>
+          </div>
+      </div>
+
+      
+
+      <p
+        aria-live="polite"
+        role="region"
+        class="text-muted-foreground mt-2 text-center text-xs"
+      >
+        Multiple image uploader w/ image grid ∙ 
+        <a
+          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
+          class="hover:text-foreground underline"
+        >
+          API
+        </a>
+      </p>
+    </div>
+</template>

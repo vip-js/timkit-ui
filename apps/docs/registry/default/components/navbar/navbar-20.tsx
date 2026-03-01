@@ -1,19 +1,20 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { ClockIcon, PowerIcon, PowerOffIcon, ZapIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { Label } from '../../ui/label'
 import {
+  Badge,
+  Button,
+  Label,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Switch } from '../../ui/switch'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Switch,
+} from '@timui/react'
+import { ClockIcon, PowerIcon, PowerOffIcon, ZapIcon } from 'lucide-react'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

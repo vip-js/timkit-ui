@@ -2,19 +2,67 @@
   "name": "progress",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-progress"
+    "@timui/core"
+  ],
+  "registryDependencies": [
+    "use-machine"
   ],
   "files": [
     {
       "path": "registry/default/ui/progress.tsx",
       "type": "registry:ui",
       "target": "components/ui/progress.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as ProgressPrimitive from '@radix-ui/react-progress'\nimport { cn } from '@timui/shared'\n\nfunction Progress({\n  className,\n  value,\n  ...props\n}: React.ComponentProps<typeof ProgressPrimitive.Root>) {\n  return (\n    <ProgressPrimitive.Root\n      data-slot=\"progress\"\n      className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}\n      {...props}\n    >\n      <ProgressPrimitive.Indicator\n        data-slot=\"progress-indicator\"\n        className=\"bg-primary size-full flex-1 transition-all\"\n        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}\n      />\n    </ProgressPrimitive.Root>\n  )\n}\n\nexport { Progress }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn, progressMachine } from \"@/lib/utils\"\n\nimport { useMachine } from '../hooks/use-machine'\n\nconst Progress = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & { value?: number | null; max?: number }\n>(({ className, value, max = 100, ...props }, ref) => {\n  const [state, send] = useMachine(progressMachine, {\n    context: {\n      value,\n      max,\n    },\n  })\n\n  // Computed percent logic in machine or here?\n  // Machine has computed.percent but simple math here is fine too.\n  const percent =\n    state.context.value != null ? Math.round((state.context.value / state.context.max) * 100) : 0\n\n  React.useEffect(() => {\n    if (value !== undefined && value !== state.context.value) {\n      send({ type: 'VALUE.SET', value })\n    }\n  }, [value, send, state.context.value])\n\n  return (\n    <div\n      ref={ref}\n      role=\"progressbar\"\n      aria-valuemax={max}\n      aria-valuemin={0}\n      aria-valuenow={value ?? undefined}\n      data-max={max}\n      data-value={value}\n      data-state={state.context.value === null ? 'indeterminate' : 'loading'}\n      className={cn('relative h-2 w-full overflow-hidden rounded-full bg-primary/20', className)}\n      {...props}\n    >\n      <div\n        data-slot=\"progress-indicator\"\n        className=\"h-full w-full flex-1 bg-primary transition-all\"\n        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}\n      />\n    </div>\n  )\n})\nProgress.displayName = 'Progress'\n\nexport { Progress }\n"
+    },
+    {
+      "path": "registry/default/vue/progress/progress.vue",
+      "target": "components/ui/progress/progress.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from 'vue'\nimport { progressIndicatorVariants, progressRootVariants } from \"@/lib/utils\"\nimport { cn } from \"@/lib/utils\"\nimport { useProgress } from './use-progress'\n\nconst props = defineProps<{\n  modelValue?: number | null\n  max?: number\n  class?: HTMLAttributes['class']\n}>()\n\nconst api = useProgress(props)\n\nconst percent = computed(() => {\n  return api.value.percent\n})\n</script>\n\n<template>\n  <div\n    role=\"progressbar\"\n    data-slot=\"progress\"\n    :aria-valuemax=\"props.max ?? 100\"\n    aria-valuemin=\"0\"\n    :aria-valuenow=\"props.modelValue ?? undefined\"\n    :data-max=\"props.max ?? 100\"\n    :data-value=\"props.modelValue ?? undefined\"\n    :data-state=\"props.modelValue == null ? 'indeterminate' : 'loading'\"\n    :class=\"cn(progressRootVariants(), props.class)\"\n  >\n    <div\n      data-slot=\"progress-indicator\"\n      :class=\"progressIndicatorVariants()\"\n      :style=\"`transform: translateX(-${100 - percent}%);`\"\n    />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/progress/use-progress.ts",
+      "target": "components/ui/progress/use-progress.ts",
+      "type": "registry:component",
+      "content": "import { normalizeProps, useMachine } from '@zag-js/vue'\nimport { progressConnect, progressMachine } from \"@/lib/utils\"\nimport { computed, watch } from 'vue'\n\nexport type UseProgressProps = {\n    modelValue?: number | null\n    max?: number\n}\n\nexport function useProgress(props: UseProgressProps) {\n    const machineProps = computed(() => ({\n        value: props.modelValue ?? null,\n        max: props.max ?? 100,\n    }))\n\n    const service = useMachine(progressMachine, machineProps)\n    const api = computed(() => progressConnect(service, normalizeProps))\n\n    watch(\n        () => props.modelValue,\n        (val) => {\n            if (val !== undefined && val !== api.value.value) {\n                api.value.setValue(val)\n            }\n        },\n    )\n\n    return api\n}\n"
+    },
+    {
+      "path": "registry/default/html/progress.html",
+      "target": "components/ui/progress.html",
+      "type": "registry:component",
+      "content": "<div role=\"progressbar\" data-slot=\"progress\" class=\"relative h-2 w-full overflow-hidden rounded-full bg-secondary\">\n    <div data-slot=\"progress-indicator\" class=\"h-full w-full flex-1 bg-primary transition-all\"\n        style=\"transform: translateX(-100%)\"></div>\n</div>"
+    },
+    {
+      "path": "registry/default/weapp/progress.wxml",
+      "target": "components/ui/progress.wxml",
+      "type": "registry:component",
+      "content": "<view \n  id=\"{{api.rootProps.id}}\"\n  class=\"{{rootClass}}\" \n  role=\"progressbar\" \n  aria-valuemin=\"{{api.min}}\"\n  aria-valuenow=\"{{api.value}}\" \n  aria-valuemax=\"{{api.max}}\"\n  data-state=\"{{api.state}}\"\n>\n  <view \n    class=\"{{indicatorClass}}\" \n    style=\"transform: translateX(-{{100 - api.percent}}%)\"\n  ></view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/progress.wxss",
+      "target": "components/ui/progress.wxss",
+      "type": "registry:component",
+      "content": "/* Progress specific styles */\n"
+    },
+    {
+      "path": "registry/default/weapp/progress.ts",
+      "target": "components/ui/progress.ts",
+      "type": "registry:component",
+      "content": "// @ts-nocheck\nimport { setupProgressMachine, connectProgressMachine, type WeappProgressApi, type WeappProgressService } from './use-progress'\nimport { resolveClasses } from '../utils'\nimport { progressRootVariants, progressIndicatorVariants } from '../utils'\n\ntype WeappProgressInternal = WechatMiniprogram.Component.InstanceMethods<{}> & {\n  _service?: WeappProgressService\n  _cleanup?: () => void\n  _send?: (event: object) => void\n  data: {\n    api: WeappProgressApi\n  }\n  properties: {\n    value: number\n    max: number\n    min: number\n    id: string\n    extClass: string\n  }\n}\n\nComponent({\n  options: {\n    styleIsolation: 'apply-shared',\n    pureDataPattern: /^_/,\n  },\n\n  properties: {\n    value: {\n      type: Number,\n      value: 0,\n    },\n    max: {\n      type: Number,\n      value: 100,\n    },\n    min: {\n      type: Number,\n      value: 0,\n    },\n    id: {\n      type: String,\n      value: 'progress',\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n\n  data: {\n    api: {} as WeappProgressApi,\n    rootClass: '',\n    indicatorClass: '',\n  },\n\n  lifetimes: {\n    attached() {\n      const self = this as WeappProgressInternal\n      const controller = setupProgressMachine(this, {\n        id: this.properties.id,\n        value: this.properties.value,\n        max: this.properties.max,\n        min: this.properties.min,\n      })\n\n      self._service = controller.service as WeappProgressService\n      self._cleanup = controller.start()\n      self._send = controller.send as (event: object) => void\n    },\n    detached() {\n      const self = this as WeappProgressInternal\n      self._cleanup?.()\n    },\n  },\n\n  observers: {\n    'state': function (state) {\n      const self = this as WeappProgressInternal\n      if (!state || !self._send) return\n      const api = connectProgressMachine(state, self._send) as WeappProgressApi\n\n      const { baseClass: rootClass } = resolveClasses(progressRootVariants(), self.properties.extClass)\n      const { baseClass: indicatorClass } = resolveClasses(progressIndicatorVariants())\n\n      this.setData({ api, rootClass, indicatorClass })\n    },\n\n    'value': function (val) {\n      const self = this as WeappProgressInternal\n      if (self._service) {\n        self._service.setContext({ value: val })\n      }\n    },\n\n    'max': function (val) {\n      const self = this as WeappProgressInternal\n      if (self._service) {\n        self._service.setContext({ max: val })\n      }\n    },\n\n    'min': function (val) {\n      const self = this as WeappProgressInternal\n      if (self._service) {\n        self._service.setContext({ min: val })\n      }\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/progress.json",
+      "target": "components/ui/progress.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true,\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

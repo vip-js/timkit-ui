@@ -1,0 +1,14 @@
+<radio-group defaultValue="1">
+      <view class="flex items-center gap-2">
+        <radio-group-item value="1" id="radio-01-id" />
+        <label for="radio-01-id">Option 1</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <radio-group-item value="2" id="radio-01-id" />
+        <label for="radio-01-id">Option 2</label>
+      </view>
+      <view class="flex items-center gap-2">
+        <radio-group-item value="3" id="radio-01-id" />
+        <label for="radio-01-id">Option 3</label>
+      </view>
+    </radio-group>

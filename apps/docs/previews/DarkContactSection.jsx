@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button, Textarea } from "@timui/react";
 
 export default function DarkContactSection() {
-
     return (
         <main className="relative py-28 bg-gray-900">
             <div className="relative z-10 max-w-screen-xl mx-auto text-gray-600 sm:px-4 md:px-8">
@@ -19,7 +12,7 @@ export default function DarkContactSection() {
                         Get in touch
                     </p>
                     <p className="text-gray-300">
-                        We’d love to hear from you! Please fill out the form bellow.
+                        We'd love to hear from you! Please fill out the form bellow.
                     </p>
                 </div>
                 <div className="mt-12 mx-auto px-4 p-8 bg-white sm:max-w-lg sm:px-8 sm:rounded-xl">
@@ -31,20 +24,20 @@ export default function DarkContactSection() {
                             <label className="font-medium">
                                 Full name
                             </label>
-                            <input
+                            <Input
                                 type="text"
                                 required
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                className="w-full mt-2"
                             />
                         </div>
                         <div>
                             <label className="font-medium">
                                 Email
                             </label>
-                            <input
+                            <Input
                                 type="email"
                                 required
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                className="w-full mt-2"
                             />
                         </div>
                         <div>
@@ -59,11 +52,11 @@ export default function DarkContactSection() {
                                         <option>MR</option>
                                     </select>
                                 </div>
-                                <input
+                                <Input
                                     type="number"
                                     placeholder="+1 (555) 000-000"
                                     required
-                                    className="w-full pl-[4.5rem] pr-3 py-2 appearance-none bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                    className="w-full pl-[4.5rem] pr-3"
                                 />
                             </div>
                         </div>
@@ -71,13 +64,13 @@ export default function DarkContactSection() {
                             <label className="font-medium">
                                 Message
                             </label>
-                            <textarea required className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"></textarea>
+                            <Textarea required className="w-full mt-2 h-36 resize-none"></Textarea>
                         </div>
-                        <button
-                            className="w-full px-4 py-2 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-lg duration-150"
+                        <Button
+                            className="w-full bg-gray-800 hover:bg-gray-700"
                         >
                             Submit
-                        </button>
+                        </Button>
                     </form>
                 </div>
             </div>

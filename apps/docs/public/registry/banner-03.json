@@ -6,7 +6,25 @@
       "path": "registry/default/components/banner/banner-03.tsx",
       "type": "registry:component",
       "target": "components/ui/banner-03.tsx",
-      "content": "import { EclipseIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <div className=\"dark bg-muted text-foreground px-4 py-3\">\n      <p className=\"text-center text-sm\">\n        <EclipseIcon className=\"me-3 -mt-0.5 inline-flex opacity-60\" size={16} aria-hidden=\"true\" />\n        Get the most out of your app with real-time updates and analytics{' '}\n        <span className=\"text-muted-foreground\">·</span>{' '}\n        <a href=\"#\" className=\"font-medium underline hover:no-underline\">\n          Upgrade\n        </a>\n      </p>\n    </div>\n  )\n}\n"
+      "content": "import { Banner, BannerContent, BannerDescription, BannerIcon } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Banner className=\"dark bg-muted text-foreground px-4 py-3\">\n      <BannerContent className=\"justify-center\">\n        <BannerIcon className=\"me-3 -mt-0.5 opacity-60\">\n          <svg\n            width={16}\n            height={16}\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"2\"\n            strokeLinecap=\"round\"\n            strokeLinejoin=\"round\"\n            aria-hidden=\"true\"\n          >\n            <path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\" />\n          </svg>\n        </BannerIcon>\n        <BannerDescription className=\"text-sm text-foreground text-center\">\n          Get the most out of your app with real-time updates and analytics{' '}\n          <span className=\"text-muted-foreground\">·</span>{' '}\n          <a href=\"#\" className=\"font-medium underline hover:no-underline\">\n            Upgrade\n          </a>\n        </BannerDescription>\n      </BannerContent>\n    </Banner>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-03.vue",
+      "target": "components/ui/banner-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Banner, BannerContent, BannerDescription, BannerIcon } from '@/components/ui/banner'\n</script>\n\n<template>\n  <Banner class=\"dark bg-muted text-foreground px-4 py-3\">\n    <BannerContent class=\"justify-center\">\n      <BannerIcon class=\"me-3 -mt-0.5 opacity-60\">\n        <svg\n          width=\"16\"\n          height=\"16\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\" />\n        </svg>\n      </BannerIcon>\n      <BannerDescription class=\"text-sm text-foreground text-center\">\n        Get the most out of your app with real-time updates and analytics\n        <span class=\"text-muted-foreground\">·</span>\n        <a href=\"#\" class=\"font-medium underline hover:no-underline\">Upgrade</a>\n      </BannerDescription>\n    </BannerContent>\n  </Banner>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-03.html",
+      "target": "components/ui/banner-03.html",
+      "type": "registry:component",
+      "content": "<div class=\"dark bg-muted text-foreground px-4 py-3\" data-slot=\"banner\">\n  <div class=\"justify-center flex w-full items-center gap-3\" data-slot=\"banner-content\">\n    <div class=\"me-3 -mt-0.5 opacity-60 shrink-0\" data-slot=\"banner-icon\">\n      <svg\n        width=\"16\"\n        height=\"16\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\" />\n      </svg>\n    </div>\n    <div class=\"text-sm text-muted-foreground text-foreground text-center\" data-slot=\"banner-description\">\n      Get the most out of your app with real-time updates and analytics\n      <span class=\"text-muted-foreground\">·</span>\n      <a href=\"#\" class=\"font-medium underline hover:no-underline\">Upgrade</a>\n    </div>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/components/banner/banner-03.wxml",
+      "target": "components/ui/banner-03/banner-03.wxml",
+      "type": "registry:component",
+      "content": "<banner class=\"dark bg-muted text-foreground px-4 py-3\">\n  <banner-content class=\"justify-center\">\n    <banner-icon class=\"me-3 -mt-0.5 opacity-60\">\n      <svg\n        width=\"16\"\n        height=\"16\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z\" />\n      </svg>\n    </banner-icon>\n    <banner-description class=\"text-sm text-foreground text-center\">\n      Get the most out of your app with real-time updates and analytics\n      <text class=\"text-muted-foreground\">·</text>\n      <text class=\"font-medium underline hover:no-underline\">Upgrade</text>\n    </banner-description>\n  </banner-content>\n</banner>\n"
     }
   ],
   "meta": {
@@ -15,11 +33,15 @@
     ],
     "colSpan": 3,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "banners"
+    "category": "banners",
+    "title": "Banner · Interactive State"
   },
   "categories": [
     "banners",

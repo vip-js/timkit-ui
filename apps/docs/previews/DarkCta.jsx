@@ -1,10 +1,4 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function DarkCta() {
     return (
@@ -20,18 +14,18 @@ export default function DarkCta() {
                     </p>
                 </div>
                 <div className="mt-5 items-center justify-center gap-3 sm:flex">
-                    <a 
-                        href="javascript:void()"
-                        className="block w-full mt-2 py-2.5 px-8 text-gray-700 bg-white rounded-md duration-150 hover:bg-gray-100 sm:w-auto"
+                    <Button
+                        variant="secondary"
+                        className="block w-full mt-2 sm:w-auto"
                     >
                         Try It Out
-                    </a>
-                    <a
-                        href="javascript:void()"
-                        className="block w-full mt-2 py-2.5 px-8 text-gray-300 bg-gray-700 rounded-md duration-150 hover:bg-gray-800 sm:w-auto"
+                    </Button>
+                    <Button
+                        variant="outline"
+                        className="block w-full mt-2 sm:w-auto bg-gray-700 text-gray-300 hover:bg-gray-800 border-gray-600"
                     >
                         Get Started
-                    </a>
+                    </Button>
                 </div>
             </div>
         </section>

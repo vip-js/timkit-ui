@@ -1,7 +1,5 @@
 import { useId } from 'react'
-
-import { Checkbox } from '../../ui/checkbox'
-import { Label } from '../../ui/label'
+import { Checkbox, Label } from '@timui/react'
 
 export default function Component() {
   const id = useId()
@@ -10,7 +8,7 @@ export default function Component() {
       <Checkbox id={id} />
       <Label htmlFor={id}>
         I agree to the{' '}
-        <a className="underline" href="https://originui.com" target="_blank">
+        <a className="underline" href="https://ui.timkit.cn" target="_blank">
           terms of service
         </a>
       </Label>

@@ -2,16 +2,34 @@
   "name": "checkbox-18",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/checkbox.json",
-    "https://originui.com/r/checkbox-tree.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/checkbox.json",
+    "https://ui.timkit.cn/r/checkbox-tree.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/checkbox/checkbox-18.tsx",
       "type": "registry:component",
       "target": "components/ui/checkbox-18.tsx",
-      "content": "'use client'\n\nimport { Fragment, useId } from 'react'\n\nimport { Checkbox } from '../../ui/checkbox'\nimport { CheckboxTree } from '../../ui/checkbox-tree'\nimport { Label } from '../../ui/label'\n\ninterface TreeNode {\n  id: string\n  label: string\n  defaultChecked?: boolean\n  children?: TreeNode[]\n}\n\nconst initialTree: TreeNode = {\n  id: '1',\n  label: 'Natural Wonders',\n  children: [\n    { id: '2', label: 'Mountains', defaultChecked: true },\n    {\n      id: '3',\n      label: 'Waterfalls',\n      children: [\n        { id: '4', label: 'Niagara Falls' },\n        { id: '5', label: 'Angel Falls', defaultChecked: true },\n      ],\n    },\n    { id: '6', label: 'Grand Canyon' },\n  ],\n}\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"space-y-3\">\n      <CheckboxTree\n        tree={initialTree}\n        renderNode={({ node, isChecked, onCheckedChange, children }) => (\n          <Fragment key={`${id}-${node.id}`}>\n            <div className=\"flex items-center gap-2\">\n              <Checkbox\n                id={`${id}-${node.id}`}\n                checked={isChecked}\n                onCheckedChange={onCheckedChange}\n              />\n              <Label htmlFor={`${id}-${node.id}`}>{node.label}</Label>\n            </div>\n            {children && <div className=\"ms-6 space-y-3\">{children}</div>}\n          </Fragment>\n        )}\n      />\n    </div>\n  )\n}\n"
+      "content": "'use client'\n\nimport { Fragment, useId } from 'react'\nimport { Checkbox, CheckboxTree, Label } from '@timui/react'\n\ninterface TreeNode {\n  id: string\n  label: string\n  defaultChecked?: boolean\n  children?: TreeNode[]\n}\n\nconst initialTree: TreeNode = {\n  id: '1',\n  label: 'Natural Wonders',\n  children: [\n    { id: '2', label: 'Mountains', defaultChecked: true },\n    {\n      id: '3',\n      label: 'Waterfalls',\n      children: [\n        { id: '4', label: 'Niagara Falls' },\n        { id: '5', label: 'Angel Falls', defaultChecked: true },\n      ],\n    },\n    { id: '6', label: 'Grand Canyon' },\n  ],\n}\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"space-y-3\">\n      <CheckboxTree\n        tree={initialTree}\n        renderNode={({ node, isChecked, onCheckedChange, children }) => (\n          <Fragment key={`${id}-${node.id}`}>\n            <div className=\"flex items-center gap-2\">\n              <Checkbox\n                id={`${id}-${node.id}`}\n                checked={isChecked}\n                onCheckedChange={onCheckedChange}\n              />\n              <Label htmlFor={`${id}-${node.id}`}>{node.label}</Label>\n            </div>\n            {children && <div className=\"ms-6 space-y-3\">{children}</div>}\n          </Fragment>\n        )}\n      />\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-18.vue",
+      "target": "components/ui/checkbox-18.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<div class=\"space-y-3\">\n    <div class=\"flex items-center gap-2\">\n      <Checkbox id=\"checkbox-18-id-1\" />\n      <Label for=\"checkbox-18-id-1\">Natural Wonders</Label>\n    </div>\n    <div class=\"ms-6 space-y-3\">\n      <div class=\"flex items-center gap-2\">\n        <Checkbox id=\"checkbox-18-id-2\" checked />\n        <Label for=\"checkbox-18-id-2\">Mountains</Label>\n      </div>\n      <div>\n        <div class=\"flex items-center gap-2\">\n          <Checkbox id=\"checkbox-18-id-3\" />\n          <Label for=\"checkbox-18-id-3\">Waterfalls</Label>\n        </div>\n        <div class=\"ms-6 space-y-3\">\n          <div class=\"flex items-center gap-2\">\n            <Checkbox id=\"checkbox-18-id-4\" />\n            <Label for=\"checkbox-18-id-4\">Niagara Falls</Label>\n          </div>\n          <div class=\"flex items-center gap-2\">\n            <Checkbox id=\"checkbox-18-id-5\" checked />\n            <Label for=\"checkbox-18-id-5\">Angel Falls</Label>\n          </div>\n        </div>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <Checkbox id=\"checkbox-18-id-6\" />\n        <Label for=\"checkbox-18-id-6\">Grand Canyon</Label>\n      </div>\n    </div>\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-18.html",
+      "target": "components/ui/checkbox-18.html",
+      "type": "registry:component",
+      "content": "\n  <div class=\"space-y-3\">\n    <div class=\"flex items-center gap-2\">\n      <checkbox id=\"checkbox-18-id-1\" />\n      <label for=\"checkbox-18-id-1\">Natural Wonders</label>\n    </div>\n    <div class=\"ms-6 space-y-3\">\n      <div class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-18-id-2\" checked />\n        <label for=\"checkbox-18-id-2\">Mountains</label>\n      </div>\n      <div>\n        <div class=\"flex items-center gap-2\">\n          <checkbox id=\"checkbox-18-id-3\" />\n          <label for=\"checkbox-18-id-3\">Waterfalls</label>\n        </div>\n        <div class=\"ms-6 space-y-3\">\n          <div class=\"flex items-center gap-2\">\n            <checkbox id=\"checkbox-18-id-4\" />\n            <label for=\"checkbox-18-id-4\">Niagara Falls</label>\n          </div>\n          <div class=\"flex items-center gap-2\">\n            <checkbox id=\"checkbox-18-id-5\" checked />\n            <label for=\"checkbox-18-id-5\">Angel Falls</label>\n          </div>\n        </div>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-18-id-6\" />\n        <label for=\"checkbox-18-id-6\">Grand Canyon</label>\n      </div>\n    </div>\n  </div>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-18.wxml",
+      "target": "components/ui/checkbox-18/checkbox-18.wxml",
+      "type": "registry:component",
+      "content": "\n  <view class=\"space-y-3\">\n    <view class=\"flex items-center gap-2\">\n      <checkbox id=\"checkbox-18-id-1\" />\n      <label for=\"checkbox-18-id-1\">Natural Wonders</label>\n    </view>\n    <view class=\"ms-6 space-y-3\">\n      <view class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-18-id-2\" checked />\n        <label for=\"checkbox-18-id-2\">Mountains</label>\n      </view>\n      <view>\n        <view class=\"flex items-center gap-2\">\n          <checkbox id=\"checkbox-18-id-3\" />\n          <label for=\"checkbox-18-id-3\">Waterfalls</label>\n        </view>\n        <view class=\"ms-6 space-y-3\">\n          <view class=\"flex items-center gap-2\">\n            <checkbox id=\"checkbox-18-id-4\" />\n            <label for=\"checkbox-18-id-4\">Niagara Falls</label>\n          </view>\n          <view class=\"flex items-center gap-2\">\n            <checkbox id=\"checkbox-18-id-5\" checked />\n            <label for=\"checkbox-18-id-5\">Angel Falls</label>\n          </view>\n        </view>\n      </view>\n      <view class=\"flex items-center gap-2\">\n        <checkbox id=\"checkbox-18-id-6\" />\n        <label for=\"checkbox-18-id-6\">Grand Canyon</label>\n      </view>\n    </view>\n  </view>\n"
     }
   ],
   "meta": {
@@ -22,11 +40,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "checkbox"
+    "category": "checkbox",
+    "title": "Checkbox · With label"
   },
   "categories": [
     "checkbox"

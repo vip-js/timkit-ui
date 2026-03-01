@@ -2,26 +2,52 @@
   "name": "label",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-label"
+    "@timui/core"
   ],
   "files": [
     {
       "path": "registry/default/ui/label.tsx",
       "type": "registry:ui",
       "target": "components/ui/label.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as LabelPrimitive from '@radix-ui/react-label'\nimport { cn } from '@timui/shared'\n\nconst Label = React.forwardRef<\n  React.ElementRef<typeof LabelPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>\n>(({ className, ...props }, ref) => (\n  <LabelPrimitive.Root\n    ref={ref}\n    className={cn(\n      'text-foreground text-sm leading-4 font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',\n      className\n    )}\n    {...props}\n  />\n))\nLabel.displayName = LabelPrimitive.Root.displayName\n\nexport { Label }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\nimport { cva, type VariantProps } from 'class-variance-authority'\n\nconst labelVariants = cva(\n  'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'\n)\n\nconst Label = React.forwardRef<\n  HTMLLabelElement,\n  React.LabelHTMLAttributes<HTMLLabelElement> & VariantProps<typeof labelVariants>\n>(({ className, ...props }, ref) => (\n  <label ref={ref} className={cn(labelVariants(), className)} {...props} />\n))\nLabel.displayName = 'Label'\n\nexport { Label }\n"
     },
     {
-      "path": "registry/default/vue/label.vue",
-      "target": "components/ui/label.vue",
+      "path": "registry/default/vue/label/label.vue",
+      "target": "components/ui/label/label.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { type LabelProps, Label } from \"radix-vue\";\nimport { cn } from \"@timui/shared\";\nimport { computed, type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<LabelProps & { class?: HTMLAttributes[\"class\"] }>();\n\nconst delegatedProps = computed(() => {\n  const { class: _, ...delegated } = props;\n\n  return delegated;\n});\n</script>\n\n<template>\n  <Label\n    v-bind=\"delegatedProps\"\n    :class=\"\n      cn(\n        'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </Label>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from 'vue'\nimport { Label, type LabelProps } from 'radix-vue'\nimport { cn, labelVariants } from \"@/lib/utils\"\n\nconst props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>()\n\nconst delegatedProps = computed(() => {\n  const { class: _, ...delegated } = props\n  return delegated\n})\n</script>\n\n<template>\n    <Label\n      v-bind=\"delegatedProps\"\n      :class=\"\n        cn(\n        labelVariants(),\n        props.class,\n      )\n    \"\n  >\n    <slot />\n  </Label>\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/label.html",
+      "target": "components/ui/label.html",
+      "type": "registry:component",
+      "content": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\">\n    Label\n</label>"
+    },
+    {
+      "path": "registry/default/weapp/label.wxml",
+      "target": "components/ui/label.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{labelClass}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/label.wxss",
+      "target": "components/ui/label.wxss",
+      "type": "registry:component",
+      "content": "/* Styles handled by Tailwind CSS */\n"
+    },
+    {
+      "path": "registry/default/weapp/label.ts",
+      "target": "components/ui/label.ts",
+      "type": "registry:component",
+      "content": "import { labelVariants } from '../utils'\n\nComponent({\n  externalClasses: ['ext-class'],\n  properties: {\n    // Label for WeApp is mostly styling as 'label for' binding is not automatic.\n    extClass: { type: String, value: '' },\n  },\n  data: {\n    labelClass: '',\n  },\n  observers: {\n    extClass: function (extClass) {\n      this.setData({\n        labelClass: labelVariants({ className: extClass }),\n      })\n    },\n  },\n})\n"
     }
   ],
   "meta": {
     "frameworks": [
       "react",
-      "vue"
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

@@ -4,7 +4,7 @@ import path from 'path'
 
 const ROOT_DIR = process.cwd()
 const TOKENS_CSS = path.join(ROOT_DIR, 'packages/tokens/dist/tailwind.css')
-const SHARED_STYLES = path.join(ROOT_DIR, 'packages/shared/src/styles')
+const SHARED_STYLES = path.join(ROOT_DIR, 'packages/core/src/styles')
 const OUTPUT_FILE = path.join(ROOT_DIR, 'packages/weapp/src/utilities.wxss')
 const TEMP_INPUT = path.join(ROOT_DIR, 'temp-weapp-input.css')
 

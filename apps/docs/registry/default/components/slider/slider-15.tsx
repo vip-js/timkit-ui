@@ -1,15 +1,19 @@
 'use client'
 
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Button,
+  Input,
+  Label,
+  Slider,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
 import { RotateCcwIcon } from 'lucide-react'
 
 import { useSliderWithInput } from '@/registry/default/hooks/use-slider-with-input'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   const minValue = 0

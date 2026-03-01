@@ -2,7 +2,7 @@
   <!-- Transparent overlay for clicking outside (simplified) -->
   <view class="fixed inset-0 z-40" bindtap="hide" catchtouchmove="noop"></view>
   
-  <view class="fixed z-50 {{baseClass}}" style="{{style}}" catchtap="noop">
+  <view id="popover-content" class="fixed z-50 {{baseClass}}" style="{{style}}" catchtap="noop">
     <slot></slot>
   </view>
 </root-portal>

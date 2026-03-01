@@ -2,7 +2,31 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { RiCalendarLine, RiDeleteBinLine } from '@remixicon/react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Button,
+  Calendar,
+  Checkbox,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  RadioGroup,
+  RadioGroupItem,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Textarea,
+} from '@timui/react'
 import { format, isBefore } from 'date-fns'
 
 import type { CalendarEvent, EventColor } from '@/registry/default/components/event-calendar'
@@ -12,24 +36,6 @@ import {
   EndHour,
   StartHour,
 } from '@/registry/default/components/event-calendar/constants'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
-import { Checkbox } from '../../ui/checkbox'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Textarea } from '../../ui/textarea'
 
 interface EventDialogProps {
   event: CalendarEvent | null
@@ -212,6 +218,9 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
     },
   ]
 
+  const isEventColor = (value: string): value is EventColor =>
+    colorOptions.some((option) => option.value === value)
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[425px]">
@@ -384,7 +393,11 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
               className="flex gap-1.5"
               defaultValue={colorOptions[0]?.value}
               value={color}
-              onValueChange={(value: EventColor) => setColor(value)}
+              onValueChange={(value: string) => {
+                if (isEventColor(value)) {
+                  setColor(value)
+                }
+              }}
             >
               {colorOptions.map((colorOption) => (
                 <RadioGroupItem

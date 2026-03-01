@@ -1,0 +1,9 @@
+<view class="flex items-center gap-2">
+      <checkbox id="checkbox-07-id" />
+      <label for="checkbox-07-id">
+        I agree to the 
+        <a class="underline" href="https://ui.timkit.cn" target="_blank">
+          terms of service
+        </a>
+      </label>
+    </view>

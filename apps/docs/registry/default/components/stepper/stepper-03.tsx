@@ -4,7 +4,7 @@ import {
   StepperItem,
   StepperSeparator,
   StepperTrigger,
-} from '../../ui/stepper'
+} from '@timui/react'
 
 const steps = [1, 2, 3, 4]
 

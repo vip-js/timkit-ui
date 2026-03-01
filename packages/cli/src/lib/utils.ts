@@ -29,7 +29,7 @@ function findLockFile(cwd: string, lockfile: string): boolean {
 export function backupFile(srcPath: string, cwd: string, overwrite: boolean) {
   if (!fs.existsSync(srcPath) || overwrite) return
   const rel = path.relative(cwd, srcPath)
-  const backupRoot = path.join(cwd, '.timkit', `backup-${Date.now()}`)
+  const backupRoot = path.join(cwd, '.timui', `backup-${Date.now()}`)
   const backupPath = path.join(backupRoot, rel)
   fs.mkdirSync(path.dirname(backupPath), { recursive: true })
   fs.copyFileSync(srcPath, backupPath)

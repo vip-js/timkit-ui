@@ -1,24 +1,26 @@
-import { SelectTrigger } from '@radix-ui/react-select'
-import { ChevronsUpDown } from 'lucide-react'
-
-import SettingsMenu from '@/registry/default/components/navbar-components/settings-menu'
-import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from '../../ui/breadcrumb'
-import { Button } from '../../ui/button'
-import {
+  Button,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Select, SelectContent, SelectItem, SelectValue } from '../../ui/select'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@timui/react'
+import { ChevronsUpDown } from 'lucide-react'
+
+import SettingsMenu from '@/registry/default/components/navbar-components/settings-menu'
+import UserMenu from '@/registry/default/components/navbar-components/user-menu'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

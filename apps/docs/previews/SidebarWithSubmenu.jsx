@@ -1,10 +1,5 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Avatar, Button } from "@timui/react";
 
 export default function SidebarWithSubmenu() {
     const Menu = (props) => {
@@ -12,7 +7,7 @@ export default function SidebarWithSubmenu() {
         const [isOpened, setIsOpened] = React.useState(false)
         return (
             <div className="">
-                <button className="w-full flex items-center justify-between text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
+                <Button variant="ghost" className="w-full flex items-center justify-between text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                     onClick={() => setIsOpened(!isOpened)}
                 >
                     <div className="flex items-center gap-x-2">
@@ -21,7 +16,7 @@ export default function SidebarWithSubmenu() {
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-5 h-5 duration-150 ${isOpened ? 'rotate-180' : ''}`}>
                         <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
                     </svg>
-                </button>
+                </Button>
                 {
                     isOpened ? (
                         <ul className="mx-4 px-2 border-l text-sm font-medium">
@@ -45,7 +40,6 @@ export default function SidebarWithSubmenu() {
             </div>
         )
     }
-
     const navigation = [
         {
             href: 'javascript:void(0)',
@@ -69,7 +63,6 @@ export default function SidebarWithSubmenu() {
             icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
             </svg>
-
             ,
         },
         {
@@ -80,7 +73,6 @@ export default function SidebarWithSubmenu() {
             </svg>,
         }
     ]
-
     const navsFooter = [
         {
             href: 'javascript:void(0)',
@@ -100,13 +92,9 @@ export default function SidebarWithSubmenu() {
             ,
         }
     ]
-
     const nestedNav = [{ name: "Cards", href: "javascript:void(0)", icon: "" }, { name: "Chekouts", href: "javascript:void(0)", icon: "" }, { name: "Payments", href: "javascript:void(0)", icon: "" }, { name: "Get paid", href: "javascript:void(0)", icon: "" }]
-
     const profileRef = React.useRef()
-
     const [isProfileActive, setIsProfileActive] = React.useState(false)
-
     React.useEffect(() => {
         const handleProfile = (e) => {
             if (profileRef.current && !profileRef.current.contains(e.target)) setIsProfileActive(false)
@@ -114,7 +102,6 @@ export default function SidebarWithSubmenu() {
         document.addEventListener('click', handleProfile)
         return () => document.removeEventListener('click', handleProfile)
     }, [])
-
     return (
         <div style={{ height: "800px" }}>
             <nav
@@ -122,7 +109,10 @@ export default function SidebarWithSubmenu() {
                 <div class="flex flex-col h-full px-4">
                     <div className='h-20 flex items-center pl-2'>
                         <div className="w-full flex items-center gap-x-4">
-                            <img src="https://randomuser.me/api/portraits/women/79.jpg" className="w-10 h-10 rounded-full" />
+                            <Avatar
+                                src="https://randomuser.me/api/portraits/women/79.jpg"
+                                className="w-10 h-10 rounded-full"
+                            />
                             <div>
                                 <span className="block text-gray-700 text-sm font-semibold">Alivika tony</span>
                                 <span
@@ -132,13 +122,13 @@ export default function SidebarWithSubmenu() {
                                 </span>
                             </div>
                             <div className="relative flex-1 text-right">
-                                <button ref={profileRef} className="p-1.5 rounded-md text-gray-500 hover:bg-gray-50 active:bg-gray-100"
+                                <Button ref={profileRef} variant="ghost" className="p-1.5 rounded-md text-gray-500 hover:bg-gray-50 active:bg-gray-100"
                                     onClick={() => setIsProfileActive(!isProfileActive)}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                         <path fillRule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clipRule="evenodd" />
                                     </svg>
-                                </button>
+                                </Button>
                                 {
                                     isProfileActive ? (
                                         <div className="absolute z-10 top-12 right-0 w-64 rounded-lg bg-white shadow-md border text-sm text-gray-600">

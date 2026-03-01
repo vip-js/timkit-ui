@@ -1,0 +1,15 @@
+<div role="status" aria-live="polite" data-slot="toast"
+    class="group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border p-4 pr-6 shadow-lg transition-all border bg-background text-foreground">
+    <div class="grid gap-1">
+        <div data-slot="toast-title" class="text-sm font-semibold [&+div]:text-xs">Toast Title</div>
+        <div data-slot="toast-description" class="text-sm opacity-90">Toast message goes here.</div>
+    </div>
+    <button data-slot="toast-close"
+        class="absolute top-1 right-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </button>
+</div>

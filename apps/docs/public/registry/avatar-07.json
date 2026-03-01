@@ -2,14 +2,32 @@
   "name": "avatar-07",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/avatar.json"
+    "https://ui.timkit.cn/r/avatar.json"
   ],
   "files": [
     {
       "path": "registry/default/components/avatar/avatar-07.tsx",
       "type": "registry:component",
       "target": "components/ui/avatar-07.tsx",
-      "content": "import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'\n\nexport default function Component() {\n  return (\n    <div className=\"relative\">\n      <Avatar className=\"rounded-md\">\n        <AvatarImage src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <span className=\"border-background absolute -end-1 -top-1 size-3 rounded-full border-2 bg-emerald-500\">\n        <span className=\"sr-only\">Online</span>\n      </span>\n    </div>\n  )\n}\n"
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <div className=\"relative\">\n      <Avatar className=\"rounded-md\">\n        <AvatarImage src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <span className=\"border-background absolute -end-1 -top-1 size-3 rounded-full border-2 bg-emerald-500\">\n        <span className=\"sr-only\">Online</span>\n      </span>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-07.vue",
+      "target": "components/ui/avatar-07.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'\n</script>\n\n<template>\n<div class=\"relative\">\n      <Avatar class=\"rounded-md\">\n        <AvatarImage src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" />\n        <AvatarFallback>KK</AvatarFallback>\n      </Avatar>\n      <span class=\"border-background absolute -end-1 -top-1 size-3 rounded-full border-2 bg-emerald-500\">\n        <span class=\"sr-only\">Online</span>\n      </span>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-07.html",
+      "target": "components/ui/avatar-07.html",
+      "type": "registry:component",
+      "content": "<div class=\"relative\">\n      <div data-slot=\"avatar\" class=\"relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full rounded-md\">\n        <img src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" data-slot=\"avatar-image\" class=\"aspect-square h-full w-full\" />\n        <div data-slot=\"avatar-fallback\" class=\"flex h-full w-full items-center justify-center rounded-full bg-muted\">KK</div>\n      </div>\n      <span class=\"border-background absolute -end-1 -top-1 size-3 rounded-full border-2 bg-emerald-500\">\n        <span class=\"sr-only\">Online</span>\n      </span>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-07.wxml",
+      "target": "components/ui/avatar-07/avatar-07.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"relative\">\n      <avatar class=\"rounded-md\">\n        <avatar-image src=\"./avatar-80-07.jpg\" alt=\"Kelly King\" ></avatar-image>\n        <avatar-fallback>KK</avatar-fallback>\n      </avatar>\n      <text class=\"border-background absolute -end-1 -top-1 size-3 rounded-full border-2 bg-emerald-500\">\n        <text class=\"sr-only\">Online</text>\n      </text>\n    </view>"
     }
   ],
   "meta": {
@@ -21,11 +39,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "avatars"
+    "category": "avatars",
+    "title": "Avatar · Image + fallback"
   },
   "categories": [
     "avatars",

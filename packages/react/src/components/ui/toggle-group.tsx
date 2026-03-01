@@ -1,70 +1,88 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group'
-import { cn } from '@timui/shared'
-import { type VariantProps } from 'class-variance-authority'
+import { cn, toggleGroupVariants, toggleVariants, type ToggleVariants } from '@timui/core'
+import { mergeProps } from '@zag-js/react'
+import { useToggleGroup } from './toggle-group/use-toggle-group'
+import { ToggleGroupProvider, useToggleGroupContext } from './toggle-group/use-toggle-group-context'
 
-import { toggleVariants } from './toggle'
+// Context is imported from ./toggle-group/use-toggle-group-context
 
-const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({
-  size: 'default',
-  variant: 'default',
-})
+const ToggleGroup = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> &
+  ToggleVariants & {
+    type: "single" | "multiple"
+    value?: string | string[]
+    defaultValue?: string | string[]
+    onValueChange?: (value: string | string[]) => void
+    disabled?: boolean
+  }
+>(({ className, variant, size, children, type, value, defaultValue, onValueChange, disabled, ...props }, ref) => {
+  const api = useToggleGroup({
+    multiple: type === 'multiple',
+    value,
+    defaultValue,
+    onValueChange,
+    disabled
+  })
+  const rootProps = api.getRootProps()
+  const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
+  const { className: mergedClassName, ...restProps } = mergedProps
 
-function ToggleGroup({
-  className,
-  variant,
-  size,
-  children,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>) {
   return (
-    <ToggleGroupPrimitive.Root
-      data-slot="toggle-group"
-      data-variant={variant}
-      data-size={size}
-      className={cn(
-        'group/toggle-group flex items-center rounded-md data-[variant=outline]:shadow-xs',
-        className
-      )}
-      {...props}
-    >
-      <ToggleGroupContext.Provider value={{ variant, size }}>
+    <ToggleGroupProvider value={{
+      api,
+      size,
+      variant,
+      type,
+      disabled
+    }}>
+      <div
+        ref={ref}
+        data-slot="toggle-group"
+        role="group"
+        className={cn(toggleGroupVariants(), className, mergedClassName)}
+        {...restProps}
+      >
         {children}
-      </ToggleGroupContext.Provider>
-    </ToggleGroupPrimitive.Root>
+      </div>
+    </ToggleGroupProvider>
   )
-}
+})
+ToggleGroup.displayName = "ToggleGroup"
 
-function ToggleGroupItem({
-  className,
-  children,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>) {
-  const context = React.useContext(ToggleGroupContext)
+const ToggleGroupItem = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { value: string }
+>(({ className, children, value, ...props }, ref) => {
+  const context = useToggleGroupContext()
+  const api = context.api
+  const itemState = api?.getItemState?.({ value, disabled: props.disabled }) ?? {
+    pressed: false,
+    disabled: false,
+  }
+  const itemProps = api?.getItemProps?.({ value, disabled: props.disabled }) ?? {}
+  const mergedProps = mergeProps(itemProps, props)
+  const { className: mergedClassName, ...restProps } = mergedProps
 
   return (
-    <ToggleGroupPrimitive.Item
+    <button
+      ref={ref}
       data-slot="toggle-group-item"
-      data-variant={context.variant || variant}
-      data-size={context.size || size}
+      type="button"
+      data-state={itemState.pressed ? 'on' : 'off'}
       className={cn(
-        toggleVariants({
-          variant: context.variant || variant,
-          size: context.size || size,
-        }),
-        'min-w-0 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l',
-        className
+        toggleVariants({ variant: context?.variant, size: context?.size }),
+        className,
+        mergedClassName
       )}
-      {...props}
+      {...restProps}
     >
       {children}
-    </ToggleGroupPrimitive.Item>
+    </button>
   )
-}
+})
+ToggleGroupItem.displayName = "ToggleGroupItem"
 
 export { ToggleGroup, ToggleGroupItem }

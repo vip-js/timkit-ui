@@ -1,0 +1,2 @@
+/* packages/weapp/src/textarea/textarea.wxss */
+@import "../utilities.wxss";

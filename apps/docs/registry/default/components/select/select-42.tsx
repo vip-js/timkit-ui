@@ -1,11 +1,9 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { cn } from '@timui/shared'
-import { CheckIcon, ChevronDownIcon, PlusIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  Button,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -13,9 +11,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '../../ui/command'
-import { Label } from '../../ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
+import { CheckIcon, ChevronDownIcon, PlusIcon } from 'lucide-react'
 
 const organizations = [
   {
@@ -71,7 +72,8 @@ export default function Component() {
                     key={organization.value}
                     value={organization.value}
                     onSelect={(currentValue) => {
-                      setValue(currentValue === value ? '' : currentValue)
+                      const val = currentValue as string
+                      setValue(val === value ? '' : val)
                       setOpen(false)
                     }}
                   >

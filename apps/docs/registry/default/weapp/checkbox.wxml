@@ -1,0 +1,12 @@
+<view 
+  class="{{className}} flex items-center justify-center"
+  data-slot="checkbox"
+  data-state="{{indeterminate ? 'indeterminate' : (checked ? 'checked' : 'unchecked')}}"
+  data-disabled="{{disabled}}"
+  bindtap="handleTap"
+>
+  <view wx:if="{{checked || indeterminate}}" data-slot="checkbox-indicator" class="grid place-content-center text-current">
+    <view wx:if="{{indeterminate}}" class="w-2 h-0.5 bg-current rounded-full"></view>
+    <image class="w-3 h-3" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOSIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgOSA5IiBmaWxsPSJjdXJyZW50Y29sb3IiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjUzNTQ3IDAuNjIyOTNDOC44ODIyNiAwLjg0OTQ0NiA4Ljk3OTc2IDEuMzE0MiA4Ljc1MzI1IDEuNjYwOTlMNC41MDgzIDguMTU5OTBDNC4zODgzMyA4LjM0MzU2IDQuMTkzOTcgOC40NjU1IDMuOTc2NCA4LjQ5MzU4QzMuNzU4ODMgOC41MjE2NyAzLjUzOTg3IDguNDUzMDkgMy4zNzcyIDguMzA1OTFMMC42MTYxMTMgNS44MDc3N0MwLjMwODk1OSA1LjUyOTg3IDAuMjg1MjQ2IDUuMDU1NTkgMC41NjMxNDggNC43NDg0NEMwLjg0MTA1IDQuNDQxMjggMS4zMTUzMyA0LjQxNzU3IDEuNjIyNDkgNC42OTU0N0wzLjczMjU2IDYuNjA0NTlMNy40OTc0MSAwLjg0MDcwNkM3LjcyMzkzIDAuNDkzOTE2IDguMTg4NjggMC4zOTY0MTQgOC41MzU0NyAwLjYyMjkzWiIvPjwvc3ZnPg==" />
+  </view>
+</view>

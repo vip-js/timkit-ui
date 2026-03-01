@@ -1,14 +1,10 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Card, CardContent } from "@timui/react";
+import { RadioGroup, RadioGroupItem } from "@timui/react";
 export default function PaymentCardsRadioGroup() {
-    const radios = [
+    const paymentMethods = [
         {
+            value: "paypal",
             name: "Paypal",
             description: "It's the faster, safer way to send and receive money.",
             icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,6 +15,7 @@ export default function PaymentCardsRadioGroup() {
             </svg>
         },
         {
+            value: "mastercard",
             name: "Master Card",
             description: " payment-processing corporation worldwide.",
             icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,50 +24,53 @@ export default function PaymentCardsRadioGroup() {
                 <path d="M23.9998 12.0105C23.9998 13.4022 23.6083 14.7658 22.87 15.9454C22.1317 17.1251 21.0764 18.0732 19.8247 18.6814C18.5731 19.2897 17.1755 19.5335 15.7918 19.385C14.4081 19.2365 13.0941 18.7016 12 17.8416C12.8828 17.1475 13.5964 16.262 14.0871 15.2519C14.5778 14.2418 14.8328 13.1335 14.8328 12.0105C14.8328 10.8876 14.5778 9.77925 14.0871 8.76917C13.5964 7.75908 12.8828 6.87359 12 6.17946C13.0941 5.31945 14.4081 4.78462 15.7918 4.63611C17.1755 4.48759 18.5731 4.73139 19.8247 5.33962C21.0764 5.94786 22.1317 6.89599 22.87 8.07565C23.6083 9.25531 23.9998 10.6189 23.9998 12.0105Z" fill="#F79E1B" />
                 <path d="M23.2934 16.6062V16.3674H23.3897V16.3188H23.1445V16.3674H23.2408V16.6062H23.2934ZM23.7695 16.6062V16.3183H23.6943L23.6079 16.5163L23.5214 16.3183H23.4462V16.6062H23.4993V16.389L23.5803 16.5762H23.6354L23.7164 16.3886V16.6062H23.7695Z" fill="#F79E1B" />
             </svg>
-
         },
         {
+            value: "visa",
             name: "Visa",
             description: " Trusted world leader in digital payment technology",
             icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.8832 8.24628L10.2798 15.7425H8.34041L9.94398 8.24628H11.8832ZM20.0422 13.0867L21.063 10.2717L21.6504 13.0867H20.0422ZM22.2067 15.7425H24L22.4334 8.24628H20.7792C20.4064 8.24628 20.0921 8.46243 19.953 8.79575L17.0431 15.7425H19.0799L19.4842 14.623H21.9719L22.2067 15.7425ZM17.1441 13.2952C17.1526 11.3169 14.4092 11.2073 14.4276 10.3233C14.4335 10.0547 14.6898 9.76859 15.2499 9.69542C15.5276 9.65967 16.2939 9.63067 17.1625 10.0309L17.5022 8.44068C17.0357 8.27191 16.4353 8.10938 15.6883 8.10938C13.7711 8.10938 12.4224 9.12773 12.4116 10.5872C12.3993 11.6664 13.375 12.2681 14.1086 12.6276C14.865 12.995 15.1184 13.2305 15.1147 13.5588C15.1094 14.0617 14.5116 14.2844 13.9549 14.2929C12.9793 14.308 12.4138 14.0292 11.9632 13.8191L11.6111 15.4624C12.065 15.6702 12.9013 15.8509 13.7672 15.8602C15.8054 15.8602 17.1381 14.8538 17.1441 13.2952ZM9.1121 8.24628L5.96986 15.7425H3.92017L2.37375 9.75999C2.28001 9.3921 2.19823 9.25688 1.91313 9.10143C1.44678 8.84819 0.676937 8.6113 0 8.46395L0.0458603 8.24628H3.34574C3.76606 8.24628 4.14424 8.52599 4.24051 9.01022L5.05739 13.3483L7.07471 8.24628H9.1121Z" fill="#1434CB" />
             </svg>
-
         },
     ]
-
     return (
         <div className="max-w-md mx-auto px-4 py-10">
             <h2 className="text-gray-800 font-medium">Select your payment method</h2>
-            <ul className="mt-6 space-y-3">
+            <RadioGroup defaultValue="mastercard" className="mt-6 space-y-3">
                 {
-                    radios.map((item, idx) => (
-                        <li key={idx}>
-                            <label htmlFor={item.name} className="block relative">
-                                <input id={item.name} type="radio" defaultChecked={idx == 1 ? true : false} name="payment" className="sr-only peer" />
-                                <div className="w-full flex gap-x-3 items-start p-4 cursor-pointer rounded-lg border bg-white shadow-sm ring-indigo-600 peer-checked:ring-2 duration-200">
-                                    <div className="flex-none">
+                    paymentMethods.map((item) => (
+                        <div key={item.value} className="relative">
+                            <RadioGroupItem
+                                value={item.value}
+                                id={item.value}
+                                className="peer sr-only"
+                            />
+                            <label
+                                htmlFor={item.value}
+                                className="block relative cursor-pointer"
+                            >
+                                <Card className="w-full flex gap-x-3 items-start p-4 rounded-lg border bg-white shadow-sm ring-indigo-600 peer-checked:ring-2 duration-200">
+                                    <CardContent className="flex-none p-0">
                                         {item.icon}
-                                    </div>
-                                    <div>
+                                    </CardContent>
+                                    <CardContent className="p-0">
                                         <h3 className="leading-none text-gray-800 font-medium pr-3">
                                             {item.name}
                                         </h3>
                                         <p className="mt-1 text-sm text-gray-600">
                                             {item.description}
                                         </p>
-                                    </div>
-                                </div>
+                                    </CardContent>
+                                </Card>
                                 <div className="absolute top-4 right-4 flex-none flex items-center justify-center w-4 h-4 rounded-full border peer-checked:bg-indigo-600 text-white peer-checked:text-white duration-200">
-                                    <svg className="w-2.5 h-2.5" viewBox="0 0 12 10"><polyline fill="none" stroke-width="2px" stroke="currentColor" stroke-dasharray="16px" points="1.5 6 4.5 9 10.5 1"></polyline></svg>
+                                    <svg className="w-2.5 h-2.5" viewBox="0 0 12 10"><polyline fill="none" strokeWidth="2px" stroke="currentColor" strokeDasharray="16px" points="1.5 6 4.5 9 10.5 1"></polyline></svg>
                                 </div>
                             </label>
-                        </li>
+                        </div>
                     ))
                 }
-            </ul>
+            </RadioGroup>
         </div>
     )
 }
-
-        

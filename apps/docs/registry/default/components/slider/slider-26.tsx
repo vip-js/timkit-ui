@@ -1,13 +1,9 @@
 'use client'
 
 import { useId } from 'react'
+import { Button, Input, Label, Slider } from '@timui/react'
 
 import { useSliderWithInput } from '@/registry/default/hooks/use-slider-with-input'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
 
 const items = [
   { id: 1, price: 80 },

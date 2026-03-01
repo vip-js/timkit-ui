@@ -1,0 +1,8 @@
+<view class="relative inline-block">
+  <view bindtouchstart="handleTriggerTouchStart" bindtouchend="handleTriggerTouchEnd">
+    <slot name="trigger"></slot>
+  </view>
+  <view wx:if="{{open}}" class="{{contentClass}} absolute z-50">
+    <slot name="content"></slot>
+  </view>
+</view>

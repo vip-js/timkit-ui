@@ -1,7 +1,6 @@
 import { useId } from 'react'
-
-import { Label } from '../../ui/label'
 import {
+  Label,
   Select,
   SelectContent,
   SelectGroup,
@@ -10,7 +9,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '../../ui/select'
+} from '@timui/react'
 
 export default function Component() {
   const id = useId()

@@ -5,7 +5,7 @@ type RegistryItem = {
   name: string
   type: string
   files?: { path: string; content?: string; type?: string; target?: string }[]
-  meta?: Record<string, any>
+  meta?: Record<string, object>
   categories?: string[]
 }
 
@@ -21,11 +21,11 @@ const CATEGORY_TO_TARGET: Record<string, string> = {
   buttons: 'button',
 }
 
-function loadRegistry(p: string): { items: RegistryItem[]; [key: string]: any } {
+function loadRegistry(p: string): { items: RegistryItem[]; [key: string]: object } {
   return JSON.parse(fs.readFileSync(p, 'utf-8'))
 }
 
-function saveRegistry(p: string, data: any) {
+function saveRegistry(p: string, data: object) {
   fs.writeFileSync(p, JSON.stringify(data, null, 2))
 }
 

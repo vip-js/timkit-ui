@@ -1,11 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button, Calendar, ScrollArea } from '@timui/react'
 import { format } from 'date-fns'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
-import { ScrollArea } from '../../ui/scroll-area'
 
 export default function Component() {
   const today = new Date()

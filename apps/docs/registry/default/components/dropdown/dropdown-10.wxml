@@ -1,0 +1,21 @@
+<dropdown-menu>
+      <dropdown-menu-trigger asChild>
+        <button size="icon" variant="outline" aria-label="Open account menu">
+           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+        </button>
+      </dropdown-menu-trigger>
+      <dropdown-menu-content class="max-w-64">
+        <dropdown-menu-label class="flex flex-col">
+          <span>Signed in as</span>
+          <span class="text-foreground text-xs font-normal">k.kennedy@ui.timkit.cn</span>
+        </dropdown-menu-label>
+        <dropdown-menu-separator />
+        <dropdown-menu-group>
+          <dropdown-menu-item>Option 1</dropdown-menu-item>
+          <dropdown-menu-item>Option 2</dropdown-menu-item>
+          <dropdown-menu-item>Option 3</dropdown-menu-item>
+        </dropdown-menu-group>
+        <dropdown-menu-separator />
+        <dropdown-menu-item>Logout</dropdown-menu-item>
+      </dropdown-menu-content>
+    </dropdown-menu>

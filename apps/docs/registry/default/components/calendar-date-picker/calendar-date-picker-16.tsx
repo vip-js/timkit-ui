@@ -1,12 +1,9 @@
 'use client'
 
 import { useEffect, useId, useState } from 'react'
+import { Calendar, Input, Label } from '@timui/react'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
-
-import { Calendar } from '../../ui/calendar'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

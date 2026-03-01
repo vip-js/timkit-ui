@@ -19,7 +19,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "textarea"
+    "category": "textarea",
+    "title": "Textarea · Textarea with inset label"
   },
   "categories": [
     "textarea"

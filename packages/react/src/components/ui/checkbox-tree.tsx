@@ -1,5 +1,3 @@
-'use client'
-
 /**
  * IMPORTANT: This component was built for demo purposes only and has not been tested in production.
  * It serves as a proof of concept for a checkbox tree implementation.
@@ -10,18 +8,22 @@
 'use client'
 
 import React, { useCallback, useMemo, useState } from 'react'
+import type {
+  AssertNoExtraKeys,
+  CheckboxTreeNode,
+  CheckboxTreeProps as CoreCheckboxTreeProps,
+} from '@timui/core'
 
-interface TreeNode {
-  id: string
-  label: string
-  defaultChecked?: boolean
-  children?: TreeNode[]
-}
+type CheckboxTreeProps = CoreCheckboxTreeProps<React.ReactNode>
+type _CheckboxTreePropsGuard = AssertNoExtraKeys<
+  CheckboxTreeProps,
+  CoreCheckboxTreeProps<React.ReactNode>
+>
 
-function useCheckboxTree(initialTree: TreeNode) {
+function useCheckboxTree(initialTree: CheckboxTreeNode) {
   const initialCheckedNodes = useMemo(() => {
     const checkedSet = new Set<string>()
-    const initializeCheckedNodes = (node: TreeNode) => {
+    const initializeCheckedNodes = (node: CheckboxTreeNode) => {
       if (node.defaultChecked) {
         checkedSet.add(node.id)
       }
@@ -34,7 +36,7 @@ function useCheckboxTree(initialTree: TreeNode) {
   const [checkedNodes, setCheckedNodes] = useState<Set<string>>(initialCheckedNodes)
 
   const isChecked = useCallback(
-    (node: TreeNode): boolean | 'indeterminate' => {
+    (node: CheckboxTreeNode): boolean | 'indeterminate' => {
       if (!node.children) {
         return checkedNodes.has(node.id)
       }
@@ -52,10 +54,10 @@ function useCheckboxTree(initialTree: TreeNode) {
   )
 
   const handleCheck = useCallback(
-    (node: TreeNode) => {
+    (node: CheckboxTreeNode) => {
       const newCheckedNodes = new Set(checkedNodes)
 
-      const toggleNode = (n: TreeNode, check: boolean) => {
+      const toggleNode = (n: CheckboxTreeNode, check: boolean) => {
         if (check) {
           newCheckedNodes.add(n.id)
         } else {
@@ -76,20 +78,10 @@ function useCheckboxTree(initialTree: TreeNode) {
   return { isChecked, handleCheck }
 }
 
-interface CheckboxTreeProps {
-  tree: TreeNode
-  renderNode: (props: {
-    node: TreeNode
-    isChecked: boolean | 'indeterminate'
-    onCheckedChange: () => void
-    children: React.ReactNode
-  }) => React.ReactNode
-}
-
 export function CheckboxTree({ tree, renderNode }: CheckboxTreeProps) {
   const { isChecked, handleCheck } = useCheckboxTree(tree)
 
-  const renderTreeNode = (node: TreeNode): React.ReactNode => {
+  const renderTreeNode = (node: CheckboxTreeNode): React.ReactNode => {
     const children = node.children?.map(renderTreeNode)
 
     return renderNode({
@@ -97,7 +89,7 @@ export function CheckboxTree({ tree, renderNode }: CheckboxTreeProps) {
       isChecked: isChecked(node),
       onCheckedChange: () => handleCheck(node),
       children,
-    })
+    }) as React.ReactNode
   }
 
   return renderTreeNode(tree)

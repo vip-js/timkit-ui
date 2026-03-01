@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="date-picker">
+  <slot></slot>
+</view>

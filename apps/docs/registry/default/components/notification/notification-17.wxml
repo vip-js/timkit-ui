@@ -1,0 +1,38 @@
+// To make the notification fixed, add classes like "fixed bottom-4 right-4" to the container element.
+    <view class="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg">
+      <view class="flex gap-3">
+        <img
+          class="size-9 rounded-full"
+          src="/avatar-32-01.jpg" width="32" height="32"
+          alt="Mary Palmer"
+        />
+        <view class="flex grow flex-col gap-3">
+          <view class="space-y-1">
+            <p class="text-muted-foreground text-sm">
+              <a class="text-foreground font-medium hover:underline" href="#">
+                Mary Palmer
+              </a> 
+              mentioned you in 
+              <a class="text-foreground font-medium hover:underline" href="#">
+                project-campaign-02
+              </a>
+              .
+            </p>
+            <p class="text-muted-foreground text-xs">2 min ago</p>
+          </view>
+          <view class="flex gap-2">
+            <button size="sm">Accept</button>
+            <button size="sm" variant="outline">
+              Decline
+            </button>
+          </view>
+        </view>
+        <button
+          variant="ghost"
+          class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+          aria-label="Close notification"
+        >
+           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 transition-opacity group-hover:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
+        </button>
+      </view>
+    </view>

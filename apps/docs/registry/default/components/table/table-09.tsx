@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableRow } from '../../ui/table'
+import { Table, TableBody, TableCell, TableRow } from '@timui/react'
 
 export default function Component() {
   return (

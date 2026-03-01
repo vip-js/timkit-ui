@@ -1,0 +1,53 @@
+name: Release Multi-runtime Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Comma-separated list of packages to release (default: vue,html,svelte,weapp)'
+        required: false
+        default: 'vue,html,svelte,weapp'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [vue, html, svelte, weapp]
+        include:
+          - package: vue
+            script: release:vue
+          - package: html
+            script: release:html
+          - package: svelte
+            script: release:svelte
+          - package: weapp
+            script: release:weapp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build registry data
+        run: pnpm registry:build:all
+
+      - name: Validate registry coverage
+        run: pnpm registry:report
+
+      - name: Run release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm {{ matrix.script }}

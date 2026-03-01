@@ -1,0 +1,11 @@
+<view class="navigation-menu {{extClass}}">
+  <view
+    wx:for="{{items}}"
+    wx:key="value"
+    class="navigation-menu-item {{item.value === value ? 'is-active' : ''}} {{item.disabled ? 'is-disabled' : ''}}"
+    data-value="{{item.value}}"
+    bindtap="onSelect"
+  >
+    <text>{{item.label}}</text>
+  </view>
+</view>

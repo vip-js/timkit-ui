@@ -1,6 +1,5 @@
+import { Timeline, TimelineContent, TimelineItem } from '@timui/react'
 import { BookOpenIcon, LucideIcon, MessageCircleIcon, PencilIcon, PlusIcon } from 'lucide-react'
-
-import { Timeline, TimelineContent, TimelineItem } from '../../ui/timeline'
 
 const items: {
   id: number

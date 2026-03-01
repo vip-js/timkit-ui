@@ -1,0 +1,8 @@
+<image 
+  class="aspect-square h-full w-full {{imageApi.className}}" 
+  src="{{src}}"
+  bindload="handleLoad"
+  binderror="handleError"
+  hidden="{{imageApi.hidden}}" 
+  style="{{imageApi.style}}"
+/>

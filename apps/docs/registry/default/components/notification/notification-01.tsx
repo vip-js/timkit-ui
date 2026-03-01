@@ -1,6 +1,5 @@
+import { Button } from '@timui/react'
 import { TriangleAlert, XIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   return (

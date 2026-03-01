@@ -1,15 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronsUpDown } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { ChevronsUpDown } from 'lucide-react'
 
 export default function TeamSwitcher({
   teams,

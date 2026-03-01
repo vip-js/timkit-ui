@@ -470,8 +470,8 @@
       ]
     },
     {
-      "slug": "calendar-date-picker",
-      "name": "Calendar & Date picker",
+      "slug": "calendar",
+      "name": "Calendar",
       "components": [
         {
           "name": "calendar-date-picker-01"
@@ -544,7 +544,13 @@
         },
         {
           "name": "calendar-date-picker-24"
-        },
+        }
+      ]
+    },
+    {
+      "slug": "date-picker",
+      "name": "Date picker",
+      "components": [
         {
           "name": "calendar-date-picker-25"
         },

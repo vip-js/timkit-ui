@@ -1,0 +1,146 @@
+<header class="border-b px-4 md:px-6">
+      <view class="flex h-16 items-center justify-between gap-4">
+        
+        <view class="flex items-center gap-2">
+          
+          <popover>
+            <popover-trigger asChild>
+              <button class="group size-8 md:hidden" variant="ghost" size="icon">
+                <svg
+                  class="pointer-events-none" width="16" height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 12L20 12"
+                    class="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+                  />
+                  <path
+                    d="M4 12H20"
+                    class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+                  />
+                  <path
+                    d="M4 12H20"
+                    class="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+                  />
+                </svg>
+              </button>
+            </popover-trigger>
+            <popover-content align="start" class="w-36 p-1 md:hidden">
+              <navigation-menu class="max-w-none *:w-full">
+                <navigation-menu-list class="flex-col items-start gap-0 md:gap-2">
+                  
+                    <navigation-menu-item class="w-full">
+                      <navigation-menu-link class="py-1.5">
+                        
+                      </navigation-menu-link>
+                    </navigation-menu-item>
+                  
+
+                    <navigation-menu-item class="w-full">
+                      <navigation-menu-link class="py-1.5">
+                        
+                      </navigation-menu-link>
+                    </navigation-menu-item>
+                  
+
+                    <navigation-menu-item class="w-full">
+                      <navigation-menu-link class="py-1.5">
+                        
+                      </navigation-menu-link>
+                    </navigation-menu-item>
+                  
+                </navigation-menu-list>
+              </navigation-menu>
+            </popover-content>
+          </popover>
+          
+          <breadcrumb>
+            <breadcrumb-list>
+              <breadcrumb-item>
+                <select defaultValue="personal">
+                  <select-trigger aria-label="Select account type" asChild>
+                    <button
+                      variant="ghost"
+                      class="focus-visible:bg-accent text-foreground h-8 p-1.5 focus-visible:ring-0"
+                    >
+                      <select-value placeholder="Select account type" />
+                      <chevrons-up-down size="14" class="text-muted-foreground/80" />
+                    </button>
+                  </select-trigger>
+                  <select-content class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
+                    <select-item value="personal">Personal</select-item>
+                    <select-item value="team">Team</select-item>
+                    <select-item value="business">Business</select-item>
+                  </select-content>
+                </select>
+              </breadcrumb-item>
+              <breadcrumb-separator> / </breadcrumb-separator>
+              <breadcrumb-item>
+                <select defaultValue="1">
+                  <select-trigger aria-label="Select project" asChild>
+                    <button
+                      variant="ghost"
+                      class="focus-visible:bg-accent text-foreground h-8 p-1.5 focus-visible:ring-0"
+                    >
+                      <select-value placeholder="Select project" />
+                      <chevrons-up-down size="14" class="text-muted-foreground/80" />
+                    </button>
+                  </select-trigger>
+                  <select-content class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
+                    <select-item value="1">Main project</select-item>
+                    <select-item value="2">Origin project</select-item>
+                  </select-content>
+                </select>
+              </breadcrumb-item>
+            </breadcrumb-list>
+          </breadcrumb>
+        </view>
+        
+        <view class="flex items-center gap-4">
+          <view class="flex items-center gap-2">
+            
+            <navigation-menu class="max-md:hidden">
+              <navigation-menu-list class="gap-2">
+                
+                  <navigation-menu-item>
+                    <navigation-menu-link
+                      class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                    >
+                      
+                    </navigation-menu-link>
+                  </navigation-menu-item>
+                
+
+                  <navigation-menu-item>
+                    <navigation-menu-link
+                      class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                    >
+                      
+                    </navigation-menu-link>
+                  </navigation-menu-item>
+                
+
+                  <navigation-menu-item>
+                    <navigation-menu-link
+                      class="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                    >
+                      
+                    </navigation-menu-link>
+                  </navigation-menu-item>
+                
+              </navigation-menu-list>
+            </navigation-menu>
+            
+            <settings-menu />
+          </view>
+          
+          <user-menu />
+        </view>
+      </view>
+    </header>

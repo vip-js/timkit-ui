@@ -1,3 +1,9 @@
-<button class="{{baseClass}} {{extClass}}" hover-class="{{hoverClass}}" bindtap="handleTap">
+<view 
+  class="{{className}}"
+  bindtap="onTap"
+  data-disabled="{{disabled}}"
+  data-loading="{{loading}}"
+>
+  <view wx:if="{{loading}}" class="button-loading-icon">⏳</view>
   <slot></slot>
-</button>
+</view>

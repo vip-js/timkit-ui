@@ -1,0 +1,5 @@
+<picker range="{{options}}" value="{{value}}" bindchange="handleChange">
+  <view class="{{className}}" data-slot="select-native">
+    {{displayText}}
+  </view>
+</picker>

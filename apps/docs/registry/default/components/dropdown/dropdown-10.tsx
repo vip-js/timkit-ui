@@ -1,7 +1,5 @@
-import { CircleUserRoundIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -9,7 +7,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { CircleUserRoundIcon } from 'lucide-react'
 
 export default function Component() {
   return (
@@ -22,7 +21,7 @@ export default function Component() {
       <DropdownMenuContent className="max-w-64">
         <DropdownMenuLabel className="flex flex-col">
           <span>Signed in as</span>
-          <span className="text-foreground text-xs font-normal">k.kennedy@originui.com</span>
+          <span className="text-foreground text-xs font-normal">k.kennedy@ui.timkit.cn</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

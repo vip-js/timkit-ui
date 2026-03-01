@@ -1,6 +1,5 @@
 import { RiFacebookFill, RiGithubFill, RiGoogleFill, RiTwitterXFill } from '@remixicon/react'
-
-import { Button } from '../../ui/button'
+import { Button } from '@timui/react'
 
 export default function Component() {
   return (

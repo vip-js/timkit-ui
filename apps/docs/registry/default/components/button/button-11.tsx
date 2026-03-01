@@ -1,6 +1,5 @@
+import { Button } from '@timui/react'
 import { ChevronDownIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   return (

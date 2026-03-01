@@ -1,0 +1,29 @@
+<div data-slot="notification" class="bg-background text-foreground relative w-full rounded-md border px-4 py-3 shadow-lg">
+  <div class="flex gap-3">
+    <div data-slot="notification-icon" class="shrink-0">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="9" />
+      </svg>
+    </div>
+    <div class="flex w-full flex-col gap-2">
+      <p data-slot="notification-title" class="text-sm font-medium">Notification title</p>
+      <p data-slot="notification-description" class="text-muted-foreground text-sm">
+        This is a notification description.
+      </p>
+      <div data-slot="notification-actions" class="flex items-center gap-2">
+        <button class="text-sm font-medium hover:underline">Action</button>
+        <button class="text-sm font-medium hover:underline">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>

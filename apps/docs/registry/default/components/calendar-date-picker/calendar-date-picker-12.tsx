@@ -1,10 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import {
+  Calendar,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@timui/react'
 import { DropdownNavProps, DropdownProps } from 'react-day-picker'
-
-import { Calendar } from '../../ui/calendar'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 
 export default function Component() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -43,7 +48,7 @@ export default function Component() {
             return (
               <Select
                 value={String(props.value)}
-                onValueChange={(value) => {
+                onValueChange={(value: string) => {
                   if (props.onChange) {
                     handleCalendarChange(value, props.onChange)
                   }

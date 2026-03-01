@@ -1,0 +1,3 @@
+:host {
+  display: table-header-group; /* Note: WeApp view doesn't support table display types perfectly in all contexts, but often works with flex or block. Using standard classes for tailwind. */
+}

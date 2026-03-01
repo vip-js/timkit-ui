@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Toggle } from '@timui/react'
 import { MoonIcon, SunIcon } from 'lucide-react'
-
-import { Toggle } from '../../ui/toggle'
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<string>('light')

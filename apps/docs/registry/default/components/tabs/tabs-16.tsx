@@ -1,8 +1,15 @@
+import {
+  Badge,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
 import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   return (

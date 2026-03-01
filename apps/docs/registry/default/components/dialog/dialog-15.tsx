@@ -1,21 +1,23 @@
 'use client'
 
 import { useId, useRef, useState } from 'react'
-import { cn } from '@timui/shared'
-import { CheckIcon, CopyIcon, UserRoundPlusIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
+  Input,
+  Label,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
+import { CheckIcon, CopyIcon, UserRoundPlusIcon } from 'lucide-react'
 
 export default function Component() {
   const id = useId()
@@ -109,7 +111,7 @@ export default function Component() {
               id={id}
               className="pe-9"
               type="text"
-              defaultValue="https://originui.com/refer/87689"
+              defaultValue="https://ui.timkit.cn/refer/87689"
               readOnly
             />
             <TooltipProvider delayDuration={0}>

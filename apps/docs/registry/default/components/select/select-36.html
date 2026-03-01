@@ -1,0 +1,28 @@
+<div class="*:not-first:mt-2">
+      <label for="select-36-id">Select with description and right indicator</label>
+      <select defaultValue="2">
+        <select-trigger id="select-36-id" class="**:data-desc:hidden">
+          <select-value placeholder="Choose a plan" />
+        </select-trigger>
+        <select-content class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2">
+          <select-item value="1">
+            Standard Plan
+            <span class="text-muted-foreground mt-1 block text-xs" data-desc>
+              Ideal for individuals
+            </span>
+          </select-item>
+          <select-item value="2">
+            Pro Plan
+            <span class="text-muted-foreground mt-1 block text-xs" data-desc>
+              For professional users
+            </span>
+          </select-item>
+          <select-item value="3">
+            Enterprise Plan
+            <span class="text-muted-foreground mt-1 block text-xs" data-desc>
+              Built for large teams
+            </span>
+          </select-item>
+        </select-content>
+      </select>
+    </div>

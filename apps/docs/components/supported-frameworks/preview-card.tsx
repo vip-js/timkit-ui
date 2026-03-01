@@ -28,20 +28,20 @@ const members = [
 ]
 
 const PreviewCard = () => (
-  <div className="mx-auto hidden max-w-lg flex-1 rounded-2xl bg-[#18181B]/75 p-6 md:block">
+  <div className="mx-auto hidden max-w-lg flex-1 rounded-3xl border border-border/60 bg-card/80 p-6 shadow-[0_20px_60px_-36px_rgba(15,23,42,0.3)] md:block">
     <div className="items-start justify-between sm:flex">
       <div>
-        <h3 className="text-lg font-semibold text-zinc-100">团队成员</h3>
-        <p className="mt-2 max-w-xs text-sm text-zinc-300">为团队成员提供系统管理权限。</p>
+        <h3 className="text-lg font-semibold text-foreground">团队成员</h3>
+        <p className="mt-2 max-w-xs text-sm text-muted-foreground">为团队成员提供系统管理权限。</p>
       </div>
-      <Button className="flex flex-none items-center gap-1 rounded-lg bg-indigo-600 px-3 py-2 text-xs text-white hover:bg-indigo-500 active:bg-indigo-700">
+      <Button className="flex flex-none items-center gap-1 rounded-full bg-foreground px-4 py-2 text-xs text-background hover:bg-foreground/90 active:bg-foreground">
         <PlusIcon className="h-5 w-5" />
         添加成员
       </Button>
     </div>
-    <ul className="mt-12 divide-y divide-zinc-800">
+    <ul className="mt-10 divide-y divide-border/60">
       {members.map((item, idx) => (
-        <li key={idx} className="py-5">
+        <li key={idx} className="py-4">
           <div className="flex gap-3">
             <Image
               src={item.avatar}
@@ -51,8 +51,8 @@ const PreviewCard = () => (
               alt=""
             />
             <div className="text-sm">
-              <span className="block font-semibold text-zinc-100">{item.name}</span>
-              <span className="mt-2 block text-zinc-400">{item.email}</span>
+              <span className="block font-semibold text-foreground">{item.name}</span>
+              <span className="mt-1 block text-muted-foreground">{item.email}</span>
             </div>
           </div>
         </li>

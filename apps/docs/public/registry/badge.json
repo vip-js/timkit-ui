@@ -6,19 +6,45 @@
       "path": "registry/default/ui/badge.tsx",
       "type": "registry:ui",
       "target": "components/ui/badge.tsx",
-      "content": "'use client'\n\nimport * as React from 'react'\nimport { Slot } from '@radix-ui/react-slot'\nimport { cn } from '@timui/shared'\nimport { cva, type VariantProps } from 'class-variance-authority'\n\nconst badgeVariants = cva(\n  'inline-flex items-center justify-center rounded-full border px-1.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] [&>svg]:shrink-0 leading-normal',\n  {\n    variants: {\n      variant: {\n        default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90',\n        secondary:\n          'border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90',\n        destructive:\n          'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',\n        outline: 'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  }\n)\n\nfunction Badge({\n  className,\n  variant,\n  asChild = false,\n  ...props\n}: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot : 'span'\n\n  return <Comp data-slot=\"badge\" className={cn(badgeVariants({ variant }), className)} {...props} />\n}\n\nexport { Badge, badgeVariants }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { badgeVariants, cn, type BadgeVariants } from \"@/lib/utils\"\nimport type { VariantProps } from 'class-variance-authority'\n\nimport { Slot } from './slot'\n\nfunction Badge({\n  className,\n  variant,\n  asChild = false,\n  ...props\n}: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot : 'span'\n\n  return <Comp data-slot=\"badge\" className={cn(badgeVariants({ variant }), className)} {...props} />\n}\n\nexport { Badge, badgeVariants }\n"
     },
     {
-      "path": "registry/default/vue/badge.vue",
-      "target": "components/ui/badge.vue",
+      "path": "registry/default/vue/badge/badge.vue",
+      "target": "components/ui/badge/badge.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { type PrimitiveProps, Primitive } from \"radix-vue\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@timui/shared\";\n\nconst badgeVariants = cva(\n  \"inline-flex items-center justify-center rounded-full border px-1.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] [&>svg]:shrink-0 leading-normal\",\n  {\n    variants: {\n      variant: {\n        default:\n          \"border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90\",\n        secondary:\n          \"border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90\",\n        destructive:\n          \"border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40\",\n        outline:\n          \"text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n);\n\ninterface Props extends /* @vue-ignore */ PrimitiveProps {\n  variant?: VariantProps<typeof badgeVariants>[\"variant\"];\n  class?: HTMLAttributes[\"class\"];\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  as: \"span\",\n});\n\nconst calculatedClass = computed(() => {\n  return cn(badgeVariants({ variant: props.variant }), props.class);\n});\n</script>\n\n<template>\n  <Primitive :as=\"as\" :as-child=\"asChild\" :class=\"calculatedClass\">\n    <slot />\n  </Primitive>\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes } from 'vue'\nimport { badgeVariants } from \"@/lib/utils\"\nimport { cn } from \"@/lib/utils\"\n\ntype Props = {\n  variant?: 'default' | 'secondary' | 'destructive' | 'outline'\n  class?: HTMLAttributes['class']\n}\n\nconst props = defineProps<Props>()\n</script>\n\n<template>\n  <span\n    data-slot=\"badge\"\n    :class=\"cn(badgeVariants({ variant: props.variant }), props.class)\"\n  >\n    <slot />\n  </span>\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/badge.html",
+      "target": "components/ui/badge.html",
+      "type": "registry:component",
+      "content": "<span\n  data-slot=\"badge\"\n  class=\"inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80\"\n>\n  Badge\n</span>\n"
+    },
+    {
+      "path": "registry/default/weapp/badge.wxml",
+      "target": "components/ui/badge.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\" data-slot=\"badge\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/badge.wxss",
+      "target": "components/ui/badge.wxss",
+      "type": "registry:component",
+      "content": "/* Styles handled by Tailwind CSS */\n"
+    },
+    {
+      "path": "registry/default/weapp/badge.ts",
+      "target": "components/ui/badge.ts",
+      "type": "registry:component",
+      "content": "import { cva, type VariantProps } from 'class-variance-authority'\n\nexport const badgeVariants = cva(\n  'inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',\n  {\n    variants: {\n      variant: {\n        default: 'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80',\n        secondary:\n          'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',\n        destructive: 'border-transparent bg-destructive text-white shadow hover:bg-destructive/80',\n        outline: 'text-foreground',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  }\n)\n\nComponent({\n  properties: {\n    variant: {\n      type: String,\n      value: 'default',\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n  data: {\n    className: '',\n  },\n  lifetimes: {\n    attached() {\n      this.setData({\n        className: badgeVariants({\n          variant: this.properties.variant as any,\n          className: this.properties.extClass,\n        }),\n      })\n    },\n  },\n  observers: {\n    'variant, extClass': function (variant, extClass) {\n      this.setData({\n        className: badgeVariants({ variant: variant as any, className: extClass }),\n      })\n    },\n  },\n})\n"
     }
   ],
   "meta": {
     "frameworks": [
       "react",
-      "vue"
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

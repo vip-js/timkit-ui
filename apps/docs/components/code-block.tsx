@@ -44,7 +44,11 @@ export default function CodeBlock({ code, lang, initial, preHighlighted, classNa
         if (isMounted) setContent(result)
       })
     } else {
-      setContent(<pre className="rounded-md bg-zinc-950 p-4">No code available</pre>)
+      setContent(
+        <pre className="rounded-xl border border-white/10 bg-slate-950 p-4 text-slate-100 shadow-[0_12px_28px_-22px_rgba(15,23,42,0.6)]">
+          No code available
+        </pre>
+      )
     }
 
     return () => {
@@ -54,11 +58,13 @@ export default function CodeBlock({ code, lang, initial, preHighlighted, classNa
 
   return content ? (
     <div
-      className={`[&_code]:font-mono [&_code]:text-[13px] [&_pre]:max-h-[450px] [&_pre]:overflow-auto [&_pre]:rounded-md [&_pre]:bg-zinc-950! [&_pre]:p-4 [&_pre]:leading-snug dark:[&_pre]:bg-zinc-900! ${className || ''}`}
+      className={`[&_code]:font-mono [&_code]:text-[13px] [&_pre]:max-h-[450px] [&_pre]:overflow-auto [&_pre]:rounded-xl [&_pre]:border [&_pre]:border-white/10 [&_pre]:bg-slate-950! [&_pre]:p-4 [&_pre]:leading-snug [&_pre]:text-slate-100 [&_pre]:vant-shadow ${className || ''}`}
     >
       {content}
     </div>
   ) : (
-    <pre className="rounded-md bg-zinc-950 p-4">Loading...</pre>
+    <pre className="rounded-xl border border-white/10 bg-slate-950 p-4 text-slate-100 shadow-[0_12px_28px_-22px_rgba(15,23,42,0.6)]">
+      Loading...
+    </pre>
   )
 }

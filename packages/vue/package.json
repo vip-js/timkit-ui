@@ -1,7 +1,7 @@
 {
   "name": "@timui/vue",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -11,25 +11,50 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./components/*": {
+      "import": "./src/components/*",
+      "require": "./src/components/*"
+    },
+    "./hooks/*": {
+      "import": "./src/hooks/*",
+      "require": "./src/hooks/*"
+    },
+    "./components-backup/*": {
+      "import": "./src/components-backup/*",
+      "require": "./src/components-backup/*"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
+    "prepublishOnly": "pnpm run build",
     "build": "vue-tsc --declaration --emitDeclarationOnly --outDir dist && tsup",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "release": "pnpm run build && pnpm publish --access public --no-git-checks",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist",
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
   },
   "dependencies": {
+    "@internationalized/date": "^3.7.0",
     "@timui/core": "workspace:*",
-    "@timui/shared": "workspace:*",
     "@timui/tokens": "workspace:*",
+    "@zag-js/core": "^1.32.0",
+    "@zag-js/date-picker": "^1.32.0",
+    "@zag-js/number-input": "^1.32.0",
+    "@zag-js/pagination": "^1.32.0",
+    "@zag-js/popper": "^1.32.0",
+    "@zag-js/presence": "^1.32.0",
+    "@zag-js/vue": "^1.32.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.555.0",
-    "radix-vue": "^1.9.17",
-    "tailwind-merge": "^3.1.0"
+    "radix-vue": "^1.9.7",
+    "tailwind-merge": "^3.1.0",
+    "vue-sonner": "^1.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

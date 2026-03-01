@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="pagination-ellipsis" aria-hidden="true">
+  <slot></slot>
+</view>

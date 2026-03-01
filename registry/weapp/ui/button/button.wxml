@@ -1,0 +1,8 @@
+<view 
+  class="{{className}}"
+  bindtap="onTap"
+  hover-class="opacity-90"
+  hover-stay-time="100"
+>
+  <slot></slot>
+</view>

@@ -1,0 +1,23 @@
+/* space-y-2 equivalent */
+.space-y-2 > view + view,
+.space-y-2 > input + input,
+.space-y-2 > label + input {
+  margin-top: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.input {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+}

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@timui/react'
 import { PlusIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [open, setOpen] = useState<boolean>(false)

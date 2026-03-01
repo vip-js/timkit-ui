@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Input } from "@timui/react";
 export default function SearchInputWithSelectMenuAndAvatars() {
-
     const menuItems = [
         {
             name: "Danya",
@@ -31,16 +24,13 @@ export default function SearchInputWithSelectMenuAndAvatars() {
             avatar: "https://randomuser.me/api/portraits/men/46.jpg"
         },
     ]
-
     const [selectedItem, setSelectedItem] = React.useState({
         item: null,
         idx: null
     })
     const [state, setState] = React.useState(false)
     const [searchFieldVal, setSearchFieldVal] = React.useState("")
-
     const listboxRef = React.useRef()
-
     const handleSearch = (e) => {
         const menuEls = document.querySelectorAll('.menu-el-js')
         const searchVal = e.target.value.toLocaleLowerCase()
@@ -52,7 +42,6 @@ export default function SearchInputWithSelectMenuAndAvatars() {
         }
         handleAlert()
         setTimeout(() => handleAlert(), 100)
-
         menuEls.forEach((el, idx) => {
             el.classList.remove("hidden")
             if (!menuItems[idx].name.toLocaleLowerCase().includes(searchVal)) {
@@ -60,23 +49,20 @@ export default function SearchInputWithSelectMenuAndAvatars() {
             }
         })
     }
-
     React.useEffect(() => {
         document.onclick = (e) => {
             const target = e.target;
             if (!target.closest(".label-button")) setState(false)
         };
     }, [])
-
     return (
         <div className="relative max-w-xs px-4 mx-auto mt-12 text-base">
-
             <div className="label-button flex items-center gap-1 px-2 border rounded-lg shadow-sm"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <input
+                <Input
                     type="text"
                     placeholder="Type to search"
                     className="w-full px-2 py-2 text-gray-500 bg-transparent rounded-md outline-none"
@@ -96,7 +82,6 @@ export default function SearchInputWithSelectMenuAndAvatars() {
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-gray-400">
                                 <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                             </svg>
-
                         </button>
                     ) : (
                         <button
@@ -106,11 +91,9 @@ export default function SearchInputWithSelectMenuAndAvatars() {
                                 <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
                             </svg>
                         </button>
-
                     )
                 }
             </div>
-
             {
                 state ? (
                     <div className="relative w-full">

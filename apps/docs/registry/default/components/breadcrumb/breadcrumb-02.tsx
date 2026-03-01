@@ -1,5 +1,3 @@
-import { FoldersIcon } from 'lucide-react'
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,13 +5,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '../../ui/breadcrumb'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
 
 export default function Component() {
   return (
@@ -31,7 +27,19 @@ export default function Component() {
                 aria-hidden="true"
                 className="flex size-5 items-center justify-center"
               >
-                <FoldersIcon size={16} />
+                <svg
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
               </span>
               <span className="sr-only">Toggle menu</span>
             </DropdownMenuTrigger>

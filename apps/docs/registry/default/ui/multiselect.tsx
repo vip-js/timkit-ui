@@ -1,13 +1,18 @@
 'use client'
-'use client'
 
 import * as React from 'react'
 import { useEffect } from 'react'
-import { cn } from '@timui/shared'
-import { Command as CommandPrimitive, useCommandState } from 'cmdk'
+import { cn } from '@timui/core'
 import { XIcon } from 'lucide-react'
 
-import { Command, CommandGroup, CommandItem, CommandList } from './command'
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  useCommand,
+} from './command'
 
 export interface Option {
   value: string
@@ -72,7 +77,7 @@ interface MultipleSelectorProps {
   commandProps?: React.ComponentPropsWithoutRef<typeof Command>
   /** Props of `CommandInput` */
   inputProps?: Omit<
-    React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
+    React.ComponentPropsWithoutRef<typeof CommandInput>,
     'value' | 'placeholder' | 'disabled'
   >
   /** hide the clear all button. */
@@ -139,18 +144,15 @@ function isOptionsExist(groupOption: GroupOption, targetOption: Option[]) {
   return false
 }
 
-const CommandEmpty = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) => {
-  const render = useCommandState((state) => state.filtered.count === 0)
+const CommandEmpty = ({ className, ...props }: React.ComponentProps<'div'>) => {
+  const { api } = useCommand()
+  const render = api.empty
 
   if (!render) return null
 
   return (
     <div
       className={cn('px-2 py-4 text-center text-sm', className)}
-      cmdk-empty=""
       role="presentation"
       {...props}
     />
@@ -188,7 +190,7 @@ export const MultipleSelector = ({
   const [open, setOpen] = React.useState(false)
   const [onScrollbar, setOnScrollbar] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
-  const dropdownRef = React.useRef<HTMLDivElement>(null) // Added this
+  const dropdownRef = React.useRef<HTMLDivElement>(null)
 
   const [selected, setSelected] = React.useState<Option[]>(value || [])
   const [options, setOptions] = React.useState<GroupOption>(
@@ -205,7 +207,7 @@ export const MultipleSelector = ({
       !inputRef.current.contains(event.target as Node)
     ) {
       setOpen(false)
-      inputRef.current.blur()
+      inputRef.current?.blur()
     }
   }
 
@@ -225,13 +227,11 @@ export const MultipleSelector = ({
         if (e.key === 'Delete' || e.key === 'Backspace') {
           if (input.value === '' && selected.length > 0) {
             const lastSelectOption = selected[selected.length - 1]
-            // If last item is fixed, we should not remove it.
             if (!lastSelectOption.fixed) {
               handleUnselect(selected[selected.length - 1])
             }
           }
         }
-        // This is not a default behavior of the <input /> field
         if (e.key === 'Escape') {
           input.blur()
         }
@@ -262,7 +262,6 @@ export const MultipleSelector = ({
   }, [value])
 
   useEffect(() => {
-    /** If `onSearch` is provided, do not trigger options updated. */
     if (!arrayOptions || onSearch) {
       return
     }
@@ -273,8 +272,6 @@ export const MultipleSelector = ({
   }, [arrayDefaultOptions, arrayOptions, groupBy, onSearch, options])
 
   useEffect(() => {
-    /** sync search */
-
     const doSearchSync = () => {
       const res = onSearchSync?.(debouncedSearchTerm)
       setOptions(transToGroupOption(res || [], groupBy))
@@ -293,12 +290,9 @@ export const MultipleSelector = ({
     }
 
     void exec()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus])
 
   useEffect(() => {
-    /** async search */
-
     const doSearch = async () => {
       setIsLoading(true)
       const res = await onSearch?.(debouncedSearchTerm)
@@ -319,7 +313,6 @@ export const MultipleSelector = ({
     }
 
     void exec()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus])
 
   const CreatableItem = () => {
@@ -339,7 +332,8 @@ export const MultipleSelector = ({
           e.preventDefault()
           e.stopPropagation()
         }}
-        onSelect={(value: string) => {
+        onSelect={(value: string | React.SyntheticEvent<HTMLDivElement>) => {
+          if (typeof value !== 'string') return
           if (selected.length >= maxSelected) {
             onMaxSelected?.(selected.length)
             return
@@ -354,12 +348,10 @@ export const MultipleSelector = ({
       </CommandItem>
     )
 
-    // For normal creatable
     if (!onSearch && inputValue.length > 0) {
       return Item
     }
 
-    // For async search creatable. avoid showing creatable item before loading at first.
     if (onSearch && debouncedSearchTerm.length > 0 && !isLoading) {
       return Item
     }
@@ -370,10 +362,9 @@ export const MultipleSelector = ({
   const EmptyItem = React.useCallback(() => {
     if (!emptyIndicator) return undefined
 
-    // For async search that showing emptyIndicator
     if (onSearch && !creatable && Object.keys(options).length === 0) {
       return (
-        <CommandItem value="-" disabled>
+        <CommandItem value="-" className="opacity-50 cursor-not-allowed">
           {emptyIndicator}
         </CommandItem>
       )
@@ -387,7 +378,6 @@ export const MultipleSelector = ({
     [options, selected]
   )
 
-  /** Avoid Creatable Selector freezing or lagging when paste a long string. */
   const commandFilter = React.useCallback(() => {
     if (commandProps?.filter) {
       return commandProps.filter
@@ -398,7 +388,6 @@ export const MultipleSelector = ({
         return value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1
       }
     }
-    // Using default filter in `cmdk`. We don&lsquo;t have to provide it.
     return undefined
   }, [creatable, commandProps?.filter])
 
@@ -413,7 +402,7 @@ export const MultipleSelector = ({
       className={cn('h-auto overflow-visible bg-transparent', commandProps?.className)}
       shouldFilter={
         commandProps?.shouldFilter !== undefined ? commandProps.shouldFilter : !onSearch
-      } // When onSearch is provided, we don&lsquo;t want to filter the options. You can still override it.
+      }
       filter={commandFilter()}
     >
       <div
@@ -463,8 +452,7 @@ export const MultipleSelector = ({
               </div>
             )
           })}
-          {/* Avoid having the "Search" Icon */}
-          <CommandPrimitive.Input
+          <CommandInput
             {...inputProps}
             ref={inputRef}
             value={inputValue}
@@ -554,7 +542,8 @@ export const MultipleSelector = ({
                             <CommandItem
                               key={option.value}
                               value={option.value}
-                              disabled={option.disable}
+                              aria-disabled={option.disable || undefined}
+                              data-disabled={option.disable || undefined}
                               onMouseDown={(e) => {
                                 e.preventDefault()
                                 e.stopPropagation()
@@ -571,6 +560,7 @@ export const MultipleSelector = ({
                               }}
                               className={cn(
                                 'cursor-pointer',
+                                'data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50', // Fixed syntax for data selectors
                                 option.disable &&
                                   'pointer-events-none cursor-not-allowed opacity-50'
                               )}

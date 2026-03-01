@@ -2,15 +2,33 @@
   "name": "radio-02",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/radio-group.json"
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/radio-group.json"
   ],
   "files": [
     {
       "path": "registry/default/components/radio/radio-02.tsx",
       "type": "registry:component",
       "target": "components/ui/radio-02.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { RadioGroup, RadioGroupItem } from '../../ui/radio-group'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <RadioGroup\n      defaultValue=\"1\"\n      className=\"[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]\"\n    >\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"1\" id={`${id}-1`} />\n        <Label htmlFor={`${id}-1`}>Option 1</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"2\" id={`${id}-2`} />\n        <Label htmlFor={`${id}-2`}>Option 2</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"3\" id={`${id}-3`} />\n        <Label htmlFor={`${id}-3`}>Option 3</Label>\n      </div>\n    </RadioGroup>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Label, RadioGroup, RadioGroupItem } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <RadioGroup\n      defaultValue=\"1\"\n      className=\"[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]\"\n    >\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"1\" id={`${id}-1`} />\n        <Label htmlFor={`${id}-1`}>Option 1</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"2\" id={`${id}-2`} />\n        <Label htmlFor={`${id}-2`}>Option 2</Label>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"3\" id={`${id}-3`} />\n        <Label htmlFor={`${id}-3`}>Option 3</Label>\n      </div>\n    </RadioGroup>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/radio/radio-02.vue",
+      "target": "components/ui/radio-02.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<RadioGroup\n      defaultValue=\"1\"\n      class=\"[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]\"\n    >\n      <div class=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"1\" id=\"radio-02-id\" />\n        <Label for=\"radio-02-id\">Option 1</Label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"2\" id=\"radio-02-id\" />\n        <Label for=\"radio-02-id\">Option 2</Label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <RadioGroupItem value=\"3\" id=\"radio-02-id\" />\n        <Label for=\"radio-02-id\">Option 3</Label>\n      </div>\n    </RadioGroup>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/radio/radio-02.html",
+      "target": "components/ui/radio-02.html",
+      "type": "registry:component",
+      "content": "<radio-group\n      defaultValue=\"1\"\n      class=\"[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]\"\n    >\n      <div class=\"flex items-center gap-2\">\n        <radio-group-item value=\"1\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 1</label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <radio-group-item value=\"2\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 2</label>\n      </div>\n      <div class=\"flex items-center gap-2\">\n        <radio-group-item value=\"3\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 3</label>\n      </div>\n    </radio-group>"
+    },
+    {
+      "path": "registry/default/components/radio/radio-02.wxml",
+      "target": "components/ui/radio-02/radio-02.wxml",
+      "type": "registry:component",
+      "content": "<radio-group\n      defaultValue=\"1\"\n      class=\"[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]\"\n    >\n      <view class=\"flex items-center gap-2\">\n        <radio-group-item value=\"1\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 1</label>\n      </view>\n      <view class=\"flex items-center gap-2\">\n        <radio-group-item value=\"2\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 2</label>\n      </view>\n      <view class=\"flex items-center gap-2\">\n        <radio-group-item value=\"3\" id=\"radio-02-id\" />\n        <label for=\"radio-02-id\">Option 3</label>\n      </view>\n    </radio-group>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "radio"
+    "category": "radio",
+    "title": "Radio · With label"
   },
   "categories": [
     "radio"

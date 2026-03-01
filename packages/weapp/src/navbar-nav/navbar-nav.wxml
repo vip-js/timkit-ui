@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="navbar-nav">
+  <slot></slot>
+</view>

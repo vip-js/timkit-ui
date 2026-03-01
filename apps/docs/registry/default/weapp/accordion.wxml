@@ -1,0 +1,23 @@
+<view class="space-y-1">
+  <accordion type="single" collapsible>
+    <accordion-item value="item-1">
+      <view slot="trigger" class="accordion-trigger flex items-center justify-between py-4 font-medium">
+        Is it accessible?
+        <view class="icon-chevron-down"></view>
+      </view>
+      <view slot="content" class="accordion-content text-sm overflow-hidden pb-4 pt-0">
+        Yes. It adheres to the WAI-ARIA design pattern.
+      </view>
+    </accordion-item>
+
+    <accordion-item value="item-2">
+      <view slot="trigger" class="accordion-trigger flex items-center justify-between py-4 font-medium">
+        Is it styled?
+        <view class="icon-chevron-down"></view>
+      </view>
+      <view slot="content" class="accordion-content text-sm overflow-hidden pb-4 pt-0">
+        Yes. It comes with default styles that matches the other components' aesthetic.
+      </view>
+    </accordion-item>
+  </accordion>
+</view>

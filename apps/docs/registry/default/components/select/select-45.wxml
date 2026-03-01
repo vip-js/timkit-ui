@@ -1,0 +1,158 @@
+<view class="*:not-first:mt-2">
+      <label for="select-45-id">Options with icon and number</label>
+      <popover >
+        <popover-trigger asChild>
+          <button id="select-45-id"
+            variant="outline"
+            role="combobox"
+            class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
+          >
+            <span class="text-muted-foreground">Select service category</span>
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+          </button>
+        </popover-trigger>
+        <popover-content
+          class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0"
+          align="start"
+        >
+          <command>
+            <command-input placeholder="Search services..." />
+            <command-list>
+              <command-empty>No service found.</command-empty>
+              <command-group>
+                
+                  <command-item
+                    value="analytics platform"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Analytics Platform
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      2451
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="ai services"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      AI Services
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      1832
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="database systems"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Database Systems
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      1654
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="compute resources"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Compute Resources
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      943
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="network services"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Network Services
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      832
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="web services"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Web Services
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      654
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="monitoring tools"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Monitoring Tools
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      432
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="server management"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Server Management
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      321
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="infrastructure"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Infrastructure
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      234
+                    </span>
+                  </command-item>
+                
+
+                  <command-item
+                    value="frontend services"  class="flex items-center justify-between"
+                  >
+                    <view class="flex items-center gap-2">
+                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+                      Frontend Services
+                    </view>
+                    <span class="text-muted-foreground text-xs">
+                      123
+                    </span>
+                  </command-item>
+                
+              </command-group>
+            </command-list>
+          </command>
+        </popover-content>
+      </popover>
+    </view>

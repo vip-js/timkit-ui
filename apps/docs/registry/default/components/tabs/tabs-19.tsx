@@ -1,6 +1,5 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'
 import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-react'
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
 
 export default function Component() {
   return (

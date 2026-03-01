@@ -2,14 +2,32 @@
   "name": "avatar-03",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/avatar.json"
+    "https://ui.timkit.cn/r/avatar.json"
   ],
   "files": [
     {
       "path": "registry/default/components/avatar/avatar-03.tsx",
       "type": "registry:component",
       "target": "components/ui/avatar-03.tsx",
-      "content": "import { UserRoundIcon } from 'lucide-react'\n\nimport { Avatar, AvatarFallback } from '../../ui/avatar'\n\nexport default function Component() {\n  return (\n    <Avatar>\n      <AvatarFallback>\n        <UserRoundIcon size={16} className=\"opacity-60\" aria-hidden=\"true\" />\n      </AvatarFallback>\n    </Avatar>\n  )\n}\n"
+      "content": "import { Avatar, AvatarFallback } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Avatar>\n      <AvatarFallback>\n        <svg\n          className=\"size-4 opacity-60\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          strokeWidth=\"2\"\n          strokeLinecap=\"round\"\n          strokeLinejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <circle cx=\"12\" cy=\"8\" r=\"4\" />\n          <path d=\"M20 21a8 8 0 0 0-16 0\" />\n        </svg>\n      </AvatarFallback>\n    </Avatar>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-03.vue",
+      "target": "components/ui/avatar-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Avatar, AvatarFallback } from '@/components/ui/avatar'\n</script>\n\n<template>\n<Avatar>\n      <AvatarFallback>\n        <svg\n          class=\"size-4 opacity-60\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          aria-hidden=\"true\"\n        >\n          <circle cx=\"12\" cy=\"8\" r=\"4\" />\n          <path d=\"M20 21a8 8 0 0 0-16 0\" />\n        </svg>\n      </AvatarFallback>\n    </Avatar>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-03.html",
+      "target": "components/ui/avatar-03.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"avatar\" class=\"relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full\">\n        <div data-slot=\"avatar-fallback\" class=\"flex h-full w-full items-center justify-center rounded-full bg-muted\">\n          <svg\n            class=\"size-4 opacity-60\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            aria-hidden=\"true\"\n          >\n            <circle cx=\"12\" cy=\"8\" r=\"4\" />\n            <path d=\"M20 21a8 8 0 0 0-16 0\" />\n          </svg>\n        </div>\n      </div>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-03.wxml",
+      "target": "components/ui/avatar-03/avatar-03.wxml",
+      "type": "registry:component",
+      "content": "<avatar>\n      <avatar-fallback>\n        <svg\n          class=\"size-4 opacity-60\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n        >\n          <circle cx=\"12\" cy=\"8\" r=\"4\" />\n          <path d=\"M20 21a8 8 0 0 0-16 0\" />\n        </svg>\n      </avatar-fallback>\n    </avatar>\n"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "avatars"
+    "category": "avatars",
+    "title": "Avatar · Fallback only"
   },
   "categories": [
     "avatars",

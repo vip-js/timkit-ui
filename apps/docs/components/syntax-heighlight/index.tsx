@@ -3,7 +3,7 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-jsx'
 
 import { useEffect } from 'react'
-import mergeTW from '@/utils/mergeTW'
+import mergeTW from '@/utils/merge-tw'
 
 const SyntaxHighlightClient = ({ code, className = '' }: { code: string; className?: string }) => {
   useEffect(() => {

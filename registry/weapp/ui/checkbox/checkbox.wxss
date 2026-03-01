@@ -1,0 +1,5 @@
+/* checkbox.wxss */
+.inline-flex { display: inline-flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+/* Add utility classes or import them if available */

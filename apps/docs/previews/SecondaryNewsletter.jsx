@@ -1,10 +1,5 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button, Input } from "@timui/react";
 
 export default function SecondaryNewsletter() {
     return (
@@ -14,23 +9,23 @@ export default function SecondaryNewsletter() {
                     Subscribe to our newsletter
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with your email.  
+                  Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with your email.
                 </p>
             </div>
             <div className="mt-6 flex-1">
-                <form 
+                <form
                     onSubmit={(e) => e.preventDefault()}
                     className="items-center justify-center sm:flex">
-                    <input 
+                    <Input
                         type="email"
                         placeholder="Enter your email"
                         className="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
                     />
-                    <button
+                    <Button
                         className="w-full mt-3 px-5 py-3 rounded-md text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 duration-150 outline-none shadow-md focus:shadow-none focus:ring-2 ring-offset-2 ring-indigo-600 sm:mt-0 sm:ml-3 sm:w-auto"
                     >
                         Subscribe
-                    </button>
+                    </Button>
                 </form>
                 <p className="mt-3 text-[15px] text-gray-400">
                     Product updates, announcements, and discounts.

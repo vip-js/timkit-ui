@@ -10,16 +10,20 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { ArrowLeftToLineIcon, ArrowRightToLineIcon, EllipsisIcon, PinOffIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@timui/react'
+import { ArrowLeftToLineIcon, ArrowRightToLineIcon, EllipsisIcon, PinOffIcon } from 'lucide-react'
 
 type Item = {
   id: string

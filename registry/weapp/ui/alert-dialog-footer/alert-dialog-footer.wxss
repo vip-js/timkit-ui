@@ -1,0 +1,2 @@
+/* alert-dialog-footer.wxss */
+@import "../../lib/utils.wxss";

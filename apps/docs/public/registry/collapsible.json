@@ -2,19 +2,85 @@
   "name": "collapsible",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-collapsible"
+    "@timui/core"
+  ],
+  "registryDependencies": [
+    "use-machine"
   ],
   "files": [
     {
       "path": "registry/default/ui/collapsible.tsx",
       "type": "registry:ui",
       "target": "components/ui/collapsible.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as CollapsiblePrimitive from '@radix-ui/react-collapsible'\n\nfunction Collapsible({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {\n  return <CollapsiblePrimitive.Root data-slot=\"collapsible\" {...props} />\n}\n\nfunction CollapsibleTrigger({\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {\n  return <CollapsiblePrimitive.CollapsibleTrigger data-slot=\"collapsible-trigger\" {...props} />\n}\n\nfunction CollapsibleContent({\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {\n  return <CollapsiblePrimitive.CollapsibleContent data-slot=\"collapsible-content\" {...props} />\n}\n\nexport { Collapsible, CollapsibleContent, CollapsibleTrigger }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn, collapsibleConnect, collapsibleMachine } from \"@/lib/utils\"\nimport { mergeProps, normalizeProps, useMachine } from '@zag-js/react'\n\nimport { Slot } from './slot'\n\nconst CollapsibleContext = React.createContext<{\n  api: ReturnType<typeof collapsibleConnect>\n} | null>(null)\n\nfunction useCollapsible() {\n  const context = React.useContext(CollapsibleContext)\n  if (!context) {\n    throw new Error('Collapsible components must be used within Collapsible')\n  }\n  return context\n}\n\nconst Collapsible = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & {\n    open?: boolean\n    defaultOpen?: boolean\n    onOpenChange?: (open: boolean) => void\n    disabled?: boolean\n  }\n>(({ className, open, defaultOpen, onOpenChange, disabled, ...props }, ref) => {\n  const service = useMachine(collapsibleMachine, {\n    id: React.useId(),\n    open,\n    defaultOpen,\n    disabled,\n    onOpenChange(details) {\n      onOpenChange?.(details.open)\n    },\n  })\n  const api = React.useMemo(() => collapsibleConnect(service, normalizeProps), [service])\n  const rootProps = api.getRootProps()\n  const mergedProps = mergeProps(rootProps, props)\n\n  return (\n    <CollapsibleContext.Provider value={{ api }}>\n      <div ref={ref} data-slot=\"collapsible\" {...mergedProps} className={cn(className)} />\n    </CollapsibleContext.Provider>\n  )\n})\nCollapsible.displayName = 'Collapsible'\n\nconst CollapsibleTrigger = React.forwardRef<\n  HTMLButtonElement,\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }\n>(({ className, asChild = false, ...props }, ref) => {\n  const { api } = useCollapsible()\n  const Comp = asChild ? Slot : 'button'\n  const triggerProps = api.getTriggerProps()\n\n  return (\n    <Comp\n      ref={ref}\n      data-slot=\"collapsible-trigger\"\n      {...mergeProps(triggerProps, props)}\n      className={cn(className)}\n    />\n  )\n})\nCollapsibleTrigger.displayName = 'CollapsibleTrigger'\n\nconst CollapsibleContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, children, ...props }, ref) => {\n    const { api } = useCollapsible()\n    const contentProps = api.getContentProps()\n    const mergedProps = mergeProps(contentProps, props)\n\n    return (\n      <div\n        ref={ref}\n        data-slot=\"collapsible-content\"\n        className={cn('overflow-hidden', className)}\n        {...mergedProps}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nCollapsibleContent.displayName = 'CollapsibleContent'\n\nexport { Collapsible, CollapsibleContent, CollapsibleTrigger }\n"
+    },
+    {
+      "path": "registry/default/vue/collapsible/collapsible-content.vue",
+      "target": "components/ui/collapsible/collapsible-content.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, type HTMLAttributes } from 'vue'\nimport { cn } from \"@/lib/utils\"\n\nconst props = defineProps<{ class?: HTMLAttributes['class'] }>()\ntype BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void)\ntype CollapsibleApi = {\n  open?: boolean\n  getContentProps?: () => Record<string, BindValue>\n}\nconst context = inject('collapsible') as { api: CollapsibleApi } | null\nconst isOpen = computed(() => context?.api.open ?? false)\nconst contentProps = computed(() => context?.api.getContentProps?.() ?? {})\n</script>\n\n<template>\n  <div\n    v-bind=\"contentProps\"\n    data-slot=\"collapsible-content\"\n    :data-state=\"isOpen ? 'open' : 'closed'\"\n    :class=\"cn('overflow-hidden', props.class)\"\n  >\n    <slot v-if=\"isOpen\" />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/collapsible/collapsible-trigger.vue",
+      "target": "components/ui/collapsible/collapsible-trigger.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, type Component, type HTMLAttributes } from 'vue'\nimport { cn } from \"@/lib/utils\"\nimport { Primitive } from '../../primitive'\n\nconst props = withDefaults(\n  defineProps<{\n    as?: string | Component\n    asChild?: boolean\n    class?: HTMLAttributes['class']\n  }>(),\n  {\n    as: 'button',\n  },\n)\n\ntype BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void)\ntype CollapsibleApi = {\n  getTriggerProps?: () => Record<string, BindValue>\n}\nconst context = inject('collapsible') as { api: CollapsibleApi } | null\nconst triggerProps = computed(() => context?.api.getTriggerProps?.() ?? {})\n</script>\n\n<template>\n  <Primitive\n    :as=\"props.as\"\n    :as-child=\"props.asChild\"\n    v-bind=\"triggerProps\"\n    data-slot=\"collapsible-trigger\"\n    type=\"button\"\n    :class=\"cn(props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/collapsible/collapsible.vue",
+      "target": "components/ui/collapsible/collapsible.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, type HTMLAttributes } from 'vue'\nimport { useCollapsible } from './use-collapsible'\nimport { provideCollapsibleContext } from './use-collapsible-context'\n\nconst props = defineProps<{\n  open?: boolean\n  defaultOpen?: boolean\n  disabled?: boolean\n  id?: string\n  class?: HTMLAttributes['class']\n}>()\n\nconst emit = defineEmits(['update:open', 'change'])\n\nconst api = useCollapsible({\n  id: props.id,\n  open: props.open,\n  defaultOpen: props.open === undefined ? props.defaultOpen : undefined,\n  disabled: props.disabled,\n  onOpenChange(details: { open: boolean }) {\n    emit('update:open', details.open)\n    emit('change', details.open)\n  },\n})\n\nprovideCollapsibleContext(api)\n</script>\n\n<template>\n  <div\n    v-bind=\"api.getRootProps()\"\n    :class=\"props.class\"\n  >\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/collapsible/use-collapsible-context.ts",
+      "target": "components/ui/collapsible/use-collapsible-context.ts",
+      "type": "registry:component",
+      "content": "import { type ComputedRef, inject, provide } from 'vue'\nimport type { CollapsibleApi } from \"@/lib/utils\"\n\nexport const CollapsibleContextKey = Symbol('CollapsibleContext')\n\nexport function provideCollapsibleContext(api: ComputedRef<CollapsibleApi>) {\n    provide(CollapsibleContextKey, api)\n}\n\nexport function useCollapsibleContext(): ComputedRef<CollapsibleApi> {\n    const context = inject<ComputedRef<CollapsibleApi>>(CollapsibleContextKey)\n    if (!context) {\n        throw new Error('useCollapsibleContext must be used within a CollapsibleProvider')\n    }\n    return context\n}\n"
+    },
+    {
+      "path": "registry/default/vue/collapsible/use-collapsible.ts",
+      "target": "components/ui/collapsible/use-collapsible.ts",
+      "type": "registry:component",
+      "content": "import { computed } from 'vue'\nimport { collapsibleMachine, collapsibleConnect } from \"@/lib/utils\"\nimport { useMachine, normalizeProps } from '@zag-js/vue'\n\ntype CollapsibleProps = {\n    id?: string\n    open?: boolean\n    defaultOpen?: boolean\n    disabled?: boolean\n    onOpenChange?: (details: { open: boolean }) => void\n}\n\nexport function useCollapsible(props: CollapsibleProps = {}) {\n    const service = useMachine(collapsibleMachine, {\n        id: props.id,\n        open: props.open,\n        defaultOpen: props.defaultOpen,\n        disabled: props.disabled,\n        onOpenChange: props.onOpenChange,\n    })\n\n    return computed(() => collapsibleConnect(service, normalizeProps))\n}\n"
+    },
+    {
+      "path": "registry/default/html/collapsible.html",
+      "target": "components/ui/collapsible.html",
+      "type": "registry:component",
+      "content": "<details data-slot=\"collapsible\" class=\"rounded-md border border-input p-3\">\n  <summary class=\"cursor-pointer font-medium\">Project Details</summary>\n  <p class=\"mt-2 text-sm text-muted-foreground\">\n    This section can be expanded and collapsed.\n  </p>\n</details>\n"
+    },
+    {
+      "path": "registry/default/weapp/collapsible.wxml",
+      "target": "components/ui/collapsible.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\" data-state=\"{{api.open ? 'open' : 'closed'}}\">\n  <!-- Trigger -->\n  <view \n    id=\"{{api.triggerProps.id}}\"\n    class=\"collapsible-trigger\"\n    bindtap=\"onTriggerTap\"\n    data-state=\"{{api.open ? 'open' : 'closed'}}\"\n    data-disabled=\"{{disabled}}\"\n  >\n    <slot name=\"trigger\"></slot>\n    <text class=\"collapsible-icon\">{{api.open ? '▼' : '▶'}}</text>\n  </view>\n\n  <!-- Content -->\n  <view \n    id=\"{{api.contentProps.id}}\"\n    class=\"collapsible-content\"\n    data-state=\"{{api.open ? 'open' : 'closed'}}\"\n    hidden=\"{{!api.open}}\"\n  >\n    <slot name=\"content\"></slot>\n  </view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/collapsible.wxss",
+      "target": "components/ui/collapsible.wxss",
+      "type": "registry:component",
+      "content": "/* weapp component styles */\n"
+    },
+    {
+      "path": "registry/default/weapp/collapsible.ts",
+      "target": "components/ui/collapsible.ts",
+      "type": "registry:component",
+      "content": "import { setupCollapsibleMachine } from './use-collapsible'\n\ntype MachineEvent = string | {\n    type: string\n    [key: string]: string | number | boolean | string[] | number[] | null | undefined\n}\n\ntype WeappCollapsibleApi = {\n    open?: () => void\n    close?: () => void\n    triggerProps?: {\n        onClick?: () => void\n    }\n}\n\ntype WeappService = {\n    setContext: (context: {\n        open?: boolean\n        disabled?: boolean\n    }) => void\n}\n\ntype WeappCollapsibleInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {\n    _service?: WeappService\n    _cleanup?: () => void\n    _send?: (event: MachineEvent) => void\n    data: {\n        api: WeappCollapsibleApi\n    }\n    properties: {\n        open: boolean\n        disabled: boolean\n        id: string\n        extClass: string\n    }\n}\n\nComponent({\n    options: {\n        styleIsolation: 'apply-shared',\n        pureDataPattern: /^_/,\n    },\n\n    properties: {\n        open: { type: Boolean, value: false },\n        disabled: { type: Boolean, value: false },\n        id: { type: String, value: 'collapsible' },\n        extClass: { type: String, value: '' },\n    },\n\n    data: {\n        api: {} as WeappCollapsibleApi,\n        className: '',\n    },\n\n    lifetimes: {\n        attached() {\n            const self = this as WeappCollapsibleInternal\n            const { service, cleanup, send } = setupCollapsibleMachine(this, {\n                id: this.properties.id,\n                open: this.properties.open,\n                disabled: this.properties.disabled,\n                onOpenChange: (details) => {\n                    this.triggerEvent('change', details)\n                }\n            })\n\n            self._service = service as WeappService\n            self._cleanup = cleanup\n            self._send = send as (event: MachineEvent) => void\n        },\n        detached() {\n            const self = this as WeappCollapsibleInternal\n            self._cleanup?.()\n        },\n    },\n\n    observers: {\n        'state': function (state) {\n            const self = this as WeappCollapsibleInternal\n            if (!state || !self._send) return\n            const { connect } = setupCollapsibleMachine(this, { id: this.properties.id })\n            const api = connect(state, self._send) as WeappCollapsibleApi\n            this.setData({ api, className: this.properties.extClass })\n        },\n\n        'open': function (val) {\n            const self = this as WeappCollapsibleInternal\n            if (self._service) {\n                if (val) {\n                    self.data.api.open?.()\n                } else {\n                    self.data.api.close?.()\n                }\n            }\n        },\n    },\n\n    methods: {\n        onTriggerTap() {\n            const self = this as WeappCollapsibleInternal\n            self.data.api.triggerProps?.onClick?.()\n        },\n    },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/collapsible.json",
+      "target": "components/ui/collapsible.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true,\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

@@ -1,66 +1,44 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Navbar, NavbarContent, NavbarBrand, NavbarNav, NavbarItem, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@timui/react";
 
 export default function NavbarWithSearchBox() {
-    const ProfileDropDown = (props) => {
-
-        const [state, setState] = React.useState(false)
-        const profileRef = React.useRef()
-
+    const ProfileDropDown = ({ className }) => {
         const navigation = [
             { title: "Dashboard", path: "javascript:void(0)" },
             { title: "Settings", path: "javascript:void(0)" },
             { title: "Log out", path: "javascript:void(0)" },
         ]
-
-
-        React.useEffect(() => {
-            const handleDropDown = (e) => {
-                if (profileRef.current && !profileRef.current.contains(e.target)) setState(false)
-            }
-            document.addEventListener('click', handleDropDown)
-            return () => document.removeEventListener('click', handleDropDown)
-        }, [])
-
         return (
-            <div className={`relative ${props.class}`}>
+            <div className={`relative ${className || ""}`}>
                 <div className="flex items-center space-x-4">
-                    <button ref={profileRef} className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600"
-                        onClick={() => setState(!state)}
-                    >
-                        <img
-                            src="https://randomuser.me/api/portraits/men/46.jpg"
-                            className="w-full h-full rounded-full"
-                        />
-                    </button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600">
+                            <img
+                                src="https://randomuser.me/api/portraits/men/46.jpg"
+                                className="w-full h-full rounded-full"
+                            />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="bg-white top-12 right-0 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md">
+                            {
+                                navigation.map((item, idx) => (
+                                    <DropdownMenuItem key={idx} asChild className="outline-none">
+                                        <a className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5" href={item.path}>
+                                            {item.title}
+                                        </a>
+                                    </DropdownMenuItem>
+                                ))
+                            }
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <div className="lg:hidden">
                         <span className="block">Micheal John</span>
                         <span className="block text-sm text-gray-500">john@gmail.com</span>
                     </div>
                 </div>
-                <ul className={`bg-white top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
-                    {
-                        navigation.map((item, idx) => (
-                            <li>
-                                <a key={idx} className="block text-gray-600 lg:hover:bg-gray-50 lg:p-2.5" href={item.path}>
-                                    {item.title}
-                                </a>
-                            </li>
-                        ))
-                    }
-                </ul>
             </div>
         )
     }
-
-
     const [menuState, setMenuState] = React.useState(false)
-
     // Replace javascript:void(0) path with your path
     const navigation = [
         { title: "Customers", path: "javascript:void(0)" },
@@ -69,9 +47,9 @@ export default function NavbarWithSearchBox() {
         { title: "Partners", path: "javascript:void(0)" },
     ]
     return (
-        <nav className="bg-white border-b">
-            <div className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
-                <div className="flex-none lg:flex-initial">
+        <Navbar className="bg-white border-b">
+            <NavbarContent className="flex items-center space-x-8 py-3 px-4 max-w-screen-xl mx-auto md:px-8">
+                <NavbarBrand className="flex-none lg:flex-initial">
                     <a href="javascript:void(0)">
                         <img
                             src="/logo.svg"
@@ -80,24 +58,22 @@ export default function NavbarWithSearchBox() {
                             alt="Float UI logo"
                         />
                     </a>
-                </div>
+                </NavbarBrand>
                 <div className="flex-1 flex items-center justify-between">
-                    <div className={`bg-white absolute z-20 w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none ${menuState ? '' : 'hidden'}`}>
+                    <NavbarNav className={`bg-white absolute z-20 w-full top-16 left-0 p-4 border-b lg:static lg:block lg:border-none ${menuState ? '' : 'hidden'}`}>
                         <ul className="mt-12 space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
                             {
                                 navigation.map((item, idx) => (
-                                    <li key={idx} className="text-gray-600 hover:text-gray-900">
+                                    <NavbarItem key={idx} className="text-gray-600 hover:text-gray-900">
                                         <a href={item.path}>
                                             {item.title}
                                         </a>
-                                    </li>
+                                    </NavbarItem>
                                 ))
                             }
                         </ul>
-                        <ProfileDropDown
-                            class="mt-5 pt-5 border-t lg:hidden"
-                        />
-                    </div>
+                    </NavbarNav>
+                    <ProfileDropDown className="mt-5 pt-5 border-t lg:hidden" />
                     <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-6">
                         <form
                             onSubmit={(e) => e.preventDefault()}
@@ -111,9 +87,7 @@ export default function NavbarWithSearchBox() {
                                 placeholder="Search"
                             />
                         </form>
-                        <ProfileDropDown
-                            class="hidden lg:block"
-                        />
+                        <ProfileDropDown className="hidden lg:block" />
                         <button
                             className="outline-none text-gray-400 block lg:hidden"
                             onClick={() => setMenuState(!menuState)}
@@ -132,7 +106,7 @@ export default function NavbarWithSearchBox() {
                         </button>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </NavbarContent>
+        </Navbar>
     )
 }

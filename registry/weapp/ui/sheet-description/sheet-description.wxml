@@ -1,0 +1,6 @@
+<view 
+  class="text-sm text-muted-foreground {{descApi.className}}" 
+  id="{{descApi.id}}"
+>
+  <slot />
+</view>

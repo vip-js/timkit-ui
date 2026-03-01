@@ -1,16 +1,25 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@timui/shared'
+import type { TextareaProps as CoreTextareaProps } from '@timui/core'
+import { cn, textareaVariants, createTimEvent } from '@timui/core'
 
-function Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {
+type TextareaProps = CoreTextareaProps &
+  Omit<React.ComponentProps<'textarea'>, keyof CoreTextareaProps>
+
+function Textarea({ className, id, onValueChange, onChange, ...props }: TextareaProps) {
+  const generatedId = React.useId()
+  const textareaId = id ?? generatedId
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange?.(event)
+    onValueChange?.(createTimEvent('change', textareaId, { value: event.target.value }))
+  }
+
   return (
     <textarea
       data-slot="textarea"
-      className={cn(
-        'border-input placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex min-h-19.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
-        className
-      )}
+      className={cn(textareaVariants(), className)}
+      onChange={handleChange}
       {...props}
     />
   )

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@timui/react'
 import { LoaderCircleIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [isLoading, setIsLoading] = useState<boolean>(false)

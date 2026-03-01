@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { ArchiveRestoreIcon, ChevronDownIcon, PlusIcon, Share2Icon, TrashIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -19,7 +17,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { ArchiveRestoreIcon, ChevronDownIcon, PlusIcon, Share2Icon, TrashIcon } from 'lucide-react'
 
 export default function Component() {
   const [framework, setFramework] = useState('nextjs')

@@ -1,7 +1,6 @@
-import { useId } from 'react'
-
-import { Checkbox } from '../../ui/checkbox'
+import { useState } from 'react'
 import {
+  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -9,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../../ui/table'
+} from '@timui/react'
 
 const items = [
   {
@@ -55,7 +54,12 @@ const items = [
 ]
 
 export default function Component() {
-  const id = useId()
+  const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>({})
+  const allSelected = items.length > 0 && items.every((item) => selectedRows[item.id])
+  const someSelected = items.some((item) => selectedRows[item.id]) && !allSelected
+
+  const toChecked = (value: unknown) =>
+    !!((value as { detail?: { checked?: boolean } })?.detail?.checked ?? value)
   return (
     <div>
       <div className="bg-background overflow-hidden rounded-md border">
@@ -63,7 +67,18 @@ export default function Component() {
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="h-11">
-                <Checkbox id={id} />
+                <Checkbox
+                  checked={allSelected || (someSelected && 'indeterminate')}
+                  onCheckedChange={(value) => {
+                    const checked = toChecked(value)
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, checked])))
+                  }}
+                  onClick={() => {
+                    const next = !allSelected
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, next])))
+                  }}
+                  aria-label="Select all rows"
+                />
               </TableHead>
               <TableHead className="h-11">Name</TableHead>
               <TableHead className="h-11">Email</TableHead>
@@ -74,9 +89,20 @@ export default function Component() {
           </TableHeader>
           <TableBody>
             {items.map((item) => (
-              <TableRow key={item.id}>
+              <TableRow key={item.id} data-state={selectedRows[item.id] ? 'selected' : undefined}>
                 <TableCell>
-                  <Checkbox id={`table-checkbox-${item.id}`} />
+                  <Checkbox
+                    id={`table-checkbox-${item.id}`}
+                    checked={!!selectedRows[item.id]}
+                    onCheckedChange={(value) => {
+                      const checked = toChecked(value)
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: checked }))
+                    }}
+                    onClick={() => {
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                    }}
+                    aria-label={`Select ${item.name}`}
+                  />
                 </TableCell>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.email}</TableCell>

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { ToggleGroup, ToggleGroupItem } from '@timui/react'
 import { AlignCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-react'
-
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group'
 
 export default function Component() {
   const [value, setValue] = useState<string>('center')

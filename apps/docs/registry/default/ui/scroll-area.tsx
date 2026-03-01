@@ -1,56 +1,45 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 
-function ScrollArea({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
-  return (
-    <ScrollAreaPrimitive.Root
-      data-slot="scroll-area"
-      className={cn('relative', className)}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Viewport
-        data-slot="scroll-area-viewport"
-        className="size-full rounded-[inherit]"
-      >
-        {children}
-      </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
-      <ScrollAreaPrimitive.Corner />
-    </ScrollAreaPrimitive.Root>
-  )
-}
-
-function ScrollBar({
-  className,
-  orientation = 'vertical',
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>) {
-  return (
-    <ScrollAreaPrimitive.ScrollAreaScrollbar
-      data-slot="scroll-area-scrollbar"
-      orientation={orientation}
+const ScrollArea = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    orientation?: 'horizontal' | 'vertical' | 'both'
+    scrollBarClassName?: string
+  }
+>(({ className, children, orientation = 'vertical', scrollBarClassName, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="scroll-area"
+    className={cn('relative overflow-hidden', className)}
+    {...props}
+  >
+    <div
+      data-slot="scroll-viewport"
       className={cn(
-        'flex touch-none select-none',
-        orientation === 'vertical' && 'h-full w-2.5 border-l border-l-transparent p-px',
-        orientation === 'horizontal' && 'h-2.5 flex-col border-t border-t-transparent p-px',
-        className
+        'h-full w-full rounded-[inherit]',
+        orientation === 'vertical' && 'overflow-y-auto overflow-x-hidden',
+        orientation === 'horizontal' && 'overflow-x-auto overflow-y-hidden',
+        orientation === 'both' && 'overflow-auto',
+        'scrollbar-width-thin scrollbar-color-border scrollbar-track-transparent [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-track]:bg-transparent',
+        scrollBarClassName
       )}
-      {...props}
     >
-      <ScrollAreaPrimitive.ScrollAreaThumb
-        data-slot="scroll-area-thumb"
-        className="bg-border relative flex-1 rounded-full"
-      />
-    </ScrollAreaPrimitive.ScrollAreaScrollbar>
-  )
-}
+      {children}
+    </div>
+  </div>
+))
+ScrollArea.displayName = 'ScrollArea'
+
+// Mock ScrollBar component for API compatibility
+const ScrollBar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { orientation?: 'vertical' | 'horizontal' }
+>(
+  ({ className, orientation = 'vertical', ...props }, ref) => null // Native scroll doesn't need a separate scrollbar element usually unless specialized
+)
+ScrollBar.displayName = 'ScrollBar'
 
 export { ScrollArea, ScrollBar }

@@ -2,15 +2,33 @@
   "name": "pagination-03",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/pagination.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/pagination.json"
   ],
   "files": [
     {
       "path": "registry/default/components/pagination/pagination-03.tsx",
       "type": "registry:component",
       "target": "components/ui/pagination-03.tsx",
-      "content": "import { cn } from '@timui/shared'\nimport { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'\n\nimport { buttonVariants } from '../../ui/button'\nimport { Pagination, PaginationContent, PaginationItem, PaginationLink } from '../../ui/pagination'\n\ntype PaginationProps = {\n  currentPage: number\n  totalPages: number\n}\n\nexport default function Component({ currentPage, totalPages }: PaginationProps) {\n  return (\n    <Pagination>\n      <PaginationContent className=\"w-full justify-between\">\n        <PaginationItem>\n          <PaginationLink\n            className={cn(\n              'aria-disabled:pointer-events-none aria-disabled:opacity-50',\n              buttonVariants({\n                variant: 'outline',\n              })\n            )}\n            href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}\n            aria-label=\"Go to previous page\"\n            aria-disabled={currentPage === 1 ? true : undefined}\n            role={currentPage === 1 ? 'link' : undefined}\n          >\n            <ChevronLeftIcon size={16} aria-hidden=\"true\" />\n          </PaginationLink>\n        </PaginationItem>\n        <PaginationItem>\n          <p className=\"text-muted-foreground text-sm\" aria-live=\"polite\">\n            Page <span className=\"text-foreground\">{currentPage}</span> of{' '}\n            <span className=\"text-foreground\">{totalPages}</span>\n          </p>\n        </PaginationItem>\n        <PaginationItem>\n          <PaginationLink\n            className={cn(\n              'aria-disabled:pointer-events-none aria-disabled:opacity-50',\n              buttonVariants({\n                variant: 'outline',\n              })\n            )}\n            href={currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}\n            aria-label=\"Go to next page\"\n            aria-disabled={currentPage === totalPages ? true : undefined}\n            role={currentPage === totalPages ? 'link' : undefined}\n          >\n            <ChevronRightIcon size={16} aria-hidden=\"true\" />\n          </PaginationLink>\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n  )\n}\n"
+      "content": "import { cn } from \"@/lib/utils\"\nimport {\n  buttonVariants,\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n} from '@timui/react'\nimport { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'\n\ntype PaginationProps = {\n  currentPage: number\n  totalPages: number\n}\n\nexport default function Component({ currentPage, totalPages }: PaginationProps) {\n  return (\n    <Pagination>\n      <PaginationContent className=\"w-full justify-between\">\n        <PaginationItem>\n          <PaginationLink\n            className={cn(\n              'aria-disabled:pointer-events-none aria-disabled:opacity-50',\n              buttonVariants({\n                variant: 'outline',\n              })\n            )}\n            href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}\n            aria-label=\"Go to previous page\"\n            aria-disabled={currentPage === 1 ? true : undefined}\n            role={currentPage === 1 ? 'link' : undefined}\n          >\n            <ChevronLeftIcon size={16} aria-hidden=\"true\" />\n          </PaginationLink>\n        </PaginationItem>\n        <PaginationItem>\n          <p className=\"text-muted-foreground text-sm\" aria-live=\"polite\">\n            Page <span className=\"text-foreground\">{currentPage}</span> of{' '}\n            <span className=\"text-foreground\">{totalPages}</span>\n          </p>\n        </PaginationItem>\n        <PaginationItem>\n          <PaginationLink\n            className={cn(\n              'aria-disabled:pointer-events-none aria-disabled:opacity-50',\n              buttonVariants({\n                variant: 'outline',\n              })\n            )}\n            href={currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}\n            aria-label=\"Go to next page\"\n            aria-disabled={currentPage === totalPages ? true : undefined}\n            role={currentPage === totalPages ? 'link' : undefined}\n          >\n            <ChevronRightIcon size={16} aria-hidden=\"true\" />\n          </PaginationLink>\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-03.vue",
+      "target": "components/ui/pagination-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination'\n</script>\n<template>\n  <Pagination>\n    <PaginationContent class=\"w-full justify-between\">\n      <PaginationItem>\n        <PaginationLink href=\"#/page/pagination-03-prev\" aria-label=\"Go to previous page\">\n          <svg\n            aria-hidden=\"true\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            class=\"size-4 opacity-60\"\n          >\n            <circle cx=\"12\" cy=\"12\" r=\"9\" />\n          </svg>\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <p class=\"text-muted-foreground text-sm\" aria-live=\"polite\">\n          Page <span class=\"text-foreground\">2</span> of\n          <span class=\"text-foreground\">10</span>\n        </p>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#/page/pagination-03-next\" aria-label=\"Go to next page\">\n          <svg\n            aria-hidden=\"true\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            stroke-width=\"2\"\n            stroke-linecap=\"round\"\n            stroke-linejoin=\"round\"\n            class=\"size-4 opacity-60\"\n          >\n            <circle cx=\"12\" cy=\"12\" r=\"9\" />\n          </svg>\n        </PaginationLink>\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-03.html",
+      "target": "components/ui/pagination-03.html",
+      "type": "registry:component",
+      "content": "<pagination>\n      <pagination-content class=\"w-full justify-between\">\n        <pagination-item>\n          <PaginationLink)\n            ) href=\"#/page/pagination-03-id\"\n            aria-label=\"Go to previous page\"\n            aria-disabled=undefined\n            role=undefined\n          >\n             <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          </pagination-link>\n        </pagination-item>\n        <pagination-item>\n          <p class=\"text-muted-foreground text-sm\" aria-live=\"polite\">\n            Page <span class=\"text-foreground\"></span> of \n            <span class=\"text-foreground\"></span>\n          </p>\n        </pagination-item>\n        <pagination-item>\n          <PaginationLink)\n            ) href=\"#/page/pagination-03-id\"\n            aria-label=\"Go to next page\"\n            aria-disabled=undefined\n            role=undefined\n          >\n             <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          </pagination-link>\n        </pagination-item>\n      </pagination-content>\n    </pagination>"
+    },
+    {
+      "path": "registry/default/components/pagination/pagination-03.wxml",
+      "target": "components/ui/pagination-03/pagination-03.wxml",
+      "type": "registry:component",
+      "content": "<pagination>\n      <pagination-content class=\"w-full justify-between\">\n        <pagination-item>\n          <PaginationLink)\n            ) href=\"#/page/pagination-03-id\"\n            aria-label=\"Go to previous page\"\n            aria-disabled=undefined\n            role=undefined\n          >\n             <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          </pagination-link>\n        </pagination-item>\n        <pagination-item>\n          <p class=\"text-muted-foreground text-sm\" aria-live=\"polite\">\n            Page <span class=\"text-foreground\"></span> of \n            <span class=\"text-foreground\"></span>\n          </p>\n        </pagination-item>\n        <pagination-item>\n          <PaginationLink)\n            ) href=\"#/page/pagination-03-id\"\n            aria-label=\"Go to next page\"\n            aria-disabled=undefined\n            role=undefined\n          >\n             <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          </pagination-link>\n        </pagination-item>\n      </pagination-content>\n    </pagination>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
     ],
     "colSpan": 2,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "paginations"
+    "category": "paginations",
+    "title": "Pagination · Go to previous page"
   },
   "categories": [
     "paginations",

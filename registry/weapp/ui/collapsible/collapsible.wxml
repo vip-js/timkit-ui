@@ -1,0 +1,7 @@
+<view 
+  class="{{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+  data-state="{{api.rootProps['data-state']}}"
+>
+  <slot />
+</view>

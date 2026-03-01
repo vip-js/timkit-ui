@@ -1,0 +1,202 @@
+{
+  "name": "card",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "registry/default/ui/card.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/card.tsx",
+      "content": "import * as React from 'react'\nimport {\n  cardContentVariants,\n  cardDescriptionVariants,\n  cardFooterVariants,\n  cardHeaderVariants,\n  cardTitleVariants,\n  cardVariants,\n  cn,\n} from \"@/lib/utils\"\n\nconst Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(cardVariants(), className)} {...props} />\n  )\n)\nCard.displayName = 'Card'\n\nconst CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(cardHeaderVariants(), className)} {...props} />\n  )\n)\nCardHeader.displayName = 'CardHeader'\n\nconst CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(\n  ({ className, ...props }, ref) => (\n    <h3 ref={ref} className={cn(cardTitleVariants(), className)} {...props} />\n  )\n)\nCardTitle.displayName = 'CardTitle'\n\nconst CardDescription = React.forwardRef<\n  HTMLParagraphElement,\n  React.HTMLAttributes<HTMLParagraphElement>\n>(({ className, ...props }, ref) => (\n  <p ref={ref} className={cn(cardDescriptionVariants(), className)} {...props} />\n))\nCardDescription.displayName = 'CardDescription'\n\nconst CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(cardContentVariants(), className)} {...props} />\n  )\n)\nCardContent.displayName = 'CardContent'\n\nconst CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(cardFooterVariants(), className)} {...props} />\n  )\n)\nCardFooter.displayName = 'CardFooter'\n\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\n"
+    },
+    {
+      "path": "registry/default/vue/card/card-content.vue",
+      "target": "components/ui/card/card-content.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardContentVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div :class=\"cn(cardContentVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/card/card-description.vue",
+      "target": "components/ui/card/card-description.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardDescriptionVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <p :class=\"cn(cardDescriptionVariants(), props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/card/card-footer.vue",
+      "target": "components/ui/card/card-footer.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardFooterVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div :class=\"cn(cardFooterVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/card/card-header.vue",
+      "target": "components/ui/card/card-header.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardHeaderVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div :class=\"cn(cardHeaderVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/card/card-title.vue",
+      "target": "components/ui/card/card-title.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardTitleVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <h3 :class=\"cn(cardTitleVariants(), props.class)\">\n    <slot />\n  </h3>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/card/card.vue",
+      "target": "components/ui/card/card.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { cn, cardVariants, cardHeaderVariants, cardTitleVariants, cardDescriptionVariants, cardContentVariants, cardFooterVariants } from \"@/lib/utils\";\nimport { type HTMLAttributes } from \"vue\";\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n}>();\n</script>\n\n<template>\n  <div :class=\"cn(cardVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n\n<!-- Note: In Vue, we typically have separate components for sub-parts or use slots with exposing internal components? -->\n<!-- The existing card.vue might just be the Root. Where are the others? -->\n<!-- If they don't exist, I need to create them. -->\n"
+    },
+    {
+      "path": "registry/default/html/card.html",
+      "target": "components/ui/card.html",
+      "type": "registry:component",
+      "content": "<div class=\"rounded-lg border bg-card text-card-foreground shadow-sm\">\n    <div class=\"flex flex-col space-y-1.5 p-6\">\n        <h3 class=\"text-2xl font-semibold leading-none tracking-tight\">Card Title</h3>\n        <p class=\"text-sm text-muted-foreground\">Card Description</p>\n    </div>\n    <div class=\"p-6 pt-0\">Card Content</div>\n    <div class=\"flex items-center p-6 pt-0\">Card Footer</div>\n</div>"
+    },
+    {
+      "path": "registry/default/weapp/card.wxml",
+      "target": "components/ui/card.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card.wxss",
+      "target": "components/ui/card.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card/card.wxss */\n@import \"../utilities.wxss\";\n"
+    },
+    {
+      "path": "registry/default/weapp/card.ts",
+      "target": "components/ui/card.ts",
+      "type": "registry:component",
+      "content": "import { cardVariants } from '../utils'\n\nComponent({\n  externalClasses: ['ext-class'],\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: {\n    className: '',\n  },\n  observers: {\n    extClass: function (extClass) {\n      this.setData({\n        className: cardVariants({ className: extClass }),\n      })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/card-content/card-content.wxml",
+      "target": "components/ui/card-content/card-content.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card-content/card-content.wxss",
+      "target": "components/ui/card-content/card-content.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card-content/card-content.wxss */\n"
+    },
+    {
+      "path": "registry/default/weapp/card-content/card-content.json",
+      "target": "components/ui/card-content/card-content.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true\n}"
+    },
+    {
+      "path": "registry/default/weapp/card-content/card-content.ts",
+      "target": "components/ui/card-content/card-content.ts",
+      "type": "registry:component",
+      "content": "import { cardContentVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n    externalClasses: ['ext-class'],\n    properties: {\n        extClass: { type: String, value: '' }\n    },\n    data: {\n        className: ''\n    },\n    observers: {\n        extClass: function (extClass) {\n            this.setData({\n                className: cardContentVariants({ className: extClass })\n            })\n        }\n    }\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/card-description/card-description.wxml",
+      "target": "components/ui/card-description/card-description.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card-description/card-description.wxss",
+      "target": "components/ui/card-description/card-description.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card-description/card-description.wxss */\n"
+    },
+    {
+      "path": "registry/default/weapp/card-description/card-description.json",
+      "target": "components/ui/card-description/card-description.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true\n}"
+    },
+    {
+      "path": "registry/default/weapp/card-description/card-description.ts",
+      "target": "components/ui/card-description/card-description.ts",
+      "type": "registry:component",
+      "content": "import { cardDescriptionVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n    externalClasses: ['ext-class'],\n    properties: {\n        extClass: { type: String, value: '' }\n    },\n    data: {\n        className: ''\n    },\n    observers: {\n        extClass: function (extClass) {\n            this.setData({\n                className: cardDescriptionVariants({ className: extClass })\n            })\n        }\n    }\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/card-footer/card-footer.wxml",
+      "target": "components/ui/card-footer/card-footer.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card-footer/card-footer.wxss",
+      "target": "components/ui/card-footer/card-footer.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card-footer/card-footer.wxss */\n"
+    },
+    {
+      "path": "registry/default/weapp/card-footer/card-footer.json",
+      "target": "components/ui/card-footer/card-footer.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true\n}"
+    },
+    {
+      "path": "registry/default/weapp/card-footer/card-footer.ts",
+      "target": "components/ui/card-footer/card-footer.ts",
+      "type": "registry:component",
+      "content": "import { cardFooterVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n    externalClasses: ['ext-class'],\n    properties: {\n        extClass: { type: String, value: '' }\n    },\n    data: {\n        className: ''\n    },\n    observers: {\n        extClass: function (extClass) {\n            this.setData({\n                className: cardFooterVariants({ className: extClass })\n            })\n        }\n    }\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/card-header/card-header.wxml",
+      "target": "components/ui/card-header/card-header.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card-header/card-header.wxss",
+      "target": "components/ui/card-header/card-header.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card-header/card-header.wxss */\n"
+    },
+    {
+      "path": "registry/default/weapp/card-header/card-header.json",
+      "target": "components/ui/card-header/card-header.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true\n}"
+    },
+    {
+      "path": "registry/default/weapp/card-header/card-header.ts",
+      "target": "components/ui/card-header/card-header.ts",
+      "type": "registry:component",
+      "content": "import { cardHeaderVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n    externalClasses: ['ext-class'],\n    properties: {\n        extClass: { type: String, value: '' }\n    },\n    data: {\n        className: ''\n    },\n    observers: {\n        extClass: function (extClass) {\n            this.setData({\n                className: cardHeaderVariants({ className: extClass })\n            })\n        }\n    }\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/card-title/card-title.wxml",
+      "target": "components/ui/card-title/card-title.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{className}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/card-title/card-title.wxss",
+      "target": "components/ui/card-title/card-title.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/card-title/card-title.wxss */\n"
+    },
+    {
+      "path": "registry/default/weapp/card-title/card-title.json",
+      "target": "components/ui/card-title/card-title.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true\n}"
+    },
+    {
+      "path": "registry/default/weapp/card-title/card-title.ts",
+      "target": "components/ui/card-title/card-title.ts",
+      "type": "registry:component",
+      "content": "import { cardTitleVariants } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n    externalClasses: ['ext-class'],\n    properties: {\n        extClass: { type: String, value: '' }\n    },\n    data: {\n        className: ''\n    },\n    observers: {\n        extClass: function (extClass) {\n            this.setData({\n                className: cardTitleVariants({ className: extClass })\n            })\n        }\n    }\n})\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue",
+      "weapp",
+      "html"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

@@ -24,11 +24,13 @@
         "./packages/*/src"
       ]
     },
-    "composite": false
+    "composite": false,
+    "incremental": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": [
     "src/**/*",
-    "../shared/src",
+    "../core/src",
     "../tokens/src"
   ]
 }

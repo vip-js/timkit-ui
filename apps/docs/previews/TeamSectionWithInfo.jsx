@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Avatar } from "@timui/react";
 export default function TeamSectionWithInfo() {
-
     const team = [
         {
             avatar: "https://images.unsplash.com/photo-1579017331263-ef82f0bbc748?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80",
@@ -64,7 +57,6 @@ export default function TeamSectionWithInfo() {
             github: "javascript:void(0)"
         },
     ]
-
     return (
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -82,7 +74,7 @@ export default function TeamSectionWithInfo() {
                             team.map((item, idx) => (
                                 <li key={idx}>
                                     <div className="w-full h-60 sm:h-52 md:h-56">
-                                        <img
+                                        <Avatar
                                             src={item.avatar}
                                             className="w-full h-full object-cover object-center shadow-md rounded-xl"
                                             alt=""

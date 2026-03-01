@@ -1,0 +1,16 @@
+<view class="tabs {{className}}">
+  <view class="tabs-list flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+    <block wx:for="{{tabs}}" wx:key="value">
+      <view
+        class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all disabled:pointer-events-none disabled:opacity-50 {{activeValue === item.value ? 'bg-background text-foreground shadow-sm' : ''}}"
+        bindtap="handleTabClick"
+        data-value="{{item.value}}"
+      >
+        {{item.label}}
+      </view>
+    </block>
+  </view>
+  <view class="tabs-content mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+    <slot></slot>
+  </view>
+</view>

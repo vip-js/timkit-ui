@@ -1,8 +1,15 @@
-import { Button } from '../../ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
-import { Textarea } from '../../ui/textarea'
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
+  Textarea,
+} from '@timui/react'
 
 export default function Component() {
   return (

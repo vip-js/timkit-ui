@@ -2,14 +2,32 @@
   "name": "badge-11",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/badge.json"
+    "https://ui.timkit.cn/r/badge.json"
   ],
   "files": [
     {
       "path": "registry/default/components/badge/badge-11.tsx",
       "type": "registry:component",
       "target": "components/ui/badge-11.tsx",
-      "content": "import { useId } from 'react'\nimport { CheckIcon } from 'lucide-react'\n\nimport { Badge } from '../../ui/badge'\nimport { Checkbox } from '../../ui/checkbox'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <Badge className=\"has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]\">\n      <Checkbox id={id} className=\"peer sr-only after:absolute after:inset-0\" defaultChecked />\n      <CheckIcon size={12} className=\"hidden peer-data-[state=checked]:block\" aria-hidden=\"true\" />\n      <label htmlFor={id} className=\"cursor-pointer select-none after:absolute after:inset-0\">\n        Selectable\n      </label>\n    </Badge>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Badge, Checkbox } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <Badge className=\"has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]\">\n      <Checkbox id={id} className=\"peer sr-only after:absolute after:inset-0\" defaultChecked />\n      <svg\n        className=\"hidden peer-data-[state=checked]:block\"\n        width={12}\n        height={12}\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth=\"2\"\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M20 6 9 17l-5-5\" />\n      </svg>\n      <label htmlFor={id} className=\"cursor-pointer select-none after:absolute after:inset-0\">\n        Selectable\n      </label>\n    </Badge>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/badge/badge-11.vue",
+      "target": "components/ui/badge-11.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Badge } from '@/components/ui/badge'\nimport { Checkbox } from '@/components/ui/checkbox'\n</script>\n\n<template>\n<Badge class=\"has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]\">\n      <Checkbox id=\"badge-selectable\" class=\"peer sr-only after:absolute after:inset-0\" checked  />\n      <svg\n        class=\"hidden peer-data-[state=checked]:block\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M20 6 9 17l-5-5\" />\n      </svg>\n      <label for=\"badge-selectable\" class=\"cursor-pointer select-none after:absolute after:inset-0\">\n        Selectable\n      </label>\n    </Badge>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/badge/badge-11.html",
+      "target": "components/ui/badge-11.html",
+      "type": "registry:component",
+      "content": "<span data-slot=\"badge\" class=\"inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]\"><input type=\"checkbox\" id=\"badge-selectable\" class=\"peer sr-only after:absolute after:inset-0\" checked  />\n      <svg\n        class=\"hidden peer-data-[state=checked]:block\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M20 6 9 17l-5-5\" />\n      </svg>\n      <label for=\"badge-selectable\" class=\"cursor-pointer select-none after:absolute after:inset-0\">\n        Selectable\n      </label></span>"
+    },
+    {
+      "path": "registry/default/components/badge/badge-11.wxml",
+      "target": "components/ui/badge-11/badge-11.wxml",
+      "type": "registry:component",
+      "content": "<badge><checkbox id=\"badge-selectable\" class=\"peer sr-only after:absolute after:inset-0\" checked ></checkbox>\n      <svg\n        class=\"hidden peer-data-[state=checked]:block\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        \n      >\n        <path d=\"M20 6 9 17l-5-5\" />\n      </svg>\n      <label for=\"badge-selectable\" class=\"cursor-pointer select-none after:absolute after:inset-0\">\n        Selectable\n      </label></badge>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "badge"
+    "category": "badge",
+    "title": "Badge · With icon"
   },
   "categories": [
     "badge"

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(for:*)",
+      "Bash(do if ! grep -q \"@timui/react\" \"$file\")",
+      "Bash(then echo \"$file\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(! grep -q \"from \"\"@timui/react\"\"\" \"$file\")",
+      "Bash(sort:*)",
+      "Bash(while:*)"
+    ]
+  }
+}

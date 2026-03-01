@@ -1,0 +1,4 @@
+<view class="{{className}}">
+  <text>...</text>
+  <view class="sr-only">More pages</view>
+</view>

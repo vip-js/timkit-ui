@@ -8,7 +8,7 @@ import { list } from './commands/list'
 
 const program = new Command()
 
-program.name('timkit').description('CLI for Timkit UI').version('0.0.1')
+program.name('timkit').description('CLI for Timui').version('0.0.1')
 
 program.addCommand(init)
 program.addCommand(add)

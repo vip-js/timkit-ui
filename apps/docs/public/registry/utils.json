@@ -1,21 +1,18 @@
 {
   "name": "utils",
   "type": "registry:lib",
+  "description": "Utility functions",
   "dependencies": [
     "clsx",
-    "tailwind-merge"
+    "tailwind-merge",
+    "class-variance-authority"
   ],
   "files": [
     {
-      "path": "registry/default/lib/utils.ts",
+      "path": "lib/utils.ts",
+      "content": "",
       "type": "registry:lib",
-      "target": "components/ui/utils/utils.ts",
-      "content": "import { clsx, type ClassValue } from 'clsx'\nimport { twMerge } from 'tailwind-merge'\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n"
+      "target": "lib/utils.ts"
     }
-  ],
-  "meta": {
-    "frameworks": [],
-    "placeholder": false,
-    "clientOnly": false
-  }
+  ]
 }

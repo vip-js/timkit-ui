@@ -1,0 +1,19 @@
+<root-portal wx:if="{{!contentApi.hidden}}">
+<!-- Simplified positioning: center screen or fixed bottom? -->
+<!-- Dropdown usually appears near trigger. -->
+<!-- Without Popper, we can't easily guarantee that. -->
+<!-- For now, we can make it a bottom sheet or centered modal for mobile friendliness. -->
+<!-- Let's assume standard popover behavior for now, but CSS might need adjustment to 'fixed' and 'inset'. -->
+  <view 
+    class="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 {{contentApi.className}}"
+    id="{{contentApi.id}}"
+    role="menu"
+    aria-orientation="{{contentApi['aria-orientation']}}"
+    data-state="{{contentApi['data-state']}}"
+    data-side="{{contentApi['data-side']}}"
+    style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); {{contentApi.style}}" 
+  >
+    <!-- Note: Added inline style for centering as fallback -->
+    <slot />
+  </view>
+</root-portal>

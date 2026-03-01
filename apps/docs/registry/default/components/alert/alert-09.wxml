@@ -1,0 +1,12 @@
+<alert class="rounded-md border px-4 py-3">
+  <view class="flex gap-3">
+    <text class="mt-0.5 shrink-0 text-amber-500">!</text>
+    <view class="flex grow justify-between gap-3">
+      <alert-description class="text-sm text-current">Some information is missing!</alert-description>
+      <view class="group text-sm font-medium whitespace-nowrap">
+        Link
+        <text class="ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5">-&gt;</text>
+      </view>
+    </view>
+  </view>
+</alert>

@@ -1,4 +1,14 @@
 import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@timui/react'
+import {
   BoltIcon,
   BookOpenIcon,
   CircleUserRoundIcon,
@@ -7,17 +17,6 @@ import {
   PinIcon,
   UserPenIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
 
 export default function Component() {
   return (
@@ -39,7 +38,7 @@ export default function Component() {
           <div className="flex min-w-0 flex-col">
             <span className="text-foreground truncate text-sm font-medium">Keith Kennedy</span>
             <span className="text-muted-foreground truncate text-xs font-normal">
-              k.kennedy@originui.com
+              k.kennedy@ui.timkit.cn
             </span>
           </div>
         </DropdownMenuLabel>

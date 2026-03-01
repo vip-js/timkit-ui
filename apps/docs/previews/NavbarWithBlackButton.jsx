@@ -1,15 +1,8 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function NavbarWithBlackButton() {
-
     const [state, setState] = React.useState(false)
-
     // Replace javascript:void(0) paths with your paths
     const navigation = [
         { title: "Features", path: "javascript:void(0)" },
@@ -17,14 +10,12 @@ export default function NavbarWithBlackButton() {
         { title: "Customers", path: "javascript:void(0)" },
         { title: "Pricing", path: "javascript:void(0)" }
     ]
-
     React.useEffect(() => {
         document.onclick = (e) => {
             const target = e.target;
             if (!target.closest(".menu-btn")) setState(false);
         };
     }, [])
-
     return (
         <nav className={`bg-white pb-5 md:text-sm ${state ? "shadow-lg rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0" : ""}`}>
             <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
@@ -73,12 +64,12 @@ export default function NavbarWithBlackButton() {
                         <a href="javascript:void(0)" className="block text-gray-700 hover:text-gray-900">
                             Log in
                         </a>
-                        <a href="javascript:void(0)" className="flex items-center justify-center gap-x-1 py-2 px-4 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-full md:inline-flex">
+                        <Button className="gap-x-1 rounded-full bg-gray-800 hover:bg-gray-700 active:bg-gray-900">
                             Sign in
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                 <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
                             </svg>
-                        </a>
+                        </Button>
                     </div>
                 </div>
             </div>

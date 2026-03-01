@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="select-scroll-down-button">
+  <slot></slot>
+</view>

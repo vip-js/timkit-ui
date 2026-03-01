@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Button } from '../../ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+import { Button, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 
 const tips = [
   {

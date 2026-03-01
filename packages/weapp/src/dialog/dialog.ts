@@ -1,51 +1,145 @@
-import { dialogCloseVariants, dialogContentVariants, dialogOverlayVariants } from '@timui/shared'
-
+import { dialogContentVariants, dialogOverlayVariants, dialogCloseVariants } from '@timui/core'
 import { resolveClasses } from '../utils'
+import { setupDialogMachine } from './use-dialog'
+
+type MachineEvent = string | {
+  type: string
+  [key: string]: string | number | boolean | string[] | number[] | null | undefined
+}
+
+type WeappDialogApi = {
+  open?: boolean
+  backdropProps?: {
+    onClick?: () => void
+  }
+  closeTriggerProps?: {
+    onClick?: () => void
+  }
+}
+
+type WeappService = {
+  setContext: (context: {
+    open?: boolean
+  }) => void
+}
+
+type OpenChangeDetails = {
+  open: boolean
+}
+
+type MachineSend = (event: MachineEvent) => void
+
+type WeappDialogInternal = WechatMiniprogram.Component.InstanceMethods<WeappDialogApi> & {
+  _service?: WeappService
+  _cleanup?: () => void
+  _send?: MachineSend
+  _connect?: (state: object, send: MachineSend) => WeappDialogApi
+  data: {
+    api: WeappDialogApi
+  }
+  properties: {
+    open: boolean
+    id: string
+    extClass: string
+  }
+}
 
 Component({
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
+
   properties: {
     open: {
       type: Boolean,
       value: false,
+    },
+    id: {
+      type: String,
+      value: 'dialog',
     },
     extClass: {
       type: String,
       value: '',
     },
   },
+
   data: {
+    api: {} as WeappDialogApi,
+    // Store variants class strings
     contentClass: '',
     overlayClass: '',
     closeClass: '',
   },
-  observers: {
-    'extClass, open': function (extClass, open) {
-      // We map 'data-state' to simple class logic if needed,
-      // but strictly 'open' controls visibility in WXML via root-portal wx:if.
-      // However, for exit animations to work, we might need a lingering state?
-      // For now, simple wx:if.
-      // We pass `data-state="open"` to the classes just in case utilities use it.
-      // Actually resolveClasses resolves static classes.
-      // If variants use `data-[state=open]`, resolveClasses needs a variant prop?
-      // cva({ state: 'open' })?
-      // React "data-state" is an attribute. Tailwind uses attribute selector.
-      // Weapp `root-portal` content needs `data-state="open"`.
 
-      const { baseClass: contentClass } = resolveClasses(dialogContentVariants(), extClass)
-      const { baseClass: overlayClass } = resolveClasses(dialogOverlayVariants())
-      const { baseClass: closeClass } = resolveClasses(dialogCloseVariants())
+  lifetimes: {
+    attached() {
+      const self = this as WeappDialogInternal
+      const { controller, connect } = setupDialogMachine(this)
+
+      self._service = controller.service as WeappService
+      self._cleanup = controller.start()
+      self._send = controller.send as MachineSend
+      self._connect = connect
+    },
+    detached() {
+      const self = this as WeappDialogInternal
+      self._cleanup?.()
+    },
+  },
+
+  observers: {
+    'state': function (state) {
+      const self = this as WeappDialogInternal
+      if (!state || !self._send || !self._connect) return
+
+      const api = self._connect(state, self._send) as WeappDialogApi
+
+      const contentClass = resolveClasses(dialogContentVariants(), this.properties.extClass)
+      const overlayClass = resolveClasses(dialogOverlayVariants())
+      const closeClass = resolveClasses(dialogCloseVariants())
 
       this.setData({
+        api,
         contentClass,
         overlayClass,
-        closeClass,
+        closeClass
       })
     },
-  },
-  methods: {
-    close() {
-      this.triggerEvent('close')
+
+    'open': function (val) {
+      const self = this as WeappDialogInternal
+      if (self._service) {
+        if (val !== self.data.api.open) {
+          self._send?.(val ? 'OPEN' : 'CLOSE')
+        }
+      }
     },
-    noop() {},
   },
+
+  methods: {
+    emitVisibilityChange(open: boolean) {
+      const details: OpenChangeDetails = { open }
+      this.triggerEvent('change', details)
+      if (!open) {
+        this.triggerEvent('close')
+      }
+    },
+    onBackdropTap() {
+      const self = this as WeappDialogInternal
+      self.data.api.backdropProps?.onClick?.()
+      if (self.data.api.open) {
+        this.emitVisibilityChange(false)
+      }
+    },
+    onCloseTap() {
+      const self = this as WeappDialogInternal
+      self.data.api.closeTriggerProps?.onClick?.()
+      if (self.data.api.open) {
+        this.emitVisibilityChange(false)
+      }
+    },
+    noop() { },
+  }
 })

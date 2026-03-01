@@ -2,15 +2,15 @@
   "name": "textarea-16",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/textarea.json"
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/textarea.json"
   ],
   "files": [
     {
       "path": "registry/default/components/textarea/textarea-16.tsx",
       "type": "registry:component",
       "target": "components/ui/textarea-16.tsx",
-      "content": "'use client'\n\nimport { useId } from 'react'\n\nimport { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'\n\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  const maxLength = 180\n  const { value, characterCount, handleChange, maxLength: limit } = useCharacterLimit({ maxLength })\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with characters left</Label>\n      <Textarea\n        id={id}\n        value={value}\n        maxLength={maxLength}\n        onChange={handleChange}\n        aria-describedby={`${id}-description`}\n      />\n      <p\n        id={`${id}-description`}\n        className=\"text-muted-foreground mt-2 text-right text-xs\"\n        role=\"status\"\n        aria-live=\"polite\"\n      >\n        <span className=\"tabular-nums\">{limit - characterCount}</span> characters left\n      </p>\n    </div>\n  )\n}\n"
+      "content": "'use client'\n\nimport { useId } from 'react'\nimport { Label, Textarea } from '@timui/react'\n\nimport { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'\n\nexport default function Component() {\n  const id = useId()\n  const maxLength = 180\n  const { value, characterCount, handleChange, maxLength: limit } = useCharacterLimit({ maxLength })\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with characters left</Label>\n      <Textarea\n        id={id}\n        value={value}\n        maxLength={maxLength}\n        onChange={handleChange}\n        aria-describedby={`${id}-description`}\n      />\n      <p\n        id={`${id}-description`}\n        className=\"text-muted-foreground mt-2 text-right text-xs\"\n        role=\"status\"\n        aria-live=\"polite\"\n      >\n        <span className=\"tabular-nums\">{limit - characterCount}</span> characters left\n      </p>\n    </div>\n  )\n}\n"
     },
     {
       "path": "registry/default/hooks/use-character-limit.ts",
@@ -29,7 +29,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "textarea"
+    "category": "textarea",
+    "title": "Textarea · Textarea with characters left"
   },
   "categories": [
     "textarea"

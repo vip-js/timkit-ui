@@ -1,16 +1,15 @@
-import { cn } from '@timui/shared'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { usePagination } from '@/registry/default/hooks/use-pagination'
-
-import { buttonVariants } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  buttonVariants,
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-} from '../../ui/pagination'
+} from '@timui/react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+
+import { usePagination } from '@/registry/default/hooks/use-pagination'
 
 type PaginationProps = {
   currentPage: number

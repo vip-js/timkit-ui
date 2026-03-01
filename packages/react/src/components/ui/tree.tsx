@@ -1,16 +1,23 @@
 'use client'
-'use client'
 
 import * as React from 'react'
 import { ItemInstance } from '@headless-tree/core'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import type { AssertNoExtraKeys, TreeContainerApi, TreeProps as CoreTreeProps } from '@timui/core'
+import { Slot } from './slot'
+import {
+  cn,
+  treeDragLineVariants,
+  treeItemLabelIconVariants,
+  treeItemLabelVariants,
+  treeItemVariants,
+  treeVariants,
+} from '@timui/core'
 import { ChevronDownIcon } from 'lucide-react'
 
-interface TreeContextValue<T = any> {
+interface TreeContextValue<T = Record<string, never>> {
   indent: number
   currentItem?: ItemInstance<T>
-  tree?: any
+  tree?: TreeContainerApi
 }
 
 const TreeContext = React.createContext<TreeContextValue>({
@@ -19,18 +26,18 @@ const TreeContext = React.createContext<TreeContextValue>({
   tree: undefined,
 })
 
-function useTreeContext<T = any>() {
+function useTreeContext<T = Record<string, never>>() {
   return React.useContext(TreeContext) as TreeContextValue<T>
 }
 
-interface TreeProps extends React.HTMLAttributes<HTMLDivElement> {
-  indent?: number
-  tree?: any
-}
+type TreeProps = CoreTreeProps & React.HTMLAttributes<HTMLDivElement>
+type _TreePropsGuard = AssertNoExtraKeys<
+  TreeProps,
+  CoreTreeProps & React.HTMLAttributes<HTMLDivElement>
+>
 
 function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
-  const containerProps =
-    tree && typeof tree.getContainerProps === 'function' ? tree.getContainerProps() : {}
+  const containerProps = tree?.getContainerProps?.() ?? {}
   const mergedProps = { ...props, ...containerProps }
 
   // Extract style from mergedProps to merge with our custom styles
@@ -47,20 +54,20 @@ function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
       <div
         data-slot="tree"
         style={mergedStyle}
-        className={cn('flex flex-col', className)}
+        className={cn(treeVariants(), className)}
         {...otherProps}
       />
     </TreeContext.Provider>
   )
 }
 
-interface TreeItemProps<T = any> extends React.HTMLAttributes<HTMLButtonElement> {
+interface TreeItemProps<T = Record<string, never>> extends React.HTMLAttributes<HTMLButtonElement> {
   item: ItemInstance<T>
   indent?: number
   asChild?: boolean
 }
 
-function TreeItem<T = any>({
+function TreeItem<T = Record<string, never>>({
   item,
   className,
   asChild,
@@ -84,12 +91,12 @@ function TreeItem<T = any>({
   const Comp = asChild ? Slot : 'button'
 
   return (
-    <TreeContext.Provider value={{ indent, currentItem: item }}>
+    <TreeContext.Provider value={{ indent, currentItem: item as ItemInstance<Record<string, never>> }}>
       <Comp
         data-slot="tree-item"
         style={mergedStyle}
         className={cn(
-          'z-10 ps-(--tree-padding) outline-hidden select-none not-last:pb-0.5 focus:z-20 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+          treeItemVariants(),
           className
         )}
         data-focus={typeof item.isFocused === 'function' ? item.isFocused() || false : undefined}
@@ -112,11 +119,11 @@ function TreeItem<T = any>({
   )
 }
 
-interface TreeItemLabelProps<T = any> extends React.HTMLAttributes<HTMLSpanElement> {
+interface TreeItemLabelProps<T = Record<string, never>> extends React.HTMLAttributes<HTMLSpanElement> {
   item?: ItemInstance<T>
 }
 
-function TreeItemLabel<T = any>({
+function TreeItemLabel<T = Record<string, never>>({
   item: propItem,
   children,
   className,
@@ -134,13 +141,13 @@ function TreeItemLabel<T = any>({
     <span
       data-slot="tree-item-label"
       className={cn(
-        'in-focus-visible:ring-ring/50 bg-background hover:bg-accent in-data-[selected=true]:bg-accent in-data-[selected=true]:text-accent-foreground in-data-[drag-target=true]:bg-accent flex items-center gap-1 rounded-sm px-2 py-1.5 text-sm transition-colors not-in-data-[folder=true]:ps-7 in-focus-visible:ring-[3px] in-data-[search-match=true]:bg-blue-50! [&_svg]:pointer-events-none [&_svg]:shrink-0',
+        treeItemLabelVariants(),
         className
       )}
       {...props}
     >
       {item.isFolder() && (
-        <ChevronDownIcon className="text-muted-foreground size-4 in-aria-[expanded=false]:-rotate-90" />
+        <ChevronDownIcon className={treeItemLabelIconVariants()} />
       )}
       {children || (typeof item.getItemName === 'function' ? item.getItemName() : null)}
     </span>
@@ -160,9 +167,9 @@ function TreeDragLine({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   const dragLine = tree.getDragLineStyle()
   return (
     <div
-      style={dragLine}
+      style={dragLine ?? undefined}
       className={cn(
-        'bg-primary before:bg-background before:border-primary absolute z-30 -mt-px h-0.5 w-[unset] before:absolute before:-top-[3px] before:left-0 before:size-2 before:rounded-full before:border-2',
+        treeDragLineVariants(),
         className
       )}
       {...props}

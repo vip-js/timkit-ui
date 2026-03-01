@@ -15,15 +15,17 @@ export type CatalogSection = {
 
 export const catalog = {
   categories: catalogData.categories,
-  sections: catalogData.sections as unknown as CatalogSection[],
+  sections: catalogData.sections as object as CatalogSection[],
 }
 
-export const getCategories = () => catalog.categories
+export const getCategories = () =>
+  [...catalog.categories].sort((a, b) => a.name.localeCompare(b.name))
 
 export const getCategoryBySlug = (slug: string) =>
   catalog.categories.find((category) => category.slug === slug)
 
-export const getSections = () => catalog.sections
+export const getSections = () =>
+  [...catalog.sections].sort((a, b) => a.section_name.localeCompare(b.section_name))
 
 export const getSectionBySlug = (slug: string) =>
   catalog.sections.find((section) => section.slug === slug)

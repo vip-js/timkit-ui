@@ -1,0 +1,9 @@
+<view class="flex items-center border-b px-3" cmd-input-wrapper>
+  <!-- Search Icon would be here -->
+  <input 
+      class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+      placeholder="{{placeholder}}"
+      value="{{value}}"
+      bindinput="handleInput"
+  />
+</view>

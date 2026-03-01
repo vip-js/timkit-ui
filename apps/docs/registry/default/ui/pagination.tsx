@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react'
 
 import { Button, buttonVariants } from './button'

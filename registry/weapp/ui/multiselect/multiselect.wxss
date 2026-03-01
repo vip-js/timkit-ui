@@ -1,0 +1,2 @@
+/* multiselect.wxss */
+@import "../../lib/utils.wxss";

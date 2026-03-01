@@ -1,8 +1,6 @@
 import { useId } from 'react'
-import { CheckIcon, RefreshCcwIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -10,9 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+  Label,
+  RadioGroup,
+  RadioGroupItem,
+} from '@timui/react'
+import { CheckIcon, RefreshCcwIcon } from 'lucide-react'
 
 export default function Component() {
   const id = useId()

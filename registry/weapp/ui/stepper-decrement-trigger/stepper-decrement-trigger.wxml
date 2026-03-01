@@ -1,0 +1,9 @@
+<button
+    class="{{triggerApi.className}}"
+    id="{{triggerApi.id}}"
+    disabled="{{triggerApi.disabled}}"
+    bindtap="handleTap"
+>
+    <!-- - Icon -->
+    <view class="h-4 w-4 text-current flex items-center justify-center">-</view>
+</button>

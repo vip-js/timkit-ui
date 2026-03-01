@@ -1,0 +1,11 @@
+<view 
+  class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 {{contentApi.className}}" 
+  id="{{contentApi.id}}"
+  hidden="{{contentApi.hidden}}"
+  role="tabpanel"
+  aria-labelledby="{{contentApi['aria-labelledby']}}"
+  data-state="{{contentApi['data-state']}}"
+  data-orientation="{{contentApi['data-orientation']}}"
+>
+  <slot />
+</view>

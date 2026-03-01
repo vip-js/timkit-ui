@@ -1,0 +1,4 @@
+<view class="{{className}}">
+  <slot></slot>
+  <view class="absolute left-0 top-full flex justify-center w-full" />
+</view>

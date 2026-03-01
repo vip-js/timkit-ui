@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../ui/alert-dialog'
-import { Button } from '../../ui/button'
+  Button,
+} from '@timui/react'
 
 export default function AlertComponent() {
   return (

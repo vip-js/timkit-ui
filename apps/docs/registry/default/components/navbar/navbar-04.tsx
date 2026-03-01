@@ -1,17 +1,18 @@
 import { useId } from 'react'
-import { SearchIcon } from 'lucide-react'
-
-import Logo from '@/registry/default/components/navbar-components/logo'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
 import {
+  Button,
+  Input,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
+import { SearchIcon } from 'lucide-react'
+
+import Logo from '@/registry/default/components/navbar-components/logo'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

@@ -1,0 +1,69 @@
+<view class="{{className}}">
+  <!-- Trigger (optional) -->
+  <view 
+    wx:if="{{showTrigger}}"
+    bindtap="onTriggerTap"
+  >
+    <slot name="trigger"></slot>
+  </view>
+
+  <!-- Backdrop -->
+  <view 
+    wx:if="{{api.open}}"
+    class="alert-dialog-backdrop"
+    bindtap="onBackdropTap"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  ></view>
+
+  <!-- Dialog Content -->
+  <view 
+    wx:if="{{api.open}}"
+    id="{{api.contentProps.id}}"
+    class="alert-dialog-content"
+    role="{{role}}"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <!-- Header -->
+    <view class="alert-dialog-header">
+      <text 
+        id="{{api.titleProps.id}}"
+        class="alert-dialog-title"
+      >
+        <slot name="title">{{title}}</slot>
+      </text>
+      <view 
+        wx:if="{{showClose}}"
+        class="alert-dialog-close" 
+        bindtap="onCloseTap"
+      >×</view>
+    </view>
+
+    <!-- Body -->
+    <view 
+      id="{{api.descriptionProps.id}}"
+      class="alert-dialog-body"
+    >
+      <slot name="description">{{description}}</slot>
+    </view>
+
+    <!-- Footer -->
+    <view class="alert-dialog-footer">
+      <slot name="footer">
+        <view class="alert-dialog-actions">
+          <view 
+            class="alert-dialog-cancel-btn" 
+            bindtap="onCancelTap"
+          >
+            {{cancelText || '取消'}}
+          </view>
+          <view 
+            class="alert-dialog-confirm-btn" 
+            bindtap="onConfirmTap"
+          >
+            {{confirmText || '确认'}}
+          </view>
+        </view>
+      </slot>
+    </view>
+  </view>
+</view>

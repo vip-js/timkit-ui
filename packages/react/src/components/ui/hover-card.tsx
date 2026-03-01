@@ -1,44 +1,88 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
-import { cn } from '@timui/shared'
+import { createPortal } from 'react-dom'
+import { mergeProps } from '@zag-js/react'
+import type { Placement } from '@zag-js/popper'
+import { cn, hoverCardContentVariants } from '@timui/core'
+import { Slot } from './slot'
+import { useHoverCard, type UseHoverCardProps } from './hover-card/use-hover-card'
+import { HoverCardProvider, useHoverCardContext } from './hover-card/use-hover-card-context'
 
-function HoverCard({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Root>) {
-  return <HoverCardPrimitive.Root data-slot="hover-card" {...props} />
-}
-
-function HoverCardTrigger({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Trigger>) {
-  return <HoverCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />
-}
-
-function HoverCardContent({
-  className,
-  align = 'center',
-  sideOffset = 4,
-  showArrow = false,
+const HoverCard = ({
+  children,
   ...props
-}: React.ComponentProps<typeof HoverCardPrimitive.Content> & {
-  showArrow?: boolean
-}) {
-  return (
-    <HoverCardPrimitive.Content
-      data-slot="hover-card-content"
-      align={align}
-      sideOffset={sideOffset}
-      className={cn(
-        'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-64 rounded-md border p-4 shadow-lg outline-hidden',
-        className
-      )}
-      {...props}
-    >
-      {props.children}
-      {showArrow && (
-        <HoverCardPrimitive.Arrow className="fill-popover -my-px drop-shadow-[0_1px_0_var(--border)]" />
-      )}
-    </HoverCardPrimitive.Content>
-  )
+}: UseHoverCardProps & { children: React.ReactNode }) => {
+  const api = useHoverCard(props)
+  return <HoverCardProvider value={api}>{children}</HoverCardProvider>
 }
+HoverCard.displayName = "HoverCard"
+
+const HoverCardTrigger = React.forwardRef<
+  HTMLAnchorElement,
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & { asChild?: boolean }
+>(({ className, asChild = false, ...props }, ref) => {
+  const api = useHoverCardContext()
+
+  const Comp = asChild ? Slot : "a"
+  const triggerProps = api.getTriggerProps()
+  const mergedProps = mergeProps(triggerProps, props)
+
+  return (
+    <Comp
+      ref={ref}
+      data-slot="hover-card-trigger"
+      className={cn("cursor-pointer", className)}
+      {...mergedProps}
+    />
+  )
+})
+HoverCardTrigger.displayName = "HoverCardTrigger"
+
+const HoverCardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    align?: "center" | "start" | "end"
+    side?: "top" | "bottom" | "left" | "right"
+    sideOffset?: number
+    showArrow?: boolean
+  }
+>(({ className, align = "center", side = "bottom", sideOffset = 4, showArrow = false, style, children, ...props }, ref) => {
+  const api = useHoverCardContext()
+  const placement = (align === "center" ? side : `${side}-${align}`) as Placement
+  React.useEffect(() => {
+    if (!api.open) return
+    api.reposition({ placement, gutter: sideOffset })
+  }, [api, placement, sideOffset])
+  if (!api.open) return null
+  if (typeof window === 'undefined') return null
+
+  const positionerProps = api.getPositionerProps()
+  const contentProps = api.getContentProps()
+  const mergedProps = mergeProps(contentProps, props) as React.HTMLAttributes<HTMLDivElement>
+
+  return createPortal(
+    <div {...positionerProps} style={{ ...positionerProps.style, zIndex: 50 }}>
+      <div
+        ref={ref}
+        data-slot="hover-card-content"
+        data-state="open"
+        style={{ ...mergedProps.style, ...style }}
+        className={cn(hoverCardContentVariants(), showArrow ? "relative" : undefined, className)}
+        {...mergedProps}
+      >
+        {children}
+        {showArrow ? (
+          <span
+            data-slot="hover-card-arrow"
+            className="absolute -top-1 left-6 h-2 w-2 rotate-45 border border-border bg-popover"
+          />
+        ) : null}
+      </div>
+    </div>,
+    document.body
+  )
+})
+HoverCardContent.displayName = "HoverCardContent"
 
 export { HoverCard, HoverCardContent, HoverCardTrigger }

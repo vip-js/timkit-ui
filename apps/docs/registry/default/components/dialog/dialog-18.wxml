@@ -1,0 +1,108 @@
+<dialog>
+      <dialog-trigger asChild>
+        <button variant="outline">Change plan</button>
+      </dialog-trigger>
+      <dialog-content>
+        <view class="mb-2 flex flex-col gap-2">
+          <view
+            class="flex size-11 shrink-0 items-center justify-center rounded-full border"
+            aria-hidden="true"
+          >
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
+          </view>
+          <dialog-header>
+            <dialog-title class="text-left">Change your plan</dialog-title>
+            <dialog-description class="text-left">
+              Pick one of the following plans.
+            </dialog-description>
+          </dialog-header>
+        </view>
+
+        <form class="space-y-5">
+          <radio-group class="gap-2" defaultValue="2">
+            
+            <view class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex w-full items-center gap-2 rounded-md border px-4 py-3 shadow-xs outline-none">
+              <radio-group-item
+                value="1" id="dialog-18-id" aria-describedby="dialog-18-id-1-description"
+                class="order-1 after:absolute after:inset-0"
+              />
+              <view class="grid grow gap-1">
+                <label for="dialog-18-id">Essential</label>
+                <p id="dialog-18-id" class="text-muted-foreground text-xs">
+                  $4 per member/month
+                </p>
+              </view>
+            </view>
+            
+            <view class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex w-full items-center gap-2 rounded-md border px-4 py-3 shadow-xs outline-none">
+              <radio-group-item
+                value="2" id="dialog-18-id" aria-describedby="dialog-18-id-2-description"
+                class="order-1 after:absolute after:inset-0"
+              />
+              <view class="grid grow gap-1">
+                <label for="dialog-18-id">Standard</label>
+                <p id="dialog-18-id" class="text-muted-foreground text-xs">
+                  $19 per member/month
+                </p>
+              </view>
+            </view>
+            
+            <view class="border-input has-data-[state=checked]:border-primary/50 has-data-[state=checked]:bg-accent relative flex w-full items-center gap-2 rounded-md border px-4 py-3 shadow-xs outline-none">
+              <radio-group-item
+                value="3" id="dialog-18-id" aria-describedby="dialog-18-id-3-description"
+                class="order-1 after:absolute after:inset-0"
+              />
+              <view class="grid grow gap-1">
+                <label for="dialog-18-id">Enterprise</label>
+                <p id="dialog-18-id" class="text-muted-foreground text-xs">
+                  $32 per member/month
+                </p>
+              </view>
+            </view>
+          </radio-group>
+
+          <view class="space-y-3">
+            <p>
+              <strong class="text-sm font-medium">Features include:</strong>
+            </p>
+            <ul class="text-muted-foreground space-y-2 text-sm">
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                Create unlimited projects.
+              </li>
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                Remove watermarks.
+              </li>
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                Add unlimited users and free viewers.
+              </li>
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                Upload unlimited files.
+              </li>
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                7-day money back guarantee.
+              </li>
+              <li class="flex gap-2">
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
+                Advanced permissions.
+              </li>
+            </ul>
+          </view>
+
+          <view class="grid gap-2">
+            <button type="button" class="w-full">
+              Change plan
+            </button>
+            <dialog-close asChild>
+              <button type="button" variant="ghost" class="w-full">
+                Cancel
+              </button>
+            </dialog-close>
+          </view>
+        </form>
+      </dialog-content>
+    </dialog>

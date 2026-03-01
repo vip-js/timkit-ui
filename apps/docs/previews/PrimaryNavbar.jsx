@@ -1,15 +1,7 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function PrimaryNavbar() {
-
   const [state, setState] = React.useState(false)
-
   // Replace javascript:void(0) path with your path
   const navigation = [
       { title: "Customers", path: "javascript:void(0)" },
@@ -17,15 +9,14 @@ export default function PrimaryNavbar() {
       { title: "Guides", path: "javascript:void(0)" },
       { title: "Partners", path: "javascript:void(0)" }
   ]
-
   return (
       <nav className="bg-white w-full border-b md:border-0">
           <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
               <div className="flex items-center justify-between py-3 md:py-5 md:block">
                     <a href="javascript:void(0)">
                         <img
-                            src="/logo.svg" 
-                            width={120} 
+                            src="/logo.svg"
+                            width={120}
                             height={50}
                             alt="Float UI logo"
                         />
@@ -64,13 +55,12 @@ export default function PrimaryNavbar() {
                   </ul>
               </div>
               <div className="hidden md:inline-block">
-                <a href="javascript:void(0)" className="py-3 px-4 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow">
+                <Button>
                     Get Started
-                </a>
+                </Button>
               </div>
           </div>
       </nav>
   )
 }
-
         

@@ -1,11 +1,5 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Input } from "@timui/react";
 export default function AmountInput() {
     return (
         <div className="max-w-sm mx-auto mt-12">
@@ -20,7 +14,7 @@ export default function AmountInput() {
                         <option>MRO</option>
                     </select>
                 </div>
-                <input
+                <Input
                     type="number"
                     placeholder="$0.00"
                     className="w-full pl-[4.5rem] pr-3 py-2 appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"

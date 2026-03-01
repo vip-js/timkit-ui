@@ -1,0 +1,58 @@
+<banner class="dark bg-muted text-foreground px-4 py-3">
+  <banner-content class="gap-2 md:items-center">
+    <view class="flex grow gap-3 md:items-center">
+      <banner-icon class="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full max-md:mt-0.5">
+        <svg
+          class="opacity-80"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4.5 16.5c-1.5-1.5-1-4.5 1-6.5 2-2 9-5 13-5 0 4-3 11-5 13-2 2-5 2.5-6.5 1L4 20l.5-3.5z" />
+          <path d="M15 9 9 15" />
+        </svg>
+      </banner-icon>
+      <view class="flex grow flex-col justify-between gap-3 md:flex-row md:items-center">
+        <view class="space-y-0.5">
+          <banner-title>Boost your experience with Timkit UI</banner-title>
+          <banner-description class="text-sm">
+            The new feature is live! Try it out and let us know what you think.
+          </banner-description>
+        </view>
+        <banner-actions class="flex gap-2 max-md:flex-wrap">
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs text-sm">
+            Try now
+          </button>
+        </banner-actions>
+      </view>
+    </view>
+    <banner-actions class="shrink-0">
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+        aria-label="Close banner"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="opacity-60 transition-opacity group-hover:opacity-100"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18" />
+          <path d="M6 6 18 18" />
+        </svg>
+      </button>
+    </banner-actions>
+  </banner-content>
+</banner>

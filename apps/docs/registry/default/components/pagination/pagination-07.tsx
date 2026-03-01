@@ -1,14 +1,13 @@
-import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { usePagination } from '@/registry/default/hooks/use-pagination'
-
 import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-} from '../../ui/pagination'
+} from '@timui/react'
+import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+
+import { usePagination } from '@/registry/default/hooks/use-pagination'
 
 type PaginationProps = {
   currentPage: number

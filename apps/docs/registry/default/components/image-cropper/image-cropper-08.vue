@@ -1,0 +1,34 @@
+<script setup lang="ts">
+import { Slider } from '@/components/ui/slider'
+</script>
+<template>
+<div class="flex flex-col items-center gap-2">
+      <div class="flex w-full flex-col gap-4">
+        <Cropper
+          class="h-80"
+          image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-07_scsejv.jpg" >
+          <CropperDescription />
+          <CropperImage />
+          <CropperCropArea />
+        </Cropper>
+        <div class="mx-auto flex w-full max-w-80 items-center gap-1">
+          <Slider min="1" max="3" aria-label="Zoom slider"
+          />
+          <output class="block w-10 shrink-0 text-right text-sm font-medium tabular-nums">
+            x
+          </output>
+        </div>
+      </div>
+
+      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
+        Cropper with zoom slider ∙ 
+        <a
+          href="https://github.com/origin-space/image-cropper"
+          class="hover:text-foreground underline"
+          target="_blank"
+        >
+          API
+        </a>
+      </p>
+    </div>
+</template>

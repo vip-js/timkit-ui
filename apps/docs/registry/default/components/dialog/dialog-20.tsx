@@ -1,11 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { cn } from '@timui/shared'
-import { ArrowRightIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -14,7 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
+} from '@timui/react'
+import { ArrowRightIcon } from 'lucide-react'
 
 export default function Component() {
   const [step, setStep] = useState(1)

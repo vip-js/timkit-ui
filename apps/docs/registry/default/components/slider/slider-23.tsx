@@ -1,10 +1,8 @@
 'use client'
 
-import { useSliderWithInput } from '@/registry/default/hooks/use-slider-with-input'
+import { Input, Label, Slider } from '@timui/react'
 
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
+import { useSliderWithInput } from '@/registry/default/hooks/use-slider-with-input'
 
 export default function Component() {
   const minValue = 0

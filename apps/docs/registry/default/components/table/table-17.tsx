@@ -6,15 +6,22 @@ import {
   flexRender,
   getCoreRowModel,
   getExpandedRowModel,
+  RowSelectionState,
   useReactTable,
 } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Badge,
+  Button,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 type Item = {
   id: string
@@ -61,14 +68,18 @@ const columns: ColumnDef<Item>[] = [
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!(value?.detail?.checked ?? value))
+        }
+        onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
+        onClick={() => row.toggleSelected(!row.getIsSelected())}
         aria-label="Select row"
       />
     ),
@@ -120,6 +131,7 @@ const columns: ColumnDef<Item>[] = [
 
 export default function Component() {
   const [data, setData] = useState<Item[]>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
   useEffect(() => {
     async function fetchPosts() {
@@ -138,6 +150,12 @@ export default function Component() {
     getRowCanExpand: (row) => Boolean(row.original.note),
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.id,
+    state: {
+      rowSelection,
+    },
   })
 
   return (

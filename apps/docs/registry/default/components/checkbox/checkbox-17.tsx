@@ -1,8 +1,6 @@
 import { useId } from 'react'
+import { Checkbox, Label } from '@timui/react'
 import { Brush, Eraser, Scissors, SwatchBook } from 'lucide-react'
-
-import { Checkbox } from '../../ui/checkbox'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

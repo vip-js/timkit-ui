@@ -2,14 +2,14 @@
   "name": "button-27",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/button/button-27.tsx",
       "type": "registry:component",
       "target": "components/ui/button-27.tsx",
-      "content": "import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\n\nexport default function Component() {\n  return (\n    <div className=\"inline-flex -space-x-px rounded-md shadow-xs rtl:space-x-reverse\">\n      <Button\n        className=\"rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10\"\n        variant=\"outline\"\n        size=\"icon\"\n        aria-label=\"Upvote\"\n      >\n        <ChevronUpIcon size={16} aria-hidden=\"true\" />\n      </Button>\n      <span className=\"border-input flex items-center border px-3 text-sm font-medium\">235</span>\n      <Button\n        className=\"rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10\"\n        variant=\"outline\"\n        size=\"icon\"\n        aria-label=\"Downvote\"\n      >\n        <ChevronDownIcon size={16} aria-hidden=\"true\" />\n      </Button>\n    </div>\n  )\n}\n"
+      "content": "import { Button } from '@timui/react'\nimport { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <div className=\"inline-flex -space-x-px rounded-md shadow-xs rtl:space-x-reverse\">\n      <Button\n        className=\"rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10\"\n        variant=\"outline\"\n        size=\"icon\"\n        aria-label=\"Upvote\"\n      >\n        <ChevronUpIcon size={16} aria-hidden=\"true\" />\n      </Button>\n      <span className=\"border-input flex items-center border px-3 text-sm font-medium\">235</span>\n      <Button\n        className=\"rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10\"\n        variant=\"outline\"\n        size=\"icon\"\n        aria-label=\"Downvote\"\n      >\n        <ChevronDownIcon size={16} aria-hidden=\"true\" />\n      </Button>\n    </div>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -24,7 +24,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "buttons"
+    "category": "buttons",
+    "title": "Button · With icon"
   },
   "categories": [
     "buttons",

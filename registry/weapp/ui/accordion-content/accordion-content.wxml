@@ -1,0 +1,10 @@
+<view 
+  class="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down {{contentApi.className}}"
+  hidden="{{contentApi.hidden}}"
+  id="{{contentApi.id}}"
+  data-state="{{contentApi['data-state']}}"
+>
+  <view class="pb-4 pt-0">
+    <slot />
+  </view>
+</view>

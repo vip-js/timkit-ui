@@ -2,19 +2,58 @@
   "name": "scroll-area",
   "type": "registry:ui",
   "dependencies": [
-    "@radix-ui/react-scroll-area"
+    "@timui/core"
   ],
   "files": [
     {
       "path": "registry/default/ui/scroll-area.tsx",
       "type": "registry:ui",
       "target": "components/ui/scroll-area.tsx",
-      "content": "'use client'\n'use client'\n\nimport * as React from 'react'\nimport * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'\nimport { cn } from '@timui/shared'\n\nfunction ScrollArea({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {\n  return (\n    <ScrollAreaPrimitive.Root\n      data-slot=\"scroll-area\"\n      className={cn('relative', className)}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Viewport\n        data-slot=\"scroll-area-viewport\"\n        className=\"size-full rounded-[inherit]\"\n      >\n        {children}\n      </ScrollAreaPrimitive.Viewport>\n      <ScrollBar />\n      <ScrollAreaPrimitive.Corner />\n    </ScrollAreaPrimitive.Root>\n  )\n}\n\nfunction ScrollBar({\n  className,\n  orientation = 'vertical',\n  ...props\n}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>) {\n  return (\n    <ScrollAreaPrimitive.ScrollAreaScrollbar\n      data-slot=\"scroll-area-scrollbar\"\n      orientation={orientation}\n      className={cn(\n        'flex touch-none select-none',\n        orientation === 'vertical' && 'h-full w-2.5 border-l border-l-transparent p-px',\n        orientation === 'horizontal' && 'h-2.5 flex-col border-t border-t-transparent p-px',\n        className\n      )}\n      {...props}\n    >\n      <ScrollAreaPrimitive.ScrollAreaThumb\n        data-slot=\"scroll-area-thumb\"\n        className=\"bg-border relative flex-1 rounded-full\"\n      />\n    </ScrollAreaPrimitive.ScrollAreaScrollbar>\n  )\n}\n\nexport { ScrollArea, ScrollBar }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\n\nconst ScrollArea = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & {\n    orientation?: 'horizontal' | 'vertical' | 'both'\n    scrollBarClassName?: string\n  }\n>(({ className, children, orientation = 'vertical', scrollBarClassName, ...props }, ref) => (\n  <div\n    ref={ref}\n    data-slot=\"scroll-area\"\n    className={cn('relative overflow-hidden', className)}\n    {...props}\n  >\n    <div\n      data-slot=\"scroll-viewport\"\n      className={cn(\n        'h-full w-full rounded-[inherit]',\n        orientation === 'vertical' && 'overflow-y-auto overflow-x-hidden',\n        orientation === 'horizontal' && 'overflow-x-auto overflow-y-hidden',\n        orientation === 'both' && 'overflow-auto',\n        'scrollbar-width-thin scrollbar-color-border scrollbar-track-transparent [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-track]:bg-transparent',\n        scrollBarClassName\n      )}\n    >\n      {children}\n    </div>\n  </div>\n))\nScrollArea.displayName = 'ScrollArea'\n\n// Mock ScrollBar component for API compatibility\nconst ScrollBar = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement> & { orientation?: 'vertical' | 'horizontal' }\n>(\n  ({ className, orientation = 'vertical', ...props }, ref) => null // Native scroll doesn't need a separate scrollbar element usually unless specialized\n)\nScrollBar.displayName = 'ScrollBar'\n\nexport { ScrollArea, ScrollBar }\n"
+    },
+    {
+      "path": "registry/default/vue/scroll-area/scroll-area.vue",
+      "target": "components/ui/scroll-area/scroll-area.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { ScrollAreaRoot, ScrollAreaViewport, ScrollAreaCorner, type ScrollAreaRootProps } from 'radix-vue'\nimport ScrollBar from '../scroll-bar/scroll-bar.vue'\nimport { cn, scrollAreaVariants, scrollAreaViewportVariants } from \"@/lib/utils\"\nimport type { HTMLAttributes } from 'vue'\n\nconst props = defineProps<ScrollAreaRootProps & { class?: HTMLAttributes['class'] }>()\n</script>\n\n<template>\n  <ScrollAreaRoot\n    v-bind=\"props\"\n    :class=\"cn(scrollAreaVariants(), props.class)\"\n  >\n    <ScrollAreaViewport :class=\"scrollAreaViewportVariants()\">\n      <slot />\n    </ScrollAreaViewport>\n    <ScrollBar />\n    <ScrollAreaCorner />\n  </ScrollAreaRoot>\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/scroll-area.html",
+      "target": "components/ui/scroll-area.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"scroll-area\" class=\"h-40 w-full max-w-sm overflow-auto rounded-md border border-input p-2 text-sm\">\n  <p>Scrollable content line 1</p>\n  <p>Scrollable content line 2</p>\n  <p>Scrollable content line 3</p>\n  <p>Scrollable content line 4</p>\n  <p>Scrollable content line 5</p>\n  <p>Scrollable content line 6</p>\n  <p>Scrollable content line 7</p>\n  <p>Scrollable content line 8</p>\n</div>\n"
+    },
+    {
+      "path": "registry/default/weapp/scroll-area.wxml",
+      "target": "components/ui/scroll-area.wxml",
+      "type": "registry:component",
+      "content": "<scroll-view\n  class=\"scroll-area {{extClass}}\"\n  scroll-y=\"{{scrollY}}\"\n  scroll-x=\"{{scrollX}}\"\n  style=\"height: {{height}};\"\n  bindscroll=\"onScroll\"\n>\n  <slot />\n</scroll-view>\n"
+    },
+    {
+      "path": "registry/default/weapp/scroll-area.wxss",
+      "target": "components/ui/scroll-area.wxss",
+      "type": "registry:component",
+      "content": ".scroll-area {\n  width: 100%;\n  border: 1px solid #e5e7eb;\n  border-radius: 12rpx;\n  box-sizing: border-box;\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/scroll-area.ts",
+      "target": "components/ui/scroll-area.ts",
+      "type": "registry:component",
+      "content": "Component({\n  options: {\n    styleIsolation: 'apply-shared',\n  },\n\n  properties: {\n    scrollY: {\n      type: Boolean,\n      value: true,\n    },\n    scrollX: {\n      type: Boolean,\n      value: false,\n    },\n    height: {\n      type: String,\n      value: '320rpx',\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n\n  methods: {\n    onScroll(e: WechatMiniprogram.ScrollViewScroll) {\n      this.triggerEvent('scroll', e.detail)\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/scroll-area.json",
+      "target": "components/ui/scroll-area.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

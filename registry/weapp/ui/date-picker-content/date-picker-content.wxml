@@ -1,0 +1,11 @@
+<root-portal wx:if="{{!contentApi.hidden}}">
+    <!-- Date picker content -->
+    <view 
+        class="z-50 p-3 min-w-[20rem] rounded-md border bg-popover text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out {{contentApi.className}}"
+        id="{{contentApi.id}}"
+        data-state="{{contentApi['data-state']}}"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); {{contentApi.style}}"
+    >
+        <slot />
+    </view>
+</root-portal>

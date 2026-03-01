@@ -1,14 +1,33 @@
 'use client'
-'use client'
 
 import * as React from 'react'
 import { createContext, useContext } from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import { Slot } from './slot'
+import type { Machine as NumberInputMachine } from '@zag-js/number-input'
+import type { Machine as ZagMachine, MachineSchema as ZagMachineSchema } from '@zag-js/core'
+import type { AssertNoExtraKeys, StepperProps as CoreStepperProps } from '@timui/core'
+import {
+  cn,
+  createTimEvent,
+  stepperConnect,
+  stepperMachine,
+  stepperDescriptionVariants,
+  stepperIndicatorCheckVariants,
+  stepperIndicatorLabelVariants,
+  stepperIndicatorLoaderVariants,
+  stepperIndicatorVariants,
+  stepperItemVariants,
+  stepperSeparatorVariants,
+  stepperTitleVariants,
+  stepperTriggerVariants,
+  stepperVariants,
+} from '@timui/core'
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react'
+import { mergeProps, normalizeProps, useMachine } from '@zag-js/react'
 
 // Types
 type StepperContextValue = {
+  api: ReturnType<typeof stepperConnect>
   activeStep: number
   setActiveStep: (step: number) => void
   orientation: 'horizontal' | 'vertical'
@@ -22,6 +41,8 @@ type StepItemContextValue = {
 }
 
 type StepState = 'active' | 'completed' | 'inactive' | 'loading'
+type InferMachineSchema<T> = T extends ZagMachine<infer S> ? S : ZagMachineSchema
+type NumberInputSchema = InferMachineSchema<NumberInputMachine>
 
 // Contexts
 const StepperContext = createContext<StepperContextValue | undefined>(undefined)
@@ -44,38 +65,55 @@ const useStepItem = () => {
 }
 
 // Components
-interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue?: number
-  value?: number
-  onValueChange?: (value: number) => void
-  orientation?: 'horizontal' | 'vertical'
-}
+type StepperProps = CoreStepperProps & React.HTMLAttributes<HTMLDivElement>
+type _StepperPropsGuard = AssertNoExtraKeys<
+  StepperProps,
+  CoreStepperProps & React.HTMLAttributes<HTMLDivElement>
+>
 
 function Stepper({
-  defaultValue = 0,
+  defaultValue = '0',
   value,
   onValueChange,
   orientation = 'horizontal',
   className,
   ...props
 }: StepperProps) {
-  const [activeStep, setInternalStep] = React.useState(defaultValue)
+  const generatedId = React.useId()
+  const stepperId = props.id ?? generatedId
+  const normalizedValue =
+    typeof value === 'number' ? String(value) : value
+  const normalizedDefaultValue =
+    typeof defaultValue === 'number' ? String(defaultValue) : defaultValue
 
+  const service = useMachine<NumberInputSchema>(stepperMachine, {
+    id: stepperId,
+    value: normalizedValue,
+    defaultValue: normalizedDefaultValue,
+      onValueChange(details: { value: string; valueAsNumber: number }) {
+        onValueChange?.(
+          createTimEvent('change', stepperId, {
+            value: details.value,
+            valueAsNumber: details.valueAsNumber,
+          }) as never as Parameters<NonNullable<CoreStepperProps['onValueChange']>>[0]
+      )
+    },
+  })
+
+  const api = React.useMemo(() => stepperConnect(service, normalizeProps), [service])
+
+  const currentStep = Number.isFinite(api.valueAsNumber) ? api.valueAsNumber : 0
   const setActiveStep = React.useCallback(
     (step: number) => {
-      if (value === undefined) {
-        setInternalStep(step)
-      }
-      onValueChange?.(step)
+      api.setValue(step)
     },
-    [value, onValueChange]
+    [api]
   )
-
-  const currentStep = value ?? activeStep
 
   return (
     <StepperContext.Provider
       value={{
+        api,
         activeStep: currentStep,
         setActiveStep,
         orientation,
@@ -83,12 +121,9 @@ function Stepper({
     >
       <div
         data-slot="stepper"
-        className={cn(
-          'group/stepper inline-flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
-          className
-        )}
+        className={cn(stepperVariants(), className)}
         data-orientation={orientation}
-        {...props}
+        {...(mergeProps(api.getRootProps(), props) as React.HTMLAttributes<HTMLDivElement>)}
       />
     </StepperContext.Provider>
   )
@@ -122,10 +157,7 @@ function StepperItem({
     <StepItemContext.Provider value={{ step, state, isDisabled: disabled, isLoading }}>
       <div
         data-slot="stepper-item"
-        className={cn(
-          'group/step flex items-center group-data-[orientation=horizontal]/stepper:flex-row group-data-[orientation=vertical]/stepper:flex-col',
-          className
-        )}
+        className={cn(stepperItemVariants(), className)}
         data-state={state}
         {...(isLoading ? { 'data-loading': true } : {})}
         {...props}
@@ -157,10 +189,7 @@ function StepperTrigger({ asChild = false, className, children, ...props }: Step
   return (
     <button
       data-slot="stepper-trigger"
-      className={cn(
-        'focus-visible:border-ring focus-visible:ring-ring/50 inline-flex items-center gap-3 rounded-full outline-none focus-visible:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50',
-        className
-      )}
+      className={cn(stepperTriggerVariants(), className)}
       onClick={() => setActiveStep(step)}
       disabled={isDisabled}
       {...props}
@@ -186,10 +215,7 @@ function StepperIndicator({
   return (
     <span
       data-slot="stepper-indicator"
-      className={cn(
-        'bg-muted text-muted-foreground data-[state=active]:bg-primary data-[state=completed]:bg-primary data-[state=active]:text-primary-foreground data-[state=completed]:text-primary-foreground relative flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-medium',
-        className
-      )}
+      className={cn(stepperIndicatorVariants(), className)}
       data-state={state}
       {...props}
     >
@@ -197,16 +223,16 @@ function StepperIndicator({
         children
       ) : (
         <>
-          <span className="transition-all group-data-loading/step:scale-0 group-data-loading/step:opacity-0 group-data-loading/step:transition-none group-data-[state=completed]/step:scale-0 group-data-[state=completed]/step:opacity-0">
+          <span className={stepperIndicatorLabelVariants()}>
             {step}
           </span>
           <CheckIcon
-            className="absolute scale-0 opacity-0 transition-all group-data-[state=completed]/step:scale-100 group-data-[state=completed]/step:opacity-100"
+            className={stepperIndicatorCheckVariants()}
             size={16}
             aria-hidden="true"
           />
           {isLoading && (
-            <span className="absolute transition-all">
+            <span className={stepperIndicatorLoaderVariants()}>
               <LoaderCircleIcon className="animate-spin" size={14} aria-hidden="true" />
             </span>
           )}
@@ -219,7 +245,7 @@ function StepperIndicator({
 // StepperTitle
 function StepperTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 data-slot="stepper-title" className={cn('text-sm font-medium', className)} {...props} />
+    <h3 data-slot="stepper-title" className={cn(stepperTitleVariants(), className)} {...props} />
   )
 }
 
@@ -228,7 +254,7 @@ function StepperDescription({ className, ...props }: React.HTMLAttributes<HTMLPa
   return (
     <p
       data-slot="stepper-description"
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn(stepperDescriptionVariants(), className)}
       {...props}
     />
   )
@@ -239,10 +265,7 @@ function StepperSeparator({ className, ...props }: React.HTMLAttributes<HTMLDivE
   return (
     <div
       data-slot="stepper-separator"
-      className={cn(
-        'bg-muted group-data-[state=completed]/step:bg-primary m-0.5 group-data-[orientation=horizontal]/stepper:h-0.5 group-data-[orientation=horizontal]/stepper:w-full group-data-[orientation=horizontal]/stepper:flex-1 group-data-[orientation=vertical]/stepper:h-12 group-data-[orientation=vertical]/stepper:w-0.5',
-        className
-      )}
+      className={cn(stepperSeparatorVariants(), className)}
       {...props}
     />
   )

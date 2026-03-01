@@ -1,0 +1,6 @@
+<view class="{{rootClass}} py-4" data-disabled="{{disabled}}" bindtouchmove="handleTouchMove">
+  <view class="{{trackClass}}">
+    <view class="{{rangeClass}}" style="width: {{left}}%"></view>
+  </view>
+  <view class="{{thumbClass}}" style="margin-left: {{left}}%; transform: translateX(-50%)"></view>
+</view>

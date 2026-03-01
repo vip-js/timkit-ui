@@ -1,0 +1,28 @@
+<view class="{{className}} timeline">
+  <view 
+    wx:for="{{items}}" 
+    wx:key="index"
+    class="timeline-item"
+    data-last="{{index === items.length - 1}}"
+  >
+    <!-- Dot -->
+    <view class="timeline-dot" data-type="{{item.type || 'default'}}"></view>
+    
+    <!-- Line -->
+    <view 
+      wx:if="{{index < items.length - 1}}"
+      class="timeline-line"
+    ></view>
+
+    <!-- Content -->
+    <view class="timeline-content">
+      <view class="timeline-title">{{item.title}}</view>
+      <view wx:if="{{item.description}}" class="timeline-description">
+        {{item.description}}
+      </view>
+      <view wx:if="{{item.time}}" class="timeline-time">
+        {{item.time}}
+      </view>
+    </view>
+  </view>
+</view>

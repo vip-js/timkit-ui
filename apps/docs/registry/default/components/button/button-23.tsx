@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Button } from '../../ui/button'
+import { Button } from '@timui/react'
 
 export default function Component() {
   const [open, setOpen] = useState<boolean>(false)

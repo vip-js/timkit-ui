@@ -1,6 +1,5 @@
 import { useId } from 'react'
-
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'
 
 export default function Component() {
   const id = useId()

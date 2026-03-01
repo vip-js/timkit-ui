@@ -1,0 +1,15 @@
+<view 
+  class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground {{itemApi.className}}"
+  id="{{itemApi.id}}"
+  bindtap="handleTap"
+  role="option"
+  aria-selected="{{itemApi['aria-selected']}}"
+  data-state="{{itemApi['data-state']}}"
+  data-highlighted="{{itemApi['data-highlighted']}}"
+  data-disabled="{{itemApi['data-disabled']}}"
+>
+  <view class="mr-2 flex h-4 w-4 items-center justify-center" wx:if="{{itemApi['data-state'] === 'checked'}}">
+      <view class="h-2 w-2 rounded-full bg-current" />
+  </view>
+  <slot />
+</view>

@@ -1,0 +1,4 @@
+/* Tooltip specific styles */
+.relative { position: relative; }
+.inline-block { display: inline-block; }
+.absolute { position: absolute; }

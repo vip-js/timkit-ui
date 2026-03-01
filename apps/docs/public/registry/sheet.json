@@ -1,0 +1,199 @@
+{
+  "name": "sheet",
+  "type": "registry:ui",
+  "dependencies": [
+    "@timui/core"
+  ],
+  "files": [
+    {
+      "path": "registry/default/ui/sheet.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/sheet.tsx",
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn, dialogConnect, dialogMachine } from \"@/lib/utils\"\nimport { normalizeProps, Portal, useMachine } from '@zag-js/react'\nimport { cva, type VariantProps } from 'class-variance-authority'\nimport { X } from 'lucide-react'\n\n// Context sharing\nconst SheetContext = React.createContext<any>(null)\n\nconst Sheet = (props: any) => {\n  const service = useMachine(dialogMachine, { id: React.useId() })\n  const api = dialogConnect(service as any, normalizeProps)\n\n  return <SheetContext.Provider value={api}>{props.children}</SheetContext.Provider>\n}\n\nconst SheetTrigger = (props: any) => {\n  const api = React.useContext(SheetContext)\n  return React.cloneElement(props.children, api.triggerProps)\n}\n\nconst SheetClose = (props: any) => {\n  const api = React.useContext(SheetContext)\n  return React.cloneElement(props.children, api.closeTriggerProps)\n}\n\nconst SheetPortal = (props: any) => <>{props.children}</>\n\nconst sheetOverlayVariants = cva(\n  'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0'\n)\n\nconst SheetOverlay = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(\n  ({ className, ...props }, ref) => {\n    const api = React.useContext(SheetContext)\n    if (!api.open) return null\n\n    return (\n      <div\n        {...api.backdropProps}\n        ref={ref}\n        className={cn(sheetOverlayVariants(), className)}\n        {...props}\n      />\n    )\n  }\n)\nSheetOverlay.displayName = 'SheetOverlay'\n\nconst sheetContentVariants = cva(\n  'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',\n  {\n    variants: {\n      side: {\n        top: 'inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',\n        bottom:\n          'inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',\n        left: 'inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',\n        right:\n          'inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',\n      },\n    },\n    defaultVariants: {\n      side: 'right',\n    },\n  }\n)\n\ninterface SheetContentProps\n  extends React.ComponentPropsWithoutRef<'div'>, VariantProps<typeof sheetContentVariants> {}\n\nconst SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(\n  ({ side = 'right', className, children, ...props }, ref) => {\n    const api = React.useContext(SheetContext)\n    if (!api.open) return null\n\n    return (\n      <Portal>\n        <SheetOverlay />\n        <div\n          {...api.positionerProps} // Zag Dialog positioner usually handles centering, for Sheet we override with fixed positioning\n          className=\"fixed inset-0 pointer-events-none flex\"\n          style={{ zIndex: 50 }}\n        >\n          {/* Wrapper to handle Sheet transitions and positioning logic manually if needed or via api.contentProps? \n               Zag Dialog assumes centered modal. Sheet requires side docking. \n               We use `contentProps` but style it with Tailwind class `fixed ...`.\n           */}\n          <div\n            {...api.contentProps}\n            ref={ref}\n            className={cn(sheetContentVariants({ side }), className, 'pointer-events-auto')}\n            {...props}\n          >\n            {children}\n            <button\n              {...api.closeTriggerProps}\n              className=\"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary\"\n            >\n              <X className=\"h-4 w-4\" />\n              <span className=\"sr-only\">Close</span>\n            </button>\n          </div>\n        </div>\n      </Portal>\n    )\n  }\n)\nSheetContent.displayName = 'SheetContent'\n\nconst SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div className={cn('flex flex-col space-y-2 text-center sm:text-left', className)} {...props} />\n)\nSheetHeader.displayName = 'SheetHeader'\n\nconst SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div\n    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}\n    {...props}\n  />\n)\nSheetFooter.displayName = 'SheetFooter'\n\nconst SheetTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(\n  ({ className, ...props }, ref) => {\n    const api = React.useContext(SheetContext)\n    return (\n      <h2\n        {...api.titleProps}\n        ref={ref}\n        className={cn('text-lg font-semibold text-foreground', className)}\n        {...props}\n      />\n    )\n  }\n)\nSheetTitle.displayName = 'SheetTitle'\n\nconst SheetDescription = React.forwardRef<\n  HTMLParagraphElement,\n  React.HTMLAttributes<HTMLParagraphElement>\n>(({ className, ...props }, ref) => {\n  const api = React.useContext(SheetContext)\n  return (\n    <p\n      {...api.descriptionProps}\n      ref={ref}\n      className={cn('text-sm text-muted-foreground', className)}\n      {...props}\n    />\n  )\n})\nSheetDescription.displayName = 'SheetDescription'\n\nexport {\n  Sheet,\n  SheetTrigger,\n  SheetClose,\n  SheetContent,\n  SheetHeader,\n  SheetFooter,\n  SheetTitle,\n  SheetDescription,\n  SheetPortal,\n  SheetOverlay,\n}\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-content.vue",
+      "target": "components/ui/sheet/sheet-content.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, type HTMLAttributes } from \"vue\";\nimport { X } from \"lucide-vue-next\";\nimport {\n  cn,\n  sheetCloseIconVariants,\n  sheetCloseVariants,\n  sheetContentVariants,\n  sheetOverlayVariants,\n  sheetPositionerVariants,\n} from \"@/lib/utils\";\nimport { useSheetContext } from \"./use-sheet-context\";\nimport Presence from \"../presence/presence.vue\";\n\nconst props = withDefaults(\n  defineProps<{\n    class?: HTMLAttributes[\"class\"];\n    side?: \"top\" | \"right\" | \"bottom\" | \"left\";\n  }>(),\n  { side: \"right\" }\n);\n\nconst api = useSheetContext();\nconst isOpen = computed(() => api.value?.open);\n</script>\n\n<template>\n  <Teleport to=\"body\">\n    <Presence\n      :present=\"api?.open\"\n      lazyMount\n      unmountOnExit\n      v-bind=\"api?.getBackdropProps?.()\"\n      :class=\"cn(sheetOverlayVariants())\"\n    />\n    <Presence\n      :present=\"api?.open\"\n      lazyMount\n      unmountOnExit\n      v-bind=\"api?.getPositionerProps?.()\"\n      :class=\"cn(sheetPositionerVariants())\"\n    >\n      <div\n        v-bind=\"api?.getContentProps?.()\"\n        :class=\"cn(sheetContentVariants({ side: props.side }), props.class)\"\n      >\n        <slot />\n        <button\n          v-bind=\"api?.getCloseTriggerProps?.()\"\n          :class=\"cn(sheetCloseVariants())\"\n        >\n          <X :class=\"sheetCloseIconVariants()\" />\n          <span class=\"sr-only\">Close</span>\n        </button>\n      </div>\n    </Presence>\n  </Teleport>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-description.vue",
+      "target": "components/ui/sheet/sheet-description.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\";\nimport { cn, sheetDescriptionVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <p :class=\"cn(sheetDescriptionVariants(), props.class)\">\n    <slot />\n  </p>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-footer.vue",
+      "target": "components/ui/sheet/sheet-footer.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn, sheetFooterVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <div :class=\"cn(sheetFooterVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-header.vue",
+      "target": "components/ui/sheet/sheet-header.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn, sheetHeaderVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <div :class=\"cn(sheetHeaderVariants(), props.class)\">\n    <slot />\n  </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-title.vue",
+      "target": "components/ui/sheet/sheet-title.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLAttributes } from \"vue\";\nimport { cn, sheetTitleVariants } from \"@/lib/utils\";\n\nconst props = defineProps<{ class?: HTMLAttributes[\"class\"] }>();\n</script>\n\n<template>\n  <h2 :class=\"cn(sheetTitleVariants(), props.class)\">\n    <slot />\n  </h2>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet-trigger.vue",
+      "target": "components/ui/sheet/sheet-trigger.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, type Component, type HTMLAttributes, type Ref } from \"vue\";\nimport { cn } from \"@/lib/utils\";\nimport { Primitive } from '../../primitive';\n\nconst props = withDefaults(\n  defineProps<{\n    as?: string | Component;\n    asChild?: boolean;\n    class?: HTMLAttributes[\"class\"];\n  }>(),\n  {\n    as: \"button\",\n  }\n);\n\ntype BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void);\ntype SheetApi = {\n  triggerProps?: Record<string, BindValue>;\n};\nconst api = inject(\"sheet\") as Ref<SheetApi | undefined> | undefined;\nconst triggerProps = computed(() => api?.value?.triggerProps || {});\n</script>\n\n<template>\n  <Primitive\n    :as=\"props.as\"\n    :as-child=\"props.asChild\"\n    v-bind=\"triggerProps\"\n    :class=\"cn(props.class)\"\n  >\n    <slot />\n  </Primitive>\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/sheet.vue",
+      "target": "components/ui/sheet/sheet.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { computed, provide, watch } from \"vue\";\nimport type { AssertNoExtraKeys, SheetProps as CoreSheetProps } from \"@/lib/utils\";\nimport { useSheet } from \"./use-sheet\";\nimport { provideSheetContext } from \"./use-sheet-context\";\n\ntype SheetProps = Omit<CoreSheetProps, \"id\"> & { id?: string };\ntype _SheetPropsGuard = AssertNoExtraKeys<SheetProps, CoreSheetProps>;\n\nconst props = defineProps<SheetProps>();\nlet sheetId = 0;\nconst localId = `sheet-${++sheetId}`;\n\nconst emit = defineEmits([\"update:open\", \"openChange\"]);\nconst api = useSheet({\n  id: props.id ?? localId,\n  open: props.open,\n  defaultOpen: props.defaultOpen,\n  modal: true,\n  onOpenChange(details) {\n    emit(\"update:open\", details.open);\n    emit(\"openChange\", details.open);\n  },\n});\n\nprovideSheetContext(api);\n\nwatch(\n  () => props.open,\n  (val?: boolean) => {\n    if (val !== undefined && val !== api.value?.open) {\n      api.value?.setOpen(val);\n    }\n  }\n);\n</script>\n\n<template>\n  <slot />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/use-sheet-context.ts",
+      "target": "components/ui/sheet/use-sheet-context.ts",
+      "type": "registry:component",
+      "content": "import { type ComputedRef, inject, provide } from 'vue'\nimport type { DialogApi } from \"@/lib/utils\"\n\nexport const SheetContextKey = Symbol('SheetContext')\n\nexport function provideSheetContext(api: ComputedRef<DialogApi>) {\n    provide(SheetContextKey, api)\n}\n\nexport function useSheetContext(): ComputedRef<DialogApi> {\n    const context = inject<ComputedRef<DialogApi>>(SheetContextKey)\n    if (!context) {\n        throw new Error('useSheetContext must be used within a SheetProvider')\n    }\n    return context\n}\n"
+    },
+    {
+      "path": "registry/default/vue/sheet/use-sheet.ts",
+      "target": "components/ui/sheet/use-sheet.ts",
+      "type": "registry:component",
+      "content": "import { computed, type ComputedRef } from 'vue'\nimport { dialogMachine, dialogConnect, type DialogApi } from \"@/lib/utils\"\nimport { useMachine, normalizeProps } from '@zag-js/vue'\n\nexport type UseSheetProps = {\n    id?: string\n    open?: boolean\n    defaultOpen?: boolean\n    modal?: boolean\n    onOpenChange?: (details: { open: boolean }) => void\n}\n\nexport function useSheet(props: UseSheetProps) {\n    const service = useMachine(dialogMachine, {\n        id: props.id,\n        open: props.open,\n        defaultOpen: props.defaultOpen,\n        modal: props.modal ?? true,\n        onOpenChange: props.onOpenChange,\n    })\n\n    return computed(() => dialogConnect(service, normalizeProps))\n}\n"
+    },
+    {
+      "path": "registry/default/html/sheet.html",
+      "target": "components/ui/sheet.html",
+      "type": "registry:component",
+      "content": "<aside data-slot=\"sheet\" class=\"fixed right-0 top-0 h-full w-80 border-l border-input bg-background p-4 shadow-lg\">\n  <h2 class=\"text-lg font-semibold\">Sheet Title</h2>\n  <p class=\"mt-2 text-sm text-muted-foreground\">Panel content goes here.</p>\n  <button class=\"mt-4 rounded-md border px-3 py-2 text-sm\">Close</button>\n</aside>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet.wxml",
+      "target": "components/ui/sheet.wxml",
+      "type": "registry:component",
+      "content": "<root-portal wx:if=\"{{open}}\">\n  <view class=\"{{overlayClass}}\" data-state=\"open\" bindtap=\"close\" catchtouchmove=\"noop\"></view>\n  <view class=\"{{contentClass}}\" data-state=\"open\" catchtouchmove=\"noop\">\n    <slot></slot>\n    <view class=\"absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover-opacity-100 focus-outline-none disabled-pointer-events-none\" bindtap=\"close\">\n      <text class=\"text-xs\">✕</text>\n    </view>\n  </view>\n</root-portal>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet.wxss",
+      "target": "components/ui/sheet.wxss",
+      "type": "registry:component",
+      "content": "@import \"../utilities.wxss\";\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet.ts",
+      "target": "components/ui/sheet.ts",
+      "type": "registry:component",
+      "content": "import { resolveClasses, sheetContentVariants, sheetOverlayVariants } from '../utils'\n\nComponent({\n  properties: {\n    open: {\n      type: Boolean,\n      value: false,\n    },\n    side: {\n      type: String,\n      value: 'right',\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n  data: {\n    contentClass: '',\n    overlayClass: '',\n  },\n  observers: {\n    'extClass, side': function (extClass, side) {\n      // Mapping side properly to cva\n      // Note: we pass `state: open` if variants depend on it?\n      // Shared variants use `data-[state=open]`.\n      // We render `data-state=\"open\"` in WXML.\n\n      const contentClass = resolveClasses(sheetContentVariants({ side: side as any }), extClass)\n      const overlayClass = resolveClasses(sheetOverlayVariants())\n\n      this.setData({\n        contentClass,\n        overlayClass,\n      })\n    },\n  },\n  methods: {\n    close() {\n      this.triggerEvent('close')\n    },\n    noop() {},\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-description/sheet-description.wxml",
+      "target": "components/ui/sheet-description/sheet-description.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-description/sheet-description.wxss",
+      "target": "components/ui/sheet-description/sheet-description.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/sheet-description/sheet-description.json",
+      "target": "components/ui/sheet-description/sheet-description.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-description/sheet-description.ts",
+      "target": "components/ui/sheet-description/sheet-description.ts",
+      "type": "registry:component",
+      "content": "import { sheetDescriptionVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(sheetDescriptionVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-footer/sheet-footer.wxml",
+      "target": "components/ui/sheet-footer/sheet-footer.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-footer/sheet-footer.wxss",
+      "target": "components/ui/sheet-footer/sheet-footer.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/sheet-footer/sheet-footer.json",
+      "target": "components/ui/sheet-footer/sheet-footer.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-footer/sheet-footer.ts",
+      "target": "components/ui/sheet-footer/sheet-footer.ts",
+      "type": "registry:component",
+      "content": "import { sheetFooterVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(sheetFooterVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-header/sheet-header.wxml",
+      "target": "components/ui/sheet-header/sheet-header.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-header/sheet-header.wxss",
+      "target": "components/ui/sheet-header/sheet-header.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/sheet-header/sheet-header.json",
+      "target": "components/ui/sheet-header/sheet-header.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-header/sheet-header.ts",
+      "target": "components/ui/sheet-header/sheet-header.ts",
+      "type": "registry:component",
+      "content": "import { sheetHeaderVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(sheetHeaderVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-title/sheet-title.wxml",
+      "target": "components/ui/sheet-title/sheet-title.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"{{baseClass}}\">\n  <slot></slot>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-title/sheet-title.wxss",
+      "target": "components/ui/sheet-title/sheet-title.wxss",
+      "type": "registry:component",
+      "content": ""
+    },
+    {
+      "path": "registry/default/weapp/sheet-title/sheet-title.json",
+      "target": "components/ui/sheet-title/sheet-title.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/sheet-title/sheet-title.ts",
+      "target": "components/ui/sheet-title/sheet-title.ts",
+      "type": "registry:component",
+      "content": "import { sheetTitleVariants } from \"@/lib/utils\"\n\nimport { resolveClasses } from '../utils'\n\nComponent({\n  options: {\n    styleIsolation: \"apply-shared\",\n  },\n  properties: {\n    extClass: { type: String, value: '' },\n  },\n  data: { baseClass: '' },\n  observers: {\n    extClass: function (extClass) {\n      const { baseClass } = resolveClasses(sheetTitleVariants(), extClass)\n      this.setData({ baseClass })\n    },\n  },\n})\n"
+    }
+  ],
+  "meta": {
+    "frameworks": [
+      "react",
+      "vue",
+      "weapp",
+      "html"
+    ],
+    "placeholder": false,
+    "clientOnly": false
+  }
+}

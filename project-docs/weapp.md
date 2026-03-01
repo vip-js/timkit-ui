@@ -1,6 +1,6 @@
 # 微信小程序组件支持
 
-Timkit UI 现在提供一套与 Web 组件同源的「小程序渲染层」。所有组件的语义、属性、插槽与交互定义都保存在 `packages/core/schemas` 中，并通过 Registry 描述不同平台的实现。Web 端继续使用 React + Tailwind，微信小程序端则输出 `.wxml + .wxss + .ts` 自定义组件。
+Timkit UI 现在提供一套与 Web 组件同源的「小程序渲染层」。所有组件的**交互逻辑**都由 `packages/core` 中的 Zag.js 状态机驱动，并通过 `createWeappMachine` 适配器连接到小程序组件。Web 端继续使用 React + Tailwind，微信小程序端则输出 `.wxml + .wxss + .ts` 自定义组件。
 
 ## 前置要求
 
@@ -38,12 +38,12 @@ pnpm tokens:build
 
 ## 新增小程序组件
 
-1. 在 `packages/core/schemas` 中补充或扩展组件属性、插槽、交互定义。
+1. 在 `packages/core` 中定义 State Machine (e.g. `accordion.machine.ts`)。
 2. 在 `packages/weapp/primitives` 下创建对应目录，包含：
-   - `index.ts`：引入 schema，描述文件路径与 token 依赖。
-   - `*.wxml`：结构模板，支持多 slot。
+   - `index.ts`：使用 `createWeappMachine` 初始化状态机，并桥接 props。
+   - `*.wxml`：结构模板，绑定 `state.context` 数据。
    - `*.wxss`：样式文件，消费 tokens 变量。
-   - `*.ts`：自定义组件逻辑（交互、事件派发）。
+   - `*.ts`：(已废弃，逻辑应在 index.ts 中完成)。
 3. 将新组件加入 `packages/weapp/registry.ts`，即可被构建工具及文档检索。
 
 后续可基于 registry 提供 `pnpm dlx timkit add --platform wechat button` 等 CLI 命令，实现跨端一键拉取。

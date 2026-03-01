@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Separator } from "@timui/react";
 export default function FaqsWithDividedRows() {
-
     const faqsList = [
         {
             q: "What are some random questions to ask?",
@@ -30,7 +23,6 @@ export default function FaqsWithDividedRows() {
             a: "If you've been searching for a way to get random questions, you've landed on the correct webpage. We created the Random Question Generator to ask you as many random questions as your heart desires."
         }
     ]
-
     return (
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 gap-12 md:flex md:px-8">
@@ -45,19 +37,20 @@ export default function FaqsWithDividedRows() {
                     </div>
                 </div>
                 <div className='flex-1 mt-12 md:mt-0'>
-                    <ul className='space-y-4 divide-y'>
+                    <ul className='space-y-4'>
                         {faqsList.map((item, idx) => (
-                            <li
-                                className="py-5"
-                                key={idx}>
-                                <summary
-                                    className="flex items-center justify-between font-semibold text-gray-700">
-                                    {item.q}
-                                </summary>
-                                <p
-                                    dangerouslySetInnerHTML={{ __html: item.a }}
-                                    className='mt-3 text-gray-600 leading-relaxed'>
-                                </p>
+                            <li key={idx}>
+                                <div className="py-5">
+                                    <summary
+                                        className="flex items-center justify-between font-semibold text-gray-700">
+                                        {item.q}
+                                    </summary>
+                                    <p
+                                        dangerouslySetInnerHTML={{ __html: item.a }}
+                                        className='mt-3 text-gray-600 leading-relaxed'>
+                                    </p>
+                                </div>
+                                {idx < faqsList.length - 1 && <Separator />}
                             </li>
                         ))}
                     </ul>
@@ -66,4 +59,3 @@ export default function FaqsWithDividedRows() {
         </section>
     );
 };
-        

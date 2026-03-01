@@ -1,0 +1,8 @@
+<view 
+  class="overflow-hidden transition-all data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up {{contentApi.className}}" 
+  id="{{contentApi.id}}"
+  hidden="{{contentApi.hidden}}"
+  data-state="{{contentApi['data-state']}}"
+>
+  <slot />
+</view>

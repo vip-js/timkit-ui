@@ -1,6 +1,5 @@
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@timui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '../../ui/pagination'
 
 type PaginationProps = {
   currentPage: number

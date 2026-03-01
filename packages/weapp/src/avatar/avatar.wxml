@@ -1,6 +1,14 @@
-<view class="{{baseClass}}">
-  <image wx:if="{{src}}" class="{{imageClass}}" src="{{src}}" alt="{{alt}}" mode="aspectFill" />
-  <view wx:else class="{{fallbackClass}}">
-    <slot></slot>
+<view class="{{className}} avatar avatar-{{size}} avatar-{{shape}}">
+  <image 
+    wx:if="{{src}}"
+    class="avatar-image"
+    src="{{src}}"
+    mode="aspectFill"
+    bindload="onImageLoad"
+    binderror="onImageError"
+  />
+  <view wx:elif="{{fallback}}" class="avatar-fallback">
+    {{fallback}}
   </view>
+  <slot wx:else></slot>
 </view>

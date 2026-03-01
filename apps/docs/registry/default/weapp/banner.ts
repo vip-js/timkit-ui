@@ -1,0 +1,21 @@
+import { bannerVariants } from '../utils'
+
+Component({
+  externalClasses: ['ext-class'],
+  properties: {
+    extClass: {
+      type: String,
+      value: '',
+    },
+  },
+  data: {
+    className: '',
+  },
+  observers: {
+    extClass: function (extClass) {
+      this.setData({
+        className: bannerVariants({ className: extClass }),
+      })
+    },
+  },
+})

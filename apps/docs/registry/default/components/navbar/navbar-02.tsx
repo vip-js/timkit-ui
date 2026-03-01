@@ -1,18 +1,19 @@
-import { cn } from '@timui/shared'
-import { BookOpenIcon, InfoIcon, LifeBuoyIcon } from 'lucide-react'
-
-import Logo from '@/registry/default/components/navbar-components/logo'
-
-import { Button } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  Button,
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
+import { BookOpenIcon, InfoIcon, LifeBuoyIcon } from 'lucide-react'
+
+import Logo from '@/registry/default/components/navbar-components/logo'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

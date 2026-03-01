@@ -1,12 +1,16 @@
 'use client'
 
 import { useId, useRef, useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Input,
+  Label,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
 import { CheckIcon, CopyIcon } from 'lucide-react'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   const id = useId()

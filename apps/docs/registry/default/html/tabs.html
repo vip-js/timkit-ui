@@ -1,0 +1,30 @@
+<div class="w-[400px]">
+    <!-- Tabs List -->
+    <div class="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+        <button type="button" role="tab" aria-selected="true" data-state="active"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            Account
+        </button>
+        <button type="button" role="tab" aria-selected="false" data-state="inactive"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+            Password
+        </button>
+    </div>
+
+    <!-- Tab Content (Active) -->
+    <div role="tabpanel" data-state="active"
+        class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <div class="rounded-md border p-4">
+            <h3 class="text-lg font-medium">Account</h3>
+            <p class="text-sm text-muted-foreground">Manage your account settings here.</p>
+        </div>
+    </div>
+
+    <!-- Tab Content (Inactive, hidden) -->
+    <div role="tabpanel" data-state="inactive"
+        class="hidden mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <div class="rounded-md border p-4">
+            Change your password here.
+        </div>
+    </div>
+</div>

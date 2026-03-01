@@ -1,0 +1,10 @@
+<image
+  wx:if="{{!hidden}}"
+  class="{{className}}"
+  src="{{src}}"
+  alt="{{alt}}"
+  mode="aspectFill"
+  bindload="onLoad"
+  binderror="onError"
+  data-slot="avatar-image"
+/>

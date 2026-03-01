@@ -1,16 +1,9 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, Button } from "@timui/react";
 
 export default function PricingSectionWithTable() {
-
     const checkIcon = <svg className="w-5 h-5 mx-auto text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" /></svg>
     const minusIcon = <svg className="w-5 h-5 mx-auto text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" /></svg>
-
     const plans = [
         {
             name: "Basic",
@@ -28,7 +21,6 @@ export default function PricingSectionWithTable() {
             price: "50"
         },
     ]
-
     const tables = [
         {
             label: "Features",
@@ -142,9 +134,7 @@ export default function PricingSectionWithTable() {
             ]
         }
     ]
-
     const [selectedPlan, setSelectedPlan] = React.useState(plans[0].name)
-
     return (
         <section className="py-14 text-gray-600">
             <div className="">
@@ -192,9 +182,9 @@ export default function PricingSectionWithTable() {
                                             <p className="text-sm">
                                                 {item.desc}
                                             </p>
-                                            <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                                            <Button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
                                                 Get Started
-                                            </button>
+                                            </Button>
                                         </li>
                                     ))
                                 }
@@ -204,10 +194,10 @@ export default function PricingSectionWithTable() {
                     <div className="max-w-screen-xl mx-auto mt-10 space-y-4 px-4 overflow-auto md:overflow-visible md:px-8">
                         {
                             tables.map((table, idx) => (
-                                <table key={idx} className="w-full table-auto text-sm text-left">
-                                    <thead className="text-gray-600 font-medium border-b">
-                                        <tr>
-                                            <th className="z-20 top-12 py-6 lg:sticky">
+                                <Table key={idx} className="w-full table-auto text-sm text-left">
+                                    <TableHeader className="text-gray-600 font-medium border-b">
+                                        <TableRow>
+                                            <TableHead className="z-20 top-12 py-6 lg:sticky">
                                                 <div className="flex items-center gap-x-3">
                                                     <div className="w-12 h-12 text-indigo-600 rounded-full border flex items-center justify-center">
                                                         {table.label_icon}
@@ -216,29 +206,29 @@ export default function PricingSectionWithTable() {
                                                         {table.label}
                                                     </h4>
                                                 </div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-gray-600 divide-y">
+                                            </TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody className="text-gray-600 divide-y">
                                         {
                                             table.items.map((item, idx) => (
                                                 <>
-                                                    <tr key={idx}>
-                                                        <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                                                    <TableRow key={idx}>
+                                                        <TableCell className="px-6 py-4 whitespace-nowrap">{item.name}</TableCell>
                                                         {/* For large devices */}
-                                                        <td className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.basic}</td>
-                                                        <td className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.business}</td>
-                                                        <td className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.enterprise}</td>
+                                                        <TableCell className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.basic}</TableCell>
+                                                        <TableCell className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.business}</TableCell>
+                                                        <TableCell className="text-center w-[250px] px-6 py-4 whitespace-nowrap hidden lg:table-cell">{item.enterprise}</TableCell>
                                                         {/* For small devices */}
-                                                        <td className="text-center w-[250px] px-6 py-4 whitespace-nowrap lg:hidden">
+                                                        <TableCell className="text-center w-[250px] px-6 py-4 whitespace-nowrap lg:hidden">
                                                             {item[selectedPlan.toLowerCase()]}
-                                                        </td>
-                                                    </tr>
+                                                        </TableCell>
+                                                    </TableRow>
                                                 </>
                                             ))
                                         }
-                                    </tbody>
-                                </table>
+                                    </TableBody>
+                                </Table>
                             ))
                         }
                     </div>

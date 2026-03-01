@@ -1,8 +1,5 @@
 import { useId } from 'react'
-
-import { Button } from '../../ui/button'
-import { Label } from '../../ui/label'
-import { Textarea } from '../../ui/textarea'
+import { Button, Label, Textarea } from '@timui/react'
 
 export default function Component() {
   const id = useId()

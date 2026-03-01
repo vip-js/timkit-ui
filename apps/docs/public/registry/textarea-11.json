@@ -2,16 +2,16 @@
   "name": "textarea-11",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/textarea.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/textarea.json"
   ],
   "files": [
     {
       "path": "registry/default/components/textarea/textarea-11.tsx",
       "type": "registry:component",
       "target": "components/ui/textarea-11.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Button } from '../../ui/button'\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with right button</Label>\n      <Textarea id={id} placeholder=\"Leave a comment\" />\n      <div className=\"flex justify-end\">\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Button, Label, Textarea } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Textarea with right button</Label>\n      <Textarea id={id} placeholder=\"Leave a comment\" />\n      <div className=\"flex justify-end\">\n        <Button variant=\"outline\">Send</Button>\n      </div>\n    </div>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -25,7 +25,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "textarea"
+    "category": "textarea",
+    "title": "Textarea · Textarea with right button"
   },
   "categories": [
     "textarea"

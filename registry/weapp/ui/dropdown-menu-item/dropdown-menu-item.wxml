@@ -1,0 +1,11 @@
+<view 
+  class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 {{itemApi.className}}" 
+  id="{{itemApi.id}}"
+  bindtap="handleClick"
+  role="menuitem"
+  data-orientation="{{itemApi['data-orientation']}}"
+  data-state="{{itemApi['data-state']}}"
+  data-disabled="{{itemApi['data-disabled']}}"
+>
+  <slot />
+</view>

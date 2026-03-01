@@ -1,0 +1,17 @@
+<view class="*:not-first:mt-2">
+      <label for="select-20-id">Select with error</label>
+      <select defaultValue="1">
+        <select-trigger id="select-20-id" aria-invalid>
+          <select-value />
+        </select-trigger>
+        <select-content>
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+      <p class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
+        Selected option is invalid
+      </p>
+    </view>

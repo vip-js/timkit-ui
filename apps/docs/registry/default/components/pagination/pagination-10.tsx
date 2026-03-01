@@ -1,9 +1,17 @@
 import { useId } from 'react'
+import {
+  Label,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@timui/react'
 import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
-
-import { Label } from '../../ui/label'
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '../../ui/pagination'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 
 type PaginationProps = {
   currentPage: number

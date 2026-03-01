@@ -1,0 +1,15 @@
+<view class="*:not-first:mt-2">
+      <label for="input-18-id">Input with end select</label>
+      <view class="flex rounded-md shadow-xs">
+        <input id="input-18-id"
+          class="-me-px rounded-e-none shadow-none focus-visible:z-10"
+          placeholder="google"
+          type="text"
+        />
+        <select-native class="text-muted-foreground hover:text-foreground w-fit rounded-s-none shadow-none">
+          <option>.com</option>
+          <option>.org</option>
+          <option>.net</option>
+        </select-native>
+      </view>
+    </view>

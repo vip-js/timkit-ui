@@ -1,9 +1,8 @@
 'use client'
 
-import { useToast } from '@/registry/default/hooks/use-toast'
+import { Button, ToastAction } from '@timui/react'
 
-import { Button } from '../../ui/button'
-import { ToastAction } from '../../ui/toast'
+import { useToast } from '@/registry/default/hooks/use-toast'
 
 export default function Component() {
   const { toast } = useToast()

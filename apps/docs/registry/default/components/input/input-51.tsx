@@ -1,11 +1,10 @@
 'use client'
 
 import { useId } from 'react'
+import { Input } from '@timui/react'
 import { CreditCardIcon } from 'lucide-react'
 import { usePaymentInputs } from 'react-payment-inputs'
 import images, { type CardImages } from 'react-payment-inputs/images'
-
-import { Input } from '../../ui/input'
 
 export default function Component() {
   const id = useId()

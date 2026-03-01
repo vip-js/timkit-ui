@@ -1,11 +1,9 @@
 import { useId } from 'react'
+import { Button, Input } from '@timui/react'
 import { MicIcon, SearchIcon } from 'lucide-react'
 
 import Logo from '@/registry/default/components/navbar-components/logo'
 import ThemeToggle from '@/registry/default/components/navbar-components/theme-toggle'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
 
 export default function Component() {
   const id = useId()

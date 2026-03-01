@@ -1,0 +1,19 @@
+<view class="space-y-4">
+  <view class="text-xl font-bold">W/ icon and plus-minus</view>
+  <accordion type="single" collapsible class="w-full" bind:change="handleValueChange" value="{{value}}">
+    <block wx:for="{{items}}" wx:key="id" wx:for-index="itemIndex" wx:for-item="item">
+      <accordion-item value="{{item.id}}" class="py-2">
+        <view slot="trigger" class="focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between gap-4 rounded-md py-2 text-left text-sm text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0">
+          <view class="flex items-center gap-3">
+            <text class="text-[10px] uppercase opacity-60">{{item.iconLabel}}</text>
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+        <view slot="icon" class="h-4 w-4 shrink-0 opacity-60 transition-transform duration-200">
+          <text class="text-sm font-semibold">+</text>
+        </view>
+<view slot="content" class="text-muted-foreground ps-7 pb-2">{{item.content}}</view>
+      </accordion-item>
+    </block>
+  </accordion>
+</view>

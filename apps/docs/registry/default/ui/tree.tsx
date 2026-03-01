@@ -1,11 +1,11 @@
 'use client'
-'use client'
 
 import * as React from 'react'
 import { ItemInstance } from '@headless-tree/core'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { ChevronDownIcon } from 'lucide-react'
+
+import { Slot } from './slot'
 
 interface TreeContextValue<T = any> {
   indent: number

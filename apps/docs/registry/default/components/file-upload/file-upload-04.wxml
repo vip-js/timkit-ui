@@ -1,0 +1,38 @@
+<view class="flex flex-col gap-2">
+      <view class="relative">
+        
+        <view
+          role="button"
+          class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-disabled:pointer-events-none has-disabled:opacity-50 has-[img]:border-none has-[input:focus]:ring-[3px]"
+        >
+          <input class="sr-only" aria-label="Upload file" />
+          <view class="flex flex-col items-center justify-center px-4 py-3 text-center">
+              <view
+                class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
+                aria-hidden="true"
+              >
+                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              </view>
+              <p class="mb-1.5 text-sm font-medium">Drop your image here or click to browse</p>
+              <p class="text-muted-foreground text-xs">Max size: 5MB</p>
+            </view>
+        </view>
+        
+      </view>
+
+      
+
+      <p
+        aria-live="polite"
+        role="region"
+        class="text-muted-foreground mt-2 text-center text-xs"
+      >
+        Single image uploader w/ max size ∙ 
+        <a
+          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
+          class="hover:text-foreground underline"
+        >
+          API
+        </a>
+      </p>
+    </view>

@@ -66,7 +66,7 @@ export async function loadRegistryIndex(registryBase?: string): Promise<Registry
     ).items
   }
 
-  let lastError: unknown
+  let lastError: any
   for (const base of baseCandidates) {
     const normalized = base.replace(/\/$/, '')
     // Try index (lighter) else fallback to registry-all
@@ -95,7 +95,7 @@ export async function loadRegistryIndex(registryBase?: string): Promise<Registry
 
 export async function loadRegistryItem(name: string, registryBase?: string): Promise<RegistryItem> {
   const baseCandidates = getRegistryBases(registryBase)
-  let lastError: unknown
+  let lastError: any
   for (const base of baseCandidates) {
     const normalized = base.replace(/\/$/, '')
     const itemUrl = `${normalized}/registry/${name}.json`

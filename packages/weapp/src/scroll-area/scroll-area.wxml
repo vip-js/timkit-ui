@@ -1,0 +1,9 @@
+<scroll-view
+  class="scroll-area {{extClass}}"
+  scroll-y="{{scrollY}}"
+  scroll-x="{{scrollX}}"
+  style="height: {{height}};"
+  bindscroll="onScroll"
+>
+  <slot />
+</scroll-view>

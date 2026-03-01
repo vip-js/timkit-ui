@@ -1,9 +1,8 @@
 'use client'
 
+import { Button } from '@timui/react'
 import { CircleCheckIcon, XIcon } from 'lucide-react'
 import { toast } from 'sonner'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   return (

@@ -1,0 +1,35 @@
+<dialog>
+      <dialog-trigger asChild>
+        <button variant="outline">Feedback</button>
+      </dialog-trigger>
+      <dialog-content>
+        <dialog-header>
+          <dialog-title>Send us feedback</dialog-title>
+          <dialog-description>
+            Watch 
+            <a class="text-foreground hover:underline" href="#">
+              tutorials
+            </a>
+            , read Timkit UI&lsquo;s 
+            <a class="text-foreground hover:underline" href="#">
+              documentation
+            </a>
+            , or join our 
+            <a class="text-foreground hover:underline" href="#">
+              Discord
+            </a> 
+            for community help.
+          </dialog-description>
+        </dialog-header>
+        <form class="space-y-5">
+          <textarea
+            id="feedback"
+            placeholder="How can we improve Timkit UI?"
+            aria-label="Send feedback"
+          />
+          <div class="flex flex-col sm:flex-row sm:justify-end">
+            <button type="button">Send feedback</button>
+          </div>
+        </form>
+      </dialog-content>
+    </dialog>

@@ -26,7 +26,7 @@ export async function fetchJsonWithRetry<T = any>(
   const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT
   const backoffMs = opts.backoffMs ?? DEFAULT_BACKOFF
 
-  let lastError: unknown
+  let lastError: any
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetchWithTimeout(url, timeoutMs)
@@ -52,7 +52,7 @@ export async function fetchTextWithRetry(
   const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT
   const backoffMs = opts.backoffMs ?? DEFAULT_BACKOFF
 
-  let lastError: unknown
+  let lastError: any
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetchWithTimeout(url, timeoutMs)

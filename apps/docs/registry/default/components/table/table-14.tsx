@@ -9,10 +9,9 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
-
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 type Item = {
   id: string

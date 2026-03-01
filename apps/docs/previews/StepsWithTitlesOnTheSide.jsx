@@ -1,18 +1,11 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Separator } from "@timui/react";
 
 export default function StepsWithTitlesOnTheSide() {
-
     const [steps, setStep] = React.useState({
         stepsItems: ["Profile", "Contact", "Identity", "Passport"],
         currentStep: 2
     })
-
     return (
         <div className="max-w-2xl mx-auto px-4 py-16 md:px-0">
             <ul aria-label="Steps" className="items-center text-gray-600 font-medium md:flex">
@@ -31,14 +24,14 @@ export default function StepsWithTitlesOnTheSide() {
                                     ) : ""
                                 }
                             </div>
-                            <hr className={`h-12 border md:hidden ${idx + 1 == steps.stepsItems.length ? "hidden" : "" || steps.currentStep > idx + 1 ? "border-indigo-600" : ""}`} />
+                            <Separator className={`h-12 border md:hidden ${idx + 1 == steps.stepsItems.length ? "hidden" : "" || steps.currentStep > idx + 1 ? "border-indigo-600" : ""}`} />
                         </div>
                         <div className="h-8 flex items-center md:h-auto">
                             <h3 className={`text-sm ${steps.currentStep == idx + 1 ? "text-indigo-600" : ""}`}>
                                 {item}
                             </h3>
                         </div>
-                        <hr className={`hidden mr-2 w-full border md:block ${idx + 1 == steps.stepsItems.length ? "hidden" : "" || steps.currentStep > idx + 1 ? "border-indigo-600" : ""}`} />
+                        <Separator className={`hidden mr-2 w-full border md:block ${idx + 1 == steps.stepsItems.length ? "hidden" : "" || steps.currentStep > idx + 1 ? "border-indigo-600" : ""}`} />
                     </li>
                 ))}
             </ul>

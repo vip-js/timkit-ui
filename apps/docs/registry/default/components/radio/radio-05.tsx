@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { Input, Label, RadioGroup, RadioGroupItem } from '@timui/react'
 
 export default function Component() {
   const radioId = useId()

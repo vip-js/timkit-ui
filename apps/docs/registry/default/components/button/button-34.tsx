@@ -1,4 +1,4 @@
-import { ToggleGroup, ToggleGroupItem } from '../../ui/toggle-group'
+import { ToggleGroup, ToggleGroupItem } from '@timui/react'
 
 export default function Component() {
   return (

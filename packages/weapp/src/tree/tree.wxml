@@ -1,0 +1,18 @@
+<view class="tree {{extClass}}">
+  <block wx:for="{{flatNodes}}" wx:key="id">
+    <view class="tree-row" style="padding-left: {{item.level * 24}}rpx;">
+      <view
+        wx:if="{{item.children && item.children.length}}"
+        class="tree-toggle"
+        data-id="{{item.id}}"
+        bindtap="onToggle"
+      >
+        <text>{{expandedMap[item.id] ? '▾' : '▸'}}</text>
+      </view>
+      <view wx:else class="tree-toggle tree-toggle-empty"></view>
+      <view class="tree-label" data-id="{{item.id}}" bindtap="onSelect">
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </block>
+</view>

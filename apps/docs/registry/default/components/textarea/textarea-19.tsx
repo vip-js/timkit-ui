@@ -1,9 +1,7 @@
 'use client'
 
 import { useId } from 'react'
-
-import { Label } from '../../ui/label'
-import { Textarea } from '../../ui/textarea'
+import { Label, Textarea } from '@timui/react'
 
 export default function Component() {
   const id = useId()

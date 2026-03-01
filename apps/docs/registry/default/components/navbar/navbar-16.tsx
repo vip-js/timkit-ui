@@ -1,16 +1,12 @@
 'use client'
 
 import { useId, useState } from 'react'
+import { Button, Input, Label, Switch } from '@timui/react'
 import { LayoutGridIcon, PlusIcon, SearchIcon } from 'lucide-react'
 
 import InfoMenu from '@/registry/default/components/navbar-components/info-menu'
 import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
 import SettingsMenu from '@/registry/default/components/navbar-components/settings-menu'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Switch } from '../../ui/switch'
 
 export default function Component() {
   const id = useId()

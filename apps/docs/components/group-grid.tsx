@@ -18,12 +18,12 @@ export function GroupGrid({ group }: { group: UnifiedGroup }) {
   return (
     <section
       id={group.slug}
-      className="space-y-4 rounded-2xl border border-white/5 bg-white/5 p-4 shadow-[0_10px_60px_-35px_rgba(15,23,42,0.8)] backdrop-blur-sm dark:border-white/10 dark:bg-white/5"
+      className="space-y-4 rounded-3xl border border-border/60 bg-card/80 p-6 shadow-[0_12px_30px_-20px_rgba(15,23,42,0.22)] sm:p-8"
     >
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-muted-foreground text-xs tracking-[0.12em] uppercase">{group.slug}</p>
-          <h3 className="text-lg font-semibold">{group.title}</h3>
+          <p className="text-muted-foreground text-xs tracking-[0.26em] uppercase">{group.slug}</p>
+          <h3 className="text-xl font-semibold">{group.title}</h3>
           <p className="text-muted-foreground text-xs">共 {group.count} 个</p>
         </div>
         <Link href={group.href} className="text-primary text-sm font-medium hover:underline">
@@ -89,7 +89,7 @@ export function GroupGrid({ group }: { group: UnifiedGroup }) {
       {hasMore && (
         <div className="flex justify-center">
           <button
-            className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white hover:text-white"
+            className="rounded-full border border-border/60 bg-card/80 px-5 py-2 text-sm font-medium text-foreground shadow-[0_6px_16px_-12px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:border-foreground/30"
             onClick={() => setVisibleCount((v) => v + STEP)}
           >
             加载更多

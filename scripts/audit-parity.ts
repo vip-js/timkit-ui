@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const PACKAGES_DIR = path.join(__dirname, '../packages')
-const WEB_COMPONENTS_DIR = path.join(PACKAGES_DIR, 'web/src/components')
+const WEB_COMPONENTS_DIR = path.join(PACKAGES_DIR, 'react/src/components/ui')
 const VUE_COMPONENTS_DIR = path.join(PACKAGES_DIR, 'vue/src/components')
 const WEAPP_PRIMITIVES_DIR = path.join(PACKAGES_DIR, 'weapp/primitives')
 const WEAPP_SRC_DIR = path.join(PACKAGES_DIR, 'weapp/src')

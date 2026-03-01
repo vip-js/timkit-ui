@@ -2,14 +2,14 @@
   "name": "tabs-02",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/tabs.json"
+    "https://ui.timkit.cn/r/tabs.json"
   ],
   "files": [
     {
       "path": "registry/default/components/tabs/tabs-02.tsx",
       "type": "registry:component",
       "target": "components/ui/tabs-02.tsx",
-      "content": "import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'\n\nexport default function Component() {\n  return (\n    <Tabs defaultValue=\"tab-1\" className=\"items-center\">\n      <TabsList className=\"bg-transparent\">\n        <TabsTrigger\n          value=\"tab-1\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 1\n        </TabsTrigger>\n        <TabsTrigger\n          value=\"tab-2\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 2\n        </TabsTrigger>\n        <TabsTrigger\n          value=\"tab-3\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 3\n        </TabsTrigger>\n      </TabsList>\n      <TabsContent value=\"tab-1\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 1</p>\n      </TabsContent>\n      <TabsContent value=\"tab-2\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 2</p>\n      </TabsContent>\n      <TabsContent value=\"tab-3\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 3</p>\n      </TabsContent>\n    </Tabs>\n  )\n}\n"
+      "content": "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Tabs defaultValue=\"tab-1\" className=\"items-center\">\n      <TabsList className=\"bg-transparent\">\n        <TabsTrigger\n          value=\"tab-1\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 1\n        </TabsTrigger>\n        <TabsTrigger\n          value=\"tab-2\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 2\n        </TabsTrigger>\n        <TabsTrigger\n          value=\"tab-3\"\n          className=\"data-[state=active]:bg-muted data-[state=active]:shadow-none\"\n        >\n          Tab 3\n        </TabsTrigger>\n      </TabsList>\n      <TabsContent value=\"tab-1\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 1</p>\n      </TabsContent>\n      <TabsContent value=\"tab-2\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 2</p>\n      </TabsContent>\n      <TabsContent value=\"tab-3\">\n        <p className=\"text-muted-foreground p-4 text-center text-xs\">Content for Tab 3</p>\n      </TabsContent>\n    </Tabs>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -24,7 +24,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "tabs"
+    "category": "tabs",
+    "title": "Tabs · Basic tabs"
   },
   "categories": [
     "tabs"

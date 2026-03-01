@@ -6,7 +6,25 @@
       "path": "registry/default/components/alert/alert-03.tsx",
       "type": "registry:component",
       "target": "components/ui/alert-03.tsx",
-      "content": "import { CircleAlert } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <div className=\"rounded-md border px-4 py-3\">\n      <p className=\"text-sm\">\n        <CircleAlert\n          className=\"me-3 -mt-0.5 inline-flex text-red-500\"\n          size={16}\n          aria-hidden=\"true\"\n        />\n        An error occurred!\n      </p>\n    </div>\n  )\n}\n"
+      "content": "import { Alert, AlertDescription } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Alert className=\"rounded-md border px-4 py-3\">\n      <div className=\"flex gap-3\">\n        <span className=\"me-3 -mt-0.5 inline-flex text-red-500\" aria-hidden=\"true\">\n          !\n        </span>\n        <AlertDescription className=\"text-sm text-current\">An error occurred!</AlertDescription>\n      </div>\n    </Alert>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-03.vue",
+      "target": "components/ui/alert-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Alert, AlertDescription } from '@/components/ui/alert'\n</script>\n\n<template>\n<Alert class=\"rounded-md border px-4 py-3\">\n  <div class=\"flex gap-3\">\n    <span class=\"me-3 -mt-0.5 inline-flex text-red-500\" aria-hidden=\"true\">!</span>\n    <AlertDescription class=\"text-sm text-current\">An error occurred!</AlertDescription>\n  </div>\n</Alert>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-03.html",
+      "target": "components/ui/alert-03.html",
+      "type": "registry:component",
+      "content": "<div class=\"rounded-md border px-4 py-3\" role=\"alert\" data-slot=\"alert\">\n  <div class=\"flex gap-3\">\n    <span class=\"me-3 -mt-0.5 inline-flex text-red-500\" aria-hidden=\"true\">!</span>\n    <div class=\"text-sm text-current\" data-slot=\"alert-description\">An error occurred!</div>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/components/alert/alert-03.wxml",
+      "target": "components/ui/alert-03/alert-03.wxml",
+      "type": "registry:component",
+      "content": "<alert class=\"rounded-md border px-4 py-3\">\n  <view class=\"flex gap-3\">\n    <text class=\"me-3 -mt-0.5 inline-flex text-red-500\">!</text>\n    <alert-description class=\"text-sm text-current\">An error occurred!</alert-description>\n  </view>\n</alert>\n"
     }
   ],
   "meta": {
@@ -16,11 +34,15 @@
     ],
     "colSpan": 2,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "alerts"
+    "category": "alerts",
+    "title": "Alert · Destructive variant"
   },
   "categories": [
     "alerts",

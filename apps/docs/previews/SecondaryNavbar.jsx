@@ -1,16 +1,9 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button, Navbar, NavbarContent, NavbarBrand, NavbarNav, NavbarItem } from "@timui/react";
 
 export default function SecondaryNavbar() {
-
     const [state, setState] = React.useState(false)
     const navRef = React.useRef()
-  
     // Replace javascript:void(0) path with your path
     const navigation = [
         { title: "Customers", path: "javascript:void(0)" },
@@ -20,9 +13,7 @@ export default function SecondaryNavbar() {
         { title: "Teams", path: "javascript:void(0)" },
         { title: "Blogs", path: "javascript:void(0)" }
     ]
-  
     React.useEffect(() => {
-    
         // Sticky strick
         const customStyle = ["sticky-nav", "fixed", "border-b"]
         window.onscroll = () => {
@@ -30,22 +21,20 @@ export default function SecondaryNavbar() {
             else navRef.current.classList.remove(...customStyle)
         }
       }, [])
-      
-  
     return (
-        <nav ref={navRef} className="bg-white w-full top-0 z-20">
-            <div className="items-center px-4 max-w-screen-xl mx-auto md:px-8 lg:flex">
-                <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
+        <Navbar ref={navRef} className="bg-white w-full top-0 z-20">
+            <NavbarContent className="items-center px-4 max-w-screen-xl mx-auto md:px-8 lg:flex">
+                <NavbarBrand className="flex items-center justify-between py-3 lg:py-4 lg:block">
                       <a href="javascript:void(0)">
                           <img
-                              src="/logo.svg" 
-                              width={120} 
+                              src="/logo.svg"
+                              width={120}
                               height={50}
                               alt="Float UI logo"
                           />
                       </a>
                     <div className="lg:hidden">
-                        <button className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
+                        <Button variant="ghost" className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
                             onClick={() => setState(!state)}
                         >
                             {
@@ -59,10 +48,10 @@ export default function SecondaryNavbar() {
                                     </svg>
                                 )
                             }
-                        </button>
+                        </Button>
                     </div>
-                </div>
-                <div className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${ state ? 'h-screen pb-20 overflow-auto pr-4' : 'hidden'}`}>
+                </NavbarBrand>
+                <NavbarNav className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${ state ? 'h-screen pb-20 overflow-auto pr-4' : 'hidden'}`}>
                       <div>
                           <ul className="flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row">
                               <li className="mt-8 mb-8 lg:mt-0 lg:mb-0">
@@ -71,14 +60,14 @@ export default function SecondaryNavbar() {
                                   </a>
                               </li>
                               <li className="mt-4 lg:mt-0">
-                                  <a href="javascript:void(0)" className="py-3 px-4 text-center border text-gray-600 hover:text-indigo-600 rounded-md block lg:inline lg:border-0">
+                                  <Button variant="outline" href="javascript:void(0)" className="py-3 px-4 text-center border text-gray-600 hover:text-indigo-600 rounded-md block lg:inline lg:border-0">
                                       Login
-                                  </a>
+                                  </Button>
                               </li>
                               <li className="mt-8 lg:mt-0">
-                                  <a href="javascript:void(0)" className="py-3 px-4 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow block lg:inline">
+                                  <Button href="javascript:void(0)" className="py-3 px-4 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow block lg:inline">
                                       Sign Up
-                                  </a>
+                                  </Button>
                               </li>
                           </ul>
                       </div>
@@ -87,20 +76,19 @@ export default function SecondaryNavbar() {
                               {
                                   navigation.map((item, idx) => {
                                       return (
-                                          <li key={idx} className="text-gray-600 hover:text-indigo-600">
+                                          <NavbarItem key={idx} className="text-gray-600 hover:text-indigo-600">
                                               <a href={item.path}>
                                                   { item.title }
                                               </a>
-                                          </li>
+                                          </NavbarItem>
                                       )
                                   })
                               }
                           </ul>
                       </div>
-                </div>
-            </div>
-        </nav>
+                </NavbarNav>
+            </NavbarContent>
+        </Navbar>
     )
   }
-
         

@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button, Card } from "@timui/react";
 
 export default function DarkPricingSectionWithTwoPlans() {
-
     const plans = [
         {
             name: "Enterprise",
@@ -40,7 +34,6 @@ export default function DarkPricingSectionWithTwoPlans() {
             ],
         },
     ];
-
     return (
         <section className='relative py-14 bg-gray-900'>
             <div className='absolute inset-0 blur-[118px] max-w-lg h-[800px] mx-auto sm:max-w-3xl sm:h-[400px]' style={{ background: "linear-gradient(106.89deg, rgba(192, 132, 252, 0.11) 15.73%, rgba(14, 165, 233, 0.41) 15.74%, rgba(232, 121, 249, 0.26) 56.49%, rgba(79, 70, 229, 0.4) 115.91%)" }}></div>
@@ -61,7 +54,7 @@ export default function DarkPricingSectionWithTwoPlans() {
                 <div className='mt-16 justify-center sm:flex'>
                     {
                         plans.map((item, idx) => (
-                            <div key={idx} className={`relative flex-1 flex items-stretch flex-col mt-6 border-2 sm:mt-0 sm:rounded-xl sm:max-w-md ${item.isMostPop ? "bg-gray-900 border-cyan-400 border-x-0 sm:border-x-2" : "border-transparent"}`}>
+                            <Card key={idx} className={`relative flex-1 flex items-stretch flex-col mt-6 sm:mt-0 sm:max-w-md ${item.isMostPop ? "bg-gray-900 border-2 border-cyan-400" : ""}`}>
                                 <div className="p-4 py-8 space-y-4 border-b border-gray-700 md:p-8">
                                     <span className='text-gray-200 font-medium'>
                                         {item.name}
@@ -72,9 +65,9 @@ export default function DarkPricingSectionWithTwoPlans() {
                                     <p className="text-gray-400">
                                         {item.desc}
                                     </p>
-                                    <button className='px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700'>
+                                    <Button className='w-full'>
                                         Get Started
-                                    </button>
+                                    </Button>
                                 </div>
                                 <ul className='p-4 py-8 space-y-3 md:p-8'>
                                     {
@@ -95,7 +88,7 @@ export default function DarkPricingSectionWithTwoPlans() {
                                         ))
                                     }
                                 </ul>
-                            </div>
+                            </Card>
                         ))
                     }
                 </div>
@@ -103,5 +96,3 @@ export default function DarkPricingSectionWithTwoPlans() {
         </section>
     );
 };
-
-        

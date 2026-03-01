@@ -2,14 +2,32 @@
   "name": "notification-08",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/notification/notification-08.tsx",
       "type": "registry:component",
       "target": "components/ui/notification-08.tsx",
-      "content": "import { ArrowRightIcon, InfoIcon, XIcon } from 'lucide-react'\n\nimport { Button } from '../../ui/button'\n\nexport default function Component() {\n  return (\n    // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.\n    <div className=\"bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg\">\n      <div className=\"flex gap-2\">\n        <div className=\"flex grow gap-3\">\n          <InfoIcon className=\"mt-0.5 shrink-0 text-blue-500\" size={16} aria-hidden=\"true\" />\n          <div className=\"flex grow justify-between gap-12\">\n            <p className=\"text-sm\">Just a quick note!</p>\n            <a href=\"#\" className=\"group text-sm font-medium whitespace-nowrap\">\n              Link\n              <ArrowRightIcon\n                className=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n                size={16}\n                aria-hidden=\"true\"\n              />\n            </a>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          className=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close banner\"\n        >\n          <XIcon\n            size={16}\n            className=\"opacity-60 transition-opacity group-hover:opacity-100\"\n            aria-hidden=\"true\"\n          />\n        </Button>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { Button } from '@timui/react'\nimport { ArrowRightIcon, InfoIcon, XIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.\n    <div className=\"bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg\">\n      <div className=\"flex gap-2\">\n        <div className=\"flex grow gap-3\">\n          <InfoIcon className=\"mt-0.5 shrink-0 text-blue-500\" size={16} aria-hidden=\"true\" />\n          <div className=\"flex grow justify-between gap-12\">\n            <p className=\"text-sm\">Just a quick note!</p>\n            <a href=\"#\" className=\"group text-sm font-medium whitespace-nowrap\">\n              Link\n              <ArrowRightIcon\n                className=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"\n                size={16}\n                aria-hidden=\"true\"\n              />\n            </a>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          className=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close banner\"\n        >\n          <XIcon\n            size={16}\n            className=\"opacity-60 transition-opacity group-hover:opacity-100\"\n            aria-hidden=\"true\"\n          />\n        </Button>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/notification/notification-08.vue",
+      "target": "components/ui/notification-08.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Button } from '@/components/ui/button'\n</script>\n<template>\n// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <div class=\"bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg\">\n      <div class=\"flex gap-2\">\n        <div class=\"flex grow gap-3\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mt-0.5 shrink-0 text-blue-500\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          <div class=\"flex grow justify-between gap-12\">\n            <p class=\"text-sm\">Just a quick note!</p>\n            <a href=\"#\" class=\"group text-sm font-medium whitespace-nowrap\">\n              Link\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </div>\n        </div>\n        <Button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close banner\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </Button>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/notification/notification-08.html",
+      "target": "components/ui/notification-08.html",
+      "type": "registry:component",
+      "content": "// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <div class=\"bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg\">\n      <div class=\"flex gap-2\">\n        <div class=\"flex grow gap-3\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mt-0.5 shrink-0 text-blue-500\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          <div class=\"flex grow justify-between gap-12\">\n            <p class=\"text-sm\">Just a quick note!</p>\n            <a href=\"#\" class=\"group text-sm font-medium whitespace-nowrap\">\n              Link\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </div>\n        </div>\n        <button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close banner\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/notification/notification-08.wxml",
+      "target": "components/ui/notification-08/notification-08.wxml",
+      "type": "registry:component",
+      "content": "// To make the notification fixed, add classes like \"fixed bottom-4 right-4\" to the container element.\n    <view class=\"bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg\">\n      <view class=\"flex gap-2\">\n        <view class=\"flex grow gap-3\">\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"mt-0.5 shrink-0 text-blue-500\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n          <view class=\"flex grow justify-between gap-12\">\n            <p class=\"text-sm\">Just a quick note!</p>\n            <a href=\"#\" class=\"group text-sm font-medium whitespace-nowrap\">\n              Link\n               <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n            </a>\n          </view>\n        </view>\n        <button\n          variant=\"ghost\"\n          class=\"group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent\"\n          aria-label=\"Close banner\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"opacity-60 transition-opacity group-hover:opacity-100\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
     "colSpan": 2,
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "notification"
+    "category": "notification",
+    "title": "Notification · Dismissible"
   },
   "categories": [
     "notification"

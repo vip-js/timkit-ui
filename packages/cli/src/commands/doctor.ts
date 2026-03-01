@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { Command } from 'commander'
 
-import { detectTailwindVersion, findPackageJson } from '../lib/utils'
+import { detectTailwindVersion } from '../lib/utils'
 
 function readJSON(file: string) {
   try {
@@ -28,15 +28,15 @@ export const doctor = new Command()
       issues.push('package.json not found or invalid.')
     } else {
       const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) }
-      if (!deps['@timui/tokens'] || !deps['@timui/shared']) {
-        issues.push('Missing @timui/tokens or @timui/shared. Run timkit init.')
+      if (!deps['@timui/tokens'] || !deps['@timui/core']) {
+        issues.push('Missing @timui/tokens or @timui/core. Run timui init.')
       } else {
         // Tailwind v4+ tokens preset 仅需要 peer; 检查版本一致性
         const tokenVersion = deps['@timui/tokens']
-        const sharedVersion = deps['@timui/shared']
+        const sharedVersion = deps['@timui/core']
         if (tokenVersion && sharedVersion && tokenVersion !== sharedVersion) {
           infos.push(
-            `@timui/tokens (${tokenVersion}) and @timui/shared (${sharedVersion}) versions differ.`
+            `@timui/tokens (${tokenVersion}) and @timui/core (${sharedVersion}) versions differ.`
           )
         }
       }
@@ -59,11 +59,19 @@ export const doctor = new Command()
     )
     const twVersion = detectTailwindVersion(cwd)
     if (!twConfig) {
-      issues.push('tailwind.config not found. Run timkit init.')
+      if (twVersion && twVersion >= 4) {
+        infos.push('tailwind.config not found (Tailwind v4 can work without explicit config).')
+      } else {
+        issues.push('tailwind.config not found. Run timui init.')
+      }
     } else {
       const content = fs.readFileSync(path.join(cwd, twConfig), 'utf-8')
       if (!content.includes('timkitTailwindPreset')) {
-        issues.push('tailwind.config missing timkitTailwindPreset.')
+        if (twVersion && twVersion >= 4) {
+          infos.push('tailwind.config does not include timkitTailwindPreset (optional in v4 setup).')
+        } else {
+          issues.push('tailwind.config missing timkitTailwindPreset.')
+        }
       }
       if (twVersion && twVersion < 4 && !content.includes('content:')) {
         issues.push('Tailwind v3 detected but no content globs configured.')
@@ -80,8 +88,13 @@ export const doctor = new Command()
     const cssPath = cssCandidates.find((f) => fs.existsSync(path.join(cwd, f)))
     if (cssPath) {
       const css = fs.readFileSync(path.join(cwd, cssPath), 'utf-8')
-      if (!css.includes('@timui/tokens')) {
-        issues.push(`${cssPath} missing @timui/tokens import.`)
+      const hasTimuiTokens = css.includes('@timui/tokens')
+      const hasThemeCss = css.includes('theme.css')
+      const hasTailwindImport = css.includes('@import "tailwindcss"')
+      if (!hasTimuiTokens && !hasThemeCss && !hasTailwindImport) {
+        issues.push(
+          `${cssPath} missing tokens/theme reference (expected @timui/tokens, theme.css, or tailwindcss import).`
+        )
       }
     } else {
       issues.push('globals css not found (app/globals.css or similar).')
@@ -114,7 +127,7 @@ export const doctor = new Command()
     // aliases/components.json
     const componentsJsonPath = path.join(cwd, 'components.json')
     if (!fs.existsSync(componentsJsonPath)) {
-      issues.push('components.json not found. Run timkit init.')
+      issues.push('components.json not found. Run timui init.')
     } else {
       const config = readJSON(componentsJsonPath)
       const aliases = config?.aliases || {}

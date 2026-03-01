@@ -2,7 +2,15 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { RiCalendarCheckLine } from '@remixicon/react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from '@timui/react'
 import {
   addDays,
   addMonths,
@@ -32,15 +40,6 @@ import {
   WeekCellsHeight,
   WeekView,
 } from '@/registry/default/components/event-calendar'
-
-import { Button } from '../../ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
 
 export interface EventCalendarProps {
   events?: CalendarEvent[]

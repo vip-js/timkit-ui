@@ -1,5 +1,3 @@
-import { CircleAlertIcon } from 'lucide-react'
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,8 +8,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../ui/alert-dialog'
-import { Button } from '../../ui/button'
+  Button,
+} from '@timui/react'
+import { CircleAlertIcon } from 'lucide-react'
 
 export default function AlertComponent() {
   return (

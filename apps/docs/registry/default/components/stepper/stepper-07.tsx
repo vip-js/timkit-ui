@@ -1,10 +1,4 @@
-import {
-  Stepper,
-  StepperIndicator,
-  StepperItem,
-  StepperTitle,
-  StepperTrigger,
-} from '../../ui/stepper'
+import { Stepper, StepperIndicator, StepperItem, StepperTitle, StepperTrigger } from '@timui/react'
 
 const steps = [
   {

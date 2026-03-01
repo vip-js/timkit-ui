@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button, Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from '@timui/react'
 import { ClubIcon, DiamondIcon, HeartIcon, LucideIcon, SpadeIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 interface TourStep {
   icon: LucideIcon

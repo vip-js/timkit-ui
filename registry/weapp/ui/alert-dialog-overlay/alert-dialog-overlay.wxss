@@ -1,0 +1,2 @@
+/* alert-dialog-overlay.wxss */
+@import "../../lib/utils.wxss";

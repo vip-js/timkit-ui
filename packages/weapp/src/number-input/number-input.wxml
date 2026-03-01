@@ -1,0 +1,25 @@
+<view class="{{className}}" data-disabled="{{disabled}}">
+  <view
+    class="number-input-decrement"
+    bindtap="onDecrementTap"
+    data-disabled="{{api.isAtMin || disabled}}"
+  >
+    <text>−</text>
+  </view>
+
+  <input
+    class="number-input-input"
+    type="digit"
+    value="{{api.value}}"
+    disabled="{{disabled || readOnly}}"
+    bindinput="onInput"
+  />
+
+  <view
+    class="number-input-increment"
+    bindtap="onIncrementTap"
+    data-disabled="{{api.isAtMax || disabled}}"
+  >
+    <text>+</text>
+  </view>
+</view>

@@ -1,7 +1,5 @@
 import { useId } from 'react'
-
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { Label, RadioGroup, RadioGroupItem } from '@timui/react'
 
 export default function Component() {
   const id = useId()

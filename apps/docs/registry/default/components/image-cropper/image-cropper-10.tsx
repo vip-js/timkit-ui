@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react'
-
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '../../ui/cropper'
+import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/react'
 
 type Area = { x: number; y: number; width: number; height: number }
 

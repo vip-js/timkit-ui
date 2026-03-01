@@ -6,19 +6,51 @@
       "path": "registry/default/ui/textarea.tsx",
       "type": "registry:ui",
       "target": "components/ui/textarea.tsx",
-      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from '@timui/shared'\n\nfunction Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {\n  return (\n    <textarea\n      data-slot=\"textarea\"\n      className={cn(\n        'border-input placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex min-h-19.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',\n        className\n      )}\n      {...props}\n    />\n  )\n}\nTextarea.displayName = 'Textarea'\n\nexport { Textarea }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn, textareaVariants } from \"@/lib/utils\"\n\nfunction Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {\n  return <textarea data-slot=\"textarea\" className={cn(textareaVariants(), className)} {...props} />\n}\nTextarea.displayName = 'Textarea'\n\nexport { Textarea }\n"
     },
     {
       "path": "registry/default/vue/textarea.vue",
+      "type": "registry:ui",
       "target": "components/ui/textarea.vue",
+      "content": "<script setup lang=\"ts\">\nimport { cn, textareaVariants } from \"@/lib/utils\";\nimport { computed, type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n  modelValue?: string | number;\n}>();\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue,\n  set: (value) => {\n    emits(\"update:modelValue\", value as string | number);\n  },\n});\n</script>\n\n<template>\n  <textarea\n    v-model=\"modelValue\"\n    :class=\"cn(textareaVariants(), props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/textarea/textarea.vue",
+      "target": "components/ui/textarea/textarea.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { cn } from \"@timui/shared\";\nimport { computed, type HTMLAttributes } from \"vue\";\n\nconst props = defineProps<{\n  class?: HTMLAttributes[\"class\"];\n  modelValue?: string | number;\n}>();\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue,\n  set: (value) => {\n    emits(\"update:modelValue\", value as string | number);\n  },\n});\n</script>\n\n<template>\n  <textarea\n    v-model=\"modelValue\"\n    :class=\"\n      cn(\n        'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',\n        props.class,\n      )\n    \"\n  />\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport type { AssertNoExtraKeys, TextareaVueProps } from \"@/lib/utils\";\nimport { cn, textareaVariants } from \"@/lib/utils\";\nimport { computed, type HTMLAttributes } from \"vue\";\n\ntype TextareaProps = TextareaVueProps & { class?: HTMLAttributes[\"class\"] };\ntype _TextareaPropsGuard = AssertNoExtraKeys<\n  TextareaProps,\n  TextareaVueProps & { class?: HTMLAttributes[\"class\"] }\n>;\n\nconst props = defineProps<TextareaProps>();\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue,\n  set: (value) => {\n    emits(\"update:modelValue\", value as string | number);\n  },\n});\n</script>\n\n<template>\n  <textarea\n    v-model=\"modelValue\"\n    :class=\"cn(textareaVariants(), props.class)\"\n  />\n</template>\n"
+    },
+    {
+      "path": "registry/default/html/textarea.html",
+      "target": "components/ui/textarea.html",
+      "type": "registry:component",
+      "content": "<textarea\n    class=\"flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\"\n    placeholder=\"Type your message here.\"></textarea>"
+    },
+    {
+      "path": "registry/default/weapp/textarea.wxml",
+      "target": "components/ui/textarea.wxml",
+      "type": "registry:component",
+      "content": "<textarea\n  class=\"{{className}}\"\n  value=\"{{value}}\"\n  placeholder=\"{{placeholder}}\"\n  disabled=\"{{disabled}}\"\n  bindinput=\"handleInput\"\n  bindfocus=\"handleFocus\"\n  bindblur=\"handleBlur\"\n  placeholder-class=\"text-muted-foreground/70\"\n></textarea>\n"
+    },
+    {
+      "path": "registry/default/weapp/textarea.wxss",
+      "target": "components/ui/textarea.wxss",
+      "type": "registry:component",
+      "content": "/* packages/weapp/src/textarea/textarea.wxss */\n@import \"../utilities.wxss\";\n"
+    },
+    {
+      "path": "registry/default/weapp/textarea.ts",
+      "target": "components/ui/textarea.ts",
+      "type": "registry:component",
+      "content": "import { textareaVariants } from '../utils'\n\nComponent({\n  externalClasses: ['ext-class'],\n  properties: {\n    placeholder: { type: String, value: '' },\n    value: { type: String, value: '' },\n    disabled: { type: Boolean, value: false },\n    extClass: { type: String, value: '' },\n  },\n  data: {\n    className: '',\n  },\n  observers: {\n    extClass: function (extClass) {\n      this.setData({\n        className: textareaVariants({ className: extClass }),\n      })\n    },\n  },\n  methods: {\n    handleInput(e: any) {\n      this.triggerEvent('input', e.detail)\n    },\n    handleFocus(e: any) {\n      this.triggerEvent('focus', e.detail)\n    },\n    handleBlur(e: any) {\n      this.triggerEvent('blur', e.detail)\n    },\n  },\n})\n"
     }
   ],
   "meta": {
     "frameworks": [
       "react",
-      "vue"
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

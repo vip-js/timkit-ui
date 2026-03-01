@@ -9,12 +9,14 @@ export default function HeaderLink({
   external = false,
   className,
   isNew = false,
+  isActive = false,
 }: {
   text: string
   href: string
   external?: boolean
   className?: string
   isNew?: boolean
+  isActive?: boolean
 }) {
   // 翻译导航链接文本
   const translatedText =
@@ -32,10 +34,13 @@ export default function HeaderLink({
   const newLabel = '新增'
 
   return (
-    <div className="flex items-start gap-1.5">
+    <div className="flex items-center gap-1.5">
       {external ? (
         <a
-          className={cn('inline-flex gap-0.5 text-sm hover:underline', className)}
+          className={cn(
+            'inline-flex items-center gap-1 text-sm font-medium hover:text-foreground',
+            className
+          )}
           href={href}
           target="_blank"
         >
@@ -46,19 +51,25 @@ export default function HeaderLink({
           </span>
         </a>
       ) : (
-        <>
+        <div className="relative inline-flex">
           <Link
             href={href}
-            className={cn('inline-flex gap-0.5 text-sm hover:underline', className)}
+            className={cn(
+              'relative inline-flex items-center gap-0.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200',
+              isActive
+                ? 'bg-foreground text-background shadow-xs'
+                : 'text-muted-foreground/80 hover:bg-muted/50 hover:text-foreground',
+              className
+            )}
           >
             {translatedText}
+            {isNew && (
+              <span className="pointer-events-none absolute -top-1.5 -right-1.5 rounded-full bg-primary px-1.5 py-[1px] text-[9px] leading-none font-semibold text-primary-foreground shadow-sm">
+                {newLabel}
+              </span>
+            )}
           </Link>
-          {isNew && (
-            <span className="text-muted-foreground/80 text-xs text-[10px] font-medium uppercase">
-              {newLabel}
-            </span>
-          )}
-        </>
+        </div>
       )}
     </div>
   )

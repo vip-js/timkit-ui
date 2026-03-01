@@ -1,10 +1,5 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function Centered404PageWithTowLinks() {
     return (
@@ -21,16 +16,15 @@ export default function Centered404PageWithTowLinks() {
                         Sorry, the page you are looking for could not be found or has been removed.
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-3">
-                        <a href="javascript:void(0)" className="block py-2 px-4 text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg">
+                        <Button className="py-2 px-4">
                             Go back
-                        </a>
-                        <a href="javascript:void(0)" className="block py-2 px-4 text-gray-700 hover:bg-gray-50 font-medium duration-150 active:bg-gray-100 border rounded-lg">
+                        </Button>
+                        <Button variant="outline" className="py-2 px-4">
                             Contact support
-                        </a>
+                        </Button>
                     </div>
                 </div>
             </div>
         </main>
     )
 }
-        

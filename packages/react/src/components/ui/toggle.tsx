@@ -1,46 +1,42 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as TogglePrimitive from '@radix-ui/react-toggle'
-import { cn } from '@timui/shared'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { mergeProps } from '@zag-js/react'
+import { cn, toggleVariants, type ToggleVariants } from '@timui/core'
+import { useToggle } from './toggle/use-toggle'
 
-const toggleVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-[color,box-shadow] hover:bg-muted hover:text-muted-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-  {
-    variants: {
-      variant: {
-        default: 'bg-transparent',
-        outline:
-          'border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground',
-      },
-      size: {
-        default: 'h-9 px-3',
-        sm: 'h-8 px-2',
-        lg: 'h-10 px-3',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
+const Toggle = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> &
+  ToggleVariants & {
+    pressed?: boolean
+    defaultPressed?: boolean
+    onPressedChange?: (pressed: boolean) => void
   }
-)
+>(({ className, pressed, defaultPressed, onPressedChange, variant, size, ...props }, ref) => {
 
-function Toggle({
-  className,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>) {
+  const api = useToggle({
+    pressed,
+    defaultPressed,
+    disabled: props.disabled,
+    onPressedChange,
+  })
+  const rootProps = api.getRootProps()
+  const mergedProps = mergeProps(rootProps, props)
+  const { className: mergedClassName, ...restProps } = mergedProps
+
   return (
-    <TogglePrimitive.Root
+    <button
+      ref={ref}
       data-slot="toggle"
-      className={cn(toggleVariants({ variant, size, className }))}
-      {...props}
+      data-state={api.pressed ? 'on' : 'off'}
+      aria-pressed={api.pressed}
+      type="button"
+      className={cn(toggleVariants({ variant, size, className }), mergedClassName)}
+      {...restProps}
     />
   )
-}
+})
+Toggle.displayName = "Toggle"
 
-export { Toggle, toggleVariants }
+export { Toggle }

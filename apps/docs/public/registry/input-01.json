@@ -2,15 +2,45 @@
   "name": "input-01",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-01.tsx",
       "type": "registry:component",
       "target": "components/ui/input-01.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Simple input</Label>\n      <Input id={id} placeholder=\"Email\" type=\"email\" />\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Input, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Simple input</Label>\n      <Input id={id} placeholder=\"Email\" type=\"email\" />\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-01.vue",
+      "target": "components/ui/input-01.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-01-id\">Simple input</Label>\n      <Input id=\"input-01-id\" placeholder=\"Email\" type=\"email\" />\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-01.html",
+      "target": "components/ui/input-01.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-01-id\">Simple input</label>\n      <input id=\"input-01-id\" placeholder=\"Email\" type=\"email\" />\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-01.wxml",
+      "target": "components/ui/input-01/input-01.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-01-id\">Simple input</label>\n      <input id=\"input-01-id\" placeholder=\"Email\" type=\"email\" />\n    </view>"
+    },
+    {
+      "path": "registry/default/components/input/input-01.wxss",
+      "target": "components/ui/input-01/input-01.wxss",
+      "type": "registry:component",
+      "content": "/* space-y-2 equivalent */\n.space-y-2 > view + view,\n.space-y-2 > input + input,\n.space-y-2 > label + input {\n  margin-top: 8px;\n}\n\n.label {\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 1;\n}\n\n.input {\n  display: flex;\n  height: 40px;\n  width: 100%;\n  border-radius: 6px;\n  border: 1px solid #e2e8f0;\n  background-color: transparent;\n  padding: 8px 12px;\n  font-size: 14px;\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-01.json",
+      "target": "components/ui/input-01/input-01.json",
+      "type": "registry:component",
+      "content": "{\n    \"component\": true,\n    \"usingComponents\": {}\n}"
     }
   ],
   "meta": {
@@ -19,11 +49,15 @@
       "label"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

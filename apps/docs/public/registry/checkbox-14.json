@@ -2,15 +2,33 @@
   "name": "checkbox-14",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/checkbox.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/checkbox.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/checkbox/checkbox-14.tsx",
       "type": "registry:component",
       "target": "components/ui/checkbox-14.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Checkbox } from '../../ui/checkbox'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none\">\n      <Checkbox\n        id={id}\n        className=\"order-1 after:absolute after:inset-0\"\n        aria-describedby={`${id}-description`}\n      />\n      <div className=\"grid grow gap-2\">\n        <Label htmlFor={id}>\n          Label{' '}\n          <span className=\"text-muted-foreground text-xs leading-[inherit] font-normal\">\n            (Sublabel)\n          </span>\n        </Label>\n        <p id={`${id}-description`} className=\"text-muted-foreground text-xs\">\n          A short description goes here.\n        </p>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Checkbox, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none\">\n      <Checkbox\n        id={id}\n        className=\"order-1 after:absolute after:inset-0\"\n        aria-describedby={`${id}-description`}\n      />\n      <div className=\"grid grow gap-2\">\n        <Label htmlFor={id}>\n          Label{' '}\n          <span className=\"text-muted-foreground text-xs leading-[inherit] font-normal\">\n            (Sublabel)\n          </span>\n        </Label>\n        <p id={`${id}-description`} className=\"text-muted-foreground text-xs\">\n          A short description goes here.\n        </p>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-14.vue",
+      "target": "components/ui/checkbox-14.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<div class=\"border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none\">\n      <Checkbox id=\"checkbox-14-id\"\n        class=\"order-1 after:absolute after:inset-0\" aria-describedby=\"checkbox-14-id-description\"\n      />\n      <div class=\"grid grow gap-2\">\n        <Label for=\"checkbox-14-id\">\n          Label \n          <span class=\"text-muted-foreground text-xs leading-[inherit] font-normal\">\n            (Sublabel)\n          </span>\n        </Label>\n        <p id=\"checkbox-14-id\" class=\"text-muted-foreground text-xs\">\n          A short description goes here.\n        </p>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-14.html",
+      "target": "components/ui/checkbox-14.html",
+      "type": "registry:component",
+      "content": "<div class=\"border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none\">\n      <checkbox id=\"checkbox-14-id\"\n        class=\"order-1 after:absolute after:inset-0\" aria-describedby=\"checkbox-14-id-description\"\n      />\n      <div class=\"grid grow gap-2\">\n        <label for=\"checkbox-14-id\">\n          Label \n          <span class=\"text-muted-foreground text-xs leading-[inherit] font-normal\">\n            (Sublabel)\n          </span>\n        </label>\n        <p id=\"checkbox-14-id\" class=\"text-muted-foreground text-xs\">\n          A short description goes here.\n        </p>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-14.wxml",
+      "target": "components/ui/checkbox-14/checkbox-14.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none\">\n      <checkbox id=\"checkbox-14-id\"\n        class=\"order-1 after:absolute after:inset-0\" aria-describedby=\"checkbox-14-id-description\"\n      />\n      <view class=\"grid grow gap-2\">\n        <label for=\"checkbox-14-id\">\n          Label \n          <span class=\"text-muted-foreground text-xs leading-[inherit] font-normal\">\n            (Sublabel)\n          </span>\n        </label>\n        <p id=\"checkbox-14-id\" class=\"text-muted-foreground text-xs\">\n          A short description goes here.\n        </p>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -21,11 +39,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "checkbox"
+    "category": "checkbox",
+    "title": "Checkbox · With label"
   },
   "categories": [
     "checkbox"

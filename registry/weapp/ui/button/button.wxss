@@ -1,0 +1,4 @@
+/* Button styles are handled via utility classes */
+:host {
+  display: inline-block;
+}

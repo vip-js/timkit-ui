@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Button } from "@timui/react";
 export default function SidebarWithItemsInBottom() {
-
     const navigation = [
         {
             href: 'javascript:void(0)',
@@ -31,7 +24,6 @@ export default function SidebarWithItemsInBottom() {
             icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
             </svg>
-
             ,
         },
         {
@@ -42,7 +34,6 @@ export default function SidebarWithItemsInBottom() {
             </svg>,
         }
     ]
-
     const navsFooter = [
         {
             href: 'javascript:void(0)',
@@ -70,26 +61,25 @@ export default function SidebarWithItemsInBottom() {
             ,
         }
     ]
-
     return (
         <div style={{height: "800px"}}>
             <nav
                 className="fixed top-0 left-0 w-full h-full border-r bg-white space-y-8 sm:w-80">
                 <div class="flex flex-col h-full">
                     <div className='h-20 flex items-center px-8'>
-                        <a href='javascript:void(0)' className='flex-none'>
+                        <Button variant="link" href='javascript:void(0)' className='flex-none'>
                             <img src="https://timkit-ui.com/logo.svg" width={140} className="mx-auto" />
-                        </a>
+                        </Button>
                     </div>
                     <div className="flex-1 flex flex-col h-full overflow-auto">
                         <ul className="px-4 text-sm font-medium flex-1">
                             {
                                 navigation.map((item, idx) => (
                                     <li key={idx}>
-                                        <a href={item.href} className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150">
+                                        <Button variant="ghost" href={item.href} className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150">
                                             <div className="text-gray-500">{item.icon}</div>
                                             {item.name}
-                                        </a>
+                                        </Button>
                                     </li>
                                 ))
                             }
@@ -99,10 +89,10 @@ export default function SidebarWithItemsInBottom() {
                                 {
                                     navsFooter.map((item, idx) => (
                                         <li key={idx}>
-                                            <a href={item.href} className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150">
+                                            <Button variant="ghost" href={item.href} className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150">
                                                 <div className="text-gray-500">{item.icon}</div>
                                                 {item.name}
-                                            </a>
+                                            </Button>
                                         </li>
                                     ))
                                 }
@@ -112,12 +102,13 @@ export default function SidebarWithItemsInBottom() {
                                     <img src="https://randomuser.me/api/portraits/women/79.jpg" className="w-12 h-12 rounded-full" />
                                     <div>
                                         <span className="block text-gray-700 text-sm font-semibold">Alivika tony</span>
-                                        <a
+                                        <Button
+                                            variant="link"
                                             href="javascript:void(0)"
                                             className="block mt-px text-gray-600 hover:text-indigo-600 text-xs"
                                         >
                                             View profile
-                                        </a>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -128,4 +119,3 @@ export default function SidebarWithItemsInBottom() {
         </div>
     );
 };
-        

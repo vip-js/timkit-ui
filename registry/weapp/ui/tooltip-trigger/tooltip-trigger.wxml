@@ -1,0 +1,9 @@
+<view 
+    class="{{triggerApi.className}}"
+    id="{{triggerApi.id}}"
+    bindtap="handleTap"
+    bindblur="handleBlur"
+    data-state="{{triggerApi['data-state']}}"
+>
+    <slot />
+</view>

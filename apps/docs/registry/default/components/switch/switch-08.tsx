@@ -1,9 +1,7 @@
 'use client'
 
 import { useId, useState } from 'react'
-
-import { Label } from '../../ui/label'
-import { Switch } from '../../ui/switch'
+import { Label, Switch } from '@timui/react'
 
 export default function Component() {
   const id = useId()

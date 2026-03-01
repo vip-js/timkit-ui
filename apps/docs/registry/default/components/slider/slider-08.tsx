@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
+import { Label, Slider } from '@timui/react'
 
 export default function Component() {
   const [value, setValue] = useState([25])

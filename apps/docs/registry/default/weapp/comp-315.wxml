@@ -1,0 +1,31 @@
+<view class="page">
+  <button class="btn" bindtap="open">Scrollable (native scrollbar)</button>
+
+  <view wx:if="{{open}}" class="mask" catchtouchmove="true">
+    <view class="dialog">
+      <view class="header">Frequently Asked Questions (FAQ)</view>
+      <scroll-view scroll-y="true" class="body">
+        <view class="item">
+          <text class="title">Account Management</text>
+          <text class="desc">Navigate to the registration page, provide required information, and verify your email address. You can sign up using your email or through social media platforms.</text>
+        </view>
+        <view class="item">
+          <text class="title">Password Reset Process</text>
+          <text class="desc">Users can reset their password through the account settings page. Click "Forgot Password" and follow the email verification steps to regain account access quickly and securely.</text>
+        </view>
+        <view class="item">
+          <text class="title">Service Pricing Tiers</text>
+          <text class="desc">We offer three primary subscription levels designed to meet diverse user needs: Basic, Professional, and Enterprise.</text>
+        </view>
+        <view class="item">
+          <text class="title">Technical Support Channels</text>
+          <text class="desc">Customer support is accessible through multiple communication methods including email support, live chat during business hours, and support tickets.</text>
+        </view>
+      </scroll-view>
+      <view class="footer">
+        <button class="btn outline" bindtap="close">Cancel</button>
+        <button class="btn solid" bindtap="close">Okay</button>
+      </view>
+    </view>
+  </view>
+</view>

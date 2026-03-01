@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { ChevronDownIcon } from 'lucide-react'
 
 const SelectNative = ({ className, children, ...props }: React.ComponentProps<'select'>) => {

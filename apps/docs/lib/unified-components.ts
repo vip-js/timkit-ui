@@ -107,31 +107,33 @@ export const getUnifiedFamilies = async (): Promise<UnifiedFamily[]> => {
         (item: any) => item.categories?.includes(slug) || item.meta?.category === slug
       )
 
-      const entries: UnifiedEntry[] = []
-
-      for (const [index, item] of sectionItems.entries()) {
+      const sectionItemPromises = sectionItems.map(async (item: any, index: number) => {
         // Skip if a UI component with the same name exists (de-dup shadcn vs float)
-        if (uiNameSet.has(item.name)) continue
+        if (uiNameSet.has(item.name)) return null
         const meta = item.meta as any
         // Only process if we have MDX body (for sections)
-        if (!meta?.mdxBody) continue
-        if (meta?.isActive === false) continue
+        if (!meta?.mdxBody) return null
+        if (meta?.isActive === false) return null
 
         try {
           const mdxSource = await serialize(meta.mdxBody)
           const id = `${slug}-${index}`
-          entries.push({
+          return {
             id,
             title: meta.title ?? item.name,
             description: meta.description ?? section.description,
-            variant: 'section',
+            variant: 'section' as Variant,
             mdxSource,
             codeGroups: extractSectionCode(meta.ltr, id),
-          })
+          }
         } catch (e) {
           console.warn(`Failed to process section item ${item.name}`, e)
+          return null
         }
-      }
+      })
+
+      const resolvedEntries: (UnifiedEntry | null)[] = await Promise.all(sectionItemPromises)
+      const entries = resolvedEntries.filter((entry): entry is UnifiedEntry => entry !== null)
 
       if (entries.length > 0) {
         sectionGroups.push({

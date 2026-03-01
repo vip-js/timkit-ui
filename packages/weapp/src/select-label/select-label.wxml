@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="select-label">
+  <slot></slot>
+</view>

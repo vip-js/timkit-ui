@@ -1,0 +1,2 @@
+/* tabs-list.wxss */
+@import "../../lib/utils.wxss";

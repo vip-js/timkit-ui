@@ -1,0 +1,6 @@
+<view 
+  class="{{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+>
+  <slot />
+</view>

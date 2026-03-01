@@ -1,43 +1,32 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import mergeTW from '@/utils/mergeTW'
+import mergeTW from '@/utils/merge-tw'
 
-const NavLink = ({ ...props }) => {
-  const {
-    children,
-    href = '',
-    className = '',
-    active = '',
-  }: {
-    children?: ReactNode
-    href?: string
-    className?: string
-    active?: string
-  } = props
-
+const NavLink = ({
+  children,
+  href = '',
+  className = '',
+}: {
+  children: ReactNode
+  href?: string
+  className?: string
+}) => {
   const pathname = usePathname()
-
   const isActive: boolean = pathname == href
-  const activeClass = isActive ? active : ''
 
   return (
     <Link
       href={href}
-      {...props}
       className={mergeTW(
-        'group relative z-10 block rounded-lg px-3 py-2 transition-colors duration-150',
-        activeClass,
+        'group flex w-full items-center rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/20',
+        isActive
+          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold'
+          : 'text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground',
         className
       )}
     >
-      <span
-        className={`border-l py-0.5 pl-6 duration-150 group-hover:border-indigo-500 ${
-          isActive ? 'border-indigo-500' : 'border-transparent'
-        }`}
-      >
-        {children}
-      </span>
+      {children}
     </Link>
   )
 }

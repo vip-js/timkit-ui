@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button, Separator } from "@timui/react";
 
 export default function SecondaryFooter() {
-
     const footerNavs = [
         {
             label: "Company",
@@ -73,7 +66,6 @@ export default function SecondaryFooter() {
             ]
         }
     ]
-
     return (
         <footer className="text-gray-500 bg-white px-4 py-5 max-w-screen-xl mx-auto md:px-8">
             <div className="gap-6 justify-between md:flex">
@@ -84,23 +76,23 @@ export default function SecondaryFooter() {
                             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                         </p>
                     </div>
-                    <form 
+                    <form
                         onSubmit={(e) => e.preventDefault()}
                     >
                         <label className="block pt-4 pb-2">
                             Stay up to date
                         </label>
                         <div className="max-w-sm flex items-center border rounded-md p-1">
-                            <input 
+                            <Input
                                 type="email"
                                 placeholder="Enter your email"
                                 className="w-full p-2.5 outline-none"
                             />
-                            <button
-                                className="p-2.5 rounded-md text-white bg-indigo-600 outline-none shadow-md focus:shadow-none sm:px-5"
+                            <Button
+                                className="p-2.5 sm:px-5"
                             >
                                 Subscribe
-                            </button>
+                            </Button>
                         </div>
                     </form>
                 </div>
@@ -117,10 +109,9 @@ export default function SecondaryFooter() {
                                 {
                                     item.items.map(((el, idx) => (
                                         <li key={idx}>
-                                            <a 
+                                            <a
                                                 href={el.href}
                                                 className="hover:underline hover:text-indigo-600"
-                                            
                                             >
                                                 { el.name }
                                             </a>
@@ -132,7 +123,8 @@ export default function SecondaryFooter() {
                     }
                 </div>
             </div>
-            <div className="mt-8 py-6 border-t items-center justify-between sm:flex">
+            <Separator className="mt-8" />
+            <div className="py-6 items-center justify-between sm:flex">
                 <div className="mt-4 sm:mt-0">
                     &copy; 2022 Float UI All rights reserved.
                 </div>
@@ -145,7 +137,6 @@ export default function SecondaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-blue-700" viewBox="0 0 20 20">
@@ -153,7 +144,6 @@ export default function SecondaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-blue-500" viewBox="0 0 20 20">
@@ -161,7 +151,6 @@ export default function SecondaryFooter() {
                                 </svg>
                             </a>
                         </li>
-
                         <li className="w-10 h-10 border rounded-full flex items-center justify-center">
                             <a href="javascript:void()">
                                 <svg className="svg-icon w-6 h-6 text-red-600" viewBox="0 0 20 20">

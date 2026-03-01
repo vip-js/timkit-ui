@@ -2,14 +2,6 @@
 
 import * as React from 'react'
 import {
-  ArrowUpRightIcon,
-  CircleFadingPlusIcon,
-  FileInputIcon,
-  FolderPlusIcon,
-  SearchIcon,
-} from 'lucide-react'
-
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -18,7 +10,14 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from '../../ui/command'
+} from '@timui/react'
+import {
+  ArrowUpRightIcon,
+  CircleFadingPlusIcon,
+  FileInputIcon,
+  FolderPlusIcon,
+  SearchIcon,
+} from 'lucide-react'
 
 export default function Component() {
   const [open, setOpen] = React.useState(false)

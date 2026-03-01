@@ -1,0 +1,8 @@
+<button 
+  class="{{triggerApi.className}}" 
+  id="{{triggerApi.id}}"
+  bindtap="handleClick"
+  hidden="{{triggerApi.hidden}}"
+>
+  <slot />
+</button>

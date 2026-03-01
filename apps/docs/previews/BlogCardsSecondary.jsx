@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function BlogCardsSecondary() {
-
     const posts = [
         {
             title: "What is SaaS? Software as a Service Explained",
@@ -17,7 +11,7 @@ export default function BlogCardsSecondary() {
         },
         {
             title: "A Quick Guide to WordPress Hosting",
-            desc: "According to him, Ã¢â‚¬Å“I'm still surprised that this has happened. But we are surprised because we are so surprised.Ã¢â‚¬ÂMore revelations about Whittington will be featured in the film",
+            desc: "According to him, \"I'm still surprised that this has happened. But we are surprised because we are so surprised.\" More revelations about Whittington will be featured in the film.",
             date: "Thursday, December 9th 2021",
             href: "javascript:void(0)"
         },
@@ -29,12 +23,11 @@ export default function BlogCardsSecondary() {
         },
         {
             title: "How to Use Root C++ Interpreter Shell to Write C++ Programs",
-            desc: "The powerful gravity waves resulting from the impact of the planets' moons Ã¢â‚¬â€ four in total Ã¢â‚¬â€ were finally resolved in 2015 when gravitational microlensing was used to observe the",
+            desc: "The powerful gravity waves resulting from the impact of the planets' moons—four in total—were finally resolved in 2015 when gravitational microlensing was used to observe the event.",
             date: "Thursday, December 9th 2021",
             href: "javascript:void(0)"
         }
     ]
-    
     return (
         <section className="py-12 mx-auto px-4 max-w-screen-xl md:px-8">
             <div className="max-w-lg">
@@ -46,7 +39,7 @@ export default function BlogCardsSecondary() {
                     The powerful gravity waves resulting from the impact of the planets, were finally resolved in 2015
                 </p>
             </div>
-            <div className="mt-12 grid gap-4 divide-y md:grid-cols-2 md:divide-y-0 lg:grid-cols-3">
+            <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {
                     posts.map((item, idx) => (
                         <article className="mt-5 pt-8 md:pt-0" key={idx}>
@@ -62,12 +55,12 @@ export default function BlogCardsSecondary() {
                                         {item.desc}
                                     </p>
                                 </div>
-                                <button className="mt-2 outline-none flex items-center text-[14px] text-blue-600 decoration-blue-600 hover:underline">
+                                <Button variant="link" className="mt-2 flex items-center text-[14px] text-blue-600 hover:text-blue-600 hover:underline">
                                     READ MORE
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
-                                </button>
+                                </Button>
                             </a>
                         </article>
                     ))
@@ -76,5 +69,3 @@ export default function BlogCardsSecondary() {
         </section>
     )
 }
-
-        

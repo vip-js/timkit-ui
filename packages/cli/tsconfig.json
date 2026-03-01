@@ -12,7 +12,6 @@
     "composite": false
   },
   "include": [
-    "src/**/*",
-    "../core/src"
+    "src/**/*"
   ]
 }

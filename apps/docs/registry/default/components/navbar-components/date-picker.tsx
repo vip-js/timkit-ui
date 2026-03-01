@@ -1,14 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { DateRange } from 'react-day-picker'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 export default function DatePicker() {
   const [date, setDate] = useState<DateRange | undefined>()

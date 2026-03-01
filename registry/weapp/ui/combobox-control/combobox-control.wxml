@@ -1,0 +1,7 @@
+<view 
+  class="{{controlApi.className}}"
+  id="{{controlApi.id}}"
+  bindtap="handleTap"
+>
+  <slot />
+</view>

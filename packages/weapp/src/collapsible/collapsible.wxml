@@ -1,0 +1,23 @@
+<view class="{{className}}" data-state="{{api.open ? 'open' : 'closed'}}">
+  <!-- Trigger -->
+  <view 
+    id="{{api.triggerProps.id}}"
+    class="collapsible-trigger"
+    bindtap="onTriggerTap"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+    data-disabled="{{disabled}}"
+  >
+    <slot name="trigger"></slot>
+    <text class="collapsible-icon">{{api.open ? '▼' : '▶'}}</text>
+  </view>
+
+  <!-- Content -->
+  <view 
+    id="{{api.contentProps.id}}"
+    class="collapsible-content"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+    hidden="{{!api.open}}"
+  >
+    <slot name="content"></slot>
+  </view>
+</view>

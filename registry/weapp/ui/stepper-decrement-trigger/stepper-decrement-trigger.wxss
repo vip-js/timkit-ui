@@ -1,0 +1,2 @@
+/* stepper-decrement-trigger.wxss */
+@import "../../lib/utils.wxss";

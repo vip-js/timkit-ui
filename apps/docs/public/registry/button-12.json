@@ -2,14 +2,14 @@
   "name": "button-12",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json"
+    "https://ui.timkit.cn/r/button.json"
   ],
   "files": [
     {
       "path": "registry/default/components/button/button-12.tsx",
       "type": "registry:component",
       "target": "components/ui/button-12.tsx",
-      "content": "import { Button } from '../../ui/button'\n\nexport default function Component() {\n  return (\n    <div className=\"inline-flex items-center gap-2\">\n      <Button variant=\"ghost\">Cancel</Button>\n      <Button>Save</Button>\n    </div>\n  )\n}\n"
+      "content": "import { Button } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <div className=\"inline-flex items-center gap-2\">\n      <Button variant=\"ghost\">Cancel</Button>\n      <Button>Save</Button>\n    </div>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -22,7 +22,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "buttons"
+    "category": "buttons",
+    "title": "Button · Low emphasis variant"
   },
   "categories": [
     "buttons",

@@ -1,6 +1,4 @@
-import { Button } from '../../ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Textarea } from '../../ui/textarea'
+import { Button, Popover, PopoverContent, PopoverTrigger, Textarea } from '@timui/react'
 
 export default function Component() {
   return (

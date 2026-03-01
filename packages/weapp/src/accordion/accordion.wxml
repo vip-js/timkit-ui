@@ -1,0 +1,17 @@
+<view class="{{className}} accordion">
+  <slot></slot>
+</view>
+
+<!-- 使用示例：
+<accordion value="{{['item1']}}" bind:change="handleChange">
+  <view class="accordion-item" data-value="item1" bindtap="onItemTap">
+    <view class="accordion-trigger">
+      <text>标题 1</text>
+      <text class="accordion-icon">{{api.value.includes('item1') ? '▼' : '▶'}}</text>
+    </view>
+    <view class="accordion-content" wx:if="{{api.value.includes('item1')}}">
+      内容 1
+    </view>
+  </view>
+</accordion>
+-->

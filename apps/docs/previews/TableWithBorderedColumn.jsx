@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@timui/react";
 
 export default function TableWithBorderedColumn() {
-
     const tableItems = [
         {
             name: "Liam James",
@@ -40,7 +34,6 @@ export default function TableWithBorderedColumn() {
             salary: "$75K"
         },
     ]
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 md:px-8">
             <div className="max-w-lg">
@@ -52,31 +45,31 @@ export default function TableWithBorderedColumn() {
                 </p>
             </div>
             <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-                <table className="w-full table-auto text-sm text-left">
-                    <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-                        <tr className="divide-x">
-                            <th className="py-3 px-6">Username</th>
-                            <th className="py-3 px-6">Email</th>
-                            <th className="py-3 px-6">Position</th>
-                            <th className="py-3 px-6">Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-600 divide-y">
+                <Table className="w-full table-auto text-sm text-left">
+                    <TableHeader className="bg-gray-50 text-gray-600 font-medium border-b">
+                        <TableRow className="divide-x">
+                            <TableHead className="py-3 px-6">Username</TableHead>
+                            <TableHead className="py-3 px-6">Email</TableHead>
+                            <TableHead className="py-3 px-6">Position</TableHead>
+                            <TableHead className="py-3 px-6">Salary</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody className="text-gray-600 divide-y">
                         {
                             tableItems.map((item, idx) => (
-                                <tr key={idx} className="divide-x">
-                                    <td className="px-6 py-4 whitespace-nowrap flex items-center gap-x-6">
+                                <TableRow key={idx} className="divide-x">
+                                    <TableCell className="px-6 py-4 whitespace-nowrap flex items-center gap-x-6">
                                         <span>{idx + 1}</span>
                                         {item.name}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.position}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.salary}</td>
-                                </tr>
+                                    </TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.email}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.position}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.salary}</TableCell>
+                                </TableRow>
                             ))
                         }
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         </div>
     )

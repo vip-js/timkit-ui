@@ -1,0 +1,13 @@
+<textarea 
+  class="{{className}}"
+  value="{{value}}"
+  placeholder="{{placeholder}}"
+  disabled="{{disabled}}"
+  maxlength="{{maxlength}}"
+  auto-height="{{autoHeight}}"
+  focus="{{focus}}"
+  bindinput="onInput"
+  bindfocus="onFocus"
+  bindblur="onBlur"
+  bindconfirm="onConfirm"
+/>

@@ -1,0 +1,8 @@
+<view 
+  class="{{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+  dir="{{api.rootProps.dir}}"
+  data-orientation="{{api.rootProps['data-orientation']}}"
+>
+  <slot />
+</view>

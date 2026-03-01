@@ -1,0 +1,15 @@
+<date-picker inline="{{true}}" value="{{value}}" bindchange="handleChange">
+    <date-picker-content>
+       <!-- Implementation of grid/cell using nested components or simplified WXML here -->
+       <!-- Ideally we'd have date-picker-table, date-picker-row, date-picker-cell -->
+       <!-- For brevity, user can implement the inner grid using exposed API from date-picker -->
+       <!-- Or we can pre-build the calendar template in date-picker-content? -->
+       <!-- Zag date-picker api exposes `getVisibleRange` `weeks` etc? -->
+       <!-- Actually api.weeks IS available. -->
+       <!-- We can iterate api.weeks in template. -->
+       <!-- But date-picker content needs access to API. -->
+       <!-- We might need to expose api to slot in date-picker-content. -->
+       <!-- In WeApp, scoping is hard. -->
+       <slot /> 
+    </date-picker-content>
+</date-picker>

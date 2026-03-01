@@ -1,83 +1,62 @@
 'use client'
-'use client'
 
 import * as React from 'react'
+import type {
+  AssertNoExtraKeys,
+  MultiselectOption,
+  MultiselectProps as CoreMultiselectProps,
+} from '@timui/core'
 import { useEffect } from 'react'
-import { cn } from '@timui/shared'
+import {
+  cn,
+  multiselectClearButtonVariants,
+  multiselectCommandVariants,
+  multiselectContainerVariants,
+  multiselectDropdownVariants,
+  multiselectEmptyVariants,
+  multiselectGroupVariants,
+  multiselectInputVariants,
+  multiselectListVariants,
+  multiselectTagRemoveVariants,
+  multiselectTagVariants,
+} from '@timui/core'
 import { Command as CommandPrimitive, useCommandState } from 'cmdk'
 import { XIcon } from 'lucide-react'
 
 import { Command, CommandGroup, CommandItem, CommandList } from './command'
 
-export interface Option {
-  value: string
-  label: string
-  disable?: boolean
-  /** fixed option that can't be removed. */
-  fixed?: boolean
-  /** Group the options by providing key. */
-  [key: string]: string | boolean | undefined
-}
+export type Option = MultiselectOption
 interface GroupOption {
   [key: string]: Option[]
 }
 
-interface MultipleSelectorProps {
-  value?: Option[]
-  defaultOptions?: Option[]
-  /** manually controlled options */
-  options?: Option[]
-  placeholder?: string
-  /** Loading component. */
-  loadingIndicator?: React.ReactNode
-  /** Empty component. */
-  emptyIndicator?: React.ReactNode
-  /** Debounce time for async search. Only work with `onSearch`. */
-  delay?: number
-  /**
-   * Only work with `onSearch` prop. Trigger search when `onFocus`.
-   * For example, when user click on the input, it will trigger the search to get initial options.
-   **/
-  triggerSearchOnFocus?: boolean
-  /** async search */
-  onSearch?: (value: string) => Promise<Option[]>
-  /**
-   * sync search. This search will not showing loadingIndicator.
-   * The rest props are the same as async search.
-   * i.e.: creatable, groupBy, delay.
-   **/
-  onSearchSync?: (value: string) => Option[]
+type MultipleSelectorProps = CoreMultiselectProps & {
   onChange?: (options: Option[]) => void
-  /** Limit the maximum number of selected options. */
-  maxSelected?: number
-  /** When the number of selected options exceeds the limit, the onMaxSelected will be called. */
-  onMaxSelected?: (maxLimit: number) => void
-  /** Hide the placeholder when there are options selected. */
-  hidePlaceholderWhenSelected?: boolean
-  disabled?: boolean
-  /** Group the options base on provided key. */
-  groupBy?: string
+  loadingIndicator?: React.ReactNode
+  emptyIndicator?: React.ReactNode
   className?: string
   badgeClassName?: string
-  /**
-   * First item selected is a default behavior by cmdk. That is why the default is true.
-   * This is a workaround solution by add a dummy item.
-   *
-   * @reference: https://github.com/pacocoursey/cmdk/issues/171
-   */
-  selectFirstItem?: boolean
-  /** Allow user to create option when there is no option matched. */
-  creatable?: boolean
-  /** Props of `Command` */
   commandProps?: React.ComponentPropsWithoutRef<typeof Command>
-  /** Props of `CommandInput` */
   inputProps?: Omit<
     React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
     'value' | 'placeholder' | 'disabled'
   >
-  /** hide the clear all button. */
-  hideClearAllButton?: boolean
 }
+type _MultipleSelectorPropsGuard = AssertNoExtraKeys<
+  MultipleSelectorProps,
+  CoreMultiselectProps & {
+    onChange?: (options: Option[]) => void
+    loadingIndicator?: React.ReactNode
+    emptyIndicator?: React.ReactNode
+    className?: string
+    badgeClassName?: string
+    commandProps?: React.ComponentPropsWithoutRef<typeof Command>
+    inputProps?: Omit<
+      React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
+      'value' | 'placeholder' | 'disabled'
+    >
+  }
+>
 
 export interface MultipleSelectorRef {
   selectedValue: Option[]
@@ -122,17 +101,25 @@ function transToGroupOption(options: Option[], groupBy?: string) {
 }
 
 function removePickedOption(groupOption: GroupOption, picked: Option[]) {
-  const cloneOption = JSON.parse(JSON.stringify(groupOption)) as GroupOption
-
-  for (const [key, value] of Object.entries(cloneOption)) {
-    cloneOption[key] = value.filter((val) => !picked.find((p) => p.value === val.value))
+  if (picked.length === 0) {
+    return groupOption
   }
-  return cloneOption
+
+  const pickedValues = new Set(picked.map((item) => item.value))
+  const next: GroupOption = {}
+  for (const [key, value] of Object.entries(groupOption)) {
+    next[key] = value.filter((val) => !pickedValues.has(val.value))
+  }
+  return next
 }
 
 function isOptionsExist(groupOption: GroupOption, targetOption: Option[]) {
+  if (targetOption.length === 0) {
+    return false
+  }
+  const targetValues = new Set(targetOption.map((item) => item.value))
   for (const [, value] of Object.entries(groupOption)) {
-    if (value.some((option) => targetOption.find((p) => p.value === option.value))) {
+    if (value.some((option) => targetValues.has(option.value))) {
       return true
     }
   }
@@ -149,7 +136,7 @@ const CommandEmpty = ({
 
   return (
     <div
-      className={cn('px-2 py-4 text-center text-sm', className)}
+      className={cn(multiselectEmptyVariants(), className)}
       cmdk-empty=""
       role="presentation"
       {...props}
@@ -162,6 +149,7 @@ CommandEmpty.displayName = 'CommandEmpty'
 export const MultipleSelector = ({
   value,
   onChange,
+  onValueChange,
   placeholder,
   defaultOptions: arrayDefaultOptions = [],
   options: arrayOptions,
@@ -184,6 +172,14 @@ export const MultipleSelector = ({
   inputProps,
   hideClearAllButton = false,
 }: MultipleSelectorProps) => {
+  const emitValueChange = React.useCallback(
+    (next: Option[]) => {
+      onValueChange?.(next)
+      onChange?.(next)
+    },
+    [onChange, onValueChange]
+  )
+
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false)
   const [onScrollbar, setOnScrollbar] = React.useState(false)
@@ -196,8 +192,12 @@ export const MultipleSelector = ({
   )
   const [inputValue, setInputValue] = React.useState('')
   const debouncedSearchTerm = useDebounce(inputValue, delay || 500)
+  const selectedValueSet = React.useMemo(
+    () => new Set(selected.map((item) => item.value)),
+    [selected]
+  )
 
-  const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+  const handleClickOutside = React.useCallback((event: MouseEvent | TouchEvent) => {
     if (
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target as Node) &&
@@ -207,15 +207,15 @@ export const MultipleSelector = ({
       setOpen(false)
       inputRef.current.blur()
     }
-  }
+  }, [])
 
   const handleUnselect = React.useCallback(
     (option: Option) => {
       const newOptions = selected.filter((s) => s.value !== option.value)
       setSelected(newOptions)
-      onChange?.(newOptions)
+      emitValueChange(newOptions)
     },
-    [onChange, selected]
+    [emitValueChange, selected]
   )
 
   const handleKeyDown = React.useCallback(
@@ -253,7 +253,7 @@ export const MultipleSelector = ({
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchend', handleClickOutside)
     }
-  }, [open])
+  }, [handleClickOutside, open])
 
   useEffect(() => {
     if (value) {
@@ -266,11 +266,8 @@ export const MultipleSelector = ({
     if (!arrayOptions || onSearch) {
       return
     }
-    const newOption = transToGroupOption(arrayOptions || [], groupBy)
-    if (JSON.stringify(newOption) !== JSON.stringify(options)) {
-      setOptions(newOption)
-    }
-  }, [arrayDefaultOptions, arrayOptions, groupBy, onSearch, options])
+    setOptions(transToGroupOption(arrayOptions, groupBy))
+  }, [arrayOptions, groupBy, onSearch])
 
   useEffect(() => {
     /** sync search */
@@ -282,12 +279,7 @@ export const MultipleSelector = ({
 
     const exec = async () => {
       if (!onSearchSync || !open) return
-
-      if (triggerSearchOnFocus) {
-        doSearchSync()
-      }
-
-      if (debouncedSearchTerm) {
+      if (triggerSearchOnFocus || debouncedSearchTerm) {
         doSearchSync()
       }
     }
@@ -298,40 +290,46 @@ export const MultipleSelector = ({
 
   useEffect(() => {
     /** async search */
+    let active = true
 
     const doSearch = async () => {
       setIsLoading(true)
       const res = await onSearch?.(debouncedSearchTerm)
+      if (!active) return
       setOptions(transToGroupOption(res || [], groupBy))
       setIsLoading(false)
     }
 
     const exec = async () => {
       if (!onSearch || !open) return
-
-      if (triggerSearchOnFocus) {
-        await doSearch()
-      }
-
-      if (debouncedSearchTerm) {
+      if (triggerSearchOnFocus || debouncedSearchTerm) {
         await doSearch()
       }
     }
 
     void exec()
+    return () => {
+      active = false
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus])
 
-  const CreatableItem = () => {
+  const creatableNode = React.useMemo(() => {
     if (!creatable) return undefined
     if (
       isOptionsExist(options, [{ value: inputValue, label: inputValue }]) ||
-      selected.find((s) => s.value === inputValue)
+      selectedValueSet.has(inputValue)
     ) {
       return undefined
     }
 
-    const Item = (
+    const shouldShow =
+      (!onSearch && inputValue.length > 0) ||
+      (onSearch && debouncedSearchTerm.length > 0 && !isLoading)
+
+    if (!shouldShow) return undefined
+
+    return (
       <CommandItem
         value={inputValue}
         className="cursor-pointer"
@@ -347,30 +345,29 @@ export const MultipleSelector = ({
           setInputValue('')
           const newOptions = [...selected, { value, label: value }]
           setSelected(newOptions)
-          onChange?.(newOptions)
+          emitValueChange(newOptions)
         }}
       >
         {`Create "${inputValue}"`}
       </CommandItem>
     )
+  }, [
+    creatable,
+    debouncedSearchTerm.length,
+    emitValueChange,
+    inputValue,
+    isLoading,
+    maxSelected,
+    onMaxSelected,
+    onSearch,
+    options,
+    selected,
+    selectedValueSet,
+  ])
 
-    // For normal creatable
-    if (!onSearch && inputValue.length > 0) {
-      return Item
-    }
-
-    // For async search creatable. avoid showing creatable item before loading at first.
-    if (onSearch && debouncedSearchTerm.length > 0 && !isLoading) {
-      return Item
-    }
-
-    return undefined
-  }
-
-  const EmptyItem = React.useCallback(() => {
+  const emptyNode = React.useMemo(() => {
     if (!emptyIndicator) return undefined
 
-    // For async search that showing emptyIndicator
     if (onSearch && !creatable && Object.keys(options).length === 0) {
       return (
         <CommandItem value="-" disabled>
@@ -386,20 +383,22 @@ export const MultipleSelector = ({
     () => removePickedOption(options, selected),
     [options, selected]
   )
+  const selectableEntries = React.useMemo(
+    () => Object.entries(selectables),
+    [selectables]
+  )
+  const fixedSelected = React.useMemo(
+    () => selected.filter((item) => item.fixed),
+    [selected]
+  )
 
   /** Avoid Creatable Selector freezing or lagging when paste a long string. */
-  const commandFilter = React.useCallback(() => {
-    if (commandProps?.filter) {
-      return commandProps.filter
+  const commandFilter = React.useMemo(() => {
+    if (commandProps?.filter) return commandProps.filter
+    if (!creatable) return undefined
+    return (value: string, search: string) => {
+      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1
     }
-
-    if (creatable) {
-      return (value: string, search: string) => {
-        return value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1
-      }
-    }
-    // Using default filter in `cmdk`. We don&lsquo;t have to provide it.
-    return undefined
   }, [creatable, commandProps?.filter])
 
   return (
@@ -410,15 +409,15 @@ export const MultipleSelector = ({
         handleKeyDown(e)
         commandProps?.onKeyDown?.(e)
       }}
-      className={cn('h-auto overflow-visible bg-transparent', commandProps?.className)}
+      className={cn(multiselectCommandVariants(), commandProps?.className)}
       shouldFilter={
         commandProps?.shouldFilter !== undefined ? commandProps.shouldFilter : !onSearch
       } // When onSearch is provided, we don&lsquo;t want to filter the options. You can still override it.
-      filter={commandFilter()}
+      filter={commandFilter}
     >
       <div
         className={cn(
-          'border-input focus-within:border-ring focus-within:ring-ring/50 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive relative min-h-[38px] rounded-md border text-sm transition-[color,box-shadow] outline-none focus-within:ring-[3px] has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50',
+          multiselectContainerVariants(),
           {
             'p-1': selected.length !== 0,
             'cursor-text': !disabled && selected.length !== 0,
@@ -437,7 +436,7 @@ export const MultipleSelector = ({
               <div
                 key={option.value}
                 className={cn(
-                  'animate-fadeIn bg-background text-secondary-foreground hover:bg-background relative inline-flex h-7 cursor-default items-center rounded-md border ps-2 pe-7 pl-2 text-xs font-medium transition-all disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 data-fixed:pe-2',
+                  multiselectTagVariants(),
                   badgeClassName
                 )}
                 data-fixed={option.fixed}
@@ -445,7 +444,7 @@ export const MultipleSelector = ({
               >
                 {option.label}
                 <button
-                  className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute -inset-y-px -end-px flex size-7 items-center justify-center rounded-e-md border border-transparent p-0 outline-hidden transition-[color,box-shadow] outline-none focus-visible:ring-[3px]"
+                  className={multiselectTagRemoveVariants()}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handleUnselect(option)
@@ -481,14 +480,11 @@ export const MultipleSelector = ({
             }}
             onFocus={(event) => {
               setOpen(true)
-              if (triggerSearchOnFocus) {
-                onSearch?.(debouncedSearchTerm)
-              }
               inputProps?.onFocus?.(event)
             }}
             placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}
             className={cn(
-              'placeholder:text-muted-foreground/70 flex-1 bg-transparent outline-hidden disabled:cursor-not-allowed',
+              multiselectInputVariants(),
               {
                 'w-full': hidePlaceholderWhenSelected,
                 'px-3 py-2': selected.length === 0,
@@ -500,15 +496,15 @@ export const MultipleSelector = ({
           <button
             type="button"
             onClick={() => {
-              setSelected(selected.filter((s) => s.fixed))
-              onChange?.(selected.filter((s) => s.fixed))
+              setSelected(fixedSelected)
+              emitValueChange(fixedSelected)
             }}
             className={cn(
-              'text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute end-0 top-0 flex size-9 items-center justify-center rounded-md border border-transparent transition-[color,box-shadow] outline-none focus-visible:ring-[3px]',
+              multiselectClearButtonVariants(),
               (hideClearAllButton ||
                 disabled ||
                 selected.length < 1 ||
-                selected.filter((s) => s.fixed).length === selected.length) &&
+                fixedSelected.length === selected.length) &&
                 'hidden'
             )}
             aria-label="Clear all"
@@ -520,7 +516,7 @@ export const MultipleSelector = ({
       <div className="relative">
         <div
           className={cn(
-            'border-input absolute top-2 z-10 w-full overflow-hidden rounded-md border',
+            multiselectDropdownVariants(),
             'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
             !open && 'hidden'
           )}
@@ -528,7 +524,7 @@ export const MultipleSelector = ({
         >
           {open && (
             <CommandList
-              className="bg-popover text-popover-foreground shadow-lg outline-hidden"
+              className={multiselectListVariants()}
               onMouseLeave={() => {
                 setOnScrollbar(false)
               }}
@@ -543,11 +539,11 @@ export const MultipleSelector = ({
                 <>{loadingIndicator}</>
               ) : (
                 <>
-                  {EmptyItem()}
-                  {CreatableItem()}
+                  {emptyNode}
+                  {creatableNode}
                   {!selectFirstItem && <CommandItem value="-" className="hidden" />}
-                  {Object.entries(selectables).map(([key, dropdowns]) => (
-                    <CommandGroup key={key} heading={key} className="h-full overflow-auto">
+                  {selectableEntries.map(([key, dropdowns]) => (
+                    <CommandGroup key={key} heading={key} className={multiselectGroupVariants()}>
                       <>
                         {dropdowns.map((option) => {
                           return (
@@ -567,7 +563,7 @@ export const MultipleSelector = ({
                                 setInputValue('')
                                 const newOptions = [...selected, option]
                                 setSelected(newOptions)
-                                onChange?.(newOptions)
+                                emitValueChange(newOptions)
                               }}
                               className={cn(
                                 'cursor-pointer',

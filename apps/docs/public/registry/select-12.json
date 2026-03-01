@@ -2,15 +2,33 @@
   "name": "select-12",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/select-native.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/select-native.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/select/select-12.tsx",
       "type": "registry:component",
       "target": "components/ui/select-12.tsx",
-      "content": "import { useId, useMemo } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { SelectNative } from '../../ui/select-native'\n\nexport default function Component() {\n  const id = useId()\n\n  const timezones = Intl.supportedValuesOf('timeZone')\n\n  const formattedTimezones = useMemo(() => {\n    return timezones\n      .map((timezone) => {\n        const formatter = new Intl.DateTimeFormat('en', {\n          timeZone: timezone,\n          timeZoneName: 'shortOffset',\n        })\n        const parts = formatter.formatToParts(new Date())\n        const offset = parts.find((part) => part.type === 'timeZoneName')?.value || ''\n        const modifiedOffset = offset === 'GMT' ? 'GMT+0' : offset\n\n        return {\n          value: timezone,\n          label: `(${modifiedOffset}) ${timezone.replace(/_/g, ' ')}`,\n          numericOffset: parseInt(offset.replace('GMT', '').replace('+', '') || '0'),\n        }\n      })\n      .sort((a, b) => a.numericOffset - b.numericOffset)\n  }, [timezones])\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Timezone select (native)</Label>\n      <SelectNative id={id} defaultValue=\"Europe/London\">\n        {formattedTimezones.map(({ value, label }) => (\n          <option key={value} value={value}>\n            {label}\n          </option>\n        ))}\n      </SelectNative>\n    </div>\n  )\n}\n"
+      "content": "import { useId, useMemo } from 'react'\nimport { Label, SelectNative } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n\n  const timezones = Intl.supportedValuesOf('timeZone')\n\n  const formattedTimezones = useMemo(() => {\n    return timezones\n      .map((timezone) => {\n        const formatter = new Intl.DateTimeFormat('en', {\n          timeZone: timezone,\n          timeZoneName: 'shortOffset',\n        })\n        const parts = formatter.formatToParts(new Date())\n        const offset = parts.find((part) => part.type === 'timeZoneName')?.value || ''\n        const modifiedOffset = offset === 'GMT' ? 'GMT+0' : offset\n\n        return {\n          value: timezone,\n          label: `(${modifiedOffset}) ${timezone.replace(/_/g, ' ')}`,\n          numericOffset: parseInt(offset.replace('GMT', '').replace('+', '') || '0'),\n        }\n      })\n      .sort((a, b) => a.numericOffset - b.numericOffset)\n  }, [timezones])\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Timezone select (native)</Label>\n      <SelectNative id={id} defaultValue=\"Europe/London\">\n        {formattedTimezones.map(({ value, label }) => (\n          <option key={value} value={value}>\n            {label}\n          </option>\n        ))}\n      </SelectNative>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/select/select-12.vue",
+      "target": "components/ui/select-12.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { SelectNative } from '@/components/ui/select-native'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"select-12-id\">Timezone select (native)</Label>\n      <SelectNative id=\"select-12-id\" defaultValue=\"Europe/London\">\n        \n          <option key=Europe/London value=Europe/London>\n            (GMT+0) Europe/London\n          </option>\n        \n\n          <option key=America/New_York value=America/New_York>\n            (GMT-4) America/New York\n          </option>\n        \n\n          <option key=Asia/Shanghai value=Asia/Shanghai>\n            (GMT+8) Asia/Shanghai\n          </option>\n        \n      </SelectNative>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/select/select-12.html",
+      "target": "components/ui/select-12.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"select-12-id\">Timezone select (native)</label>\n      <select-native id=\"select-12-id\" defaultValue=\"Europe/London\">\n        \n          <option key=Europe/London value=Europe/London>\n            (GMT+0) Europe/London\n          </option>\n        \n\n          <option key=America/New_York value=America/New_York>\n            (GMT-4) America/New York\n          </option>\n        \n\n          <option key=Asia/Shanghai value=Asia/Shanghai>\n            (GMT+8) Asia/Shanghai\n          </option>\n        \n      </select-native>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/select/select-12.wxml",
+      "target": "components/ui/select-12/select-12.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"select-12-id\">Timezone select (native)</label>\n      <select-native id=\"select-12-id\" defaultValue=\"Europe/London\">\n        \n          <option key=Europe/London value=Europe/London>\n            (GMT+0) Europe/London\n          </option>\n        \n\n          <option key=America/New_York value=America/New_York>\n            (GMT-4) America/New York\n          </option>\n        \n\n          <option key=Asia/Shanghai value=Asia/Shanghai>\n            (GMT+8) Asia/Shanghai\n          </option>\n        \n      </select-native>\n    </view>"
     }
   ],
   "meta": {
@@ -22,11 +40,15 @@
       "time"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "select"
+    "category": "select",
+    "title": "Select · With label"
   },
   "categories": [
     "select"

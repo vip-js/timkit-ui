@@ -1,0 +1,71 @@
+
+
+> docs-vue@0.1.0 build /Users/jiawei01.mao/sine/timkit-ui/apps/docs-vue
+> nuxt build
+
+[90m┌[39m  [36mBuilding Nuxt for production...[39m
+[90m│[39m
+[34m●[39m  [32mNuxt [1m3.21.1[22m[39m[90m (with [39m[90mNitro [1m2.13.1[22m[39m[90m, Vite [1m6.4.1[22m[39m[90m and Vue [1m3.5.28[22m[39m[90m)[39m
+[90m│[39m
+[34m●[39m  Nitro preset: [36mnode-server[39m
+[90m[[90m9:08:47 PM[90m][39m [36mℹ[39m Building client...
+[90m[[90m9:08:47 PM[90m][39m [36mℹ[39m [36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+[2K[1Gtransforming (1) [2m../../node_modules/.pnpm/nuxt@[2K[1Gtransforming (21) [2m../../node_modules/.pnpm/nuxt[2K[1Gtransforming (53) [2m../../node_modules/.pnpm/@unh[2K[1Gtransforming (65) [2m../../node_modules/.pnpm/unhe[2K[1Gtransforming (92) [2m../../node_modules/.pnpm/deva[2K[1Gtransforming (105) [2mpages/index.vue[22m[2K[1Gtransforming (134) [2m../../node_modules/.pnpm/@vu[2K[1Gtransforming (148) [2m../../packages/core/dist/ind[2K[1Gtransforming (154) [2m../../node_modules/.pnpm/@in[2K[1Gtransforming (1153) [2m../../node_modules/.pnpm/lu[2K[1Gtransforming (1992) [2m../../node_modules/.pnpm/lu[2K[1Gtransforming (2020) [2m../../node_modules/.pnpm/@i[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [32m✓[39m 2027 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1Grendering chunks (2)...[2K[1Grendering chunks (3)...[2K[1Grendering chunks (4)...[2K[1Grendering chunks (5)...[2K[1Grendering chunks (6)...[2K[1Grendering chunks (7)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1Gcomputing gzip size (3)...[2K[1Gcomputing gzip size (4)...[2K[1Gcomputing gzip size (5)...[2K[1Gcomputing gzip size (6)...[2K[1Gcomputing gzip size (7)...[2K[1Gcomputing gzip size (8)...[2K[1Gcomputing gzip size (9)...[2K[1Gcomputing gzip size (10)...[2K[1G[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[32mmanifest.json                 [39m[1m[2m  4.12 kB[22m[1m[22m[2m │ gzip:  0.56 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[35merror-500.wgzzvP3g.css  [39m[1m[2m  1.88 kB[22m[1m[22m[2m │ gzip:  0.72 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[35merror-404.DsSSfJfN.css  [39m[1m[2m  3.53 kB[22m[1m[22m[2m │ gzip:  1.09 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mBr4mDGHS.js             [39m[1m[2m  0.25 kB[22m[1m[22m[2m │ gzip:  0.19 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mdtdP4Osp.js             [39m[1m[2m  3.39 kB[22m[1m[22m[2m │ gzip:  1.53 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mCK9I86TK.js             [39m[1m[2m  3.44 kB[22m[1m[22m[2m │ gzip:  1.22 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36m2PA4btuH.js             [39m[1m[2m  3.74 kB[22m[1m[22m[2m │ gzip:  1.70 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mCEI9NWh4.js             [39m[1m[2m  4.77 kB[22m[1m[22m[2m │ gzip:  1.93 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mDecdXbvv.js             [39m[1m[2m 84.83 kB[22m[1m[22m[2m │ gzip: 22.39 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [2m.nuxt/dist/client/[22m[2m_nuxt/[22m[36mCBPOnBh7.js             [39m[1m[2m176.58 kB[22m[1m[22m[2m │ gzip: 66.13 kB[22m
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [32m✓ built in 5.20s[39m
+[90m[[90m9:08:52 PM[90m][39m [32m✔[39m Client built in 5219ms
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m Building server...
+[90m[[90m9:08:52 PM[90m][39m [36mℹ[39m [36mvite v7.3.1 [32mbuilding ssr environment for production...[36m[39m
+[2K[1Gtransforming (1) [2m../../node_modules/.pnpm/nuxt@[2K[1Gtransforming (8) [2mvirtual:nuxt:%2FUsers%2Fjiawei[2K[1Gtransforming (14) [2m../../node_modules/.pnpm/nuxt[2K[1Gtransforming (51) [2m../../node_modules/.pnpm/unhe[2K[1Gtransforming (78) [2m../../node_modules/.pnpm/nuxt[2K[1Gtransforming (112) [2m../../packages/vue/dist/inde[2K[1Gtransforming (243) [2m../../node_modules/.pnpm/@in[2K[1Gtransforming (290) [2m../../node_modules/.pnpm/@za[2K[1Gtransforming (304) [2m../../node_modules/.pnpm/@za[2K[1Gtransforming (315) [2m../../node_modules/.pnpm/@fl[2K[1Gtransforming (333) [2m../../node_modules/.pnpm/nux[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[90m[[90m9:08:55 PM[90m][39m [36mℹ[39m [32m✓[39m 334 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1Grendering chunks (2)...[2K[1Grendering chunks (3)...[2K[1Grendering chunks (4)...[2K[1Grendering chunks (5)...[2K[1Grendering chunks (6)...[2K[1Grendering chunks (7)...[2K[1Grendering chunks (8)...[2K[1Grendering chunks (9)...[2K[1Grendering chunks (10)...[2K[1G[2K[1G[90m[[90m9:08:56 PM[90m][39m [36mℹ[39m [32m✓ built in 3.46s[39m
+[90m[[90m9:08:56 PM[90m][39m [32m✔[39m Server built in 3474ms
+[90m[[90mnitro[90m [90m9:08:57 PM[90m][39m [32m✔[39m Generated public [36m.output/public[39m
+[90m[[90mnitro[90m [90m9:08:57 PM[90m][39m [36mℹ[39m Building Nuxt Nitro server (preset: [36mnode-server[39m, compatibility date: [36m2024-04-03[39m)
+[90m[[90mnitro[90m [90m9:09:01 PM[90m][39m [32m✔[39m Nuxt Nitro server built
+[90m  ├─ .output/server/chunks/_/error-500.mjs (4.9 kB)[39m[90m (2.06 kB gzip)[39m
+[90m  ├─ .output/server/chunks/_/error-500.mjs.map (328 B)[39m[90m (240 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/_name_-Dyh07-HW.mjs (9.81 kB)[39m[90m (2.6 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/_name_-Dyh07-HW.mjs.map (8.44 kB)[39m[90m (1.94 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/button-01-BmRJNf8x.mjs (506 kB)[39m[90m (93.4 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/button-01-BmRJNf8x.mjs.map (492 kB)[39m[90m (73.3 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/client.precomputed.mjs (8.38 kB)[39m[90m (847 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/client.precomputed.mjs.map (4.09 kB)[39m[90m (424 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/entry-styles.Q2NTsbKG.mjs (26.1 kB)[39m[90m (5.45 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/entry-styles.Q2NTsbKG.mjs.map (287 B)[39m[90m (196 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-404-6BYAkzqf.mjs (5.73 kB)[39m[90m (2.34 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-404-6BYAkzqf.mjs.map (2.22 kB)[39m[90m (733 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-404-styles.CDT0ENNv.mjs (3.81 kB)[39m[90m (1.22 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-404-styles.CDT0ENNv.mjs.map (300 B)[39m[90m (199 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-500-BCawMAmc.mjs (4.88 kB)[39m[90m (2.06 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-500-BCawMAmc.mjs.map (1.62 kB)[39m[90m (560 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-500-styles.DsBXexWf.mjs (2.16 kB)[39m[90m (856 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/error-500-styles.DsBXexWf.mjs.map (300 B)[39m[90m (196 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/index-CqKMA6xD.mjs (6.08 kB)[39m[90m (1.74 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/index-CqKMA6xD.mjs.map (4.43 kB)[39m[90m (1.01 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/server.mjs (96.5 kB)[39m[90m (24.1 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/server.mjs.map (106 kB)[39m[90m (16.7 kB gzip)[39m
+[90m  ├─ .output/server/chunks/build/styles.mjs (1.58 kB)[39m[90m (425 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/styles.mjs.map (537 B)[39m[90m (215 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/v3-BXue7vC3.mjs (702 B)[39m[90m (372 B gzip)[39m
+[90m  ├─ .output/server/chunks/build/v3-BXue7vC3.mjs.map (662 B)[39m[90m (330 B gzip)[39m
+[90m  ├─ .output/server/chunks/nitro/nitro.mjs (161 kB)[39m[90m (40 kB gzip)[39m
+[90m  ├─ .output/server/chunks/nitro/nitro.mjs.map (5.16 kB)[39m[90m (994 B gzip)[39m
+[90m  ├─ .output/server/chunks/routes/renderer.mjs (16.8 kB)[39m[90m (5.43 kB gzip)[39m
+[90m  ├─ .output/server/chunks/routes/renderer.mjs.map (1.94 kB)[39m[90m (392 B gzip)[39m
+[90m  ├─ .output/server/chunks/virtual/_virtual_spa-template.mjs (94 B)[39m[90m (100 B gzip)[39m
+[90m  ├─ .output/server/chunks/virtual/_virtual_spa-template.mjs.map (90 B)[39m[90m (98 B gzip)[39m
+[90m  ├─ .output/server/index.mjs (353 B)[39m[90m (204 B gzip)[39m
+[90m  └─ .output/server/package.json (717 B)[39m[90m (323 B gzip)[39m
+[36mΣ Total size:[39m 3.8 MB (800 kB gzip)
+[90m[[90mnitro[90m [90m9:09:01 PM[90m][39m [32m✔[39m You can preview this build using [36mnode .output/server/index.mjs[39m
+[90m[[90m9:09:01 PM[90m][39m [90m│[39m
+[90m└[39m  ✨ Build complete!

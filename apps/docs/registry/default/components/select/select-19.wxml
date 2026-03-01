@@ -1,0 +1,14 @@
+<view class="[--ring:var(--color-indigo-300)] *:not-first:mt-2 in-[.dark]:[--ring:var(--color-indigo-900)]">
+      <label for="select-19-id">Select with colored border and ring</label>
+      <select defaultValue="1">
+        <select-trigger id="select-19-id">
+          <select-value placeholder="Select framework" />
+        </select-trigger>
+        <select-content>
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+    </view>

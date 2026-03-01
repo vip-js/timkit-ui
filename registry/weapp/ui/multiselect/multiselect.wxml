@@ -1,0 +1,21 @@
+<combobox items="{{items}}" value="{{value}}" disabled="{{disabled}}" multiple bindchange="handleChange">
+    <view class="relative w-full">
+        <!-- Custom trigger layout for tags? -->
+        <!-- Or just use standard input with tag rendering? -->
+        <!-- For now, simplifying to standard combobox behavior with multiple=true -->
+        <combobox-control class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+            <combobox-input placeholder="{{placeholder}}" class="flex h-full w-full bg-transparent outline-none placeholder:text-muted-foreground" />
+            <combobox-trigger>
+                <view class="h-4 w-4 opacity-50">
+                    <!-- Chevron icon -->
+                    <view class="h-2 w-2 border-b-2 border-r-2 border-current rotate-45 transform" />
+                </view>
+            </combobox-trigger>
+        </combobox-control>
+    </view>
+    <combobox-content>
+        <combobox-item wx:for="{{items}}" wx:key="value" item="{{item}}">
+            {{item.label}}
+        </combobox-item>
+    </combobox-content>
+</combobox>

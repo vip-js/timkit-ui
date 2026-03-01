@@ -7,11 +7,50 @@
       "type": "registry:ui",
       "target": "components/ui/checkbox-tree.tsx",
       "content": "'use client'\n\n/**\n * IMPORTANT: This component was built for demo purposes only and has not been tested in production.\n * It serves as a proof of concept for a checkbox tree implementation.\n * If you're interested in collaborating to create a more robust, production-ready\n * headless component, your contributions are welcome!\n */\n\n'use client'\n\nimport React, { useCallback, useMemo, useState } from 'react'\n\ninterface TreeNode {\n  id: string\n  label: string\n  defaultChecked?: boolean\n  children?: TreeNode[]\n}\n\nfunction useCheckboxTree(initialTree: TreeNode) {\n  const initialCheckedNodes = useMemo(() => {\n    const checkedSet = new Set<string>()\n    const initializeCheckedNodes = (node: TreeNode) => {\n      if (node.defaultChecked) {\n        checkedSet.add(node.id)\n      }\n      node.children?.forEach(initializeCheckedNodes)\n    }\n    initializeCheckedNodes(initialTree)\n    return checkedSet\n  }, [initialTree])\n\n  const [checkedNodes, setCheckedNodes] = useState<Set<string>>(initialCheckedNodes)\n\n  const isChecked = useCallback(\n    (node: TreeNode): boolean | 'indeterminate' => {\n      if (!node.children) {\n        return checkedNodes.has(node.id)\n      }\n\n      const childrenChecked = node.children.map((child) => isChecked(child))\n      if (childrenChecked.every((status) => status === true)) {\n        return true\n      }\n      if (childrenChecked.some((status) => status === true || status === 'indeterminate')) {\n        return 'indeterminate'\n      }\n      return false\n    },\n    [checkedNodes]\n  )\n\n  const handleCheck = useCallback(\n    (node: TreeNode) => {\n      const newCheckedNodes = new Set(checkedNodes)\n\n      const toggleNode = (n: TreeNode, check: boolean) => {\n        if (check) {\n          newCheckedNodes.add(n.id)\n        } else {\n          newCheckedNodes.delete(n.id)\n        }\n        n.children?.forEach((child) => toggleNode(child, check))\n      }\n\n      const currentStatus = isChecked(node)\n      const newCheck = currentStatus !== true\n\n      toggleNode(node, newCheck)\n      setCheckedNodes(newCheckedNodes)\n    },\n    [checkedNodes, isChecked]\n  )\n\n  return { isChecked, handleCheck }\n}\n\ninterface CheckboxTreeProps {\n  tree: TreeNode\n  renderNode: (props: {\n    node: TreeNode\n    isChecked: boolean | 'indeterminate'\n    onCheckedChange: () => void\n    children: React.ReactNode\n  }) => React.ReactNode\n}\n\nexport function CheckboxTree({ tree, renderNode }: CheckboxTreeProps) {\n  const { isChecked, handleCheck } = useCheckboxTree(tree)\n\n  const renderTreeNode = (node: TreeNode): React.ReactNode => {\n    const children = node.children?.map(renderTreeNode)\n\n    return renderNode({\n      node,\n      isChecked: isChecked(node),\n      onCheckedChange: () => handleCheck(node),\n      children,\n    })\n  }\n\n  return renderTreeNode(tree)\n}\n"
+    },
+    {
+      "path": "registry/default/vue/checkbox-tree/checkbox-tree.vue",
+      "target": "components/ui/checkbox-tree/checkbox-tree.vue",
+      "type": "registry:component",
+      "content": "<script lang=\"ts\">\nexport { default } from '../checkbox/checkbox-tree.vue'\n</script>\n"
+    },
+    {
+      "path": "registry/default/html/checkbox-tree.html",
+      "target": "components/ui/checkbox-tree.html",
+      "type": "registry:component",
+      "content": "<div data-slot=\"checkbox-tree\" class=\"space-y-2\">\n  <label class=\"flex items-center gap-2\">\n    <input type=\"checkbox\" />\n    <span>Workspace</span>\n  </label>\n  <div class=\"ml-6 space-y-2\">\n    <label class=\"flex items-center gap-2\">\n      <input type=\"checkbox\" checked />\n      <span>Frontend</span>\n    </label>\n    <label class=\"flex items-center gap-2\">\n      <input type=\"checkbox\" />\n      <span>Backend</span>\n    </label>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox-tree.wxml",
+      "target": "components/ui/checkbox-tree.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"checkbox-tree {{extClass}}\">\n  <view\n    wx:for=\"{{flatNodes}}\"\n    wx:key=\"id\"\n    class=\"checkbox-tree-item\"\n    style=\"padding-left: {{item.level * 20}}rpx;\"\n    data-id=\"{{item.id}}\"\n    bindtap=\"onToggle\"\n  >\n    <checkbox checked=\"{{checkedMap[item.id]}}\" disabled=\"{{item.disabled}}\" />\n    <text class=\"checkbox-tree-label\">{{item.label}}</text>\n  </view>\n</view>\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox-tree.wxss",
+      "target": "components/ui/checkbox-tree.wxss",
+      "type": "registry:component",
+      "content": ".checkbox-tree {\n  display: flex;\n  flex-direction: column;\n  gap: 12rpx;\n}\n\n.checkbox-tree-item {\n  display: flex;\n  align-items: center;\n  gap: 12rpx;\n}\n\n.checkbox-tree-label {\n  font-size: 28rpx;\n  color: #111827;\n}\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox-tree.ts",
+      "target": "components/ui/checkbox-tree.ts",
+      "type": "registry:component",
+      "content": "type CheckboxTreeNode = {\n  id: string\n  label: string\n  checked?: boolean\n  disabled?: boolean\n  children?: CheckboxTreeNode[]\n}\n\ntype FlatNode = CheckboxTreeNode & { level: number }\n\nconst flattenNodes = (nodes: CheckboxTreeNode[], level = 0, acc: FlatNode[] = []) => {\n  nodes.forEach((node) => {\n    acc.push({\n      ...node,\n      level,\n    })\n    if (Array.isArray(node.children) && node.children.length > 0) {\n      flattenNodes(node.children, level + 1, acc)\n    }\n  })\n  return acc\n}\n\nComponent({\n  options: {\n    styleIsolation: 'apply-shared',\n  },\n\n  properties: {\n    nodes: {\n      type: Array,\n      value: [],\n    },\n    checkedKeys: {\n      type: Array,\n      value: [],\n    },\n    extClass: {\n      type: String,\n      value: '',\n    },\n  },\n\n  data: {\n    flatNodes: [] as FlatNode[],\n    checkedMap: {} as Record<string, boolean>,\n  },\n\n  lifetimes: {\n    attached() {\n      this.syncFromProps()\n    },\n  },\n\n  observers: {\n    'nodes, checkedKeys': function () {\n      this.syncFromProps()\n    },\n  },\n\n  methods: {\n    syncFromProps() {\n      const flatNodes = flattenNodes((this.properties.nodes || []) as CheckboxTreeNode[])\n      const checkedMap: Record<string, boolean> = {}\n      ;(this.properties.checkedKeys as string[]).forEach((id) => {\n        checkedMap[id] = true\n      })\n      flatNodes.forEach((node) => {\n        if (node.checked && checkedMap[node.id] === undefined) {\n          checkedMap[node.id] = true\n        }\n      })\n      this.setData({ flatNodes, checkedMap })\n    },\n\n    onToggle(e: WechatMiniprogram.BaseEvent) {\n      const id = e.currentTarget.dataset.id as string\n      if (!id) return\n      const checkedMap = { ...(this.data.checkedMap || {}) }\n      checkedMap[id] = !checkedMap[id]\n      const checkedKeys = Object.keys(checkedMap).filter((key) => checkedMap[key])\n      this.setData({ checkedMap })\n      this.triggerEvent('change', {\n        checkedKeys,\n      })\n      this.triggerEvent('update:checkedKeys', checkedKeys)\n    },\n  },\n})\n"
+    },
+    {
+      "path": "registry/default/weapp/checkbox-tree.json",
+      "target": "components/ui/checkbox-tree.json",
+      "type": "registry:component",
+      "content": "{\n  \"component\": true\n}\n"
     }
   ],
   "meta": {
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

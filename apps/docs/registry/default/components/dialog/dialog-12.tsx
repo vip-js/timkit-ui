@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { cn } from '@timui/shared'
-import { OTPInput, SlotProps } from 'input-otp'
-
-import { Button } from '../../ui/button'
+import { cn } from '@timui/core'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,7 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
+} from '@timui/react'
+import { OTPInput, SlotProps } from 'input-otp'
 
 const CORRECT_CODE = '6548'
 

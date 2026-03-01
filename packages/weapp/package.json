@@ -1,17 +1,23 @@
 {
   "name": "@timui/weapp",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
-    "build": "tsx build.ts",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "prepublishOnly": "pnpm run build",
+    "build": "node --import tsx build.ts",
+    "release": "pnpm run build && pnpm publish --access public --no-git-checks",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist",
     "generate:utils": "tsx ../../scripts/build-weapp-utilities.ts"
   },
   "miniprogram": "dist",
   "dependencies": {
-    "@timui/shared": "workspace:*",
+    "@zag-js/core": "^1.32.0",
+    "@timui/core": "workspace:*",
     "@timui/tokens": "workspace:*",
     "clsx": "^2.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "esbuild": "^0.27.1",

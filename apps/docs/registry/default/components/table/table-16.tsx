@@ -29,10 +29,8 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
+import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon, GripVerticalIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 type Item = {
   id: string

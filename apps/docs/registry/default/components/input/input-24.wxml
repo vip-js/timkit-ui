@@ -1,0 +1,10 @@
+<view class="*:not-first:mt-2">
+      <label for="input-24-id">Input with clear button</label>
+      <view class="relative">
+        <input id="input-24-id"
+          class="pe-9"
+          placeholder="Type something..."
+          type="text" />
+        
+      </view>
+    </view>

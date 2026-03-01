@@ -1,10 +1,9 @@
 'use client'
 
+import { Button } from '@timui/react'
 import { CircleUserRoundIcon, XIcon } from 'lucide-react'
 
 import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [{ files }, { removeFile, openFileDialog, getInputProps }] = useFileUpload({

@@ -1,10 +1,4 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button } from "@timui/react";
 
 export default function BasicLoginForm() {
     return (
@@ -25,27 +19,27 @@ export default function BasicLoginForm() {
                         <label className="font-medium">
                             Email
                         </label>
-                        <input
+                        <Input
                             type="email"
                             required
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            className="w-full mt-2"
                         />
                     </div>
                     <div>
                         <label className="font-medium">
                             Password
                         </label>
-                        <input
+                        <Input
                             type="password"
                             required
-                            className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                            className="w-full mt-2"
                         />
                     </div>
-                    <button
-                        className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                    <Button
+                        className="w-full"
                     >
                         Sign in
-                    </button>
+                    </Button>
                     <div className="text-center">
                         <a href="javascript:void(0)" className="hover:text-indigo-600">Forgot password?</a>
                     </div>

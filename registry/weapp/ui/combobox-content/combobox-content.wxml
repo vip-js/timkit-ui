@@ -1,0 +1,14 @@
+<root-portal wx:if="{{!contentApi.hidden}}">
+    <!-- Similar fixed centering/popover for combobox results -->
+    <view 
+        class="z-50 p-1 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out {{contentApi.className}}"
+        id="{{contentApi.id}}"
+        role="listbox"
+        data-state="{{contentApi['data-state']}}"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); {{contentApi.style}}"
+    >
+        <scroll-view scroll-y class="max-h-96">
+            <slot />
+        </scroll-view>
+    </view>
+</root-portal>

@@ -1,18 +1,29 @@
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cn } from '@timui/shared'
+import type { ButtonProps as CoreButtonProps } from '@timui/core'
+import { Slot } from './slot'
+import { buttonVariants, cn, createTimEvent } from '@timui/core'
 
-import { buttonVariants, type ButtonVariants } from './button-variants'
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
-  asChild?: boolean
-}
+export type ButtonProps = CoreButtonProps &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof CoreButtonProps>
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, id, asChild = false, onClick, onPress, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
+    const generatedId = React.useId()
+    const buttonId = id ?? generatedId
+
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp
+        data-slot="button"
+        id={buttonId}
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+          onClick?.(event)
+          onPress?.(createTimEvent('press', buttonId, {}))
+        }}
+        {...props}
+      />
     )
   }
 )

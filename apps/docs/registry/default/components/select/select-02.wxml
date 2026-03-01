@@ -1,0 +1,11 @@
+<view class="*:not-first:mt-2">
+      <label for="select-02-id">Select with placeholder (native)</label>
+      <select-native id="select-02-id" defaultValue="">
+        <option value="" disabled>
+          Please select a value
+        </option>
+        <option value="1">1 to 5</option>
+        <option value="2">5 to 10</option>
+        <option value="3">More than 10</option>
+      </select-native>
+    </view>

@@ -1,0 +1,8 @@
+<button
+  class="{{baseClass}} {{extClass}}"
+  hover-class="{{hoverClass}}"
+  bindtap="handleTap"
+  data-slot="button"
+>
+  <slot></slot>
+</button>

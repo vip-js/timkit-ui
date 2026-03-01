@@ -1,15 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Stepper,
   StepperIndicator,
   StepperItem,
   StepperSeparator,
   StepperTrigger,
-} from '../../ui/stepper'
+} from '@timui/react'
 
 const steps = [1, 2, 3, 4]
 

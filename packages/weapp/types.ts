@@ -1,4 +1,4 @@
-import type { ComponentSchema } from '../core/schemas'
+import type { ComponentSchema } from '../core/src/shared/schema'
 
 export interface WeappPrimitive {
   name: string

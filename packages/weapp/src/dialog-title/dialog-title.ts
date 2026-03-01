@@ -1,8 +1,11 @@
-import { dialogTitleVariants } from '@timui/shared'
+import { dialogTitleVariants } from '@timui/core'
 
 import { resolveClasses } from '../utils'
 
 Component({
+  options: {
+    styleIsolation: "apply-shared",
+  },
   properties: {
     extClass: { type: String, value: '' },
   },

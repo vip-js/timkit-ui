@@ -2,14 +2,32 @@
   "name": "input-37",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/datefield-rac.json"
+    "https://ui.timkit.cn/r/datefield-rac.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-37.tsx",
       "type": "registry:component",
       "target": "components/ui/input-37.tsx",
-      "content": "'use client'\n\nimport { Label } from 'react-aria-components'\n\nimport { DateInput, TimeField } from '../../ui/datefield-rac'\n\nexport default function Component() {\n  return (\n    <TimeField className=\"*:not-first:mt-2\">\n      <Label className=\"text-foreground text-sm font-medium\">Time input</Label>\n      <DateInput />\n      <p className=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Built with{' '}\n        <a\n          className=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateField.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </TimeField>\n  )\n}\n"
+      "content": "'use client'\n\nimport { DateInput, TimeField } from '@timui/react'\nimport { Label } from 'react-aria-components'\n\nexport default function Component() {\n  return (\n    <TimeField className=\"*:not-first:mt-2\">\n      <Label className=\"text-foreground text-sm font-medium\">Time input</Label>\n      <DateInput />\n      <p className=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Built with{' '}\n        <a\n          className=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateField.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </TimeField>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-37.vue",
+      "target": "components/ui/input-37.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { TimeField } from '@/components/ui/time-field'\nimport { Label } from '@/components/ui/label'\nimport { DateInput } from '@/components/ui/date-input'\n</script>\n<template>\n<TimeField class=\"*:not-first:mt-2\">\n      <Label class=\"text-foreground text-sm font-medium\">Time input</Label>\n      <DateInput />\n      <p class=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Built with \n        <a\n          class=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateField.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </TimeField>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-37.html",
+      "target": "components/ui/input-37.html",
+      "type": "registry:component",
+      "content": "<time-field class=\"*:not-first:mt-2\">\n      <label class=\"text-foreground text-sm font-medium\">Time input</label>\n      <date-input />\n      <p class=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Built with \n        <a\n          class=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateField.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </time-field>"
+    },
+    {
+      "path": "registry/default/components/input/input-37.wxml",
+      "target": "components/ui/input-37/input-37.wxml",
+      "type": "registry:component",
+      "content": "<time-field class=\"*:not-first:mt-2\">\n      <label class=\"text-foreground text-sm font-medium\">Time input</label>\n      <date-input />\n      <p class=\"text-muted-foreground mt-2 text-xs\" role=\"region\" aria-live=\"polite\">\n        Built with \n        <a\n          class=\"hover:text-foreground underline\"\n          href=\"https://react-spectrum.adobe.com/react-aria/DateField.html\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React Aria\n        </a>\n      </p>\n    </time-field>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "react aria"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

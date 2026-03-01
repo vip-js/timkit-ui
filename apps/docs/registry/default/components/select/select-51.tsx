@@ -1,8 +1,7 @@
 'use client'
 
+import { Label } from '@timui/react'
 import { Header, ListBox, ListBoxItem, ListBoxSection, Separator } from 'react-aria-components'
-
-import { Label } from '../../ui/label'
 
 export default function Component() {
   return (

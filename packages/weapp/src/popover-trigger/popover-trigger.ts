@@ -1,4 +1,7 @@
 Component({
+  options: {
+    styleIsolation: "apply-shared",
+  },
   relations: {
     '../popover/popover': {
       type: 'parent',
@@ -14,7 +17,7 @@ Component({
     getRect() {
       return new Promise((resolve) => {
         this.createSelectorQuery()
-          .select('.tk-popover-trigger')
+          .select('#popover-trigger')
           .boundingClientRect((rect) => {
             resolve(rect)
           })

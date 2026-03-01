@@ -91,7 +91,7 @@ export const registryTags = [
   'pricing',
   'privacy',
   'profile',
-  'radix',
+  'zag',
   'range',
   'range calendar',
   'range slider',

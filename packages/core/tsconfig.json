@@ -1,10 +1,27 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@timui/*": ["../*/src"]
-    }
+      "@timui/*": [
+        "../*/src"
+      ]
+    },
+    "declaration": true,
+    "outDir": "./dist",
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "rootDir": "src",
+    "incremental": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

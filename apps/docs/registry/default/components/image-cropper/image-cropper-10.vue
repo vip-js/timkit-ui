@@ -1,0 +1,28 @@
+<script setup lang="ts"></script>
+<template>
+<div class="flex flex-col items-center gap-2">
+      <div class="flex w-full flex-col gap-4">
+        <Cropper
+          class="h-80" cropPadding="20"
+          image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-09_qskkln.jpg" >
+          <CropperDescription />
+          <CropperImage />
+          <CropperCropArea />
+        </Cropper>
+
+        
+      </div>
+
+      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
+        Cropper with crop data output ∙ 
+        <a
+          href="https://github.com/origin-space/image-cropper"
+          class="hover:text-foreground underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          API
+        </a>
+      </p>
+    </div>
+</template>

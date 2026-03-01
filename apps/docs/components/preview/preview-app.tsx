@@ -11,6 +11,7 @@ import { SectionCodeGroup } from '@/lib/sections'
 import Preview from '.'
 
 export interface ComponentData extends Component, ComponentDetails, CodeBlock {
+  sourceName?: string
   mdxSource: MDXRemoteSerializeResult
   codeGroups?: SectionCodeGroup[]
   registryStub?: RegistryItem

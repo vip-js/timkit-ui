@@ -1,8 +1,6 @@
 import { useId } from 'react'
 import { RiGatsbyLine, RiNextjsLine, RiReactjsLine } from '@remixicon/react'
-
-import { Label } from '../../ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'
 
 export default function Component() {
   const id = useId()

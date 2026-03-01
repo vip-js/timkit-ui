@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@timui/react'
 import {
   MinusIcon,
   PlusIcon,
@@ -9,8 +10,6 @@ import {
   VolumeIcon,
   VolumeXIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 
 export default function Component() {
   const [volume, setVolume] = useState(3) // Initialize volume state (0-9)

@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Label, Slider } from '@timui/react'
 import { Volume2Icon, VolumeXIcon } from 'lucide-react'
-
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
 
 export default function Component() {
   const [value, setValue] = useState([25])

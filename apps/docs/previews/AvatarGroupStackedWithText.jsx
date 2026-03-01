@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Avatar, AvatarImage, AvatarFallback } from "@timui/react";
 export default function AvatarGroupStackedWithText() {
-  
 const avatarData = [
   {
     name: "CT",
@@ -34,16 +27,16 @@ const avatarData = [
   return <div className="py-16 flex items-center justify-center -space-x-2 overflow-hidden">
     {avatarData.map((item, idx) => {
       return (
-        <Avatar.Root
+        <Avatar
           key={idx}
           className="border-2 border-white h-10 w-10 flex items-center justify-center overflow-hidden rounded-full"
         >
-          <Avatar.Image
+          <AvatarImage
             src={item.imgURL}
             className="h-full w-full object-cover"
           />
-          <Avatar.Fallback delayMs={600}>{item.name}</Avatar.Fallback>
-        </Avatar.Root>
+          <AvatarFallback delayMs={600}>{item.name}</AvatarFallback>
+        </Avatar>
       );
     })}
     <p className="text-sm text-gray-500 font-medium translate-x-5">

@@ -1,16 +1,18 @@
-import InfoMenu from '@/registry/default/components/navbar-components/info-menu'
-import Logo from '@/registry/default/components/navbar-components/logo'
-import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
-import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from '../../ui/navigation-menu'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
+
+import InfoMenu from '@/registry/default/components/navbar-components/info-menu'
+import Logo from '@/registry/default/components/navbar-components/logo'
+import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
+import UserMenu from '@/registry/default/components/navbar-components/user-menu'
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [

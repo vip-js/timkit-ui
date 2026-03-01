@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '../../ui/cropper'
-import { Slider } from '../../ui/slider'
+import { Cropper, CropperCropArea, CropperDescription, CropperImage, Slider } from '@timui/react'
 
 export default function Component() {
   const [zoom, setZoom] = useState(1)

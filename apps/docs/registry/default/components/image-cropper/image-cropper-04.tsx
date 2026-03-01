@@ -1,4 +1,4 @@
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '../../ui/cropper'
+import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/react'
 
 export default function Component() {
   return (

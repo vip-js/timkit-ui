@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button, Calendar } from '@timui/react'
 import { addDays } from 'date-fns'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
 
 export default function Component() {
   const today = new Date()

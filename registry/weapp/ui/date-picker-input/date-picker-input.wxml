@@ -1,0 +1,8 @@
+<input 
+    class="{{inputApi.className}}"
+    id="{{inputApi.id}}"
+    value="{{value}}"
+    placeholder="{{inputApi.placeholder}}"
+    bindinput="handleInput"
+    bindblur="handleBlur"
+/>

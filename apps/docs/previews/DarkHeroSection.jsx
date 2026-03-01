@@ -1,27 +1,19 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Button } from "@timui/react";
 
 export default function DarkHeroSection() {
-
   // Replace javascript:void(0) path with your path
   const navigation = [
       { title: "Customers", path: "javascript:void(0)" },
       { title: "Careers", path: "javascript:void(0)" },
   ]
-  
     return (
         <div className="bg-gray-900">
             <header>
                 <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
                     <a href="javascript:void(0)">
                         <img
-                            src="https://www.timkit-ui.com/images/logo.svg" 
-                            width={120} 
+                            src="https://www.timkit-ui.com/images/logo.svg"
+                            width={120}
                             height={50}
                             alt="Float UI logo"
                         />
@@ -55,12 +47,12 @@ export default function DarkHeroSection() {
                         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum
                     </p>
                     <div className="pt-10 items-center justify-center space-y-3 sm:space-x-6 sm:space-y-0 sm:flex lg:justify-start">
-                        <a href="javascript:void(0)" className="px-7 py-3 w-full bg-white text-gray-800 text-center rounded-md shadow-md block sm:w-auto">
+                        <Button className="w-full sm:w-auto bg-white text-gray-800 hover:bg-gray-100">
                             Get started
-                        </a>
-                        <a href="javascript:void(0)" className="px-7 py-3 w-full bg-gray-700 text-gray-200 text-center rounded-md block sm:w-auto">
+                        </Button>
+                        <Button variant="outline" className="w-full sm:w-auto bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-800">
                             Try it out
-                        </a>
+                        </Button>
                     </div>
                 </div>
                 <div className="flex-1 text-center mt-7 lg:mt-0 lg:ml-3">

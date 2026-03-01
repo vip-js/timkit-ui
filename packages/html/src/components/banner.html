@@ -1,0 +1,16 @@
+<div class="relative w-full rounded-lg border bg-background text-foreground" data-slot="banner">
+  <div class="flex w-full items-center gap-3" data-slot="banner-content">
+    <div class="shrink-0 text-muted-foreground" data-slot="banner-icon">!</div>
+    <div class="flex grow flex-col gap-1">
+      <h5 class="text-sm font-medium leading-none" data-slot="banner-title">Update available</h5>
+      <div class="text-sm text-muted-foreground" data-slot="banner-description">
+        A newer version is ready to install.
+      </div>
+    </div>
+    <div class="flex items-center gap-2" data-slot="banner-actions">
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
+        Update
+      </button>
+    </div>
+  </div>
+</div>

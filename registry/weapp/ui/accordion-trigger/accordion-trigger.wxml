@@ -1,0 +1,13 @@
+<view 
+  class="flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline {{triggerApi.className}}"
+  id="{{triggerApi.id}}"
+  bindtap="handleClick"
+  data-state="{{triggerApi['data-state']}}"
+  aria-expanded="{{triggerApi['aria-expanded']}}"
+>
+  <slot />
+  <view class="h-4 w-4 shrink-0 transition-transform duration-200" style="{{triggerApi['data-state'] === 'open' ? 'transform: rotate(180deg);' : ''}}">
+    <!-- Chevron Down Icon -->
+    <view style="width: 100%; height: 100%; background: currentColor; clip-path: polygon(50% 100%, 0 0, 100% 0);"></view>
+  </view>
+</view>

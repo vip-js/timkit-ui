@@ -1,0 +1,3 @@
+<view class="{{className}}" role="banner">
+  <slot></slot>
+</view>

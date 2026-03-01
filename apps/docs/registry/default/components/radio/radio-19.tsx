@@ -1,7 +1,6 @@
 import { useId } from 'react'
+import { RadioGroup, RadioGroupItem } from '@timui/react'
 import { CheckIcon, MinusIcon } from 'lucide-react'
-
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 
 const items = [
   { value: '1', label: 'Light', image: '/ui-light.png' },

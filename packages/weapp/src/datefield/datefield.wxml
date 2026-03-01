@@ -1,0 +1,15 @@
+<view class="{{className}}">
+  <picker 
+    mode="date"
+    value="{{pickerValue}}"
+    start="{{min}}"
+    end="{{max}}"
+    disabled="{{disabled}}"
+    bindchange="onPickerChange"
+  >
+    <view class="datefield-trigger" data-disabled="{{disabled}}">
+      <text class="datefield-value">{{pickerValue || placeholder}}</text>
+      <text class="datefield-icon">📅</text>
+    </view>
+  </picker>
+</view>

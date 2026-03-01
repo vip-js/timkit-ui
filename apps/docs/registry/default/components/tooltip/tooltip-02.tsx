@@ -1,5 +1,4 @@
-import { Button } from '../../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 
 export default function Component() {
   return (

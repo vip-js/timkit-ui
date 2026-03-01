@@ -1,0 +1,16 @@
+.checkbox-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.checkbox-tree-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.checkbox-tree-label {
+  font-size: 28rpx;
+  color: #111827;
+}

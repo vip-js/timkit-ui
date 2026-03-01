@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '../../ui/avatar'
+import { Avatar, AvatarFallback } from '@timui/react'
 
 export default function Component() {
   return (

@@ -1,0 +1,26 @@
+<view class="command {{extClass}}">
+  <input
+    class="command-input"
+    type="text"
+    placeholder="{{placeholder}}"
+    value="{{query}}"
+    bindinput="onInput"
+  />
+
+  <view wx:if="{{filteredItems.length === 0}}" class="command-empty">
+    No results.
+  </view>
+
+  <view wx:else class="command-list">
+    <view
+      wx:for="{{filteredItems}}"
+      wx:key="value"
+      class="command-item {{item.disabled ? 'is-disabled' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="onSelect"
+    >
+      <text class="command-item-label">{{item.label}}</text>
+      <text class="command-item-value">{{item.value}}</text>
+    </view>
+  </view>
+</view>

@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@timui/react";
 
 export default function TableWithAvatars() {
-
     const tableItems = [
         {
             avatar: "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
@@ -50,7 +44,6 @@ export default function TableWithAvatars() {
             salary: "$75K"
         },
     ]
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 md:px-8">
             <div className="max-w-lg">
@@ -62,34 +55,34 @@ export default function TableWithAvatars() {
                 </p>
             </div>
             <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-                <table className="w-full table-auto text-sm text-left">
-                    <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-                        <tr>
-                            <th className="py-3 px-6">Username</th>
-                            <th className="py-3 px-6">Phone number</th>
-                            <th className="py-3 px-6">Position</th>
-                            <th className="py-3 px-6">Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-gray-600 divide-y">
+                <Table className="w-full table-auto text-sm text-left">
+                    <TableHeader className="bg-gray-50 text-gray-600 font-medium border-b">
+                        <TableRow>
+                            <TableHead className="py-3 px-6">Username</TableHead>
+                            <TableHead className="py-3 px-6">Phone number</TableHead>
+                            <TableHead className="py-3 px-6">Position</TableHead>
+                            <TableHead className="py-3 px-6">Salary</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody className="text-gray-600 divide-y">
                         {
                             tableItems.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
+                                <TableRow key={idx}>
+                                    <TableCell className="flex items-center gap-x-3 py-3 px-6 whitespace-nowrap">
                                         <img src={item.avatar} className="w-10 h-10 rounded-full" />
                                         <div>
                                             <span className="block text-gray-700 text-sm font-medium">{item.name}</span>
                                             <span className="block text-gray-700 text-xs">{item.email}</span>
                                         </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.phone_nimber}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.position}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.salary}</td>
-                                </tr>
+                                    </TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.phone_nimber}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.position}</TableCell>
+                                    <TableCell className="px-6 py-4 whitespace-nowrap">{item.salary}</TableCell>
+                                </TableRow>
                             ))
                         }
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
         </div>
     )

@@ -1,0 +1,3 @@
+<view class="{{className}}" data-slot="banner-title">
+  <slot></slot>
+</view>

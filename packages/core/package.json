@@ -1,18 +1,1212 @@
 {
   "name": "@timui/core",
   "version": "0.0.1",
-  "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "description": "Core logic for Timkit UI - Zag.js state machines and utilities",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./tailwind-preset": {
+      "types": "./src/shared/tailwind.ts",
+      "import": "./src/shared/tailwind.ts",
+      "require": "./src/shared/tailwind.ts"
+    },
+    "./utils": {
+      "types": "./dist/shared/utils.d.ts",
+      "import": "./dist/shared/utils.mjs",
+      "require": "./dist/shared/utils.js"
+    },
+    "./button.css": "./button.css",
+    "./accordion": {
+      "types": "./dist/components/accordion/index.d.ts",
+      "import": "./dist/components/accordion/index.mjs",
+      "require": "./dist/components/accordion/index.js"
+    },
+    "./accordion/variants": {
+      "types": "./dist/components/accordion/variants.d.ts",
+      "import": "./dist/components/accordion/variants.mjs",
+      "require": "./dist/components/accordion/variants.js"
+    },
+    "./accordion/machine": {
+      "types": "./dist/components/accordion/machine.d.ts",
+      "import": "./dist/components/accordion/machine.mjs",
+      "require": "./dist/components/accordion/machine.js"
+    },
+    "./accordion/schema": {
+      "types": "./dist/components/accordion/schema.d.ts",
+      "import": "./dist/components/accordion/schema.mjs",
+      "require": "./dist/components/accordion/schema.js"
+    },
+    "./accordion/props": {
+      "types": "./dist/components/accordion/props.d.ts",
+      "import": "./dist/components/accordion/props.mjs",
+      "require": "./dist/components/accordion/props.js"
+    },
+    "./alert": {
+      "types": "./dist/components/alert/index.d.ts",
+      "import": "./dist/components/alert/index.mjs",
+      "require": "./dist/components/alert/index.js"
+    },
+    "./alert/variants": {
+      "types": "./dist/components/alert/variants.d.ts",
+      "import": "./dist/components/alert/variants.mjs",
+      "require": "./dist/components/alert/variants.js"
+    },
+    "./alert/schema": {
+      "types": "./dist/components/alert/schema.d.ts",
+      "import": "./dist/components/alert/schema.mjs",
+      "require": "./dist/components/alert/schema.js"
+    },
+    "./alert/props": {
+      "types": "./dist/components/alert/props.d.ts",
+      "import": "./dist/components/alert/props.mjs",
+      "require": "./dist/components/alert/props.js"
+    },
+    "./alert-dialog": {
+      "types": "./dist/components/alert-dialog/index.d.ts",
+      "import": "./dist/components/alert-dialog/index.mjs",
+      "require": "./dist/components/alert-dialog/index.js"
+    },
+    "./alert-dialog/variants": {
+      "types": "./dist/components/alert-dialog/variants.d.ts",
+      "import": "./dist/components/alert-dialog/variants.mjs",
+      "require": "./dist/components/alert-dialog/variants.js"
+    },
+    "./alert-dialog/machine": {
+      "types": "./dist/components/alert-dialog/machine.d.ts",
+      "import": "./dist/components/alert-dialog/machine.mjs",
+      "require": "./dist/components/alert-dialog/machine.js"
+    },
+    "./alert-dialog/schema": {
+      "types": "./dist/components/alert-dialog/schema.d.ts",
+      "import": "./dist/components/alert-dialog/schema.mjs",
+      "require": "./dist/components/alert-dialog/schema.js"
+    },
+    "./alert-dialog/props": {
+      "types": "./dist/components/alert-dialog/props.d.ts",
+      "import": "./dist/components/alert-dialog/props.mjs",
+      "require": "./dist/components/alert-dialog/props.js"
+    },
+    "./avatar": {
+      "types": "./dist/components/avatar/index.d.ts",
+      "import": "./dist/components/avatar/index.mjs",
+      "require": "./dist/components/avatar/index.js"
+    },
+    "./avatar/variants": {
+      "types": "./dist/components/avatar/variants.d.ts",
+      "import": "./dist/components/avatar/variants.mjs",
+      "require": "./dist/components/avatar/variants.js"
+    },
+    "./avatar/machine": {
+      "types": "./dist/components/avatar/machine.d.ts",
+      "import": "./dist/components/avatar/machine.mjs",
+      "require": "./dist/components/avatar/machine.js"
+    },
+    "./avatar/schema": {
+      "types": "./dist/components/avatar/schema.d.ts",
+      "import": "./dist/components/avatar/schema.mjs",
+      "require": "./dist/components/avatar/schema.js"
+    },
+    "./avatar/props": {
+      "types": "./dist/components/avatar/props.d.ts",
+      "import": "./dist/components/avatar/props.mjs",
+      "require": "./dist/components/avatar/props.js"
+    },
+    "./badge": {
+      "types": "./dist/components/badge/index.d.ts",
+      "import": "./dist/components/badge/index.mjs",
+      "require": "./dist/components/badge/index.js"
+    },
+    "./badge/variants": {
+      "types": "./dist/components/badge/variants.d.ts",
+      "import": "./dist/components/badge/variants.mjs",
+      "require": "./dist/components/badge/variants.js"
+    },
+    "./badge/schema": {
+      "types": "./dist/components/badge/schema.d.ts",
+      "import": "./dist/components/badge/schema.mjs",
+      "require": "./dist/components/badge/schema.js"
+    },
+    "./badge/props": {
+      "types": "./dist/components/badge/props.d.ts",
+      "import": "./dist/components/badge/props.mjs",
+      "require": "./dist/components/badge/props.js"
+    },
+    "./banner": {
+      "types": "./dist/components/banner/index.d.ts",
+      "import": "./dist/components/banner/index.mjs",
+      "require": "./dist/components/banner/index.js"
+    },
+    "./banner/variants": {
+      "types": "./dist/components/banner/variants.d.ts",
+      "import": "./dist/components/banner/variants.mjs",
+      "require": "./dist/components/banner/variants.js"
+    },
+    "./banner/schema": {
+      "types": "./dist/components/banner/schema.d.ts",
+      "import": "./dist/components/banner/schema.mjs",
+      "require": "./dist/components/banner/schema.js"
+    },
+    "./banner/props": {
+      "types": "./dist/components/banner/props.d.ts",
+      "import": "./dist/components/banner/props.mjs",
+      "require": "./dist/components/banner/props.js"
+    },
+    "./breadcrumb": {
+      "types": "./dist/components/breadcrumb/index.d.ts",
+      "import": "./dist/components/breadcrumb/index.mjs",
+      "require": "./dist/components/breadcrumb/index.js"
+    },
+    "./breadcrumb/variants": {
+      "types": "./dist/components/breadcrumb/variants.d.ts",
+      "import": "./dist/components/breadcrumb/variants.mjs",
+      "require": "./dist/components/breadcrumb/variants.js"
+    },
+    "./breadcrumb/schema": {
+      "types": "./dist/components/breadcrumb/schema.d.ts",
+      "import": "./dist/components/breadcrumb/schema.mjs",
+      "require": "./dist/components/breadcrumb/schema.js"
+    },
+    "./breadcrumb/props": {
+      "types": "./dist/components/breadcrumb/props.d.ts",
+      "import": "./dist/components/breadcrumb/props.mjs",
+      "require": "./dist/components/breadcrumb/props.js"
+    },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.mjs",
+      "require": "./dist/components/button/index.js"
+    },
+    "./button/variants": {
+      "types": "./dist/components/button/variants.d.ts",
+      "import": "./dist/components/button/variants.mjs",
+      "require": "./dist/components/button/variants.js"
+    },
+    "./button/schema": {
+      "types": "./dist/components/button/schema.d.ts",
+      "import": "./dist/components/button/schema.mjs",
+      "require": "./dist/components/button/schema.js"
+    },
+    "./button/props": {
+      "types": "./dist/components/button/props.d.ts",
+      "import": "./dist/components/button/props.mjs",
+      "require": "./dist/components/button/props.js"
+    },
+    "./calendar": {
+      "types": "./dist/components/calendar/index.d.ts",
+      "import": "./dist/components/calendar/index.mjs",
+      "require": "./dist/components/calendar/index.js"
+    },
+    "./calendar/variants": {
+      "types": "./dist/components/calendar/variants.d.ts",
+      "import": "./dist/components/calendar/variants.mjs",
+      "require": "./dist/components/calendar/variants.js"
+    },
+    "./calendar/machine": {
+      "types": "./dist/components/calendar/machine.d.ts",
+      "import": "./dist/components/calendar/machine.mjs",
+      "require": "./dist/components/calendar/machine.js"
+    },
+    "./calendar/schema": {
+      "types": "./dist/components/calendar/schema.d.ts",
+      "import": "./dist/components/calendar/schema.mjs",
+      "require": "./dist/components/calendar/schema.js"
+    },
+    "./calendar/props": {
+      "types": "./dist/components/calendar/props.d.ts",
+      "import": "./dist/components/calendar/props.mjs",
+      "require": "./dist/components/calendar/props.js"
+    },
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "import": "./dist/components/card/index.mjs",
+      "require": "./dist/components/card/index.js"
+    },
+    "./card/variants": {
+      "types": "./dist/components/card/variants.d.ts",
+      "import": "./dist/components/card/variants.mjs",
+      "require": "./dist/components/card/variants.js"
+    },
+    "./card/schema": {
+      "types": "./dist/components/card/schema.d.ts",
+      "import": "./dist/components/card/schema.mjs",
+      "require": "./dist/components/card/schema.js"
+    },
+    "./card/props": {
+      "types": "./dist/components/card/props.d.ts",
+      "import": "./dist/components/card/props.mjs",
+      "require": "./dist/components/card/props.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.mjs",
+      "require": "./dist/components/checkbox/index.js"
+    },
+    "./checkbox/variants": {
+      "types": "./dist/components/checkbox/variants.d.ts",
+      "import": "./dist/components/checkbox/variants.mjs",
+      "require": "./dist/components/checkbox/variants.js"
+    },
+    "./checkbox/machine": {
+      "types": "./dist/components/checkbox/machine.d.ts",
+      "import": "./dist/components/checkbox/machine.mjs",
+      "require": "./dist/components/checkbox/machine.js"
+    },
+    "./checkbox/schema": {
+      "types": "./dist/components/checkbox/schema.d.ts",
+      "import": "./dist/components/checkbox/schema.mjs",
+      "require": "./dist/components/checkbox/schema.js"
+    },
+    "./checkbox/props": {
+      "types": "./dist/components/checkbox/props.d.ts",
+      "import": "./dist/components/checkbox/props.mjs",
+      "require": "./dist/components/checkbox/props.js"
+    },
+    "./checkbox-tree": {
+      "types": "./dist/components/checkbox-tree/index.d.ts",
+      "import": "./dist/components/checkbox-tree/index.mjs",
+      "require": "./dist/components/checkbox-tree/index.js"
+    },
+    "./checkbox-tree/variants": {
+      "types": "./dist/components/checkbox-tree/variants.d.ts",
+      "import": "./dist/components/checkbox-tree/variants.mjs",
+      "require": "./dist/components/checkbox-tree/variants.js"
+    },
+    "./checkbox-tree/schema": {
+      "types": "./dist/components/checkbox-tree/schema.d.ts",
+      "import": "./dist/components/checkbox-tree/schema.mjs",
+      "require": "./dist/components/checkbox-tree/schema.js"
+    },
+    "./checkbox-tree/props": {
+      "types": "./dist/components/checkbox-tree/props.d.ts",
+      "import": "./dist/components/checkbox-tree/props.mjs",
+      "require": "./dist/components/checkbox-tree/props.js"
+    },
+    "./collapsible": {
+      "types": "./dist/components/collapsible/index.d.ts",
+      "import": "./dist/components/collapsible/index.mjs",
+      "require": "./dist/components/collapsible/index.js"
+    },
+    "./collapsible/variants": {
+      "types": "./dist/components/collapsible/variants.d.ts",
+      "import": "./dist/components/collapsible/variants.mjs",
+      "require": "./dist/components/collapsible/variants.js"
+    },
+    "./collapsible/machine": {
+      "types": "./dist/components/collapsible/machine.d.ts",
+      "import": "./dist/components/collapsible/machine.mjs",
+      "require": "./dist/components/collapsible/machine.js"
+    },
+    "./collapsible/schema": {
+      "types": "./dist/components/collapsible/schema.d.ts",
+      "import": "./dist/components/collapsible/schema.mjs",
+      "require": "./dist/components/collapsible/schema.js"
+    },
+    "./collapsible/props": {
+      "types": "./dist/components/collapsible/props.d.ts",
+      "import": "./dist/components/collapsible/props.mjs",
+      "require": "./dist/components/collapsible/props.js"
+    },
+    "./combobox": {
+      "types": "./dist/components/combobox/index.d.ts",
+      "import": "./dist/components/combobox/index.mjs",
+      "require": "./dist/components/combobox/index.js"
+    },
+    "./combobox/variants": {
+      "types": "./dist/components/combobox/variants.d.ts",
+      "import": "./dist/components/combobox/variants.mjs",
+      "require": "./dist/components/combobox/variants.js"
+    },
+    "./combobox/machine": {
+      "types": "./dist/components/combobox/machine.d.ts",
+      "import": "./dist/components/combobox/machine.mjs",
+      "require": "./dist/components/combobox/machine.js"
+    },
+    "./combobox/schema": {
+      "types": "./dist/components/combobox/schema.d.ts",
+      "import": "./dist/components/combobox/schema.mjs",
+      "require": "./dist/components/combobox/schema.js"
+    },
+    "./combobox/props": {
+      "types": "./dist/components/combobox/props.d.ts",
+      "import": "./dist/components/combobox/props.mjs",
+      "require": "./dist/components/combobox/props.js"
+    },
+    "./command": {
+      "types": "./dist/components/command/index.d.ts",
+      "import": "./dist/components/command/index.mjs",
+      "require": "./dist/components/command/index.js"
+    },
+    "./command/variants": {
+      "types": "./dist/components/command/variants.d.ts",
+      "import": "./dist/components/command/variants.mjs",
+      "require": "./dist/components/command/variants.js"
+    },
+    "./command/schema": {
+      "types": "./dist/components/command/schema.d.ts",
+      "import": "./dist/components/command/schema.mjs",
+      "require": "./dist/components/command/schema.js"
+    },
+    "./command/props": {
+      "types": "./dist/components/command/props.d.ts",
+      "import": "./dist/components/command/props.mjs",
+      "require": "./dist/components/command/props.js"
+    },
+    "./date-picker": {
+      "types": "./dist/components/date-picker/index.d.ts",
+      "import": "./dist/components/date-picker/index.mjs",
+      "require": "./dist/components/date-picker/index.js"
+    },
+    "./date-picker/variants": {
+      "types": "./dist/components/date-picker/variants.d.ts",
+      "import": "./dist/components/date-picker/variants.mjs",
+      "require": "./dist/components/date-picker/variants.js"
+    },
+    "./date-picker/machine": {
+      "types": "./dist/components/date-picker/machine.d.ts",
+      "import": "./dist/components/date-picker/machine.mjs",
+      "require": "./dist/components/date-picker/machine.js"
+    },
+    "./date-picker/schema": {
+      "types": "./dist/components/date-picker/schema.d.ts",
+      "import": "./dist/components/date-picker/schema.mjs",
+      "require": "./dist/components/date-picker/schema.js"
+    },
+    "./date-picker/props": {
+      "types": "./dist/components/date-picker/props.d.ts",
+      "import": "./dist/components/date-picker/props.mjs",
+      "require": "./dist/components/date-picker/props.js"
+    },
+    "./datefield": {
+      "types": "./dist/components/datefield/index.d.ts",
+      "import": "./dist/components/datefield/index.mjs",
+      "require": "./dist/components/datefield/index.js"
+    },
+    "./datefield/variants": {
+      "types": "./dist/components/datefield/variants.d.ts",
+      "import": "./dist/components/datefield/variants.mjs",
+      "require": "./dist/components/datefield/variants.js"
+    },
+    "./datefield/machine": {
+      "types": "./dist/components/datefield/machine.d.ts",
+      "import": "./dist/components/datefield/machine.mjs",
+      "require": "./dist/components/datefield/machine.js"
+    },
+    "./datefield/schema": {
+      "types": "./dist/components/datefield/schema.d.ts",
+      "import": "./dist/components/datefield/schema.mjs",
+      "require": "./dist/components/datefield/schema.js"
+    },
+    "./datefield/props": {
+      "types": "./dist/components/datefield/props.d.ts",
+      "import": "./dist/components/datefield/props.mjs",
+      "require": "./dist/components/datefield/props.js"
+    },
+    "./dialog": {
+      "types": "./dist/components/dialog/index.d.ts",
+      "import": "./dist/components/dialog/index.mjs",
+      "require": "./dist/components/dialog/index.js"
+    },
+    "./dialog/variants": {
+      "types": "./dist/components/dialog/variants.d.ts",
+      "import": "./dist/components/dialog/variants.mjs",
+      "require": "./dist/components/dialog/variants.js"
+    },
+    "./dialog/machine": {
+      "types": "./dist/components/dialog/machine.d.ts",
+      "import": "./dist/components/dialog/machine.mjs",
+      "require": "./dist/components/dialog/machine.js"
+    },
+    "./dialog/schema": {
+      "types": "./dist/components/dialog/schema.d.ts",
+      "import": "./dist/components/dialog/schema.mjs",
+      "require": "./dist/components/dialog/schema.js"
+    },
+    "./dialog/props": {
+      "types": "./dist/components/dialog/props.d.ts",
+      "import": "./dist/components/dialog/props.mjs",
+      "require": "./dist/components/dialog/props.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/components/dropdown-menu/index.d.ts",
+      "import": "./dist/components/dropdown-menu/index.mjs",
+      "require": "./dist/components/dropdown-menu/index.js"
+    },
+    "./dropdown-menu/variants": {
+      "types": "./dist/components/dropdown-menu/variants.d.ts",
+      "import": "./dist/components/dropdown-menu/variants.mjs",
+      "require": "./dist/components/dropdown-menu/variants.js"
+    },
+    "./dropdown-menu/machine": {
+      "types": "./dist/components/dropdown-menu/machine.d.ts",
+      "import": "./dist/components/dropdown-menu/machine.mjs",
+      "require": "./dist/components/dropdown-menu/machine.js"
+    },
+    "./dropdown-menu/schema": {
+      "types": "./dist/components/dropdown-menu/schema.d.ts",
+      "import": "./dist/components/dropdown-menu/schema.mjs",
+      "require": "./dist/components/dropdown-menu/schema.js"
+    },
+    "./dropdown-menu/props": {
+      "types": "./dist/components/dropdown-menu/props.d.ts",
+      "import": "./dist/components/dropdown-menu/props.mjs",
+      "require": "./dist/components/dropdown-menu/props.js"
+    },
+    "./hover-card": {
+      "types": "./dist/components/hover-card/index.d.ts",
+      "import": "./dist/components/hover-card/index.mjs",
+      "require": "./dist/components/hover-card/index.js"
+    },
+    "./hover-card/variants": {
+      "types": "./dist/components/hover-card/variants.d.ts",
+      "import": "./dist/components/hover-card/variants.mjs",
+      "require": "./dist/components/hover-card/variants.js"
+    },
+    "./hover-card/machine": {
+      "types": "./dist/components/hover-card/machine.d.ts",
+      "import": "./dist/components/hover-card/machine.mjs",
+      "require": "./dist/components/hover-card/machine.js"
+    },
+    "./hover-card/schema": {
+      "types": "./dist/components/hover-card/schema.d.ts",
+      "import": "./dist/components/hover-card/schema.mjs",
+      "require": "./dist/components/hover-card/schema.js"
+    },
+    "./hover-card/props": {
+      "types": "./dist/components/hover-card/props.d.ts",
+      "import": "./dist/components/hover-card/props.mjs",
+      "require": "./dist/components/hover-card/props.js"
+    },
+    "./image-cropper": {
+      "types": "./dist/components/image-cropper/index.d.ts",
+      "import": "./dist/components/image-cropper/index.mjs",
+      "require": "./dist/components/image-cropper/index.js"
+    },
+    "./image-cropper/variants": {
+      "types": "./dist/components/image-cropper/variants.d.ts",
+      "import": "./dist/components/image-cropper/variants.mjs",
+      "require": "./dist/components/image-cropper/variants.js"
+    },
+    "./image-cropper/schema": {
+      "types": "./dist/components/image-cropper/schema.d.ts",
+      "import": "./dist/components/image-cropper/schema.mjs",
+      "require": "./dist/components/image-cropper/schema.js"
+    },
+    "./image-cropper/props": {
+      "types": "./dist/components/image-cropper/props.d.ts",
+      "import": "./dist/components/image-cropper/props.mjs",
+      "require": "./dist/components/image-cropper/props.js"
+    },
+    "./input": {
+      "types": "./dist/components/input/index.d.ts",
+      "import": "./dist/components/input/index.mjs",
+      "require": "./dist/components/input/index.js"
+    },
+    "./input/variants": {
+      "types": "./dist/components/input/variants.d.ts",
+      "import": "./dist/components/input/variants.mjs",
+      "require": "./dist/components/input/variants.js"
+    },
+    "./input/schema": {
+      "types": "./dist/components/input/schema.d.ts",
+      "import": "./dist/components/input/schema.mjs",
+      "require": "./dist/components/input/schema.js"
+    },
+    "./input/props": {
+      "types": "./dist/components/input/props.d.ts",
+      "import": "./dist/components/input/props.mjs",
+      "require": "./dist/components/input/props.js"
+    },
+    "./label": {
+      "types": "./dist/components/label/index.d.ts",
+      "import": "./dist/components/label/index.mjs",
+      "require": "./dist/components/label/index.js"
+    },
+    "./label/variants": {
+      "types": "./dist/components/label/variants.d.ts",
+      "import": "./dist/components/label/variants.mjs",
+      "require": "./dist/components/label/variants.js"
+    },
+    "./label/schema": {
+      "types": "./dist/components/label/schema.d.ts",
+      "import": "./dist/components/label/schema.mjs",
+      "require": "./dist/components/label/schema.js"
+    },
+    "./label/props": {
+      "types": "./dist/components/label/props.d.ts",
+      "import": "./dist/components/label/props.mjs",
+      "require": "./dist/components/label/props.js"
+    },
+    "./multiselect": {
+      "types": "./dist/components/multiselect/index.d.ts",
+      "import": "./dist/components/multiselect/index.mjs",
+      "require": "./dist/components/multiselect/index.js"
+    },
+    "./multiselect/variants": {
+      "types": "./dist/components/multiselect/variants.d.ts",
+      "import": "./dist/components/multiselect/variants.mjs",
+      "require": "./dist/components/multiselect/variants.js"
+    },
+    "./multiselect/schema": {
+      "types": "./dist/components/multiselect/schema.d.ts",
+      "import": "./dist/components/multiselect/schema.mjs",
+      "require": "./dist/components/multiselect/schema.js"
+    },
+    "./multiselect/props": {
+      "types": "./dist/components/multiselect/props.d.ts",
+      "import": "./dist/components/multiselect/props.mjs",
+      "require": "./dist/components/multiselect/props.js"
+    },
+    "./navbar": {
+      "types": "./dist/components/navbar/index.d.ts",
+      "import": "./dist/components/navbar/index.mjs",
+      "require": "./dist/components/navbar/index.js"
+    },
+    "./navbar/variants": {
+      "types": "./dist/components/navbar/variants.d.ts",
+      "import": "./dist/components/navbar/variants.mjs",
+      "require": "./dist/components/navbar/variants.js"
+    },
+    "./navbar/schema": {
+      "types": "./dist/components/navbar/schema.d.ts",
+      "import": "./dist/components/navbar/schema.mjs",
+      "require": "./dist/components/navbar/schema.js"
+    },
+    "./navbar/props": {
+      "types": "./dist/components/navbar/props.d.ts",
+      "import": "./dist/components/navbar/props.mjs",
+      "require": "./dist/components/navbar/props.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.mjs",
+      "require": "./dist/components/navigation-menu/index.js"
+    },
+    "./navigation-menu/variants": {
+      "types": "./dist/components/navigation-menu/variants.d.ts",
+      "import": "./dist/components/navigation-menu/variants.mjs",
+      "require": "./dist/components/navigation-menu/variants.js"
+    },
+    "./navigation-menu/schema": {
+      "types": "./dist/components/navigation-menu/schema.d.ts",
+      "import": "./dist/components/navigation-menu/schema.mjs",
+      "require": "./dist/components/navigation-menu/schema.js"
+    },
+    "./navigation-menu/props": {
+      "types": "./dist/components/navigation-menu/props.d.ts",
+      "import": "./dist/components/navigation-menu/props.mjs",
+      "require": "./dist/components/navigation-menu/props.js"
+    },
+    "./notification": {
+      "types": "./dist/components/notification/index.d.ts",
+      "import": "./dist/components/notification/index.mjs",
+      "require": "./dist/components/notification/index.js"
+    },
+    "./notification/variants": {
+      "types": "./dist/components/notification/variants.d.ts",
+      "import": "./dist/components/notification/variants.mjs",
+      "require": "./dist/components/notification/variants.js"
+    },
+    "./notification/schema": {
+      "types": "./dist/components/notification/schema.d.ts",
+      "import": "./dist/components/notification/schema.mjs",
+      "require": "./dist/components/notification/schema.js"
+    },
+    "./notification/props": {
+      "types": "./dist/components/notification/props.d.ts",
+      "import": "./dist/components/notification/props.mjs",
+      "require": "./dist/components/notification/props.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "import": "./dist/components/pagination/index.mjs",
+      "require": "./dist/components/pagination/index.js"
+    },
+    "./pagination/variants": {
+      "types": "./dist/components/pagination/variants.d.ts",
+      "import": "./dist/components/pagination/variants.mjs",
+      "require": "./dist/components/pagination/variants.js"
+    },
+    "./pagination/machine": {
+      "types": "./dist/components/pagination/machine.d.ts",
+      "import": "./dist/components/pagination/machine.mjs",
+      "require": "./dist/components/pagination/machine.js"
+    },
+    "./pagination/schema": {
+      "types": "./dist/components/pagination/schema.d.ts",
+      "import": "./dist/components/pagination/schema.mjs",
+      "require": "./dist/components/pagination/schema.js"
+    },
+    "./pagination/props": {
+      "types": "./dist/components/pagination/props.d.ts",
+      "import": "./dist/components/pagination/props.mjs",
+      "require": "./dist/components/pagination/props.js"
+    },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "import": "./dist/components/popover/index.mjs",
+      "require": "./dist/components/popover/index.js"
+    },
+    "./popover/variants": {
+      "types": "./dist/components/popover/variants.d.ts",
+      "import": "./dist/components/popover/variants.mjs",
+      "require": "./dist/components/popover/variants.js"
+    },
+    "./popover/machine": {
+      "types": "./dist/components/popover/machine.d.ts",
+      "import": "./dist/components/popover/machine.mjs",
+      "require": "./dist/components/popover/machine.js"
+    },
+    "./popover/schema": {
+      "types": "./dist/components/popover/schema.d.ts",
+      "import": "./dist/components/popover/schema.mjs",
+      "require": "./dist/components/popover/schema.js"
+    },
+    "./popover/props": {
+      "types": "./dist/components/popover/props.d.ts",
+      "import": "./dist/components/popover/props.mjs",
+      "require": "./dist/components/popover/props.js"
+    },
+    "./progress": {
+      "types": "./dist/components/progress/index.d.ts",
+      "import": "./dist/components/progress/index.mjs",
+      "require": "./dist/components/progress/index.js"
+    },
+    "./progress/variants": {
+      "types": "./dist/components/progress/variants.d.ts",
+      "import": "./dist/components/progress/variants.mjs",
+      "require": "./dist/components/progress/variants.js"
+    },
+    "./progress/machine": {
+      "types": "./dist/components/progress/machine.d.ts",
+      "import": "./dist/components/progress/machine.mjs",
+      "require": "./dist/components/progress/machine.js"
+    },
+    "./progress/schema": {
+      "types": "./dist/components/progress/schema.d.ts",
+      "import": "./dist/components/progress/schema.mjs",
+      "require": "./dist/components/progress/schema.js"
+    },
+    "./progress/props": {
+      "types": "./dist/components/progress/props.d.ts",
+      "import": "./dist/components/progress/props.mjs",
+      "require": "./dist/components/progress/props.js"
+    },
+    "./radio-group": {
+      "types": "./dist/components/radio-group/index.d.ts",
+      "import": "./dist/components/radio-group/index.mjs",
+      "require": "./dist/components/radio-group/index.js"
+    },
+    "./radio-group/variants": {
+      "types": "./dist/components/radio-group/variants.d.ts",
+      "import": "./dist/components/radio-group/variants.mjs",
+      "require": "./dist/components/radio-group/variants.js"
+    },
+    "./radio-group/machine": {
+      "types": "./dist/components/radio-group/machine.d.ts",
+      "import": "./dist/components/radio-group/machine.mjs",
+      "require": "./dist/components/radio-group/machine.js"
+    },
+    "./radio-group/schema": {
+      "types": "./dist/components/radio-group/schema.d.ts",
+      "import": "./dist/components/radio-group/schema.mjs",
+      "require": "./dist/components/radio-group/schema.js"
+    },
+    "./radio-group/props": {
+      "types": "./dist/components/radio-group/props.d.ts",
+      "import": "./dist/components/radio-group/props.mjs",
+      "require": "./dist/components/radio-group/props.js"
+    },
+    "./resizable": {
+      "types": "./dist/components/resizable/index.d.ts",
+      "import": "./dist/components/resizable/index.mjs",
+      "require": "./dist/components/resizable/index.js"
+    },
+    "./resizable/variants": {
+      "types": "./dist/components/resizable/variants.d.ts",
+      "import": "./dist/components/resizable/variants.mjs",
+      "require": "./dist/components/resizable/variants.js"
+    },
+    "./resizable/schema": {
+      "types": "./dist/components/resizable/schema.d.ts",
+      "import": "./dist/components/resizable/schema.mjs",
+      "require": "./dist/components/resizable/schema.js"
+    },
+    "./resizable/props": {
+      "types": "./dist/components/resizable/props.d.ts",
+      "import": "./dist/components/resizable/props.mjs",
+      "require": "./dist/components/resizable/props.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/components/scroll-area/index.d.ts",
+      "import": "./dist/components/scroll-area/index.mjs",
+      "require": "./dist/components/scroll-area/index.js"
+    },
+    "./scroll-area/variants": {
+      "types": "./dist/components/scroll-area/variants.d.ts",
+      "import": "./dist/components/scroll-area/variants.mjs",
+      "require": "./dist/components/scroll-area/variants.js"
+    },
+    "./scroll-area/schema": {
+      "types": "./dist/components/scroll-area/schema.d.ts",
+      "import": "./dist/components/scroll-area/schema.mjs",
+      "require": "./dist/components/scroll-area/schema.js"
+    },
+    "./scroll-area/props": {
+      "types": "./dist/components/scroll-area/props.d.ts",
+      "import": "./dist/components/scroll-area/props.mjs",
+      "require": "./dist/components/scroll-area/props.js"
+    },
+    "./select": {
+      "types": "./dist/components/select/index.d.ts",
+      "import": "./dist/components/select/index.mjs",
+      "require": "./dist/components/select/index.js"
+    },
+    "./select/variants": {
+      "types": "./dist/components/select/variants.d.ts",
+      "import": "./dist/components/select/variants.mjs",
+      "require": "./dist/components/select/variants.js"
+    },
+    "./select/machine": {
+      "types": "./dist/components/select/machine.d.ts",
+      "import": "./dist/components/select/machine.mjs",
+      "require": "./dist/components/select/machine.js"
+    },
+    "./select/schema": {
+      "types": "./dist/components/select/schema.d.ts",
+      "import": "./dist/components/select/schema.mjs",
+      "require": "./dist/components/select/schema.js"
+    },
+    "./select/props": {
+      "types": "./dist/components/select/props.d.ts",
+      "import": "./dist/components/select/props.mjs",
+      "require": "./dist/components/select/props.js"
+    },
+    "./select-native": {
+      "types": "./dist/components/select-native/index.d.ts",
+      "import": "./dist/components/select-native/index.mjs",
+      "require": "./dist/components/select-native/index.js"
+    },
+    "./select-native/variants": {
+      "types": "./dist/components/select-native/variants.d.ts",
+      "import": "./dist/components/select-native/variants.mjs",
+      "require": "./dist/components/select-native/variants.js"
+    },
+    "./select-native/schema": {
+      "types": "./dist/components/select-native/schema.d.ts",
+      "import": "./dist/components/select-native/schema.mjs",
+      "require": "./dist/components/select-native/schema.js"
+    },
+    "./select-native/props": {
+      "types": "./dist/components/select-native/props.d.ts",
+      "import": "./dist/components/select-native/props.mjs",
+      "require": "./dist/components/select-native/props.js"
+    },
+    "./separator": {
+      "types": "./dist/components/separator/index.d.ts",
+      "import": "./dist/components/separator/index.mjs",
+      "require": "./dist/components/separator/index.js"
+    },
+    "./separator/variants": {
+      "types": "./dist/components/separator/variants.d.ts",
+      "import": "./dist/components/separator/variants.mjs",
+      "require": "./dist/components/separator/variants.js"
+    },
+    "./separator/schema": {
+      "types": "./dist/components/separator/schema.d.ts",
+      "import": "./dist/components/separator/schema.mjs",
+      "require": "./dist/components/separator/schema.js"
+    },
+    "./separator/props": {
+      "types": "./dist/components/separator/props.d.ts",
+      "import": "./dist/components/separator/props.mjs",
+      "require": "./dist/components/separator/props.js"
+    },
+    "./sheet": {
+      "types": "./dist/components/sheet/index.d.ts",
+      "import": "./dist/components/sheet/index.mjs",
+      "require": "./dist/components/sheet/index.js"
+    },
+    "./sheet/variants": {
+      "types": "./dist/components/sheet/variants.d.ts",
+      "import": "./dist/components/sheet/variants.mjs",
+      "require": "./dist/components/sheet/variants.js"
+    },
+    "./sheet/schema": {
+      "types": "./dist/components/sheet/schema.d.ts",
+      "import": "./dist/components/sheet/schema.mjs",
+      "require": "./dist/components/sheet/schema.js"
+    },
+    "./sheet/props": {
+      "types": "./dist/components/sheet/props.d.ts",
+      "import": "./dist/components/sheet/props.mjs",
+      "require": "./dist/components/sheet/props.js"
+    },
+    "./slider": {
+      "types": "./dist/components/slider/index.d.ts",
+      "import": "./dist/components/slider/index.mjs",
+      "require": "./dist/components/slider/index.js"
+    },
+    "./slider/variants": {
+      "types": "./dist/components/slider/variants.d.ts",
+      "import": "./dist/components/slider/variants.mjs",
+      "require": "./dist/components/slider/variants.js"
+    },
+    "./slider/machine": {
+      "types": "./dist/components/slider/machine.d.ts",
+      "import": "./dist/components/slider/machine.mjs",
+      "require": "./dist/components/slider/machine.js"
+    },
+    "./slider/schema": {
+      "types": "./dist/components/slider/schema.d.ts",
+      "import": "./dist/components/slider/schema.mjs",
+      "require": "./dist/components/slider/schema.js"
+    },
+    "./slider/props": {
+      "types": "./dist/components/slider/props.d.ts",
+      "import": "./dist/components/slider/props.mjs",
+      "require": "./dist/components/slider/props.js"
+    },
+    "./stepper": {
+      "types": "./dist/components/stepper/index.d.ts",
+      "import": "./dist/components/stepper/index.mjs",
+      "require": "./dist/components/stepper/index.js"
+    },
+    "./stepper/variants": {
+      "types": "./dist/components/stepper/variants.d.ts",
+      "import": "./dist/components/stepper/variants.mjs",
+      "require": "./dist/components/stepper/variants.js"
+    },
+    "./stepper/machine": {
+      "types": "./dist/components/stepper/machine.d.ts",
+      "import": "./dist/components/stepper/machine.mjs",
+      "require": "./dist/components/stepper/machine.js"
+    },
+    "./stepper/schema": {
+      "types": "./dist/components/stepper/schema.d.ts",
+      "import": "./dist/components/stepper/schema.mjs",
+      "require": "./dist/components/stepper/schema.js"
+    },
+    "./stepper/props": {
+      "types": "./dist/components/stepper/props.d.ts",
+      "import": "./dist/components/stepper/props.mjs",
+      "require": "./dist/components/stepper/props.js"
+    },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.mjs",
+      "require": "./dist/components/switch/index.js"
+    },
+    "./switch/variants": {
+      "types": "./dist/components/switch/variants.d.ts",
+      "import": "./dist/components/switch/variants.mjs",
+      "require": "./dist/components/switch/variants.js"
+    },
+    "./switch/machine": {
+      "types": "./dist/components/switch/machine.d.ts",
+      "import": "./dist/components/switch/machine.mjs",
+      "require": "./dist/components/switch/machine.js"
+    },
+    "./switch/schema": {
+      "types": "./dist/components/switch/schema.d.ts",
+      "import": "./dist/components/switch/schema.mjs",
+      "require": "./dist/components/switch/schema.js"
+    },
+    "./switch/props": {
+      "types": "./dist/components/switch/props.d.ts",
+      "import": "./dist/components/switch/props.mjs",
+      "require": "./dist/components/switch/props.js"
+    },
+    "./table": {
+      "types": "./dist/components/table/index.d.ts",
+      "import": "./dist/components/table/index.mjs",
+      "require": "./dist/components/table/index.js"
+    },
+    "./table/variants": {
+      "types": "./dist/components/table/variants.d.ts",
+      "import": "./dist/components/table/variants.mjs",
+      "require": "./dist/components/table/variants.js"
+    },
+    "./table/schema": {
+      "types": "./dist/components/table/schema.d.ts",
+      "import": "./dist/components/table/schema.mjs",
+      "require": "./dist/components/table/schema.js"
+    },
+    "./table/props": {
+      "types": "./dist/components/table/props.d.ts",
+      "import": "./dist/components/table/props.mjs",
+      "require": "./dist/components/table/props.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/tabs/index.d.ts",
+      "import": "./dist/components/tabs/index.mjs",
+      "require": "./dist/components/tabs/index.js"
+    },
+    "./tabs/variants": {
+      "types": "./dist/components/tabs/variants.d.ts",
+      "import": "./dist/components/tabs/variants.mjs",
+      "require": "./dist/components/tabs/variants.js"
+    },
+    "./tabs/machine": {
+      "types": "./dist/components/tabs/machine.d.ts",
+      "import": "./dist/components/tabs/machine.mjs",
+      "require": "./dist/components/tabs/machine.js"
+    },
+    "./tabs/schema": {
+      "types": "./dist/components/tabs/schema.d.ts",
+      "import": "./dist/components/tabs/schema.mjs",
+      "require": "./dist/components/tabs/schema.js"
+    },
+    "./tabs/props": {
+      "types": "./dist/components/tabs/props.d.ts",
+      "import": "./dist/components/tabs/props.mjs",
+      "require": "./dist/components/tabs/props.js"
+    },
+    "./tags-input": {
+      "types": "./dist/components/tags-input/index.d.ts",
+      "import": "./dist/components/tags-input/index.mjs",
+      "require": "./dist/components/tags-input/index.js"
+    },
+    "./tags-input/variants": {
+      "types": "./dist/components/tags-input/variants.d.ts",
+      "import": "./dist/components/tags-input/variants.mjs",
+      "require": "./dist/components/tags-input/variants.js"
+    },
+    "./tags-input/machine": {
+      "types": "./dist/components/tags-input/machine.d.ts",
+      "import": "./dist/components/tags-input/machine.mjs",
+      "require": "./dist/components/tags-input/machine.js"
+    },
+    "./tags-input/schema": {
+      "types": "./dist/components/tags-input/schema.d.ts",
+      "import": "./dist/components/tags-input/schema.mjs",
+      "require": "./dist/components/tags-input/schema.js"
+    },
+    "./tags-input/props": {
+      "types": "./dist/components/tags-input/props.d.ts",
+      "import": "./dist/components/tags-input/props.mjs",
+      "require": "./dist/components/tags-input/props.js"
+    },
+    "./textarea": {
+      "types": "./dist/components/textarea/index.d.ts",
+      "import": "./dist/components/textarea/index.mjs",
+      "require": "./dist/components/textarea/index.js"
+    },
+    "./textarea/variants": {
+      "types": "./dist/components/textarea/variants.d.ts",
+      "import": "./dist/components/textarea/variants.mjs",
+      "require": "./dist/components/textarea/variants.js"
+    },
+    "./textarea/schema": {
+      "types": "./dist/components/textarea/schema.d.ts",
+      "import": "./dist/components/textarea/schema.mjs",
+      "require": "./dist/components/textarea/schema.js"
+    },
+    "./textarea/props": {
+      "types": "./dist/components/textarea/props.d.ts",
+      "import": "./dist/components/textarea/props.mjs",
+      "require": "./dist/components/textarea/props.js"
+    },
+    "./timeline": {
+      "types": "./dist/components/timeline/index.d.ts",
+      "import": "./dist/components/timeline/index.mjs",
+      "require": "./dist/components/timeline/index.js"
+    },
+    "./timeline/variants": {
+      "types": "./dist/components/timeline/variants.d.ts",
+      "import": "./dist/components/timeline/variants.mjs",
+      "require": "./dist/components/timeline/variants.js"
+    },
+    "./timeline/schema": {
+      "types": "./dist/components/timeline/schema.d.ts",
+      "import": "./dist/components/timeline/schema.mjs",
+      "require": "./dist/components/timeline/schema.js"
+    },
+    "./timeline/props": {
+      "types": "./dist/components/timeline/props.d.ts",
+      "import": "./dist/components/timeline/props.mjs",
+      "require": "./dist/components/timeline/props.js"
+    },
+    "./toast": {
+      "types": "./dist/components/toast/index.d.ts",
+      "import": "./dist/components/toast/index.mjs",
+      "require": "./dist/components/toast/index.js"
+    },
+    "./toast/variants": {
+      "types": "./dist/components/toast/variants.d.ts",
+      "import": "./dist/components/toast/variants.mjs",
+      "require": "./dist/components/toast/variants.js"
+    },
+    "./toast/machine": {
+      "types": "./dist/components/toast/machine.d.ts",
+      "import": "./dist/components/toast/machine.mjs",
+      "require": "./dist/components/toast/machine.js"
+    },
+    "./toast/schema": {
+      "types": "./dist/components/toast/schema.d.ts",
+      "import": "./dist/components/toast/schema.mjs",
+      "require": "./dist/components/toast/schema.js"
+    },
+    "./toast/props": {
+      "types": "./dist/components/toast/props.d.ts",
+      "import": "./dist/components/toast/props.mjs",
+      "require": "./dist/components/toast/props.js"
+    },
+    "./toggle": {
+      "types": "./dist/components/toggle/index.d.ts",
+      "import": "./dist/components/toggle/index.mjs",
+      "require": "./dist/components/toggle/index.js"
+    },
+    "./toggle/variants": {
+      "types": "./dist/components/toggle/variants.d.ts",
+      "import": "./dist/components/toggle/variants.mjs",
+      "require": "./dist/components/toggle/variants.js"
+    },
+    "./toggle/machine": {
+      "types": "./dist/components/toggle/machine.d.ts",
+      "import": "./dist/components/toggle/machine.mjs",
+      "require": "./dist/components/toggle/machine.js"
+    },
+    "./toggle/schema": {
+      "types": "./dist/components/toggle/schema.d.ts",
+      "import": "./dist/components/toggle/schema.mjs",
+      "require": "./dist/components/toggle/schema.js"
+    },
+    "./toggle/props": {
+      "types": "./dist/components/toggle/props.d.ts",
+      "import": "./dist/components/toggle/props.mjs",
+      "require": "./dist/components/toggle/props.js"
+    },
+    "./toggle-group": {
+      "types": "./dist/components/toggle-group/index.d.ts",
+      "import": "./dist/components/toggle-group/index.mjs",
+      "require": "./dist/components/toggle-group/index.js"
+    },
+    "./toggle-group/variants": {
+      "types": "./dist/components/toggle-group/variants.d.ts",
+      "import": "./dist/components/toggle-group/variants.mjs",
+      "require": "./dist/components/toggle-group/variants.js"
+    },
+    "./toggle-group/machine": {
+      "types": "./dist/components/toggle-group/machine.d.ts",
+      "import": "./dist/components/toggle-group/machine.mjs",
+      "require": "./dist/components/toggle-group/machine.js"
+    },
+    "./toggle-group/schema": {
+      "types": "./dist/components/toggle-group/schema.d.ts",
+      "import": "./dist/components/toggle-group/schema.mjs",
+      "require": "./dist/components/toggle-group/schema.js"
+    },
+    "./toggle-group/props": {
+      "types": "./dist/components/toggle-group/props.d.ts",
+      "import": "./dist/components/toggle-group/props.mjs",
+      "require": "./dist/components/toggle-group/props.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "import": "./dist/components/tooltip/index.mjs",
+      "require": "./dist/components/tooltip/index.js"
+    },
+    "./tooltip/variants": {
+      "types": "./dist/components/tooltip/variants.d.ts",
+      "import": "./dist/components/tooltip/variants.mjs",
+      "require": "./dist/components/tooltip/variants.js"
+    },
+    "./tooltip/machine": {
+      "types": "./dist/components/tooltip/machine.d.ts",
+      "import": "./dist/components/tooltip/machine.mjs",
+      "require": "./dist/components/tooltip/machine.js"
+    },
+    "./tooltip/schema": {
+      "types": "./dist/components/tooltip/schema.d.ts",
+      "import": "./dist/components/tooltip/schema.mjs",
+      "require": "./dist/components/tooltip/schema.js"
+    },
+    "./tooltip/props": {
+      "types": "./dist/components/tooltip/props.d.ts",
+      "import": "./dist/components/tooltip/props.mjs",
+      "require": "./dist/components/tooltip/props.js"
+    },
+    "./tree": {
+      "types": "./dist/components/tree/index.d.ts",
+      "import": "./dist/components/tree/index.mjs",
+      "require": "./dist/components/tree/index.js"
+    },
+    "./tree/variants": {
+      "types": "./dist/components/tree/variants.d.ts",
+      "import": "./dist/components/tree/variants.mjs",
+      "require": "./dist/components/tree/variants.js"
+    },
+    "./tree/schema": {
+      "types": "./dist/components/tree/schema.d.ts",
+      "import": "./dist/components/tree/schema.mjs",
+      "require": "./dist/components/tree/schema.js"
+    },
+    "./tree/props": {
+      "types": "./dist/components/tree/props.d.ts",
+      "import": "./dist/components/tree/props.mjs",
+      "require": "./dist/components/tree/props.js"
+    }
+  },
   "scripts": {
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "build": "tsup && rm -f tsconfig.tsbuildinfo && tsc --emitDeclarationOnly --noEmit false",
+    "test": "vitest run"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^4.0.15"
   },
   "dependencies": {
+    "@headless-tree/core": "^1.0.0",
+    "@zag-js/accordion": "^1.32.0",
+    "@zag-js/avatar": "^1.32.0",
+    "@zag-js/checkbox": "^1.32.0",
+    "@zag-js/collapsible": "^1.32.0",
+    "@zag-js/combobox": "^1.32.0",
+    "@zag-js/collection": "^1.32.0",
+    "@zag-js/core": "^1.32.0",
+    "@zag-js/dialog": "^1.32.0",
+    "@zag-js/hover-card": "^1.32.0",
+    "@zag-js/menu": "^1.32.0",
+    "@zag-js/number-input": "1.32.0",
+    "@zag-js/pagination": "1.32.0",
+    "@zag-js/popover": "^1.32.0",
+    "@zag-js/progress": "^1.32.0",
+    "@zag-js/radio-group": "^1.32.0",
+    "@zag-js/select": "^1.32.0",
+    "@zag-js/slider": "^1.32.0",
+    "@zag-js/switch": "^1.32.0",
+    "@zag-js/tabs": "^1.32.0",
+    "@zag-js/tags-input": "^1.32.0",
+    "@zag-js/toast": "^1.32.0",
+    "@zag-js/toggle": "^1.32.0",
+    "@zag-js/toggle-group": "^1.32.0",
+    "@zag-js/tooltip": "^1.32.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.1.0",
+    "tailwindcss": "^4.0.0",
+    "@zag-js/date-picker": "^1.32.0",
     "zod": "^3.24.2"
+  },
+  "peerDependencies": {
+    "@zag-js/react": "^1.32.0",
+    "@zag-js/vue": "^1.32.0"
+  },
+  "peerDependenciesMeta": {
+    "@zag-js/react": {
+      "optional": true
+    },
+    "@zag-js/vue": {
+      "optional": true
+    }
   }
 }

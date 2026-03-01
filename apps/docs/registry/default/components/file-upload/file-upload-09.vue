@@ -1,0 +1,49 @@
+<script setup lang="ts"></script>
+<template>
+<div class="flex flex-col gap-2">
+      
+      <div
+        role="button"
+        class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-40 flex-col items-center justify-center rounded-xl border border-dashed p-4 transition-colors has-disabled:pointer-events-none has-disabled:opacity-50 has-[input:focus]:ring-[3px]"
+      >
+        <input class="sr-only" aria-label="Upload files" />
+
+        <div class="flex flex-col items-center justify-center text-center">
+          <div
+            class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
+            aria-hidden="true"
+          >
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+          </div>
+          <p class="mb-1.5 text-sm font-medium">Upload files</p>
+          <p class="text-muted-foreground mb-2 text-xs">Drag & drop or click to browse</p>
+          <div class="text-muted-foreground/70 flex flex-wrap justify-center gap-1 text-xs">
+            <span>All files</span>
+            <span>∙</span>
+            <span>Max 10 files</span>
+            <span>∙</span>
+            <span>Up to 100MB</span>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+      
+
+      <p
+        aria-live="polite"
+        role="region"
+        class="text-muted-foreground mt-2 text-center text-xs"
+      >
+        Multiple files uploader w/ list ∙ 
+        <a
+          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
+          class="hover:text-foreground underline"
+        >
+          API
+        </a>
+      </p>
+    </div>
+</template>

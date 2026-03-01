@@ -1,5 +1,4 @@
-import { Badge } from '../../ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'
+import { Badge, Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'
 
 export default function Component() {
   return (

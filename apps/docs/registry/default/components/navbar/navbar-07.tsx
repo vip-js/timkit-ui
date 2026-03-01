@@ -1,10 +1,3 @@
-import { SelectTrigger } from '@radix-ui/react-select'
-import { ChevronsUpDown } from 'lucide-react'
-
-import Logo from '@/registry/default/components/navbar-components/logo'
-import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
-import UserMenu from '@/registry/default/components/navbar-components/user-menu'
-
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -12,15 +5,22 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from '../../ui/breadcrumb'
-import { Button } from '../../ui/button'
-import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
-import { Select, SelectContent, SelectItem, SelectValue } from '../../ui/select'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@timui/react'
+import { ChevronsUpDown } from 'lucide-react'
+
+import Logo from '@/registry/default/components/navbar-components/logo'
+import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu'
+import UserMenu from '@/registry/default/components/navbar-components/user-menu'
 
 export default function Component() {
   return (

@@ -3,14 +3,13 @@ type TailEntry = {
   code?: string
 }
 
-type FrameworkKey = 'react' | 'vue' | 'html' | 'svelte'
+type FrameworkKey = 'react' | 'vue' | 'html'
 
 const FRAMEWORK_CONFIG: Record<FrameworkKey, { label: string; tailKey: string; language: string }> =
   {
     react: { label: 'React', tailKey: 'jsxTail', language: 'tsx' },
     vue: { label: 'Vue', tailKey: 'vueTail', language: 'vue' },
     html: { label: 'HTML', tailKey: 'htmlTail', language: 'html' },
-    svelte: { label: 'Svelte', tailKey: 'svelteTail', language: 'svelte' },
   }
 
 export type SectionCodeFile = {
@@ -26,10 +25,10 @@ export type SectionCodeGroup = {
   language: string
 }
 
-const isRecord = (value: unknown): value is Record<string, unknown> =>
+const isRecord = (value: object): value is Record<string, object> =>
   typeof value === 'object' && value !== null
 
-export const extractSectionCode = (ltr: unknown, prefix: string): SectionCodeGroup[] => {
+export const extractSectionCode = (ltr: object, prefix: string): SectionCodeGroup[] => {
   if (!isRecord(ltr)) return []
 
   const groups: SectionCodeGroup[] = []

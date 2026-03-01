@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-4">
+      <popover >
+        <div class="grid grid-cols-2 place-items-center gap-4">
+          
+        </div>
+
+        <popover-trigger asChild>
+          <button variant="outline">Start tour</button>
+        </popover-trigger>
+
+        <popover-content
+          class="max-w-[280px] py-3 shadow-none"
+          side='right' showArrow
+        >
+          <div class="space-y-3">
+            <div class="space-y-1">
+              <p class="text-[13px] font-medium"></p>
+              <p class="text-muted-foreground text-xs"></p>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-muted-foreground text-xs">
+                /
+              </span>
+              <button class="text-xs font-medium hover:underline" >
+                'Next'
+              </button>
+            </div>
+          </div>
+        </popover-content>
+      </popover>
+    </div>

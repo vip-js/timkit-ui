@@ -1,8 +1,16 @@
 
 > @timui/weapp@0.0.1 lint /Users/jiawei01.mao/sine/timkit-ui/packages/weapp
-> ESLINT_USE_FLAT_CONFIG=false eslint .
+> eslint . --ext .js,.jsx,.ts,.tsx
 
-Pages directory cannot be found at /Users/jiawei01.mao/sine/timkit-ui/packages/weapp/pages or /Users/jiawei01.mao/sine/timkit-ui/packages/weapp/src/pages. If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
-Warning: React version was set to "detect" in eslint-plugin-react settings, but the "react" package is not installed. Assuming latest React version for linting.
-(node:52779) ESLintRCWarning: You are using an eslintrc configuration file, which is deprecated and support will be removed in v10.0.0. Please migrate to an eslint.config.js file. See https://eslint.org/docs/latest/use/configure/migration-guide for details. An eslintrc configuration file is used because you have the ESLINT_USE_FLAT_CONFIG environment variable set to false. If you want to use an eslint.config.js file, remove the environment variable. If you want to find the location of the eslintrc configuration file, use the --debug flag.
-(Use `node --trace-warnings ...` to show where the warning was created)
+
+/Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist/datefield/datefield.js
+  9825:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
+  9838:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
+
+/Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist/utils.js
+  24500:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
+  24513:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
+
+✖ 4 problems (0 errors, 4 warnings)
+  0 errors and 4 warnings potentially fixable with the `--fix` option.
+

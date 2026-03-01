@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { getLocalTimeZone, today } from '@internationalized/date'
+import { Calendar } from '@timui/react'
 import type { DateValue } from 'react-aria-components'
-
-import { Calendar } from '../../ui/calendar'
 
 export default function Component() {
   const [date, setDate] = useState<DateValue | null>(today(getLocalTimeZone()))

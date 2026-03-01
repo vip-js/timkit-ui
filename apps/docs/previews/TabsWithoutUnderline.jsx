@@ -1,14 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@timui/react";
 export default function TabsWithoutUnderline() {
   const [selectedTab, setSelectedTab] = React.useState("Overview");
-
   const tabItems = [
     "Overview",
     "Integration",
@@ -16,27 +9,26 @@ export default function TabsWithoutUnderline() {
     "Transactions",
     "plans",
   ];
-
   return (
-    <Tabs.Root
+    <Tabs
       className="max-w-screen-xl mt-2 mx-auto px-4 md:px-8"
       value={selectedTab}
       onValueChange={(val) => setSelectedTab(val)}
     >
-      <Tabs.List
+      <TabsList
         className="hidden gap-x-3 py-1 overflow-x-auto px-px text-sm sm:flex"
         aria-label="Manage your account"
       >
         {tabItems.map((item, idx) => (
-          <Tabs.Trigger
+          <TabsTrigger
             key={idx}
             className="data-[state=active]:bg-gray-100 data-[state=active]:text-gray-700 data-[state=active]:shadow-sm outline-gray-800 py-1.5 px-3 rounded-lg duration-150 text-gray-500 hover:text-gray-700 hover:bg-gray-100 active:bg-gray-100 font-medium"
             value={item}
           >
             {item}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-      </Tabs.List>
+      </TabsList>
       <div className="relative text-gray-500 sm:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,14 +55,13 @@ export default function TabsWithoutUnderline() {
         </select>
       </div>
       {tabItems.map((item, idx) => (
-        <Tabs.Content key={idx} className="py-6" value={item}>
+        <TabsContent key={idx} className="py-6" value={item}>
           <p className="text-xs leading-normal">
             This is <b>{item}</b> Tab
           </p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
-    </Tabs.Root>
+    </Tabs>
   );
 };
-
         

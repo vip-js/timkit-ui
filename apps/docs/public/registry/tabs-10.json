@@ -2,15 +2,15 @@
   "name": "tabs-10",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/scroll-area.json",
-    "https://originui.com/r/tabs.json"
+    "https://ui.timkit.cn/r/scroll-area.json",
+    "https://ui.timkit.cn/r/tabs.json"
   ],
   "files": [
     {
       "path": "registry/default/components/tabs/tabs-10.tsx",
       "type": "registry:component",
       "target": "components/ui/tabs-10.tsx",
-      "content": "import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-react'\n\nimport { ScrollArea, ScrollBar } from '../../ui/scroll-area'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs'\n\nexport default function Component() {\n  return (\n    <Tabs defaultValue=\"tab-1\">\n      <ScrollArea>\n        <TabsList className=\"bg-background mb-3 h-auto -space-x-px p-0 shadow-xs rtl:space-x-reverse\">\n          <TabsTrigger\n            value=\"tab-1\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <HouseIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Overview\n          </TabsTrigger>\n          <TabsTrigger\n            value=\"tab-2\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <PanelsTopLeftIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Projects\n          </TabsTrigger>\n          <TabsTrigger\n            value=\"tab-3\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <BoxIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Packages\n          </TabsTrigger>\n        </TabsList>\n        <ScrollBar orientation=\"horizontal\" />\n      </ScrollArea>\n      <TabsContent value=\"tab-1\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 1</p>\n      </TabsContent>\n      <TabsContent value=\"tab-2\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 2</p>\n      </TabsContent>\n      <TabsContent value=\"tab-3\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 3</p>\n      </TabsContent>\n    </Tabs>\n  )\n}\n"
+      "content": "import { ScrollArea, ScrollBar, Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/react'\nimport { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-react'\n\nexport default function Component() {\n  return (\n    <Tabs defaultValue=\"tab-1\">\n      <ScrollArea>\n        <TabsList className=\"bg-background mb-3 h-auto -space-x-px p-0 shadow-xs rtl:space-x-reverse\">\n          <TabsTrigger\n            value=\"tab-1\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <HouseIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Overview\n          </TabsTrigger>\n          <TabsTrigger\n            value=\"tab-2\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <PanelsTopLeftIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Projects\n          </TabsTrigger>\n          <TabsTrigger\n            value=\"tab-3\"\n            className=\"data-[state=active]:bg-muted data-[state=active]:after:bg-primary relative overflow-hidden rounded-none border py-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 first:rounded-s last:rounded-e\"\n          >\n            <BoxIcon className=\"-ms-0.5 me-1.5 opacity-60\" size={16} aria-hidden=\"true\" />\n            Packages\n          </TabsTrigger>\n        </TabsList>\n        <ScrollBar orientation=\"horizontal\" />\n      </ScrollArea>\n      <TabsContent value=\"tab-1\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 1</p>\n      </TabsContent>\n      <TabsContent value=\"tab-2\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 2</p>\n      </TabsContent>\n      <TabsContent value=\"tab-3\">\n        <p className=\"text-muted-foreground p-4 pt-1 text-center text-xs\">Content for Tab 3</p>\n      </TabsContent>\n    </Tabs>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -25,7 +25,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "tabs"
+    "category": "tabs",
+    "title": "Tabs · Basic tabs"
   },
   "categories": [
     "tabs"

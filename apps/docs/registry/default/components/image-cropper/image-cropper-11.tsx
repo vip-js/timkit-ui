@@ -1,9 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-
-import { Button } from '../../ui/button'
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '../../ui/cropper'
+import { Button, Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/react'
 
 // Define type for pixel crop area
 type Area = { x: number; y: number; width: number; height: number }

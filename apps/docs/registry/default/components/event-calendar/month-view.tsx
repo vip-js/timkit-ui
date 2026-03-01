@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useMemo, useState } from 'react'
+import { Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import {
   addDays,
   eachDayOfInterval,
@@ -28,8 +29,6 @@ import {
   type CalendarEvent,
 } from '@/registry/default/components/event-calendar'
 import { DefaultStartHour } from '@/registry/default/components/event-calendar/constants'
-
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 interface MonthViewProps {
   currentDate: Date

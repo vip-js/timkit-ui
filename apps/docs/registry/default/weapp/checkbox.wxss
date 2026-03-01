@@ -1,0 +1,2 @@
+/* packages/weapp/src/checkbox/checkbox.wxss */
+@import "../utilities.wxss";

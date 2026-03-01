@@ -1,15 +1,14 @@
-import { MailIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
+  Input,
+} from '@timui/react'
+import { MailIcon } from 'lucide-react'
 
 export default function Component() {
   return (

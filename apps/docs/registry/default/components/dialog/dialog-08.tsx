@@ -1,10 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { CircleAlertIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,9 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
+  Input,
+  Label,
+} from '@timui/react'
+import { CircleAlertIcon } from 'lucide-react'
 
 const PROJECT_NAME = 'Timkit UI'
 

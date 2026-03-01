@@ -1,22 +1,43 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as ToastPrimitives from '@radix-ui/react-toast'
-import { cn } from '@timui/shared'
-import { cva, type VariantProps } from 'class-variance-authority'
+import {
+  cn,
+  toastActionVariants,
+  toastCloseVariants,
+  toastDescriptionVariants,
+  toastTitleVariants,
+  toastVariants,
+  toastViewportVariants,
+  type ToastVariants,
+} from '@timui/core'
 import { XIcon } from 'lucide-react'
 
-const ToastProvider = ToastPrimitives.Provider
+import { Slot } from './slot'
+
+// Simple Context
+const ToastContext = React.createContext<{
+  close: () => void
+} | null>(null)
+
+type ToastProviderProps = {
+  children: React.ReactNode
+  swipeDirection?: 'left' | 'right' | 'up' | 'down'
+}
+
+const ToastProvider = ({ children, swipeDirection: _swipeDirection }: ToastProviderProps) => {
+  void _swipeDirection
+  return <>{children}</>
+}
 
 function ToastViewport({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>) {
+}: React.HTMLAttributes<HTMLOListElement>) {
   return (
-    <ToastPrimitives.Viewport
+    <ol
       className={cn(
-        'fixed top-0 right-0 z-50 flex max-h-screen w-full flex-col-reverse p-4 sm:top-auto sm:bottom-0 sm:flex-col md:max-w-[400px]',
+        toastViewportVariants(),
         className
       )}
       {...props}
@@ -24,110 +45,131 @@ function ToastViewport({
   )
 }
 
-const toastVariants = cva(
-  'group pointer-events-auto relative flex w-full items-center justify-between overflow-hidden rounded-md border p-4 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:data-[swipe-direction=left]:slide-out-to-left-full data-[state=closed]:data-[swipe-direction=right]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full',
-  {
-    variants: {
-      variant: {
-        default: 'border bg-background text-foreground',
-        destructive: 'destructive group border-destructive bg-destructive text-white',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
+const Toast = React.forwardRef<
+  HTMLLIElement,
+  React.HTMLAttributes<HTMLLIElement> &
+  ToastVariants & {
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
+    onPause?: () => void
+    onResume?: () => void
+  }
+>(({ className, variant, open, onOpenChange, onPause: _onPause, onResume: _onResume, ...props }, ref) => {
+  void _onPause
+  void _onResume
+
+  const handleClose = () => {
+    onOpenChange?.(false)
+  }
+
+  // Animation state handling using simple data attributes
+  // In a real implementation without Radix, we need 'mounting' logic or keeping it mounted until animation ends.
+  // 'use-toast' handles removing from array after delay.
+  // So we just render 'open' style or 'closed' style.
+
+  if (open === false) return null // Or animate out?
+  // Radix stays mounted for animation.
+
+  return (
+    <ToastContext.Provider value={{ close: handleClose }}>
+      <li
+        ref={ref}
+        data-state={open ? 'open' : 'closed'}
+        className={cn(toastVariants({ variant }), className)}
+        {...props}
+      />
+    </ToastContext.Provider>
+  )
+})
+Toast.displayName = "Toast"
+
+type ToastActionProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  altText?: string
+  asChild?: boolean
+}
+
+const ToastAction = React.forwardRef<HTMLButtonElement, ToastActionProps>(
+  ({ className, altText: _altText, asChild, ...props }, ref) => {
+    void _altText
+    const sharedProps = {
+      className: cn(toastActionVariants(), className),
+      ...props,
+    }
+
+    if (asChild) {
+      return <Slot ref={ref as React.Ref<HTMLElement>} {...sharedProps} />
+    }
+
+    return <button ref={ref} {...sharedProps} />
   }
 )
+ToastAction.displayName = "ToastAction"
 
-function Toast({
-  className,
-  variant,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
-  VariantProps<typeof toastVariants>) {
-  return <ToastPrimitives.Root className={cn(toastVariants({ variant }), className)} {...props} />
+type ToastCloseProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  asChild?: boolean
 }
 
-function ToastAction({
-  className,
-  asChild = false,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Action>) {
+const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(
+  ({ className, onClick, asChild, children, ...props }, ref) => {
+  const context = React.useContext(ToastContext)
+
+  const sharedProps = {
+    className: cn(toastCloseVariants(), className),
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+      context?.close()
+      onClick?.(e)
+    },
+    'toast-close': '',
+    ...props,
+  }
+
+  if (asChild) {
+    return <Slot ref={ref as React.Ref<HTMLElement>} {...sharedProps}>{children}</Slot>
+  }
+
   return (
-    <ToastPrimitives.Action
-      className={cn(
-        !asChild &&
-          'hover:bg-secondary focus:ring-ring group-[.destructive]:border-muted/40 hover:group-[.destructive]:border-destructive/30 hover:group-[.destructive]:bg-destructive focus:group-[.destructive]:ring-destructive focus-visible:border-ring focus-visible:ring-ring/50 inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-[color,box-shadow] outline-none hover:group-[.destructive]:text-white focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50',
-        className
-      )}
-      asChild={asChild}
-      {...props}
-    >
-      {props.children}
-    </ToastPrimitives.Action>
+    <button ref={ref} {...sharedProps}>
+      {children ?? <XIcon className="h-4 w-4" />}
+    </button>
   )
-}
+})
+ToastClose.displayName = "ToastClose"
 
-function ToastClose({
-  className,
-  asChild = false,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>) {
-  return (
-    <ToastPrimitives.Close
-      className={cn(
-        !asChild &&
-          'group focus-visible:border-ring focus-visible:ring-ring/50 absolute top-3 right-3 flex size-7 items-center justify-center rounded transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none',
-        className
-      )}
-      toast-close=""
-      asChild={asChild}
-      {...props}
-    >
-      {asChild ? (
-        props.children
-      ) : (
-        <XIcon
-          size={16}
-          className="opacity-60 transition-opacity group-hover:opacity-100"
-          aria-hidden="true"
-        />
-      )}
-    </ToastPrimitives.Close>
-  )
-}
+const ToastTitle = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(toastTitleVariants(), className)}
+    {...props}
+  />
+))
+ToastTitle.displayName = "ToastTitle"
 
-function ToastTitle({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>) {
-  return <ToastPrimitives.Title className={cn('text-sm font-medium', className)} {...props} />
-}
-
-function ToastDescription({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>) {
-  return (
-    <ToastPrimitives.Description
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
-    />
-  )
-}
+const ToastDescription = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(toastDescriptionVariants(), className)}
+    {...props}
+  />
+))
+ToastDescription.displayName = "ToastDescription"
 
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
-
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
 export {
-  Toast,
-  ToastAction,
-  ToastClose,
-  ToastDescription,
   ToastProvider,
-  ToastTitle,
   ToastViewport,
-  type ToastActionElement,
+  Toast,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastAction,
   type ToastProps,
+  type ToastActionElement
 }

@@ -1,9 +1,8 @@
+import { Button } from '@timui/react'
 import { SparklesIcon, UploadIcon } from 'lucide-react'
 
 import AppToggle from '@/registry/default/components/navbar-components/app-toggle'
 import TeamSwitcher from '@/registry/default/components/navbar-components/team-switcher'
-
-import { Button } from '../../ui/button'
 
 const teams = ['Acme Inc.', 'Timkit UI', 'Junon']
 

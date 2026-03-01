@@ -1,11 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 import { CheckIcon, CopyIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   const [copied, setCopied] = useState<boolean>(false)

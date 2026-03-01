@@ -1,0 +1,33 @@
+
+  <view class="space-y-3">
+    <view class="flex items-center gap-2">
+      <checkbox id="checkbox-18-id-1" />
+      <label for="checkbox-18-id-1">Natural Wonders</label>
+    </view>
+    <view class="ms-6 space-y-3">
+      <view class="flex items-center gap-2">
+        <checkbox id="checkbox-18-id-2" checked />
+        <label for="checkbox-18-id-2">Mountains</label>
+      </view>
+      <view>
+        <view class="flex items-center gap-2">
+          <checkbox id="checkbox-18-id-3" />
+          <label for="checkbox-18-id-3">Waterfalls</label>
+        </view>
+        <view class="ms-6 space-y-3">
+          <view class="flex items-center gap-2">
+            <checkbox id="checkbox-18-id-4" />
+            <label for="checkbox-18-id-4">Niagara Falls</label>
+          </view>
+          <view class="flex items-center gap-2">
+            <checkbox id="checkbox-18-id-5" checked />
+            <label for="checkbox-18-id-5">Angel Falls</label>
+          </view>
+        </view>
+      </view>
+      <view class="flex items-center gap-2">
+        <checkbox id="checkbox-18-id-6" />
+        <label for="checkbox-18-id-6">Grand Canyon</label>
+      </view>
+    </view>
+  </view>

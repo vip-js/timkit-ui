@@ -1,0 +1,10 @@
+<view 
+  class="{{className}}"
+  bindtap="onTap"
+  data-pressed="{{api.pressed}}"
+  data-disabled="{{disabled}}"
+  role="button"
+  aria-pressed="{{api.pressed}}"
+>
+  <slot></slot>
+</view>

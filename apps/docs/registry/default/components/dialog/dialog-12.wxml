@@ -1,0 +1,43 @@
+
+    <dialog>
+      <dialog-trigger asChild>
+        <button variant="outline">OTP code</button>
+      </dialog-trigger>
+      <dialog-content>
+        <view class="flex flex-col items-center gap-2">
+          <view
+            class="flex size-11 shrink-0 items-center justify-center rounded-full border"
+            aria-hidden="true"
+          >
+            <svg
+              class="stroke-zinc-800 dark:stroke-zinc-100"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 32 32"
+              aria-hidden="true"
+            >
+              <circle cx="16" cy="16" r="12" fill="none" strokeWidth="8" />
+            </svg>
+          </view>
+          <dialog-header>
+            <dialog-title class="sm:text-center">Enter confirmation code</dialog-title>
+            <dialog-description class="sm:text-center">
+              Check your email and enter the code - Try 6548
+            </dialog-description>
+          </dialog-header>
+        </view>
+
+        <view class="space-y-4">
+          <view class="flex justify-center">
+            <view class="flex gap-2"><view class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></view><view class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></view><view class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></view><view class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></view></view>
+          </view>
+          <p class="text-center text-sm">
+            <a class="underline hover:no-underline" href="#">
+              Resend code
+            </a>
+          </p>
+        </view>
+      </dialog-content>
+    </dialog>
+  

@@ -1,0 +1,4 @@
+<view class="*:not-first:mt-2">
+      <label for="input-01-id">Simple input</label>
+      <input id="input-01-id" placeholder="Email" type="email" />
+    </view>

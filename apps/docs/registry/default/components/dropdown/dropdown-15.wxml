@@ -1,0 +1,24 @@
+<view>
+      <dropdown-menu>
+        <dropdown-menu-trigger asChild>
+          <button size="icon" variant="outline" aria-label="Select theme">
+            
+            
+          </button>
+        </dropdown-menu-trigger>
+        <dropdown-menu-content class="min-w-32">
+          <dropdown-menu-item >
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            <span>Light</span>
+          </dropdown-menu-item>
+          <dropdown-menu-item >
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            <span>Dark</span>
+          </dropdown-menu-item>
+          <dropdown-menu-item >
+             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            <span>System</span>
+          </dropdown-menu-item>
+        </dropdown-menu-content>
+      </dropdown-menu>
+    </view>

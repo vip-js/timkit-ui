@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from '@timui/react'
 import {
   AlertCircleIcon,
   FileArchiveIcon,
@@ -20,8 +21,6 @@ import {
   useFileUpload,
   type FileWithPreview,
 } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
 
 // Create some dummy initial files
 const initialFiles = [

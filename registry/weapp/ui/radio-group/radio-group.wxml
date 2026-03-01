@@ -1,0 +1,7 @@
+<view 
+  class="grid gap-2 {{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+  role="radiogroup"
+>
+  <slot />
+</view>

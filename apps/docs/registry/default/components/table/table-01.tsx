@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../../ui/table'
+} from '@timui/react'
 
 const items = [
   {

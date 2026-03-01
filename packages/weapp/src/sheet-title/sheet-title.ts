@@ -1,8 +1,11 @@
-import { sheetTitleVariants } from '@timui/shared'
+import { sheetTitleVariants } from '@timui/core'
 
 import { resolveClasses } from '../utils'
 
 Component({
+  options: {
+    styleIsolation: "apply-shared",
+  },
   properties: {
     extClass: { type: String, value: '' },
   },

@@ -1,0 +1,21 @@
+<popover>
+      <popover-trigger asChild>
+        <button variant="outline">Tooltip-like with steps</button>
+      </popover-trigger>
+      <popover-content class="max-w-[280px] py-3 shadow-none" side="top">
+        <view class="space-y-3">
+          <view class="space-y-1">
+            <p class="text-[13px] font-medium"></p>
+            <p class="text-muted-foreground text-xs"></p>
+          </view>
+          <view class="flex items-center justify-between gap-2">
+            <span class="text-muted-foreground text-xs">
+              /
+            </span>
+            <button class="text-xs font-medium hover:underline" >
+              'Next'
+            </button>
+          </view>
+        </view>
+      </popover-content>
+    </popover>

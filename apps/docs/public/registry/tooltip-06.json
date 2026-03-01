@@ -2,15 +2,15 @@
   "name": "tooltip-06",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/button.json",
-    "https://originui.com/r/tooltip.json"
+    "https://ui.timkit.cn/r/button.json",
+    "https://ui.timkit.cn/r/tooltip.json"
   ],
   "files": [
     {
       "path": "registry/default/components/tooltip/tooltip-06.tsx",
       "type": "registry:component",
       "target": "components/ui/tooltip-06.tsx",
-      "content": "import { Button } from '../../ui/button'\nimport { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'\n\nexport default function Component() {\n  return (\n    <TooltipProvider delayDuration={0}>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <Button variant=\"outline\" size=\"sm\">\n            W/ image\n          </Button>\n        </TooltipTrigger>\n        <TooltipContent className=\"py-3\">\n          <div className=\"space-y-2\">\n            <img\n              className=\"w-full rounded\"\n              src=\"/dialog-content.png\"\n              width={382}\n              height={216}\n              alt=\"Content image\"\n            />\n            <div className=\"space-y-1\">\n              <p className=\"text-[13px] font-medium\">Tooltip with title and icon</p>\n              <p className=\"text-muted-foreground text-xs\">\n                Tooltips are made to be highly customizable, with features like dynamic placement,\n                rich content, and a robust API.\n              </p>\n            </div>\n          </div>\n        </TooltipContent>\n      </Tooltip>\n    </TooltipProvider>\n  )\n}\n"
+      "content": "import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <TooltipProvider delayDuration={0}>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <Button variant=\"outline\" size=\"sm\">\n            W/ image\n          </Button>\n        </TooltipTrigger>\n        <TooltipContent className=\"py-3\">\n          <div className=\"space-y-2\">\n            <img\n              className=\"w-full rounded\"\n              src=\"/dialog-content.png\"\n              width={382}\n              height={216}\n              alt=\"Content image\"\n            />\n            <div className=\"space-y-1\">\n              <p className=\"text-[13px] font-medium\">Tooltip with title and icon</p>\n              <p className=\"text-muted-foreground text-xs\">\n                Tooltips are made to be highly customizable, with features like dynamic placement,\n                rich content, and a robust API.\n              </p>\n            </div>\n          </div>\n        </TooltipContent>\n      </Tooltip>\n    </TooltipProvider>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -25,7 +25,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "tooltip"
+    "category": "tooltip",
+    "title": "Tooltip · Overlay Pattern"
   },
   "categories": [
     "tooltip"

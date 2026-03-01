@@ -1,15 +1,11 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Button, Calendar, Label, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { DateRange } from 'react-day-picker'
-
-import { Button } from '../../ui/button'
-import { Calendar } from '../../ui/calendar'
-import { Label } from '../../ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 export default function Component() {
   const id = useId()
@@ -19,7 +15,7 @@ export default function Component() {
     <div>
       <div className="*:not-first:mt-2">
         <Label htmlFor={id}>Date range picker</Label>
-        <Popover>
+        <Popover ids={{ trigger: id }}>
           <PopoverTrigger asChild>
             <Button
               id={id}

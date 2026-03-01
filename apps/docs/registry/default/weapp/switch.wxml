@@ -1,0 +1,12 @@
+<view 
+  class="{{className}}"
+  data-slot="switch"
+  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  bindtap="handleTap"
+>
+  <view 
+    class="{{thumbClassName}} {{checked ? 'translate-x-5' : 'translate-x-0'}}"
+    data-slot="switch-thumb"
+    data-state="{{checked ? 'checked' : 'unchecked'}}"
+  ></view>
+</view>

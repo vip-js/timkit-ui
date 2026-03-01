@@ -6,13 +6,19 @@
       "path": "registry/default/ui/input.tsx",
       "type": "registry:ui",
       "target": "components/ui/input.tsx",
-      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from '@timui/shared'\n\nfunction Input({ className, type, ...props }: React.ComponentProps<'input'>) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        'border-input file:text-foreground placeholder:text-muted-foreground/70 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',\n        'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',\n        'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',\n        type === 'search' &&\n          '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',\n        type === 'file' &&\n          'text-muted-foreground/70 file:border-input file:text-foreground p-0 pr-3 italic file:me-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-sm file:font-medium file:not-italic',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n"
+      "content": "'use client'\n\nimport * as React from 'react'\nimport { cn } from \"@/lib/utils\"\n\nfunction Input({ className, type, ...props }: React.ComponentProps<'input'>) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        'border-input file:text-foreground placeholder:text-muted-foreground/70 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',\n        'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',\n        'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',\n        type === 'search' &&\n          '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',\n        type === 'file' &&\n          'text-muted-foreground/70 file:border-input file:text-foreground p-0 pr-3 italic file:me-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-sm file:font-medium file:not-italic',\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n"
     },
     {
       "path": "registry/default/vue/input.vue",
+      "type": "registry:ui",
       "target": "components/ui/input.vue",
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from 'vue'\nimport { cn } from '@/lib/utils'\nimport { useVModel } from '@vueuse/core'\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\nconst props = defineProps<{\n  class?: HTMLAttributes['class']\n  defaultValue?: string | number\n}>()\n\nconst modelValue = defineModel<string | number>({ required: false })\n</script>\n\n<template>\n  <input\n    v-model=\"modelValue\"\n    :class=\"\n      cn(\n        'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',\n        props.class,\n      )\n    \"\n    v-bind=\"$attrs\"\n  />\n</template>\n"
+    },
+    {
+      "path": "registry/default/vue/input/input.vue",
+      "target": "components/ui/input/input.vue",
       "type": "registry:component",
-      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed } from \"vue\";\nimport { cn } from \"@timui/shared\";\n\ninterface Props {\n  defaultValue?: string | number;\n  modelValue?: string | number;\n  class?: HTMLAttributes[\"class\"];\n  type?: string;\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  type: \"text\",\n});\n\nconst emits = defineEmits<{\n  (e: \"update:modelValue\", payload: string | number): void;\n}>();\n\nconst modelValue = computed({\n  get: () => props.modelValue ?? props.defaultValue,\n  set: (value) => emits(\"update:modelValue\", value as string),\n});\n\nconst calculatedClass = computed(() => {\n  return cn(\n    \"border-input file:text-foreground placeholder:text-muted-foreground/70 flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-sm shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\",\n    \"focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]\",\n    \"aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive\",\n    props.type === \"search\" &&\n      \"[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none [&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none\",\n    props.type === \"file\" &&\n      \"text-muted-foreground/70 file:border-input file:text-foreground p-0 pr-3 italic file:me-3 file:h-full file:border-0 file:border-r file:border-solid file:bg-transparent file:px-3 file:text-sm file:font-medium file:not-italic\",\n    props.class\n  );\n});\n</script>\n\n<template>\n  <input\n    :type=\"type\"\n    :class=\"calculatedClass\"\n    v-model=\"modelValue\"\n    data-slot=\"input\"\n  />\n</template>\n"
+      "content": "<script setup lang=\"ts\">\nimport { type HTMLAttributes, computed, useAttrs } from 'vue'\nimport type { AssertNoExtraKeys, InputVueProps } from \"@/lib/utils\"\nimport { cn, inputVariants } from \"@/lib/utils\"\n\ndefineOptions({\n  inheritAttrs: false,\n})\n\ntype InputProps = InputVueProps & { class?: HTMLAttributes['class'] }\ntype _InputPropsGuard = AssertNoExtraKeys<\n  InputProps,\n  InputVueProps & { class?: HTMLAttributes['class'] }\n>\n\nconst props = defineProps<InputProps>()\nconst attrs = useAttrs()\n\nconst modelValue = defineModel<string | number>({ required: false })\nconst inputType = computed(() => {\n  const type = attrs.type\n  if (type === 'search') return 'search'\n  if (type === 'file') return 'file'\n  return 'default'\n})\n</script>\n\n<template>\n  <input\n    v-model=\"modelValue\"\n    :class=\"\n      cn(\n        inputVariants({ type: inputType }),\n        props.class,\n      )\n    \"\n    v-bind=\"$attrs\"\n  />\n</template>\n"
     },
     {
       "path": "registry/default/html/input.html",
@@ -21,16 +27,22 @@
       "content": "<input\n  type=\"text\"\n  placeholder=\"Placeholder\"\n  class=\"border-input placeholder:text-muted-foreground block w-full rounded-md border bg-white px-3 py-2 text-sm shadow-sm transition focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black/10 disabled:opacity-50 disabled:cursor-not-allowed\"\n/>\n"
     },
     {
-      "path": "registry/default/svelte/input.svelte",
-      "target": "components/ui/input.svelte",
-      "type": "registry:component",
-      "content": "<script lang=\"ts\">\n  export let value: string = \"\"\n  export let placeholder: string = \"Placeholder\"\n  export let type: string = \"text\"\n  export let invalid: boolean = false\n\n  const base =\n    \"border-input placeholder:text-muted-foreground block w-full rounded-md border bg-white px-3 py-2 text-sm shadow-sm transition focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black/10 disabled:opacity-50 disabled:cursor-not-allowed\"\n  $: classes = base + (invalid ? \" border-red-500 ring-red-100\" : \"\")\n</script>\n\n<input\n  bind:value\n  {placeholder}\n  {type}\n  class={classes}\n  aria-invalid={invalid}\n/>\n\n"
-    },
-    {
       "path": "registry/default/weapp/input.wxml",
       "target": "components/ui/input.wxml",
       "type": "registry:component",
-      "content": "<input \n  class=\"tk-input {{extClass}}\" \n  value=\"{{value}}\" \n  type=\"{{type}}\" \n  password=\"{{password}}\" \n  placeholder=\"{{placeholder}}\" \n  placeholder-class=\"tk-input-placeholder\" \n  disabled=\"{{disabled}}\" \n  bindinput=\"handleInput\"\n  bindfocus=\"handleFocus\"\n  bindblur=\"handleBlur\"\n/>\n"
+      "content": "<input \n  class=\"flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 {{extClass}}\" \n  value=\"{{value}}\" \n  type=\"{{type}}\" \n  password=\"{{password}}\" \n  placeholder=\"{{placeholder}}\" \n  placeholder-class=\"text-muted-foreground opacity-70\" \n  disabled=\"{{disabled}}\" \n  bindinput=\"handleInput\"\n  bindfocus=\"handleFocus\"\n  bindblur=\"handleBlur\"\n/>\n"
+    },
+    {
+      "path": "registry/default/weapp/input.wxss",
+      "target": "components/ui/input.wxss",
+      "type": "registry:component",
+      "content": "/* Styles handled by Tailwind CSS */\n"
+    },
+    {
+      "path": "registry/default/weapp/input.ts",
+      "target": "components/ui/input.ts",
+      "type": "registry:component",
+      "content": "Component({\n  externalClasses: ['ext-class'],\n  properties: {\n    value: {\n      type: String,\n      value: '',\n    },\n    type: {\n      type: String,\n      value: 'text',\n    },\n    password: {\n      type: Boolean,\n      value: false,\n    },\n    placeholder: {\n      type: String,\n      value: '',\n    },\n    disabled: {\n      type: Boolean,\n      value: false,\n    },\n  },\n  methods: {\n    handleInput(e: any) {\n      this.triggerEvent('input', e.detail)\n    },\n    handleFocus(e: any) {\n      this.triggerEvent('focus', e.detail)\n    },\n    handleBlur(e: any) {\n      this.triggerEvent('blur', e.detail)\n    },\n  },\n})\n"
     }
   ],
   "meta": {
@@ -38,8 +50,7 @@
       "react",
       "vue",
       "weapp",
-      "html",
-      "svelte"
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false

@@ -1,13 +1,11 @@
 'use client'
 
 import React, { useId, useState } from 'react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { Input, Label } from '@timui/react'
 import { ChevronDownIcon, PhoneIcon } from 'lucide-react'
 import * as RPNInput from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
 
 export default function Component() {
   const id = useId()

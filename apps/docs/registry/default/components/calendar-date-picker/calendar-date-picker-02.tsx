@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { getLocalTimeZone, today } from '@internationalized/date'
+import { RangeCalendar } from '@timui/react'
 import type { DateRange } from 'react-aria-components'
-
-import { RangeCalendar } from '../../ui/calendar-rac'
 
 export default function Component() {
   const now = today(getLocalTimeZone())

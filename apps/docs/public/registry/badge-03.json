@@ -2,14 +2,32 @@
   "name": "badge-03",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/badge.json"
+    "https://ui.timkit.cn/r/badge.json"
   ],
   "files": [
     {
       "path": "registry/default/components/badge/badge-03.tsx",
       "type": "registry:component",
       "target": "components/ui/badge-03.tsx",
-      "content": "import { ZapIcon } from 'lucide-react'\n\nimport { Badge } from '../../ui/badge'\n\nexport default function Component() {\n  return (\n    <Badge>\n      <ZapIcon className=\"-ms-0.5 opacity-60\" size={12} aria-hidden=\"true\" />\n      Badge\n    </Badge>\n  )\n}\n"
+      "content": "import { Badge } from '@timui/react'\n\nexport default function Component() {\n  return (\n    <Badge>\n      <svg\n        className=\"-ms-0.5 opacity-60\"\n        width={12}\n        height={12}\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth=\"2\"\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M13 2 3 14h9l-1 8 10-12h-9l1-8z\" />\n      </svg>\n      Badge\n    </Badge>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/badge/badge-03.vue",
+      "target": "components/ui/badge-03.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Badge } from '@/components/ui/badge'\n</script>\n\n<template>\n<Badge>\n      <svg\n        class=\"-ms-0.5 opacity-60\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M13 2 3 14h9l-1 8 10-12h-9l1-8z\" />\n      </svg>\n      Badge\n    </Badge>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/badge/badge-03.html",
+      "target": "components/ui/badge-03.html",
+      "type": "registry:component",
+      "content": "<span data-slot=\"badge\" class=\"inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80\"><svg\n        class=\"-ms-0.5 opacity-60\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"M13 2 3 14h9l-1 8 10-12h-9l1-8z\" />\n      </svg>\n      Badge</span>"
+    },
+    {
+      "path": "registry/default/components/badge/badge-03.wxml",
+      "target": "components/ui/badge-03/badge-03.wxml",
+      "type": "registry:component",
+      "content": "<badge><svg\n        class=\"-ms-0.5 opacity-60\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        \n      >\n        <path d=\"M13 2 3 14h9l-1 8 10-12h-9l1-8z\" />\n      </svg>\n      Badge</badge>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "badge"
+    "category": "badge",
+    "title": "Badge · With icon"
   },
   "categories": [
     "badge"

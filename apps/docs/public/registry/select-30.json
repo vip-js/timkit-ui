@@ -2,15 +2,33 @@
   "name": "select-30",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/select.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/select.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/select/select-30.tsx",
       "type": "registry:component",
       "target": "components/ui/select-30.tsx",
-      "content": "import { useId, useMemo } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'\n\nexport default function Component() {\n  const id = useId()\n\n  const timezones = Intl.supportedValuesOf('timeZone')\n\n  const formattedTimezones = useMemo(() => {\n    return timezones\n      .map((timezone) => {\n        const formatter = new Intl.DateTimeFormat('en', {\n          timeZone: timezone,\n          timeZoneName: 'shortOffset',\n        })\n        const parts = formatter.formatToParts(new Date())\n        const offset = parts.find((part) => part.type === 'timeZoneName')?.value || ''\n        const modifiedOffset = offset === 'GMT' ? 'GMT+0' : offset\n\n        return {\n          value: timezone,\n          label: `(${modifiedOffset}) ${timezone.replace(/_/g, ' ')}`,\n          numericOffset: parseInt(offset.replace('GMT', '').replace('+', '') || '0'),\n        }\n      })\n      .sort((a, b) => a.numericOffset - b.numericOffset)\n  }, [timezones])\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Timezone select</Label>\n      <Select defaultValue=\"Europe/London\">\n        <SelectTrigger id={id}>\n          <SelectValue placeholder=\"Select timezone\" />\n        </SelectTrigger>\n        <SelectContent>\n          {formattedTimezones.map(({ value, label }) => (\n            <SelectItem key={value} value={value}>\n              {label}\n            </SelectItem>\n          ))}\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n"
+      "content": "import { useId, useMemo } from 'react'\nimport { Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n\n  const timezones = Intl.supportedValuesOf('timeZone')\n\n  const formattedTimezones = useMemo(() => {\n    return timezones\n      .map((timezone) => {\n        const formatter = new Intl.DateTimeFormat('en', {\n          timeZone: timezone,\n          timeZoneName: 'shortOffset',\n        })\n        const parts = formatter.formatToParts(new Date())\n        const offset = parts.find((part) => part.type === 'timeZoneName')?.value || ''\n        const modifiedOffset = offset === 'GMT' ? 'GMT+0' : offset\n\n        return {\n          value: timezone,\n          label: `(${modifiedOffset}) ${timezone.replace(/_/g, ' ')}`,\n          numericOffset: parseInt(offset.replace('GMT', '').replace('+', '') || '0'),\n        }\n      })\n      .sort((a, b) => a.numericOffset - b.numericOffset)\n  }, [timezones])\n\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Timezone select</Label>\n      <Select defaultValue=\"Europe/London\">\n        <SelectTrigger id={id}>\n          <SelectValue placeholder=\"Select timezone\" />\n        </SelectTrigger>\n        <SelectContent>\n          {formattedTimezones.map(({ value, label }) => (\n            <SelectItem key={value} value={value}>\n              {label}\n            </SelectItem>\n          ))}\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/select/select-30.vue",
+      "target": "components/ui/select-30.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"select-30-id\">Timezone select</Label>\n      <Select defaultValue=\"Europe/London\">\n        <SelectTrigger id=\"select-30-id\">\n          <SelectValue placeholder=\"Select timezone\" />\n        </SelectTrigger>\n        <SelectContent>\n          \n            <SelectItem key=Europe/London value=Europe/London>\n              (GMT+0) Europe/London\n            </SelectItem>\n          \n\n            <SelectItem key=America/New_York value=America/New_York>\n              (GMT-4) America/New York\n            </SelectItem>\n          \n\n            <SelectItem key=Asia/Shanghai value=Asia/Shanghai>\n              (GMT+8) Asia/Shanghai\n            </SelectItem>\n          \n        </SelectContent>\n      </Select>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/select/select-30.html",
+      "target": "components/ui/select-30.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"select-30-id\">Timezone select</label>\n      <select defaultValue=\"Europe/London\">\n        <select-trigger id=\"select-30-id\">\n          <select-value placeholder=\"Select timezone\" />\n        </select-trigger>\n        <select-content>\n          \n            <select-item key=Europe/London value=Europe/London>\n              (GMT+0) Europe/London\n            </select-item>\n          \n\n            <select-item key=America/New_York value=America/New_York>\n              (GMT-4) America/New York\n            </select-item>\n          \n\n            <select-item key=Asia/Shanghai value=Asia/Shanghai>\n              (GMT+8) Asia/Shanghai\n            </select-item>\n          \n        </select-content>\n      </select>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/select/select-30.wxml",
+      "target": "components/ui/select-30/select-30.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"select-30-id\">Timezone select</label>\n      <select defaultValue=\"Europe/London\">\n        <select-trigger id=\"select-30-id\">\n          <select-value placeholder=\"Select timezone\" />\n        </select-trigger>\n        <select-content>\n          \n            <select-item key=Europe/London value=Europe/London>\n              (GMT+0) Europe/London\n            </select-item>\n          \n\n            <select-item key=America/New_York value=America/New_York>\n              (GMT-4) America/New York\n            </select-item>\n          \n\n            <select-item key=Asia/Shanghai value=Asia/Shanghai>\n              (GMT+8) Asia/Shanghai\n            </select-item>\n          \n        </select-content>\n      </select>\n    </view>"
     }
   ],
   "meta": {
@@ -22,11 +40,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "select"
+    "category": "select",
+    "title": "Select · With label"
   },
   "categories": [
     "select"

@@ -1,0 +1,10 @@
+<script setup lang="ts">
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+</script>
+<template>
+<div class="flex items-center gap-2 [--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]">
+      <Checkbox id="checkbox-03-id" checked />
+      <Label for="checkbox-03-id">Colored checkbox</Label>
+    </div>
+</template>

@@ -1,28 +1,38 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as ProgressPrimitive from '@radix-ui/react-progress'
-import { cn } from '@timui/shared'
+import { progressIndicatorVariants, progressRootVariants } from '@timui/core'
+import { cn } from '@timui/core'
+import { useProgress } from './progress/use-progress'
 
-function Progress({
-  className,
-  value,
-  ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+const Progress = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { value?: number | null; max?: number }
+>(({ className, value, max = 100, ...props }, ref) => {
+
+  const { progressValue, percent } = useProgress({ value, max })
+
   return (
-    <ProgressPrimitive.Root
-      data-slot="progress"
-      className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}
+    <div
+      ref={ref}
+      role="progressbar"
+      aria-valuemax={max}
+      aria-valuemin={0}
+      aria-valuenow={value ?? undefined}
+      data-max={max}
+      data-value={value}
+      data-state={progressValue === null ? 'indeterminate' : 'loading'}
+      className={cn(progressRootVariants(), className)}
       {...props}
     >
-      <ProgressPrimitive.Indicator
+      <div
         data-slot="progress-indicator"
-        className="bg-primary size-full flex-1 transition-all"
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        className={progressIndicatorVariants()}
+        style={{ transform: `translateX(-${100 - percent}%)` }}
       />
-    </ProgressPrimitive.Root>
+    </div>
   )
-}
+})
+Progress.displayName = "Progress"
 
 export { Progress }

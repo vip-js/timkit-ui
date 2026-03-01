@@ -1,0 +1,6 @@
+<view class="flex items-center gap-2">
+      <checkbox id="checkbox-05-id" checked />
+      <label for="checkbox-05-id" class="peer-data-[state=checked]:line-through">
+        Simple todo item
+      </label>
+    </view>

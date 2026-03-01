@@ -1,0 +1,7 @@
+<view
+  wx:if="{{!hidden}}"
+  class="{{className}}"
+  data-slot="avatar-fallback"
+>
+  <slot></slot>
+</view>

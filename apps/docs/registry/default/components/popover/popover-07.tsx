@@ -2,13 +2,19 @@
 
 import { useId, useRef, useState } from 'react'
 import { RiCodeFill, RiFacebookFill, RiMailLine, RiTwitterXFill } from '@remixicon/react'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Button,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@timui/react'
 import { CheckIcon, CopyIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   const id = useId()
@@ -53,7 +59,7 @@ export default function Component() {
                   id={id}
                   className="pe-9"
                   type="text"
-                  defaultValue="https://originui.com/Avx8HD"
+                  defaultValue="https://ui.timkit.cn/Avx8HD"
                   aria-label="Share link"
                   readOnly
                 />

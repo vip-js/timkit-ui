@@ -1,0 +1,3 @@
+<view class="{{className}}" aria-label="breadcrumb">
+  <slot></slot>
+</view>

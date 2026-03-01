@@ -1,4 +1,12 @@
 import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '@timui/react'
+import {
   Heading1Icon,
   Heading2Icon,
   MinusIcon,
@@ -6,15 +14,6 @@ import {
   TextQuoteIcon,
   TypeIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
 
 export default function Component() {
   return (

@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Toggle, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 import { BookmarkIcon } from 'lucide-react'
-
-import { Toggle } from '../../ui/toggle'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   const [bookmarked, setBookmarked] = useState<boolean>(false)

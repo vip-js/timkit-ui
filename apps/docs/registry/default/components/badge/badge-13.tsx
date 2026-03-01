@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { XIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
+import { Badge } from '@timui/react'
 
 export default function Component() {
   const [isActive, setIsActive] = useState(true)
@@ -18,7 +16,20 @@ export default function Component() {
         onClick={() => setIsActive(false)}
         aria-label="Delete"
       >
-        <XIcon size={14} aria-hidden="true" />
+        <svg
+          width={14}
+          height={14}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18" />
+          <path d="M6 6 18 18" />
+        </svg>
       </button>
     </Badge>
   )

@@ -1,0 +1,12 @@
+<view
+  data-slot="dropdown-menu-radio-item"
+  class="{{className}}"
+  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  data-disabled="{{disabled}}"
+  bindtap="onSelect"
+>
+  <view class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <view wx:if="{{checked}}" class="h-2 w-2 rounded-full bg-current"></view>
+  </view>
+  <slot></slot>
+</view>

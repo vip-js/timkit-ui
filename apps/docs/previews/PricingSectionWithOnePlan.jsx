@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Button, Card, CardContent } from "@timui/react";
 export default function PricingSectionWithOnePlan() {
-
     const plan = {
         name: "Basic plan",
         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -24,7 +17,6 @@ export default function PricingSectionWithOnePlan() {
             "Curabitur faucibus",
         ],
     }
-
     const features = [
         {
             name: "Scalable",
@@ -59,7 +51,6 @@ export default function PricingSectionWithOnePlan() {
                 </svg>
         },
     ]
-
     return (
         <section className='relative py-14'>
             <div className="max-w-screen-xl mx-auto text-gray-600 md:px-8">
@@ -96,8 +87,8 @@ export default function PricingSectionWithOnePlan() {
                             ))
                         }
                     </ul>
-                    <div className="flex-1 flex flex-col border-y mt-6 md:max-w-xl md:rounded-xl md:border md:border-x-none md:shadow-lg md:mt-0">
-                        <div className="p-4 py-8 border-b md:p-8">
+                    <Card className="flex-1 flex flex-col border-y mt-6 md:max-w-xl md:rounded-xl md:border md:border-x-none md:shadow-lg md:mt-0">
+                        <CardContent className="p-4 py-8 border-b md:p-8">
                             <div className="justify-between flex">
                                 <div className="max-w-xs">
                                     <span className='text-2xl text-gray-800 font-semibold sm:text-3xl'>
@@ -111,10 +102,10 @@ export default function PricingSectionWithOnePlan() {
                                     ${plan.price} <span className="text-xl text-gray-600 font-normal">/mo</span>
                                 </div>
                             </div>
-                            <button className='mt-4 px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
+                            <Button className='mt-4 px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700'>
                                 Get Started
-                            </button>
-                        </div>
+                            </Button>
+                        </CardContent>
                         <ul className='p-4 space-y-3 sm:grid sm:grid-cols-2 md:block md:p-8 lg:grid'>
                             <div className="pb-2 col-span-2 text-gray-800 font-medium">
                                 <p>Features</p>
@@ -137,11 +128,10 @@ export default function PricingSectionWithOnePlan() {
                                 ))
                             }
                         </ul>
-                    </div>
+                    </Card>
                 </div>
             </div>
         </section>
     );
 };
-
         

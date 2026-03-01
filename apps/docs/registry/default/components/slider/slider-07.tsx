@@ -1,7 +1,5 @@
-import { cn } from '@timui/shared'
-
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
+import { cn } from '@timui/core'
+import { Label, Slider } from '@timui/react'
 
 export default function Component() {
   const max = 12

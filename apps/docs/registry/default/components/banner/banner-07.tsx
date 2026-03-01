@@ -1,9 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { Eclipse, XIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
+import {
+  Banner,
+  BannerActions,
+  BannerContent,
+  BannerDescription,
+  BannerIcon,
+  Button,
+} from '@timui/react'
 
 export default function Component() {
   const [isVisible, setIsVisible] = useState(true)
@@ -11,37 +16,63 @@ export default function Component() {
   if (!isVisible) return null
 
   return (
-    <div className="dark bg-muted text-foreground px-4 py-3 md:py-2">
-      <div className="flex gap-2 md:items-center">
+    <Banner className="dark bg-muted text-foreground px-4 py-3 md:py-2">
+      <BannerContent className="gap-2 md:items-center">
         <div className="flex grow gap-3 md:items-center">
-          <Eclipse className="shrink-0 opacity-60 max-md:mt-0.5" size={16} aria-hidden="true" />
+          <BannerIcon className="opacity-60 max-md:mt-0.5">
+            <svg
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </BannerIcon>
           <div className="flex grow flex-col justify-between gap-3 md:flex-row md:items-center">
-            <p className="text-sm">
+            <BannerDescription className="text-sm text-foreground">
               It&lsquo;s live and ready to use! Start exploring the latest addition to your toolkit.
-            </p>
-            <div className="flex gap-2 max-md:flex-wrap">
+            </BannerDescription>
+            <BannerActions className="flex gap-2 max-md:flex-wrap">
               <Button size="sm" className="text-sm">
                 Download
               </Button>
               <Button variant="link" size="sm" className="text-sm">
                 Learn more
               </Button>
-            </div>
+            </BannerActions>
           </div>
         </div>
-        <Button
-          variant="ghost"
-          className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
-          onClick={() => setIsVisible(false)}
-          aria-label="Close banner"
-        >
-          <XIcon
-            size={16}
-            className="opacity-60 transition-opacity group-hover:opacity-100"
-            aria-hidden="true"
-          />
-        </Button>
-      </div>
-    </div>
+        <BannerActions className="shrink-0">
+          <Button
+            variant="ghost"
+            className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+            onClick={() => setIsVisible(false)}
+            aria-label="Close banner"
+          >
+            <svg
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-60 transition-opacity group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18" />
+              <path d="M6 6 18 18" />
+            </svg>
+          </Button>
+        </BannerActions>
+      </BannerContent>
+    </Banner>
   )
 }

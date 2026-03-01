@@ -26,18 +26,14 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
-        run: pnpm lint
+      - name: Build registry data
+        run: pnpm registry:build:all
 
-      - name: Typecheck
-        run: pnpm typecheck
+      - name: Validate registry coverage
+        run: pnpm registry:report
 
-      - name: Build
-        run: pnpm build
-
-      - name: Test
-        run: pnpm test
+      - name: Goal CI Gate
+        run: pnpm goal:ci:full
 
       - name: Bundle Analyze (Docs)
         run: pnpm --filter @timkit/docs next build --analyze || true
-

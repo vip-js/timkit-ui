@@ -2,15 +2,33 @@
   "name": "input-20",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-20.tsx",
       "type": "registry:component",
       "target": "components/ui/input-20.tsx",
-      "content": "import { useId } from 'react'\nimport { DownloadIcon } from 'lucide-react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with end icon button</Label>\n      <div className=\"flex rounded-md shadow-xs\">\n        <Input\n          id={id}\n          className=\"-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"Email\"\n          type=\"email\"\n        />\n        <button\n          className=\"border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\"\n          aria-label=\"Subscribe\"\n        >\n          <DownloadIcon size={16} aria-hidden=\"true\" />\n        </button>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Input, Label } from '@timui/react'\nimport { DownloadIcon } from 'lucide-react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with end icon button</Label>\n      <div className=\"flex rounded-md shadow-xs\">\n        <Input\n          id={id}\n          className=\"-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"Email\"\n          type=\"email\"\n        />\n        <button\n          className=\"border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\"\n          aria-label=\"Subscribe\"\n        >\n          <DownloadIcon size={16} aria-hidden=\"true\" />\n        </button>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-20.vue",
+      "target": "components/ui/input-20.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-20-id\">Input with end icon button</Label>\n      <div class=\"flex rounded-md shadow-xs\">\n        <Input id=\"input-20-id\"\n          class=\"-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"Email\"\n          type=\"email\"\n        />\n        <button\n          class=\"border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\"\n          aria-label=\"Subscribe\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-20.html",
+      "target": "components/ui/input-20.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-20-id\">Input with end icon button</label>\n      <div class=\"flex rounded-md shadow-xs\">\n        <input id=\"input-20-id\"\n          class=\"-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"Email\"\n          type=\"email\"\n        />\n        <button\n          class=\"border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\"\n          aria-label=\"Subscribe\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-20.wxml",
+      "target": "components/ui/input-20/input-20.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-20-id\">Input with end icon button</label>\n      <view class=\"flex rounded-md shadow-xs\">\n        <input id=\"input-20-id\"\n          class=\"-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10\"\n          placeholder=\"Email\"\n          type=\"email\"\n        />\n        <button\n          class=\"border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50\"\n          aria-label=\"Subscribe\"\n        >\n           <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4 opacity-60\"><circle cx=\"12\" cy=\"12\" r=\"9\" /></svg>\n        </button>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -20,11 +38,15 @@
       "button"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

@@ -1,0 +1,11 @@
+<view 
+    class="{{triggerApi.className}}"
+    id="{{triggerApi.id}}"
+    bindtap="handleClick"
+    aria-haspopup="dialog"
+    aria-expanded="{{triggerApi['aria-expanded']}}"
+    data-state="{{triggerApi['data-state']}}"
+    aria-controls="{{triggerApi['aria-controls']}}"
+>
+    <slot />
+</view>

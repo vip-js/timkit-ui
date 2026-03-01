@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "bin": {
+    "timui": "./dist/index.js",
     "timkit": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --tsconfig tsconfig.json",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

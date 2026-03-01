@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button } from "@timui/react";
 
 export default function FaqsWithSearchBox() {
-
     const faqsList = [
         {
             q: "What are some random questions to ask?",
@@ -35,7 +29,6 @@ export default function FaqsWithSearchBox() {
             href: "javascript:void(0)",
         }
     ]
-
     return (
         <section className='py-14'>
             <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -44,7 +37,7 @@ export default function FaqsWithSearchBox() {
                         How can we help?
                     </h3>
                     <p className="text-gray-600">
-                        Everything you need to know about the product. Can’t find the answer you’re looking for? feel free to {" "}
+                        Everything you need to know about the product. Can't find the answer you're looking for? feel free to {" "}
                         <a
                             className='text-indigo-600 font-semibold whitespace-nowrap'
                             href='javascript:void(0)'>
@@ -56,10 +49,10 @@ export default function FaqsWithSearchBox() {
                             <svg className="w-6 h-6 text-gray-400 absolute left-3 inset-y-0 my-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
                             </svg>
-                            <input
+                            <Input
                                 type="text"
                                 placeholder="Enter your email"
-                                className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                className="w-full pl-12 pr-3 py-2"
                             />
                         </div>
                     </form>
@@ -79,12 +72,12 @@ export default function FaqsWithSearchBox() {
                                     dangerouslySetInnerHTML={{ __html: item.a }}
                                     className='text-gray-600 leading-relaxed'>
                                 </p>
-                                <a href={item.href} className="flex items-center gap-x-1 text-sm text-indigo-600 hover:text-indigo-400 duration-150 font-medium">
+                                <Button variant="link" className="flex items-center gap-x-1 text-sm text-indigo-600 hover:text-indigo-400 font-medium">
                                     Read more
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                                         <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />
                                     </svg>
-                                </a>
+                                </Button>
                             </li>
                         ))}
                     </ul>
@@ -93,4 +86,3 @@ export default function FaqsWithSearchBox() {
         </section>
     );
 };
-        

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import "../shared/button.css"
+import "@timui/core/button.css"
 
 type Variant = "primary" | "secondary" | "ghost" | "destructive"
 type Size = "sm" | "md" | "lg"

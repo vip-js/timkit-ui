@@ -1,0 +1,17 @@
+<view class="*:not-first:mt-2">
+      <label for="select-18-id">Select with helper text</label>
+      <select defaultValue="3">
+        <select-trigger id="select-18-id">
+          <select-value placeholder="Select framework" />
+        </select-trigger>
+        <select-content>
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+        Tell us what&lsquo;s your favorite Select framework
+      </p>
+    </view>

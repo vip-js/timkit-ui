@@ -1,8 +1,5 @@
 import { useId } from 'react'
-
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { SelectNative } from '../../ui/select-native'
+import { Input, Label, SelectNative } from '@timui/react'
 
 export default function Component() {
   const id = useId()

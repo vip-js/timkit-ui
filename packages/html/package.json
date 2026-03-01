@@ -1,0 +1,17 @@
+{
+    "name": "@timui/html",
+    "version": "0.0.1",
+    "private": false,
+    "main": "dist/index.js",
+    "scripts": {
+        "prepublishOnly": "pnpm run build",
+        "build": "node --import tsx ../../scripts/build-html-package.ts",
+        "release": "pnpm run build && pnpm publish --access public --no-git-checks"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist"
+    ]
+}

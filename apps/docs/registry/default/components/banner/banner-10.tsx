@@ -1,9 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { TicketPercent, XIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
+import {
+  Banner,
+  BannerActions,
+  BannerContent,
+  BannerDescription,
+  BannerIcon,
+  BannerTitle,
+  Button,
+} from '@timui/react'
 
 // Define the sale end date - eg: new Date('2024-12-31T23:59:59');
 const saleEndDate = new Date(Date.now() + 9 * 60 * 60 * 1000 + 45 * 60 * 1000 + 24 * 1000) // Setting 9h 45m 24s from now for demo purposes
@@ -66,23 +72,36 @@ export default function Component() {
   if (!isVisible || timeLeft.isExpired) return null
 
   return (
-    <div className="dark bg-muted text-foreground px-4 py-3">
-      <div className="flex gap-2 md:items-center">
+    <Banner className="dark bg-muted text-foreground px-4 py-3">
+      <BannerContent className="gap-2 md:items-center">
         <div className="flex grow gap-3 md:items-center">
-          <div
-            className="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full max-md:mt-0.5"
-            aria-hidden="true"
-          >
-            <TicketPercent className="opacity-80" size={16} />
-          </div>
+          <BannerIcon className="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full max-md:mt-0.5">
+            <svg
+              className="opacity-80"
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7z" />
+              <path d="m9 9 6 6" />
+              <circle cx="9" cy="9" r="1" />
+              <circle cx="15" cy="15" r="1" />
+            </svg>
+          </BannerIcon>
           <div className="flex grow flex-col justify-between gap-3 md:flex-row md:items-center">
             <div className="space-y-0.5">
-              <p className="text-sm font-medium">Black Friday Sale!</p>
-              <p className="text-muted-foreground text-sm">
+              <BannerTitle>Black Friday Sale!</BannerTitle>
+              <BannerDescription className="text-sm">
                 It kicks off today and is available for just 24 hours—don&lsquo;t miss out!
-              </p>
+              </BannerDescription>
             </div>
-            <div className="flex gap-3 max-md:flex-wrap">
+            <BannerActions className="flex gap-3 max-md:flex-wrap">
               <div className="divide-primary-foreground bg-primary/15 flex items-center divide-x rounded-md text-sm tabular-nums">
                 {timeLeft.days > 0 && (
                   <span className="flex h-8 items-center justify-center p-2">
@@ -106,22 +125,34 @@ export default function Component() {
               <Button size="sm" className="text-sm">
                 Buy now
               </Button>
-            </div>
+            </BannerActions>
           </div>
         </div>
-        <Button
-          variant="ghost"
-          className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
-          onClick={() => setIsVisible(false)}
-          aria-label="Close banner"
-        >
-          <XIcon
-            size={16}
-            className="opacity-60 transition-opacity group-hover:opacity-100"
-            aria-hidden="true"
-          />
-        </Button>
-      </div>
-    </div>
+        <BannerActions className="shrink-0">
+          <Button
+            variant="ghost"
+            className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+            onClick={() => setIsVisible(false)}
+            aria-label="Close banner"
+          >
+            <svg
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-60 transition-opacity group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18" />
+              <path d="M6 6 18 18" />
+            </svg>
+          </Button>
+        </BannerActions>
+      </BannerContent>
+    </Banner>
   )
 }

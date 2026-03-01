@@ -1,14 +1,12 @@
 'use client'
 
 import { getLocalTimeZone, isWeekend, today } from '@internationalized/date'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { DateInput, dateInputStyle, RangeCalendar } from '@timui/react'
 import { CalendarIcon } from 'lucide-react'
 import { useLocale } from 'react-aria'
 import type { DateValue } from 'react-aria-components'
 import { Button, DateRangePicker, Dialog, Group, Label, Popover } from 'react-aria-components'
-
-import { RangeCalendar } from '../../ui/calendar-rac'
-import { DateInput, dateInputStyle } from '../../ui/datefield-rac'
 
 export default function Component() {
   const now = today(getLocalTimeZone())

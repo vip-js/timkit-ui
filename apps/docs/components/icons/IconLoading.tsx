@@ -1,4 +1,4 @@
-import mergeTW from '@/utils/mergeTW'
+import mergeTW from '@/utils/merge-tw'
 
 export const IconLoading = ({ className = '' }: { className?: string }) => (
   <svg

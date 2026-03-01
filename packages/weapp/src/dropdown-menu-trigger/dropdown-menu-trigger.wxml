@@ -1,0 +1,9 @@
+<view
+  id="dropdown-menu-trigger"
+  data-slot="dropdown-menu-trigger"
+  class="{{className}}"
+  data-disabled="{{disabled}}"
+  bindtap="onTap"
+>
+  <slot></slot>
+</view>

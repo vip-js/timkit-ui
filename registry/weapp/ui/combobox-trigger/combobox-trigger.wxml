@@ -1,0 +1,9 @@
+<button 
+    class="{{triggerApi.className}}"
+    id="{{triggerApi.id}}"
+    bindtap="handleTap"
+    aria-expanded="{{triggerApi['aria-expanded']}}"
+    data-state="{{triggerApi['data-state']}}"
+>
+    <slot />
+</button>

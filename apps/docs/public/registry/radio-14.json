@@ -2,15 +2,33 @@
   "name": "radio-14",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/radio-group.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/radio-group.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/radio/radio-14.tsx",
       "type": "registry:component",
       "target": "components/ui/radio-14.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { RadioGroup, RadioGroupItem } from '../../ui/radio-group'\n\nexport default function Component() {\n  const id = useId()\n\n  const items = [\n    { value: '1', label: 'USA' },\n    { value: '2', label: 'UK' },\n    { value: '3', label: 'France' },\n  ]\n\n  return (\n    <fieldset className=\"space-y-4\">\n      <legend className=\"text-foreground text-sm leading-none font-medium\">Server location</legend>\n      <RadioGroup className=\"flex flex-wrap gap-2\" defaultValue=\"1\">\n        {items.map((item) => (\n          <div\n            key={`${id}-${item.value}`}\n            className=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div className=\"flex items-center gap-2\">\n              <RadioGroupItem\n                id={`${id}-${item.value}`}\n                value={item.value}\n                className=\"after:absolute after:inset-0\"\n              />\n              <Label htmlFor={`${id}-${item.value}`}>{item.label}</Label>\n            </div>\n          </div>\n        ))}\n      </RadioGroup>\n    </fieldset>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Label, RadioGroup, RadioGroupItem } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n\n  const items = [\n    { value: '1', label: 'USA' },\n    { value: '2', label: 'UK' },\n    { value: '3', label: 'France' },\n  ]\n\n  return (\n    <fieldset className=\"space-y-4\">\n      <legend className=\"text-foreground text-sm leading-none font-medium\">Server location</legend>\n      <RadioGroup className=\"flex flex-wrap gap-2\" defaultValue=\"1\">\n        {items.map((item) => (\n          <div\n            key={`${id}-${item.value}`}\n            className=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div className=\"flex items-center gap-2\">\n              <RadioGroupItem\n                id={`${id}-${item.value}`}\n                value={item.value}\n                className=\"after:absolute after:inset-0\"\n              />\n              <Label htmlFor={`${id}-${item.value}`}>{item.label}</Label>\n            </div>\n          </div>\n        ))}\n      </RadioGroup>\n    </fieldset>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/radio/radio-14.vue",
+      "target": "components/ui/radio-14.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<fieldset class=\"space-y-4\">\n      <legend class=\"text-foreground text-sm leading-none font-medium\">Server location</legend>\n      <RadioGroup class=\"flex flex-wrap gap-2\" defaultValue=\"1\">\n        \n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <RadioGroupItem id=\"radio-14-id\"\n                value=\"1\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <Label for=\"radio-14-id\">USA</Label>\n            </div>\n          </div>\n        \n\n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <RadioGroupItem id=\"radio-14-id\"\n                value=\"2\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <Label for=\"radio-14-id\">UK</Label>\n            </div>\n          </div>\n        \n\n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <RadioGroupItem id=\"radio-14-id\"\n                value=\"3\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <Label for=\"radio-14-id\">France</Label>\n            </div>\n          </div>\n        \n      </RadioGroup>\n    </fieldset>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/radio/radio-14.html",
+      "target": "components/ui/radio-14.html",
+      "type": "registry:component",
+      "content": "<fieldset class=\"space-y-4\">\n      <legend class=\"text-foreground text-sm leading-none font-medium\">Server location</legend>\n      <radio-group class=\"flex flex-wrap gap-2\" defaultValue=\"1\">\n        \n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"1\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">USA</label>\n            </div>\n          </div>\n        \n\n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"2\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">UK</label>\n            </div>\n          </div>\n        \n\n          <div\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <div class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"3\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">France</label>\n            </div>\n          </div>\n        \n      </radio-group>\n    </fieldset>"
+    },
+    {
+      "path": "registry/default/components/radio/radio-14.wxml",
+      "target": "components/ui/radio-14/radio-14.wxml",
+      "type": "registry:component",
+      "content": "<fieldset class=\"space-y-4\">\n      <legend class=\"text-foreground text-sm leading-none font-medium\">Server location</legend>\n      <radio-group class=\"flex flex-wrap gap-2\" defaultValue=\"1\">\n        \n          <view\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <view class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"1\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">USA</label>\n            </view>\n          </view>\n        \n\n          <view\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <view class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"2\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">UK</label>\n            </view>\n          </view>\n        \n\n          <view\n            class=\"border-input has-data-[state=checked]:border-primary/50 relative flex flex-col items-start gap-4 rounded-md border p-3 shadow-xs outline-none\"\n          >\n            <view class=\"flex items-center gap-2\">\n              <radio-group-item id=\"radio-14-id\"\n                value=\"3\"\n                class=\"after:absolute after:inset-0\"\n              />\n              <label for=\"radio-14-id\">France</label>\n            </view>\n          </view>\n        \n      </radio-group>\n    </fieldset>"
     }
   ],
   "meta": {
@@ -21,11 +39,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "radio"
+    "category": "radio",
+    "title": "Radio · With label"
   },
   "categories": [
     "radio"

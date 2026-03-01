@@ -1,0 +1,9 @@
+<view class="relative">
+      <avatar class="rounded-md">
+        <avatar-image src="./avatar-80-07.jpg" alt="Kelly King" ></avatar-image>
+        <avatar-fallback>KK</avatar-fallback>
+      </avatar>
+      <badge class="border-background absolute -top-2 left-full min-w-5 -translate-x-3 px-1">
+        6
+      </badge>
+    </view>

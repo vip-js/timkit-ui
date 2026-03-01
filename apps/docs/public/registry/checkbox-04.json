@@ -2,15 +2,33 @@
   "name": "checkbox-04",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/checkbox.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/checkbox.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/checkbox/checkbox-04.tsx",
       "type": "registry:component",
       "target": "components/ui/checkbox-04.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Checkbox } from '../../ui/checkbox'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"flex items-center gap-2\">\n      <Checkbox id={id} disabled />\n      <Label htmlFor={id}>Disabled checkbox</Label>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Checkbox, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"flex items-center gap-2\">\n      <Checkbox id={id} disabled />\n      <Label htmlFor={id}>Disabled checkbox</Label>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-04.vue",
+      "target": "components/ui/checkbox-04.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\n</script>\n<template>\n<div class=\"flex items-center gap-2\">\n      <Checkbox id=\"checkbox-04-id\" disabled />\n      <Label for=\"checkbox-04-id\">Disabled checkbox</Label>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-04.html",
+      "target": "components/ui/checkbox-04.html",
+      "type": "registry:component",
+      "content": "<div class=\"flex items-center gap-2\">\n      <checkbox id=\"checkbox-04-id\" disabled />\n      <label for=\"checkbox-04-id\">Disabled checkbox</label>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/checkbox/checkbox-04.wxml",
+      "target": "components/ui/checkbox-04/checkbox-04.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"flex items-center gap-2\">\n      <checkbox id=\"checkbox-04-id\" disabled />\n      <label for=\"checkbox-04-id\">Disabled checkbox</label>\n    </view>"
     }
   ],
   "meta": {
@@ -21,11 +39,15 @@
       "radix"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "checkbox"
+    "category": "checkbox",
+    "title": "Checkbox · With label"
   },
   "categories": [
     "checkbox"

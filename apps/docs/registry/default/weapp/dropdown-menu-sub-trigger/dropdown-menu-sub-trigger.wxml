@@ -1,0 +1,4 @@
+<view data-slot="dropdown-menu-sub-trigger" class="{{className}}">
+  <slot></slot>
+  <text class="ml-auto">›</text>
+</view>

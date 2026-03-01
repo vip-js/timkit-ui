@@ -2,14 +2,32 @@
   "name": "calendar-date-picker-05",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/calendar.json"
+    "https://ui.timkit.cn/r/calendar.json"
   ],
   "files": [
     {
       "path": "registry/default/components/calendar-date-picker/calendar-date-picker-05.tsx",
       "type": "registry:component",
       "target": "components/ui/calendar-date-picker-05.tsx",
-      "content": "'use client'\n\nimport { useState } from 'react'\nimport { addDays } from 'date-fns'\nimport { DateRange } from 'react-day-picker'\n\nimport { Calendar } from '../../ui/calendar'\n\nexport default function Component() {\n  const today = new Date()\n  const [date, setDate] = useState<DateRange | undefined>({\n    from: today,\n    to: addDays(today, 3),\n  })\n\n  return (\n    <div>\n      <Calendar mode=\"range\" selected={date} onSelect={setDate} className=\"rounded-md border p-2\" />\n      <p\n        className=\"text-muted-foreground mt-4 text-center text-xs\"\n        role=\"region\"\n        aria-live=\"polite\"\n      >\n        Range calendar -{' '}\n        <a\n          className=\"hover:text-foreground underline\"\n          href=\"https://daypicker.dev/\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React DayPicker\n        </a>\n      </p>\n    </div>\n  )\n}\n"
+      "content": "'use client'\n\nimport { useState } from 'react'\nimport { Calendar } from '@timui/react'\nimport { addDays } from 'date-fns'\nimport { DateRange } from 'react-day-picker'\n\nexport default function Component() {\n  const today = new Date()\n  const [date, setDate] = useState<DateRange | undefined>({\n    from: today,\n    to: addDays(today, 3),\n  })\n\n  return (\n    <div>\n      <Calendar mode=\"range\" selected={date} onSelect={setDate} className=\"rounded-md border p-2\" />\n      <p\n        className=\"text-muted-foreground mt-4 text-center text-xs\"\n        role=\"region\"\n        aria-live=\"polite\"\n      >\n        Range calendar -{' '}\n        <a\n          className=\"hover:text-foreground underline\"\n          href=\"https://daypicker.dev/\"\n          target=\"_blank\"\n          rel=\"noopener nofollow\"\n        >\n          React DayPicker\n        </a>\n      </p>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/calendar-date-picker/calendar-date-picker-05.vue",
+      "target": "components/ui/calendar-date-picker-05.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { DatePicker } from '@/components/ui/date-picker'\n</script>\n\n<template>\n  <DatePicker mode=\"range\" placeholder=\"Date range\" />\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/calendar-date-picker/calendar-date-picker-05.html",
+      "target": "components/ui/calendar-date-picker-05.html",
+      "type": "registry:component",
+      "content": "  <div data-slot=\"date-picker\" class=\"w-full\">\n  <button\n    data-slot=\"date-picker-trigger\"\n    class=\"inline-flex items-center justify-between whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs w-full\"\n  >\n    <svg\n      width=\"16\"\n      height=\"16\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"2\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      class=\"text-muted-foreground/80 -ms-1 shrink-0\"\n      aria-hidden=\"true\"\n    >\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\" />\n      <path d=\"M8 2v4\" />\n      <path d=\"M16 2v4\" />\n      <path d=\"M3 10h18\" />\n    </svg>\n    <span class=\"truncate font-medium\">Date range</span>\n  </button>\n  <div data-slot=\"date-picker-content\" class=\"mt-2 w-auto rounded-md border bg-background p-2 text-foreground shadow-md\">\n    <div class=\"text-sm text-muted-foreground\">Calendar</div>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/default/components/calendar-date-picker/calendar-date-picker-05.wxml",
+      "target": "components/ui/calendar-date-picker-05/calendar-date-picker-05.wxml",
+      "type": "registry:component",
+      "content": "<date-picker class=\"w-full\">\n  <button\n    data-slot=\"date-picker-trigger\"\n    class=\"inline-flex items-center justify-between whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs w-full\"\n  >\n    <svg\n      width=\"16\"\n      height=\"16\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"2\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      class=\"text-muted-foreground/80 -ms-1 shrink-0\"\n      aria-hidden=\"true\"\n    >\n      <rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\" />\n      <path d=\"M8 2v4\" />\n      <path d=\"M16 2v4\" />\n      <path d=\"M3 10h18\" />\n    </svg>\n    <text class=\"truncate font-medium\">Date range</text>\n  </button>\n  <view data-slot=\"date-picker-content\" class=\"mt-2 w-auto rounded-md border bg-background p-2 text-foreground shadow-md\">\n    <text class=\"text-sm text-muted-foreground\">Calendar</text>\n  </view>\n</date-picker>\n"
     }
   ],
   "meta": {
@@ -21,13 +39,17 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "calendar-date-picker"
+    "category": "calendar",
+    "title": "Calendar Date Picker · Interactive State"
   },
   "categories": [
-    "calendar-date-picker"
+    "calendar"
   ]
 }

@@ -10,10 +10,10 @@ export default function CliCommands({ name }: { name: string }) {
   const packageManager = config.packageManager || 'pnpm'
 
   const commands = {
-    pnpm: `pnpm dlx shadcn@latest add https://originui.com/r/${name}.json`,
-    npm: `npx shadcn@latest add https://originui.com/r/${name}.json`,
-    yarn: `npx shadcn@latest add https://originui.com/r/${name}.json`,
-    bun: `bunx --bun shadcn@latest add https://originui.com/r/${name}.json`,
+    pnpm: `pnpm dlx shadcn@latest add https://ui.timkit.cn/r/${name}.json`,
+    npm: `npx shadcn@latest add https://ui.timkit.cn/r/${name}.json`,
+    yarn: `npx shadcn@latest add https://ui.timkit.cn/r/${name}.json`,
+    bun: `bunx --bun shadcn@latest add https://ui.timkit.cn/r/${name}.json`,
   }
 
   return (
@@ -26,9 +26,9 @@ export default function CliCommands({ name }: { name: string }) {
             packageManager: value as 'pnpm' | 'npm' | 'yarn' | 'bun',
           })
         }}
-        className="rounded-md bg-zinc-950 dark:bg-zinc-900"
+        className="overflow-hidden rounded-2xl border border-border/60 bg-card/80 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.2)]"
       >
-        <TabsList className="dark h-auto w-full justify-start rounded-none border-b bg-transparent px-4 py-0">
+        <TabsList className="h-auto w-full justify-start rounded-none border-b border-border/60 bg-card/80 px-4 py-0">
           <TabsTrigger
             className="data-[state=active]:after:bg-primary relative rounded-none py-3 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none"
             value="pnpm"
@@ -56,7 +56,9 @@ export default function CliCommands({ name }: { name: string }) {
         </TabsList>
         {Object.entries(commands).map(([pkg, command]) => (
           <TabsContent className="m-0" key={pkg} value={pkg}>
-            <pre className="overflow-auto p-4 font-mono text-[12.8px] text-zinc-100">{command}</pre>
+            <pre className="overflow-auto bg-slate-950 p-4 font-mono text-[12.8px] text-slate-100">
+              {command}
+            </pre>
           </TabsContent>
         ))}
       </Tabs>

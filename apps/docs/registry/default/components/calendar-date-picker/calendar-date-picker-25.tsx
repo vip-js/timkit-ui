@@ -1,10 +1,8 @@
 'use client'
 
+import { CalendarRAC, DateInput } from '@timui/react'
 import { CalendarIcon } from 'lucide-react'
 import { Button, DatePicker, Dialog, Group, Label, Popover } from 'react-aria-components'
-
-import { Calendar } from '../../ui/calendar'
-import { DateInput } from '../../ui/datefield-rac'
 
 export default function Component() {
   return (
@@ -23,7 +21,7 @@ export default function Component() {
         offset={4}
       >
         <Dialog className="max-h-[inherit] overflow-auto p-2">
-          <Calendar />
+          <CalendarRAC />
         </Dialog>
       </Popover>
       <p className="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">

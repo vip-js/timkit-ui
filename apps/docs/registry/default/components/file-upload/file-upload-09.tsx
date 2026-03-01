@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@timui/react'
 import {
   AlertCircleIcon,
   FileArchiveIcon,
@@ -14,8 +15,6 @@ import {
 } from 'lucide-react'
 
 import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
 
 // Create some dummy initial files
 const initialFiles = [

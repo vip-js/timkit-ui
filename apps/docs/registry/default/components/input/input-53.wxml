@@ -1,0 +1,10 @@
+<view class="*:not-first:mt-2">
+      <label for="input-53-id">Read-only input</label>
+      <input id="input-53-id"
+        class="read-only:bg-muted"
+        defaultValue="This is a read-only input"
+        readOnly
+        placeholder="Email"
+        type="email"
+      />
+    </view>

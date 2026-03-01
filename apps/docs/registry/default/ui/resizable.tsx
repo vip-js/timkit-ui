@@ -1,7 +1,6 @@
 'use client'
-'use client'
 
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
 import { GripVerticalIcon } from 'lucide-react'
 import * as ResizablePrimitive from 'react-resizable-panels'
 

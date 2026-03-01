@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "baseUrl": ".",
+    "paths": {
+      "@timui/vue": ["../../packages/vue/src"],
+      "@timui/vue/*": ["../../packages/vue/src/*"],
+      "@timui/*": ["../../packages/*/src"]
+    }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.vue"
+  ]
+}

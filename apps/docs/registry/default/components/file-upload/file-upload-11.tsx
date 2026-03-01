@@ -1,5 +1,6 @@
 'use client'
 
+import { Button, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
 import {
   AlertCircleIcon,
   DownloadIcon,
@@ -17,30 +18,27 @@ import {
 
 import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload'
 
-import { Button } from '../../ui/button'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
-
 // Create some dummy initial files
 const initialFiles = [
   {
     name: 'document.pdf',
     size: 528737,
     type: 'application/pdf',
-    url: 'https://originui.com',
+    url: 'https://ui.timkit.cn',
     id: 'document.pdf-1744638436563-8u5xuls',
   },
   {
     name: 'intro.zip',
     size: 252873,
     type: 'application/zip',
-    url: 'https://originui.com',
+    url: 'https://ui.timkit.cn',
     id: 'intro.zip-1744638436563-8u5xuls',
   },
   {
     name: 'conclusion.xlsx',
     size: 352873,
     type: 'application/xlsx',
-    url: 'https://originui.com',
+    url: 'https://ui.timkit.cn',
     id: 'conclusion.xlsx-1744638436563-8u5xuls',
   },
 ]

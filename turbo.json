@@ -9,7 +9,10 @@
             "outputs": [
                 "dist/**",
                 ".next/**",
-                "!.next/cache/**"
+                "!.next/cache/**",
+                ".output/**",
+                "tsconfig.tsbuildinfo",
+                "**/*.tsbuildinfo"
             ]
         },
         "registry:build:all": {

@@ -1,13 +1,6 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Avatar, AvatarImage, AvatarFallback } from "@timui/react";
 export default function AvatarGroupStacked() {
-  
 const avatarData = [
   {
     name: "CT",
@@ -27,20 +20,18 @@ const avatarData = [
     imgURL: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
   },
 ];
-  
   return <div className="pt-16 flex items-center justify-center -space-x-2 ">
     {avatarData.map((item, idx) => {
       return (
-        <Avatar.Root
+        <Avatar
           key={idx}
           className="bg-white border-2 border-white h-10 w-10 flex items-center justify-center overflow-hidden rounded-full"
         >
-          <Avatar.Image src={item.imgURL} className="object-cover" />
-          <Avatar.Fallback delayMs={600}>{item.name}</Avatar.Fallback>
-        </Avatar.Root>
+          <AvatarImage src={item.imgURL} className="object-cover" />
+          <AvatarFallback delayMs={600}>{item.name}</AvatarFallback>
+        </Avatar>
       );
     })}
   </div>
 }
-
         

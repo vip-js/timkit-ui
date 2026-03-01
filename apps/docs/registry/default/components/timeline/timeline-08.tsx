@@ -6,7 +6,7 @@ import {
   TimelineItem,
   TimelineSeparator,
   TimelineTitle,
-} from '../../ui/timeline'
+} from '@timui/react'
 
 const items = [
   {

@@ -1,11 +1,9 @@
 'use client'
 
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import { DateInput, dateInputStyle, RangeCalendar } from '@timui/react'
 import { CalendarIcon } from 'lucide-react'
 import { Button, DateRangePicker, Dialog, Group, Label, Popover } from 'react-aria-components'
-
-import { RangeCalendar } from '../../ui/calendar-rac'
-import { DateInput, dateInputStyle } from '../../ui/datefield-rac'
 
 export default function Component() {
   return (

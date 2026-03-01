@@ -64,7 +64,7 @@ const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
 
   useEffect(() => {
     const checkAndHandleH = (iframeDc: any) => {
-      if (iframeDc.body && iframeDc.body.childNodes[1]) {
+      if (iframeDc && iframeDc.body && iframeDc.body.childNodes[1]) {
         handleIframeHeight()
       }
     }
@@ -120,7 +120,7 @@ const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
   return (
     <div
       ref={containerRef}
-      className="w-full overflow-hidden rounded-lg border border-zinc-800"
+      className="w-full overflow-hidden rounded-3xl border border-border/60 bg-card/80 shadow-[0_12px_30px_-20px_rgba(15,23,42,0.22)]"
       onMouseMove={mouseMove}
       onMouseUp={mouseUp}
       onTouchMove={touchMove}
@@ -139,14 +139,14 @@ const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
           {compContent}
         </iframe>
         <div
-          className="absolute top-0 right-0 hidden h-full w-5 items-center border-l border-zinc-800 bg-zinc-700 sm:flex"
+          className="absolute top-0 right-0 hidden h-full w-6 items-center border-l border-border/60 bg-muted/60 sm:flex"
           style={{ cursor: 'ew-resize' }}
           onMouseDown={mouseDown}
           onMouseUp={mouseUp}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 rotate-90 transform text-zinc-400"
+            className="h-7 w-7 rotate-90 transform text-muted-foreground"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

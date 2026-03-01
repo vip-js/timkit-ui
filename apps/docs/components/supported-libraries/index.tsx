@@ -1,12 +1,10 @@
 'use client'
 
 import { ReactNode } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import IconAlpinejs from '@/components/icons/IconAlpinejs'
-import IconRadix from '@/components/icons/IconRadix'
-import IconRadixVue from '@/components/icons/IconRadixVue'
+import IconZag from '@/components/icons/IconZag'
 
 type Feature = {
   title: string
@@ -18,22 +16,10 @@ type Feature = {
 const SupportedLibraries = () => {
   const features: Feature[] = [
     {
-      title: 'Radix UI',
-      desc: 'Unstyled, accessible, open source React primitives for high-quality web apps and design systems.',
-      icon: <IconRadix />,
-      href: 'https://www.radix-ui.com/',
-    },
-    {
-      title: 'Radix Vue',
-      desc: 'Unstyled, accessible components for building high‑quality design systems and web apps in Vue.',
-      icon: <IconRadixVue />,
-      href: 'https://www.radix-vue.com/',
-    },
-    {
-      title: 'Radix Svelte',
-      desc: 'An open-source Svelte library for building high-quality, accessible design systems and web apps.',
-      icon: <MeltUILogo />,
-      href: 'https://www.melt-ui.com/',
+      title: 'Zag.js',
+      desc: 'Universal state machines for accessible, interactive and performant UI components.',
+      icon: <IconZag />,
+      href: 'https://zagjs.com/',
     },
     {
       title: 'Alpine.js',
@@ -44,34 +30,22 @@ const SupportedLibraries = () => {
   ]
 
   return (
-    <div className="mx-auto mt-8 max-w-7xl grid-cols-2 gap-6 space-y-6 sm:grid sm:space-y-0 lg:grid-cols-3">
+    <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2">
       {features.map((item: Feature, key: number) => (
         <Link
           href={item.href}
           key={key}
           target="_blank"
-          className="relative w-full space-y-3 rounded-lg border border-zinc-800 bg-[linear-gradient(180deg,_rgba(24,_24,_27,_0.60)_0%,_rgba(24,_24,_27,_0.00)_100%)] p-5 no-underline duration-200 hover:bg-zinc-900"
+          className="group relative w-full space-y-3 rounded-2xl border border-border/60 bg-card/80 p-6 shadow-[0_16px_40px_-28px_rgba(15,23,42,0.3)] transition hover:-translate-y-0.5 hover:border-foreground/30 hover:shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)]"
         >
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-700 bg-[linear-gradient(180deg,_rgba(39,_39,_42,_0.68)_100%,_rgba(39,_39,_42,_0.00)_100%)] text-gray-500">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-muted/40 text-foreground transition group-hover:scale-[1.02]">
             {item.icon}
           </div>
-          <h3 className="text-base font-semibold text-zinc-100">{item.title}</h3>
-          <p className="text-sm text-zinc-300">{item.desc}</p>
+          <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
+          <p className="text-sm text-muted-foreground">{item.desc}</p>
         </Link>
       ))}
     </div>
-  )
-}
-
-function MeltUILogo() {
-  return (
-    <Image
-      src="https://avatars.githubusercontent.com/u/134972826?s=200&v=4"
-      width={50}
-      height={50}
-      alt="Melt UI"
-      className="rounded-full"
-    />
   )
 }
 

@@ -1,0 +1,115 @@
+<script setup lang="ts">
+import { Checkbox } from '@/components/ui/checkbox'
+</script>
+<template>
+<fieldset class="space-y-4">
+      <legend class="text-foreground text-sm leading-none font-medium">Days of the week</legend>
+      <div class="flex gap-1.5">
+        
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-1"
+              value=1
+              class="sr-only after:absolute after:inset-0" checked
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              M
+            </span>
+            <span class="sr-only">Monday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-2"
+              value=2
+              class="sr-only after:absolute after:inset-0" checked
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              T
+            </span>
+            <span class="sr-only">Tuesday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-3"
+              value=3
+              class="sr-only after:absolute after:inset-0"
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              W
+            </span>
+            <span class="sr-only">Wednesday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-4"
+              value=4
+              class="sr-only after:absolute after:inset-0" checked
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              T
+            </span>
+            <span class="sr-only">Thursday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-5"
+              value=5
+              class="sr-only after:absolute after:inset-0" checked
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              F
+            </span>
+            <span class="sr-only">Friday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-6"
+              value=6
+              class="sr-only after:absolute after:inset-0"
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              S
+            </span>
+            <span class="sr-only">Saturday</span>
+          </label>
+        
+
+          <label
+            class="border-input has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary has-data-[state=checked]:text-primary-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 cursor-pointer flex-col items-center justify-center gap-3 rounded-full border text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50"
+          >
+            <Checkbox
+              id="checkbox-19-id-7"
+              value=7
+              class="sr-only after:absolute after:inset-0" disabled
+            />
+            <span aria-hidden="true" class="text-sm font-medium">
+              S
+            </span>
+            <span class="sr-only">Sunday</span>
+          </label>
+        
+      </div>
+    </fieldset>
+</template>

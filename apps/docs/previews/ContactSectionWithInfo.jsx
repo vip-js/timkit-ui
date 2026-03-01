@@ -1,13 +1,6 @@
-import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Input, Button, Textarea } from "@timui/react";
 
 export default function ContactSectionWithInfo() {
-
     const contactMethods = [
         {
             icon:
@@ -35,7 +28,6 @@ export default function ContactSectionWithInfo() {
             contact: "Mountain View, California, United State."
         },
     ]
-
     return (
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
@@ -48,7 +40,7 @@ export default function ContactSectionWithInfo() {
                             Let us know how we can help
                         </p>
                         <p>
-                            We’re here to help and answer any question you might have, We look forward to hearing from you! Please fill out the form, or us the contact information bellow .
+                            We're here to help and answer any question you might have, We look forward to hearing from you! Please fill out the form, or us the contact information bellow .
                         </p>
                         <div>
                             <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-6 items-center">
@@ -74,43 +66,43 @@ export default function ContactSectionWithInfo() {
                                 <label className="font-medium">
                                     Full name
                                 </label>
-                                <input
+                                <Input
                                     type="text"
                                     required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                    className="w-full mt-2"
                                 />
                             </div>
                             <div>
                                 <label className="font-medium">
                                     Email
                                 </label>
-                                <input
+                                <Input
                                     type="email"
                                     required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                    className="w-full mt-2"
                                 />
                             </div>
                             <div>
                                 <label className="font-medium">
                                     Company
                                 </label>
-                                <input
+                                <Input
                                     type="text"
                                     required
-                                    className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                                    className="w-full mt-2"
                                 />
                             </div>
                             <div>
                                 <label className="font-medium">
                                     Message
                                 </label>
-                                <textarea required className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"></textarea>
+                                <Textarea required className="w-full mt-2 h-36 resize-none"></Textarea>
                             </div>
-                            <button
-                                className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                            <Button
+                                className="w-full"
                             >
                                 Submit
-                            </button>
+                            </Button>
                         </form>
                     </div>
                 </div>

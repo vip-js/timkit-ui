@@ -1,25 +1,84 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as SwitchPrimitive from '@radix-ui/react-switch'
-import { cn } from '@timui/shared'
-import { cva } from 'class-variance-authority'
+import { cn, switchThumbVariants, switchVariants } from '@timui/core'
 
-const switchVariants = cva(
-  'peer inline-flex h-6 w-10 shrink-0 items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input'
+const Switch = React.forwardRef<
+  HTMLButtonElement,
+  Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    'checked' | 'defaultChecked' | 'onChange' | 'value'
+  > & {
+    checked?: boolean
+    defaultChecked?: boolean
+    required?: boolean
+    onCheckedChange?: (checked: boolean) => void
+    value?: string
+  }
+>(
+  (
+    {
+      className,
+      checked: checkedProp,
+      defaultChecked,
+      required,
+      onCheckedChange,
+      value = 'on',
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const [checkedState, setCheckedState] = React.useState<boolean>(
+      checkedProp ?? defaultChecked ?? false
+    )
+
+    // Sync controlled state
+    React.useEffect(() => {
+      if (checkedProp !== undefined) {
+        setCheckedState(checkedProp)
+      }
+    }, [checkedProp])
+
+    const isChecked = checkedProp !== undefined ? checkedProp : checkedState
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return
+
+      const nextChecked = !isChecked
+
+      // Update local state if uncontrolled
+      if (checkedProp === undefined) {
+        setCheckedState(nextChecked)
+      }
+
+      onCheckedChange?.(nextChecked)
+      props.onClick?.(e)
+    }
+
+    return (
+      <button
+        type="button"
+        role="switch"
+        aria-checked={isChecked}
+        data-state={isChecked ? 'checked' : 'unchecked'}
+        data-slot="switch"
+        disabled={disabled}
+        value={value}
+        className={cn(switchVariants(), className)}
+        ref={ref}
+        onClick={handleClick}
+        {...props}
+      >
+        <span
+          data-slot="switch-thumb"
+          data-state={isChecked ? 'checked' : 'unchecked'}
+          className={cn(switchThumbVariants())}
+        />
+      </button>
+    )
+  }
 )
-
-const switchThumbVariants = cva(
-  'bg-background pointer-events-none block size-5 rounded-full shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0'
-)
-
-function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {
-  return (
-    <SwitchPrimitive.Root data-slot="switch" className={cn(switchVariants(), className)} {...props}>
-      <SwitchPrimitive.Thumb data-slot="switch-thumb" className={cn(switchThumbVariants())} />
-    </SwitchPrimitive.Root>
-  )
-}
+Switch.displayName = 'Switch'
 
 export { Switch }

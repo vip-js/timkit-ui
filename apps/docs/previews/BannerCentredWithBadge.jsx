@@ -1,19 +1,13 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Banner, Badge } from "@timui/react"
 export default function BannerCentredWithBadge() {
     return (
-        <div className="bg-indigo-600">
+        <Banner className="bg-indigo-600">
             <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-start justify-between text-white sm:items-center md:px-8">
                 <div className="flex-1 justify-center flex items-start gap-x-4 sm:items-center">
-                    <div className="flex-none p-1.5 px-4 rounded-full bg-indigo-800 flex items-center justify-center font-medium text-sm">
+                    <Badge className="flex-none p-1.5 px-4 rounded-full bg-indigo-800 flex items-center justify-center font-medium text-sm">
                         News
-                    </div>
+                    </Badge>
                     <p className="font-medium p-2">
                         We just launched a new version of our library! <a href="javascript:(0)" className="font-semibold underline duration-150 hover:text-indigo-100 inline-flex items-center gap-x-1">
                             Learn more
@@ -29,7 +23,7 @@ export default function BannerCentredWithBadge() {
                     </svg>
                 </button>
             </div>
-        </div>
+        </Banner>
     )
 }
         

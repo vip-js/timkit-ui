@@ -13,17 +13,28 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   RowData,
+  RowSelectionState,
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { cn } from '@timui/shared'
+import { cn } from '@timui/core'
+import {
+  Checkbox,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon, ExternalLinkIcon, SearchIcon } from 'lucide-react'
-
-import { Checkbox } from '../../ui/checkbox'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../ui/table'
 
 declare module '@tanstack/react-table' {
   //allows us to define custom properties for our columns
@@ -50,14 +61,18 @@ const columns: ColumnDef<Item>[] = [
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!(value?.detail?.checked ?? value))
+        }
+        onClick={() => table.toggleAllPageRowsSelected(!table.getIsAllPageRowsSelected())}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
+        onClick={() => row.toggleSelected(!row.getIsSelected())}
         aria-label="Select row"
       />
     ),
@@ -162,7 +177,7 @@ const items: Item[] = [
     volume: 2507,
     cpc: 2.5,
     traffic: 88,
-    link: 'https://originui.com',
+    link: 'https://ui.timkit.cn',
   },
   {
     id: '2',
@@ -171,7 +186,7 @@ const items: Item[] = [
     volume: 1850,
     cpc: 4.75,
     traffic: 65,
-    link: 'https://originui.com/input',
+    link: 'https://ui.timkit.cn/input',
   },
   {
     id: '3',
@@ -180,7 +195,7 @@ const items: Item[] = [
     volume: 3200,
     cpc: 3.25,
     traffic: 112,
-    link: 'https://originui.com/badge',
+    link: 'https://ui.timkit.cn/badge',
   },
   {
     id: '4',
@@ -189,7 +204,7 @@ const items: Item[] = [
     volume: 890,
     cpc: 1.95,
     traffic: 45,
-    link: 'https://originui.com/alert',
+    link: 'https://ui.timkit.cn/alert',
   },
   {
     id: '5',
@@ -198,7 +213,7 @@ const items: Item[] = [
     volume: 4100,
     cpc: 5.5,
     traffic: 156,
-    link: 'https://originui.com/tabs',
+    link: 'https://ui.timkit.cn/tabs',
   },
   {
     id: '6',
@@ -207,7 +222,7 @@ const items: Item[] = [
     volume: 1200,
     cpc: 1.25,
     traffic: 42,
-    link: 'https://originui.com/table',
+    link: 'https://ui.timkit.cn/table',
   },
   {
     id: '7',
@@ -216,7 +231,7 @@ const items: Item[] = [
     volume: 760,
     cpc: 6.8,
     traffic: 28,
-    link: 'https://originui.com/avatar',
+    link: 'https://ui.timkit.cn/avatar',
   },
   {
     id: '8',
@@ -225,12 +240,13 @@ const items: Item[] = [
     volume: 950,
     cpc: 1.8,
     traffic: 35,
-    link: 'https://originui.com',
+    link: 'https://ui.timkit.cn',
   },
 ]
 
 export default function Component() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: 'traffic',
@@ -244,8 +260,12 @@ export default function Component() {
     state: {
       sorting,
       columnFilters,
+      rowSelection,
     },
     onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getSortedRowModel: getSortedRowModel(),
@@ -446,7 +466,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         <Label htmlFor={`${id}-select`}>{columnHeader}</Label>
         <Select
           value={columnFilterValue?.toString() ?? 'all'}
-          onValueChange={(value) => {
+          onValueChange={(value: string) => {
             column.setFilterValue(value === 'all' ? undefined : value)
           }}
         >

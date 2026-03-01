@@ -1,8 +1,8 @@
-import { BoltIcon, BookOpenIcon, Layers2Icon, LogOutIcon, PinIcon, UserPenIcon } from 'lucide-react'
-
-import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
-import { Button } from '../../ui/button'
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -10,7 +10,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../ui/dropdown-menu'
+} from '@timui/react'
+import { BoltIcon, BookOpenIcon, Layers2Icon, LogOutIcon, PinIcon, UserPenIcon } from 'lucide-react'
 
 export default function UserMenu() {
   return (
@@ -27,7 +28,7 @@ export default function UserMenu() {
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">Keith Kennedy</span>
           <span className="text-muted-foreground truncate text-xs font-normal">
-            k.kennedy@originui.com
+            k.kennedy@ui.timkit.cn
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

@@ -1,0 +1,55 @@
+<view class="{{className}}">
+  <!-- Trigger -->
+  <view 
+    class="multiselect-trigger" 
+    bindtap="onTriggerTap"
+    data-disabled="{{disabled}}"
+  >
+    <text class="multiselect-label">
+      {{api.value.length > 0 ? '已选 ' + api.value.length + ' 项' : placeholder}}
+    </text>
+    <text class="multiselect-arrow">▼</text>
+  </view>
+
+  <!-- ActionSheet Overlay -->
+  <view 
+    wx:if="{{api.open}}" 
+    class="multiselect-overlay" 
+    bindtap="onBackdropTap"
+  ></view>
+  
+  <!-- ActionSheet Content -->
+  <view 
+    wx:if="{{api.open}}" 
+    class="multiselect-content"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <view class="multiselect-header">
+      <text class="multiselect-title">{{label || placeholder}}</text>
+      <view class="multiselect-close" bindtap="onBackdropTap">×</view>
+    </view>
+    
+    <scroll-view scroll-y class="multiselect-list">
+      <view 
+        wx:for="{{items}}" 
+        wx:key="{{itemValueKey}}"
+        class="multiselect-item"
+        data-value="{{item[itemValueKey] || item}}"
+        mark:value="{{item[itemValueKey] || item}}"
+        bindtap="onItemTap"
+        data-selected="{{api.value.includes(item[itemValueKey] || item)}}"
+      >
+        <view class="multiselect-checkbox" data-checked="{{api.value.includes(item[itemValueKey] || item)}}">
+          <text wx:if="{{api.value.includes(item[itemValueKey] || item)}}">✓</text>
+        </view>
+        <text>{{item[itemLabelKey] || item}}</text>
+      </view>
+    </scroll-view>
+
+    <view class="multiselect-footer">
+      <view class="multiselect-confirm-btn" bindtap="onConfirmTap">
+        确认 ({{api.value.length}})
+      </view>
+    </view>
+  </view>
+</view>

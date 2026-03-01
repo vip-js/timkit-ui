@@ -1,0 +1,16 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #18181b;
+  color: #fafafa;
+  padding: 8px 16px;
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -1,18 +1,11 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Separator } from "@timui/react";
 
 export default function BasicSteps() {
-
     const [steps, setStep] = React.useState({
         stpesCount: [1, 2, 3, 4],
         currentStep: 2
     })
-
     return (
         <div className="max-w-lg mx-auto px-4 pt-16 sm:px-0">
             <ul aria-label="Steps" className="flex items-center">
@@ -28,11 +21,12 @@ export default function BasicSteps() {
                                 ) : ""
                             }
                         </div>
-                        <hr className={`w-full border ${idx + 1 == steps.stpesCount.length ? "hidden" : "" || steps.currentStep > idx + 1 ? "border-indigo-600" : ""}`} />
+                        {idx + 1 < steps.stpesCount.length && (
+                            <Separator orientation="horizontal" className={`flex-1 ${steps.currentStep > idx + 1 ? "bg-indigo-600" : ""}`} />
+                        )}
                     </li>
                 ))}
             </ul>
         </div>
     )
 }
-        

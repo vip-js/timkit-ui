@@ -23,15 +23,13 @@ export default function SearchButton() {
   return (
     <Link
       href="/search"
-      className="bg-background text-foreground placeholder:text-muted-foreground/70 focus:border-ring focus:ring-ring/50 inline-flex h-10 w-fit min-w-72 cursor-text rounded-full border px-4 py-2 text-sm outline-none focus:ring-[3px]"
+      className="group inline-flex h-11 min-w-72 cursor-text items-center gap-3 rounded-full border border-border/70 bg-card/70 px-4 text-sm text-foreground shadow-[0_10px_30px_rgba(15,23,42,0.08)] transition hover:border-primary/50 hover:bg-card focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
     >
       <span className="flex grow items-center gap-2">
         <RiSearch2Line className="text-muted-foreground -ms-1" size={20} aria-hidden="true" />
-        <span className="font-normal text-zinc-400 dark:text-zinc-500">Quick search...</span>
-        <div className="text-muted-foreground/80 pointer-events-none ml-auto flex items-center justify-center">
-          <kbd className="text-muted-foreground inline-flex font-[inherit] text-xs font-medium">
-            <span className="opacity-70">⌘</span>K
-          </kbd>
+        <span className="text-muted-foreground">搜索组件、区块或布局…</span>
+        <div className="pointer-events-none ml-auto hidden items-center gap-1 rounded-full border border-border/60 bg-muted/40 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground sm:flex">
+          <span className="opacity-70">⌘</span>K
         </div>
       </span>
     </Link>

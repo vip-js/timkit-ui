@@ -1,0 +1,2 @@
+/* combobox-item-group-label.wxss */
+@import "../../lib/utils.wxss";

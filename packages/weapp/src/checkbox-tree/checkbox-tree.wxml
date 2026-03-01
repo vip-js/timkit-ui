@@ -1,0 +1,13 @@
+<view class="checkbox-tree {{extClass}}">
+  <view
+    wx:for="{{flatNodes}}"
+    wx:key="id"
+    class="checkbox-tree-item"
+    style="padding-left: {{item.level * 20}}rpx;"
+    data-id="{{item.id}}"
+    bindtap="onToggle"
+  >
+    <checkbox checked="{{checkedMap[item.id]}}" disabled="{{item.disabled}}" />
+    <text class="checkbox-tree-label">{{item.label}}</text>
+  </view>
+</view>

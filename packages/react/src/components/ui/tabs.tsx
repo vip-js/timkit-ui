@@ -1,54 +1,107 @@
 'use client'
-'use client'
 
 import * as React from 'react'
-import * as TabsPrimitive from '@radix-ui/react-tabs'
-import { cn } from '@timui/shared'
+import { cn, tabsContentVariants, tabsListVariants, tabsTriggerVariants } from '@timui/core'
+import { mergeProps } from '@zag-js/react'
+import { useTabsContext, TabsProvider } from './tabs/use-tabs-context'
+import { useTabs, type UseTabsProps } from './tabs/use-tabs'
 
-function Tabs({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
+const Tabs = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    value?: string
+    defaultValue?: string
+    onValueChange?: (value: string) => void
+    orientation?: "horizontal" | "vertical"
+    id?: string
+  }
+>(({ className, value, defaultValue, onValueChange, orientation, id, ...props }, ref) => {
+  const api = useTabs({ value, defaultValue, onValueChange, orientation, id })
+  const rootProps = api.getRootProps()
+  const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
+  const { className: mergedClassName, ...restProps } = mergedProps
+
   return (
-    <TabsPrimitive.Root
-      data-slot="tabs"
-      className={cn('flex flex-col gap-2', className)}
-      {...props}
-    />
+    <TabsProvider value={api}>
+      <div
+        ref={ref}
+        data-slot="tabs"
+        className={cn(className, mergedClassName)}
+        {...restProps}
+      />
+    </TabsProvider>
   )
-}
+})
+Tabs.displayName = "Tabs"
 
-function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {
+const TabsList = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const api = useTabsContext()
+  const listProps = api.getListProps()
+  const mergedProps = mergeProps(listProps, props) as React.HTMLAttributes<HTMLDivElement>
+  const { className: mergedClassName, ...restProps } = mergedProps
   return (
-    <TabsPrimitive.List
+    <div
+      ref={ref}
       data-slot="tabs-list"
-      className={cn(
-        'bg-muted text-muted-foreground/70 inline-flex w-fit items-center justify-center rounded-md p-0.5',
-        className
-      )}
-      {...props}
+      className={cn(tabsListVariants(), className, mergedClassName)}
+      {...restProps}
     />
   )
-}
+})
+TabsList.displayName = "TabsList"
 
-function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+import { Slot } from './slot'
+
+const TabsTrigger = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { value: string; asChild?: boolean }
+>(({ className, value, asChild = false, ...props }, ref) => {
+  const api = useTabsContext()
+  const Comp = asChild ? Slot : "button"
+  const triggerProps = api.getTriggerProps({ value, disabled: props.disabled })
+  const mergedProps = mergeProps(triggerProps, props) as React.ButtonHTMLAttributes<HTMLButtonElement>
+  const { className: mergedClassName, type: mergedType, ...restProps } = mergedProps
+  const finalType = asChild ? mergedType : mergedType ?? "button"
+
   return (
-    <TabsPrimitive.Trigger
+    <Comp
+      ref={ref}
       data-slot="tabs-trigger"
-      className={cn(
-        'hover:text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-xs [&_svg]:shrink-0',
-        className
-      )}
-      {...props}
+      type={finalType}
+      className={cn(tabsTriggerVariants(), className, mergedClassName)}
+      {...restProps}
     />
   )
-}
+})
+TabsTrigger.displayName = "TabsTrigger"
 
-function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {
+const TabsContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { value: string }
+>(({ className, value, ...props }, ref) => {
+  const api = useTabsContext()
+  const isSelected = api.value === value
+
+  if (!isSelected) return null
+
+  const contentProps = api.getContentProps({ value })
+  const mergedProps = mergeProps(contentProps, props) as React.HTMLAttributes<HTMLDivElement>
+  const { className: mergedClassName, ...restProps } = mergedProps
+
   return (
-    <TabsPrimitive.Content
+    <div
+      ref={ref}
       data-slot="tabs-content"
-      className={cn('flex-1 outline-none', className)}
-      {...props}
+      role="tabpanel"
+      data-state={isSelected ? "active" : "inactive"}
+      className={cn(tabsContentVariants(), className, mergedClassName)}
+      {...restProps}
     />
   )
-}
+})
+TabsContent.displayName = "TabsContent"
 
-export { Tabs, TabsContent, TabsList, TabsTrigger }
+export { Tabs, TabsList, TabsTrigger, TabsContent }

@@ -1,0 +1,8 @@
+<view 
+  class="flex items-center justify-center gap-1 {{api.rootProps.className}}" 
+  id="{{api.rootProps.id}}"
+  role="group"
+  data-orientation="{{api.rootProps['data-orientation']}}"
+>
+  <slot />
+</view>

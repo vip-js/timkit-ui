@@ -1,0 +1,43 @@
+<view class="{{className}}">
+  <!-- Trigger (read-only input) -->
+  <view 
+    class="select-trigger" 
+    bindtap="onTriggerTap"
+    data-disabled="{{disabled}}"
+  >
+    <text>{{api.valueAsString || placeholder}}</text>
+  </view>
+
+  <!-- ActionSheet-style picker (bottom sheet) -->
+  <view 
+    wx:if="{{api.open}}" 
+    class="select-overlay" 
+    bindtap="onBackdropTap"
+  ></view>
+  
+  <view 
+    wx:if="{{api.open}}" 
+    class="select-content"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <view class="select-header">
+      <text class="select-title">{{label || placeholder}}</text>
+      <view class="select-close" bindtap="onBackdropTap">×</view>
+    </view>
+    
+    <scroll-view scroll-y class="select-list">
+      <view 
+        wx:for="{{items}}" 
+        wx:key="{{itemValueKey}}"
+        class="select-item"
+        data-value="{{item[itemValueKey] || item}}"
+        mark:value="{{item[itemValueKey] || item}}"
+        bindtap="onItemTap"
+        data-selected="{{api.value.includes(item[itemValueKey] || item)}}"
+      >
+        <text>{{item[itemLabelKey] || item}}</text>
+        <text wx:if="{{api.value.includes(item[itemValueKey] || item)}}" class="select-check">✓</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

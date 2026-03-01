@@ -1,12 +1,13 @@
 import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
-import { RegistryItem } from '@timui/core'
+import type { JsonValue, RegistryItem } from '@timui/core'
 import { Command } from 'commander'
 import prompts from 'prompts'
 import { z } from 'zod'
 
 import { registryCache } from '../lib/cache'
+import { resolveComponentAlias } from '../lib/component-aliases'
 import { fetchJsonWithRetry } from '../lib/http'
 import { validateRegistryPayload } from '../lib/registry'
 import { getPackageManager, writeFileSafely } from '../lib/utils'
@@ -15,6 +16,11 @@ import { getPackageManager, writeFileSafely } from '../lib/utils'
 const REGISTRY_BASE_URL = process.env.REGISTRY_URL || 'https://ui.timkit.cn'
 const REGISTRY_MIRRORS =
   process.env.REGISTRY_MIRRORS || process.env.REGISTRY_MIRROR_URLS || ''
+
+const getStringArray = (value: JsonValue | undefined): string[] => {
+  if (!Array.isArray(value)) return []
+  return value.filter((item): item is string => typeof item === 'string')
+}
 function readLocalRegistryAll(): RegistryItem[] {
   const candidates = [
     path.join(process.cwd(), 'registry-all.json'),
@@ -40,8 +46,8 @@ async function loadRegistryIndex(
   const bases = registryUrl
     ? [registryUrl]
     : [REGISTRY_BASE_URL].concat(
-        REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
-      )
+      REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
+    )
   try {
     // 1. Try Local File (Monorepo dev override)
     if (fs.existsSync('registry-index.json')) {
@@ -55,7 +61,7 @@ async function loadRegistryIndex(
     }
 
     // 3. Network Fetch with mirrors
-    let lastError: unknown
+    let lastError: any
     for (const base of bases) {
       const normalized = base.replace(/\/$/, '')
       try {
@@ -86,8 +92,8 @@ async function loadRegistryItem(
   const bases = registryUrl
     ? [registryUrl]
     : [REGISTRY_BASE_URL].concat(
-        REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
-      )
+      REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
+    )
   try {
     // 1. Try Local File
     if (fs.existsSync(`registry/${name}.json`)) {
@@ -105,7 +111,7 @@ async function loadRegistryItem(
       return cached
     }
 
-    let lastError: unknown
+    let lastError: any
     for (const base of bases) {
       const normalized = base.replace(/\/registry-index\.json$/, '').replace(/\/$/, '')
       const url = `${normalized}/registry/${name}.json`
@@ -131,9 +137,11 @@ const addOptionsSchema = z.object({
   cwd: z.string(),
   yes: z.boolean().default(false),
   force: z.boolean().optional(),
+  install: z.boolean().default(true),
   framework: z.string().optional(),
   path: z.string().optional(),
   registry: z.string().optional(),
+  diff: z.boolean().default(false),
 })
 
 export const add = new Command()
@@ -147,13 +155,15 @@ export const add = new Command()
     process.cwd()
   )
   .option('-f, --force', 'overwrite existing files without prompt', false)
-  .option('--framework <framework>', 'filter files by framework (react|vue|svelte|html|weapp)')
+  .option('--no-install', 'skip installing dependencies')
+  .option('--framework <framework>', 'filter files by framework (react|vue|html|weapp)')
   .option(
     '--path <path>',
     'relative output directory (default: src/components/ui)',
     'src/components/ui'
   )
   .option('--registry <url>', 'registry url override')
+  .option('-d, --diff', 'Show diff instead of writing files', false)
   .action(async (components, opts) => {
     const options = addOptionsSchema.parse({ components, ...opts })
     const cwd = path.resolve(options.cwd)
@@ -190,6 +200,18 @@ export const add = new Command()
       }
     }
 
+    const registryAliasMap = new Map<string, string>()
+    registryItems.forEach((item) => {
+      const aliases = getStringArray(item.meta?.aliases)
+      aliases.forEach((alias) => {
+        if (!registryAliasMap.has(alias)) {
+          registryAliasMap.set(alias, item.name)
+        }
+      })
+    })
+    const resolveAlias = (name: string) =>
+      registryAliasMap.get(name) || resolveComponentAlias(name, cwd)
+
     // 2. Select Components
     let selectedComponents = options.components
     if (!selectedComponents || selectedComponents.length === 0) {
@@ -208,6 +230,21 @@ export const add = new Command()
       process.exit(0)
     }
 
+    const aliasNotes = new Set<string>()
+    selectedComponents = selectedComponents.map((name) => {
+      const resolved = resolveAlias(name)
+      if (resolved !== name) {
+        aliasNotes.add(`${name} -> ${resolved}`)
+      }
+      return resolved
+    })
+    selectedComponents = Array.from(new Set(selectedComponents))
+
+    if (aliasNotes.size > 0) {
+      console.log('\nResolved aliases:')
+      aliasNotes.forEach((note) => console.log(`- ${note}`))
+    }
+
     // 3. Resolve Recursive Dependencies
     const resolvedComponents = new Map<string, RegistryItem>()
 
@@ -215,7 +252,8 @@ export const add = new Command()
     const devDependenciesToInstall = new Set<string>()
 
     const resolveRecursive = async (names: string[]) => {
-      for (const name of names) {
+      for (const rawName of names) {
+        const name = resolveAlias(rawName)
         if (resolvedComponents.has(name)) continue
 
         let item = registryItems.find((i) => i.name === name)
@@ -261,7 +299,10 @@ export const add = new Command()
         resolvedComponents.set(name, item)
 
         if (item.registryDependencies) {
-          await resolveRecursive(item.registryDependencies)
+          const dependencyNames = item.registryDependencies.map((depName) =>
+            resolveAlias(depName)
+          )
+          await resolveRecursive(dependencyNames)
         }
       }
     }
@@ -277,7 +318,8 @@ export const add = new Command()
       // ... (existing write logic)
 
       console.log(`\nProcessing ${item.name}...`)
-      if ((item.meta as any)?.placeholder) {
+      const isPlaceholder = item.meta?.placeholder === true
+      if (isPlaceholder) {
         console.warn(`   ⚠️ ${item.name} is marked as placeholder (non-production).`)
         if (!overwrite && !options.yes) {
           const response = await prompts({
@@ -297,17 +339,17 @@ export const add = new Command()
       if (item.dependencies) item.dependencies.forEach((d) => dependenciesToInstall.add(d))
       if (item.devDependencies) item.devDependencies.forEach((d) => devDependenciesToInstall.add(d))
 
-      // Assume we need @timui/shared if shared styles exist
-      // dependenciesToInstall.add("@timui/shared")
+      // Assume we need @timui/core if shared styles exist
+      // dependenciesToInstall.add("@timui/core")
       // Better: rely on registry metadata.
 
       // Write Files
       if (item.files) {
-        const framework = options.framework || item.meta?.frameworks?.[0]
+        const frameworks = getStringArray(item.meta?.frameworks)
+        const framework = options.framework || frameworks[0]
         const extByFramework: Record<string, string[]> = {
           react: ['.tsx', '.jsx'],
           vue: ['.vue'],
-          svelte: ['.svelte'],
           html: ['.html', '.htm'],
           weapp: ['.wxml', '.wxss', '.ts', '.js'],
         }
@@ -365,6 +407,32 @@ export const add = new Command()
           }
 
           if (file.content) {
+            if (options.diff) {
+              if (fs.existsSync(targetPath)) {
+                const localContent = fs.readFileSync(targetPath, 'utf-8')
+                if (localContent === file.content) {
+                  console.log(`   ✅ ${path.relative(cwd, targetPath)} is up to date.`)
+                } else {
+                  console.log(`   diff for ${path.relative(cwd, targetPath)}:`)
+                  const localLines = localContent.split('\n')
+                  const remoteLines = file.content.split('\n')
+                  // Simple line-by-line diff for now to avoid external deps in this demo
+                  // In a real CLI we would use 'diff' package.
+                  console.log('--- local')
+                  console.log('+++ remote')
+                  remoteLines.forEach((line, i) => {
+                    if (localLines[i] !== line) {
+                      if (localLines[i] !== undefined) console.log(`- ${localLines[i]}`)
+                      console.log(`+ ${line}`)
+                    }
+                  })
+                }
+              } else {
+                console.log(`   🆕 ${path.relative(cwd, targetPath)} does not exist locally.`)
+              }
+              continue
+            }
+
             writeFileSafely({
               target: targetPath,
               content: file.content,
@@ -390,6 +458,13 @@ export const add = new Command()
         pm === 'npm' ? (isDev ? 'install -D' : 'install') : isDev ? 'add -D' : 'add'
       console.log(`\nInstalling ${isDev ? 'dev ' : ''}dependencies with ${pm}: ${depStr}`)
       execSync(`${pm} ${installCmd} ${depStr}`, { cwd, stdio: 'inherit' })
+    }
+
+    if (!options.install) {
+      if (dependenciesToInstall.size > 0 || devDependenciesToInstall.size > 0) {
+        console.log('\nSkipping dependency installation (--no-install).')
+      }
+      return
     }
 
     if (dependenciesToInstall.size > 0 || devDependenciesToInstall.size > 0) {

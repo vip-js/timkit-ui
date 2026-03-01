@@ -1,6 +1,5 @@
 import { useId } from 'react'
-
-import { Textarea } from '../../ui/textarea'
+import { Textarea } from '@timui/react'
 
 export default function Component() {
   const id = useId()

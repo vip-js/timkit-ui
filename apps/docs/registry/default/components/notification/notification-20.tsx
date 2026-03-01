@@ -1,10 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CircleCheckIcon, XIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Toast,
   ToastAction,
   ToastClose,
@@ -12,7 +10,8 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '../../ui/toast'
+} from '@timui/react'
+import { CircleCheckIcon, XIcon } from 'lucide-react'
 
 interface UseProgressTimerProps {
   duration: number

@@ -1,15 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
+import { Button, Checkbox, Input, Textarea } from "@timui/react";
 export default function ContactSectionWithImage() {
-
     const servicesItems = ["Mobile development", "UI/UX Design", "web development", "SEO"]
-
     return (
         <main style={{height: "850px"}} className="flex overflow-hidden">
             <div className="flex-1 hidden lg:block">
@@ -22,7 +14,7 @@ export default function ContactSectionWithImage() {
                             Get in touch
                         </h3>
                         <p className="mt-3">
-                            We’d love to hear from you! Please fill out the form bellow.
+                            We'd love to hear from you! Please fill out the form bellow.
                         </p>
                     </div>
                     <form
@@ -33,20 +25,20 @@ export default function ContactSectionWithImage() {
                             <label className="font-medium">
                                 Full name
                             </label>
-                            <input
+                            <Input
                                 type="text"
                                 required
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                className="w-full mt-2"
                             />
                         </div>
                         <div>
                             <label className="font-medium">
                                 Email
                             </label>
-                            <input
+                            <Input
                                 type="email"
                                 required
-                                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                className="w-full mt-2"
                             />
                         </div>
                         <div>
@@ -61,11 +53,11 @@ export default function ContactSectionWithImage() {
                                         <option>MR</option>
                                     </select>
                                 </div>
-                                <input
+                                <Input
                                     type="number"
                                     placeholder="+1 (555) 000-000"
                                     required
-                                    className="w-full pl-[4.5rem] pr-3 py-2 appearance-none bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+                                    className="w-full pl-[4.5rem] pr-3"
                                 />
                             </div>
                         </div>
@@ -77,14 +69,7 @@ export default function ContactSectionWithImage() {
                                 {
                                     servicesItems.map((item, idx) => (
                                         <li key={idx} className="flex gap-x-3 text-sm">
-                                            <div>
-                                                <input id={`service-${idx}`} type="checkbox" className="checkbox-item peer hidden" />
-                                                <label
-                                                    htmlFor={`service-${idx}`}
-                                                    className="relative flex w-5 h-5 bg-white peer-checked:bg-indigo-600 rounded-md border ring-offset-2 ring-indigo-600 duration-150 peer-active:ring cursor-pointer after:absolute after:inset-x-0 after:top-[3px] after:m-auto after:w-1.5 after:h-2.5 after:border-r-2 after:border-b-2 after:border-white after:rotate-45"
-                                                >
-                                                </label>
-                                            </div>
+                                            <Checkbox id={`service-${idx}`} />
                                             <label htmlFor={`service-${idx}`} className="cursor-pointer">{item}</label>
                                         </li>
                                     ))
@@ -95,17 +80,16 @@ export default function ContactSectionWithImage() {
                             <label className="font-medium">
                                 Message
                             </label>
-                            <textarea required className="w-full mt-2 h-36 px-3 py-2 resize-none appearance-none bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"></textarea>
+                            <Textarea required className="w-full mt-2 h-36 resize-none"></Textarea>
                         </div>
-                        <button
-                            className="w-full px-4 py-2 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-lg duration-150"
+                        <Button
+                            className="w-full"
                         >
                             Submit
-                        </button>
+                        </Button>
                     </form>
                 </div>
             </div>
         </main>
     )
 }
-        

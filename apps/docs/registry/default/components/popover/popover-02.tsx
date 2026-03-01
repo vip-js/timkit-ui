@@ -1,11 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Badge, Button, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import { BellIcon } from 'lucide-react'
-
-import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 const initialNotifications = [
   {

@@ -1,17 +1,16 @@
 import { useId } from 'react'
-
-import { Button } from '../../ui/button'
-import { Checkbox } from '../../ui/checkbox'
 import {
+  Button,
+  Checkbox,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
+  Input,
+  Label,
+} from '@timui/react'
 
 export default function Component() {
   const id = useId()

@@ -2,6 +2,19 @@
 
 import { useId, useState } from 'react'
 import {
+  Button,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@timui/react'
+import {
   BlocksIcon,
   BrainIcon,
   ChevronDownIcon,
@@ -14,18 +27,6 @@ import {
   SearchIcon,
   ServerIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '../../ui/command'
-import { Label } from '../../ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 
 const items = [
   {
@@ -145,7 +146,8 @@ export default function Component() {
                     key={item.value}
                     value={item.value}
                     onSelect={(currentValue) => {
-                      setValue(currentValue === value ? '' : currentValue)
+                      const val = currentValue as string
+                      setValue(val === value ? '' : val)
                       setOpen(false)
                     }}
                     className="flex items-center justify-between"

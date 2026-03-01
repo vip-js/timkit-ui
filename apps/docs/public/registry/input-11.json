@@ -2,15 +2,33 @@
   "name": "input-11",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/input.json",
-    "https://originui.com/r/label.json"
+    "https://ui.timkit.cn/r/input.json",
+    "https://ui.timkit.cn/r/label.json"
   ],
   "files": [
     {
       "path": "registry/default/components/input/input-11.tsx",
       "type": "registry:component",
       "target": "components/ui/input-11.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Input } from '../../ui/input'\nimport { Label } from '../../ui/label'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with start inline add-on</Label>\n      <div className=\"relative\">\n        <Input id={id} className=\"peer ps-16\" placeholder=\"google.com\" type=\"text\" />\n        <span className=\"text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50\">\n          https://\n        </span>\n      </div>\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Input, Label } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>Input with start inline add-on</Label>\n      <div className=\"relative\">\n        <Input id={id} className=\"peer ps-16\" placeholder=\"google.com\" type=\"text\" />\n        <span className=\"text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50\">\n          https://\n        </span>\n      </div>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/input/input-11.vue",
+      "target": "components/ui/input-11.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n</script>\n<template>\n<div class=\"*:not-first:mt-2\">\n      <Label for=\"input-11-id\">Input with start inline add-on</Label>\n      <div class=\"relative\">\n        <Input id=\"input-11-id\" class=\"peer ps-16\" placeholder=\"google.com\" type=\"text\" />\n        <span class=\"text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50\">\n          https://\n        </span>\n      </div>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/input/input-11.html",
+      "target": "components/ui/input-11.html",
+      "type": "registry:component",
+      "content": "<div class=\"*:not-first:mt-2\">\n      <label for=\"input-11-id\">Input with start inline add-on</label>\n      <div class=\"relative\">\n        <input id=\"input-11-id\" class=\"peer ps-16\" placeholder=\"google.com\" type=\"text\" />\n        <span class=\"text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50\">\n          https://\n        </span>\n      </div>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/input/input-11.wxml",
+      "target": "components/ui/input-11/input-11.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"*:not-first:mt-2\">\n      <label for=\"input-11-id\">Input with start inline add-on</label>\n      <view class=\"relative\">\n        <input id=\"input-11-id\" class=\"peer ps-16\" placeholder=\"google.com\" type=\"text\" />\n        <span class=\"text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50\">\n          https://\n        </span>\n      </view>\n    </view>"
     }
   ],
   "meta": {
@@ -19,11 +37,15 @@
       "label"
     ],
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "inputs"
+    "category": "inputs",
+    "title": "Input · With label"
   },
   "categories": [
     "inputs",

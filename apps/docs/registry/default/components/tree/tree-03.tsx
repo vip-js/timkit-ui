@@ -3,9 +3,8 @@
 import React from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
+import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
 import { FileIcon, FolderIcon, FolderOpenIcon } from 'lucide-react'
-
-import { Tree, TreeItem, TreeItemLabel } from '../../ui/tree'
 
 interface Item {
   name: string

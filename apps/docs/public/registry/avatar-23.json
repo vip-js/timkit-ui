@@ -7,6 +7,24 @@
       "type": "registry:component",
       "target": "components/ui/avatar-23.tsx",
       "content": "export default function Component() {\n  return (\n    <div className=\"bg-background flex items-center rounded-full border p-1 shadow-sm\">\n      <div className=\"flex -space-x-1.5\">\n        <img\n          className=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-03.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 01\"\n        />\n        <img\n          className=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-04.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 02\"\n        />\n        <img\n          className=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-05.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 03\"\n        />\n        <img\n          className=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-06.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 04\"\n        />\n      </div>\n      <p className=\"text-muted-foreground px-2 text-xs\">\n        Trusted by <strong className=\"text-foreground font-medium\">60K+</strong> developers.\n      </p>\n    </div>\n  )\n}\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-23.vue",
+      "target": "components/ui/avatar-23.vue",
+      "type": "registry:component",
+      "content": "<script setup lang=\"ts\">\nimport { Avatar } from '@/components/ui/avatar'\n</script>\n\n<template>\n<div class=\"bg-background flex items-center rounded-full border p-1 shadow-sm\">\n      <div class=\"flex -space-x-1.5\">\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-03.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 01\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-04.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 02\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-05.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 03\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-06.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 04\"\n        />\n      </div>\n      <p class=\"text-muted-foreground px-2 text-xs\">\n        Trusted by <strong class=\"text-foreground font-medium\">60K+</strong> developers.\n      </p>\n    </div>\n</template>\n"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-23.html",
+      "target": "components/ui/avatar-23.html",
+      "type": "registry:component",
+      "content": "<div class=\"bg-background flex items-center rounded-full border p-1 shadow-sm\">\n      <div class=\"flex -space-x-1.5\">\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-03.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 01\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-04.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 02\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-05.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 03\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-06.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 04\"\n        />\n      </div>\n      <p class=\"text-muted-foreground px-2 text-xs\">\n        Trusted by <strong class=\"text-foreground font-medium\">60K+</strong> developers.\n      </p>\n    </div>"
+    },
+    {
+      "path": "registry/default/components/avatar/avatar-23.wxml",
+      "target": "components/ui/avatar-23/avatar-23.wxml",
+      "type": "registry:component",
+      "content": "<view class=\"bg-background flex items-center rounded-full border p-1 shadow-sm\">\n      <view class=\"flex -space-x-1.5\">\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-03.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 01\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-04.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 02\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-05.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 03\"\n        />\n        <img\n          class=\"ring-background rounded-full ring-1\"\n          src=\"/avatar-80-06.jpg\"\n          width={20}\n          height={20}\n          alt=\"Avatar 04\"\n        />\n      </view>\n      <p class=\"text-muted-foreground px-2 text-xs\">\n        Trusted by <strong class=\"text-foreground font-medium\">60K+</strong> developers.\n      </p>\n    </view>"
     }
   ],
   "meta": {
@@ -16,11 +34,15 @@
     ],
     "style": 1,
     "frameworks": [
-      "react"
+      "react",
+      "vue",
+      "weapp",
+      "html"
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "avatars"
+    "category": "avatars",
+    "title": "Avatar · Profile Pattern"
   },
   "categories": [
     "avatars",

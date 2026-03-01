@@ -1,0 +1,34 @@
+<view
+  class="accordion-item border-b {{className}}"
+  data-slot="accordion-item"
+  data-state="{{expanded ? 'open' : 'closed'}}"
+>
+  <view class="accordion-header flex">
+    <view 
+      class="accordion-trigger flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline  {{disabled ? 'opacity-50 pointer-events-none' : ''}}"
+      data-slot="accordion-trigger"
+      bindtap="onTap"
+      data-state="{{expanded ? 'open' : 'closed'}}"
+      aria-expanded="{{expanded ? 'true' : 'false'}}"
+    >
+      <slot name="trigger"></slot>
+      <view class="icon-container {{expanded ? iconExpandedClass : ''}} transition-transform duration-200">
+         <slot name="icon">
+           <!-- Ideally use an icon component or svg here -->
+           <view class="h-4 w-4">⌄</view> 
+         </slot>
+      </view>
+    </view>
+  </view>
+  <view 
+    class="accordion-content overflow-hidden text-sm transition-all"
+    data-slot="accordion-content"
+    data-state="{{expanded ? 'open' : 'closed'}}"
+    style="{{expanded ? '' : 'height: 0; padding-bottom: 0;'}}"
+  >
+    <view class="pb-4 pt-0">
+      <slot name="content"></slot>
+      <slot></slot>
+    </view>
+  </view>
+</view>

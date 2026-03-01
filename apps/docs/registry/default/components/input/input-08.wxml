@@ -1,0 +1,4 @@
+<view class="*:not-first:mt-2">
+      <label for="input-08-id">Disabled input</label>
+      <input id="input-08-id" placeholder="Email" type="email" disabled />
+    </view>

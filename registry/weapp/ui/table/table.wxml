@@ -1,0 +1,5 @@
+<view class="w-full overflow-auto">
+  <view class="{{className}}">
+    <slot></slot>
+  </view>
+</view>

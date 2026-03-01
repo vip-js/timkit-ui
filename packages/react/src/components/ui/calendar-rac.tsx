@@ -3,8 +3,7 @@
 
 import { ComponentProps } from 'react'
 import { getLocalTimeZone, today } from '@internationalized/date'
-import { cn } from '@timui/shared'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { cn } from '@timui/core'
 import {
   Button,
   CalendarCell as CalendarCellRac,
@@ -34,14 +33,38 @@ function CalendarHeader() {
         slot="previous"
         className="text-muted-foreground/80 hover:bg-accent hover:text-foreground focus-visible:ring-ring/50 flex size-9 items-center justify-center rounded-md transition-[color,box-shadow] outline-none focus-visible:ring-[3px]"
       >
-        <ChevronLeftIcon size={16} />
+        <svg
+          width={16}
+          height={16}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
       </Button>
       <HeadingRac className="grow text-center text-sm font-medium" />
       <Button
         slot="next"
         className="text-muted-foreground/80 hover:bg-accent hover:text-foreground focus-visible:ring-ring/50 flex size-9 items-center justify-center rounded-md transition-[color,box-shadow] outline-none focus-visible:ring-[3px]"
       >
-        <ChevronRightIcon size={16} />
+        <svg
+          width={16}
+          height={16}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
       </Button>
     </header>
   )
@@ -88,6 +111,7 @@ function CalendarRAC({ className, ...props }: CalendarProps) {
   return (
     <CalendarRac
       {...props}
+      data-slot="calendar"
       className={composeRenderProps(className, (className) => cn('w-fit', className))}
     >
       <CalendarHeader />
@@ -100,6 +124,7 @@ function RangeCalendarRAC({ className, ...props }: RangeCalendarProps) {
   return (
     <RangeCalendarRac
       {...props}
+      data-slot="calendar"
       className={composeRenderProps(className, (className) => cn('w-fit', className))}
     >
       <CalendarHeader />

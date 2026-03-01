@@ -1,13 +1,8 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { CheckIcon, ImagePlusIcon, XIcon } from 'lucide-react'
-
-import { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'
-import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
-
-import { Button } from '../../ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -16,10 +11,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../ui/dialog'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { Textarea } from '../../ui/textarea'
+  Input,
+  Label,
+  Textarea,
+} from '@timui/react'
+import { CheckIcon, ImagePlusIcon, XIcon } from 'lucide-react'
+
+import { useCharacterLimit } from '@/registry/default/hooks/use-character-limit'
+import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
 
 // Pretend we have initial image files
 const initialBgImage = [

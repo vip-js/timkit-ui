@@ -1,26 +1,33 @@
-import { popoverContentVariants } from '@timui/shared'
-
-import { resolveClasses } from '../utils'
+import { popoverContentVariants } from '../utils'
 
 Component({
+  options: {
+    styleIsolation: "apply-shared",
+  },
   relations: {
     '../popover/popover': {
       type: 'parent',
     },
   },
+  externalClasses: ['ext-class'],
   properties: {
     extClass: { type: String, value: '' },
   },
   data: {
     visible: false,
     style: 'opacity: 0;', // Initial hidden
-    baseClass: '',
+    className: '',
   },
   observers: {
-    extClass: function (extClass) {
-      const { baseClass } = resolveClasses(popoverContentVariants(), extClass)
-      this.setData({ baseClass })
-    },
+    extClass: function (extClass: string) {
+      this.setData({
+        // Simulating data-state for variants if needed?
+        // Shared variant uses `data-[state=open]:animate-in`.
+        // WeApp won't trigger that animation naturally without state change.
+        // For now, allow base classes.
+        className: popoverContentVariants({ className: extClass })
+      })
+    }
   },
   methods: {
     showForMeasure() {
@@ -40,13 +47,13 @@ Component({
     getRect() {
       return new Promise((resolve) => {
         this.createSelectorQuery()
-          .select('.tk-popover-content')
+          .select('#popover-content')
           .boundingClientRect((rect) => {
             resolve(rect)
           })
           .exec()
       })
     },
-    noop() {},
+    noop() { },
   },
 })

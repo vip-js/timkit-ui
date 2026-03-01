@@ -3,8 +3,9 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import ts from 'typescript'
 
-import { RegistryItem, registryItemSchema } from '../packages/core/src/schema'
+import { RegistryItem, registryItemSchema } from '../packages/core/src/shared/schema'
 import { sha256OfString } from '../packages/cli/src/lib/checksum'
+import { resolveDemoDisplayTitle } from '../apps/docs/lib/demo-title'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -26,20 +27,46 @@ const DOCS_CATALOG_PATH = path.join(ROOT, 'apps/docs/data/catalog-all.json')
 const PUBLIC_CATALOG_PATH = path.join(ROOT, 'apps/docs/public/catalog.all.json')
 const DOCS_DATA_INDEX_PATH = path.join(ROOT, 'apps/docs/data/registry-index.json')
 const DOCS_DATA_REGISTRY_DIR = path.join(ROOT, 'apps/docs/data/registry')
+const REGISTRY_ALIASES_PATH = path.join(ROOT, 'apps/docs/data/registry-aliases.json')
 
 const WEB_COMPONENTS_DIR = path.join(ROOT, 'packages/react/src/components/ui')
 const VUE_COMPONENTS_DIR = path.join(ROOT, 'packages/vue/src/components')
+const VUE_UI_COMPONENTS_DIR = path.join(VUE_COMPONENTS_DIR, 'ui')
+const VUE_HOOKS_DIR = path.join(ROOT, 'packages/vue/src/hooks')
 const WEAPP_SRC_DIR = path.join(ROOT, 'packages/weapp/src')
+const HTML_COMPONENTS_DIR = path.join(ROOT, 'packages/html/src/components')
 const DOCS_HTML_DIR = path.join(ROOT, 'apps/docs/registry/default/html')
-const DOCS_SVELTE_DIR = path.join(ROOT, 'apps/docs/registry/default/svelte')
 const DOCS_WEAPP_DIR = path.join(ROOT, 'apps/docs/registry/default/weapp')
+const DOCS_VUE_DIR = path.join(ROOT, 'apps/docs/registry/default/vue')
 
 const frameworkExtensions: Record<string, string[]> = {
   react: ['.tsx', '.jsx'],
-  vue: ['.vue'],
-  svelte: ['.svelte'],
+  vue: ['.vue', '.ts'], // Added .ts for Vue hooks
   html: ['.html', '.htm'],
   weapp: ['.wxml', '.wxss', '.ts', '.js'],
+}
+
+const FRAMEWORK_PRIORITY = ['react', 'vue', 'weapp', 'html']
+const orderFrameworks = (list: string[]) => {
+  const seen = new Set<string>()
+  const normalized = list.map((frame) => frame.toLowerCase())
+
+  const ordered = FRAMEWORK_PRIORITY.filter((frame) => {
+    if (normalized.includes(frame) && !seen.has(frame)) {
+      seen.add(frame)
+      return true
+    }
+    return false
+  })
+
+  normalized.forEach((frame) => {
+    if (!seen.has(frame)) {
+      seen.add(frame)
+      ordered.push(frame)
+    }
+  })
+
+  return ordered
 }
 
 const CORE_PARITY_COMPONENTS = [
@@ -52,16 +79,18 @@ const CORE_PARITY_COMPONENTS = [
   'tree',
   'select',
   'toast',
+  'switch',
+  'slider',
+  'tabs',
+  'textarea',
 ]
 const CLIENT_ONLY_COMPONENTS = ['tree', 'cropper']
 const CLIENT_ONLY_CATEGORIES = ['tree']
 
 const PLACEHOLDERS = {
-  html: (name: string) => `<div class="tk-${name}">Placeholder for ${name} (HTML)</div>`,
-  svelte: (name: string) =>
-    `<script lang="ts">\n  export let label = "${name}";\n</script>\n<button class="tk-${name}">{label}</button>\n`,
+  html: (name: string) => `<div class="flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">Placeholder for ${name} (HTML)</div>`,
   weapp: (name: string) =>
-    `<!-- Placeholder for ${name} (WeApp) -->\n<view class="tk-${name}">Placeholder</view>\n`,
+    `<!-- Placeholder for ${name} (WeApp) -->\n<view class="flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">Placeholder</view>\n`,
 }
 
 function extractImportsFromTs(content: string): string[] {
@@ -100,13 +129,27 @@ function normalizeRegistryDeps(imports: string[], explicit: string[]): string[] 
   return deps
 }
 
+function loadRegistryAliases(): Record<string, string> {
+  if (!fs.existsSync(REGISTRY_ALIASES_PATH)) return {}
+  try {
+    const parsed = JSON.parse(fs.readFileSync(REGISTRY_ALIASES_PATH, 'utf-8')) as Record<
+      string,
+      object
+    >
+    return Object.fromEntries(
+      Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === 'string')
+    )
+  } catch {
+    return {}
+  }
+}
+
 function tryReadFile(paths: string[]): string | undefined {
   for (const p of paths) {
     if (fs.existsSync(p)) {
       return fs.readFileSync(p, 'utf-8')
     }
   }
-  return undefined
   return undefined
 }
 
@@ -121,13 +164,57 @@ function safeReadJson<T>(path: string): T | undefined {
   return undefined
 }
 
+function normalizeSourceContent(content: string): string {
+  return content.replace(/^(?:'use client'\s*\n){2,}/, "'use client'\n")
+}
+
+function collectVueFilesForComponent(name: string): Array<{
+  sourcePath: string
+  registryPath: string
+  target: string
+}> {
+  const results: Array<{ sourcePath: string; registryPath: string; target: string }> = []
+  const pushFile = (sourcePath: string, registryPath: string, target: string) => {
+    if (!fs.existsSync(sourcePath)) return
+    if (results.some((entry) => entry.sourcePath === sourcePath)) return
+    results.push({ sourcePath, registryPath, target })
+  }
+
+  pushFile(
+    path.join(VUE_COMPONENTS_DIR, `${name}.vue`),
+    `registry/default/vue/${name}.vue`,
+    `components/ui/${name}.vue`
+  )
+
+  pushFile(
+    path.join(VUE_UI_COMPONENTS_DIR, `${name}.vue`),
+    `registry/default/vue/${name}.vue`,
+    `components/ui/${name}.vue`
+  )
+
+  const scopedDir = path.join(VUE_UI_COMPONENTS_DIR, name)
+  if (fs.existsSync(scopedDir) && fs.statSync(scopedDir).isDirectory()) {
+    const scopedFiles = fs.readdirSync(scopedDir)
+    scopedFiles.forEach((file) => {
+      if (!file.endsWith('.vue') && !file.endsWith('.ts')) return
+      pushFile(
+        path.join(scopedDir, file),
+        `registry/default/vue/${name}/${file}`,
+        `components/ui/${name}/${file}`
+      )
+    })
+  }
+
+  return results
+}
+
 async function main() {
   console.time('Total Build Time')
   console.log('Building registry-all.json & catalog-all.json (Robust Mode)...')
 
   // 0. Read Skeleton Catalog (for Section Metadata like descriptions, cover_images)
   console.time('Read Skeleton')
-  let catalogSkeleton: any = safeReadJson(CATALOG_SRC_PATH) || { categories: [], sections: [] }
+  let catalogSkeleton: object = safeReadJson(CATALOG_SRC_PATH) || { categories: [], sections: [] }
   console.timeEnd('Read Skeleton')
 
   // 1. Read Base Registry (UI Components / Shadcn items)
@@ -161,8 +248,12 @@ async function main() {
           if (!content && file.path.endsWith('.tsx')) {
             content = tryReadFile([path.join(WEB_COMPONENTS_DIR, `${item.name}.tsx`)])
           }
-          if (!content && file.path.endsWith('.vue')) {
-            content = tryReadFile([path.join(VUE_COMPONENTS_DIR, `${item.name}.vue`)])
+          if (!content && (file.path.endsWith('.vue') || (file.path.endsWith('.ts') && file.path.includes('/vue/')))) {
+            const basename = path.basename(file.path)
+            content = tryReadFile([
+              path.join(VUE_COMPONENTS_DIR, basename),
+              path.join(VUE_HOOKS_DIR, basename)
+            ])
           }
 
           // Compute target path
@@ -182,7 +273,7 @@ async function main() {
           return {
             ...file,
             target,
-            content,
+            content: content ? normalizeSourceContent(content) : content,
           }
         }) ?? []
 
@@ -197,15 +288,16 @@ async function main() {
       // Even if not in registry.json, if they exist on disk, add them.
 
       // 1. Vue Discovery
-      const vuePath = path.join(VUE_COMPONENTS_DIR, `${item.name}.vue`)
-      if (fs.existsSync(vuePath) && !filesWithContent.some((f) => f.path.endsWith('.vue'))) {
+      const vueFiles = collectVueFilesForComponent(item.name)
+      vueFiles.forEach((entry) => {
+        if (filesWithContent.some((file) => file.path === entry.registryPath)) return
         filesWithContent.push({
-          path: `registry/default/vue/${item.name}.vue`,
-          target: `components/ui/${item.name}.vue`,
+          path: entry.registryPath,
+          target: entry.target,
           type: 'registry:component',
-          content: fs.readFileSync(vuePath, 'utf-8'),
+          content: normalizeSourceContent(fs.readFileSync(entry.sourcePath, 'utf-8')),
         })
-      }
+      })
 
       // 2. Weapp Discovery (Primitives)
       const WEAPP_PRIMITIVES_DIR = path.join(ROOT, 'packages/weapp/primitives')
@@ -224,12 +316,97 @@ async function main() {
         })
       }
 
-      // 3. Fallback/real multi-framework files for core parity
+      // 3. Fallback/real multi-framework files for ALL components
+      // [NEW] Colocation Discovery: Check the directory of the primary file (tsx) for siblings
+      const primaryFile = filesWithContent.find(f => f.path.endsWith('.tsx')) || filesWithContent[0]
+      if (primaryFile) {
+        // file.path is relative to apps/docs usually, but let's resolve it carefully
+        const relPath = primaryFile.path
+        // If it starts with 'registry/', it's inside apps/docs
+        const possiblePrimaryPath = path.join(ROOT, 'apps/docs', relPath)
+        const primaryDir = fs.existsSync(possiblePrimaryPath) ? path.dirname(possiblePrimaryPath) : undefined
+
+        if (primaryDir) {
+          const basename = path.basename(primaryFile.path, path.extname(primaryFile.path)) // e.g. 'button-01' from 'button-01.tsx'
+
+          // Helper to add if exists and not already present
+          const tryAddSibling = (ext: string, type: 'vue' | 'html' | 'weapp') => {
+            const siblingPath = path.join(primaryDir, `${basename}.${ext}`)
+            const alreadyHas = filesWithContent.some(f => f.path.endsWith(`.${ext}`))
+            // Note: checking endsWith is loose, but usually sufficient for same-name check
+
+            if (fs.existsSync(siblingPath) && !alreadyHas) {
+              // Construct relative path for registry
+              // We want to keep the same folder structure in registry output? 
+              // Result path: "registry/default/components/button/button-01.vue"
+              const docRelPath = path.relative(path.join(ROOT, 'apps/docs'), siblingPath)
+
+              // Construct target
+              // For 'registry:component', target is usually components/ui/[filename]
+              // But for Weapp, we might want consistent structure.
+              let target = `components/ui/${basename}.${ext}`
+              if (type === 'weapp') {
+                target = `components/ui/${item.name}/${basename}.${ext}`
+              }
+
+              let content = fs.readFileSync(siblingPath, 'utf-8')
+
+              filesWithContent.push({
+                path: docRelPath,
+                target,
+                type: 'registry:component',
+                content
+              })
+
+
+              // For Weapp, also check wxml/wxss/json/ts/js siblings
+              if (type === 'weapp' && ext === 'wxml') {
+                ['wxss', 'json', 'ts', 'js'].forEach(extraExt => {
+                  const extraPath = path.join(primaryDir, `${basename}.${extraExt}`)
+                  if (fs.existsSync(extraPath)) {
+                    filesWithContent.push({
+                      path: path.relative(path.join(ROOT, 'apps/docs'), extraPath),
+                      target: `components/ui/${item.name}/${basename}.${extraExt}`,
+                      type: 'registry:component',
+                      content: fs.readFileSync(extraPath, 'utf-8')
+                    })
+                  }
+                })
+              }
+            }
+          }
+
+          tryAddSibling('vue', 'vue')
+          tryAddSibling('html', 'html')
+          tryAddSibling('wxml', 'weapp')
+        }
+      }
       let placeholderAdded = false
-      if (CORE_PARITY_COMPONENTS.includes(item.name)) {
-        const existingExts = filesWithContent.map((f) => path.extname(f.path))
-        // HTML
-        if (!existingExts.some((ext) => frameworkExtensions.html.includes(ext))) {
+      const existingExts = filesWithContent.map((f) => path.extname(f.path))
+
+      // 1. HTML Discovery
+      const docHtmlPath = path.join(DOCS_HTML_DIR, `${item.name}.html`)
+      if (fs.existsSync(docHtmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
+        filesWithContent.push({
+          path: `registry/default/html/${item.name}.html`,
+          target: `components/ui/${item.name}.html`,
+          type: 'registry:component',
+          content: fs.readFileSync(docHtmlPath, 'utf-8'),
+        })
+      } else {
+        const htmlPath = path.join(HTML_COMPONENTS_DIR, `${item.name}.html`)
+        if (fs.existsSync(htmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
+          filesWithContent.push({
+            path: `registry/default/html/${item.name}.html`,
+            target: `components/ui/${item.name}.html`,
+            type: 'registry:component',
+            content: fs.readFileSync(htmlPath, 'utf-8'),
+          })
+        } else if (
+          !filesWithContent.some((f) => f.path.endsWith('.html')) &&
+          CORE_PARITY_COMPONENTS.includes(item.name)
+        ) {
+          // Check docs dir or use placeholder (ONLY for Core Components)
           const htmlContent =
             tryReadFile([path.join(DOCS_HTML_DIR, `${item.name}.html`)]) ||
             PLACEHOLDERS.html(item.name)
@@ -239,39 +416,126 @@ async function main() {
             type: 'registry:component',
             content: htmlContent,
           })
-          if (!htmlContent) placeholderAdded = true
+        }
+      }
+
+      // 2. WeApp Discovery (Enhanced)
+      if (!filesWithContent.some((f) => f.path.endsWith('.wxml'))) {
+        // Check both Primitives dir and Src dir
+        // Also check primitive folder structure where files are named index.wxml or [name].wxml
+        const possiblePaths = [
+          path.join(DOCS_WEAPP_DIR, `${item.name}.wxml`),
+          path.join(WEAPP_SRC_DIR, item.name, `${item.name}.wxml`), // packages/weapp/src/[name]/[name].wxml
+          path.join(WEAPP_SRC_DIR, item.name, 'index.wxml'),        // packages/weapp/src/[name]/index.wxml
+          path.join(ROOT, 'packages/weapp/primitives', item.name, `${item.name}.wxml`),
+          path.join(ROOT, 'packages/weapp/primitives', item.name, 'index.wxml'),
+        ]
+
+        let weappContent: string | undefined
+        let foundPath: string | undefined
+
+        for (const p of possiblePaths) {
+          if (fs.existsSync(p)) {
+            weappContent = fs.readFileSync(p, 'utf-8')
+            foundPath = p
+            break
+          }
         }
 
-        // Svelte
-        if (!existingExts.some((ext) => frameworkExtensions.svelte.includes(ext))) {
-          const svelteContent =
-            tryReadFile([path.join(DOCS_SVELTE_DIR, `${item.name}.svelte`)]) ||
-            PLACEHOLDERS.svelte(item.name)
-          filesWithContent.push({
-            path: `registry/default/svelte/${item.name}.svelte`,
-            target: `components/ui/${item.name}.svelte`,
-            type: 'registry:component',
-            content: svelteContent,
-          })
-          if (!svelteContent) placeholderAdded = true
+        if (!weappContent && CORE_PARITY_COMPONENTS.includes(item.name)) {
+          weappContent = PLACEHOLDERS.weapp(item.name)
         }
 
-        // WeApp
-        if (!filesWithContent.some((f) => f.path.endsWith('.wxml'))) {
-          const weappContent =
-            tryReadFile([
-              path.join(DOCS_WEAPP_DIR, `${item.name}.wxml`),
-              path.join(WEAPP_SRC_DIR, item.name, `${item.name}.wxml`),
-              path.join(WEAPP_SRC_DIR, item.name, 'index.wxml'),
-            ]) || PLACEHOLDERS.weapp(item.name)
+        // If we found a real file, we might want to include related files (wxss, ts, json)
+        // Check if we already added it (maybe via colocation) - wait, this block runs if NO wxml found.
+        // But if foundPath is new..
+        if (weappContent) {
           filesWithContent.push({
             path: `registry/default/weapp/${item.name}.wxml`,
             target: `components/ui/${item.name}.wxml`,
             type: 'registry:component',
             content: weappContent,
           })
-          if (!weappContent) placeholderAdded = true
         }
+
+        // If real path found, try to add WXSS/TS
+        if (foundPath) {
+          const dir = path.dirname(foundPath)
+          const basename = path.basename(foundPath, '.wxml')
+          // Add WXSS
+          const wxssPath = path.join(dir, `${basename}.wxss`)
+          if (fs.existsSync(wxssPath)) {
+            filesWithContent.push({
+              path: `registry/default/weapp/${item.name}.wxss`,
+              target: `components/ui/${item.name}.wxss`,
+              type: 'registry:component',
+              content: fs.readFileSync(wxssPath, 'utf-8')
+            })
+          }
+          // Add TS/JS
+          const scriptPath = path.join(dir, `${basename}.ts`)
+          if (fs.existsSync(scriptPath)) {
+            filesWithContent.push({
+              path: `registry/default/weapp/${item.name}.ts`,
+              target: `components/ui/${item.name}.ts`,
+              type: 'registry:component',
+              content: fs.readFileSync(scriptPath, 'utf-8')
+            })
+          }
+          // Add JSON
+          const jsonPath = path.join(dir, `${basename}.json`)
+          if (fs.existsSync(jsonPath)) {
+            filesWithContent.push({
+              path: `registry/default/weapp/${item.name}.json`,
+              target: `components/ui/${item.name}.json`,
+              type: 'registry:component',
+              content: fs.readFileSync(jsonPath, 'utf-8')
+            })
+          }
+          // Add JS (if not TS)
+          const jsPath = path.join(dir, `${basename}.js`)
+          if (fs.existsSync(jsPath) && !fs.existsSync(scriptPath)) {
+            filesWithContent.push({
+              path: `registry/default/weapp/${item.name}.js`,
+              target: `components/ui/${item.name}.js`,
+              type: 'registry:component',
+              content: fs.readFileSync(jsPath, 'utf-8')
+            })
+          }
+        }
+      }
+
+      // [NEW] WeApp Subcomponent Discovery (e.g. accordion-item for accordion)
+      // Look for folders in WEAPP_SRC_DIR matching `${item.name}-*`
+      if (fs.existsSync(WEAPP_SRC_DIR)) {
+        try {
+          const wDirs = fs.readdirSync(WEAPP_SRC_DIR)
+          wDirs.forEach((dir: string) => {
+            if (dir.startsWith(`${item.name}-`) && fs.statSync(path.join(WEAPP_SRC_DIR, dir)).isDirectory()) {
+              // Support both index.* and folder-name.* (e.g. alert-title.wxml)
+              const subName = dir // e.g. accordion-item
+              const exts = ['wxml', 'wxss', 'json', 'js', 'ts']
+              const hasIndexWxml = fs.existsSync(path.join(WEAPP_SRC_DIR, dir, 'index.wxml'))
+              const hasNamedWxml = fs.existsSync(path.join(WEAPP_SRC_DIR, dir, `${subName}.wxml`))
+              if (hasIndexWxml || hasNamedWxml) {
+                exts.forEach((ext: string) => {
+                  const indexPath = path.join(WEAPP_SRC_DIR, dir, `index.${ext}`)
+                  const namedPath = path.join(WEAPP_SRC_DIR, dir, `${subName}.${ext}`)
+                  const resolvedPath = fs.existsSync(indexPath) ? indexPath : namedPath
+                  if (fs.existsSync(resolvedPath)) {
+                    const fileName = path.basename(resolvedPath)
+                    filesWithContent.push({
+                      path: `registry/default/weapp/${subName}/${fileName}`, // Virtual path
+                      target: `components/ui/${subName}/${fileName}`, // Target in user project
+                      type: 'registry:component',
+                      content: fs.readFileSync(resolvedPath, 'utf-8')
+                    })
+                  }
+                })
+              }
+            }
+          })
+        } catch (e) { }
       }
 
       // Recalculate frameworks based on final files list
@@ -279,19 +543,20 @@ async function main() {
       if (filesWithContent.some((f) => f.path.endsWith('.vue'))) finalFrameworks.add('vue')
       if (filesWithContent.some((f) => f.path.endsWith('.wxml'))) finalFrameworks.add('weapp')
       if (filesWithContent.some((f) => f.path.endsWith('.html'))) finalFrameworks.add('html')
-      if (filesWithContent.some((f) => f.path.endsWith('.svelte'))) finalFrameworks.add('svelte')
       if (filesWithContent.some((f) => f.path.endsWith('.tsx'))) finalFrameworks.add('react')
+
+      const sortedFrameworks = orderFrameworks(Array.from(finalFrameworks))
 
       const enrichedItem = {
         ...result.data,
         files: filesWithContent,
         meta: {
           ...result.data.meta,
-          frameworks: Array.from(finalFrameworks),
-          placeholder: (result.data.meta as any)?.placeholder || placeholderAdded || false,
+          frameworks: sortedFrameworks,
+          placeholder: (result.data.meta as object)?.placeholder || placeholderAdded || false,
           clientOnly:
             CLIENT_ONLY_COMPONENTS.includes(item.name) ||
-            (result.data.meta as any)?.clientOnly ||
+            (result.data.meta as object)?.clientOnly ||
             false,
         },
       }
@@ -365,7 +630,7 @@ async function main() {
   if (fs.existsSync(BLOCKS_SOURCE_PATH)) {
     try {
       const raw = fs.readFileSync(BLOCKS_SOURCE_PATH, 'utf-8')
-      const blocks = JSON.parse(raw) as Array<any>
+      const blocks = JSON.parse(raw) as Array<object>
       blocks.forEach((block) => {
         const name =
           block.name || (block.title ? block.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : '')
@@ -376,12 +641,12 @@ async function main() {
 
         const files: RegistryItem['files'] = []
         const frameworks: string[] = []
-          ; (block.frameworks || []).forEach((fw: any) => {
+          ; (block.frameworks || []).forEach((fw: object) => {
             const fwName = fw.framework || fw.name
             if (!fwName) return
             const normalized = String(fwName).toLowerCase()
             if (!frameworks.includes(normalized)) frameworks.push(normalized)
-              ; (fw.files || []).forEach((file: any, idx: number) => {
+              ; (fw.files || []).forEach((file: object, idx: number) => {
                 files.push({
                   path:
                     file.path ||
@@ -395,6 +660,8 @@ async function main() {
               })
           })
 
+        const frameworksOrdered = orderFrameworks(frameworks)
+
         const blockItem: RegistryItem = {
           name,
           type: 'registry:block',
@@ -402,7 +669,7 @@ async function main() {
           files,
           categories: [category],
           meta: {
-            frameworks,
+            frameworks: frameworksOrdered,
             tags: tagList,
             mdxBody,
             category,
@@ -461,7 +728,122 @@ async function main() {
 
   // Legacy componentsDB ingestion removed intentionally (replaced by blocks-source)
 
+  // 1.5. Prepare Synthetic Items (Utils & Tokens)
+  console.time('Prepare Synthetic Items')
+  const SHARED_UTILS_PATH = path.join(ROOT, 'packages/core/src/utils.ts')
+  let utilsContent = ''
+  if (fs.existsSync(SHARED_UTILS_PATH)) {
+    utilsContent = fs.readFileSync(SHARED_UTILS_PATH, 'utf-8')
+    const SHARED_VARIANTS_PATH = path.join(ROOT, 'packages/core/src/variants/index.ts')
+    if (fs.existsSync(SHARED_VARIANTS_PATH)) {
+      const variantsContent = fs.readFileSync(SHARED_VARIANTS_PATH, 'utf-8')
+      utilsContent += '\n' + variantsContent
+    }
+    // Remove imports that might be specific to monorepo if object
+  }
+
+  const utilsItem: RegistryItem = {
+    name: 'utils',
+    type: 'registry:lib',
+    description: 'Utility functions',
+    dependencies: ['clsx', 'tailwind-merge', 'class-variance-authority'],
+    files: [
+      {
+        path: 'lib/utils.ts',
+        content: utilsContent,
+        type: 'registry:lib',
+        target: 'lib/utils.ts',
+      },
+    ],
+  }
+  registryMap.set('utils', utilsItem)
+
+  // 1.6. Prepare UI Tokens Item
+  // We read the generated CSS from packages/tokens/dist/theme.css (assuming it's built)
+  // Or we can invoke the build? For now, assume it's there or read source?
+  // The build script 'packages/tokens/build.ts' generates theme.css.
+  // We should try to read it.
+  const TOKENS_CSS_PATH = path.join(ROOT, 'packages/tokens/dist/theme.css')
+  let cssContent = ''
+  if (fs.existsSync(TOKENS_CSS_PATH)) {
+    cssContent = fs.readFileSync(TOKENS_CSS_PATH, 'utf-8')
+  } else {
+    // If dist is missing, maybe we can run the build? 
+    // Or just warn? For robustness, let's warn.
+    console.warn('[Build] Warning: packages/tokens/dist/theme.css not found. ui-tokens will be empty.')
+  }
+
+  const tokensItem: RegistryItem = {
+    name: 'ui-tokens',
+    type: 'registry:theme',
+    description: 'Design tokens (CSS Variables)',
+    files: [
+      {
+        path: 'styles/theme.css',
+        content: cssContent,
+        type: 'registry:css',
+        target: 'src/styles/theme.css', // Suggested location
+      },
+    ],
+  }
+  registryMap.set('ui-tokens', tokensItem)
+
+  console.timeEnd('Prepare Synthetic Items')
+
+  // Transform imports in all items
+  console.time('Transform Imports')
+  for (const item of registryMap.values()) {
+    if (item.name === 'utils') continue
+
+    // Add utils dependency if it's missing and needed? 
+    // Actually we will detect usages below.
+
+    item.files?.forEach((file) => {
+      if (!file.content) return
+
+      // Transform @timui/core -> @/lib/utils
+      if (file.content.includes('@timui/core')) {
+        file.content = file.content.replace(/['"]@timui\/core['"]/g, '"@/lib/utils"')
+
+        // Auto-add registry dependency
+        const currentDeps = item.registryDependencies || []
+      }
+
+      // Transform relative hooks imports: ../../hooks/ -> ../hooks/
+      // Logic:
+      // Source layout: packages/react/src/components/ui/foo.tsx -> ../../hooks/use-foo
+      // Target layout: registry/default/ui/foo.tsx -> ../hooks/use-foo
+      if (file.content.includes('../../hooks/')) {
+        console.log(`[Transform] Fixing hooks import in ${item.name} (${file.path})`)
+        file.content = file.content.replace(/\.\.\/\.\.\/hooks\//g, '../hooks/')
+      }
+
+
+      // Transform @timui/tokens -> CSS variables are globally available, no import needed usually?
+      // Or maybe usage of token values in JS?
+      // If code uses `import ... from '@timui/tokens'`, we might need to handle it.
+      // But typically tokens are just CSS/Vars.
+    })
+  }
+  console.timeEnd('Transform Imports')
+
   const mergedItems = Array.from(registryMap.values())
+  const aliasMap = loadRegistryAliases()
+  const aliasesByCanonical = new Map<string, string[]>()
+
+  Object.entries(aliasMap).forEach(([alias, canonical]) => {
+    if (!aliasesByCanonical.has(canonical)) aliasesByCanonical.set(canonical, [])
+    aliasesByCanonical.get(canonical)!.push(alias)
+  })
+
+  mergedItems.forEach((item) => {
+    const aliases = aliasesByCanonical.get(item.name)
+    if (!aliases?.length) return
+    item.meta = {
+      ...(item.meta || {}),
+      aliases: Array.from(new Set(aliases)).sort(),
+    }
+  })
 
   // Normalize block metadata: activate by default (unless migrated/duplicate),
   // and synthesize a minimal MDX body when missing so sections can render.
@@ -490,8 +872,8 @@ async function main() {
   // Map catalog categories to items (fill missing categories/meta.category)
   if (catalogSkeleton.categories?.length) {
     const nameToCategories = new Map<string, Set<string>>()
-    catalogSkeleton.categories.forEach((cat: any) => {
-      ; (cat.components || []).forEach((c: any) => {
+    catalogSkeleton.categories.forEach((cat: object) => {
+      ; (cat.components || []).forEach((c: object) => {
         if (!nameToCategories.has(c.name)) nameToCategories.set(c.name, new Set())
         nameToCategories.get(c.name)!.add(cat.slug)
       })
@@ -512,11 +894,31 @@ async function main() {
     })
   }
 
+  // Persist normalized semantic titles for demo-like components.
+  mergedItems.forEach((item) => {
+    if (!/-\d{1,3}$/.test(item.name)) return
+
+    const componentSlug = item.name.replace(/-\d{1,3}$/, '')
+    const existingMeta = { ...(item.meta || {}) }
+    const explicitTitle = typeof existingMeta.title === 'string' ? existingMeta.title : undefined
+    const normalizedTitle = resolveDemoDisplayTitle(
+      componentSlug,
+      item.name,
+      item.files || [],
+      explicitTitle
+    )
+
+    item.meta = {
+      ...existingMeta,
+      title: normalizedTitle,
+    }
+  })
+
   // 3. Build Catalog Structure (Categories and Sections) dynamically based on Registry + Skeleton Metadata
 
   // A. Categories (Base UI usually)
   // We can count items per category
-  const categoryCounts: Record<string, any[]> = {}
+  const categoryCounts: Record<string, object[]> = {}
   mergedItems.forEach((item) => {
     // Assume type 'registry:ui' belong to 'categories' list in catalog
     // and 'registry:block' belong to 'sections' list
@@ -529,7 +931,7 @@ async function main() {
     }
   })
 
-  const finalCategories = catalogSkeleton.categories.map((cat: any) => {
+  const finalCategories = catalogSkeleton.categories.map((cat: object) => {
     // Update components list directly from what we found (if we want to be dynamic)
     // Or trust skeleton but verifying existence?
     // Let's use skeleton structure but maybe update counts if needed.
@@ -541,18 +943,18 @@ async function main() {
   // The user requested "Components (Base UI) as source" and "delete duplicates".
   // So we stop generating separate sections for Marketing/Application UI.
   /*
-  const finalSections = catalogSkeleton.sections.map((sec: any) => {
+  const finalSections = catalogSkeleton.sections.map((sec: object) => {
     // ...
   })
   
-  // Append any block categories...
+  // Append object block categories...
   sectionsFound.forEach((cat) => {
      // ...
   })
   */
 
   // Empty sections to remove "Marketing UI" and "Application UI" from sidebar
-  const finalSections: any[] = [];
+  const finalSections: object[] = [];
 
   const fullRegistry = {
     name: '@timui/react-registry',
@@ -587,7 +989,7 @@ async function main() {
       })
     }
     if (item.type === 'registry:block') {
-      const hasMdx = !!(item.meta as any)?.mdxBody?.trim()
+      const hasMdx = !!(item.meta as object)?.mdxBody?.trim()
       const hasFiles = item.files?.some((f) => !!f.content?.trim()) ?? false
       if (!hasMdx && !hasFiles) {
         validationErrors.push(`[${item.type}] ${item.name} missing mdxBody and file content`)
@@ -631,8 +1033,14 @@ async function main() {
 
   // 4. Output Split Registry (For CLI & Client optimization)
   const splitRegistryDir = path.join(publicRegistryDir, 'registry')
-  if (!fs.existsSync(splitRegistryDir)) fs.mkdirSync(splitRegistryDir, { recursive: true })
-  if (!fs.existsSync(DOCS_DATA_REGISTRY_DIR)) fs.mkdirSync(DOCS_DATA_REGISTRY_DIR, { recursive: true })
+  if (fs.existsSync(splitRegistryDir)) {
+    fs.rmSync(splitRegistryDir, { recursive: true, force: true })
+  }
+  if (fs.existsSync(DOCS_DATA_REGISTRY_DIR)) {
+    fs.rmSync(DOCS_DATA_REGISTRY_DIR, { recursive: true, force: true })
+  }
+  fs.mkdirSync(splitRegistryDir, { recursive: true })
+  fs.mkdirSync(DOCS_DATA_REGISTRY_DIR, { recursive: true })
 
   // Generate registry-index.json (Metadata only, minimal size)
   const registryIndex = mergedItems.map((item) => {

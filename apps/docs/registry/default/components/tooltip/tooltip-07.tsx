@@ -1,3 +1,4 @@
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -5,9 +6,6 @@ import {
   ChevronUpIcon,
   CircleIcon,
 } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip'
 
 export default function Component() {
   return (

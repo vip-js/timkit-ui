@@ -1,0 +1,19 @@
+/* packages/weapp/src/button/button.wxss */
+@import "../utilities.wxss";
+
+/* Additional resets for Weapp Button if not covered by tailwind utilities */
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  line-height: normal; /* Check shared config 'leading-normal' matches */
+  border-radius: 0;
+}
+
+/* Button variants use 'bg-primary' etc from utilities */
+/* Hover uses 'hover-bg-primary' etc from utilities */
+
+/* Because we use <button> tag, some user agent styles might persist. 
+   The 'w-full' or 'inline-flex' from shared should override display. 
+*/

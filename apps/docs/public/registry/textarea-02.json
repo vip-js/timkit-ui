@@ -2,15 +2,15 @@
   "name": "textarea-02",
   "type": "registry:component",
   "registryDependencies": [
-    "https://originui.com/r/label.json",
-    "https://originui.com/r/textarea.json"
+    "https://ui.timkit.cn/r/label.json",
+    "https://ui.timkit.cn/r/textarea.json"
   ],
   "files": [
     {
       "path": "registry/default/components/textarea/textarea-02.tsx",
       "type": "registry:component",
       "target": "components/ui/textarea-02.tsx",
-      "content": "import { useId } from 'react'\n\nimport { Label } from '../../ui/label'\nimport { Textarea } from '../../ui/textarea'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>\n        Required textarea <span className=\"text-destructive\">*</span>\n      </Label>\n      <Textarea id={id} placeholder=\"Leave a message\" required />\n    </div>\n  )\n}\n"
+      "content": "import { useId } from 'react'\nimport { Label, Textarea } from '@timui/react'\n\nexport default function Component() {\n  const id = useId()\n  return (\n    <div className=\"*:not-first:mt-2\">\n      <Label htmlFor={id}>\n        Required textarea <span className=\"text-destructive\">*</span>\n      </Label>\n      <Textarea id={id} placeholder=\"Leave a message\" required />\n    </div>\n  )\n}\n"
     }
   ],
   "meta": {
@@ -24,7 +24,8 @@
     ],
     "placeholder": false,
     "clientOnly": false,
-    "category": "textarea"
+    "category": "textarea",
+    "title": "Textarea · Destructive Variant"
   },
   "categories": [
     "textarea"

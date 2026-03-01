@@ -1,0 +1,14 @@
+<view class="*:not-first:mt-2">
+      <label for="select-22-id">Disabled select</label>
+      <select defaultValue="1" disabled>
+        <select-trigger id="select-22-id">
+          <select-value placeholder="Select framework" />
+        </select-trigger>
+        <select-content>
+          <select-item value="1">React</select-item>
+          <select-item value="2">Next.js</select-item>
+          <select-item value="3">Astro</select-item>
+          <select-item value="4">Gatsby</select-item>
+        </select-content>
+      </select>
+    </view>

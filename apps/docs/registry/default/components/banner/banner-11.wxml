@@ -1,0 +1,10 @@
+<banner class="border-b px-4 py-3">
+  <banner-content class="justify-center">
+    <banner-icon class="mr-1 text-base leading-none">📫</banner-icon>
+    <banner-description class="text-sm text-foreground text-center">
+      Subscribe to our newsletter and get 10% off your first order!
+      <text class="text-muted-foreground mx-1">·</text>
+      <text class="font-medium underline hover:no-underline">Subscribe</text>
+    </banner-description>
+  </banner-content>
+</banner>

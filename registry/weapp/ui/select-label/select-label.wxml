@@ -1,0 +1,7 @@
+<view 
+  class="px-2 py-1.5 text-sm font-semibold {{labelApi.className}}" 
+  id="{{labelApi.id}}"
+  bindtap="{{labelApi.onClick}}"
+>
+  <slot />
+</view>

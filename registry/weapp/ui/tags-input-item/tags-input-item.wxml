@@ -1,0 +1,10 @@
+<view 
+  class="inline-flex items-center rounded-sm bg-secondary px-2 py-1 text-sm font-medium text-secondary-foreground ring-offset-background data-[state=active]:ring-2 data-[state=active]:ring-ring data-[state=active]:ring-offset-2 {{itemApi.className}}" 
+  id="{{itemApi.id}}"
+  data-state="{{itemApi['data-state']}}"
+>
+  <slot />
+  <!-- Usually we have a delete button here too. -->
+  <!-- Zag separates it into item-delete-trigger. -->
+  <!-- User can slot it in. -->
+</view>

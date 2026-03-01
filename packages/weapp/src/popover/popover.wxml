@@ -1,0 +1,39 @@
+<view class="{{className}}">
+  <!-- Trigger -->
+  <view 
+    id="{{api.triggerProps.id}}"
+    bindtap="onTriggerTap"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <slot name="trigger"></slot>
+  </view>
+
+  <!-- Backdrop (if modal) -->
+  <view 
+    wx:if="{{api.open && modal}}"
+    class="popover-backdrop"
+    bindtap="onBackdropTap"
+  ></view>
+
+  <!-- Content -->
+  <view 
+    wx:if="{{api.open}}"
+    id="{{api.contentProps.id}}"
+    class="popover-content"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <view class="popover-arrow" wx:if="{{showArrow}}"></view>
+    
+    <view class="popover-header" wx:if="{{title}}">
+      <text class="popover-title">{{title}}</text>
+      <view 
+        class="popover-close" 
+        bindtap="onCloseTap"
+      >×</view>
+    </view>
+
+    <view class="popover-body">
+      <slot name="content"></slot>
+    </view>
+  </view>
+</view>

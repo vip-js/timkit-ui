@@ -1,0 +1,4 @@
+<avatar>
+      <avatar-image src="./avatar-80-07.jpg" alt="Kelly King" ></avatar-image>
+      <avatar-fallback>KK</avatar-fallback>
+    </avatar>

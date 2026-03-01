@@ -1,11 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button, Label, Slider } from '@timui/react'
 import { MinusIcon, PlusIcon } from 'lucide-react'
-
-import { Button } from '../../ui/button'
-import { Label } from '../../ui/label'
-import { Slider } from '../../ui/slider'
 
 export default function Component() {
   const minValue = 0

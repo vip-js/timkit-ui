@@ -1,13 +1,7 @@
 import React from "react";
-import * as Avatar from "@radix-ui/react-avatar";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import * as Dialog from "@radix-ui/react-dialog";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Separator } from "@timui/react";
 
 export default function ContactSectionWithDividedColumns() {
-
     const contactMethods = [
         {
             icon:
@@ -34,7 +28,6 @@ export default function ContactSectionWithDividedColumns() {
                         </clipPath>
                     </defs>
                 </svg>
-
             ,
             title: "Follow us on Twitter",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -44,23 +37,22 @@ export default function ContactSectionWithDividedColumns() {
             },
         },
     ]
-
     return (
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-12 md:px-8 lg:flex">
                 <div className="max-w-md">
                     <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                        Let’s connect
+                        Let's connect
                     </h3>
                     <p className="mt-3">
-                        We’re here to help and answer any question you might have, We look forward to hearing from you .
+                        We're here to help and answer any question you might have, We look forward to hearing from you .
                     </p>
                 </div>
                 <div>
                     <ul className="mt-12 gap-y-6 gap-x-12 items-center md:flex lg:gap-x-0 lg:mt-0">
                         {
                             contactMethods.map((item, idx) => (
-                                <li key={idx} className="space-y-3 border-t py-6 md:max-w-sm md:py-0 md:border-t-0 lg:border-l lg:px-12 lg:max-w-none">
+                                <li key={idx} className="space-y-3 py-6 md:max-w-sm md:py-0 lg:px-12 lg:max-w-none">
                                     <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
                                         {item.icon}
                                     </div>
@@ -76,6 +68,7 @@ export default function ContactSectionWithDividedColumns() {
                                             <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />
                                         </svg>
                                     </a>
+                                    {idx === 0 && <Separator orientation="vertical" className="hidden lg:block h-full" />}
                                 </li>
                             ))
                         }
@@ -85,4 +78,3 @@ export default function ContactSectionWithDividedColumns() {
         </section>
     )
 }
-        

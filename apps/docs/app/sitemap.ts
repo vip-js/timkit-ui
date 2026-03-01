@@ -4,16 +4,16 @@ import { getCategories } from '@/lib/catalog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const home = {
-    url: 'https://originui.com',
+    url: 'https://ui.timkit.cn',
   }
   const search = {
-    url: 'https://originui.com/search',
+    url: 'https://ui.timkit.cn/search',
   }
   const easings = {
-    url: 'https://originui.com/easings',
+    url: 'https://ui.timkit.cn/easings',
   }
   const categoryPages = getCategories().map((category) => ({
-    url: `https://originui.com/${category.slug}`,
+    url: `https://ui.timkit.cn/${category.slug}`,
   }))
 
   return [home, ...categoryPages, search, easings]
