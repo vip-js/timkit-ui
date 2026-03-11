@@ -1,0 +1,8 @@
+<view>
+  <tabs default-value="tab-1"><scrollarea><tabslist class="mb-3"><tabstrigger value="tab-1"><houseicon class="-ms-0.5 me-1.5 opacity-60" size="{{16}}" aria-hidden="true" />Overview
+          </tabstrigger><tabstrigger value="tab-2" class="group"><panelstoplefticon class="-ms-0.5 me-1.5 opacity-60" size="{{16}}" aria-hidden="true" />Projects
+            <badge class="bg-primary/15 ms-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50" variant="secondary">3
+            </badge></tabstrigger><tabstrigger value="tab-3" class="group"><boxicon class="-ms-0.5 me-1.5 opacity-60" size="{{16}}" aria-hidden="true" />Packages
+            <badge class="ms-1.5 transition-opacity group-data-[state=inactive]:opacity-50">New
+            </badge></tabstrigger></tabslist><scrollbar orientation="horizontal" /></scrollarea><tabscontent value="tab-1"><text class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 1</text></tabscontent><tabscontent value="tab-2"><text class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 2</text></tabscontent><tabscontent value="tab-3"><text class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 3</text></tabscontent></tabs>
+</view>

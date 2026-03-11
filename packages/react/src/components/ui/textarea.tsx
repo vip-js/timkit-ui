@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { TextareaProps as CoreTextareaProps } from '@timui/core'
-import { cn, textareaVariants, createTimEvent } from '@timui/core'
+import { cn, createTimEvent, textareaVariants } from '@timui/core'
 
 type TextareaProps = CoreTextareaProps &
   Omit<React.ComponentProps<'textarea'>, keyof CoreTextareaProps>

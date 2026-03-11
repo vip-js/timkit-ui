@@ -1,58 +1,14 @@
 <script setup lang="ts">
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { PlusIcon } from 'lucide-vue-next'
+import { PlusIcon } from 'lucide-vue-next';
+import { Accordion } from '@/components/ui/accordion';
+import { AccordionContent } from '@/components/ui/accordion-content';
+import { AccordionItem } from '@/components/ui/accordion-item';
+import { AccordionTrigger } from '@/components/ui/accordion-trigger';
 
-const items = [
-  {
-    id: "1",
-    title: "What makes Timkit UI different?",
-    content: "Timkit UI focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates."
-  },
-  {
-    id: "2",
-    title: "How can I customize the components?",
-    content: "Use our CSS variables for global styling, or className and style props for component-specific changes. We support CSS modules, Tailwind, and dark mode out of the box."
-  },
-  {
-    id: "3",
-    title: "Is Timkit UI optimized for performance?",
-    content: "Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped."
-  },
-  {
-    id: "4",
-    title: "How accessible are the components?",
-    content: "All components follow WAI-ARIA standards, featuring proper ARIA attributes, keyboard navigation, and screen reader support. Regular testing ensures compatibility with NVDA, VoiceOver, and JAWS."
-  }
-]
+
+
 </script>
 
 <template>
-  <div class="space-y-4">
-    <h2 class="text-xl font-bold">Table w/ left plus-minus</h2>
-    <Accordion type="single" collapsible class="w-full -space-y-px" default-value="3">
-      <AccordionItem
-        v-for="item in items"
-        :key="item.id"
-        :value="item.id"
-        class="bg-background has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative border px-4 py-1 outline-none first:rounded-t-md last:rounded-b-md last:border-b has-focus-visible:z-10 has-focus-visible:ring-[3px]"
-      >
-        <div class="flex">
-        <AccordionTrigger class="flex flex-1 items-center gap-4 rounded-md py-2 text-left text-sm text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-0 [&>svg]:-order-1 [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0">
-          {{ item.title }}
-          <template #icon>
-            <PlusIcon class="h-4 w-4 shrink-0 opacity-60 transition-transform duration-200" />
-          </template>
-        </AccordionTrigger>
-        </div>
-        <AccordionContent class="text-muted-foreground ps-7 pb-2">
-          {{ item.content }}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  </div>
+  <div class="space-y-4"><h2 class="text-xl font-bold">Table w/ left plus-minus</h2><Accordion type="single" collapsible class="w-full -space-y-px" default-value="3"><AccordionItem v-for="(item, index) in items" :key="index" :value="item.id" :key="item.id" class="bg-background has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative border px-4 py-1 outline-none first:rounded-t-md last:rounded-b-md last:border-b has-focus-visible:z-10 has-focus-visible:ring-[3px]"><div class="flex"><AccordionTrigger :showChevron="false" class="flex flex-1 items-center gap-4 rounded-md py-2 text-left text-sm text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-0 [&>svg]:-order-1 [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0">{{ item.title }}<PlusIcon :size="16" class="pointer-events-none shrink-0 opacity-60 transition-transform duration-200" aria-hidden="true" /></AccordionTrigger></div><AccordionContent class="text-muted-foreground ps-7 pb-2">{{ item.content }}</AccordionContent></AccordionItem></Accordion></div>
 </template>

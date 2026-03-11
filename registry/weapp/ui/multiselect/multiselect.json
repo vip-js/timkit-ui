@@ -1,10 +1,10 @@
 {
-    "component": true,
-    "usingComponents": {
-        "combobox": "../combobox/combobox",
-        "combobox-input": "../combobox-input/combobox-input",
-        "combobox-trigger": "../combobox-trigger/combobox-trigger",
-        "combobox-content": "../combobox-content/combobox-content",
-        "combobox-item": "../combobox-item/combobox-item"
-    }
+  "component": true,
+  "usingComponents": {
+    "combobox": "../combobox/combobox",
+    "combobox-input": "../combobox-input/combobox-input",
+    "combobox-trigger": "../combobox-trigger/combobox-trigger",
+    "combobox-content": "../combobox-content/combobox-content",
+    "combobox-item": "../combobox-item/combobox-item"
+  }
 }

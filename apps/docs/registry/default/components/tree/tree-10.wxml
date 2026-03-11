@@ -1,0 +1,27 @@
+<view>
+  <view class="flex h-full flex-col gap-2 *:nth-2:grow"><view class="flex items-center gap-2"><button size="sm" variant="outline" bindtap="tree.expandAll()"><listtreeicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Expand all
+        </button><button size="sm" variant="outline" bindtap="tree.collapseAll"><listcollapseicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Collapse all
+        </button></view><tree indent="{{indent}}" tree="{{tree}}">{{ tree.getItems().map((item) => {
+          return (
+            <TreeItem key={item.getId()} item={item}>
+              <TreeItemLabel>
+                <span className="flex items-center gap-2">
+                  {item.isFolder() &&
+                    (item.isExpanded() ? (
+                      <FolderOpenIcon className="text-muted-foreground pointer-events-none size-4" />
+                    ) : (
+                      <FolderIcon className="text-muted-foreground pointer-events-none size-4" />
+                    ))}
+                  {item.getItemName()}
+                  {item.isFolder() && (
+                    <span className="text-muted-foreground -ms-1">
+                      {`(${item.getChildren().length})`}
+                    </span>
+                  )}
+                </span>
+              </TreeItemLabel>
+            </TreeItem>
+          )
+        }) }}</tree><text aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Tree with expand/collapse all buttons ∙{{ ' ' }}<a href="https://headless-tree.lukasbach.com/" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></text></view>
+</view>

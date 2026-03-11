@@ -1,20 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { MoonIcon, SunIcon } from 'lucide-vue-next';
+
+
+
+</script>
+
 <template>
-<div class="space-y-4">
-      <legend class="text-foreground text-sm leading-none font-medium">
-        Dark mode toggle checkbox
-      </legend>
-      <div class="flex flex-col justify-center">
-        <input
-          type="checkbox" id="checkbox-20-id"
-          class="peer sr-only" />
-        <label
-          class="group border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:border-ring peer-focus-visible:ring-ring/50 relative inline-flex size-9 items-center justify-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none peer-focus-visible:ring-[3px]" for="checkbox-20-id" aria-label="Switch to checkbox-20-id mode"
-        >
-          
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 scale-0 opacity-0 transition-all group-peer-checked:scale-100 group-peer-checked:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute shrink-0 scale-100 opacity-100 transition-all group-peer-checked:scale-0 group-peer-checked:opacity-0"><circle cx="12" cy="12" r="9" /></svg>
-        </label>
-      </div>
-    </div>
+  <div class="space-y-4"><legend class="text-foreground text-sm leading-none font-medium">Dark mode toggle checkbox
+      </legend><div class="flex flex-col justify-center"><input type="checkbox" :name="id" :id="id" class="peer sr-only" :checked="theme === 'dark'" :onChange="() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))" /><label class="group border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:border-ring peer-focus-visible:ring-ring/50 relative inline-flex size-9 items-center justify-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none peer-focus-visible:ring-[3px]" :htmlFor="id" :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"><MoonIcon :size="16" class="shrink-0 scale-0 opacity-0 transition-all group-peer-checked:scale-100 group-peer-checked:opacity-100" aria-hidden="true" /><SunIcon :size="16" class="absolute shrink-0 scale-100 opacity-100 transition-all group-peer-checked:scale-0 group-peer-checked:opacity-0" aria-hidden="true" /></label></div></div>
 </template>

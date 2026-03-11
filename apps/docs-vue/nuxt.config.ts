@@ -19,13 +19,16 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Beautiful and accessible Vue components built with Zag.js' }
-      ]
-    }
+        {
+          name: 'description',
+          content: 'Beautiful and accessible Vue components built with Zag.js',
+        },
+      ],
+    },
   },
 
   typescript: {
-    strict: true
+    strict: true,
   },
 
   // 配置导入别名
@@ -40,12 +43,12 @@ export default defineNuxtConfig({
       alias: {
         '@': resolve(__dirname, '.'),
         '@/registry': resolve(__dirname, 'registry'),
-      }
-    }
+      },
+    },
   },
 
   // 构建配置
   build: {
-    transpile: ['@timui/vue']
-  }
+    transpile: ['@timui/vue'],
+  },
 })

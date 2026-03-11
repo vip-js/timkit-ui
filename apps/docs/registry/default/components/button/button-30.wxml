@@ -1,0 +1,9 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="icon" class="disabled:opacity-100" bindtap="handleCopy" aria-label="{{copied ? 'Copied' : 'Copy to clipboard'}}" disabled="{{copied}}"><view class="{{cn(
+                'transition-all',
+                copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+              )}}"><checkicon class="stroke-emerald-500" size="{{16}}" aria-hidden="true" /></view><view class="{{cn(
+                'absolute transition-all',
+                copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+              )}}"><copyicon size="{{16}}" aria-hidden="true" /></view></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Click to copy</tooltipcontent></tooltip></tooltipprovider>
+</view>

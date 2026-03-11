@@ -46,20 +46,21 @@ timkit-ui-monorepo/
 
 ### 2. 核心技术栈
 
-| 类别 | 技术 | 说明 |
-|------|------|------|
-| 前端框架 | React 19, Vue 3, Svelte | 多框架支持 |
-| 构建工具 | Turbo, pnpm, tsup | Monorepo 管理 |
-| 样式系统 | Tailwind CSS v4 | 原子化 CSS |
-| 状态管理 | Zag.js | 统一跨框架状态机 |
-| 类型系统 | TypeScript 5.8, Zod | 严格类型 |
-| 测试 | Vitest | 单元测试 |
+| 类别     | 技术                    | 说明             |
+| -------- | ----------------------- | ---------------- |
+| 前端框架 | React 19, Vue 3, Svelte | 多框架支持       |
+| 构建工具 | Turbo, pnpm, tsup       | Monorepo 管理    |
+| 样式系统 | Tailwind CSS v4         | 原子化 CSS       |
+| 状态管理 | Zag.js                  | 统一跨框架状态机 |
+| 类型系统 | TypeScript 5.8, Zod     | 严格类型         |
+| 测试     | Vitest                  | 单元测试         |
 
 ### 3. 核心逻辑层架构
 
 #### 3.1 统一使用 Zag.js 状态机
 
 所有组件统一使用 Zag.js 官方状态机，确保：
+
 - 一致的 API 设计
 - 完整的可访问性支持
 - 跨框架兼容性
@@ -67,13 +68,13 @@ timkit-ui-monorepo/
 
 #### 3.2 组件分类
 
-| 分类 | 组件 | Zag.js 包 |
-|------|------|-----------|
-| 基础交互 | Accordion, Collapsible, Tabs, Toggle Group | @zag-js/accordion, collapsible, tabs, toggle-group |
-| 表单 | Checkbox, Radio, Switch, Slider, Select, Combobox | @zag-js/checkbox, radio-group, switch, slider, select, combobox |
-| 弹层 | Dialog, Popover, Tooltip, Hover Card, Menu | @zag-js/dialog, popover, tooltip, hover-card, menu |
-| 反馈 | Toast, Progress | @zag-js/toast, progress |
-| 展示 | Avatar | @zag-js/avatar |
+| 分类     | 组件                                              | Zag.js 包                                                       |
+| -------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| 基础交互 | Accordion, Collapsible, Tabs, Toggle Group        | @zag-js/accordion, collapsible, tabs, toggle-group              |
+| 表单     | Checkbox, Radio, Switch, Slider, Select, Combobox | @zag-js/checkbox, radio-group, switch, slider, select, combobox |
+| 弹层     | Dialog, Popover, Tooltip, Hover Card, Menu        | @zag-js/dialog, popover, tooltip, hover-card, menu              |
+| 反馈     | Toast, Progress                                   | @zag-js/toast, progress                                         |
+| 展示     | Avatar                                            | @zag-js/avatar                                                  |
 
 ### 4. 目录结构
 
@@ -88,10 +89,12 @@ packages/core/src/
 ```
 
 **说明：**
+
 - 所有 Zag.js 状态机的 re-export 都直接在 `index.ts` 中，不再使用单独文件
 - 这样更精简，减少了 18 个单独文件
 - 保留了统一入口、命名统一、简化依赖的优点
-```
+
+````
 
 ### 5. 使用示例
 
@@ -120,14 +123,14 @@ function Accordion() {
     </div>
   )
 }
-```
+````
 
 #### Vue
 
 ```vue
 <script setup>
-import { useMachine, normalizeProps } from '@zag-js/vue'
-import { accordionMachine, accordionConnect } from '@timui/core'
+import { accordionConnect, accordionMachine } from '@timui/core'
+import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 
 const [state, send] = useMachine(accordionMachine({ id: 'accordion' }))
@@ -204,10 +207,12 @@ export type XxxProps = Parameters<typeof xxx.machine>[0]
 ### 8. 设计系统层
 
 **packages/tokens/**
+
 - 基于 OKLCH 色彩空间的语义化设计系统
 - 输出格式：CSS Variables、JSON、TypeScript、WXSS
 
 **packages/core/**
+
 - 通用工具函数 (`cn` 等)
 - CVA 变体定义（buttonVariants, badgeVariants 等）
 - 基础动画和过渡效果
@@ -241,7 +246,6 @@ npx timkit sync              # 同步更新
 ```bash
 pnpm release:react   # 发布 React 包
 pnpm release:vue     # 发布 Vue 包
-pnpm release:svelte  # 发布 Svelte 包
 pnpm release:html    # 发布 HTML 包
 pnpm release:weapp   # 发布小程序包
 ```
@@ -251,7 +255,9 @@ pnpm release:weapp   # 发布小程序包
 本节总结了核心组件（以 Accordion 为例）的实现模式，供 AI Agent 和 LLM 参考，以便生成高质量、一致性的代码。
 
 #### 12.0 Headless UI 抽象标准 (架构核心)
+
 为了保证在 React, Vue, Weapp 三套框架中实现 100% 的逻辑复用与 UI 纯粹性，必须遵循严格的 Headless（无头组件）抽象标准：
+
 1. **逻辑提纯 (Hooks & Context 隔离)**：所有交互逻辑（如 `useMachine` 实例化、状态派生）必须从视图组件（`.vue`, `.tsx`, `.ts`）中剥离，统一提取至独立的 `use-[component].ts` 文件中。
 2. **强类型注入 (Strict Typing)**：框架间的状态分发禁止使用隐式泛型。Vue端必须使用强类型 Symbol 配合 `provide`/`inject`，React 端使用泛型约束的 `createContext`，从底层消除 `TS2742` 等声明断层。
 3. **极简视图映射 (Dumb Presentational UI)**：UI 表现层仅仅作为逻辑钩子的「消费者」。视图只接受来自 Hook 的产物（如 `api.getRootProps()`）进行 DOM 绑定及 Variants 变体渲染，绝不内联处理复杂状态生命周期。
@@ -260,10 +266,10 @@ pnpm release:weapp   # 发布小程序包
 
 所有组件均遵循严格的单向数据流和 Context 注入模式：
 
-*   **Machine Init**: 在根组件初始化 Zag.js 状态机 (`useMachine`)。
-*   **API Connect**: 将状态机状态和发送函数转换为易用的 API 对象 (`xxxConnect`)。
-*   **Context Injection**: 通过 React Context 将 `api` 对象向下传递给子组件。
-*   **UI Consumption**: 子组件 (`Item`, `Trigger`, `Content`) 从 Context 消费 `api` 并绑定 props。
+- **Machine Init**: 在根组件初始化 Zag.js 状态机 (`useMachine`)。
+- **API Connect**: 将状态机状态和发送函数转换为易用的 API 对象 (`xxxConnect`)。
+- **Context Injection**: 通过 React Context 将 `api` 对象向下传递给子组件。
+- **UI Consumption**: 子组件 (`Item`, `Trigger`, `Content`) 从 Context 消费 `api` 并绑定 props。
 
 **模式代码:**
 
@@ -286,30 +292,30 @@ const itemProps = api.getItemProps({ value })
 
 对于复合组件，状态往往需要多级传递。
 
-*   **Global Context**: 根组件提供全局 API (如 `AccordionContext`)。
-*   **Item Context**: 列表项组件提供局部状态 (如 `AccordionItemContext` 提供 `value`, `isOpen`, `disabled`)。
-*   **Derived State**: 子组件不需要重新计算状态，直接从 Context 读取 `isOpen` 等派生状态。
+- **Global Context**: 根组件提供全局 API (如 `AccordionContext`)。
+- **Item Context**: 列表项组件提供局部状态 (如 `AccordionItemContext` 提供 `value`, `isOpen`, `disabled`)。
+- **Derived State**: 子组件不需要重新计算状态，直接从 Context 读取 `isOpen` 等派生状态。
 
 #### 12.3 属性处理 (Prop Handling)
 
 为了保证 Zag.js 的可访问性逻辑不被覆盖，必须严格使用 `mergeProps`。
 
-*   **规则**: `mergeProps(apiProps, userProps)`
-*   **禁止**: 直接覆盖，例如 `{...apiProps} {...userProps}` 可能会导致事件处理函数丢失。
-*   **正确范式**:
-    ```tsx
-    const rootProps = api.getRootProps()
-    const mergedProps = mergeProps(rootProps, props)
-    return <div {...mergedProps} />
-    ```
+- **规则**: `mergeProps(apiProps, userProps)`
+- **禁止**: 直接覆盖，例如 `{...apiProps} {...userProps}` 可能会导致事件处理函数丢失。
+- **正确范式**:
+  ```tsx
+  const rootProps = api.getRootProps()
+  const mergedProps = mergeProps(rootProps, props)
+  return <div {...mergedProps} />
+  ```
 
 #### 12.4 样式驱动 (Styling via Data Attributes)
 
 组件的状态样式完全由 Zag.js 自动管理的 `data-*` 属性驱动，避免手动 toggle class。
 
-*   **Open/Closed**: `data-state="open"` / `data-state="closed"`
-*   **Disabled**: `data-disabled`
-*   **Orientation**: `data-orientation="horizontal"`
+- **Open/Closed**: `data-state="open"` / `data-state="closed"`
+- **Disabled**: `data-disabled`
+- **Orientation**: `data-orientation="horizontal"`
 
 **Tailwind 写法:**
 
@@ -328,21 +334,21 @@ className={cn(
 
 动画通常绑定在 `data-state` 上，配合 CSS Keyframes。
 
-*   **定义**: 在 `tailwind.config.ts` 中定义 keyframes (`accordion-down`, `accordion-up`)。
-*   **应用**:
-    ```tsx
-    item.isOpen ? 'animate-accordion-down' : 'animate-accordion-up'
-    ```
-    或者直接依赖 data attribute:
-    ```tsx
-    'data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up'
-    ```
+- **定义**: 在 `tailwind.config.ts` 中定义 keyframes (`accordion-down`, `accordion-up`)。
+- **应用**:
+  ```tsx
+  item.isOpen ? 'animate-accordion-down' : 'animate-accordion-up'
+  ```
+  或者直接依赖 data attribute:
+  ```tsx
+  'data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up'
+  ```
 
 #### 12.6 组件插槽与标识 (Slots & Identity)
 
 为了便于测试和定位，每个组件应包含 `data-slot` 属性。
 
-*   Example: `data-slot="accordion"`, `data-slot="accordion-trigger"`
+- Example: `data-slot="accordion"`, `data-slot="accordion-trigger"`
 
 ## 总结
 

@@ -40,5 +40,3 @@ const navigationMenuSchema = defineUCS({
 })
 
 export default navigationMenuSchema
-
-

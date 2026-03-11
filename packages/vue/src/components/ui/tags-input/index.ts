@@ -1,0 +1,6 @@
+export { default } from './tags-input.vue'
+export { default as TagsInputClearTrigger } from './tags-input-clear-trigger.vue'
+export { default as TagsInputControl } from './tags-input-control.vue'
+export { default as TagsInputInput } from './tags-input-input.vue'
+export { default as TagsInputItem } from './tags-input-item.vue'
+export { default as TagsInput } from './tags-input.vue'

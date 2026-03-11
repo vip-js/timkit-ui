@@ -1,0 +1,3 @@
+<view>
+  <timeline default-value="{{3}}"><timelineitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" step="{{item.id}}" class="group-data-[orientation=vertical]/timeline:sm:ms-32"><timelineheader><timelineseparator /><timelinedate class="group-data-[orientation=vertical]/timeline:sm:absolute group-data-[orientation=vertical]/timeline:sm:-left-32 group-data-[orientation=vertical]/timeline:sm:w-20 group-data-[orientation=vertical]/timeline:sm:text-right">{{ item.date }}</timelinedate><timelinetitle class="sm:-mt-0.5">{{ item.title }}</timelinetitle><timelineindicator /></timelineheader><timelinecontent>{{ item.description }}</timelinecontent></timelineitem></timeline>
+</view>

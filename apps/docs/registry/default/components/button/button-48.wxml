@@ -1,0 +1,7 @@
+<view>
+  <view class="flex flex-col gap-2"><button class="bg-[#DB4437] text-white after:flex-1 hover:bg-[#DB4437]/90"><text class="pointer-events-none me-2 flex-1"><rigooglefill class="opacity-60" size="{{16}}" aria-hidden="true" /></text>Login with Google
+      </button><button class="bg-[#14171a] text-white after:flex-1 hover:bg-[#14171a]/90"><text class="pointer-events-none me-2 flex-1"><ritwitterxfill class="opacity-60" size="{{16}}" aria-hidden="true" /></text>Login with X
+      </button><button class="bg-[#1877f2] text-white after:flex-1 hover:bg-[#1877f2]/90"><text class="pointer-events-none me-2 flex-1"><rifacebookfill class="opacity-60" size="{{16}}" aria-hidden="true" /></text>Login with Facebook
+      </button><button class="bg-[#333333] text-white after:flex-1 hover:bg-[#333333]/90"><text class="pointer-events-none me-2 flex-1"><rigithubfill class="opacity-60" size="{{16}}" aria-hidden="true" /></text>Login with GitHub
+      </button></view>
+</view>

@@ -1,0 +1,7 @@
+export { default } from './banner/banner.vue'
+export { default as BannerActions } from './banner/banner-actions.vue'
+export { default as BannerContent } from './banner/banner-content.vue'
+export { default as BannerDescription } from './banner/banner-description.vue'
+export { default as BannerIcon } from './banner/banner-icon.vue'
+export { default as BannerTitle } from './banner/banner-title.vue'
+export { default as Banner } from './banner/banner.vue'

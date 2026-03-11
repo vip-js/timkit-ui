@@ -1,10 +1,17 @@
 // @ts-nocheck
-import { setupAvatarMachine, connectAvatarMachine, type WeappAvatarApi, type WeappAvatarService } from './use-avatar'
+import {
+  connectAvatarMachine,
+  setupAvatarMachine,
+  type WeappAvatarApi,
+  type WeappAvatarService,
+} from './use-avatar'
 
-type MachineEvent = string | {
-  type: string
-  [key: string]: string | number | boolean | string[] | number[] | null | undefined
-}
+type MachineEvent =
+  | string
+  | {
+      type: string
+      [key: string]: string | number | boolean | string[] | number[] | null | undefined
+    }
 
 type AvatarStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
@@ -36,6 +43,8 @@ Component({
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     src: { type: String, value: '' },
@@ -76,7 +85,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappAvatarInternal
       if (!state || !self._send) return
       const api = connectAvatarMachine(state, self._send) as WeappAvatarApi

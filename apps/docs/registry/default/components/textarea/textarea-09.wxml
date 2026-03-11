@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Disabled textarea</label><textarea id="{{id}}" disabled placeholder="Leave a comment" /></view>
+</view>

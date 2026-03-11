@@ -1,0 +1,4 @@
+<view>
+  <button><staricon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" /><text class="flex items-baseline gap-2">Star
+        <text class="text-primary-foreground/60 text-xs">729</text></text></button>
+</view>

@@ -12,7 +12,7 @@ import Preview from '.'
 
 export interface ComponentData extends Component, ComponentDetails, CodeBlock {
   sourceName?: string
-  mdxSource: MDXRemoteSerializeResult
+  mdxSource: MDXRemoteSerializeResult | string | null
   codeGroups?: SectionCodeGroup[]
   registryStub?: RegistryItem
 }

@@ -49,8 +49,7 @@ const hasHtmlImpl = (name: string) => fileExists(path.join(HTML_UI_DIR, `${name}
 
 const parseSchemaEnumProps = (schemaText: string) => {
   const results = new Map<string, string[]>()
-  const blockRegex =
-    /name:\s*'([^']+)'\s*,\s*type:\s*'enum'[\s\S]*?values:\s*\[([^\]]*)\]/g
+  const blockRegex = /name:\s*'([^']+)'\s*,\s*type:\s*'enum'[\s\S]*?values:\s*\[([^\]]*)\]/g
   let match: RegExpExecArray | null = blockRegex.exec(schemaText)
   while (match) {
     const propName = match[1]
@@ -129,7 +128,8 @@ const compareSet = (a: string[], b: string[]) => {
   return left === right
 }
 
-const getFile = (filePath: string) => (fileExists(filePath) ? fs.readFileSync(filePath, 'utf-8') : '')
+const getFile = (filePath: string) =>
+  fileExists(filePath) ? fs.readFileSync(filePath, 'utf-8') : ''
 
 const analyzeContractDrift = (name: string): Finding[] => {
   const findings: Finding[] = []
@@ -257,7 +257,10 @@ const main = () => {
     })
   }
 
-  const reactCode = fs.readFileSync(path.join(ROOT, 'packages/react/src/components/ui/select.tsx'), 'utf-8')
+  const reactCode = fs.readFileSync(
+    path.join(ROOT, 'packages/react/src/components/ui/select.tsx'),
+    'utf-8'
+  )
   if (reactCode.includes('For this specific task')) {
     findings.push({
       severity: 'major',

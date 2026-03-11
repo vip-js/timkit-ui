@@ -1,53 +1,31 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { OTPInput } from '@/components/ui/otpinput'
+import { cn } from '@/lib/utils';
+import { MinusIcon } from 'lucide-vue-next';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-45-id">OTP input double</Label>
-      <OTPInput id="input-45-id"
-        containerClassName="flex items-center gap-3 has-disabled:opacity-50" maxLength="6") => (
-          
-            <div class="flex">
-              
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
-
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
-
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">OTP input double</Label><OTPInput :id="id" containerClassName="flex items-center gap-3 has-disabled:opacity-50" :maxLength="6" :render="({ slots }) => (
+          <>
+            <div className="flex">
+              {slots.slice(0, 3).map((slot, idx) => (
+                <Slot key={idx} {...slot} />
+              ))}
             </div>
 
-            <div class="text-muted-foreground/80">
-               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            <div className="text-muted-foreground/80">
+              <MinusIcon size={16} aria-hidden="true" />
             </div>
 
-            <div class="flex">
-              
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
-
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
-
-                <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
-              
+            <div className="flex">
+              {slots.slice(3).map((slot, idx) => (
+                <Slot key={idx} {...slot} />
+              ))}
             </div>
-          
-        )}
-      />
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Built with 
-        <a
-          class="hover:text-foreground underline"
-          href="https://github.com/guilhermerodz/input-otp"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          Input OTP
-        </a>
-      </p>
-    </div>
+          </>
+        )" /><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://github.com/guilhermerodz/input-otp" target="_blank" rel="noopener nofollow">Input OTP
+        </a></p></div>
 </template>

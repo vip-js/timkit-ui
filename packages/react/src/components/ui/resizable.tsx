@@ -37,10 +37,7 @@ function ResizableHandle({
   return (
     <ResizablePrimitive.PanelResizeHandle
       data-slot="resizable-handle"
-      className={cn(
-        resizableHandleVariants(),
-        className
-      )}
+      className={cn(resizableHandleVariants(), className)}
       {...props}
     >
       {withHandle && (

@@ -1,11 +1,14 @@
-import { dialogContentVariants, dialogOverlayVariants, dialogCloseVariants } from '@timui/core'
+import { dialogCloseVariants, dialogContentVariants, dialogOverlayVariants } from '@timui/core'
+
 import { resolveClasses } from '../utils'
 import { setupDialogMachine } from './use-dialog'
 
-type MachineEvent = string | {
-  type: string
-  [key: string]: string | number | boolean | string[] | number[] | null | undefined
-}
+type MachineEvent =
+  | string
+  | {
+      type: string
+      [key: string]: string | number | boolean | string[] | number[] | null | undefined
+    }
 
 type WeappDialogApi = {
   open?: boolean
@@ -18,13 +21,7 @@ type WeappDialogApi = {
 }
 
 type WeappService = {
-  setContext: (context: {
-    open?: boolean
-  }) => void
-}
-
-type OpenChangeDetails = {
-  open: boolean
+  setContext: (context: { open?: boolean }) => void
 }
 
 type MachineSend = (event: MachineEvent) => void
@@ -49,6 +46,8 @@ Component({
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     open: {
@@ -90,7 +89,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappDialogInternal
       if (!state || !self._send || !self._connect) return
 
@@ -104,11 +103,11 @@ Component({
         api,
         contentClass,
         overlayClass,
-        closeClass
+        closeClass,
       })
     },
 
-    'open': function (val) {
+    open: function (val) {
       const self = this as WeappDialogInternal
       if (self._service) {
         if (val !== self.data.api.open) {
@@ -119,27 +118,14 @@ Component({
   },
 
   methods: {
-    emitVisibilityChange(open: boolean) {
-      const details: OpenChangeDetails = { open }
-      this.triggerEvent('change', details)
-      if (!open) {
-        this.triggerEvent('close')
-      }
-    },
     onBackdropTap() {
       const self = this as WeappDialogInternal
       self.data.api.backdropProps?.onClick?.()
-      if (self.data.api.open) {
-        this.emitVisibilityChange(false)
-      }
     },
     onCloseTap() {
       const self = this as WeappDialogInternal
       self.data.api.closeTriggerProps?.onClick?.()
-      if (self.data.api.open) {
-        this.emitVisibilityChange(false)
-      }
     },
-    noop() { },
-  }
+    noop() {},
+  },
 })

@@ -1,31 +1,3 @@
-<breadcrumb>
-  <breadcrumb-list>
-    <breadcrumb-item>
-      <breadcrumb-link>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M3 10l9-7 9 7" />
-          <path d="M5 10v10h5v-6h4v6h5V10" />
-        </svg>
-        <text class="sr-only">Home</text>
-      </breadcrumb-link>
-    </breadcrumb-item>
-    <breadcrumb-separator> · </breadcrumb-separator>
-    <breadcrumb-item>
-      <breadcrumb-link>Components</breadcrumb-link>
-    </breadcrumb-item>
-    <breadcrumb-separator> · </breadcrumb-separator>
-    <breadcrumb-item>
-      <breadcrumb-page>Breadcrumb</breadcrumb-page>
-    </breadcrumb-item>
-  </breadcrumb-list>
-</breadcrumb>
+<view>
+  <breadcrumb><breadcrumblist><breadcrumbitem><breadcrumblink href="#"><svg width="{{16}}" height="{{16}}" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-7 9 7" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg><text class="sr-only">Home</text></breadcrumblink></breadcrumbitem><breadcrumbseparator>· </breadcrumbseparator><breadcrumbitem><breadcrumblink href="#">Components</breadcrumblink></breadcrumbitem><breadcrumbseparator>· </breadcrumbseparator><breadcrumbitem><breadcrumbpage>Breadcrumb</breadcrumbpage></breadcrumbitem></breadcrumblist></breadcrumb>
+</view>

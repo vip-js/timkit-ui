@@ -1,9 +1,4 @@
-<view class="*:not-first:mt-2">
-      <label for="input-12-id">Input with end inline add-on</label>
-      <view class="relative">
-        <input id="input-12-id" class="peer pe-12" placeholder="google" type="text" />
-        <span class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50">
-          .com
-        </span>
-      </view>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with end inline add-on</label><view class="relative"><input id="{{id}}" class="peer pe-12" placeholder="google" type="text" /><text class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50">.com
+        </text></view></view>
+</view>

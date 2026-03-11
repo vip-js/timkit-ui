@@ -1,13 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="select-48-id">Multiple select (native)</label>
-      <view class="border-input overflow-hidden rounded-md border">
-        <select-native id="select-48-id" multiple class="rounded-none border-none">
-          <option value="1">React</option>
-          <option value="2">Next.js</option>
-          <option value="3">Astro</option>
-          <option value="4">Gatsby</option>
-          <option value="5">Vue</option>
-          <option value="6">Angular</option>
-        </select-native>
-      </view>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Multiple select (native)</label><view class="border-input overflow-hidden rounded-md border"><selectnative id="{{id}}" multiple class="rounded-none border-none"><option value="1">React</option><option value="2">Next.js</option><option value="3">Astro</option><option value="4">Gatsby</option><option value="5">Vue</option><option value="6">Angular</option></selectnative></view></view>
+</view>

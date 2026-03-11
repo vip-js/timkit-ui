@@ -1,0 +1,4 @@
+<view>
+  <view class="*:not-first:mt-2"><view class="flex items-center justify-between gap-1"><label htmlfor="{{id}}" class="leading-6">Textarea with hint
+        </label><text class="text-muted-foreground text-sm">Optional</text></view><textarea id="{{id}}" placeholder="Leave a comment" /></view>
+</view>

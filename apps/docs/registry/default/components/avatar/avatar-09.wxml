@@ -1,9 +1,4 @@
-<view class="relative">
-      <avatar>
-        <avatar-image src="./avatar-80-07.jpg" alt="Kelly King" ></avatar-image>
-        <avatar-fallback>KK</avatar-fallback>
-      </avatar>
-      <badge class="border-background absolute -top-1.5 left-full min-w-5 -translate-x-3.5 px-1">
-        6
-      </badge>
-    </view>
+<view>
+  <view class="relative"><avatar><avatarimage src="./avatar-80-07.jpg" alt="Kelly King" /><avatarfallback>KK</avatarfallback></avatar><badge class="border-background absolute -top-1.5 left-full min-w-5 -translate-x-3.5 px-1">6
+      </badge></view>
+</view>

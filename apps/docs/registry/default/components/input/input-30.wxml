@@ -1,4 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="input-30-id">File input</label>
-      <input id="input-30-id" class="p-0 pe-3 file:me-3 file:border-0 file:border-e" type="file" />
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">File input</label><input id="{{id}}" class="p-0 pe-3 file:me-3 file:border-0 file:border-e" type="file" /></view>
+</view>

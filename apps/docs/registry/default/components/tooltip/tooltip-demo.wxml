@@ -1,0 +1,4 @@
+<tooltip>
+  <button slot="trigger" variant="outline">Long press for details</button>
+  <view slot="content">HTML adapter coverage is now explicit in CI reports.</view>
+</tooltip>

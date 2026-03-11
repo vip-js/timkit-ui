@@ -1,0 +1,4 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with characters left</label><textarea id="{{id}}" value="{{value}}" maxlength="{{maxLength}}" onchange="{{handleChange}}" aria-describedby="{{`${id}-description`}}" /><text id="{{`${id}-description`}}" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite"><text class="tabular-nums">{{ limit - characterCount }}</text>characters left
+      </text></view>
+</view>

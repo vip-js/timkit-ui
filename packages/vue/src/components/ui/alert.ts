@@ -1,0 +1,5 @@
+export { default } from './alert/alert.vue'
+export { default as AlertDescription } from './alert/alert-description.vue'
+export { default as AlertDialog } from './alert/alert-dialog.vue'
+export { default as AlertTitle } from './alert/alert-title.vue'
+export { default as Alert } from './alert/alert.vue'

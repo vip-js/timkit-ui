@@ -1,0 +1,5 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">Dark
+          </button></tooltiptrigger><tooltipcontent class="dark px-2 py-1 text-xs">This tooltip will be always dark
+        </tooltipcontent></tooltip></tooltipprovider>
+</view>

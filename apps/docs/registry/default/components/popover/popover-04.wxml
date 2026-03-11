@@ -1,19 +1,6 @@
-<popover>
-      <popover-trigger asChild>
-        <button variant="outline">Tooltip-like popover</button>
-      </popover-trigger>
-      <popover-content class="max-w-[280px] py-3 shadow-none" side="top">
-        <view class="space-y-3">
-          <view class="space-y-1">
-            <p class="text-[13px] font-medium">Popover with button</p>
-            <p class="text-muted-foreground text-xs">
-              I am a popover that would like to look like a tooltip. I can&lsquo;t be a tooltip
+<view>
+  <popover><popovertrigger aschild><button variant="outline">Tooltip-like popover</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="top"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">Popover with button</text><text class="text-muted-foreground text-xs">I am a popover that would like to look like a tooltip. I can&lsquo;t be a tooltip
               because of the interactive element inside me.
-            </p>
-          </view>
-          <button size="sm" class="h-7 px-2">
-            Know more
-          </button>
-        </view>
-      </popover-content>
-    </popover>
+            </text></view><button size="sm" class="h-7 px-2">Know more
+          </button></view></popovercontent></popover>
+</view>

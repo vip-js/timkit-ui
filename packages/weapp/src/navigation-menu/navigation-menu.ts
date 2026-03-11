@@ -1,3 +1,5 @@
+import { emitTimEvent } from '../utils'
+
 type NavigationItem = {
   label: string
   value: string
@@ -7,7 +9,10 @@ type NavigationItem = {
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     items: {
@@ -18,6 +23,10 @@ Component({
       type: String,
       value: '',
     },
+    id: {
+      type: String,
+      value: 'navigation-menu',
+    },
     extClass: {
       type: String,
       value: '',
@@ -27,9 +36,14 @@ Component({
   methods: {
     onSelect(e: WechatMiniprogram.BaseEvent) {
       const value = String(e.currentTarget.dataset.value || '')
-      const item = ((this.properties.items || []) as NavigationItem[]).find((x) => x.value === value)
+      const item = ((this.properties.items || []) as NavigationItem[]).find(
+        (x) => x.value === value
+      )
       if (!item || item.disabled) return
-      this.triggerEvent('change', { value, item })
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'navigation-menu', {
+        value,
+        item,
+      })
       this.triggerEvent('update:value', value)
     },
   },

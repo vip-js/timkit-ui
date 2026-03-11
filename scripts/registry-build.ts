@@ -1,7 +1,7 @@
+import { spawnSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { spawnSync } from 'child_process'
 
 import { sha256OfString } from '../packages/cli/src/lib/checksum'
 
@@ -25,8 +25,8 @@ const INPUT_PATHS = [
   path.join(ROOT, 'packages/html/src/components'),
   path.join(ROOT, 'packages/weapp/src'),
   path.join(ROOT, 'packages/weapp/primitives'),
-  path.join(ROOT, 'packages/core/src/utils.ts'),
-  path.join(ROOT, 'packages/core/src/variants'),
+  path.join(ROOT, 'packages/core/src/shared/utils.ts'),
+  path.join(ROOT, 'packages/core/src/components'),
   path.join(ROOT, 'packages/tokens/dist/theme.css'),
 ]
 

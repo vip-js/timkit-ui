@@ -1,13 +1,4 @@
-<view class="*:not-first:mt-2">
-      <label for="input-14-id">Input with start add-on</label>
-      <view class="flex rounded-md shadow-xs">
-        <span class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-s-md border px-3 text-sm">
-          https://
-        </span>
-        <input id="input-14-id"
-          class="-ms-px rounded-s-none shadow-none"
-          placeholder="google.com"
-          type="text"
-        />
-      </view>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with start add-on</label><view class="flex rounded-md shadow-xs"><text class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-s-md border px-3 text-sm">https://
+        </text><input id="{{id}}" class="-ms-px rounded-s-none shadow-none" placeholder="google.com" type="text" /></view></view>
+</view>

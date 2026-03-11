@@ -1,49 +1,12 @@
-
-  <view>
-    <view class="*:not-first:mt-2">
-      <label>Input with password strength indicator</label>
-      <view class="relative">
-        <input class="pe-9" placeholder="Password" type="password" />
-        <button
-          class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-          type="button"
-          aria-label="Show password"
-          aria-pressed="false"
-          aria-controls="password"
-        >
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </view>
-    </view>
-    <view
-      class="bg-border mt-3 mb-4 h-1 w-full overflow-hidden rounded-full"
-      role="progressbar"
-      aria-valuenow="2"
-      aria-valuemin="0"
-      aria-valuemax="4"
-      aria-label="Password strength"
-    >
-      <view class="h-full bg-orange-500 transition-all duration-500 ease-out" style="width: 50%"></view>
-    </view>
-    <p class="text-foreground mb-2 text-sm font-medium">
-      Weak password. Must contain:
-    </p>
-    <ul class="space-y-1.5" aria-label="Password requirements">
-      <li class="flex items-center gap-2">
-         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-        <span class="text-xs text-muted-foreground">At least 8 characters</span>
-      </li>
-      <li class="flex items-center gap-2">
-         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-        <span class="text-xs text-muted-foreground">At least 1 number</span>
-      </li>
-      <li class="flex items-center gap-2">
-         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-        <span class="text-xs text-muted-foreground">At least 1 lowercase letter</span>
-      </li>
-      <li class="flex items-center gap-2">
-         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-        <span class="text-xs text-muted-foreground">At least 1 uppercase letter</span>
-      </li>
-    </ul>
-  </view>
+<view>
+  <view><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with password strength indicator</label><view class="relative"><input id="{{id}}" class="pe-9" placeholder="Password" type="{{isVisible ? 'text' : 'password'}}" value="{{password}}" onchange="{{(e) => setPassword(e.target.value)}}" aria-describedby="{{`${id}-description`}}" /><button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" type="button" bindtap="toggleVisibility" aria-label="{{isVisible ? 'Hide password' : 'Show password'}}" aria-pressed="{{isVisible}}" aria-controls="password">{{ isVisible ? (
+              <EyeOffIcon size={16} aria-hidden="true" />
+            ) : (
+              <EyeIcon size={16} aria-hidden="true" />
+            ) }}</button></view></view><view class="bg-border mt-3 mb-4 h-1 w-full overflow-hidden rounded-full" role="progressbar" aria-valuenow="{{strengthScore}}" aria-valuemin="{{0}}" aria-valuemax="{{4}}" aria-label="Password strength"><view class="{{`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}}" style="{{{ width: `${(strengthScore / 4) * 100}%` }}}"></view></view><text id="{{`${id}-description`}}" class="text-foreground mb-2 text-sm font-medium">{{ getStrengthText(strengthScore) }}. Must contain:
+      </text><ul class="space-y-1.5" aria-label="Password requirements"><li wx:for="{{strength}}" wx:for-item="req" wx:for-index="index" wx:key="index" key="{{index}}" class="flex items-center gap-2">{{ req.met ? (
+              <CheckIcon size={16} className="text-emerald-500" aria-hidden="true" />
+            ) : (
+              <XIcon size={16} className="text-muted-foreground/80" aria-hidden="true" />
+            ) }}<text class="{{`text-xs ${req.met ? 'text-emerald-600' : 'text-muted-foreground'}`}}">{{ req.text }}<text class="sr-only">{{ req.met ? ' - Requirement met' : ' - Requirement not met' }}</text></text></li></ul></view>
+</view>

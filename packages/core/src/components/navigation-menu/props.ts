@@ -1,3 +1,6 @@
 export type NavigationMenuProps = {
-    orientation?: 'horizontal' | 'vertical'
+  /**
+   * The orientation of the component.
+   */
+  orientation?: 'horizontal' | 'vertical'
 }

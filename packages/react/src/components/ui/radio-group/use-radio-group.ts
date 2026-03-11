@@ -4,26 +4,26 @@ import { createTimEvent, radioGroupConnect, radioGroupMachine } from '@timui/cor
 import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UseRadioGroupProps extends Omit<CoreRadioGroupProps, 'id'> {
-    id?: string
+  id?: string
 }
 
 export function useRadioGroup(props: UseRadioGroupProps) {
-    const generatedId = React.useId()
-    const radioGroupId = props.id ?? generatedId
+  const generatedId = React.useId()
+  const radioGroupId = props.id ?? generatedId
 
-    const service = useMachine(radioGroupMachine, {
-        id: radioGroupId,
-        value: props.value,
-        defaultValue: props.defaultValue,
-        disabled: props.disabled,
-        required: props.required,
-        name: props.name,
-        onValueChange(details) {
-            props.onValueChange?.(createTimEvent('change', radioGroupId, { value: details.value }))
-        },
-    })
+  const service = useMachine(radioGroupMachine, {
+    id: radioGroupId,
+    value: props.value,
+    defaultValue: props.defaultValue,
+    disabled: props.disabled,
+    required: props.required,
+    name: props.name,
+    onValueChange(details) {
+      props.onValueChange?.(createTimEvent('change', radioGroupId, { value: details.value }))
+    },
+  })
 
-    const api = React.useMemo(() => radioGroupConnect(service, normalizeProps), [service])
+  const api = React.useMemo(() => radioGroupConnect(service, normalizeProps), [service])
 
-    return api
+  return api
 }

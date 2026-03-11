@@ -1,0 +1,28 @@
+<div data-slot="date-picker" class="{{datePickerRootVariants}}">
+  <button
+    data-slot="date-picker-trigger"
+    class="{{stepperTitleVariants}}"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="{{datePickerTriggerIconVariants}}"
+      aria-hidden="true"
+    >
+      <rect x="3" y="4" width="18" height="18" rx="2" />
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <path d="M3 10h18" />
+    </svg>
+    <span class="{{datePickerTriggerLabelEmptyVariants}}">Date</span>
+  </button>
+  <div data-slot="date-picker-content" class="{{datePickerContentVariants}}">
+    <div class="{{stepperDescriptionVariants}}">Calendar</div>
+  </div>
+</div>

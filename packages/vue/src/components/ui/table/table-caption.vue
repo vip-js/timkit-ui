@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <caption :class="cn(tableCaptionVariants(), props.class)">
+  <caption data-slot="table-caption" :class="cn(tableCaptionVariants(), props.class)">
     <slot />
   </caption>
 </template>

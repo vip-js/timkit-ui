@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { DatePicker } from '@/components/ui/date-picker'
+import { Calendar } from '@/components/ui/calendar';
+
+
+
 </script>
 
 <template>
-  <DatePicker mode="range" placeholder="Date range" />
+  <div><Calendar class="rounded-md border p-2" mode="single" :selected="date as any" :onSelect="setDate as any" /><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html" target="_blank" rel="noopener nofollow">React Aria
+        </a></p></div>
 </template>

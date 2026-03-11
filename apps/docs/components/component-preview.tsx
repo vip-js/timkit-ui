@@ -1,32 +1,30 @@
 'use client'
 
 import * as React from 'react'
-import dynamic from 'next/dynamic'
 import type { RegistryItem } from '@timui/core'
 import { Monitor, Terminal } from 'lucide-react'
 
-import { getAvailableFrameworkTabs, getFrameworkCodePanes } from '@/lib/framework-utils'
+import type { FrameworkPreviewHints, PreviewFrameworkKey } from '@/lib/framework-preview'
+import { resolveFrameworkPreviewTargets } from '@/lib/framework-preview'
+import { getAvailablePreviewFrameworkTabs, getFrameworkCodePanes } from '@/lib/framework-utils'
+import ComponentLoader from '@/components/component-loader-client'
 import FrameworksTabs, { type FrameworkPane } from '@/components/frameworks-tabs'
+import HtmlPreview from '@/components/html-preview'
 import VuePreview from '@/components/vue-preview'
 import { cn } from '@/registry/default/lib/utils'
 
-const ReactComponentLoader = dynamic(() => import('@/components/component-loader-client'), {
-  ssr: false,
-  loading: () => (
-    <div className="flex min-h-[220px] items-center justify-center text-sm text-muted-foreground">
-      Loading React preview...
-    </div>
-  ),
-})
+type PreviewTabFramework = PreviewFrameworkKey | 'weapp'
 
 interface ComponentPreviewProps {
   component: RegistryItem
+  previewHints?: FrameworkPreviewHints
   align?: 'center' | 'start' | 'end'
   className?: string
 }
 
 export default function ComponentPreview({
   component,
+  previewHints,
   align = 'center',
   className,
 }: ComponentPreviewProps) {
@@ -34,30 +32,38 @@ export default function ComponentPreview({
   const [previewWidth, setPreviewWidth] = React.useState<number | '100%'>('100%')
 
   const frameworkTabs = React.useMemo(
-    () => getAvailableFrameworkTabs(component.files || []),
-    [component.files]
+    () => getAvailablePreviewFrameworkTabs(component, previewHints),
+    [component, previewHints]
+  )
+  const previewTargets = React.useMemo(
+    () => resolveFrameworkPreviewTargets(component, previewHints),
+    [component, previewHints]
   )
   const frameworkPanes = React.useMemo<FrameworkPane[]>(() => {
-    const files = component.files || []
-    const paneMap = getFrameworkCodePanes(files)
+    const paneMap = getFrameworkCodePanes(component)
     return frameworkTabs.map((tab) => ({
       value: tab.value,
       code: paneMap[tab.value] ?? '',
     }))
-  }, [component.files, frameworkTabs])
+  }, [component, frameworkTabs])
 
-  const preferredFramework = frameworkTabs[0]?.value || 'react'
-  const [activeFramework, setActiveFramework] = React.useState(preferredFramework)
+  const preferredFramework = (frameworkTabs[0]?.value || 'react') as PreviewTabFramework
+  const [activeFramework, setActiveFramework] =
+    React.useState<PreviewTabFramework>(preferredFramework)
 
-  const effectiveFramework = frameworkTabs.some((item) => item.value === activeFramework)
+  const effectiveFramework: PreviewTabFramework = frameworkTabs.some(
+    (item) => item.value === activeFramework
+  )
     ? activeFramework
     : preferredFramework
+  const currentPreviewTarget =
+    effectiveFramework === 'weapp' ? undefined : previewTargets[effectiveFramework]
   const currentPane = frameworkPanes.find((p) => p.value === effectiveFramework)
   const hasCode = frameworkTabs.length > 0
 
   React.useEffect(() => {
     if (!frameworkTabs.some((item) => item.value === activeFramework) && frameworkTabs[0]) {
-      setActiveFramework(frameworkTabs[0].value)
+      setActiveFramework(frameworkTabs[0].value as PreviewTabFramework)
     }
   }, [activeFramework, frameworkTabs])
 
@@ -71,7 +77,7 @@ export default function ComponentPreview({
               {frameworkTabs.map((fw) => (
                 <button
                   key={fw.value}
-                  onClick={() => setActiveFramework(fw.value)}
+                  onClick={() => setActiveFramework(fw.value as PreviewTabFramework)}
                   className={cn(
                     'flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[12px] font-medium transition-all duration-200',
                     effectiveFramework === fw.value
@@ -145,11 +151,19 @@ export default function ComponentPreview({
               >
                 <div className="z-10 w-full p-8 md:p-10">
                   {effectiveFramework === 'react' ? (
-                    <ReactComponentLoader component={component} />
+                    <ComponentLoader
+                      component={component}
+                      componentPath={previewTargets.react.componentPath}
+                    />
                   ) : effectiveFramework === 'html' ? (
-                    <HtmlPreview code={currentPane?.code || ''} />
+                    <HtmlPreview
+                      componentName={previewTargets.html.componentName}
+                      code={previewTargets.html.code || currentPane?.code || ''}
+                    />
                   ) : effectiveFramework === 'vue' ? (
-                    <VuePreview componentName={component.name} />
+                    <VuePreview
+                      componentName={previewTargets.vue.componentName || component.name}
+                    />
                   ) : (
                     <div className="flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
                       <Terminal className="h-8 w-8 opacity-20 mb-2" />
@@ -215,40 +229,4 @@ export default function ComponentPreview({
       )}
     </div>
   )
-}
-
-function HtmlPreview({ code }: { code: string }) {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    if (!containerRef.current) return
-
-    // Create a temporary container to parse the HTML
-    const temp = document.createElement('div')
-    temp.innerHTML = code
-
-    // Extract scripts
-    const scripts = temp.querySelectorAll('script')
-
-    // Replace current content (without scripts)
-    // We strip scripts to avoid double execution or weirdness if we just set innerHTML directly
-    // But setting innerHTML doesn't execute scripts anyway.
-    // However, we want to remove them from visual DOM if they occupy space (unlikely for script)
-    // Actually, just setting innerHTML is fine, scripts act as dead tags.
-    // But let's keep clean.
-    const sanitizedCode = code.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, '')
-    containerRef.current.innerHTML = sanitizedCode
-
-    // Execute scripts
-    scripts.forEach((script) => {
-      const newScript = document.createElement('script')
-      Array.from(script.attributes).forEach((attr) => {
-        newScript.setAttribute(attr.name, attr.value)
-      })
-      newScript.appendChild(document.createTextNode(script.innerHTML))
-      containerRef.current?.appendChild(newScript)
-    })
-  }, [code])
-
-  return <div ref={containerRef} className="w-full" />
 }

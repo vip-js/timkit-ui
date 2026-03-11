@@ -44,6 +44,7 @@ export const semantic = {
     default: palette.zinc[200],
     input: palette.zinc[200],
   },
+  ring: palette.zinc[950],
   radius: {
     sm: '0.375rem',
     md: '0.5rem',

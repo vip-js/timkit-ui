@@ -1,0 +1,8 @@
+<template>
+  <DropdownMenu><DropdownMenuTrigger aschild><Button variant="outline">Checkbox items
+          <ChevronDownIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuCheckboxItem checked="${nextjs}" oncheckedchange="${setNextjs}">Next.js
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${sveltekit}" oncheckedchange="${setSveltekit}">SvelteKit
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${remix}" oncheckedchange="${setRemix}" disabled>Remix
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${astro}" oncheckedchange="${setAstro}">Astro
+        </DropdownMenuCheckboxItem></DropdownMenuContent></DropdownMenu>
+</template>

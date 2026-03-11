@@ -1,15 +1,4 @@
-<time-field class="*:not-first:mt-2">
-      <label class="text-foreground text-sm font-medium">Time input</label>
-      <date-input />
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Built with 
-        <a
-          class="hover:text-foreground underline"
-          href="https://react-spectrum.adobe.com/react-aria/DateField.html"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          React Aria
-        </a>
-      </p>
-    </time-field>
+<view>
+  <timefield class="*:not-first:mt-2"><label class="text-foreground text-sm font-medium">Time input</label><dateinput /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
+        </a></text></timefield>
+</view>

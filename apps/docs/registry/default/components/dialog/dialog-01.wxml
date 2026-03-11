@@ -1,17 +1,4 @@
-<alert-dialog>
-      <alert-dialog-trigger asChild>
-        <button variant="outline">Alert dialog</button>
-      </alert-dialog-trigger>
-      <alert-dialog-content>
-        <alert-dialog-header>
-          <alert-dialog-title>Are you sure?</alert-dialog-title>
-          <alert-dialog-description>
-            Take a moment to review the details provided to ensure you understand the implications.
-          </alert-dialog-description>
-        </alert-dialog-header>
-        <alert-dialog-footer>
-          <alert-dialog-cancel>Cancel</alert-dialog-cancel>
-          <alert-dialog-action>Okay</alert-dialog-action>
-        </alert-dialog-footer>
-      </alert-dialog-content>
-    </alert-dialog>
+<view>
+  <alertdialog><alertdialogtrigger aschild><button variant="outline">Alert dialog</button></alertdialogtrigger><alertdialogcontent><alertdialogheader><alertdialogtitle>Are you sure?</alertdialogtitle><alertdialogdescription>Take a moment to review the details provided to ensure you understand the implications.
+          </alertdialogdescription></alertdialogheader><alertdialogfooter><alertdialogcancel>Cancel</alertdialogcancel><alertdialogaction>Okay</alertdialogaction></alertdialogfooter></alertdialogcontent></alertdialog>
+</view>

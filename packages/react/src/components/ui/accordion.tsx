@@ -6,25 +6,27 @@ import {
   accordionContentInnerVariants,
   accordionContentVariants,
   accordionItemVariants,
-  accordionTriggerInlineVariants,
   accordionTriggerIconVariants,
+  accordionTriggerInlineVariants,
   accordionTriggerVariants,
   cn,
 } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
 import { ChevronDownIcon } from 'lucide-react'
-import { Slot } from './slot'
+
 import { useAccordion } from './accordion/use-accordion'
 import {
+  AccordionItemProvider,
   AccordionProvider,
   useAccordionContext,
-  AccordionItemProvider,
-  useAccordionItemContext
+  useAccordionItemContext,
 } from './accordion/use-accordion-context'
+import { Slot } from './slot'
 
 interface AccordionProps
-  extends CoreAccordionProps,
-  Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreAccordionProps | 'dir'> {
+  extends
+    CoreAccordionProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreAccordionProps | 'dir'> {
   type?: 'single' | 'multiple'
 }
 type _AccordionPropsGuard = AssertNoExtraKeys<
@@ -47,7 +49,15 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     },
     ref
   ) => {
-    const { api, multiple } = useAccordion({ type, collapsible, defaultValue, value, onValueChange, disabled, id })
+    const { api, multiple } = useAccordion({
+      type,
+      collapsible,
+      defaultValue,
+      value,
+      onValueChange,
+      disabled,
+      id,
+    })
     const contextValue = React.useMemo(() => ({ api, multiple }), [api, multiple])
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
@@ -110,12 +120,12 @@ const AccordionTrigger = React.forwardRef<
         {icon
           ? icon
           : showChevron && (
-            <ChevronDownIcon
-              size={16}
-              className={cn(accordionTriggerIconVariants())}
-              aria-hidden="true"
-            />
-          )}
+              <ChevronDownIcon
+                size={16}
+                className={cn(accordionTriggerIconVariants())}
+                aria-hidden="true"
+              />
+            )}
       </Comp>
     </div>
   )
@@ -146,31 +156,29 @@ const AccordionItem = React.forwardRef<
 })
 AccordionItem.displayName = 'AccordionItem'
 
+const AccordionContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, children, ...props }, ref) => {
+    const { api } = useAccordionContext()
+    const item = useAccordionItemContext()
+    if (!item) throw new Error('Content must be within Item')
+    const contentProps = api.getItemContentProps({ value: item.value, disabled: item.disabled })
+    const mergedProps = mergeProps(contentProps, props)
+    const { className: mergedClassName, ...restProps } = mergedProps
 
-const AccordionContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
-  const { api } = useAccordionContext()
-  const item = useAccordionItemContext()
-  if (!item) throw new Error('Content must be within Item')
-  const contentProps = api.getItemContentProps({ value: item.value, disabled: item.disabled })
-  const mergedProps = mergeProps(contentProps, props)
-  const { className: mergedClassName, ...restProps } = mergedProps
-
-  return (
-    <div
-      ref={ref}
-      data-slot="accordion-content"
-      data-state={item.isOpen ? 'open' : 'closed'}
-      hidden={!item.isOpen}
-      className={cn(accordionContentVariants(), className, mergedClassName)}
-      {...restProps}
-    >
-      <div className={cn(accordionContentInnerVariants())}>{children}</div>
-    </div>
-  )
-})
+    return (
+      <div
+        ref={ref}
+        data-slot="accordion-content"
+        data-state={item.isOpen ? 'open' : 'closed'}
+        hidden={!item.isOpen}
+        className={cn(accordionContentVariants(), className, mergedClassName)}
+        {...restProps}
+      >
+        <div className={cn(accordionContentInnerVariants())}>{children}</div>
+      </div>
+    )
+  }
+)
 AccordionContent.displayName = 'AccordionContent'
 
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger }

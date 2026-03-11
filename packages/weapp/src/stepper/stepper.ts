@@ -1,3 +1,4 @@
+import { emitTimEvent } from '../utils'
 import { setupStepperMachine } from './use-stepper'
 
 type WeappStepperApi = {
@@ -14,32 +15,35 @@ type StepperInputEvent = WechatMiniprogram.CustomEvent<{
   value: string
 }>
 
-type WeappStepperInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
-  _service?: WeappService
-  _cleanup?: () => void
-  _send?: (event: object) => void
-  data: {
-    api: WeappStepperApi
+type WeappStepperInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+    _service?: WeappService
+    _cleanup?: () => void
+    _send?: (event: object) => void
+    data: {
+      api: WeappStepperApi
+    }
+    properties: {
+      value: string
+      min: number
+      max: number
+      step: number
+      disabled: boolean
+      readOnly: boolean
+      allowMouseWheel: boolean
+      clampValueOnBlur: boolean
+      id: string
+      extClass: string
+    }
   }
-  properties: {
-    value: string
-    min: number
-    max: number
-    step: number
-    disabled: boolean
-    readOnly: boolean
-    allowMouseWheel: boolean
-    clampValueOnBlur: boolean
-    id: string
-    extClass: string
-  }
-}
 
 Component({
   options: {
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: { type: String, value: '0' },
@@ -73,8 +77,10 @@ Component({
         allowMouseWheel: this.properties.allowMouseWheel,
         clampValueOnBlur: this.properties.clampValueOnBlur,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
-        }
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'stepper', {
+            value: details.value,
+          })
+        },
       })
 
       self._service = service as WeappService
@@ -88,7 +94,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappStepperInternal
       if (!state || !self._send) return
       const { connect } = setupStepperMachine(this, { id: this.properties.id })
@@ -96,7 +102,7 @@ Component({
       this.setData({ api, className: this.properties.extClass })
     },
 
-    'value': function (val) {
+    value: function (val) {
       const self = this as WeappStepperInternal
       if (self._service) {
         self._service.setContext({ value: val })

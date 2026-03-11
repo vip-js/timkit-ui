@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" disabled /><label htmlfor="{{id}}" class="sr-only">Disabled
+      </label></view>
+</view>

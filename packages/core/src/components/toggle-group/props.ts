@@ -1,10 +1,14 @@
 import type * as toggleGroup from '@zag-js/toggle-group'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type ToggleGroupValueChangeEvent = TimEvent<{ value: string[] }>
 
 export type ToggleGroupProps = Omit<toggleGroup.Props, 'onValueChange'> & {
-    onValueChange?: (event: ToggleGroupValueChangeEvent) => void
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (event: ToggleGroupValueChangeEvent) => void
 }
 
 /**

@@ -1,5 +1,26 @@
-<nav data-slot="navigation-menu" class="inline-flex items-center gap-2 rounded-md border border-input p-1">
-  <a href="#" class="rounded-sm px-3 py-1.5 text-sm hover:bg-accent">Docs</a>
-  <a href="#" class="rounded-sm px-3 py-1.5 text-sm hover:bg-accent">Components</a>
-  <a href="#" class="rounded-sm px-3 py-1.5 text-sm hover:bg-accent">Theme</a>
+<nav data-slot="navigation-menu" class="relative inline-flex items-center gap-2">
+  <div data-slot="navigation-menu-item" data-state="closed" class="relative">
+    <button
+      data-slot="navigation-menu-trigger"
+      type="button"
+      data-state="closed"
+      aria-expanded="false"
+      class="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state&#x3D;open]:bg-accent/50"
+    >
+      Platform
+    </button>
+    <div
+      data-slot="navigation-menu-content"
+      data-state="closed"
+      hidden
+      class="absolute left-0 top-full z-10 mt-2 w-72 rounded-md border bg-popover p-4 shadow-md"
+    >
+      <div class="grid gap-2 text-sm">
+        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">React and Vue use shared core variants.</a>
+        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">HTML demos declare template-only or adapter-backed behavior.</a>
+        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">Weapp follows TimEvent and mini-program component rules.</a>
+      </div>
+    </div>
+  </div>
+  <a href="#" data-slot="navigation-menu-link" class="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state&#x3D;open]:bg-accent/50">Documentation</a>
 </nav>

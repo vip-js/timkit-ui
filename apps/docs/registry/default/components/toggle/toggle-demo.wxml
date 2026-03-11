@@ -1,0 +1,3 @@
+<view>
+  <toggle aria-label="Toggle bold"><bold class="h-4 w-4" /></toggle>
+</view>

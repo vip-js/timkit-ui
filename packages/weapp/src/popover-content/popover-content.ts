@@ -2,7 +2,8 @@ import { popoverContentVariants } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   relations: {
     '../popover/popover': {
@@ -25,9 +26,9 @@ Component({
         // Shared variant uses `data-[state=open]:animate-in`.
         // WeApp won't trigger that animation naturally without state change.
         // For now, allow base classes.
-        className: popoverContentVariants({ className: extClass })
+        className: popoverContentVariants({ className: extClass }),
       })
-    }
+    },
   },
   methods: {
     showForMeasure() {
@@ -54,6 +55,6 @@ Component({
           .exec()
       })
     },
-    noop() { },
+    noop() {},
   },
 })

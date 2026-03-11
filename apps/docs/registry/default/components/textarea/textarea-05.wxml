@@ -1,0 +1,3 @@
+<view>
+  <view class="[--ring:var(--color-indigo-300)] *:not-first:mt-2 in-[.dark]:[--ring:var(--color-indigo-900)]"><label htmlfor="{{id}}">Textarea with colored border and ring</label><textarea id="{{id}}" placeholder="Leave a comment" /></view>
+</view>

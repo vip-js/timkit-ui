@@ -1,10 +1,14 @@
 import type * as accordion from '@zag-js/accordion'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type AccordionValueChangeEvent = TimEvent<{ value: string | string[] }>
 
 export type AccordionProps = Omit<accordion.Props, 'onValueChange'> & {
-    onValueChange?: (event: AccordionValueChangeEvent) => void
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (event: AccordionValueChangeEvent) => void
 }
 
 /**

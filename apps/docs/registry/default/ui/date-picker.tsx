@@ -3,15 +3,14 @@
 import * as React from 'react'
 import { cn } from '@timui/core'
 import { format } from 'date-fns'
-import type { DateRange, OnSelectHandler } from 'react-day-picker'
 
 import { Button } from './button'
 import { Calendar } from './calendar'
+import type { CalendarRangeValue, CalendarSelectedValue } from './calendar'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 type DatePickerMode = 'single' | 'range'
-
-type DatePickerValue = Date | DateRange | undefined
+type DatePickerValue = Date | CalendarRangeValue | undefined
 
 interface DatePickerProps {
   mode?: DatePickerMode
@@ -28,7 +27,7 @@ interface DatePickerProps {
 type CalendarProps = React.ComponentProps<typeof Calendar>
 
 const formatSingle = (value: Date) => format(value, 'LLL dd, y')
-const formatRange = (value: DateRange) => {
+const formatRange = (value: CalendarRangeValue) => {
   if (value.from && value.to) {
     return `${format(value.from, 'LLL dd, y')} - ${format(value.to, 'LLL dd, y')}`
   }
@@ -52,6 +51,12 @@ function DatePicker({
   const isControlled = value !== undefined
   const [uncontrolled, setUncontrolled] = React.useState<DatePickerValue>(defaultValue)
   const selected = isControlled ? value : uncontrolled
+  const calendarSelected =
+    mode === 'range'
+      ? (selected as CalendarRangeValue | undefined)
+      : selected instanceof Date
+        ? selected
+        : undefined
 
   const handleChange = React.useCallback(
     (next: DatePickerValue) => {
@@ -61,15 +66,10 @@ function DatePicker({
     [isControlled, onValueChange]
   )
 
-  const handleSelect = React.useCallback<OnSelectHandler<DatePickerValue>>(
-    (next) => handleChange(next),
-    [handleChange]
-  )
-
   const label = React.useMemo(() => {
     if (mode === 'range') {
       return selected && typeof selected === 'object' && 'from' in selected
-        ? formatRange(selected as DateRange)
+        ? formatRange(selected as CalendarRangeValue)
         : ''
     }
     return selected instanceof Date ? formatSingle(selected) : ''
@@ -114,8 +114,8 @@ function DatePicker({
         >
           <Calendar
             mode={mode}
-            selected={selected as never}
-            onSelect={handleSelect}
+            selected={calendarSelected as never}
+            onSelect={(next: CalendarSelectedValue) => handleChange(next as DatePickerValue)}
             {...calendarProps}
           />
         </PopoverContent>

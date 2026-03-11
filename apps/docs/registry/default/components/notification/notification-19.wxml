@@ -1,5 +1,10 @@
-<button
-      variant="outline" )
-      }>
-      Show toast
+<view>
+  <button variant="outline" bindtap="{
+        toast({
+          title: "We couldn't complete your request!",
+          description: 'There was a problem with your request.',
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        })
+      }">Show toast
     </button>
+</view>

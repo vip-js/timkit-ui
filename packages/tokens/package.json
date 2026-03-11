@@ -2,6 +2,13 @@
   "name": "@timui/tokens",
   "version": "0.0.1",
   "private": true,
+  "exports": {
+    "./tokens.json": "./dist/tokens.json",
+    "./theme.css": "./dist/theme.css",
+    "./theme.wxss": "./dist/theme.wxss",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "node --import tsx build.ts",
     "clean": "rm -rf dist",

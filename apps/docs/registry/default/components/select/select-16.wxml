@@ -1,14 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="select-16-id">Select with placeholder</label>
-      <select>
-        <select-trigger id="select-16-id">
-          <select-value placeholder="Select framework" />
-        </select-trigger>
-        <select-content>
-          <select-item value="1">React</select-item>
-          <select-item value="2">Next.js</select-item>
-          <select-item value="3">Astro</select-item>
-          <select-item value="4">Gatsby</select-item>
-        </select-content>
-      </select>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with placeholder</label><select><selecttrigger id="{{id}}"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent><selectitem value="1">React</selectitem><selectitem value="2">Next.js</selectitem><selectitem value="3">Astro</selectitem><selectitem value="4">Gatsby</selectitem></selectcontent></select></view>
+</view>

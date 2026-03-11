@@ -1,0 +1,9 @@
+<view>
+  <tabs default-value="tab-1"><tabslist class="mx-auto flex w-full max-w-xs bg-transparent"><tabstrigger value="tab-1" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">3
+          </badge>Overview
+        </tabstrigger><tabstrigger value="tab-2" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">0
+          </badge>Projects
+        </tabstrigger><tabstrigger value="tab-3" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">7
+          </badge>Packages
+        </tabstrigger></tabslist><tabscontent value="tab-1"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</text></tabscontent><tabscontent value="tab-2"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</text></tabscontent><tabscontent value="tab-3"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</text></tabscontent></tabs>
+</view>

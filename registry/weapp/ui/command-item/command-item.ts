@@ -1,7 +1,7 @@
 Component({
-    methods: {
-        handleTap() {
-            this.triggerEvent('select')
-        }
-    }
+  methods: {
+    handleTap() {
+      this.triggerEvent('select')
+    },
+  },
 })

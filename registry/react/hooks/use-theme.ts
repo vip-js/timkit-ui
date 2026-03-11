@@ -2,7 +2,7 @@
  * Inline theme detection hook - no npm dependency required.
  * Replaces next-themes' useTheme for the purpose of detecting system dark/light theme.
  */
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -63,8 +63,9 @@ export function useTheme() {
     setTheme: (t: Theme) => {
       applyTheme(t)
     },
-    systemTheme: (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ? 'dark' as const
-      : 'light' as const,
+    systemTheme:
+      typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? ('dark' as const)
+        : ('light' as const),
   }
 }

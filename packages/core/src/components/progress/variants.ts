@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 export const progressRootVariants = cva(
-    'relative h-2 w-full overflow-hidden rounded-full bg-secondary'
+  'relative h-2 w-full overflow-hidden rounded-full bg-secondary'
 )
 export const progressIndicatorVariants = cva('h-full w-full flex-1 bg-primary transition-all')
 export const progressLabelVariants = cva('text-muted-foreground text-sm font-medium')

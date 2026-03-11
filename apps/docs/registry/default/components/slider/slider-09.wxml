@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Slider with labels</label><view><text class="text-muted-foreground mb-3 flex w-full items-center justify-between gap-2 text-xs font-medium" aria-hidden="true"><text>Low</text><text>High</text></text><slider default-value="{{[50]}}" step="{{10}}" aria-label="Slider with labels" /></view></view>
+</view>

@@ -1,21 +1,4 @@
-<view class="flex flex-col items-center gap-2">
-      <cropper
-        class="h-80" minZoom="2" maxZoom="10"
-        image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-08_wneftq.jpg"
-      >
-        <cropper-description />
-        <cropper-image />
-        <cropper-crop-area />
-      </cropper>
-
-      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
-        Cropper with custom zoom limits ∙ 
-        <a
-          href="https://github.com/origin-space/image-cropper"
-          class="hover:text-foreground underline"
-          target="_blank"
-        >
-          API
-        </a>
-      </p>
-    </view>
+<view>
+  <view class="flex flex-col items-center gap-2"><cropper class="h-80" minzoom="{{2}}" maxzoom="{{10}}" image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-08_wneftq.jpg"><cropperdescription /><cropperimage /><croppercroparea /></cropper><text aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Cropper with custom zoom limits ∙{{ ' ' }}<a href="https://github.com/origin-space/image-cropper" class="hover:text-foreground underline" target="_blank">API
+        </a></text></view>
+</view>

@@ -1,5 +1,5 @@
+import { radioGroupVariants, resolveClasses } from '../utils'
 import { setupRadioGroupMachine } from './use-radio-group'
-import { resolveClasses, radioGroupVariants } from '../utils'
 
 type WeappRadioGroupApi = Record<string, object>
 
@@ -32,6 +32,8 @@ Component({
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: {
@@ -81,7 +83,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappRadioGroupInternal
       if (!state || !self._send || !self._connect) return
       const api = self._connect(state, self._send) as WeappRadioGroupApi
@@ -91,14 +93,14 @@ Component({
       this.setData({ api, className: baseClass })
     },
 
-    'value': function (val) {
+    value: function (val) {
       const self = this as WeappRadioGroupInternal
       if (self._service) {
         self._service.setContext({ value: val })
       }
     },
 
-    'disabled': function (val) {
+    disabled: function (val) {
       const self = this as WeappRadioGroupInternal
       if (self._service) {
         self._service.setContext({ disabled: val })

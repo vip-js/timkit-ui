@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { CircleXIcon } from 'lucide-vue-next';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-24-id">Input with clear button</Label>
-      <div class="relative">
-        <Input id="input-24-id"
-          class="pe-9"
-          placeholder="Type something..."
-          type="text" />
-        
-      </div>
-    </div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with clear button</Label><div class="relative"><Input :id="id" :ref="inputRef" class="pe-9" placeholder="Type something..." type="text" :value="inputValue" :onChange="(e) => setInputValue(e.target.value)" /><button v-if="inputValue" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" aria-label="Clear input" @click="handleClearInput"><CircleXIcon :size="16" aria-hidden="true" /></button></div></div>
 </template>

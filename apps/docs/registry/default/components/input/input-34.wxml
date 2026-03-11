@@ -1,16 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="input-34-id">Input with character limit</label>
-      <view class="relative">
-        <input id="input-34-id"
-          class="peer pe-14"
-          type="text" aria-describedby="input-34-id-description"
-        />
-        <view id="input-34-id"
-          class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-xs tabular-nums peer-disabled:opacity-50"
-          aria-live="polite"
-          role="status"
-        >
-          /
-        </view>
-      </view>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with character limit</label><view class="relative"><input id="{{id}}" class="peer pe-14" type="text" value="{{value}}" maxlength="{{maxLength}}" onchange="{{handleChange}}" aria-describedby="{{`${id}-description`}}" /><view id="{{`${id}-description`}}" class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-xs tabular-nums peer-disabled:opacity-50" aria-live="polite" role="status">{{ characterCount }}/{{ limit }}</view></view></view>
+</view>

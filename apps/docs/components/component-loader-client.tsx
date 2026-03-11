@@ -9,6 +9,7 @@ import { registryComponentManifest } from '@/registry/registry-manifest'
 
 interface ComponentLoaderProps {
   component: RegistryItem
+  componentPath?: string
 }
 
 type RegistryComponentModule = { default: ComponentType<object> }
@@ -19,9 +20,12 @@ type RegistryComponentLoaderModule = Awaited<ReturnType<RegistryComponentLoader>
 
 export default function ComponentLoader<TProps extends object>({
   component,
+  componentPath,
   ...props
 }: ComponentLoaderProps & TProps) {
-  const reactFile = component.files?.find((file) => file.path.endsWith('.tsx'))
+  const reactFile = componentPath
+    ? component.files?.find((file) => file.path === componentPath)
+    : component.files?.find((file) => file.path.endsWith('.tsx'))
 
   if (!reactFile) {
     return (

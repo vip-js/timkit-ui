@@ -9,20 +9,11 @@
     "declaration": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": [
-      "miniprogram-api-typings"
-    ],
+    "types": ["miniprogram-api-typings"],
     "paths": {
-      "@timui/*": [
-        "../*/src"
-      ]
+      "@timui/*": ["../*/src"]
     },
     "composite": false
   },
-  "include": [
-    "src",
-    "primitives",
-    "../core/src",
-    "../tokens/src"
-  ]
+  "include": ["src", "primitives", "../core/src", "../tokens/src"]
 }

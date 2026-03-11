@@ -1,0 +1,5 @@
+<template>
+  <Button variant="outline" size="icon" class="relative" on-click="${handleClick}" aria-label="Notifications"><BellIcon size="${16}" aria-hidden="true" /><!-- if count > 0 -->
+<Badge class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1">${count > 99 ? '99+' : count}</Badge>
+<!-- endif --></Button>
+</template>

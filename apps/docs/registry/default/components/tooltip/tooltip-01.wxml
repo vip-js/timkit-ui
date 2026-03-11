@@ -1,0 +1,4 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">Tiny
+          </button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">This is a simple tooltip</tooltipcontent></tooltip></tooltipprovider>
+</view>

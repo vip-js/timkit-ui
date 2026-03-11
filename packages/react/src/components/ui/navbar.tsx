@@ -18,16 +18,9 @@ type _NavbarPropsGuard = AssertNoExtraKeys<
   CoreNavbarProps & React.HTMLAttributes<HTMLElement>
 >
 
-const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
-  ({ className, ...props }, ref) => (
-    <header
-      ref={ref}
-      data-slot="navbar"
-      className={cn(navbarVariants(), className)}
-      {...props}
-    />
-  )
-)
+const Navbar = React.forwardRef<HTMLElement, NavbarProps>(({ className, ...props }, ref) => (
+  <header ref={ref} data-slot="navbar" className={cn(navbarVariants(), className)} {...props} />
+))
 Navbar.displayName = 'Navbar'
 
 type NavbarContentProps = React.HTMLAttributes<HTMLDivElement>
@@ -57,16 +50,9 @@ const NavbarBrand = React.forwardRef<HTMLDivElement, NavbarBrandProps>(
 NavbarBrand.displayName = 'NavbarBrand'
 
 type NavbarNavProps = React.HTMLAttributes<HTMLElement>
-const NavbarNav = React.forwardRef<HTMLElement, NavbarNavProps>(
-  ({ className, ...props }, ref) => (
-    <nav
-      ref={ref}
-      data-slot="navbar-nav"
-      className={cn(navbarNavVariants(), className)}
-      {...props}
-    />
-  )
-)
+const NavbarNav = React.forwardRef<HTMLElement, NavbarNavProps>(({ className, ...props }, ref) => (
+  <nav ref={ref} data-slot="navbar-nav" className={cn(navbarNavVariants(), className)} {...props} />
+))
 NavbarNav.displayName = 'NavbarNav'
 
 type NavbarItemProps = React.HTMLAttributes<HTMLDivElement>

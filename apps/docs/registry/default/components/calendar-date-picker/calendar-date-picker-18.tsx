@@ -19,7 +19,9 @@ import {
   startOfYear,
 } from 'date-fns'
 import { ChevronDownIcon } from 'lucide-react'
-import { CaptionLabelProps, MonthGridProps } from 'react-day-picker'
+
+type CaptionLabelProps = React.HTMLAttributes<HTMLElement>
+type MonthGridProps = React.TableHTMLAttributes<HTMLTableElement>
 
 export default function Component() {
   const today = new Date()

@@ -1,0 +1,43 @@
+<div class="flex flex-col items-center gap-2">
+  <div class="inline-flex items-center gap-2 align-top">
+    <div
+      class="border-input relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border"
+      aria-label="Default user avatar" id="avatar-container">
+      <div aria-hidden="true" id="avatar-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-circle-user-round opacity-60">
+          <path d="M18 20a6 6 0 0 0-12 0" />
+          <circle cx="12" cy="10" r="4" />
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+      </div>
+      <img class="size-full object-cover" alt="Preview of uploaded image" width="32" height="32" id="avatar-image"
+        style="display: none;" />
+    </div>
+    <div class="relative inline-block">
+      <button type="button"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+        aria-haspopup="dialog" id="upload-button" onclick="document.getElementById('file-upload').click()">
+        Upload image
+      </button>
+      <input type="file" id="file-upload" accept="image/*" class="sr-only" aria-label="Upload image file" tabindex="-1"
+        onchange="const file = this.files[0]; if (file) { const url = URL.createObjectURL(file); document.getElementById('avatar-icon').style.display = 'none'; document.getElementById('avatar-image').style.display = 'block'; document.getElementById('avatar-image').src = url; document.getElementById('upload-button').textContent = 'Change image'; document.getElementById('file-name').textContent = file.name; document.getElementById('file-info').style.display = 'inline-flex'; }" />
+    </div>
+  </div>
+  <div id="file-info" class="inline-flex gap-2 text-xs" style="display: none;">
+    <p id="file-name" class="text-muted-foreground truncate" aria-live="polite"></p>
+    <button
+      onclick="document.getElementById('file-upload').value = ''; document.getElementById('avatar-icon').style.display = 'block'; document.getElementById('avatar-image').style.display = 'none'; document.getElementById('avatar-image').src = ''; document.getElementById('upload-button').textContent = 'Upload image'; document.getElementById('file-info').style.display = 'none';"
+      class="text-destructive font-medium hover:underline" aria-label="Remove image">
+      Remove
+    </button>
+  </div>
+  <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
+    Basic image uploader ∙
+    <a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
+      class="hover:text-foreground underline">
+      Docs
+    </a>
+  </p>
+</div>

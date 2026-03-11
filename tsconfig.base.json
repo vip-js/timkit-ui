@@ -13,11 +13,7 @@
     "moduleResolution": "bundler",
     "module": "esnext",
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
     "composite": true,
     "declaration": true,
@@ -27,15 +23,10 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@timui/react": [
-        "./packages/react/src"
-      ],
-      "@timui/react/*": [
-        "packages/react/src/*"
-      ],
-      "@timui/*": [
-        "./packages/*/src"
-      ]
+      "@timui/tokens/*": ["./packages/tokens/dist/*"],
+      "@timui/react": ["./packages/react/src"],
+      "@timui/react/*": ["packages/react/src/*"],
+      "@timui/*": ["./packages/*/src"]
     }
   }
 }

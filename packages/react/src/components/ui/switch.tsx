@@ -2,9 +2,17 @@
 
 import * as React from 'react'
 import type { SwitchProps as CoreSwitchProps } from '@timui/core'
-import { switchConnect, switchMachine, createTimEvent } from '@timui/core'
-import { cn, switchRootVariants, switchThumbVariants, switchVariants } from '@timui/core'
+import {
+  cn,
+  createTimEvent,
+  switchConnect,
+  switchMachine,
+  switchRootVariants,
+  switchThumbVariants,
+  switchVariants,
+} from '@timui/core'
 import { mergeProps } from '@zag-js/react'
+
 import { useSwitch } from './switch/use-switch'
 
 type SwitchProps = CoreSwitchProps &

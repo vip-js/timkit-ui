@@ -1,4 +1,5 @@
 
-> @timui/core@0.1.0 lint /Users/jiawei01.mao/sine/timkit-ui/packages/core
+
+> @timui/core@0.0.1 lint /Users/jiawei01.mao/sine/timkit-ui/packages/core
 > eslint . --ext .js,.jsx,.ts,.tsx
 

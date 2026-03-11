@@ -15,35 +15,76 @@
       "@/lib/utils": ["./lib/utils"],
       "@/lib/*": ["./lib/*"],
       "clsx": ["../../../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx"],
-      "tailwind-merge": ["../../../../node_modules/.pnpm/tailwind-merge@3.4.0/node_modules/tailwind-merge"],
-      "@zag-js/accordion": ["../../../../node_modules/.pnpm/@zag-js+accordion@1.33.1/node_modules/@zag-js/accordion"],
-      "@zag-js/avatar": ["../../../../node_modules/.pnpm/@zag-js+avatar@1.33.1/node_modules/@zag-js/avatar"],
-      "@zag-js/checkbox": ["../../../../node_modules/.pnpm/@zag-js+checkbox@1.33.1/node_modules/@zag-js/checkbox"],
-      "@zag-js/collapsible": ["../../../../node_modules/.pnpm/@zag-js+collapsible@1.33.1/node_modules/@zag-js/collapsible"],
-      "@zag-js/combobox": ["../../../../node_modules/.pnpm/@zag-js+combobox@1.33.1/node_modules/@zag-js/combobox"],
-      "@zag-js/dialog": ["../../../../node_modules/.pnpm/@zag-js+dialog@1.33.1/node_modules/@zag-js/dialog"],
-      "@zag-js/hover-card": ["../../../../node_modules/.pnpm/@zag-js+hover-card@1.33.1/node_modules/@zag-js/hover-card"],
-      "@zag-js/menu": ["../../../../node_modules/.pnpm/@zag-js+menu@1.33.1/node_modules/@zag-js/menu"],
-      "@zag-js/number-input": ["../../../../node_modules/.pnpm/@zag-js+number-input@1.32.0/node_modules/@zag-js/number-input"],
-      "@zag-js/popover": ["../../../../node_modules/.pnpm/@zag-js+popover@1.33.1/node_modules/@zag-js/popover"],
-      "@zag-js/popper": ["../../../../node_modules/.pnpm/@zag-js+popper@1.33.1/node_modules/@zag-js/popper"],
-      "@zag-js/progress": ["../../../../node_modules/.pnpm/@zag-js+progress@1.33.1/node_modules/@zag-js/progress"],
-      "@zag-js/radio-group": ["../../../../node_modules/.pnpm/@zag-js+radio-group@1.33.1/node_modules/@zag-js/radio-group"],
-      "@zag-js/react": ["../../../../node_modules/.pnpm/@zag-js+react@1.33.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/@zag-js/react"],
-      "@zag-js/select": ["../../../../node_modules/.pnpm/@zag-js+select@1.33.1/node_modules/@zag-js/select"],
-      "@zag-js/slider": ["../../../../node_modules/.pnpm/@zag-js+slider@1.33.1/node_modules/@zag-js/slider"],
-      "@zag-js/switch": ["../../../../node_modules/.pnpm/@zag-js+switch@1.33.1/node_modules/@zag-js/switch"],
-      "@zag-js/tabs": ["../../../../node_modules/.pnpm/@zag-js+tabs@1.33.1/node_modules/@zag-js/tabs"],
-      "@zag-js/tags-input": ["../../../../node_modules/.pnpm/@zag-js+tags-input@1.33.1/node_modules/@zag-js/tags-input"],
-      "@zag-js/toggle": ["../../../../node_modules/.pnpm/@zag-js+toggle@1.33.1/node_modules/@zag-js/toggle"],
-      "@zag-js/toggle-group": ["../../../../node_modules/.pnpm/@zag-js+toggle-group@1.33.1/node_modules/@zag-js/toggle-group"],
+      "tailwind-merge": [
+        "../../../../node_modules/.pnpm/tailwind-merge@3.4.0/node_modules/tailwind-merge"
+      ],
+      "@zag-js/accordion": [
+        "../../../../node_modules/.pnpm/@zag-js+accordion@1.33.1/node_modules/@zag-js/accordion"
+      ],
+      "@zag-js/avatar": [
+        "../../../../node_modules/.pnpm/@zag-js+avatar@1.33.1/node_modules/@zag-js/avatar"
+      ],
+      "@zag-js/checkbox": [
+        "../../../../node_modules/.pnpm/@zag-js+checkbox@1.33.1/node_modules/@zag-js/checkbox"
+      ],
+      "@zag-js/collapsible": [
+        "../../../../node_modules/.pnpm/@zag-js+collapsible@1.33.1/node_modules/@zag-js/collapsible"
+      ],
+      "@zag-js/combobox": [
+        "../../../../node_modules/.pnpm/@zag-js+combobox@1.33.1/node_modules/@zag-js/combobox"
+      ],
+      "@zag-js/dialog": [
+        "../../../../node_modules/.pnpm/@zag-js+dialog@1.33.1/node_modules/@zag-js/dialog"
+      ],
+      "@zag-js/hover-card": [
+        "../../../../node_modules/.pnpm/@zag-js+hover-card@1.33.1/node_modules/@zag-js/hover-card"
+      ],
+      "@zag-js/menu": [
+        "../../../../node_modules/.pnpm/@zag-js+menu@1.33.1/node_modules/@zag-js/menu"
+      ],
+      "@zag-js/number-input": [
+        "../../../../node_modules/.pnpm/@zag-js+number-input@1.32.0/node_modules/@zag-js/number-input"
+      ],
+      "@zag-js/popover": [
+        "../../../../node_modules/.pnpm/@zag-js+popover@1.33.1/node_modules/@zag-js/popover"
+      ],
+      "@zag-js/popper": [
+        "../../../../node_modules/.pnpm/@zag-js+popper@1.33.1/node_modules/@zag-js/popper"
+      ],
+      "@zag-js/progress": [
+        "../../../../node_modules/.pnpm/@zag-js+progress@1.33.1/node_modules/@zag-js/progress"
+      ],
+      "@zag-js/radio-group": [
+        "../../../../node_modules/.pnpm/@zag-js+radio-group@1.33.1/node_modules/@zag-js/radio-group"
+      ],
+      "@zag-js/react": [
+        "../../../../node_modules/.pnpm/@zag-js+react@1.33.1_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/@zag-js/react"
+      ],
+      "@zag-js/select": [
+        "../../../../node_modules/.pnpm/@zag-js+select@1.33.1/node_modules/@zag-js/select"
+      ],
+      "@zag-js/slider": [
+        "../../../../node_modules/.pnpm/@zag-js+slider@1.33.1/node_modules/@zag-js/slider"
+      ],
+      "@zag-js/switch": [
+        "../../../../node_modules/.pnpm/@zag-js+switch@1.33.1/node_modules/@zag-js/switch"
+      ],
+      "@zag-js/tabs": [
+        "../../../../node_modules/.pnpm/@zag-js+tabs@1.33.1/node_modules/@zag-js/tabs"
+      ],
+      "@zag-js/tags-input": [
+        "../../../../node_modules/.pnpm/@zag-js+tags-input@1.33.1/node_modules/@zag-js/tags-input"
+      ],
+      "@zag-js/toggle": [
+        "../../../../node_modules/.pnpm/@zag-js+toggle@1.33.1/node_modules/@zag-js/toggle"
+      ],
+      "@zag-js/toggle-group": [
+        "../../../../node_modules/.pnpm/@zag-js+toggle-group@1.33.1/node_modules/@zag-js/toggle-group"
+      ],
       "@timui/react": ["../../packages/react/src"],
       "@timui/react/*": ["../../packages/react/src/*"],
       "@timui/*": ["../../packages/*/src"]
     }
   },
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx"
-  ]
+  "include": ["./**/*.ts", "./**/*.tsx"]
 }

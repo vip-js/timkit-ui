@@ -1793,7 +1793,7 @@ const _routes = [
   {
     name: "docs-components-name",
     path: "/docs/components/:name()",
-    component: () => import('./_name_-Dyh07-HW.mjs')
+    component: () => import('./_name_-BNKwlPKT.mjs')
   }
 ];
 const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;

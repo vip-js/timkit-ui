@@ -1,0 +1,24 @@
+<div data-slot="dialog-portal">
+    <div data-slot="dialog-overlay" class="{{dialogOverlayVariants}}"></div>
+    <div class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+        <div data-slot="dialog-content" class="{{dialogContentVariants}} pointer-events-auto">
+            <div class="{{dialogHeaderVariants}}">
+                <h2 data-slot="dialog-title" class="{{dialogTitleVariants}}">Dialog Title</h2>
+                <p data-slot="dialog-description" class="{{dialogDescriptionVariants}}">Dialog Description</p>
+            </div>
+            <div class="py-4">{{#if children}}{{{children}}}{{else}}Main content area{{/if}}</div>
+            <div class="{{dialogFooterVariants}}">
+                <button
+                    class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2">Save</button>
+            </div>
+            <button data-slot="dialog-close" class="{{dialogCloseVariants}}">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="{{dialogCloseIconVariants}}">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+    </div>
+</div>

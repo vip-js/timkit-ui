@@ -1,0 +1,4 @@
+<view>
+  <view class="space-y-8 text-center"><stepper default-value="{{2}}" orientation="vertical"><stepperitem wx:for="{{steps}}" wx:for-item="{ step, title }" wx:for-index="index" wx:key="index" key="{{step}}" step="{{step}}" class="relative items-start not-last:flex-1"><steppertrigger class="items-start rounded pb-12 last:pb-0"><stepperindicator /><view class="mt-0.5 px-2 text-left"><steppertitle>{{ title }}</steppertitle></view></steppertrigger><stepperseparator wx:if="{{step < steps.length}}" class="absolute inset-y-0 top-[calc(1.5rem+0.125rem)] left-3 -order-1 m-0 -translate-x-1/2 group-data-[orientation=horizontal]/stepper:w-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=horizontal]/stepper:flex-none group-data-[orientation=vertical]/stepper:h-[calc(100%-1.5rem-0.25rem)]" /></stepperitem></stepper><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Vertical stepper with inline titles
+      </text></view>
+</view>

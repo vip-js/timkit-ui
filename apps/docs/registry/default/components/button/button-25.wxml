@@ -1,0 +1,3 @@
+<view>
+  <button variant="outline" size="icon" class="relative" bindtap="handleClick" aria-label="Notifications"><bellicon size="{{16}}" aria-hidden="true" /><badge wx:if="{{count > 0}}" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1">{{ count > 99 ? '99+' : count }}</badge></button>
+</view>

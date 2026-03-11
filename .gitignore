@@ -45,10 +45,21 @@ registry-all.json
 catalog-all.json
 apps/docs/public/registry-all.json
 apps/docs/public/catalog-all.json
+apps/docs/public/registry-index.json
+apps/docs/public/registry/
+registry-build.cache.json
 
 # generated registry data
+apps/docs/data/catalog-all.json
+apps/docs/data/registry-all.json
 apps/docs/data/registry-index.json
 apps/docs/data/registry/
+apps/docs/registry/*-report.json
+
+# build caches
+**/.turbo/
+**/.nuxt/
+**/.output/
 
 # Vue 构建产物（不应在源码目录）
 packages/vue/src/**/*.d.ts

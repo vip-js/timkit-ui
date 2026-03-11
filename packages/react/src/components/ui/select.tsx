@@ -1,10 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { CheckIcon, ChevronDownIcon } from 'lucide-react'
-import { Portal } from '@zag-js/react'
-import { SelectProvider, useSelectContext } from './select/use-select-context'
-import { useSelect, type SelectItemData, type SelectProps } from './select/use-select'
 import {
   cn,
   selectContentPopperVariants,
@@ -16,6 +12,11 @@ import {
   selectTriggerVariants,
   selectValueVariants,
 } from '@timui/core'
+import { Portal } from '@zag-js/react'
+import { CheckIcon, ChevronDownIcon } from 'lucide-react'
+
+import { useSelect, type SelectItemData, type SelectProps } from './select/use-select'
+import { SelectProvider, useSelectContext } from './select/use-select-context'
 import { Slot } from './slot'
 
 const Select = (props: SelectProps) => {
@@ -101,7 +102,10 @@ const isSelected = (apiValue: string | string[] | undefined, value: string) => {
 const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
   ({ className, children, value, ...props }, ref) => {
     const api = useSelectContext()
-    const item = React.useMemo<SelectItemData>(() => ({ label: children, value }), [children, value])
+    const item = React.useMemo<SelectItemData>(
+      () => ({ label: children, value }),
+      [children, value]
+    )
 
     return (
       <div

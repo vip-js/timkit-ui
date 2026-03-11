@@ -24,8 +24,8 @@ describe('core component smoke', () => {
     })
   })
 
-  it('zag machine exports are callable', () => {
-    expect(typeof dialogMachine).toBe('function')
-    expect(typeof selectMachine).toBe('function')
+  it('zag machine exports are defined as objects', () => {
+    expect(typeof dialogMachine).toBe('object')
+    expect(typeof selectMachine).toBe('object')
   })
 })

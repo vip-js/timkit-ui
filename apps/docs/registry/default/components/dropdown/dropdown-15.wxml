@@ -1,24 +1,3 @@
 <view>
-      <dropdown-menu>
-        <dropdown-menu-trigger asChild>
-          <button size="icon" variant="outline" aria-label="Select theme">
-            
-            
-          </button>
-        </dropdown-menu-trigger>
-        <dropdown-menu-content class="min-w-32">
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Light</span>
-          </dropdown-menu-item>
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Dark</span>
-          </dropdown-menu-item>
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>System</span>
-          </dropdown-menu-item>
-        </dropdown-menu-content>
-      </dropdown-menu>
-    </view>
+  <view><dropdownmenu><dropdownmenutrigger aschild><button size="icon" variant="outline" aria-label="Select theme"><sunicon wx:if="{{displayTheme === 'light'}}" size="{{16}}" aria-hidden="true" /><moonicon wx:if="{{displayTheme === 'dark'}}" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent class="min-w-32"><dropdownmenuitem bindtap="setTheme('light')"><sunicon size="{{16}}" class="opacity-60" aria-hidden="true" /><text>Light</text></dropdownmenuitem><dropdownmenuitem bindtap="setTheme('dark')"><moonicon size="{{16}}" class="opacity-60" aria-hidden="true" /><text>Dark</text></dropdownmenuitem><dropdownmenuitem bindtap="setTheme('system')"><monitoricon size="{{16}}" class="opacity-60" aria-hidden="true" /><text>System</text></dropdownmenuitem></dropdownmenucontent></dropdownmenu></view>
+</view>

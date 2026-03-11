@@ -1,9 +1,9 @@
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
+import type { RegistryItem, RegistryPayload } from '@timui/core'
 
-const CACHE_DIR =
-  process.env.TIMUI_CACHE_DIR || path.join(os.homedir(), '.timui', 'cache')
+const CACHE_DIR = process.env.TIMUI_CACHE_DIR || path.join(os.homedir(), '.timui', 'cache')
 const REGISTRY_INDEX_CACHE = path.join(CACHE_DIR, 'registry-index.json')
 const REGISTRY_ITEMS_DIR = path.join(CACHE_DIR, 'items')
 
@@ -12,9 +12,10 @@ if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true })
 if (!fs.existsSync(REGISTRY_ITEMS_DIR)) fs.mkdirSync(REGISTRY_ITEMS_DIR, { recursive: true })
 
 const ONE_hour = 60 * 60 * 1000
+type CachedRegistryIndex = RegistryPayload | RegistryItem[]
 
 export const registryCache = {
-  getIndex: () => {
+  getIndex: (): CachedRegistryIndex | null => {
     if (!fs.existsSync(REGISTRY_INDEX_CACHE)) return null
     try {
       const stat = fs.statSync(REGISTRY_INDEX_CACHE)
@@ -24,14 +25,14 @@ export const registryCache = {
       return null
     }
   },
-  setIndex: (data: any) => {
+  setIndex: (data: CachedRegistryIndex) => {
     try {
       fs.writeFileSync(REGISTRY_INDEX_CACHE, JSON.stringify(data), 'utf-8')
     } catch (e) {
       console.warn('Failed to write registry index to cache', e)
     }
   },
-  getItem: (name: string) => {
+  getItem: (name: string): RegistryItem | null => {
     const itemPath = path.join(REGISTRY_ITEMS_DIR, `${name}.json`)
     if (!fs.existsSync(itemPath)) return null
     try {
@@ -45,7 +46,7 @@ export const registryCache = {
       return null
     }
   },
-  setItem: (name: string, data: any) => {
+  setItem: (name: string, data: RegistryItem) => {
     const itemPath = path.join(REGISTRY_ITEMS_DIR, `${name}.json`)
     try {
       fs.writeFileSync(itemPath, JSON.stringify(data), 'utf-8')

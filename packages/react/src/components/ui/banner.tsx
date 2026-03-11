@@ -13,12 +13,7 @@ import {
 
 const Banner = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="banner"
-      className={cn(bannerVariants(), className)}
-      {...props}
-    />
+    <div ref={ref} data-slot="banner" className={cn(bannerVariants(), className)} {...props} />
   )
 )
 Banner.displayName = 'Banner'

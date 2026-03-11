@@ -1,25 +1,4 @@
-<alert-dialog>
-      <alert-dialog-trigger asChild>
-        <button variant="outline">Alert dialog with icon</button>
-      </alert-dialog-trigger>
-      <alert-dialog-content>
-        <view class="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
-          <view
-            class="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
-          </view>
-          <alert-dialog-header>
-            <alert-dialog-title>Are you sure?</alert-dialog-title>
-            <alert-dialog-description>
-              Are you sure you want to delete your account? All your data will be removed.
-            </alert-dialog-description>
-          </alert-dialog-header>
-        </view>
-        <alert-dialog-footer>
-          <alert-dialog-cancel>Cancel</alert-dialog-cancel>
-          <alert-dialog-action>Confirm</alert-dialog-action>
-        </alert-dialog-footer>
-      </alert-dialog-content>
-    </alert-dialog>
+<view>
+  <alertdialog><alertdialogtrigger aschild><button variant="outline">Alert dialog with icon</button></alertdialogtrigger><alertdialogcontent><view class="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4"><view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><circlealerticon class="opacity-80" size="{{16}}" /></view><alertdialogheader><alertdialogtitle>Are you sure?</alertdialogtitle><alertdialogdescription>Are you sure you want to delete your account? All your data will be removed.
+            </alertdialogdescription></alertdialogheader></view><alertdialogfooter><alertdialogcancel>Cancel</alertdialogcancel><alertdialogaction>Confirm</alertdialogaction></alertdialogfooter></alertdialogcontent></alertdialog>
+</view>

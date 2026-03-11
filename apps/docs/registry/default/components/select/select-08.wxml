@@ -1,9 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="select-08-id">Disabled select (native)</label>
-      <select-native id="select-08-id" disabled>
-        <option value="1">React</option>
-        <option value="2">Next.js</option>
-        <option value="3">Astro</option>
-        <option value="4">Gatsby</option>
-      </select-native>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Disabled select (native)</label><selectnative id="{{id}}" disabled><option value="1">React</option><option value="2">Next.js</option><option value="3">Astro</option><option value="4">Gatsby</option></selectnative></view>
+</view>

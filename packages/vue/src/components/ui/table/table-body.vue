@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <tbody :class="cn(tableBodyVariants(), props.class)">
+  <tbody data-slot="table-body" :class="cn(tableBodyVariants(), props.class)">
     <slot />
   </tbody>
 </template>

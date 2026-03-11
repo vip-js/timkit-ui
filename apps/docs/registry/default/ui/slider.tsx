@@ -1,9 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { cn, sliderMachine } from '@timui/core'
-
-import { useMachine } from '../hooks/use-machine'
+import { cn, sliderConnect, sliderMachine } from '@timui/core'
+import { mergeProps, normalizeProps, useMachine } from '@zag-js/react'
 
 const Slider = React.forwardRef<
   HTMLDivElement,
@@ -41,109 +40,96 @@ const Slider = React.forwardRef<
   ) => {
     void _showTooltip
     void _tooltipContent
-    const initialValue = value !== undefined ? value : defaultValue || [min]
 
-    const [state, send] = useMachine(sliderMachine, {
-      context: {
-        value: initialValue,
-        min,
-        max,
-        step,
-        disabled,
+    const service = useMachine(sliderMachine, {
+      id: React.useId(),
+      value,
+      defaultValue,
+      min,
+      max,
+      step,
+      orientation,
+      disabled,
+      onValueChange(details) {
+        onValueChange?.(details.value)
+      },
+      onValueChangeEnd(details) {
+        onValueCommit?.(details.value)
       },
     })
+    const api = React.useMemo(() => sliderConnect(service, normalizeProps), [service])
 
-    const currentValue = state.context.value[0] // Support single thumb for now
-
-    // Sync
-    React.useEffect(() => {
-      if (value !== undefined && JSON.stringify(value) !== JSON.stringify(state.context.value)) {
-        send({ type: 'VALUE.SET', value })
-      }
-    }, [value, send, state.context.value])
-
-    const trackRef = React.useRef<HTMLDivElement>(null)
-
-    const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-      event.preventDefault() // prevent selection
-      const track = trackRef.current
-      if (!track) return
-
-      track.setPointerCapture(event.pointerId)
-
-      const updateValue = (clientX: number, clientY: number) => {
-        const rect = track.getBoundingClientRect()
-        const percent =
-          orientation === 'vertical'
-            ? 1 - Math.min(Math.max((clientY - rect.top) / rect.height, 0), 1)
-            : Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1)
-        const rawValue = min + percent * (max - min)
-        const steppedValue = Math.round(rawValue / step) * step
-        // Clamp
-        const finalValue = Math.min(Math.max(steppedValue, min), max)
-
-        if (finalValue !== currentValue) {
-          const nextValue = [finalValue]
-          send({ type: 'VALUE.SET', value: nextValue })
-          onValueChange?.(nextValue)
-        }
-      }
-
-      updateValue(event.clientX, event.clientY)
-
-      const handlePointerMove = (e: PointerEvent) => {
-        updateValue(e.clientX, e.clientY)
-      }
-
-      const handlePointerUp = (e: PointerEvent) => {
-        track.releasePointerCapture(e.pointerId)
-        track.removeEventListener('pointermove', handlePointerMove)
-        track.removeEventListener('pointerup', handlePointerUp)
-
-        // Commit value
-        if (state.context.value) {
-          onValueCommit?.(state.context.value)
-        }
-      }
-
-      track.addEventListener('pointermove', handlePointerMove)
-      track.addEventListener('pointerup', handlePointerUp)
+    const rootProps = api.getRootProps()
+    const controlProps = api.getControlProps()
+    const trackProps = api.getTrackProps()
+    const rangeProps = api.getRangeProps()
+    const mergedRootProps = mergeProps(
+      rootProps,
+      props as React.HTMLAttributes<HTMLDivElement>
+    ) as React.HTMLAttributes<HTMLDivElement>
+    const { className: rootClassName, ...rootRest } = mergedRootProps as {
+      className?: string
     }
-
-    const percent = ((currentValue - min) / (max - min)) * 100
 
     return (
       <div
+        {...(rootRest as React.HTMLAttributes<HTMLDivElement>)}
         ref={ref}
         data-slot="slider"
-        data-orientation={orientation}
-        data-disabled={disabled}
         className={cn(
-          'relative flex w-full touch-none select-none items-center data-[disabled=true]:opacity-50',
+          'relative flex w-full touch-none select-none items-center data-[disabled]:opacity-50 data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
+          rootClassName,
           className
         )}
-        {...props}
       >
         <div
-          ref={trackRef}
-          className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary cursor-pointer"
-          onPointerDown={handlePointerDown}
+          {...controlProps}
+          data-slot="slider-control"
+          className={cn(
+            'relative flex w-full touch-none select-none items-center data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
+            controlProps.className
+          )}
         >
           <div
-            data-slot="slider-range"
-            className="absolute h-full bg-primary"
-            style={{ width: `${percent}%` }}
-          />
+            {...trackProps}
+            data-slot="slider-track"
+            className={cn(
+              'bg-secondary relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-2 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2',
+              trackProps.className
+            )}
+          >
+            <div
+              {...rangeProps}
+              data-slot="slider-range"
+              className={cn(
+                'bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full',
+                rangeProps.className
+              )}
+            />
+          </div>
+          {api.value.map((_, index) => {
+            const thumbProps = api.getThumbProps({ index })
+            const hiddenInputProps = api.getHiddenInputProps({ index })
+            return (
+              <React.Fragment key={index}>
+                <div
+                  {...thumbProps}
+                  data-slot="slider-thumb"
+                  className={cn(
+                    'border-primary bg-background ring-ring/50 block size-5 shrink-0 rounded-full border-2 shadow-sm transition-[color,box-shadow] outline-none hover:ring-4 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50',
+                    thumbProps.className
+                  )}
+                />
+                <input {...hiddenInputProps} />
+              </React.Fragment>
+            )
+          })}
         </div>
-        <div
-          data-slot="slider-thumb"
-          className="pointer-events-none absolute block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          style={{ left: `${percent}%`, transform: 'translateX(-50%)' }}
-        />
       </div>
     )
   }
 )
+
 Slider.displayName = 'Slider'
 
 export { Slider }

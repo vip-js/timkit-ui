@@ -2,8 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { pathToFileURL } from 'url'
 
-import { registryPayloadSchema, type RegistryItem } from '../packages/core/src/shared/schema'
 import { sha256OfString } from '../packages/cli/src/lib/checksum'
+import { registryPayloadSchema, type RegistryItem } from '../packages/core/src/shared/schema'
 
 const ROOT = path.resolve(__dirname, '..')
 const DATA_FILE = path.join(ROOT, 'apps/docs/data/registry-all.json')
@@ -219,9 +219,9 @@ const validateDeclaredFrameworks = (item: RegistryItem): ValidationMessage[] => 
     .filter((fw) => !actualFrameworks.has(fw))
     .map((fw) => ({
       severity,
-      text: `[${item.name}] declares framework "${fw}" but no file found with expected extensions (${FRAMEWORK_EXTENSIONS[
-        fw
-      ]?.join(', ') || 'n/a'}).`,
+      text: `[${item.name}] declares framework "${fw}" but no file found with expected extensions (${
+        FRAMEWORK_EXTENSIONS[fw]?.join(', ') || 'n/a'
+      }).`,
     }))
 }
 
@@ -229,7 +229,9 @@ const validateReactPresence = (item: RegistryItem): ValidationMessage[] => {
   const files = item.files || []
   const actualFrameworks = computeFrameworksFromFiles(files)
   if (!actualFrameworks.has('react')) {
-    return [{ severity: 'error', text: `[${item.name}] is missing React implementation (.tsx/.jsx).` }]
+    return [
+      { severity: 'error', text: `[${item.name}] is missing React implementation (.tsx/.jsx).` },
+    ]
   }
   return []
 }
@@ -296,7 +298,9 @@ const validateAliases = (items: RegistryItem[]): ValidationResult => {
 
 function main() {
   if (!fs.existsSync(DATA_FILE)) {
-    console.error('❌ registry-all.json is missing. Run pnpm --filter @timui/docs registry:build:all')
+    console.error(
+      '❌ registry-all.json is missing. Run pnpm --filter @timui/docs registry:build:all'
+    )
     process.exit(1)
   }
   const stat = fs.statSync(DATA_FILE)

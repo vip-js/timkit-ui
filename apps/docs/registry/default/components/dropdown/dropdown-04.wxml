@@ -1,35 +1,9 @@
-<dropdown-menu>
-      <dropdown-menu-trigger asChild>
-        <button variant="outline">
-          Grouped items
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </dropdown-menu-trigger>
-      <dropdown-menu-content>
-        <dropdown-menu-group>
-          <dropdown-menu-item>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Copy
-          </dropdown-menu-item>
-          <dropdown-menu-item>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Edit
-          </dropdown-menu-item>
-        </dropdown-menu-group>
-        <dropdown-menu-separator />
-        <dropdown-menu-group>
-          <dropdown-menu-item>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Group
-          </dropdown-menu-item>
-          <dropdown-menu-item>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Clone
-          </dropdown-menu-item>
-          <dropdown-menu-item variant="destructive">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Delete
-          </dropdown-menu-item>
-        </dropdown-menu-group>
-      </dropdown-menu-content>
-    </dropdown-menu>
+<view>
+  <dropdownmenu><dropdownmenutrigger aschild><button variant="outline">Grouped items
+          <chevrondownicon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent><dropdownmenugroup><dropdownmenuitem><copyplusicon size="{{16}}" class="opacity-60" aria-hidden="true" />Copy
+          </dropdownmenuitem><dropdownmenuitem><bolticon size="{{16}}" class="opacity-60" aria-hidden="true" />Edit
+          </dropdownmenuitem></dropdownmenugroup><dropdownmenuseparator /><dropdownmenugroup><dropdownmenuitem><layers2icon size="{{16}}" class="opacity-60" aria-hidden="true" />Group
+          </dropdownmenuitem><dropdownmenuitem><filesicon size="{{16}}" class="opacity-60" aria-hidden="true" />Clone
+          </dropdownmenuitem><dropdownmenuitem variant="destructive"><trashicon size="{{16}}" aria-hidden="true" />Delete
+          </dropdownmenuitem></dropdownmenugroup></dropdownmenucontent></dropdownmenu>
+</view>

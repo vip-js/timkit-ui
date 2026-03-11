@@ -18,13 +18,17 @@ const frameworkTabs: FrameworkTab[] = [
 ]
 
 type CodeGroups = SectionCodeGroup[]
+type PreviewMdxSource = MDXRemoteSerializeResult | string | null
+
+const hasMdxCompiledSource = (value: PreviewMdxSource): value is MDXRemoteSerializeResult =>
+  typeof value === 'object' && value !== null && 'compiledSource' in value
 
 export default function Preview({
   item,
   mdxSource,
 }: {
   item: { title?: string; codeGroups?: CodeGroups }
-  mdxSource: MDXRemoteSerializeResult
+  mdxSource: PreviewMdxSource
   slug: string
 }) {
   const [isPreview, setPreview] = useState(true)
@@ -83,7 +87,11 @@ export default function Preview({
 
       {isPreview ? (
         <Viewport>
-          <MDXRemoteClient mdxSource={mdxSource} />
+          {hasMdxCompiledSource(mdxSource) ? (
+            <MDXRemoteClient mdxSource={mdxSource} />
+          ) : (
+            <div className="p-6 text-sm text-muted-foreground">Preview source unavailable.</div>
+          )}
         </Viewport>
       ) : (
         <FrameworksTabs

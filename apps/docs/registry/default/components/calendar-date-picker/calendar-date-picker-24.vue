@@ -1,7 +1,21 @@
 <script setup lang="ts">
-import { DatePicker } from '@/components/ui/date-picker'
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+
+
+
 </script>
 
 <template>
-  <DatePicker />
+  <div><Calendar mode="single" :selected="date" :onSelect="setDate" :numberOfMonths="2" pagedNavigation :showOutsideDays="false" class="rounded-md border p-2" :classNames="{
+          months: 'sm:flex-col md:flex-row gap-8',
+          month:
+            'relative first-of-type:before:hidden before:absolute max-md:before:inset-x-2 max-md:before:h-px max-md:before:-top-4 md:before:inset-y-2 md:before:w-px before:bg-border md:before:-left-4',
+          weekday: 'w-12',
+          day_button: 'size-12',
+          today: '*:after:hidden',
+        }" :components="{
+          DayButton: (props: DayButtonProps) => <DayButton {...props} prices={mockPriceData} />,
+        }" :disabled="isDateDisabled" /><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Pricing calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
+        </a></p></div>
 </template>

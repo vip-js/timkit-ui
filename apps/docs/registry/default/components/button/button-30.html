@@ -1,0 +1,19 @@
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-100 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9 rounded-md"
+  aria-label="Copy to clipboard"
+  onclick="this.disabled = true; this.setAttribute('aria-label', 'Copied'); const check = this.querySelector('.lucide-check').parentElement; const copy = this.querySelector('.lucide-copy').parentElement; check.classList.remove('scale-0', 'opacity-0'); check.classList.add('scale-100', 'opacity-100'); copy.classList.remove('scale-100', 'opacity-100'); copy.classList.add('scale-0', 'opacity-0'); setTimeout(() => { this.disabled = false; this.setAttribute('aria-label', 'Copy to clipboard'); check.classList.remove('scale-100', 'opacity-100'); check.classList.add('scale-0', 'opacity-0'); copy.classList.remove('scale-0', 'opacity-0'); copy.classList.add('scale-100', 'opacity-100'); }, 1500);">
+  <div class="transition-all scale-0 opacity-0">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check stroke-emerald-500"
+      aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  </div>
+  <div class="absolute transition-all scale-100 opacity-100">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy" aria-hidden="true">
+      <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+    </svg>
+  </div>
+</button>

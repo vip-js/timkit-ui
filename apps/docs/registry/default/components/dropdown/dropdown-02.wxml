@@ -1,14 +1,4 @@
-<dropdown-menu>
-      <dropdown-menu-trigger asChild>
-        <button variant="outline">
-          Same width of trigger
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </dropdown-menu-trigger>
-      <dropdown-menu-content class="min-w-(--radix-dropdown-menu-trigger-width)">
-        <dropdown-menu-item>Option 1</dropdown-menu-item>
-        <dropdown-menu-item>Option 2</dropdown-menu-item>
-        <dropdown-menu-item>Option 3</dropdown-menu-item>
-        <dropdown-menu-item>Option 4</dropdown-menu-item>
-      </dropdown-menu-content>
-    </dropdown-menu>
+<view>
+  <dropdownmenu><dropdownmenutrigger aschild><button variant="outline">Same width of trigger
+          <chevrondownicon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent class="min-w-(--radix-dropdown-menu-trigger-width)"><dropdownmenuitem>Option 1</dropdownmenuitem><dropdownmenuitem>Option 2</dropdownmenuitem><dropdownmenuitem>Option 3</dropdownmenuitem><dropdownmenuitem>Option 4</dropdownmenuitem></dropdownmenucontent></dropdownmenu>
+</view>

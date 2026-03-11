@@ -2,16 +2,19 @@
 
 import * as React from 'react'
 import type { CheckboxProps as CoreCheckboxProps } from '@timui/core'
-import { checkboxConnect, checkboxMachine, createTimEvent } from '@timui/core'
 import {
+  checkboxConnect,
   checkboxIndicatorCheckVariants,
   checkboxIndicatorIconVariants,
   checkboxIndicatorVariants,
+  checkboxMachine,
   checkboxRootVariants,
   checkboxVariants,
   cn,
+  createTimEvent,
 } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
+
 import { useCheckbox } from './checkbox/use-checkbox'
 
 type CheckboxProps = CoreCheckboxProps &

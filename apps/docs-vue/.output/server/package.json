@@ -1,6 +1,6 @@
 {
   "name": "docs-vue-prod",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "type": "module",
   "private": true,
   "dependencies": {
@@ -19,10 +19,10 @@
     "hookable": "6.0.1",
     "lucide-vue-next": "0.555.0",
     "source-map-js": "1.2.1",
-    "tailwindcss": "4.1.18",
     "ufo": "1.6.3",
     "unhead": "2.1.4",
     "vue": "3.5.28",
-    "vue-bundle-renderer": "2.2.0"
+    "vue-bundle-renderer": "2.2.0",
+    "zod": "4.3.6"
   }
 }

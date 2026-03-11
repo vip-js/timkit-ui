@@ -1,19 +1,19 @@
 Component({
-    relations: {
-        '../dialog/dialog': { type: 'ancestor' }
+  relations: {
+    '../dialog/dialog': { type: 'ancestor' },
+  },
+  data: {
+    triggerApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ triggerApi: parentApi.triggerProps })
     },
-    data: {
-        triggerApi: {} as any
+    handleClick() {
+      if (this.data.triggerApi && this.data.triggerApi.onClick) {
+        this.data.triggerApi.onClick()
+      }
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ triggerApi: parentApi.triggerProps })
-        },
-        handleClick() {
-            if (this.data.triggerApi && this.data.triggerApi.onClick) {
-                this.data.triggerApi.onClick()
-            }
-        }
-    }
+  },
 })

@@ -1,7 +1,14 @@
 // @ts-nocheck
 import { comboboxCollection } from '@timui/core'
+
+import { emitTimEvent } from '../utils'
 import { createCollection, createScopedMachineId } from '../utils/collection'
-import { setupComboboxMachine, connectComboboxMachine, type WeappComboboxApi, type WeappComboboxService } from './use-combobox'
+import {
+  connectComboboxMachine,
+  setupComboboxMachine,
+  type WeappComboboxApi,
+  type WeappComboboxService,
+} from './use-combobox'
 
 type ComboboxItemRecord = Record<string, object>
 type ComboboxCollection = ReturnType<typeof comboboxCollection<ComboboxItemRecord>>
@@ -15,6 +22,7 @@ type WeappComboboxInternal = WechatMiniprogram.Component.InstanceMethods<{}> & {
     api: WeappComboboxApi
   }
   properties: {
+    id: string
     items: ComboboxItemRecord[]
     itemLabelKey: string
     itemValueKey: string
@@ -31,7 +39,10 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
+    id: { type: String, value: 'combobox' },
     // Basic props
     items: { type: Array, value: [] }, // Simple array of strings or objects
     itemLabelKey: { type: String, value: 'label' },
@@ -46,6 +57,7 @@ Component({
     disabled: { type: Boolean, value: false },
     readOnly: { type: Boolean, value: false },
     invalid: { type: Boolean, value: false },
+    extClass: { type: String, value: '' },
 
     // Mobile specific
     label: { type: String, value: '' },
@@ -70,14 +82,16 @@ Component({
       updateCollection(this.properties.items)
 
       const { service, cleanup, send } = setupComboboxMachine(this, {
-        id: createScopedMachineId('combobox'),
+        id: this.properties.id || createScopedMachineId('combobox'),
         collection: self._collection,
         value: this.properties.value,
         name: this.properties.name,
         disabled: this.properties.disabled,
         readOnly: this.properties.readOnly,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'combobox', {
+            value: details.value,
+          })
         },
       })
 
@@ -92,13 +106,13 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappComboboxInternal
       if (!state || !self._send) return
       const api = connectComboboxMachine(state, self._send)
       this.setData({ api })
     },
-    'items': function (items) {
+    items: function (items) {
       const self = this as WeappComboboxInternal
       if (self._service) {
         self._collection = createCollection({

@@ -5,14 +5,37 @@ import { Command } from 'commander'
 import prompts from 'prompts'
 import { z } from 'zod'
 
-import { detectTailwindVersion, getPackageManager, writeFileSafely } from '../lib/utils'
 import { runDoctor } from '../lib/doctor-runner'
+import { detectTailwindVersion, getPackageManager, writeFileSafely } from '../lib/utils'
 
 const initOptionsSchema = z.object({
   cwd: z.string(),
   yes: z.boolean().default(false),
   framework: z.string().optional(),
 })
+
+type ComponentsConfig = {
+  $schema?: string
+  style?: string
+  tailwind?: {
+    config?: string
+    css?: string
+    baseColor?: string
+    cssVariables?: boolean
+    [key: string]: string | boolean | undefined
+  }
+  aliases?: {
+    components?: string
+    utils?: string
+    [key: string]: string | undefined
+  }
+}
+
+const parseComponentsConfig = (raw: string): ComponentsConfig => {
+  const parsed = JSON.parse(raw) as object | null
+  if (!parsed || Array.isArray(parsed)) return {}
+  return parsed as ComponentsConfig
+}
 
 export const init = new Command()
   .name('init')
@@ -63,12 +86,7 @@ export const init = new Command()
     const isV3 = tailwindMajor && tailwindMajor < 4
     const tailwindPkg = isV3 ? 'tailwindcss@^3' : 'tailwindcss@^4.1.1'
     const tailwindPlugin = isV3 ? '@tailwindcss/forms' : '@tailwindcss/postcss@^4.1.1'
-    const deps = [
-      'tailwind-merge',
-      'clsx',
-      'class-variance-authority',
-      // 'lucide-react' // commonly used
-    ]
+    const deps = ['tailwind-merge', 'clsx', 'class-variance-authority']
     const devDeps = [tailwindPkg, tailwindPlugin, 'postcss']
 
     if (tailwindMajor && isV3) {
@@ -125,29 +143,20 @@ export const init = new Command()
 
     // 3.b Tailwind config (v4/v3 switch)
     const tailwindConfigPath = path.join(cwd, 'tailwind.config.ts')
-    // Remove complex preset injection logic for now as user should use 'ui-tokens' 
-    // which brings its own config/styles via registry add if needed?
-    // Actually, 'ui-tokens' is CSS variables mostly. 
-    // If we want Tailwind v4 theme config, it should be in the CSS file.
-
-    if (!fs.existsSync(tailwindConfigPath)) {
-      if (isV3) {
-        const config = `import type { Config } from "tailwindcss"\n\nconst config = {\n  darkMode: ["class"],\n  content: [\n    './pages/**/*.{ts,tsx}',\n    './components/**/*.{ts,tsx}',\n    './app/**/*.{ts,tsx}',\n    './src/**/*.{ts,tsx}',\n  ],\n  prefix: "",\n  theme: {\n    container: {\n      center: true,\n      padding: "2rem",\n      screens: {\n        "2xl": "1400px",\n      },\n    },\n    extend: {\n      colors: {\n        border: "hsl(var(--border))",\n        input: "hsl(var(--input))",\n        ring: "hsl(var(--ring))",\n        background: "hsl(var(--background))",\n        foreground: "hsl(var(--foreground))",\n        primary: {\n          DEFAULT: "hsl(var(--primary))",\n          foreground: "hsl(var(--primary-foreground))",\n        },\n        secondary: {\n          DEFAULT: "hsl(var(--secondary))",\n          foreground: "hsl(var(--secondary-foreground))",\n        },\n        destructive: {\n          DEFAULT: "hsl(var(--destructive))",\n          foreground: "hsl(var(--destructive-foreground))",\n        },\n        muted: {\n          DEFAULT: "hsl(var(--muted))",\n          foreground: "hsl(var(--muted-foreground))",\n        },\n        accent: {\n          DEFAULT: "hsl(var(--accent))",\n          foreground: "hsl(var(--accent-foreground))",\n        },\n        popover: {\n          DEFAULT: "hsl(var(--popover))",\n          foreground: "hsl(var(--popover-foreground))",\n        },\n        card: {\n          DEFAULT: "hsl(var(--card))",\n          foreground: "hsl(var(--card-foreground))",\n        },\n      },\n      borderRadius: {\n        lg: "var(--radius)",\n        md: "calc(var(--radius) - 2px)",\n        sm: "calc(var(--radius) - 4px)",\n      },\n    },\n  },\n  plugins: [require("tailwindcss-animate")],\n} satisfies Config\n\nexport default config\n`
-        writeFileSafely({ target: tailwindConfigPath, content: config, cwd, overwrite: options.yes })
-        console.log(`\n⚙️  Created tailwind.config.ts (v3 standard)`)
-        install(['tailwindcss-animate'], false)
-      } else {
-        // v4 doesn't strictly need a config file if CSS @theme is used
-        // But we create a minimal one for good measure or empty
-      }
+    // 3.b Create tailwind.config.ts for v3 projects (v4 uses CSS-based @theme instead)
+    if (!fs.existsSync(tailwindConfigPath) && isV3) {
+      const config = `import type { Config } from "tailwindcss"\n\nconst config = {\n  darkMode: ["class"],\n  content: [\n    './pages/**/*.{ts,tsx}',\n    './components/**/*.{ts,tsx}',\n    './app/**/*.{ts,tsx}',\n    './src/**/*.{ts,tsx}',\n  ],\n  prefix: "",\n  theme: {\n    container: {\n      center: true,\n      padding: "2rem",\n      screens: {\n        "2xl": "1400px",\n      },\n    },\n    extend: {\n      colors: {\n        border: "hsl(var(--border))",\n        input: "hsl(var(--input))",\n        ring: "hsl(var(--ring))",\n        background: "hsl(var(--background))",\n        foreground: "hsl(var(--foreground))",\n        primary: {\n          DEFAULT: "hsl(var(--primary))",\n          foreground: "hsl(var(--primary-foreground))",\n        },\n        secondary: {\n          DEFAULT: "hsl(var(--secondary))",\n          foreground: "hsl(var(--secondary-foreground))",\n        },\n        destructive: {\n          DEFAULT: "hsl(var(--destructive))",\n          foreground: "hsl(var(--destructive-foreground))",\n        },\n        muted: {\n          DEFAULT: "hsl(var(--muted))",\n          foreground: "hsl(var(--muted-foreground))",\n        },\n        accent: {\n          DEFAULT: "hsl(var(--accent))",\n          foreground: "hsl(var(--accent-foreground))",\n        },\n        popover: {\n          DEFAULT: "hsl(var(--popover))",\n          foreground: "hsl(var(--popover-foreground))",\n        },\n        card: {\n          DEFAULT: "hsl(var(--card))",\n          foreground: "hsl(var(--card-foreground))",\n        },\n      },\n      borderRadius: {\n        lg: "var(--radius)",\n        md: "calc(var(--radius) - 2px)",\n        sm: "calc(var(--radius) - 4px)",\n      },\n    },\n  },\n  plugins: [require("tailwindcss-animate")],\n} satisfies Config\n\nexport default config\n`
+      writeFileSafely({ target: tailwindConfigPath, content: config, cwd, overwrite: options.yes })
+      console.log(`\n⚙️  Created tailwind.config.ts (v3 standard)`)
+      install(['tailwindcss-animate'], false)
     }
 
     // 4. Create components.json (Configuration)
     const componentsJsonPath = path.join(cwd, 'components.json')
-    let componentsConfig: any = {}
+    let componentsConfig: ComponentsConfig = {}
     if (fs.existsSync(componentsJsonPath)) {
       try {
-        componentsConfig = JSON.parse(fs.readFileSync(componentsJsonPath, 'utf-8'))
+        componentsConfig = parseComponentsConfig(fs.readFileSync(componentsJsonPath, 'utf-8'))
       } catch {
         console.warn('⚠️  Existing components.json is invalid, regenerating.')
       }
@@ -169,55 +178,16 @@ export const init = new Command()
     // 确保别名目录存在，避免后续写入失败
     ensureDir(componentsConfig.aliases.components || '@/components')
     ensureDir(componentsConfig.aliases.utils || '@/lib/utils')
-    // 确保别名目录存在，避免后续写入失败
-    ensureDir(componentsConfig.aliases.components || '@/components')
-    ensureDir(componentsConfig.aliases.utils || '@/lib/utils')
 
-    // 5. Trigger add for core items
+    // 5. Auto-add base registry items (utils, ui-tokens)
+    // These are fetched via CLI self-call to share the same add logic and mirror fallback
+    console.log('\n📥 Installing base registry items (utils, ui-tokens)...')
     try {
-      // Import the add action or run it via exec?
-      // Since we are in the same process, we can't easily invoke the 'add' action if it's not exported as a standalone function nicely decoupled from Command.
-      // But we can invoke the 'add' logic if we refactor, or just shell out.
-      // Shell out is safest for isolating side effects.
-
-      // Actually, since we have the registry items 'utils' and 'ui-tokens', we should tell the user to run add,
-      // or auto-run it.
-
-      console.log('\n📥 Installing base registry items (utils, ui-tokens)...')
-      // Note: In development we might want to target local registry if testing.
-      // For now, assume production or standard flow.
-      try {
-        // CLI self-call? "npx @timui/cli add utils ui-tokens -y"
-        // or call the internal add function if we can Import it?
-        // The add command action is async. Let's try to import `add` and use its action handler if possible,
-        // but `add.parseAsync` expects argv.
-
-        // Let's just create the utils file manually (as fallback) OR trust the doctor?
-        // No, the requirement is "Define CLI users Token distribution".
-
-        // Better approach: We just run the add command logic programmatically?
-        // For stability, let's shell out to the same CLI if possible, or just reimplement the fetch for these 2 basics.
-
-        // Actually, let's instruct the user or use a simple execSync to self.
-
-        // But wait! We are "timui init".
-        // We should just fetch them.
-
-        // However, implementing fetch logic here duplicates 'add.ts'.
-        // Let's skip auto-adding via 'init' for this second step, and rely on the fact that 'add button' 
-        // will pull 'utils' automatically.
-
-        // BUT 'ui-tokens' is needed for global styles.
-        // Let's just tell the user to add them, or do it.
-
-        execSync(`npx @timui/cli add utils ui-tokens -y --cwd ${cwd}`, { stdio: 'inherit' })
-
-      } catch (err) {
-        console.warn("⚠️ Failed to auto-add utils/ui-tokens. Please run 'npx @timui/cli add utils ui-tokens' manually.")
-      }
-
-    } catch (e) {
-      // ignore
+      execSync(`npx @timui/cli add utils ui-tokens -y --cwd ${cwd}`, { stdio: 'inherit' })
+    } catch {
+      console.warn(
+        "⚠️ Failed to auto-add utils/ui-tokens. Please run 'npx @timui/cli add utils ui-tokens' manually."
+      )
     }
     writeFileSafely({
       target: componentsJsonPath,

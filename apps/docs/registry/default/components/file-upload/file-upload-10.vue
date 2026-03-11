@@ -1,46 +1,78 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-</script>
-<template>
-<div class="flex flex-col gap-2">
-      
-      <div
-        class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
-      >
-        <input class="sr-only" aria-label="Upload files" />
+import { AlertCircleIcon, FileArchiveIcon, FileIcon, FileSpreadsheetIcon, FileTextIcon, HeadphonesIcon, ImageIcon, Trash2Icon, UploadIcon, VideoIcon, XIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload.vue';
 
-        <div class="flex flex-col items-center justify-center text-center">
+
+</script>
+
+<template>
+  <div class="flex flex-col gap-2"><div :onDragEnter="handleDragEnter" :onDragLeave="handleDragLeave" :onDragOver="handleDragOver" :onDrop="handleDrop" :data-dragging="isDragging || undefined" :data-files="files.length > 0 || undefined" class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"><input class="sr-only" aria-label="Upload files" />{{ files.length > 0 ? (
+          <div className="flex w-full flex-col gap-3">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="truncate text-sm font-medium">Uploaded Files ({files.length})</h3>
+              <Button variant="outline" size="sm" onClick={clearFiles}>
+                <Trash2Icon className="-ms-0.5 size-3.5 opacity-60" aria-hidden="true" />
+                Remove all
+              </Button>
+            </div>
+            <div className="w-full space-y-2">
+              {files.map((file) => (
+                <div
+                  key={file.id}
+                  className="bg-background flex items-center justify-between gap-2 rounded-lg border p-2 pe-3"
+                >
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="flex aspect-square size-10 shrink-0 items-center justify-center rounded border">
+                      {getFileIcon(file)}
+                    </div>
+                    <div className="flex min-w-0 flex-col gap-0.5">
+                      <p className="truncate text-[13px] font-medium">
+                        {file.file instanceof File ? file.file.name : file.file.name}
+                      </p>
+                      <p className="text-muted-foreground text-xs">
+                        {formatBytes(file.file instanceof File ? file.file.size : file.file.size)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="text-muted-foreground/80 hover:text-foreground -me-2 size-8 hover:bg-transparent"
+                    onClick={() => removeFile(file.id)}
+                    aria-label="Remove file"
+                  >
+                    <XIcon className="size-4" aria-hidden="true" />
+                  </Button>
+                </div>
+              ))}
+
+              {files.length < maxFiles && (
+                <Button variant="outline" className="mt-2 w-full" onClick={openFileDialog}>
+                  <UploadIcon className="-ms-1 opacity-60" aria-hidden="true" />
+                  Add more
+                </Button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center">
             <div
-              class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
+              className="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
               aria-hidden="true"
             >
-               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+              <FileIcon className="size-4 opacity-60" />
             </div>
-            <p class="mb-1.5 text-sm font-medium">Upload files</p>
-            <p class="text-muted-foreground text-xs">
-              Max 10 files ∙ Up to 10MB
+            <p className="mb-1.5 text-sm font-medium">Upload files</p>
+            <p className="text-muted-foreground text-xs">
+              Max {maxFiles} files ∙ Up to {maxSize}MB
             </p>
-            <Button variant="outline" class="mt-4" >
-               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ms-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
+            <Button variant="outline" className="mt-4" onClick={openFileDialog}>
+              <UploadIcon className="-ms-1 opacity-60" aria-hidden="true" />
               Select files
             </Button>
           </div>
-      </div>
-
-      
-
-      <p
-        aria-live="polite"
-        role="region"
-        class="text-muted-foreground mt-2 text-center text-xs"
-      >
-        Multiple files uploader w/ list inside ∙ 
-        <a
-          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
-          class="hover:text-foreground underline"
-        >
-          API
-        </a>
-      </p>
-    </div>
+        ) }}</div><div v-if="errors.length > 0" class="text-destructive flex items-center gap-1 text-xs" role="alert"><AlertCircleIcon class="size-3 shrink-0" /><span>{{ errors[0] }}</span></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-center text-xs">Multiple files uploader w/ list inside ∙{{ ' ' }}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
+        </a></p></div>
 </template>

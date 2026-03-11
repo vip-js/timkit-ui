@@ -1,6 +1,7 @@
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   externalClasses: ['ext-class'],
   properties: {
@@ -20,14 +21,15 @@ Component({
     attached() {
       this.setData({
         className:
-          `relative flex w-full items-center rounded-sm py-1.5 pl-8 pr-2 text-sm ${this.properties.extClass}`.trim(),
+          `relative flex w-full items-center rounded-sm py-3 pl-8 pr-2 text-sm ${this.properties.extClass}`.trim(),
       })
     },
   },
   observers: {
     extClass(extClass) {
       this.setData({
-        className: `relative flex w-full items-center rounded-sm py-1.5 pl-8 pr-2 text-sm ${extClass}`.trim(),
+        className:
+          `relative flex w-full items-center rounded-sm py-3 pl-8 pr-2 text-sm ${extClass}`.trim(),
       })
     },
   },

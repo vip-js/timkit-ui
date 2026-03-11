@@ -14,13 +14,18 @@ import { getPackageManager, writeFileSafely } from '../lib/utils'
 
 // Default to production registry, override via ENV
 const REGISTRY_BASE_URL = process.env.REGISTRY_URL || 'https://ui.timkit.cn'
-const REGISTRY_MIRRORS =
-  process.env.REGISTRY_MIRRORS || process.env.REGISTRY_MIRROR_URLS || ''
+const REGISTRY_MIRRORS = process.env.REGISTRY_MIRRORS || process.env.REGISTRY_MIRROR_URLS || ''
 
 const getStringArray = (value: JsonValue | undefined): string[] => {
   if (!Array.isArray(value)) return []
   return value.filter((item): item is string => typeof item === 'string')
 }
+
+const toError = (error: unknown): Error => {
+  if (error instanceof Error) return error
+  return new Error(String(error))
+}
+
 function readLocalRegistryAll(): RegistryItem[] {
   const candidates = [
     path.join(process.cwd(), 'registry-all.json'),
@@ -46,8 +51,10 @@ async function loadRegistryIndex(
   const bases = registryUrl
     ? [registryUrl]
     : [REGISTRY_BASE_URL].concat(
-      REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
-    )
+        REGISTRY_MIRRORS.split(',')
+          .map((m) => m.trim())
+          .filter(Boolean)
+      )
   try {
     // 1. Try Local File (Monorepo dev override)
     if (fs.existsSync('registry-index.json')) {
@@ -57,22 +64,24 @@ async function loadRegistryIndex(
     // 2. Try Cache
     const cached = registryCache.getIndex()
     if (cached && !registryUrl) {
-      return cached.items || cached
+      return Array.isArray(cached) ? cached : (cached as { items?: RegistryItem[] }).items || []
     }
 
     // 3. Network Fetch with mirrors
-    let lastError: any
+    let lastError: Error | null = null
     for (const base of bases) {
       const normalized = base.replace(/\/$/, '')
       try {
-        const json = await fetchJsonWithRetry(`${normalized}/registry-index.json`)
+        const json = await fetchJsonWithRetry<RegistryItem[] | { [key: string]: JsonValue }>(
+          `${normalized}/registry-index.json`
+        )
         const items = validateRegistryPayload(json)
         // 4. Update Cache
-        if (!registryUrl) registryCache.setIndex(json)
+        if (!registryUrl) registryCache.setIndex(json as any)
 
         return items
       } catch (e) {
-        lastError = e
+        lastError = toError(e)
         continue
       }
     }
@@ -92,8 +101,10 @@ async function loadRegistryItem(
   const bases = registryUrl
     ? [registryUrl]
     : [REGISTRY_BASE_URL].concat(
-      REGISTRY_MIRRORS.split(',').map((m) => m.trim()).filter(Boolean)
-    )
+        REGISTRY_MIRRORS.split(',')
+          .map((m) => m.trim())
+          .filter(Boolean)
+      )
   try {
     // 1. Try Local File
     if (fs.existsSync(`registry/${name}.json`)) {
@@ -111,17 +122,17 @@ async function loadRegistryItem(
       return cached
     }
 
-    let lastError: any
+    let lastError: Error | null = null
     for (const base of bases) {
       const normalized = base.replace(/\/registry-index\.json$/, '').replace(/\/$/, '')
       const url = `${normalized}/registry/${name}.json`
       try {
-        const data = await fetchJsonWithRetry(url)
+        const data = await fetchJsonWithRetry<RegistryItem>(url)
         if (!registryUrl) registryCache.setItem(name, data)
 
         return data
       } catch (e) {
-        lastError = e
+        lastError = toError(e)
         continue
       }
     }
@@ -177,14 +188,7 @@ export const add = new Command()
     // 1. Fetch Registry
     let registryItems: RegistryItem[] = []
     try {
-      const index = (await loadRegistryIndex(options.registry, localRegistryItems)) as any
-      // Support both array (legacy) and object with items property
-      registryItems = Array.isArray(index) ? index : index.items || []
-
-      const registryVersion = (index as any).schemaVersion
-      if (registryVersion) {
-        console.log(`\nConnected to Registry v${registryVersion}`)
-      }
+      registryItems = await loadRegistryIndex(options.registry, localRegistryItems)
     } catch (e) {
       if (localRegistryItems.length) {
         console.warn(
@@ -258,15 +262,8 @@ export const add = new Command()
 
         let item = registryItems.find((i) => i.name === name)
 
-        // If not in index (or we need full content/deps which might be missing in index if striped),
-        // we might need to fetch individual.
-        // NOTE: registry-index currently has dependencies listed, so we can traverse graph using Index
-        // IF index has dependencies.
-        // Let's assume index is lightweight and check.
-        // If item is missing in index, try to fetch it directly (rare case?)
-
+        // If item is missing in index, try fetching it individually
         if (!item) {
-          // Try fetch individual in case it's not in the loaded index (e.g. partial index?)
           try {
             item = await loadRegistryItem(name, options.registry, localRegistryMap)
           } catch {
@@ -275,15 +272,7 @@ export const add = new Command()
           }
         }
 
-        // Ensure we have full content/metadata if needed.
-        // If the index item doesn't have `registryDependencies` but the real item does, we have an issue.
-        // Strategy: Always fetch full item to be sure about deps?
-        // Optimization: "Index" should contain `registryDependencies`.
-        // Let's assume we need to fetch full item to get files anyway, so might as well do it now
-        // OR do it in two passes?
-        // Let's do it eagerly to resolve deps correctly.
-
-        // Fetch full tree if we rely on it for deps or content
+        // Eagerly fetch full item to ensure we have files and registry dependencies
         if (!item.files?.some((f) => f.content) || !item.registryDependencies) {
           try {
             if (localRegistryMap.has(name)) {
@@ -298,10 +287,16 @@ export const add = new Command()
 
         resolvedComponents.set(name, item)
 
-        if (item.registryDependencies) {
-          const dependencyNames = item.registryDependencies.map((depName) =>
-            resolveAlias(depName)
-          )
+        const frameworks = getStringArray(item.meta?.frameworks)
+        const framework = options.framework || frameworks[0]
+        const registryDepsByFramework = (
+          item.meta as {
+            dependenciesByFramework?: Record<string, { registryDependencies?: string[] }>
+          }
+        )?.dependenciesByFramework?.[framework]?.registryDependencies
+        const registryDeps = registryDepsByFramework || item.registryDependencies
+        if (registryDeps) {
+          const dependencyNames = registryDeps.map((depName) => resolveAlias(depName))
           await resolveRecursive(dependencyNames)
         }
       }
@@ -313,10 +308,7 @@ export const add = new Command()
     // 4. Install & Write
     console.log(`\nProcessing ${resolvedComponents.size} components...`)
 
-    // Use the resolved map values
     for (const item of resolvedComponents.values()) {
-      // ... (existing write logic)
-
       console.log(`\nProcessing ${item.name}...`)
       const isPlaceholder = item.meta?.placeholder === true
       if (isPlaceholder) {
@@ -335,18 +327,18 @@ export const add = new Command()
         }
       }
 
-      // Collect dependencies
-      if (item.dependencies) item.dependencies.forEach((d) => dependenciesToInstall.add(d))
-      if (item.devDependencies) item.devDependencies.forEach((d) => devDependenciesToInstall.add(d))
-
-      // Assume we need @timui/core if shared styles exist
-      // dependenciesToInstall.add("@timui/core")
-      // Better: rely on registry metadata.
-
       // Write Files
       if (item.files) {
         const frameworks = getStringArray(item.meta?.frameworks)
         const framework = options.framework || frameworks[0]
+        const depsByFramework = (
+          item.meta as { dependenciesByFramework?: Record<string, { dependencies?: string[] }> }
+        )?.dependenciesByFramework?.[framework]
+        const deps = depsByFramework?.dependencies || item.dependencies
+        if (deps) deps.forEach((d) => dependenciesToInstall.add(d))
+        if (item.devDependencies)
+          item.devDependencies.forEach((d) => devDependenciesToInstall.add(d))
+
         const extByFramework: Record<string, string[]> = {
           react: ['.tsx', '.jsx'],
           vue: ['.vue'],
@@ -368,31 +360,10 @@ export const add = new Command()
           let targetPath: string
 
           if (file.target) {
-            // If target is explicit from registry, respect it relative to CWD?
-            // Or relative to options.path?
-            // Standard practice (shadcn): target is typically "components/ui/foo.tsx"
-            // But options.path overrides the base?
-
-            // Let's assume file.target is the "preferred relative path" from project root.
-            // But user might provide --path to override where "components/ui" is.
-
-            // Heuristic: If we are adding a block, we might want to respect target.
-            // If we are adding a UI component, we might map "components/ui" in target to options.path.
-
-            // Simpler start: Just use options.path + basename for UI,
-            // But for Weapp we need subfolders. A generic "path" option is tricky for multi-file.
-
-            // Proposed Logic:
-            // 1. If file.target exists, use it.
-            // 2. Allow user to override base (e.g. replace "components/ui" with "src/ui")
-
-            // For now, let's try to simply use target if available, assuming it handles structure.
-            // If user provided custom path, we might need to be smarter.
-
-            // Let's resolve target against cwd.
+            // file.target is the preferred relative path from project root
             targetPath = path.join(cwd, file.target)
 
-            // Support custom path override if target starts with default
+            // Allow --path to override the default `components/ui` base
             if (
               options.path &&
               options.path !== 'src/components/ui' &&
@@ -401,7 +372,7 @@ export const add = new Command()
               targetPath = path.join(cwd, file.target.replace('components/ui', options.path))
             }
           } else {
-            // Fallback (legacy)
+            // Fallback: use the file's basename under the output path
             const fileName = path.basename(file.path)
             targetPath = path.join(cwd, options.path || 'src/components/ui', fileName)
           }

@@ -5,10 +5,12 @@ import { cn } from '@timui/core'
 import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
-import { DateRange } from 'react-day-picker'
+
+type CalendarRangeValue = { from: Date | undefined; to?: Date }
+type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
 
 export default function DatePicker() {
-  const [date, setDate] = useState<DateRange | undefined>()
+  const [date, setDate] = useState<CalendarRangeValue | undefined>()
 
   return (
     <Popover>
@@ -39,7 +41,13 @@ export default function DatePicker() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-2" align="start">
-        <Calendar mode="range" selected={date} onSelect={setDate} />
+        <Calendar
+          mode="range"
+          selected={date}
+          onSelect={(next: CalendarSelectedValue) =>
+            setDate(next as CalendarRangeValue | undefined)
+          }
+        />
       </PopoverContent>
     </Popover>
   )

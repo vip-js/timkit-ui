@@ -1,6 +1,12 @@
 import { z } from 'zod'
 
-export type JsonValue = string | number | boolean | null | { [key: string]: JsonValue } | JsonValue[]
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: JsonValue }
+  | JsonValue[]
 
 export interface TimEvent<TDetail = Record<string, JsonValue>> {
   readonly type: string
@@ -30,6 +36,7 @@ export const registryItemSchema = z.object({
   dependencies: z.array(z.string()).optional(),
   devDependencies: z.array(z.string()).optional(),
   registryDependencies: z.array(z.string()).optional(),
+  optionalPeerDependencies: z.array(z.string()).optional(),
   files: z
     .array(
       z.object({
@@ -56,20 +63,25 @@ export const registryItemSchema = z.object({
     )
     .optional(),
   meta: z.record(z.string(), z.custom<JsonValue>()).optional(),
-  parts: z.array(z.object({
-    name: z.string(),
-    description: z.string(),
-    isRoot: z.boolean().optional(),
-  })).optional(),
-  logic: z.object({
-    provider: z.enum(['zag', 'native', 'none']),
-    machine: z.string().optional(),
-  }).optional(),
+  parts: z
+    .array(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        isRoot: z.boolean().optional(),
+      })
+    )
+    .optional(),
+  logic: z
+    .object({
+      provider: z.enum(['zag', 'native', 'none']),
+      machine: z.string().optional(),
+    })
+    .optional(),
   docs: z.string().optional(),
   categories: z.array(z.string()).optional(),
   schemaVersion: z.string().optional(),
 })
-
 
 export type RegistryItem = z.infer<typeof registryItemSchema>
 
@@ -133,5 +145,5 @@ export interface ComponentSchema {
   variants?: ComponentVariant[]
   tokens?: string[]
   interactions?: ComponentInteraction[]
-  supportedPlatforms?: ('web' | 'wechat' | 'mobile-native')[]
+  supportedPlatforms?: ('web' | 'wechat' | 'mobile-native' | 'react-native')[]
 }

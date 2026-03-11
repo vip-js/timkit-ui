@@ -18,15 +18,17 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
   }
 }
 
-export async function fetchJsonWithRetry<T = any>(
-  url: string,
-  opts: RetryOptions = {}
-): Promise<T> {
+function toError(error: unknown): Error {
+  if (error instanceof Error) return error
+  return new Error(String(error))
+}
+
+export async function fetchJsonWithRetry<T>(url: string, opts: RetryOptions = {}): Promise<T> {
   const retries = opts.retries ?? DEFAULT_RETRIES
   const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT
   const backoffMs = opts.backoffMs ?? DEFAULT_BACKOFF
 
-  let lastError: any
+  let lastError: Error | null = null
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetchWithTimeout(url, timeoutMs)
@@ -35,7 +37,7 @@ export async function fetchJsonWithRetry<T = any>(
       }
       return (await res.json()) as T
     } catch (e) {
-      lastError = e
+      lastError = toError(e)
       if (attempt < retries) {
         await new Promise((r) => setTimeout(r, backoffMs * (attempt + 1)))
       }
@@ -44,15 +46,12 @@ export async function fetchJsonWithRetry<T = any>(
   throw lastError ?? new Error(`Failed to fetch ${url}`)
 }
 
-export async function fetchTextWithRetry(
-  url: string,
-  opts: RetryOptions = {}
-): Promise<string> {
+export async function fetchTextWithRetry(url: string, opts: RetryOptions = {}): Promise<string> {
   const retries = opts.retries ?? DEFAULT_RETRIES
   const timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT
   const backoffMs = opts.backoffMs ?? DEFAULT_BACKOFF
 
-  let lastError: any
+  let lastError: Error | null = null
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetchWithTimeout(url, timeoutMs)
@@ -61,7 +60,7 @@ export async function fetchTextWithRetry(
       }
       return await res.text()
     } catch (e) {
-      lastError = e
+      lastError = toError(e)
       if (attempt < retries) {
         await new Promise((r) => setTimeout(r, backoffMs * (attempt + 1)))
       }

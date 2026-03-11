@@ -1,0 +1,3 @@
+<view>
+  <tabs default-value="tab-1" class="items-center"><tabslist><tabstrigger value="tab-1">Tab 1</tabstrigger><tabstrigger value="tab-2">Tab 2</tabstrigger><tabstrigger value="tab-3">Tab 3</tabstrigger></tabslist><tabscontent value="tab-1"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</text></tabscontent><tabscontent value="tab-2"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</text></tabscontent><tabscontent value="tab-3"><text class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</text></tabscontent></tabs>
+</view>

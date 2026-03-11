@@ -1,18 +1,37 @@
 import type * as dialog from '@zag-js/dialog'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type DialogOpenChangeEvent = TimEvent<{ open: boolean }>
 
 export type DialogProps = Omit<dialog.Props, 'onOpenChange'> & {
-    onOpenChange?: (event: DialogOpenChangeEvent) => void
+  /**
+   * Callback fired when the open state changes.
+   */
+  onOpenChange?: (event: DialogOpenChangeEvent) => void
 }
 
 export type DialogVueProps = {
-    id?: string
-    open?: boolean
-    defaultOpen?: boolean
-    modal?: boolean
-    onOpenChange?: (details: { open: boolean }) => void
+  /**
+   * A unique identifier for the component.
+   */
+  id?: string
+  /**
+   * The controlled open state of the component.
+   */
+  open?: boolean
+  /**
+   * The default open state of the component when initially rendered.
+   */
+  defaultOpen?: boolean
+  /**
+   * When `true`, renders the overlay as a modal, trapping focus and disabling interactions outside.
+   */
+  modal?: boolean
+  /**
+   * Callback fired when the open state changes.
+   */
+  onOpenChange?: (details: { open: boolean }) => void
 }
 
 /**

@@ -1,20 +1,3 @@
-<breadcrumb>
-  <breadcrumb-list>
-    <breadcrumb-item>
-      <breadcrumb-link>Home</breadcrumb-link>
-    </breadcrumb-item>
-    <breadcrumb-separator />
-    <breadcrumb-item>
-      <breadcrumb-ellipsis />
-      <text class="sr-only">Toggle menu</text>
-    </breadcrumb-item>
-    <breadcrumb-separator />
-    <breadcrumb-item>
-      <breadcrumb-link>Components</breadcrumb-link>
-    </breadcrumb-item>
-    <breadcrumb-separator />
-    <breadcrumb-item>
-      <breadcrumb-page>Breadcrumb</breadcrumb-page>
-    </breadcrumb-item>
-  </breadcrumb-list>
-</breadcrumb>
+<view>
+  <breadcrumb><breadcrumblist><breadcrumbitem><breadcrumblink href="#">Home</breadcrumblink></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><dropdownmenu><dropdownmenutrigger class="hover:text-foreground"><breadcrumbellipsis /><text class="sr-only">Toggle menu</text></dropdownmenutrigger><dropdownmenucontent align="start"><dropdownmenuitem aschild><a href="#">Documentation</a></dropdownmenuitem><dropdownmenuitem aschild><a href="#">Themes</a></dropdownmenuitem><dropdownmenuitem aschild><a href="#">GitHub</a></dropdownmenuitem></dropdownmenucontent></dropdownmenu></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><breadcrumblink href="#">Components</breadcrumblink></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><breadcrumbpage>Breadcrumb</breadcrumbpage></breadcrumbitem></breadcrumblist></breadcrumb>
+</view>

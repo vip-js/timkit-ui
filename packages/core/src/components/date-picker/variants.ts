@@ -4,7 +4,7 @@ export const datePickerVariants = cva('')
 export const datePickerRootVariants = cva('w-full')
 export const datePickerTriggerVariants = cva('w-full')
 export const datePickerTriggerButtonVariants = cva(
-    'bg-background border-input w-full justify-between px-3 text-sm font-normal outline-offset-0 outline-none focus-visible:outline-[3px]'
+  'bg-background border-input w-full justify-between px-3 text-sm font-normal outline-offset-0 outline-none focus-visible:outline-[3px]'
 )
 export const datePickerTriggerIconVariants = cva('text-muted-foreground/80 -ms-1 shrink-0')
 export const datePickerTriggerLabelVariants = cva('truncate')

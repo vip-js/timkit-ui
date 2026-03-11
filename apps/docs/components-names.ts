@@ -1,12 +1,21 @@
+import type { ComponentType } from 'react'
 import dynamic from 'next/dynamic'
 import { previewComponentManifest } from '@/previews/preview-manifest'
 
+type PreviewProps = Record<string, never>
+type PreviewComponent = ComponentType<PreviewProps>
+type PreviewModule = { default: PreviewComponent }
+
+const isPreviewModule = (value: object): value is PreviewModule =>
+  'default' in value && typeof (value as PreviewModule).default === 'function'
+
 const createPreviewComponent = (name: keyof typeof previewComponentManifest) =>
-  dynamic(
+  dynamic<PreviewProps>(
     () =>
-      previewComponentManifest[name]().then((mod) => ({
-        default: (mod as any).default || mod,
-      })),
+      previewComponentManifest[name]().then((mod) => {
+        const loaded = mod as object
+        return isPreviewModule(loaded) ? loaded.default : (loaded as PreviewComponent)
+      }),
     {
       ssr: false,
       loading: () => null,

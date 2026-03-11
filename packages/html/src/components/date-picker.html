@@ -1,7 +1,7 @@
 <div data-slot="date-picker" class="w-full">
   <button
     data-slot="date-picker-trigger"
-    class="inline-flex items-center justify-between whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs w-full"
+    class="text-sm font-medium"
   >
     <svg
       width="16"
@@ -20,9 +20,9 @@
       <path d="M16 2v4" />
       <path d="M3 10h18" />
     </svg>
-    <span class="truncate font-medium">Date</span>
+    <span class="font-medium">Date</span>
   </button>
-  <div data-slot="date-picker-content" class="mt-2 w-auto rounded-md border bg-background p-2 text-foreground shadow-md">
-    <div class="text-sm text-muted-foreground">Calendar</div>
+  <div data-slot="date-picker-content" class="w-auto p-2">
+    <div class="text-muted-foreground text-sm">Calendar</div>
   </div>
 </div>

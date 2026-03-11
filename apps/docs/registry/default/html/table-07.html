@@ -1,0 +1,16 @@
+<template>
+  <div><Table><TableHeader><TableRow class="hover:bg-transparent"><TableHead><Checkbox checked="${allSelected || (someSelected && 'indeterminate')}" oncheckedchange="${(value) => {
+                  const checked = toChecked(value)
+                  setSelectedRows(Object.fromEntries(items.map((item) => [item.id, checked])))
+                }}" on-click="${() => {
+                  const next = !allSelected
+                  setSelectedRows(Object.fromEntries(items.map((item) => [item.id, next])))
+                }}" aria-label="Select all rows" /></TableHead><TableHead>Name</TableHead><TableHead>Email</TableHead><TableHead>Location</TableHead><TableHead>Status</TableHead><TableHead class="text-right">Balance</TableHead></TableRow></TableHeader><TableBody><!-- Loop items -->
+<TableRow key="${item.id}" data-state="${selectedRows[item.id] ? 'selected' : undefined}" class="has-data-[state=checked]:bg-muted/50"><TableCell><Checkbox id="${`table-checkbox-${item.id}`}" checked="${!!selectedRows[item.id]}" oncheckedchange="${(value) => {
+                    const checked = toChecked(value)
+                    setSelectedRows((prev) => ({ ...prev, [item.id]: checked }))
+                  }}" on-click="${() => {
+                    setSelectedRows((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                  }}" aria-label="${`Select ${item.name}`}" /></TableCell><TableCell class="font-medium">${item.name}</TableCell><TableCell>${item.email}</TableCell><TableCell>${item.location}</TableCell><TableCell>${item.status}</TableCell><TableCell class="text-right">${item.balance}</TableCell></TableRow>
+<!-- End Loop --></TableBody><TableFooter class="bg-transparent"><TableRow class="hover:bg-transparent"><TableCell colspan="${5}">Total</TableCell><TableCell class="text-right">$2,500.00</TableCell></TableRow></TableFooter></Table><p class="text-muted-foreground mt-4 text-center text-sm">Table with row selection</p></div>
+</template>

@@ -1,3 +1,6 @@
 export type ScrollAreaProps = {
-    orientation?: 'horizontal' | 'vertical' | 'both'
+  /**
+   * The orientation of the component.
+   */
+  orientation?: 'horizontal' | 'vertical' | 'both'
 }

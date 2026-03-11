@@ -21,10 +21,13 @@ type ComponentSize = {
 }
 
 type Baseline = {
-  platforms: Record<Platform, {
-    total: number
-    components: Record<string, number>
-  }>
+  platforms: Record<
+    Platform,
+    {
+      total: number
+      components: Record<string, number>
+    }
+  >
 }
 
 const ROOT = path.resolve(__dirname, '..')
@@ -115,19 +118,31 @@ const loadBaseline = (): Baseline | null => {
 const loadBudgets = (): Record<Platform, Budget> => {
   return {
     react: {
-      perComponentMaxBytes: parseBudgetValue('GOAL_REACT_PER_MAX', DEFAULT_BUDGETS.react.perComponentMaxBytes),
+      perComponentMaxBytes: parseBudgetValue(
+        'GOAL_REACT_PER_MAX',
+        DEFAULT_BUDGETS.react.perComponentMaxBytes
+      ),
       totalMaxBytes: parseBudgetValue('GOAL_REACT_TOTAL_MAX', DEFAULT_BUDGETS.react.totalMaxBytes),
     },
     vue: {
-      perComponentMaxBytes: parseBudgetValue('GOAL_VUE_PER_MAX', DEFAULT_BUDGETS.vue.perComponentMaxBytes),
+      perComponentMaxBytes: parseBudgetValue(
+        'GOAL_VUE_PER_MAX',
+        DEFAULT_BUDGETS.vue.perComponentMaxBytes
+      ),
       totalMaxBytes: parseBudgetValue('GOAL_VUE_TOTAL_MAX', DEFAULT_BUDGETS.vue.totalMaxBytes),
     },
     weapp: {
-      perComponentMaxBytes: parseBudgetValue('GOAL_WEAPP_PER_MAX', DEFAULT_BUDGETS.weapp.perComponentMaxBytes),
+      perComponentMaxBytes: parseBudgetValue(
+        'GOAL_WEAPP_PER_MAX',
+        DEFAULT_BUDGETS.weapp.perComponentMaxBytes
+      ),
       totalMaxBytes: parseBudgetValue('GOAL_WEAPP_TOTAL_MAX', DEFAULT_BUDGETS.weapp.totalMaxBytes),
     },
     html: {
-      perComponentMaxBytes: parseBudgetValue('GOAL_HTML_PER_MAX', DEFAULT_BUDGETS.html.perComponentMaxBytes),
+      perComponentMaxBytes: parseBudgetValue(
+        'GOAL_HTML_PER_MAX',
+        DEFAULT_BUDGETS.html.perComponentMaxBytes
+      ),
       totalMaxBytes: parseBudgetValue('GOAL_HTML_TOTAL_MAX', DEFAULT_BUDGETS.html.totalMaxBytes),
     },
   }

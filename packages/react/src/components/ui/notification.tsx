@@ -55,17 +55,16 @@ const NotificationDescription = React.forwardRef<
 ))
 NotificationDescription.displayName = 'NotificationDescription'
 
-const NotificationActions = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    data-slot="notification-actions"
-    className={cn(notificationActionsVariants(), className)}
-    {...props}
-  />
-))
+const NotificationActions = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="notification-actions"
+      className={cn(notificationActionsVariants(), className)}
+      {...props}
+    />
+  )
+)
 NotificationActions.displayName = 'NotificationActions'
 
 const NotificationIcon = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

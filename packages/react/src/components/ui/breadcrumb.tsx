@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from './slot'
 import {
   breadcrumbEllipsisVariants,
   breadcrumbItemVariants,
@@ -11,6 +10,8 @@ import {
   breadcrumbSeparatorVariants,
   cn,
 } from '@timui/core'
+
+import { Slot } from './slot'
 
 function Breadcrumb({ ...props }: React.ComponentProps<'nav'>) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />

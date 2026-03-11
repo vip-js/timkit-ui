@@ -1,0 +1,9 @@
+<template>
+  <Pagination><PaginationContent><PaginationItem><PaginationPrevious class="aria-disabled:pointer-events-none aria-disabled:opacity-50" href="${currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}" aria-disabled="${currentPage === 1 ? true : undefined}" role="${currentPage === 1 ? 'link' : undefined}" /></PaginationItem><!-- if showLeftEllipsis -->
+<PaginationItem><PaginationEllipsis /></PaginationItem>
+<!-- endif --><!-- Loop pages -->
+<PaginationItem key="${page}"><PaginationLink href="${`#/page/${page}`}" isactive="${page === currentPage}">${page}</PaginationLink></PaginationItem>
+<!-- End Loop --><!-- if showRightEllipsis -->
+<PaginationItem><PaginationEllipsis /></PaginationItem>
+<!-- endif --><PaginationItem><PaginationNext class="aria-disabled:pointer-events-none aria-disabled:opacity-50" href="${currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}" aria-disabled="${currentPage === totalPages ? true : undefined}" role="${currentPage === totalPages ? 'link' : undefined}" /></PaginationItem></PaginationContent></Pagination>
+</template>

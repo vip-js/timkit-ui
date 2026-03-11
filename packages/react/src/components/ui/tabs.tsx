@@ -3,8 +3,10 @@
 import * as React from 'react'
 import { cn, tabsContentVariants, tabsListVariants, tabsTriggerVariants } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
-import { useTabsContext, TabsProvider } from './tabs/use-tabs-context'
+
+import { Slot } from './slot'
 import { useTabs, type UseTabsProps } from './tabs/use-tabs'
+import { TabsProvider, useTabsContext } from './tabs/use-tabs-context'
 
 const Tabs = React.forwardRef<
   HTMLDivElement,
@@ -12,7 +14,7 @@ const Tabs = React.forwardRef<
     value?: string
     defaultValue?: string
     onValueChange?: (value: string) => void
-    orientation?: "horizontal" | "vertical"
+    orientation?: 'horizontal' | 'vertical'
     id?: string
   }
 >(({ className, value, defaultValue, onValueChange, orientation, id, ...props }, ref) => {
@@ -23,48 +25,43 @@ const Tabs = React.forwardRef<
 
   return (
     <TabsProvider value={api}>
-      <div
-        ref={ref}
-        data-slot="tabs"
-        className={cn(className, mergedClassName)}
-        {...restProps}
-      />
+      <div ref={ref} data-slot="tabs" className={cn(className, mergedClassName)} {...restProps} />
     </TabsProvider>
   )
 })
-Tabs.displayName = "Tabs"
+Tabs.displayName = 'Tabs'
 
-const TabsList = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  const api = useTabsContext()
-  const listProps = api.getListProps()
-  const mergedProps = mergeProps(listProps, props) as React.HTMLAttributes<HTMLDivElement>
-  const { className: mergedClassName, ...restProps } = mergedProps
-  return (
-    <div
-      ref={ref}
-      data-slot="tabs-list"
-      className={cn(tabsListVariants(), className, mergedClassName)}
-      {...restProps}
-    />
-  )
-})
-TabsList.displayName = "TabsList"
-
-import { Slot } from './slot'
+const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => {
+    const api = useTabsContext()
+    const listProps = api.getListProps()
+    const mergedProps = mergeProps(listProps, props) as React.HTMLAttributes<HTMLDivElement>
+    const { className: mergedClassName, ...restProps } = mergedProps
+    return (
+      <div
+        ref={ref}
+        data-slot="tabs-list"
+        className={cn(tabsListVariants(), className, mergedClassName)}
+        {...restProps}
+      />
+    )
+  }
+)
+TabsList.displayName = 'TabsList'
 
 const TabsTrigger = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & { value: string; asChild?: boolean }
 >(({ className, value, asChild = false, ...props }, ref) => {
   const api = useTabsContext()
-  const Comp = asChild ? Slot : "button"
+  const Comp = asChild ? Slot : 'button'
   const triggerProps = api.getTriggerProps({ value, disabled: props.disabled })
-  const mergedProps = mergeProps(triggerProps, props) as React.ButtonHTMLAttributes<HTMLButtonElement>
+  const mergedProps = mergeProps(
+    triggerProps,
+    props
+  ) as React.ButtonHTMLAttributes<HTMLButtonElement>
   const { className: mergedClassName, type: mergedType, ...restProps } = mergedProps
-  const finalType = asChild ? mergedType : mergedType ?? "button"
+  const finalType = asChild ? mergedType : (mergedType ?? 'button')
 
   return (
     <Comp
@@ -76,7 +73,7 @@ const TabsTrigger = React.forwardRef<
     />
   )
 })
-TabsTrigger.displayName = "TabsTrigger"
+TabsTrigger.displayName = 'TabsTrigger'
 
 const TabsContent = React.forwardRef<
   HTMLDivElement,
@@ -96,12 +93,12 @@ const TabsContent = React.forwardRef<
       ref={ref}
       data-slot="tabs-content"
       role="tabpanel"
-      data-state={isSelected ? "active" : "inactive"}
+      data-state={isSelected ? 'active' : 'inactive'}
       className={cn(tabsContentVariants(), className, mergedClassName)}
       {...restProps}
     />
   )
 })
-TabsContent.displayName = "TabsContent"
+TabsContent.displayName = 'TabsContent'
 
 export { Tabs, TabsList, TabsTrigger, TabsContent }

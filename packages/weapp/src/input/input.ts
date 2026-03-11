@@ -1,4 +1,9 @@
-import { inputVariants } from '../utils'
+import { emitTimEvent, inputVariants } from '../utils'
+import {
+  createWeappBaseProps,
+  createWeappOptions,
+  WEAPP_EXTERNAL_CLASSES,
+} from '../utils/component'
 
 type WeappInputDetail = {
   value: string
@@ -7,9 +12,9 @@ type WeappInputDetail = {
 type WeappInputEvent = WechatMiniprogram.CustomEvent<WeappInputDetail>
 
 Component({
-  options: {
-    styleIsolation: 'apply-shared',
-  },
+  options: createWeappOptions({ pureData: true }),
+
+  externalClasses: WEAPP_EXTERNAL_CLASSES,
 
   properties: {
     value: { type: String, value: '' },
@@ -19,7 +24,7 @@ Component({
     maxlength: { type: Number, value: 140 },
     focus: { type: Boolean, value: false },
     confirmType: { type: String, value: 'done' },
-    extClass: { type: String, value: '' },
+    ...createWeappBaseProps('input'),
   },
 
   data: {
@@ -43,7 +48,7 @@ Component({
       // Use core package's inputVariants for consistent styling
       const { baseClass } = inputVariants({
         type: this.properties.type === 'search' ? 'search' : 'default',
-        className: this.properties.extClass
+        className: this.properties.extClass,
       })
 
       this.setData({ className: baseClass })
@@ -52,6 +57,9 @@ Component({
     onInput(e: WeappInputEvent) {
       this.setData({ value: e.detail.value })
       this.triggerEvent('input', e.detail)
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'input', {
+        value: e.detail.value,
+      })
     },
     onFocus(e: WeappInputEvent) {
       this.triggerEvent('focus', e.detail)

@@ -1,0 +1,5 @@
+<template>
+  <Button on-click="${handleClick}" disabled="${isLoading}" data-loading="${isLoading || undefined}" class="group relative disabled:opacity-100"><span class="group-data-loading:text-transparent">Click me</span><!-- if isLoading -->
+<div class="absolute inset-0 flex items-center justify-center"><LoaderCircleIcon class="animate-spin" size="${16}" aria-hidden="true" /></div>
+<!-- endif --></Button>
+</template>

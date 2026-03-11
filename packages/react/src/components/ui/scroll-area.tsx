@@ -21,25 +21,23 @@ const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
     >
       <div
         data-slot="scroll-viewport"
-        className={cn(
-          scrollAreaViewportVariants(),
-          scrollBarClassName
-        )}
+        className={cn(scrollAreaViewportVariants(), scrollBarClassName)}
       >
         {children}
       </div>
     </div>
   )
 )
-ScrollArea.displayName = "ScrollArea"
+ScrollArea.displayName = 'ScrollArea'
 
 // Mock ScrollBar component for API compatibility
 const ScrollBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { orientation?: 'vertical' | 'horizontal' }
->(({ className, orientation = 'vertical', ...props }, ref) => (
-  null // Native scroll doesn't need a separate scrollbar element usually unless specialized
-))
-ScrollBar.displayName = "ScrollBar"
+>(
+  ({ className, orientation = 'vertical', ...props }, ref) =>
+    null // Native scroll doesn't need a separate scrollbar element usually unless specialized
+)
+ScrollBar.displayName = 'ScrollBar'
 
 export { ScrollArea, ScrollBar }

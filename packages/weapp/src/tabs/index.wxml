@@ -3,6 +3,7 @@
     <block wx:for="{{tabs}}" wx:key="value">
       <view
         class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all disabled:pointer-events-none disabled:opacity-50 {{activeValue === item.value ? 'bg-background text-foreground shadow-sm' : ''}}"
+        style="min-height: 88rpx;"
         bindtap="handleTabClick"
         data-value="{{item.value}}"
       >

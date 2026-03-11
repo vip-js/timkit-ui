@@ -10,15 +10,10 @@ type CollectionFactory<TItem extends CollectionItemRecord, TCollection> = (
   args: CollectionFactoryArgs<TItem>
 ) => TCollection
 
-export const resolveCollectionItemField = (
-  item: CollectionItemRecord,
-  key: string
-) => item[key] ?? item
+export const resolveCollectionItemField = (item: CollectionItemRecord, key: string) =>
+  item[key] ?? item
 
-export const createCollection = <
-  TItem extends CollectionItemRecord,
-  TCollection
->({
+export const createCollection = <TItem extends CollectionItemRecord, TCollection>({
   items,
   itemLabelKey,
   itemValueKey,

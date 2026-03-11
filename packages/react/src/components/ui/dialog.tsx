@@ -2,12 +2,11 @@
 
 import * as React from 'react'
 import type { AssertNoExtraKeys, DialogProps as CoreDialogProps } from '@timui/core'
-import { createPortal } from 'react-dom'
 import {
   cn,
   createTimEvent,
-  dialogCloseVariants,
   dialogCloseIconVariants,
+  dialogCloseVariants,
   dialogContentVariants,
   dialogDescriptionVariants,
   dialogFooterVariants,
@@ -15,10 +14,11 @@ import {
   dialogOverlayVariants,
   dialogTitleVariants,
 } from '@timui/core'
-import { Slot } from './slot'
+import { createPortal } from 'react-dom'
 
 import { useDialog, type UseDialogProps } from './dialog/use-dialog'
 import { DialogProvider, useDialogContext } from './dialog/use-dialog-context'
+import { Slot } from './slot'
 
 export interface DialogProps extends UseDialogProps {
   children?: React.ReactNode
@@ -38,14 +38,7 @@ const DialogTrigger = React.forwardRef<
 >(({ asChild = false, ...props }, ref) => {
   const api = useDialogContext()
   const Comp = asChild ? Slot : 'button'
-  return (
-    <Comp
-      data-slot="dialog-trigger"
-      {...api.getTriggerProps()}
-      {...props}
-      ref={ref}
-    />
-  )
+  return <Comp data-slot="dialog-trigger" {...api.getTriggerProps()} {...props} ref={ref} />
 })
 DialogTrigger.displayName = 'DialogTrigger'
 
@@ -130,21 +123,20 @@ const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 )
 DialogFooter.displayName = 'DialogFooter'
 
-const DialogTitle = React.forwardRef<
-  HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => {
-  const api = useDialogContext()
-  return (
-    <h2
-      ref={ref}
-      data-slot="dialog-title"
-      {...api.getTitleProps()}
-      {...props}
-      className={cn(dialogTitleVariants(), className)}
-    />
-  )
-})
+const DialogTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => {
+    const api = useDialogContext()
+    return (
+      <h2
+        ref={ref}
+        data-slot="dialog-title"
+        {...api.getTitleProps()}
+        {...props}
+        className={cn(dialogTitleVariants(), className)}
+      />
+    )
+  }
+)
 DialogTitle.displayName = 'DialogTitle'
 
 type DialogDescriptionProps = React.HTMLAttributes<HTMLParagraphElement> & {

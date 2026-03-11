@@ -1,0 +1,7 @@
+<template>
+  <div class="inline-flex items-center gap-2"><Switch id="${id}" checked="${checked}" oncheckedchange="${setChecked}" aria-label="Toggle switch" /><Label htmlfor="${id}"><span class="sr-only">Toggle switch</span>${checked ? (
+          <SunIcon size={16} aria-hidden="true" />
+        ) : (
+          <MoonIcon size={16} aria-hidden="true" />
+        )}</Label></div>
+</template>

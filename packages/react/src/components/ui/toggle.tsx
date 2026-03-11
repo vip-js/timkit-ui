@@ -1,20 +1,20 @@
 'use client'
 
 import * as React from 'react'
-import { mergeProps } from '@zag-js/react'
 import { cn, toggleVariants, type ToggleVariants } from '@timui/core'
+import { mergeProps } from '@zag-js/react'
+
 import { useToggle } from './toggle/use-toggle'
 
 const Toggle = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> &
-  ToggleVariants & {
-    pressed?: boolean
-    defaultPressed?: boolean
-    onPressedChange?: (pressed: boolean) => void
-  }
+    ToggleVariants & {
+      pressed?: boolean
+      defaultPressed?: boolean
+      onPressedChange?: (pressed: boolean) => void
+    }
 >(({ className, pressed, defaultPressed, onPressedChange, variant, size, ...props }, ref) => {
-
   const api = useToggle({
     pressed,
     defaultPressed,
@@ -37,6 +37,6 @@ const Toggle = React.forwardRef<
     />
   )
 })
-Toggle.displayName = "Toggle"
+Toggle.displayName = 'Toggle'
 
 export { Toggle }

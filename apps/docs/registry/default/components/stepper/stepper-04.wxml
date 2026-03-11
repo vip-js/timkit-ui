@@ -1,0 +1,6 @@
+<view>
+  <view class="mx-auto max-w-xl space-y-8 text-center"><stepper value="{{currentStep}}" bindchange="setCurrentStep"><stepperitem wx:for="{{steps}}" wx:for-item="step" wx:for-index="index" wx:key="index" key="{{step}}" step="{{step}}" class="not-last:flex-1"><steppertrigger aschild><stepperindicator /></steppertrigger><stepperseparator wx:if="{{step < steps.length}}" /></stepperitem></stepper><view class="flex justify-center space-x-4"><button variant="outline" class="w-32" bindtap="setCurrentStep((prev) => prev - 1)" disabled="{{currentStep === 1}}">Prev step
+        </button><button variant="outline" class="w-32" bindtap="setCurrentStep((prev) => prev + 1)" disabled="{{currentStep > steps.length}}">Next step
+        </button></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Controlled stepper with checkmarks
+      </text></view>
+</view>

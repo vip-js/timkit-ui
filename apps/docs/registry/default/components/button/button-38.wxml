@@ -1,0 +1,4 @@
+<view>
+  <view class="divide-primary-foreground/30 inline-flex divide-x rounded-md shadow-xs rtl:space-x-reverse"><button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10" size="icon" aria-label="Options"><chevrondownicon size="{{16}}" aria-hidden="true" /></button><button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"><pinicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Pinned
+      </button></view>
+</view>

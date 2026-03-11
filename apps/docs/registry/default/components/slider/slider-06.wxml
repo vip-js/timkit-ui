@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Slider with reference labels</label><view><slider default-value="{{[15]}}" min="{{5}}" max="{{35}}" aria-label="Slider with reference labels" /><text class="text-muted-foreground mt-4 flex w-full items-center justify-between gap-1 text-xs font-medium" aria-hidden="true"><text>5 GB</text><text>20 GB</text><text>35 GB</text></text></view></view>
+</view>

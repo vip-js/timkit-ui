@@ -1,11 +1,13 @@
-import { createContext } from "../../../hooks/create-context";
-import type { MenuApi } from "@timui/core";
-import type { ComputedRef } from "vue";
+import type { MenuApi } from '@timui/core'
+import type { ComputedRef } from 'vue'
+
+import { createContext } from '../../../hooks/create-context'
 
 const context = createContext<ComputedRef<MenuApi>>({
-    id: "dropdownMenuContext",
-    providerName: "<DropdownMenu />",
-});
+  id: 'dropdownMenuContext',
+  providerName: '<DropdownMenu />',
+})
 
-export const DropdownMenuProvider: (value: ComputedRef<MenuApi>) => void = context[0];
-export const useDropdownMenuContext: (fallback?: ComputedRef<MenuApi>) => ComputedRef<MenuApi> = context[1];
+export const DropdownMenuProvider: (value: ComputedRef<MenuApi>) => void = context[0]
+export const useDropdownMenuContext: (fallback?: ComputedRef<MenuApi>) => ComputedRef<MenuApi> =
+  context[1]

@@ -4,6 +4,8 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
     openDelay: {
       type: Number,

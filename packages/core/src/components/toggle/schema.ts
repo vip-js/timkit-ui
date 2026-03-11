@@ -4,9 +4,7 @@ const toggleSchema = defineUCS({
   name: 'toggle',
   title: 'Toggle',
   description: 'A two-state button that can be either on or off.',
-  parts: [
-    { name: 'root', description: 'The toggle container', isRoot: true },
-  ],
+  parts: [{ name: 'root', description: 'The toggle container', isRoot: true }],
   logic: {
     provider: 'none',
   },
@@ -86,5 +84,3 @@ const toggleSchema = defineUCS({
 })
 
 export default toggleSchema
-
-

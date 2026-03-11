@@ -7,8 +7,8 @@ import {
   tableCaptionVariants,
   tableCellVariants,
   tableFooterVariants,
-  tableHeadVariants,
   tableHeaderVariants,
+  tableHeadVariants,
   tableRowVariants,
   tableVariants,
 } from '@timui/core'
@@ -22,57 +22,31 @@ function Table({ className, ...props }: React.ComponentProps<'table'>) {
 }
 
 function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
-  return <thead data-slot="table-header" className={cn(tableHeaderVariants(), className)} {...props} />
+  return (
+    <thead data-slot="table-header" className={cn(tableHeaderVariants(), className)} {...props} />
+  )
 }
 
 function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
-  return (
-    <tbody
-      data-slot="table-body"
-      className={cn(tableBodyVariants(), className)}
-      {...props}
-    />
-  )
+  return <tbody data-slot="table-body" className={cn(tableBodyVariants(), className)} {...props} />
 }
 
 function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   return (
-    <tfoot
-      data-slot="table-footer"
-      className={cn(tableFooterVariants(), className)}
-      {...props}
-    />
+    <tfoot data-slot="table-footer" className={cn(tableFooterVariants(), className)} {...props} />
   )
 }
 
 function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
-  return (
-    <tr
-      data-slot="table-row"
-      className={cn(tableRowVariants(), className)}
-      {...props}
-    />
-  )
+  return <tr data-slot="table-row" className={cn(tableRowVariants(), className)} {...props} />
 }
 
 function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
-  return (
-    <th
-      data-slot="table-head"
-      className={cn(tableHeadVariants(), className)}
-      {...props}
-    />
-  )
+  return <th data-slot="table-head" className={cn(tableHeadVariants(), className)} {...props} />
 }
 
 function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
-  return (
-    <td
-      data-slot="table-cell"
-      className={cn(tableCellVariants(), className)}
-      {...props}
-    />
-  )
+  return <td data-slot="table-cell" className={cn(tableCellVariants(), className)} {...props} />
 }
 
 function TableCaption({ className, ...props }: React.ComponentProps<'caption'>) {

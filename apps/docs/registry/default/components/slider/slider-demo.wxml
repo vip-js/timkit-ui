@@ -1,0 +1,4 @@
+<view class="space-y-4">
+  <label class="text-sm font-medium">Progress threshold</label>
+  <slider value="40" min="0" max="100" />
+</view>

@@ -7,9 +7,5 @@
     "declarationMap": false,
     "composite": false
   },
-  "include": [
-    "src",
-    "env.d.ts",
-    "../core/src"
-  ]
+  "include": ["src", "env.d.ts", "../core/src"]
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "prepublishOnly": "pnpm run build",
     "build": "node --import tsx build.ts",
+    "check:ci": "node --import tsx ../../scripts/check-weapp-ci.ts",
     "release": "pnpm run build && pnpm publish --access public --no-git-checks",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist",
     "generate:utils": "tsx ../../scripts/build-weapp-utilities.ts"

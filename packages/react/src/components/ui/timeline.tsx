@@ -2,7 +2,6 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from './slot'
 import type { AssertNoExtraKeys, TimelineProps as CoreTimelineProps } from '@timui/core'
 import {
   cn,
@@ -15,6 +14,8 @@ import {
   timelineTitleVariants,
   timelineVariants,
 } from '@timui/core'
+
+import { Slot } from './slot'
 
 // Types
 type TimelineContextValue = {
@@ -80,18 +81,18 @@ function TimelineDate({ asChild = false, className, ...props }: TimelineDateProp
   const Comp = asChild ? Slot : 'time'
 
   return (
-    <Comp
-      data-slot="timeline-date"
-      className={cn(timelineDateVariants(), className)}
-      {...props}
-    />
+    <Comp data-slot="timeline-date" className={cn(timelineDateVariants(), className)} {...props} />
   )
 }
 
 // TimelineHeader
 function TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div data-slot="timeline-header" className={cn(timelineHeaderVariants(), className)} {...props} />
+    <div
+      data-slot="timeline-header"
+      className={cn(timelineHeaderVariants(), className)}
+      {...props}
+    />
   )
 }
 

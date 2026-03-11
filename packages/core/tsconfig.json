@@ -4,14 +4,14 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@timui/*": [
-        "../*/src"
-      ]
+      "@timui/tokens/*": ["../tokens/dist/*"],
+      "@timui/*": ["../*/src"]
     },
     "declaration": true,
     "outDir": "./dist",
@@ -21,7 +21,5 @@
     "incremental": true,
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

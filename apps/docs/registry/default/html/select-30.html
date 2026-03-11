@@ -1,0 +1,5 @@
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Timezone select</Label><Select default-value="Europe/London"><SelectTrigger id="${id}"><SelectValue placeholder="Select timezone" /></SelectTrigger><SelectContent><!-- Loop formattedTimezones -->
+<SelectItem key="${value}" value="${value}">${label}</SelectItem>
+<!-- End Loop --></SelectContent></Select></div>
+</template>

@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-
 import { describe, expect, it } from 'vitest'
 
 import { CORE_MULTI_FRAMEWORKS, FRAMEWORK_EXTENSIONS } from '../scripts/check-registry-data'

@@ -3,6 +3,10 @@ import { computed, ref, watch } from 'vue'
 import * as presence from '@zag-js/presence'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 const props = withDefaults(
   defineProps<{
     present: boolean
@@ -23,14 +27,14 @@ const emit = defineEmits<{
 
 const nodeRef = ref<HTMLElement | null>(null)
 
-const service = useMachine(presence.machine as any, computed(() => ({
+const service = useMachine(presence.machine as never, computed(() => ({
   present: props.present,
   onExitComplete() {
     emit('exit-complete')
   },
 })))
 
-const api = computed(() => presence.connect(service as any, normalizeProps))
+const api = computed(() => presence.connect(service as never, normalizeProps))
 
 watch(
   () => nodeRef.value,

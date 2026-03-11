@@ -1,0 +1,4 @@
+<view class="inline-flex items-center gap-2">
+  <switch checked="{{true}}" />
+  <label class="text-sm font-medium">Enable release preview</label>
+</view>

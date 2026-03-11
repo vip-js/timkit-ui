@@ -1,8 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 
-import { CORE_MULTI_FRAMEWORKS, FRAMEWORK_EXTENSIONS, computeFrameworksFromFiles, PLACEHOLDER_REGEX } from './check-registry-data'
 import { type RegistryItem } from '../packages/core/src/shared/schema'
+import {
+  computeFrameworksFromFiles,
+  CORE_MULTI_FRAMEWORKS,
+  FRAMEWORK_EXTENSIONS,
+  PLACEHOLDER_REGEX,
+} from './check-registry-data'
 
 const ROOT = path.resolve(__dirname, '..')
 const DATA_FILE = path.join(ROOT, 'apps/docs/data/registry-all.json')
@@ -97,9 +102,7 @@ const summarize = () => {
   }
 
   if (missingVueUiRecords.length) {
-    console.log(
-      `\n⚠️  registry:ui 缺少 Vue 实现的组件（${missingVueUiRecords.length}）：`
-    )
+    console.log(`\n⚠️  registry:ui 缺少 Vue 实现的组件（${missingVueUiRecords.length}）：`)
     missingVueUiRecords.forEach((name) => {
       console.log(`  - ${name}`)
     })

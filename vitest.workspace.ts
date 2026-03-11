@@ -1,4 +1,1 @@
-export default [
-    'packages/*',
-    'tests',
-]
+export default ['packages/*', 'tests']

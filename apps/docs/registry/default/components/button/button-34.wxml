@@ -1,0 +1,3 @@
+<view>
+  <togglegroup variant="outline" class="inline-flex" type="single"><togglegroupitem value="left">Left</togglegroupitem><togglegroupitem value="center">Center</togglegroupitem><togglegroupitem value="right">Right</togglegroupitem></togglegroup>
+</view>

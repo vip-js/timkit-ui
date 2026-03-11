@@ -28,7 +28,7 @@ export default function ComponentsContainer() {
     // 仅展示已实现（有代码且非占位）的 UI 组件
     return getComponents(tags).filter((component: RegistryItem) => {
       const hasCode = component.files?.some((f) => !!f.content?.trim()) ?? false
-      const isPlaceholder = (component.meta as any)?.placeholder
+      const isPlaceholder = component.meta?.placeholder === true
       return hasCode && !isPlaceholder
     })
   }, [tags])

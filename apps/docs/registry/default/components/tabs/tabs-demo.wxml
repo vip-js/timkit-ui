@@ -1,0 +1,5 @@
+<tabs tabs="{{tabItems}}" value="overview">
+  <view class="text-muted-foreground mt-4 text-sm">
+    Shared core props keep React and Vue behavior aligned.
+  </view>
+</tabs>

@@ -1,0 +1,5 @@
+<template>
+  <div><div class="rounded-md border p-2"><Calendar mode="single" selected="${date}" onselect="${setDate}" month="${month}" onmonthchange="${setMonth}" /><Button variant="outline" size="sm" class="mt-2 mb-1" on-click="${() => setMonth(today)}">Current month
+        </Button></div><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">With button -${' '}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
+        </a></p></div>
+</template>

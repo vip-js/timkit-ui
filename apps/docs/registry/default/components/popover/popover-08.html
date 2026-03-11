@@ -1,20 +1,31 @@
-<div class="flex flex-col gap-4">
-      <popover>
-        <popover-trigger asChild>
-          <button variant="outline">Feedback</button>
-        </popover-trigger>
-        <popover-content class="w-72">
-          <h2 class="mb-2 text-sm font-semibold">Send us feedback</h2>
-          <form class="space-y-3">
-            <textarea
-              id="feedback"
-              placeholder="How can we improve Timkit UI?"
-              aria-label="Send feedback"
-            />
-            <div class="flex flex-col sm:flex-row sm:justify-end">
-              <button size="sm">Send feedback</button>
-            </div>
-          </form>
-        </popover-content>
-      </popover>
-    </div>
+<div data-slot="popover" class="relative inline-block">
+  <button
+    data-slot="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
+  >
+    Feedback
+  </button>
+  <div
+    data-slot="popover-content"
+    data-state="closed"
+    hidden
+    class="absolute left-0 top-full z-10 mt-2 w-72 rounded-md border bg-popover p-4 shadow-md"
+  >
+    <h2 class="mb-2 text-sm font-semibold">Send us feedback</h2>
+    <form class="space-y-3">
+      <textarea
+        id="feedback"
+        class="min-h-24 w-full rounded-md border px-3 py-2 text-sm"
+        placeholder="How can we improve Timkit UI?"
+        aria-label="Send feedback"
+      ></textarea>
+      <div class="flex justify-end">
+        <button type="submit" class="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
+          Send feedback
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

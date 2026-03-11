@@ -1,68 +1,7 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Sign up</button>
-      </dialog-trigger>
-      <dialog-content>
-        <view class="flex flex-col items-center gap-2">
-          <view
-            class="flex size-11 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-            <svg
-              class="stroke-zinc-800 dark:stroke-zinc-100"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 32 32"
-              aria-hidden="true"
-            >
-              <circle cx="16" cy="16" r="12" fill="none" strokeWidth="8" />
-            </svg>
-          </view>
-          <dialog-header>
-            <dialog-title class="sm:text-center">Sign up Timkit UI</dialog-title>
-            <dialog-description class="sm:text-center">
-              We just need a few details to get you started.
-            </dialog-description>
-          </dialog-header>
-        </view>
-
-        <form class="space-y-5">
-          <view class="space-y-4">
-            <view class="*:not-first:mt-2">
-              <label for="dialog-13-id">Full name</label>
-              <input id="dialog-13-id" placeholder="Matt Welsh" type="text" required />
-            </view>
-            <view class="*:not-first:mt-2">
-              <label for="dialog-13-id">Email</label>
-              <input id="dialog-13-id" placeholder="hi@yourcompany.com" type="email" required />
-            </view>
-            <view class="*:not-first:mt-2">
-              <label for="dialog-13-id">Password</label>
-              <input id="dialog-13-id"
-                placeholder="Enter your password"
-                type="password"
-                required
-              />
-            </view>
-          </view>
-          <button type="button" class="w-full">
-            Sign up
-          </button>
-        </form>
-
-        <view class="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1">
-          <span class="text-muted-foreground text-xs">Or</span>
-        </view>
-
-        <button variant="outline">Continue with Google</button>
-
-        <p class="text-muted-foreground text-center text-xs">
-          By signing up you agree to our 
-          <a class="underline hover:no-underline" href="#">
-            Terms
-          </a>
-          .
-        </p>
-      </dialog-content>
-    </dialog>
+<view>
+  <dialog><dialogtrigger aschild><button variant="outline">Sign up</button></dialogtrigger><dialogcontent><view class="flex flex-col items-center gap-2"><view class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><svg class="stroke-zinc-800 dark:stroke-zinc-100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke-width="8" /></svg></view><dialogheader><dialogtitle class="sm:text-center">Sign up Timkit UI</dialogtitle><dialogdescription class="sm:text-center">We just need a few details to get you started.
+            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="space-y-4"><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-name`}}">Full name</label><input id="{{`${id}-name`}}" placeholder="Matt Welsh" type="text" required /></view><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-email`}}">Email</label><input id="{{`${id}-email`}}" placeholder="hi@yourcompany.com" type="email" required /></view><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-password`}}">Password</label><input id="{{`${id}-password`}}" placeholder="Enter your password" type="password" required /></view></view><button type="button" class="w-full">Sign up
+          </button></form><view class="before:bg-border after:bg-border flex items-center gap-3 before:h-px before:flex-1 after:h-px after:flex-1"><text class="text-muted-foreground text-xs">Or</text></view><button variant="outline">Continue with Google</button><text class="text-muted-foreground text-center text-xs">By signing up you agree to our{{ ' ' }}<a class="underline hover:no-underline" href="#">Terms
+          </a>.
+        </text></dialogcontent></dialog>
+</view>

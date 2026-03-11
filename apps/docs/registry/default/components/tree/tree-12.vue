@@ -1,0 +1,25 @@
+<script setup lang="ts">
+import { Tree } from '@/components/ui/tree';
+import { TreeItem } from '@/components/ui/tree-item';
+import { TreeItemLabel } from '@/components/ui/tree-item-label';
+
+
+
+</script>
+
+<template>
+  <div class="flex h-full flex-col gap-2 *:first:grow"><Tree :indent="indent" :tree="tree">{{ tree.getItems().map((item) => {
+          return (
+            <TreeItem key={item.getId()} item={item} asChild={!!item.getItemData()?.href}>
+              {item.getItemData()?.href ? (
+                <a href={item.getItemData().href} data-current={item.getItemData().current}>
+                  <TreeItemLabel className="in-data-[current=true]:bg-accent in-data-[current=true]:text-accent-foreground" />
+                </a>
+              ) : (
+                <TreeItemLabel />
+              )}
+            </TreeItem>
+          )
+        }) }}</Tree><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Menu navigation tree ∙{{ ' ' }}<a href="https://headless-tree.lukasbach.com" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></p></div>
+</template>

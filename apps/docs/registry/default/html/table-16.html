@@ -1,0 +1,29 @@
+<template>
+  <DndContext id="${useId()}" collisiondetection="${closestCenter}" modifiers="${[restrictToHorizontalAxis]}" ondragend="${handleDragEnd}" sensors="${sensors}"><Table><TableHeader><!-- Loop table.getHeaderGroups() -->
+<TableRow key="${headerGroup.id}" class="bg-muted/50"><SortableContext items="${columnOrder}" strategy="${horizontalListSortingStrategy}"><!-- Loop headerGroup.headers -->
+<DraggableTableHeader key="${header.id}" header="${header}" />
+<!-- End Loop --></SortableContext></TableRow>
+<!-- End Loop --></TableHeader><TableBody>${table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                {row.getVisibleCells().map((cell) => (
+                  <SortableContext
+                    key={cell.id}
+                    items={columnOrder}
+                    strategy={horizontalListSortingStrategy}
+                  >
+                    <DragAlongCell key={cell.id} cell={cell} />
+                  </SortableContext>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}</TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Draggable columns made with${' '}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
+        </a>${' '}and${' '}<a href="https://dndkit.com/" target="_blank" rel="noopener noreferrer">dnd kit
+        </a></p></DndContext>
+</template>

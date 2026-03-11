@@ -1,0 +1,12 @@
+<div data-slot="tabs" data-orientation="horizontal" class="w-full">
+    <div data-slot="tabs-list" class="{{tabsListVariants}}">
+        <button data-slot="tabs-trigger" data-state="active" class="{{tabsTriggerVariants}}">Tab 1</button>
+        <button data-slot="tabs-trigger" data-state="inactive" class="{{tabsTriggerVariants}}">Tab 2</button>
+    </div>
+    <div data-slot="tabs-content" data-state="active" class="{{tabsContentVariants}}">
+        Content 1
+    </div>
+    <div data-slot="tabs-content" hidden data-state="inactive" class="{{tabsContentVariants}}">
+        Content 2
+    </div>
+</div>

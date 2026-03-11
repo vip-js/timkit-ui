@@ -1,3 +1,4 @@
+import { emitTimEvent } from '../utils'
 import { setupTagsInputMachine } from './use-tags-input'
 
 type WeappTagsInputApi = {
@@ -21,31 +22,34 @@ type DeleteTagEvent = WechatMiniprogram.BaseEvent & {
   }
 }
 
-type WeappTagsInputInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
-  _service?: WeappService
-  _cleanup?: () => void
-  _send?: (event: object) => void
-  data: {
-    api: WeappTagsInputApi
-    inputValue: string
+type WeappTagsInputInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+    _service?: WeappService
+    _cleanup?: () => void
+    _send?: (event: object) => void
+    data: {
+      api: WeappTagsInputApi
+      inputValue: string
+    }
+    properties: {
+      value: string[]
+      max: number
+      disabled: boolean
+      readOnly: boolean
+      allowOverflow: boolean
+      placeholder: string
+      id: string
+      extClass: string
+    }
   }
-  properties: {
-    value: string[]
-    max: number
-    disabled: boolean
-    readOnly: boolean
-    allowOverflow: boolean
-    placeholder: string
-    id: string
-    extClass: string
-  }
-}
 
 Component({
   options: {
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: { type: Array, value: [] },
@@ -75,8 +79,10 @@ Component({
         readOnly: this.properties.readOnly,
         allowOverflow: this.properties.allowOverflow,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
-        }
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'tags-input', {
+            value: details.value,
+          })
+        },
       })
 
       self._service = service as WeappService
@@ -90,7 +96,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappTagsInputInternal
       if (!state || !self._send) return
       const { connect } = setupTagsInputMachine(this, { id: this.properties.id })

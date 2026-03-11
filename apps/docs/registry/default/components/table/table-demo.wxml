@@ -1,0 +1,5 @@
+<table ext-class="w-full">
+  <view class="border-b px-4 py-3 text-sm font-medium text-muted-foreground">Framework | Status</view>
+  <view class="border-b px-4 py-3 text-sm">React / Vue | Aligned</view>
+  <view class="px-4 py-3 text-sm">HTML / Weapp | Tracked in reports</view>
+</table>

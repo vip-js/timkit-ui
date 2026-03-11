@@ -1,5 +1,5 @@
 import registryAll from '@/data/registry-all.json'
-import type { RegistryItem } from '@timui/core'
+import type { JsonValue, RegistryItem } from '@timui/core'
 import { cva } from 'class-variance-authority'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
@@ -47,7 +47,7 @@ export const getComponents = (selectedTags: RegistryTag[] = []): RegistryItem[] 
 }
 
 /** Safely converts an object value to a string array. */
-const getStringArray = (value: any): string[] => {
+const getStringArray = (value: JsonValue | undefined): string[] => {
   if (Array.isArray(value)) return value.filter((v): v is string => typeof v === 'string')
   if (typeof value === 'string') return [value]
   return []
@@ -58,7 +58,7 @@ export const getComponentsByNames = (names: string[]): RegistryItem[] => {
   const componentsMap = new Map(components.map((comp) => [comp.name, comp]))
   const aliasMap = new Map<string, RegistryItem>()
   components.forEach((comp) => {
-    const aliases = getStringArray(comp.meta?.aliases as any)
+    const aliases = getStringArray(comp.meta?.aliases)
     aliases.forEach((alias) => {
       if (!aliasMap.has(alias)) {
         aliasMap.set(alias, comp)

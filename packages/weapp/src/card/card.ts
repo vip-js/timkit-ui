@@ -1,38 +1,41 @@
 import { cardVariants } from '../utils'
 
 Component({
-    options: {
-        styleIsolation: 'apply-shared',
-    },
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
 
-    properties: {
-        extClass: { type: String, value: '' },
-    },
+  externalClasses: ['ext-class'],
 
-    data: {
-        className: '',
-    },
+  properties: {
+    extClass: { type: String, value: '' },
+  },
 
-    lifetimes: {
-        attached() {
-            this.updateClassName()
-        },
-    },
+  data: {
+    className: '',
+  },
 
-    observers: {
-        'extClass': function () {
-            this.updateClassName()
-        },
+  lifetimes: {
+    attached() {
+      this.updateClassName()
     },
+  },
 
-    methods: {
-        updateClassName() {
-            // Use core package's cardVariants for consistent styling
-            const { baseClass } = cardVariants({
-                className: this.properties.extClass
-            })
-
-            this.setData({ className: baseClass })
-        },
+  observers: {
+    extClass: function () {
+      this.updateClassName()
     },
+  },
+
+  methods: {
+    updateClassName() {
+      // Use core package's cardVariants for consistent styling
+      const { baseClass } = cardVariants({
+        className: this.properties.extClass,
+      })
+
+      this.setData({ className: baseClass })
+    },
+  },
 })

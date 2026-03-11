@@ -1,1 +1,3 @@
-<badge>Badge</badge>
+<view>
+  <badge class="rounded">Badge</badge>
+</view>

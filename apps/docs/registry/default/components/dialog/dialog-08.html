@@ -1,41 +1,37 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Delete project</button>
-      </dialog-trigger>
-      <dialog-content>
-        <div class="flex flex-col items-center gap-2">
-          <div
-            class="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
-          </div>
-          <dialog-header>
-            <dialog-title class="sm:text-center">Final confirmation</dialog-title>
-            <dialog-description class="sm:text-center">
-              This action cannot be undone. To confirm, please enter the project name 
-              <span class="text-foreground">Timkit UI</span>.
-            </dialog-description>
-          </dialog-header>
-        </div>
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rm:" data-state="closed">
+  Delete project
+</button>
 
-        <form class="space-y-5">
-          <div class="*:not-first:mt-2">
-            <label for="dialog-08-id">Project name</label>
-            <input id="dialog-08-id"
-              type="text"
-              placeholder="Type Timkit UI to confirm" />
-          </div>
-          <dialog-footer>
-            <dialog-close asChild>
-              <button type="button" variant="outline" class="flex-1">
-                Cancel
-              </button>
-            </dialog-close>
-            <button type="button" class="flex-1">
-              Delete
-            </button>
-          </dialog-footer>
-        </form>
-      </dialog-content>
-    </dialog>
+<!-- 
+Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
+Here is the structural representation of the opened dialog:
+
+<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
+<div role="dialog" id="radix-:rm:" aria-describedby="radix-:ro:" aria-labelledby="radix-:rn:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
+  <div class="flex flex-col items-center gap-2">
+    <div class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert opacity-80"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+    </div>
+    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+      <h2 id="radix-:rn:" class="text-lg font-semibold leading-none tracking-tight sm:text-center">Final confirmation</h2>
+      <p id="radix-:ro:" class="text-sm text-muted-foreground sm:text-center">This action cannot be undone. To confirm, please enter the project name <span class="text-foreground">Timkit UI</span>.</p>
+    </div>
+  </div>
+  <form class="space-y-5">
+    <div class="*:not-first:mt-2">
+      <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="dialog-08-input">Project name</label>
+      <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="dialog-08-input" placeholder="Type Timkit UI to confirm" value="">
+    </div>
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 flex-1 sm:mt-0 mt-2">Cancel</button>
+      <button type="button" disabled class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 flex-1">Delete</button>
+    </div>
+  </form>
+  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+</div>
+-->

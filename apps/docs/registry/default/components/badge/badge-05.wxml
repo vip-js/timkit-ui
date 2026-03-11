@@ -1,1 +1,3 @@
-<badge><view>Link</view></badge>
+<view>
+  <badge aschild><a href="#">Link</a></badge>
+</view>

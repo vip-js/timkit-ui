@@ -3,12 +3,6 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": [
-    "registry/default/vue/**/*.ts",
-    "registry/default/components/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next"
-  ]
+  "include": ["registry/default/vue/**/*.ts", "registry/default/components/**/*.ts"],
+  "exclude": ["node_modules", ".next"]
 }

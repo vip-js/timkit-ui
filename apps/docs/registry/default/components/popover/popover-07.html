@@ -1,56 +1,37 @@
-<div class="flex flex-col gap-4">
-      <popover>
-        <popover-trigger asChild>
-          <button variant="outline">Share</button>
-        </popover-trigger>
-        <popover-content class="w-72">
-          <div class="flex flex-col gap-3 text-center">
-            <div class="text-sm font-medium">Share code</div>
-            <div class="flex flex-wrap justify-center gap-2">
-              <button size="icon" variant="outline" aria-label="Embed">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share on Twitter">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share on Facebook">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share via email">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-            </div>
-            <div class="space-y-2">
-              <div class="relative">
-                <input id="popover-07-id"
-                  class="pe-9"
-                  type="text"
-                  defaultValue="https://ui.timkit.cn/Avx8HD"
-                  aria-label="Share link"
-                  readOnly
-                />
-                <tooltip-provider delayDuration="0">
-                  <tooltip>
-                    <tooltip-trigger asChild>
-                      <button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed"
-                        aria-label='Copy to clipboard'
-                      >
-                        <div
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
-                        </div>
-                        <div
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                        </div>
-                      </button>
-                    </tooltip-trigger>
-                    <tooltip-content class="px-2 py-1 text-xs">Copy to clipboard</tooltip-content>
-                  </tooltip>
-                </tooltip-provider>
-              </div>
-            </div>
-          </div>
-        </popover-content>
-      </popover>
+<div data-slot="popover" class="relative inline-block">
+  <button
+    data-slot="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
+  >
+    Share
+  </button>
+  <div
+    data-slot="popover-content"
+    data-state="closed"
+    hidden
+    class="absolute left-0 top-full z-10 mt-2 w-72 rounded-md border bg-popover p-4 shadow-md"
+  >
+    <div class="space-y-3 text-center">
+      <div class="text-sm font-medium">Share code</div>
+      <div class="flex flex-wrap justify-center gap-2">
+        <button type="button" class="rounded-md border px-2 py-1 text-xs">Embed</button>
+        <button type="button" class="rounded-md border px-2 py-1 text-xs">Twitter</button>
+        <button type="button" class="rounded-md border px-2 py-1 text-xs">Facebook</button>
+        <button type="button" class="rounded-md border px-2 py-1 text-xs">Email</button>
+      </div>
+      <div class="space-y-2">
+        <input
+          id="popover-07-id"
+          class="w-full rounded-md border px-3 py-2 text-sm"
+          type="text"
+          value="https://ui.timkit.cn/Avx8HD"
+          aria-label="Share link"
+          readonly
+        />
+        <button type="button" class="w-full rounded-md border px-2 py-1 text-xs">Copy link</button>
+      </div>
     </div>
+  </div>
+</div>

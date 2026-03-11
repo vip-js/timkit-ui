@@ -36,6 +36,8 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
     open: { type: Boolean, value: false },
     modal: { type: Boolean, value: false },
@@ -67,14 +69,14 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappPopoverInternal
       if (!state || !self._send || !self._connect) return
       const api = self._connect(state, self._send) as WeappPopoverApi
       this.setData({ api, className: this.properties.extClass })
     },
 
-    'open': function (val) {
+    open: function (val) {
       const self = this as WeappPopoverInternal
       if (self._service) {
         if (val) {

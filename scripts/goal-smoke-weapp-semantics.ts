@@ -9,22 +9,18 @@ const assert = (condition: boolean, message: string) => {
   }
 }
 
-const read = (relativePath: string) =>
-  fs.readFileSync(path.join(ROOT, relativePath), 'utf-8')
+const read = (relativePath: string) => fs.readFileSync(path.join(ROOT, relativePath), 'utf-8')
 
 const assertIncludes = (relativePath: string, snippet: string, checkName: string) => {
   const source = read(relativePath)
-  assert(
-    source.includes(snippet),
-    `${checkName} failed in ${relativePath}: missing "${snippet}"`
-  )
+  assert(source.includes(snippet), `${checkName} failed in ${relativePath}: missing "${snippet}"`)
 }
 
 const runSelectChecks = () => {
   assertIncludes(
     'packages/weapp/src/select/select.ts',
-    "this.triggerEvent('change', details)",
-    'select emits change event'
+    "emitTimEvent(this, 'change', 'change'",
+    'select emits TimEvent change'
   )
   assertIncludes(
     'packages/weapp/src/select/select.ts',
@@ -45,14 +41,14 @@ const runSelectChecks = () => {
 
 const runDialogChecks = () => {
   assertIncludes(
-    'packages/weapp/src/dialog/dialog.ts',
-    "this.triggerEvent('change', details)",
-    'dialog emits change event'
+    'packages/weapp/src/dialog/use-dialog.ts',
+    'emitTimEvent(',
+    'dialog emits TimEvent openchange'
   )
   assertIncludes(
-    'packages/weapp/src/dialog/dialog.ts',
-    "this.triggerEvent('close')",
-    'dialog emits close event'
+    'packages/weapp/src/dialog/use-dialog.ts',
+    "'openchange'",
+    'dialog uses dedicated openchange event name'
   )
   assertIncludes(
     'packages/weapp/src/dialog/dialog.wxml',
@@ -68,14 +64,9 @@ const runDialogChecks = () => {
 
 const runTabsChecks = () => {
   assertIncludes(
-    'packages/weapp/src/tabs/index.ts',
-    "this.triggerEvent('change', details)",
-    'tabs emits change event from state machine'
-  )
-  assertIncludes(
-    'packages/weapp/src/tabs/index.js',
-    "this.triggerEvent('change', { value });",
-    'tabs emits change event from fallback implementation'
+    'packages/weapp/src/tabs/use-tabs.ts',
+    "emitTimEvent(instance, 'change', 'change'",
+    'tabs emits TimEvent change from state machine'
   )
   assertIncludes(
     'packages/weapp/src/tabs/index.wxml',

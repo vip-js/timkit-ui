@@ -1,7 +1,7 @@
-<div data-slot="alert-dialog" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
-  <div class="w-full max-w-md rounded-lg border bg-background p-6 shadow-lg">
+<div data-slot="alert-dialog" class="data-[state&#x3D;open]:animate-in data-[state&#x3D;closed]:animate-out data-[state&#x3D;closed]:fade-out-0 data-[state&#x3D;open]:fade-in-0 fixed inset-0 z-50 bg-black/80">
+  <div class="data-[state&#x3D;open]:animate-in data-[state&#x3D;closed]:animate-out data-[state&#x3D;closed]:fade-out-0 data-[state&#x3D;open]:fade-in-0 data-[state&#x3D;closed]:zoom-out-95 data-[state&#x3D;open]:zoom-in-95 data-[state&#x3D;closed]:slide-out-to-top-[48%] data-[state&#x3D;closed]:slide-out-to-left-[50%] data-[state&#x3D;open]:slide-in-from-top-[48%] data-[state&#x3D;open]:slide-in-from-left-[50%] fixed top-[50%] left-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg">
     <h2 class="text-lg font-semibold">Are you absolutely sure?</h2>
-    <p class="mt-2 text-sm text-muted-foreground">
+    <p class="text-sm text-muted-foreground">
       This action cannot be undone.
     </p>
     <div class="mt-4 flex justify-end gap-2">

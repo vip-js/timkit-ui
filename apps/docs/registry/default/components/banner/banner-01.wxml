@@ -1,15 +1,6 @@
-<banner class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg">
-  <banner-content class="flex-col justify-between gap-3 md:flex-row md:items-center">
-    <banner-description class="text-sm text-foreground">
-      We use cookies to improve your experience, analyze site usage, and show personalized content.
-    </banner-description>
-    <banner-actions class="flex gap-2 max-md:flex-wrap">
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
-        Accept
-      </button>
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs">
-        Decline
-      </button>
-    </banner-actions>
-  </banner-content>
-</banner>
+<view>
+  <banner class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg"><bannercontent class="flex-col justify-between gap-3 md:flex-row md:items-center"><bannerdescription class="text-sm text-foreground">We use cookies to improve your experience, analyze site usage, and show personalized
+          content.
+        </bannerdescription><banneractions class="flex gap-2 max-md:flex-wrap"><button size="sm">Accept</button><button variant="outline" size="sm">Decline
+          </button></banneractions></bannercontent></banner>
+</view>

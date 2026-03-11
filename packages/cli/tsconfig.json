@@ -11,7 +11,5 @@
     "skipLibCheck": true,
     "composite": false
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-3"><label class="tabular-nums">{{ value[0] }}credits/mo</label><view class="flex items-center gap-4"><view><button variant="outline" size="icon" class="size-8" aria-label="Decrease value" bindtap="decreaseValue" disabled="{{value[0] === 0}}"><minusicon size="{{16}}" aria-hidden="true" /></button></view><slider class="grow" value="{{value}}" bindchange="setValue" min="{{minValue}}" max="{{maxValue}}" step="{{steps}}" aria-label="Dual range slider with buttons" /><view><button variant="outline" size="icon" class="size-8" aria-label="Increase value" bindtap="increaseValue" disabled="{{value[0] === 200}}"><plusicon size="{{16}}" aria-hidden="true" /></button></view></view></view>
+</view>

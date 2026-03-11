@@ -1,0 +1,4 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with error</label><textarea id="{{id}}" placeholder="Leave a comment" default-value="Hello!" aria-invalid /><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Message should be at least 10 characters
+      </text></view>
+</view>

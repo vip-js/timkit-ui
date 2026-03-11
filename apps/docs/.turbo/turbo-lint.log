@@ -1,4 +1,0 @@
-
-> @timui/docs@0.0.1 lint /Users/jiawei01.mao/sine/timkit-ui/apps/docs
-> eslint "*.{js,jsx,ts,tsx}" app components config hooks lib previews registry types utils --ext .js,.jsx,.ts,.tsx --no-warn-ignored
-

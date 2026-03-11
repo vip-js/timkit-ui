@@ -1,6 +1,6 @@
+import type { JsonValue } from '@timui/core'
 import { Command } from 'commander'
 
-import type { JsonValue } from '@timui/core'
 import { getAliasesForComponent } from '../lib/component-aliases'
 import { loadRegistryIndex } from '../lib/registry'
 

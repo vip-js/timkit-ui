@@ -2,8 +2,7 @@
 
 import * as React from 'react'
 import { ItemInstance } from '@headless-tree/core'
-import type { AssertNoExtraKeys, TreeContainerApi, TreeProps as CoreTreeProps } from '@timui/core'
-import { Slot } from './slot'
+import type { AssertNoExtraKeys, TreeProps as CoreTreeProps, TreeContainerApi } from '@timui/core'
 import {
   cn,
   treeDragLineVariants,
@@ -13,6 +12,8 @@ import {
   treeVariants,
 } from '@timui/core'
 import { ChevronDownIcon } from 'lucide-react'
+
+import { Slot } from './slot'
 
 interface TreeContextValue<T = Record<string, never>> {
   indent: number
@@ -91,14 +92,13 @@ function TreeItem<T = Record<string, never>>({
   const Comp = asChild ? Slot : 'button'
 
   return (
-    <TreeContext.Provider value={{ indent, currentItem: item as ItemInstance<Record<string, never>> }}>
+    <TreeContext.Provider
+      value={{ indent, currentItem: item as ItemInstance<Record<string, never>> }}
+    >
       <Comp
         data-slot="tree-item"
         style={mergedStyle}
-        className={cn(
-          treeItemVariants(),
-          className
-        )}
+        className={cn(treeItemVariants(), className)}
         data-focus={typeof item.isFocused === 'function' ? item.isFocused() || false : undefined}
         data-folder={typeof item.isFolder === 'function' ? item.isFolder() || false : undefined}
         data-selected={
@@ -119,7 +119,9 @@ function TreeItem<T = Record<string, never>>({
   )
 }
 
-interface TreeItemLabelProps<T = Record<string, never>> extends React.HTMLAttributes<HTMLSpanElement> {
+interface TreeItemLabelProps<
+  T = Record<string, never>,
+> extends React.HTMLAttributes<HTMLSpanElement> {
   item?: ItemInstance<T>
 }
 
@@ -138,17 +140,8 @@ function TreeItemLabel<T = Record<string, never>>({
   }
 
   return (
-    <span
-      data-slot="tree-item-label"
-      className={cn(
-        treeItemLabelVariants(),
-        className
-      )}
-      {...props}
-    >
-      {item.isFolder() && (
-        <ChevronDownIcon className={treeItemLabelIconVariants()} />
-      )}
+    <span data-slot="tree-item-label" className={cn(treeItemLabelVariants(), className)} {...props}>
+      {item.isFolder() && <ChevronDownIcon className={treeItemLabelIconVariants()} />}
       {children || (typeof item.getItemName === 'function' ? item.getItemName() : null)}
     </span>
   )
@@ -168,10 +161,7 @@ function TreeDragLine({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   return (
     <div
       style={dragLine ?? undefined}
-      className={cn(
-        treeDragLineVariants(),
-        className
-      )}
+      className={cn(treeDragLineVariants(), className)}
       {...props}
     />
   )

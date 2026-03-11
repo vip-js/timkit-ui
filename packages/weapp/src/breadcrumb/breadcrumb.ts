@@ -1,10 +1,12 @@
 import { breadcrumbListVariants } from '../utils'
 
-type BreadcrumbItem = string | {
-  label?: string
-  value?: string
-  href?: string
-}
+type BreadcrumbItem =
+  | string
+  | {
+      label?: string
+      value?: string
+      href?: string
+    }
 
 type BreadcrumbTapEvent = WechatMiniprogram.BaseEvent & {
   currentTarget: {
@@ -17,7 +19,10 @@ type BreadcrumbTapEvent = WechatMiniprogram.BaseEvent & {
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     items: { type: Array, value: [] },
@@ -36,7 +41,7 @@ Component({
   },
 
   observers: {
-    'extClass': function () {
+    extClass: function () {
       this.updateClassName()
     },
   },
@@ -45,7 +50,7 @@ Component({
     updateClassName() {
       // Use core package's breadcrumbListVariants for consistent styling
       const baseClass = breadcrumbListVariants({
-        className: this.properties.extClass
+        className: this.properties.extClass,
       })
 
       this.setData({ className: baseClass })

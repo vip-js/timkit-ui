@@ -1,3 +1,6 @@
 export type ResizableProps = {
-    direction?: 'horizontal' | 'vertical'
+  /**
+   * The reading direction of the component (`ltr` or `rtl`).
+   */
+  direction?: 'horizontal' | 'vertical'
 }

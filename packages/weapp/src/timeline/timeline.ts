@@ -1,40 +1,43 @@
 import { timelineVariants } from '../utils'
 
 Component({
-    options: {
-        styleIsolation: 'apply-shared',
-    },
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
 
-    properties: {
-        items: { type: Array, value: [] },
-        orientation: { type: String, value: 'vertical' },
-        extClass: { type: String, value: '' },
-    },
+  externalClasses: ['ext-class'],
 
-    data: {
-        className: '',
-    },
+  properties: {
+    items: { type: Array, value: [] },
+    orientation: { type: String, value: 'vertical' },
+    extClass: { type: String, value: '' },
+  },
 
-    lifetimes: {
-        attached() {
-            this.updateClassName()
-        },
-    },
+  data: {
+    className: '',
+  },
 
-    observers: {
-        'orientation, extClass': function () {
-            this.updateClassName()
-        },
+  lifetimes: {
+    attached() {
+      this.updateClassName()
     },
+  },
 
-    methods: {
-        updateClassName() {
-            // Use core package's timelineVariants for consistent styling
-            const { baseClass } = timelineVariants({
-                className: this.properties.extClass
-            })
-
-            this.setData({ className: baseClass })
-        },
+  observers: {
+    'orientation, extClass': function () {
+      this.updateClassName()
     },
+  },
+
+  methods: {
+    updateClassName() {
+      // Use core package's timelineVariants for consistent styling
+      const { baseClass } = timelineVariants({
+        className: this.properties.extClass,
+      })
+
+      this.setData({ className: baseClass })
+    },
+  },
 })

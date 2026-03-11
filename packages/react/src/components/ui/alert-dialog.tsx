@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import {
-  AssertNoExtraKeys,
-  AlertDialogProps as CoreAlertDialogProps,
   alertDialogCancelVariants,
-  cn,
-  createTimEvent,
+  AssertNoExtraKeys,
   buttonVariants,
+  cn,
+  AlertDialogProps as CoreAlertDialogProps,
+  createTimEvent,
   dialogContentVariants,
   dialogDescriptionVariants,
   dialogFooterVariants,
@@ -16,10 +16,10 @@ import {
   dialogTitleVariants,
 } from '@timui/core'
 import { createPortal } from 'react-dom'
-import { Slot } from './slot'
 
 import { useAlertDialog, type UseAlertDialogProps } from './alert-dialog/use-alert-dialog'
 import { AlertDialogProvider, useAlertDialogContext } from './alert-dialog/use-alert-dialog-context'
+import { Slot } from './slot'
 
 export interface AlertDialogProps extends UseAlertDialogProps {
   children?: React.ReactNode
@@ -39,14 +39,7 @@ const AlertDialogTrigger = React.forwardRef<
 >(({ asChild = false, ...props }, ref) => {
   const api = useAlertDialogContext()
   const Comp = asChild ? Slot : 'button'
-  return (
-    <Comp
-      data-slot="alert-dialog-trigger"
-      {...api.getTriggerProps()}
-      {...props}
-      ref={ref}
-    />
-  )
+  return <Comp data-slot="alert-dialog-trigger" {...api.getTriggerProps()} {...props} ref={ref} />
 })
 AlertDialogTrigger.displayName = 'AlertDialogTrigger'
 
@@ -60,66 +53,52 @@ const AlertDialogPortal = ({ children }: { children: React.ReactNode }) => {
 }
 AlertDialogPortal.displayName = 'AlertDialogPortal'
 
-const AlertDialogOverlay = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->((props, ref) => {
-  const api = useAlertDialogContext()
-  return (
-    <div
-      data-slot="alert-dialog-overlay"
-      {...api.getBackdropProps()}
-      {...props}
-      className={cn(dialogOverlayVariants(), props.className)}
-      ref={ref}
-    />
-  )
-})
+const AlertDialogOverlay = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  (props, ref) => {
+    const api = useAlertDialogContext()
+    return (
+      <div
+        data-slot="alert-dialog-overlay"
+        {...api.getBackdropProps()}
+        {...props}
+        className={cn(dialogOverlayVariants(), props.className)}
+        ref={ref}
+      />
+    )
+  }
+)
 AlertDialogOverlay.displayName = 'AlertDialogOverlay'
 
-const AlertDialogContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->((props, ref) => {
-  const api = useAlertDialogContext()
-  return (
-    <AlertDialogPortal>
-      <AlertDialogOverlay />
-      <div {...api.getPositionerProps()}>
-        <div
-          data-slot="alert-dialog-content"
-          {...api.getContentProps()}
-          {...props}
-          className={cn(dialogContentVariants(), props.className)}
-          ref={ref}
-        >
-          {props.children}
+const AlertDialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  (props, ref) => {
+    const api = useAlertDialogContext()
+    return (
+      <AlertDialogPortal>
+        <AlertDialogOverlay />
+        <div {...api.getPositionerProps()}>
+          <div
+            data-slot="alert-dialog-content"
+            {...api.getContentProps()}
+            {...props}
+            className={cn(dialogContentVariants(), props.className)}
+            ref={ref}
+          >
+            {props.children}
+          </div>
         </div>
-      </div>
-    </AlertDialogPortal>
-  )
-})
+      </AlertDialogPortal>
+    )
+  }
+)
 AlertDialogContent.displayName = 'AlertDialogContent'
 
-const AlertDialogHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(dialogHeaderVariants(), className)}
-    {...props}
-  />
+const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn(dialogHeaderVariants(), className)} {...props} />
 )
 AlertDialogHeader.displayName = 'AlertDialogHeader'
 
-const AlertDialogFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(dialogFooterVariants(), className)}
-    {...props}
-  />
+const AlertDialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn(dialogFooterVariants(), className)} {...props} />
 )
 AlertDialogFooter.displayName = 'AlertDialogFooter'
 
@@ -196,11 +175,7 @@ const AlertDialogCancel = React.forwardRef<
         api.setOpen(false)
         onClick?.(e)
       }}
-      className={cn(
-        buttonVariants({ variant: 'outline' }),
-        alertDialogCancelVariants(),
-        className
-      )}
+      className={cn(buttonVariants({ variant: 'outline' }), alertDialogCancelVariants(), className)}
       ref={ref}
     />
   )

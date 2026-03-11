@@ -1,46 +1,21 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import { AlertCircleIcon, DownloadIcon, FileArchiveIcon, FileIcon, FileSpreadsheetIcon, FileTextIcon, HeadphonesIcon, ImageIcon, Trash2Icon, UploadCloudIcon, UploadIcon, VideoIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { Table } from '@/components/ui/table';
+import { TableBody } from '@/components/ui/table-body';
+import { TableCell } from '@/components/ui/table-cell';
+import { TableHead } from '@/components/ui/table-head';
+import { TableHeader } from '@/components/ui/table-header';
+import { TableRow } from '@/components/ui/table-row';
+import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload.vue';
+
+
 </script>
+
 <template>
-<div class="flex flex-col gap-2">
-      
-      <div
-        class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px] data-[files]:hidden"
-      >
-        <input class="sr-only" aria-label="Upload files" />
-        <div class="flex flex-col items-center justify-center text-center">
-          <div
-            class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </div>
-          <p class="mb-1.5 text-sm font-medium">Upload files</p>
-          <p class="text-muted-foreground text-xs">
-            Max 10 files ∙ Up to 10MB
-          </p>
-          <Button variant="outline" class="mt-4" >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ms-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            Select files
-          </Button>
-        </div>
-      </div>
-      
-
-      
-
-      <p
-        aria-live="polite"
-        role="region"
-        class="text-muted-foreground mt-2 text-center text-xs"
-      >
-        Multiple files uploader w/ table ∙ 
-        <a
-          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
-          class="hover:text-foreground underline"
-        >
-          API
-        </a>
-      </p>
-    </div>
+  <div class="flex flex-col gap-2"><div :onDragEnter="handleDragEnter" :onDragLeave="handleDragLeave" :onDragOver="handleDragOver" :onDrop="handleDrop" :data-dragging="isDragging || undefined" :data-files="files.length > 0 || undefined" class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px] data-[files]:hidden"><input class="sr-only" aria-label="Upload files" /><div class="flex flex-col items-center justify-center text-center"><div class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><FileIcon class="size-4 opacity-60" /></div><p class="mb-1.5 text-sm font-medium">Upload files</p><p class="text-muted-foreground text-xs">Max {{ maxFiles }}files ∙ Up to {{ formatBytes(maxSize) }}</p><Button variant="outline" class="mt-4" @click="openFileDialog"><UploadIcon class="-ms-1 opacity-60" aria-hidden="true" />Select files
+          </Button></div></div><div v-if="files.length > 0" class="flex items-center justify-between gap-2"><h3 class="text-sm font-medium">Files ({{ files.length }})</h3><div class="flex gap-2"><Button variant="outline" size="sm" @click="openFileDialog"><UploadCloudIcon class="-ms-0.5 size-3.5 opacity-60" aria-hidden="true" />Add files
+              </Button><Button variant="outline" size="sm" @click="clearFiles"><Trash2Icon class="-ms-0.5 size-3.5 opacity-60" aria-hidden="true" />Remove all
+              </Button></div></div><div class="bg-background overflow-hidden rounded-md border"><Table><TableHeader class="text-xs"><TableRow class="bg-muted/50"><TableHead class="h-9 py-2">Name</TableHead><TableHead class="h-9 py-2">Type</TableHead><TableHead class="h-9 py-2">Size</TableHead><TableHead class="h-9 w-0 py-2 text-right">Actions</TableHead></TableRow></TableHeader><TableBody class="text-[13px]"><TableRow v-for="(file, index) in files" :key="index" :key="file.id"><TableCell class="max-w-48 py-2 font-medium"><span class="flex items-center gap-2"><span class="shrink-0">{{ getFileIcon(file) }}</span>{{ ' ' }}<span class="truncate">{{ file.file.name }}</span></span></TableCell><TableCell class="text-muted-foreground py-2">{{ file.file.type.split('/')[1]?.toUpperCase() || 'UNKNOWN' }}</TableCell><TableCell class="text-muted-foreground py-2">{{ formatBytes(file.file.size) }}</TableCell><TableCell class="py-2 text-right whitespace-nowrap"><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Download ${file.file.name}`" @click="window.open(file.preview, '_blank')"><DownloadIcon class="size-4" /></Button><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Remove ${file.file.name}`" @click="removeFile(file.id)"><Trash2Icon class="size-4" /></Button></TableCell></TableRow></TableBody></Table></div><div v-if="errors.length > 0" class="text-destructive flex items-center gap-1 text-xs" role="alert"><AlertCircleIcon class="size-3 shrink-0" /><span>{{ errors[0] }}</span></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-center text-xs">Multiple files uploader w/ table ∙{{ ' ' }}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
+        </a></p></div>
 </template>

@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import { Checkbox } from '@/components/ui/checkbox';
+import { Table } from '@/components/ui/table';
+import { TableBody } from '@/components/ui/table-body';
+import { TableCell } from '@/components/ui/table-cell';
+import { TableFooter } from '@/components/ui/table-footer';
+import { TableHead } from '@/components/ui/table-head';
+import { TableHeader } from '@/components/ui/table-header';
+import { TableRow } from '@/components/ui/table-row';
+
+
+
+</script>
+
+<template>
+  <div><div class="bg-background overflow-hidden rounded-md border"><Table><TableHeader><TableRow class="hover:bg-transparent"><TableHead class="h-11"><Checkbox :checked="allSelected || (someSelected && 'indeterminate')" :onCheckedChange="(value) => {
+                    const checked = toChecked(value)
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, checked])))
+                  }" @click="{
+                    const next = !allSelected
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, next])))
+                  }" aria-label="Select all rows" /></TableHead><TableHead class="h-11">Name</TableHead><TableHead class="h-11">Email</TableHead><TableHead class="h-11">Location</TableHead><TableHead class="h-11">Status</TableHead><TableHead class="h-11 text-right">Balance</TableHead></TableRow></TableHeader><TableBody><TableRow v-for="(item, index) in items" :key="index" :key="item.id" :data-state="selectedRows[item.id] ? 'selected' : undefined"><TableCell><Checkbox :id="`table-checkbox-${item.id}`" :checked="!!selectedRows[item.id]" :onCheckedChange="(value) => {
+                      const checked = toChecked(value)
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: checked }))
+                    }" @click="{
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                    }" :aria-label="`Select ${item.name}`" /></TableCell><TableCell class="font-medium">{{ item.name }}</TableCell><TableCell>{{ item.email }}</TableCell><TableCell>{{ item.location }}</TableCell><TableCell>{{ item.status }}</TableCell><TableCell class="text-right">{{ item.balance }}</TableCell></TableRow></TableBody><TableFooter class="bg-transparent"><TableRow class="hover:bg-transparent"><TableCell :colSpan="5">Total</TableCell><TableCell class="text-right">$2,500.00</TableCell></TableRow></TableFooter></Table></div><p class="text-muted-foreground mt-4 text-center text-sm">Card Table</p></div>
+</template>

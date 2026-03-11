@@ -1,0 +1,6 @@
+<template>
+  <div class="mx-auto max-w-xl space-y-8 text-center"><div class="flex items-center gap-2"><Button class="shrink-0" variant="ghost" size="icon" on-click="${() => setCurrentStep((prev) => prev - 1)}" disabled="${currentStep === 1}" aria-label="Prev step"><ChevronLeftIcon size="${16}" aria-hidden="true" /></Button><Stepper value="${currentStep}" on-value-change="${setCurrentStep}" class="gap-1"><!-- Loop steps -->
+<StepperItem key="${step}" step="${step}" class="flex-1"><StepperTrigger class="w-full flex-col items-start gap-2" aschild><StepperIndicator aschild class="bg-border h-1 w-full"><span class="sr-only">${step}</span></StepperIndicator></StepperTrigger></StepperItem>
+<!-- End Loop --></Stepper><Button class="shrink-0" variant="ghost" size="icon" on-click="${() => setCurrentStep((prev) => prev + 1)}" disabled="${currentStep === steps.length}" aria-label="Next step"><ChevronRightIcon size="${16}" aria-hidden="true" /></Button></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Paginated stepper
+      </p></div>
+</template>

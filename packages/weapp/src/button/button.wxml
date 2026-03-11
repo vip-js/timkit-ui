@@ -1,9 +1,22 @@
-<view 
+<button
   class="{{className}}"
+  disabled="{{disabled}}"
+  loading="{{loading}}"
+  open-type="{{openType}}"
+  form-type="{{formType}}"
+  hover-class="{{hoverClass}}"
+  hover-stop-propagation="{{hoverStopPropagation}}"
+  hover-start-time="{{hoverStartTime}}"
+  hover-stay-time="{{hoverStayTime}}"
   bindtap="onTap"
+  bindgetphonenumber="onGetPhoneNumber"
+  bindgetuserinfo="onGetUserInfo"
+  bindopensetting="onOpenSetting"
+  binderror="onError"
+  bindcontact="onContact"
   data-disabled="{{disabled}}"
   data-loading="{{loading}}"
 >
   <view wx:if="{{loading}}" class="button-loading-icon">⏳</view>
   <slot></slot>
-</view>
+</button>

@@ -1,15 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { progressIndicatorVariants, progressRootVariants } from '@timui/core'
-import { cn } from '@timui/core'
+import { cn, progressIndicatorVariants, progressRootVariants } from '@timui/core'
+
 import { useProgress } from './progress/use-progress'
 
 const Progress = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { value?: number | null; max?: number }
 >(({ className, value, max = 100, ...props }, ref) => {
-
   const { progressValue, percent } = useProgress({ value, max })
 
   return (
@@ -33,6 +32,6 @@ const Progress = React.forwardRef<
     </div>
   )
 })
-Progress.displayName = "Progress"
+Progress.displayName = 'Progress'
 
 export { Progress }

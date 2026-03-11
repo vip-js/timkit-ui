@@ -1,0 +1,17 @@
+<script setup lang="ts">
+import { Timeline } from '@/components/ui/timeline';
+import { TimelineContent } from '@/components/ui/timeline-content';
+import { TimelineDate } from '@/components/ui/timeline-date';
+import { TimelineHeader } from '@/components/ui/timeline-header';
+import { TimelineIndicator } from '@/components/ui/timeline-indicator';
+import { TimelineItem } from '@/components/ui/timeline-item';
+import { TimelineSeparator } from '@/components/ui/timeline-separator';
+import { TimelineTitle } from '@/components/ui/timeline-title';
+
+
+
+</script>
+
+<template>
+  <Timeline :default-value="3" orientation="horizontal"><TimelineItem v-for="(item, index) in items" :key="index" :key="item.id" :step="item.id"><TimelineHeader><TimelineSeparator /><TimelineDate>{{ item.date }}</TimelineDate><TimelineTitle>{{ item.title }}</TimelineTitle><TimelineIndicator /></TimelineHeader><TimelineContent>{{ item.description }}</TimelineContent></TimelineItem></Timeline>
+</template>

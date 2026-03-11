@@ -1,0 +1,8 @@
+<view>
+  <togglegroup type="single" variant="outline" value="{{value}}" bindchange="{
+        if (value) setValue(value)
+      }"><togglegroupitem class="flex-1" value="left">Left
+      </togglegroupitem><togglegroupitem class="flex-1" value="center">Center
+      </togglegroupitem><togglegroupitem class="flex-1" value="right">Right
+      </togglegroupitem></togglegroup>
+</view>

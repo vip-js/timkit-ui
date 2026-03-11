@@ -1,17 +1,17 @@
 import { cn } from '../../lib/utils'
 
 Component({
-    properties: {
-        className: { type: String, value: '' },
+  properties: {
+    className: { type: String, value: '' },
+  },
+  data: {
+    className: '',
+  },
+  observers: {
+    className: function (className) {
+      this.setData({
+        className: cn('text-2xl font-semibold leading-none tracking-tight', className),
+      })
     },
-    data: {
-        className: '',
-    },
-    observers: {
-        'className': function (className) {
-            this.setData({
-                className: cn('text-2xl font-semibold leading-none tracking-tight', className),
-            })
-        },
-    },
+  },
 })

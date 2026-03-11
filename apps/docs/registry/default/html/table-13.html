@@ -1,0 +1,76 @@
+<template>
+  <div class="space-y-6"><div class="flex flex-wrap gap-3"><div class="w-44"><Filter column="${table.getColumn('keyword')!}" /></div><div class="w-36"><Filter column="${table.getColumn('intents')!}" /></div><div class="w-36"><Filter column="${table.getColumn('volume')!}" /></div><div class="w-36"><Filter column="${table.getColumn('cpc')!}" /></div><div class="w-36"><Filter column="${table.getColumn('traffic')!}" /></div></div><Table><TableHeader><!-- Loop table.getHeaderGroups() -->
+<TableRow key="${headerGroup.id}" class="bg-muted/50">${headerGroup.headers.map((header) => {
+                return (
+                  <TableHead
+                    key={header.id}
+                    className="relative h-10 border-t select-none"
+                    aria-sort={
+                      header.column.getIsSorted() === 'asc'
+                        ? 'ascending'
+                        : header.column.getIsSorted() === 'desc'
+                          ? 'descending'
+                          : 'none'
+                    }
+                  >
+                    {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                      <div
+                        className={cn(
+                          header.column.getCanSort() &&
+                            'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
+                        )}
+                        onClick={header.column.getToggleSortingHandler()}
+                        onKeyDown={(e) => {
+                          // Enhanced keyboard handling for sorting
+                          if (header.column.getCanSort() && (e.key === 'Enter' || e.key === ' ')) {
+                            e.preventDefault()
+                            header.column.getToggleSortingHandler()?.(e)
+                          }
+                        }}
+                        tabIndex={header.column.getCanSort() ? 0 : undefined}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: (
+                            <ChevronUpIcon
+                              className="shrink-0 opacity-60"
+                              size={16}
+                              aria-hidden="true"
+                            />
+                          ),
+                          desc: (
+                            <ChevronDownIcon
+                              className="shrink-0 opacity-60"
+                              size={16}
+                              aria-hidden="true"
+                            />
+                          ),
+                        }[header.column.getIsSorted() as string] ?? (
+                          <span className="size-4" aria-hidden="true" />
+                        )}
+                      </div>
+                    ) : (
+                      flexRender(header.column.columnDef.header, header.getContext())
+                    )}
+                  </TableHead>
+                )
+              })}</TableRow>
+<!-- End Loop --></TableHeader><TableBody>${table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}</TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Data table with filters made with${' '}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
+        </a></p></div>
+</template>

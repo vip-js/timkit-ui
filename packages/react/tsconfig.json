@@ -11,26 +11,14 @@
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": [
-        "./packages/react/src/*"
-      ],
-      "@timui/react": [
-        "./packages/react/src"
-      ],
-      "@timui/react/*": [
-        "./packages/react/src/*"
-      ],
-      "@timui/*": [
-        "./packages/*/src"
-      ]
+      "@/*": ["./packages/react/src/*"],
+      "@timui/react": ["./packages/react/src"],
+      "@timui/react/*": ["./packages/react/src/*"],
+      "@timui/*": ["./packages/*/src"]
     },
     "composite": false,
     "incremental": true,
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": [
-    "src/**/*",
-    "../core/src",
-    "../tokens/src"
-  ]
+  "include": ["src/**/*", "../core/src", "../tokens/src"]
 }

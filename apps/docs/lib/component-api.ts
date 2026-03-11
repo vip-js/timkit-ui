@@ -17,10 +17,11 @@ const FRAMEWORK_LABEL: Record<Framework, string> = {
   html: 'HTML',
 }
 
-const PLATFORM_LABEL: Record<'web' | 'wechat' | 'mobile-native', string> = {
+const PLATFORM_LABEL: Record<'web' | 'wechat' | 'mobile-native' | 'react-native', string> = {
   web: 'Web',
   wechat: 'WeChat Mini Program',
   'mobile-native': 'Mobile Native',
+  'react-native': 'React Native',
 }
 
 const COMPONENT_FAMILY_MAP: Record<string, ComponentFamily> = {
@@ -256,19 +257,37 @@ const inferPropsFromSource = (schemaName: string): InferredRow[] => {
 
   blocks.forEach((block) => {
     const body = block[1] || ''
-    const propMatches = body.matchAll(/^\s*([A-Za-z_][A-Za-z0-9_]*)\??:\s*([^;\n]+);?/gm)
+    // Match optional JSDoc capturing group 1, then the property name down to type definition.
+    const propMatches = body.matchAll(
+      /(?:\/\*\*([\s\S]*?)\*\/\s*)?^[ \t]*([A-Za-z_][A-Za-z0-9_]*)\??:\s*([^;\n]+);?/gm
+    )
 
     for (const match of propMatches) {
-      const name = match[1]
-      const typeExpr = match[2].trim()
+      const rawJsDoc = match[1]
+      const name = match[2]
+      const typeExpr = match[3].trim()
       const type = inferTypeLabel(typeExpr)
       const isEvent = name.startsWith('on') || type === 'event'
+
+      let jsDocText = ''
+      if (rawJsDoc) {
+        jsDocText = rawJsDoc
+          .split('\n')
+          .map((line) => line.replace(/^\s*\*\s?/, '').trim())
+          .filter(Boolean)
+          .join(' ')
+      }
+
+      let description = jsDocText
+      if (!description) {
+        description = inferDescription(schemaName, name, type, isEvent)
+      }
 
       rows.push({
         name,
         type,
         default: '-',
-        description: inferDescription(schemaName, name, type, isEvent),
+        description,
         required: !/\?\s*:/.test(match[0]),
         kind: isEvent ? 'event' : 'prop',
       })
@@ -413,6 +432,13 @@ export const buildComponentApiModel = (
       type: 'array',
       default: (registryItem?.dependencies || []).join(', ') || '-',
       description: 'Runtime package dependencies required by this registry item.',
+      required: false,
+    },
+    {
+      name: 'optionalPeerDependencies',
+      type: 'array',
+      default: (registryItem?.optionalPeerDependencies || []).join(', ') || '-',
+      description: 'Optional peer dependencies used by this registry item.',
       required: false,
     },
     {

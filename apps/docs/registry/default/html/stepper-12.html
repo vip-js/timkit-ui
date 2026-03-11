@@ -1,0 +1,8 @@
+<template>
+  <div class="space-y-8 text-center"><Stepper default-value="${2}"><!-- Loop steps -->
+<StepperItem key="${step}" step="${step}" class="not-last:flex-1 max-md:items-start"><StepperTrigger class="rounded max-md:flex-col"><StepperIndicator /><div class="text-center md:text-left"><StepperTitle>${title}</StepperTitle><StepperDescription class="max-sm:hidden">${description}</StepperDescription></div></StepperTrigger><!-- if step < steps.length -->
+<StepperSeparator class="max-md:mt-3.5 md:mx-4" />
+<!-- endif --></StepperItem>
+<!-- End Loop --></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with inline titles and descriptions
+      </p></div>
+</template>

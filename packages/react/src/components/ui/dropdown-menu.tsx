@@ -1,21 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Portal } from '@zag-js/react'
-import type { PositioningOptions } from '@zag-js/popper'
-import {
-  useDropdownMenu,
-  type DropdownMenuProps
-} from './dropdown-menu/use-dropdown-menu'
-import {
-  useDropdownMenuContext,
-  useDropdownMenuRadioGroupContext,
-  DropdownMenuProvider,
-  DropdownMenuRadioGroupProvider,
-  DropdownMenuContext,
-  DropdownMenuRadioGroupContext
-} from './dropdown-menu/use-dropdown-menu-context'
-import { mergeProps } from '@zag-js/react'
 import {
   cn,
   dropdownMenuCheckboxItemVariants,
@@ -28,17 +13,25 @@ import {
   dropdownMenuSubContentVariants,
   dropdownMenuSubTriggerVariants,
 } from '@timui/core'
+import type { PositioningOptions } from '@zag-js/popper'
+import { mergeProps, Portal } from '@zag-js/react'
+
+import { useDropdownMenu, type DropdownMenuProps } from './dropdown-menu/use-dropdown-menu'
+import {
+  DropdownMenuContext,
+  DropdownMenuProvider,
+  DropdownMenuRadioGroupContext,
+  DropdownMenuRadioGroupProvider,
+  useDropdownMenuContext,
+  useDropdownMenuRadioGroupContext,
+} from './dropdown-menu/use-dropdown-menu-context'
 import { Slot } from './slot'
 
 const DropdownMenu = (props: DropdownMenuProps) => {
   const { children } = props
   const api = useDropdownMenu(props)
 
-  return (
-    <DropdownMenuProvider value={api}>
-      {children}
-    </DropdownMenuProvider>
-  )
+  return <DropdownMenuProvider value={api}>{children}</DropdownMenuProvider>
 }
 
 type BaseDivProps = React.ComponentPropsWithoutRef<'div'>
@@ -48,25 +41,22 @@ type DropdownMenuTriggerProps = BaseButtonProps & {
   asChild?: boolean
 }
 
-const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>((props, ref) => {
-  const api = useDropdownMenuContext()
-  const { asChild, className, ...otherProps } = props
-  const Comp = asChild ? Slot : 'button'
-  const triggerProps = api?.getTriggerProps?.() ?? {}
-  const mergedProps = mergeProps(triggerProps, otherProps)
+const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
+  (props, ref) => {
+    const api = useDropdownMenuContext()
+    const { asChild, className, ...otherProps } = props
+    const Comp = asChild ? Slot : 'button'
+    const triggerProps = api?.getTriggerProps?.() ?? {}
+    const mergedProps = mergeProps(triggerProps, otherProps)
 
-  return (
-    <Comp
-      ref={ref}
-      data-slot="dropdown-menu-trigger"
-      className={cn(className)}
-      {...mergedProps}
-    >
-      {props.children}
-    </Comp>
-  )
-})
-DropdownMenuTrigger.displayName = "DropdownMenuTrigger"
+    return (
+      <Comp ref={ref} data-slot="dropdown-menu-trigger" className={cn(className)} {...mergedProps}>
+        {props.children}
+      </Comp>
+    )
+  }
+)
+DropdownMenuTrigger.displayName = 'DropdownMenuTrigger'
 
 type DropdownMenuContentProps = BaseDivProps & {
   side?: 'top' | 'bottom' | 'left' | 'right'
@@ -77,9 +67,9 @@ type DropdownMenuContentProps = BaseDivProps & {
 const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContentProps>(
   ({ className, side = 'bottom', align = 'center', sideOffset = 4, ...props }, ref) => {
     const api = useDropdownMenuContext()
-    const placement = (
-      align === 'center' ? side : `${side}-${align}`
-    ) as NonNullable<PositioningOptions['placement']>
+    const placement = (align === 'center' ? side : `${side}-${align}`) as NonNullable<
+      PositioningOptions['placement']
+    >
     const reposition = api?.reposition
 
     React.useEffect(() => {
@@ -99,10 +89,7 @@ const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContent
             {...contentProps}
             ref={ref}
             data-slot="dropdown-menu-content"
-            className={cn(
-              dropdownMenuContentVariants(),
-              className
-            )}
+            className={cn(dropdownMenuContentVariants(), className)}
             {...props}
           />
         </div>
@@ -110,7 +97,7 @@ const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContent
     )
   }
 )
-DropdownMenuContent.displayName = "DropdownMenuContent"
+DropdownMenuContent.displayName = 'DropdownMenuContent'
 
 type DropdownMenuItemProps = BaseDivProps & {
   inset?: boolean
@@ -132,48 +119,48 @@ const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>
         {...mergedProps}
         ref={ref}
         data-slot="dropdown-menu-item"
-        className={cn(
-          dropdownMenuItemVariants(),
-          inset && "pl-8",
-          className
-        )}
+        className={cn(dropdownMenuItemVariants(), inset && 'pl-8', className)}
       />
     )
   }
 )
-DropdownMenuItem.displayName = "DropdownMenuItem"
+DropdownMenuItem.displayName = 'DropdownMenuItem'
 
 type DropdownMenuSeparatorProps = BaseDivProps
 
-const DropdownMenuSeparator = React.forwardRef<HTMLDivElement, DropdownMenuSeparatorProps>(({ className, ...props }, ref) => {
-  const api = useDropdownMenuContext()
-  const separatorProps = api?.getSeparatorProps?.() ?? {}
-  return (
-    <div
-      {...mergeProps(separatorProps, props)}
-      ref={ref}
-      data-slot="dropdown-menu-separator"
-      className={cn(dropdownMenuSeparatorVariants(), className)}
-    />
-  )
-})
-DropdownMenuSeparator.displayName = "DropdownMenuSeparator"
+const DropdownMenuSeparator = React.forwardRef<HTMLDivElement, DropdownMenuSeparatorProps>(
+  ({ className, ...props }, ref) => {
+    const api = useDropdownMenuContext()
+    const separatorProps = api?.getSeparatorProps?.() ?? {}
+    return (
+      <div
+        {...mergeProps(separatorProps, props)}
+        ref={ref}
+        data-slot="dropdown-menu-separator"
+        className={cn(dropdownMenuSeparatorVariants(), className)}
+      />
+    )
+  }
+)
+DropdownMenuSeparator.displayName = 'DropdownMenuSeparator'
 
 type DropdownMenuLabelProps = BaseDivProps & {
   inset?: boolean
 }
 
-const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLabelProps>(({ className, inset, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="dropdown-menu-label"
-      className={cn(dropdownMenuLabelVariants(), inset && "pl-8", className)}
-      {...props}
-    />
-  )
-})
-DropdownMenuLabel.displayName = "DropdownMenuLabel"
+const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLabelProps>(
+  ({ className, inset, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="dropdown-menu-label"
+        className={cn(dropdownMenuLabelVariants(), inset && 'pl-8', className)}
+        {...props}
+      />
+    )
+  }
+)
+DropdownMenuLabel.displayName = 'DropdownMenuLabel'
 
 type DropdownMenuCheckboxItemProps = BaseDivProps & {
   checked?: boolean
@@ -182,50 +169,49 @@ type DropdownMenuCheckboxItemProps = BaseDivProps & {
   onCheckedChange?: (next: boolean) => void
 }
 
-const DropdownMenuCheckboxItem = React.forwardRef<HTMLDivElement, DropdownMenuCheckboxItemProps>(({ className, children, checked, ...props }, ref) => {
-  const api = useDropdownMenuContext()
-  const generatedId = React.useId()
-  const { value: providedValue, disabled, onCheckedChange, ...domProps } = props
-  const value = providedValue ?? generatedId
-  const optionProps = api.getOptionItemProps({
-    type: 'checkbox',
-    checked: !!checked,
-    value,
-    disabled,
-    onCheckedChange: (next: boolean) => onCheckedChange?.(next),
-  })
+const DropdownMenuCheckboxItem = React.forwardRef<HTMLDivElement, DropdownMenuCheckboxItemProps>(
+  ({ className, children, checked, ...props }, ref) => {
+    const api = useDropdownMenuContext()
+    const generatedId = React.useId()
+    const { value: providedValue, disabled, onCheckedChange, ...domProps } = props
+    const value = providedValue ?? generatedId
+    const optionProps = api.getOptionItemProps({
+      type: 'checkbox',
+      checked: !!checked,
+      value,
+      disabled,
+      onCheckedChange: (next: boolean) => onCheckedChange?.(next),
+    })
 
-  return (
-    <div
-      {...mergeProps(optionProps, domProps)}
-      ref={ref}
-      data-slot="dropdown-menu-checkbox-item"
-      className={cn(
-        dropdownMenuCheckboxItemVariants(),
-        className
-      )}
-    >
-      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-        {checked && (
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-4 w-4"
-          >
-            <path d="M3.5 8.5l3 3 6-7" />
-          </svg>
-        )}
-      </span>
-      {children}
-    </div>
-  )
-})
-DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem"
+    return (
+      <div
+        {...mergeProps(optionProps, domProps)}
+        ref={ref}
+        data-slot="dropdown-menu-checkbox-item"
+        className={cn(dropdownMenuCheckboxItemVariants(), className)}
+      >
+        <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+          {checked && (
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+            >
+              <path d="M3.5 8.5l3 3 6-7" />
+            </svg>
+          )}
+        </span>
+        {children}
+      </div>
+    )
+  }
+)
+DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem'
 
 type DropdownMenuGroupProps = BaseDivProps
 type DropdownMenuSubProps = BaseDivProps
@@ -235,9 +221,13 @@ type DropdownMenuPortalProps = {
 type DropdownMenuSubTriggerProps = BaseDivProps
 type DropdownMenuSubContentProps = BaseDivProps
 
-const DropdownMenuGroup = (props: DropdownMenuGroupProps) => <div data-slot="dropdown-menu-group" {...props} />
+const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
+  <div data-slot="dropdown-menu-group" {...props} />
+)
 const DropdownMenuPortal = (props: DropdownMenuPortalProps) => <>{props.children}</>
-const DropdownMenuSub = (props: DropdownMenuSubProps) => <div data-slot="dropdown-menu-sub" {...props} />
+const DropdownMenuSub = (props: DropdownMenuSubProps) => (
+  <div data-slot="dropdown-menu-sub" {...props} />
+)
 const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
   const { className, ...restProps } = props
   return (
@@ -264,11 +254,12 @@ type DropdownMenuRadioGroupProps = BaseDivProps & {
   onValueChange?: (value: string) => void
 }
 
-const DropdownMenuRadioGroup = ({ value, onValueChange, ...props }: DropdownMenuRadioGroupProps) => {
-  const groupContextValue = React.useMemo(
-    () => ({ value, onValueChange }),
-    [onValueChange, value]
-  )
+const DropdownMenuRadioGroup = ({
+  value,
+  onValueChange,
+  ...props
+}: DropdownMenuRadioGroupProps) => {
+  const groupContextValue = React.useMemo(() => ({ value, onValueChange }), [onValueChange, value])
   return (
     <DropdownMenuRadioGroupProvider value={groupContextValue}>
       <div data-slot="dropdown-menu-radio-group" {...props} />
@@ -304,19 +295,11 @@ const DropdownMenuRadioItem = React.forwardRef<HTMLDivElement, DropdownMenuRadio
         {...mergeProps(optionProps, domProps)}
         ref={ref}
         data-slot="dropdown-menu-radio-item"
-        className={cn(
-          dropdownMenuRadioItemVariants(),
-          className
-        )}
+        className={cn(dropdownMenuRadioItemVariants(), className)}
       >
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
           {checked && (
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 8 8"
-              fill="currentColor"
-              className="h-2 w-2"
-            >
+            <svg aria-hidden="true" viewBox="0 0 8 8" fill="currentColor" className="h-2 w-2">
               <circle cx="4" cy="4" r="3" />
             </svg>
           )}
@@ -326,7 +309,7 @@ const DropdownMenuRadioItem = React.forwardRef<HTMLDivElement, DropdownMenuRadio
     )
   }
 )
-DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem"
+DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem'
 
 type DropdownMenuShortcutProps = React.ComponentPropsWithoutRef<'span'>
 

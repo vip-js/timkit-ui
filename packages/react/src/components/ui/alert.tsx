@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import type { AlertProps as CoreAlertProps, AssertNoExtraKeys } from '@timui/core'
-import { cn, alertVariants, alertTitleVariants, alertDescriptionVariants } from '@timui/core'
+import type { AssertNoExtraKeys, AlertProps as CoreAlertProps } from '@timui/core'
+import { alertDescriptionVariants, alertTitleVariants, alertVariants, cn } from '@timui/core'
 
 type AlertProps = CoreAlertProps & React.HTMLAttributes<HTMLDivElement>
 type _AlertPropsGuard = AssertNoExtraKeys<
@@ -12,13 +12,13 @@ type _AlertPropsGuard = AssertNoExtraKeys<
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({ className, variant, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="alert"
-    data-slot="alert"
-    className={cn(alertVariants({ variant }), className)}
-    {...props}
-  />
+    <div
+      ref={ref}
+      role="alert"
+      data-slot="alert"
+      className={cn(alertVariants({ variant }), className)}
+      {...props}
+    />
   )
 )
 Alert.displayName = 'Alert'

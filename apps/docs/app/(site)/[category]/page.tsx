@@ -105,11 +105,7 @@ export default async function Page({ params }: Props) {
       <PageHeader title={category.name}>{getDescriptionText()}</PageHeader>
       <div className="grid grid-cols-1 gap-6">
         {components.map((component) => (
-          <ComponentCard
-            key={component.name}
-            component={component}
-            className="data-[slot=comp-542]:px-0"
-          >
+          <ComponentCard key={component.name} component={component}>
             <ComponentExample variant="registry" component={component} />
           </ComponentCard>
         ))}

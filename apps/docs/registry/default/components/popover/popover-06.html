@@ -1,36 +1,30 @@
-<popover>
-      <popover-trigger asChild>
-        <button variant="outline">Tooltip-like with nav</button>
-      </popover-trigger>
-      <popover-content class="max-w-[280px] py-3 shadow-none" side="top">
-        <div class="space-y-3">
-          <div class="space-y-1">
-            <p class="text-[13px] font-medium"></p>
-            <p class="text-muted-foreground text-xs"></p>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="text-muted-foreground text-xs">
-              /
-            </span>
-            <div class="flex gap-0.5">
-              <button
-                size="icon"
-                variant="ghost"
-                class="size-6"
-                aria-label="Previous tip"
-              >
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button
-                size="icon"
-                variant="ghost"
-                class="size-6"
-                aria-label="Next tip"
-              >
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-            </div>
-          </div>
+<div data-slot="popover" class="relative inline-block">
+  <button
+    data-slot="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
+  >
+    Tooltip-like with nav
+  </button>
+  <div
+    data-slot="popover-content"
+    data-state="closed"
+    hidden
+    class="absolute left-1/2 top-full z-10 mt-2 w-72 -translate-x-1/2 rounded-md border bg-popover p-4 shadow-md"
+  >
+    <div class="space-y-3">
+      <div class="space-y-1">
+        <p class="text-[13px] font-medium">Release checklist</p>
+        <p class="text-xs text-muted-foreground">Review performance budgets before publishing.</p>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-muted-foreground">2 / 3</span>
+        <div class="flex gap-2">
+          <button type="button" class="rounded-md border px-2 py-1 text-xs">Previous</button>
+          <button type="button" class="rounded-md border px-2 py-1 text-xs">Next</button>
         </div>
-      </popover-content>
-    </popover>
+      </div>
+    </div>
+  </div>
+</div>

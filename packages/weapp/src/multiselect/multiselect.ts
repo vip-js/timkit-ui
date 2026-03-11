@@ -1,6 +1,8 @@
-import { setupMultiselectMachine } from './use-multiselect'
 import { selectCollection } from '@timui/core'
+
+import { emitTimEvent } from '../utils'
 import { createCollection, createScopedMachineId } from '../utils/collection'
+import { setupMultiselectMachine } from './use-multiselect'
 
 type SelectItemRecord = Record<string, object>
 type SelectCollection = ReturnType<typeof selectCollection<SelectItemRecord>>
@@ -17,7 +19,9 @@ type WeappService = {
   setContext: (context: Record<string, object>) => void
 }
 
-type WeappMultiselectInternal = WechatMiniprogram.Component.InstanceMethods<Record<string, object>> & {
+type WeappMultiselectInternal = WechatMiniprogram.Component.InstanceMethods<
+  Record<string, object>
+> & {
   _collection?: SelectCollection
   _service?: WeappService
   _cleanup?: () => void
@@ -26,6 +30,7 @@ type WeappMultiselectInternal = WechatMiniprogram.Component.InstanceMethods<Reco
     api: WeappMultiselectApi
   }
   properties: {
+    id: string
     items: SelectItemRecord[]
     itemLabelKey: string
     itemValueKey: string
@@ -43,7 +48,10 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
+    id: { type: String, value: 'multiselect' },
     items: { type: Array, value: [] },
     itemLabelKey: { type: String, value: 'label' },
     itemValueKey: { type: String, value: 'value' },
@@ -73,15 +81,17 @@ Component({
       })
 
       const { service, cleanup, send } = setupMultiselectMachine(this, {
-        id: createScopedMachineId('multiselect'),
+        id: this.properties.id || createScopedMachineId('multiselect'),
         collection: self._collection,
         value: this.properties.value,
         name: this.properties.name,
         disabled: this.properties.disabled,
         multiple: this.properties.multiple,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
-        }
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'multiselect', {
+            value: details.value,
+          })
+        },
       })
 
       self._service = service as WeappService
@@ -95,14 +105,14 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappMultiselectInternal
       if (!state || !self._send) return
       const { connect } = setupMultiselectMachine(this, { collection: self._collection })
       const api = connect(state, self._send) as WeappMultiselectApi
       this.setData({ api })
     },
-    'items': function (items) {
+    items: function (items) {
       const self = this as WeappMultiselectInternal
       if (self._service) {
         self._collection = createCollection({

@@ -1,0 +1,3 @@
+<template>
+  <div class="*:not-first:mt-3"><Label class="tabular-nums">From ${formatPrice(value[0])}to ${formatPrice(value[1])}</Label><div class="flex items-center gap-4"><Slider value="${value}" on-value-change="${setValue}" min="${min_price}" max="${max_price}" aria-label="Price range slider" /><Button variant="outline">Go</Button></div></div>
+</template>

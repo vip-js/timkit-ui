@@ -1,0 +1,29 @@
+<div class="{{dropdownMenuCheckboxItemVariants}}">
+    <!-- Trigger -->
+    <button type="button" data-slot="dropdown-menu-trigger"
+        class="{{tabsContentVariants}}"
+        aria-expanded="false" aria-haspopup="true">
+        Options
+    </button>
+
+    <!-- Content (Open) -->
+    <div data-slot="dropdown-menu-content" data-state="closed" hidden class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+        role="menu" tabindex="-1">
+        <div data-slot="dropdown-menu-item" class="{{dropdownMenuItemVariants}}"
+            role="menuitem">
+            Profile
+        </div>
+        <div data-slot="dropdown-menu-item" class="{{dropdownMenuItemVariants}}"
+            role="menuitem">
+            Billing
+        </div>
+        <div data-slot="dropdown-menu-item" class="{{dropdownMenuItemVariants}}"
+            role="menuitem">
+            Team
+        </div>
+        <div data-slot="dropdown-menu-item" class="{{dropdownMenuItemVariants}}"
+            role="menuitem">
+            Subscription
+        </div>
+    </div>
+</div>

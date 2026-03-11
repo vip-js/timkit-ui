@@ -1,0 +1,5 @@
+export { default } from './accordion/accordion.vue'
+export { default as AccordionContent } from './accordion/accordion-content.vue'
+export { default as AccordionItem } from './accordion/accordion-item.vue'
+export { default as AccordionTrigger } from './accordion/accordion-trigger.vue'
+export { default as Accordion } from './accordion/accordion.vue'

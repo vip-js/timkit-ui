@@ -1,105 +1,110 @@
+import { emitTimEvent } from '../utils'
 import { setupCollapsibleMachine } from './use-collapsible'
 
-type MachineEvent = string | {
-    type: string
-    [key: string]: string | number | boolean | string[] | number[] | null | undefined
-}
+type MachineEvent =
+  | string
+  | {
+      type: string
+      [key: string]: string | number | boolean | string[] | number[] | null | undefined
+    }
 
 type WeappCollapsibleApi = {
-    open?: () => void
-    close?: () => void
-    triggerProps?: {
-        onClick?: () => void
-    }
+  open?: () => void
+  close?: () => void
+  triggerProps?: {
+    onClick?: () => void
+  }
 }
 
 type WeappService = {
-    setContext: (context: {
-        open?: boolean
-        disabled?: boolean
-    }) => void
+  setContext: (context: { open?: boolean; disabled?: boolean }) => void
 }
 
-type WeappCollapsibleInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+type WeappCollapsibleInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
     _service?: WeappService
     _cleanup?: () => void
     _send?: (event: MachineEvent) => void
     data: {
-        api: WeappCollapsibleApi
+      api: WeappCollapsibleApi
     }
     properties: {
-        open: boolean
-        disabled: boolean
-        id: string
-        extClass: string
+      open: boolean
+      disabled: boolean
+      id: string
+      extClass: string
     }
-}
+  }
 
 Component({
-    options: {
-        styleIsolation: 'apply-shared',
-        pureDataPattern: /^_/,
-    },
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
 
-    properties: {
-        open: { type: Boolean, value: false },
-        disabled: { type: Boolean, value: false },
-        id: { type: String, value: 'collapsible' },
-        extClass: { type: String, value: '' },
-    },
+  externalClasses: ['ext-class'],
 
-    data: {
-        api: {} as WeappCollapsibleApi,
-        className: '',
-    },
+  properties: {
+    open: { type: Boolean, value: false },
+    disabled: { type: Boolean, value: false },
+    id: { type: String, value: 'collapsible' },
+    extClass: { type: String, value: '' },
+  },
 
-    lifetimes: {
-        attached() {
-            const self = this as WeappCollapsibleInternal
-            const { service, cleanup, send } = setupCollapsibleMachine(this, {
-                id: this.properties.id,
-                open: this.properties.open,
-                disabled: this.properties.disabled,
-                onOpenChange: (details) => {
-                    this.triggerEvent('change', details)
-                }
-            })
+  data: {
+    api: {} as WeappCollapsibleApi,
+    className: '',
+  },
 
-            self._service = service as WeappService
-            self._cleanup = cleanup
-            self._send = send as (event: MachineEvent) => void
+  lifetimes: {
+    attached() {
+      const self = this as WeappCollapsibleInternal
+      const { service, cleanup, send } = setupCollapsibleMachine(this, {
+        id: this.properties.id,
+        open: this.properties.open,
+        disabled: this.properties.disabled,
+        onOpenChange: (details) => {
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'collapsible', {
+            open: details.open,
+          })
         },
-        detached() {
-            const self = this as WeappCollapsibleInternal
-            self._cleanup?.()
-        },
+      })
+
+      self._service = service as WeappService
+      self._cleanup = cleanup
+      self._send = send as (event: MachineEvent) => void
+    },
+    detached() {
+      const self = this as WeappCollapsibleInternal
+      self._cleanup?.()
+    },
+  },
+
+  observers: {
+    state: function (state) {
+      const self = this as WeappCollapsibleInternal
+      if (!state || !self._send) return
+      const { connect } = setupCollapsibleMachine(this, { id: this.properties.id })
+      const api = connect(state, self._send) as WeappCollapsibleApi
+      this.setData({ api, className: this.properties.extClass })
     },
 
-    observers: {
-        'state': function (state) {
-            const self = this as WeappCollapsibleInternal
-            if (!state || !self._send) return
-            const { connect } = setupCollapsibleMachine(this, { id: this.properties.id })
-            const api = connect(state, self._send) as WeappCollapsibleApi
-            this.setData({ api, className: this.properties.extClass })
-        },
-
-        'open': function (val) {
-            const self = this as WeappCollapsibleInternal
-            if (self._service) {
-                if (val) {
-                    self.data.api.open?.()
-                } else {
-                    self.data.api.close?.()
-                }
-            }
-        },
+    open: function (val) {
+      const self = this as WeappCollapsibleInternal
+      if (self._service) {
+        if (val) {
+          self.data.api.open?.()
+        } else {
+          self.data.api.close?.()
+        }
+      }
     },
+  },
 
-    methods: {
-        onTriggerTap() {
-            const self = this as WeappCollapsibleInternal
-            self.data.api.triggerProps?.onClick?.()
-        },
+  methods: {
+    onTriggerTap() {
+      const self = this as WeappCollapsibleInternal
+      self.data.api.triggerProps?.onClick?.()
     },
+  },
 })

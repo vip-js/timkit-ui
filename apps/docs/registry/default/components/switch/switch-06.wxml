@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" class="[&_span]:border-input h-3 w-9 border-none outline-offset-[6px] [&_span]:border" /><label htmlfor="{{id}}" class="sr-only">M2-style switch
+      </label></view>
+</view>

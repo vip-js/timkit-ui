@@ -1,0 +1,4 @@
+<view>
+  <view class="mx-auto max-w-xl space-y-8 text-center"><stepper default-value="{{2}}"><stepperitem step="{{1}}" class="not-last:flex-1"><steppertrigger><stepperindicator aschild><image class="rounded-full" src="/avatar-40-05.jpg" width="{{32}}" height="{{32}}" alt="Mike Palmer" /></stepperindicator></steppertrigger><stepperseparator /></stepperitem><stepperitem step="{{2}}" class="not-last:flex-1" loading><steppertrigger><stepperindicator /></steppertrigger><stepperseparator /></stepperitem><stepperitem step="{{3}}" class="not-last:flex-1"><steppertrigger><stepperindicator aschild><shuffle size="{{14}}" aria-hidden="true" /><text class="sr-only">Shuffle</text></stepperindicator></steppertrigger></stepperitem></stepper><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with mixed elements
+      </text></view>
+</view>

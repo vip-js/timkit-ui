@@ -1,15 +1,17 @@
 <div class="relative w-full overflow-auto">
-    <table class="w-full caption-bottom text-sm">
-        <thead class="[&_tr]:border-b">
-            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <th
-                    class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
-                    Header</th>
+    <table data-slot="table" class="w-full caption-bottom text-sm">
+        <thead data-slot="table-header" class="[&amp;_tr]:border-b">
+            <tr data-slot="table-row" class="border-b transition-colors hover:bg-muted/50 data-[state&#x3D;selected]:bg-muted">
+                <th data-slot="table-head" class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role&#x3D;checkbox])]:pr-0">
+                    Header
+                </th>
             </tr>
         </thead>
-        <tbody class="[&_tr:last-child]:border-0">
-            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <td class="p-4 align-middle [&:has([role=checkbox])]:pr-0">Cell</td>
+        <tbody data-slot="table-body" class="[&amp;_tr:last-child]:border-0">
+            <tr data-slot="table-row" class="border-b transition-colors hover:bg-muted/50 data-[state&#x3D;selected]:bg-muted">
+                <td data-slot="table-cell" class="p-4 align-middle [&amp;:has([role&#x3D;checkbox])]:pr-0">
+                    Cell
+                </td>
             </tr>
         </tbody>
     </table>

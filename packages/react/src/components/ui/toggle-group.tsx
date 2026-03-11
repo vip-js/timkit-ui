@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { cn, toggleGroupVariants, toggleVariants, type ToggleVariants } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
+
 import { useToggleGroup } from './toggle-group/use-toggle-group'
 import { ToggleGroupProvider, useToggleGroupContext } from './toggle-group/use-toggle-group-context'
 
@@ -11,46 +12,64 @@ import { ToggleGroupProvider, useToggleGroupContext } from './toggle-group/use-t
 const ToggleGroup = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> &
-  ToggleVariants & {
-    type: "single" | "multiple"
-    value?: string | string[]
-    defaultValue?: string | string[]
-    onValueChange?: (value: string | string[]) => void
-    disabled?: boolean
-  }
->(({ className, variant, size, children, type, value, defaultValue, onValueChange, disabled, ...props }, ref) => {
-  const api = useToggleGroup({
-    multiple: type === 'multiple',
-    value,
-    defaultValue,
-    onValueChange,
-    disabled
-  })
-  const rootProps = api.getRootProps()
-  const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
-  const { className: mergedClassName, ...restProps } = mergedProps
-
-  return (
-    <ToggleGroupProvider value={{
-      api,
-      size,
+    ToggleVariants & {
+      type: 'single' | 'multiple'
+      value?: string | string[]
+      defaultValue?: string | string[]
+      onValueChange?: (value: string | string[]) => void
+      disabled?: boolean
+    }
+>(
+  (
+    {
+      className,
       variant,
+      size,
+      children,
       type,
-      disabled
-    }}>
-      <div
-        ref={ref}
-        data-slot="toggle-group"
-        role="group"
-        className={cn(toggleGroupVariants(), className, mergedClassName)}
-        {...restProps}
+      value,
+      defaultValue,
+      onValueChange,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
+    const api = useToggleGroup({
+      multiple: type === 'multiple',
+      value,
+      defaultValue,
+      onValueChange,
+      disabled,
+    })
+    const rootProps = api.getRootProps()
+    const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
+    const { className: mergedClassName, ...restProps } = mergedProps
+
+    return (
+      <ToggleGroupProvider
+        value={{
+          api,
+          size,
+          variant,
+          type,
+          disabled,
+        }}
       >
-        {children}
-      </div>
-    </ToggleGroupProvider>
-  )
-})
-ToggleGroup.displayName = "ToggleGroup"
+        <div
+          ref={ref}
+          data-slot="toggle-group"
+          role="group"
+          className={cn(toggleGroupVariants(), className, mergedClassName)}
+          {...restProps}
+        >
+          {children}
+        </div>
+      </ToggleGroupProvider>
+    )
+  }
+)
+ToggleGroup.displayName = 'ToggleGroup'
 
 const ToggleGroupItem = React.forwardRef<
   HTMLButtonElement,
@@ -83,6 +102,6 @@ const ToggleGroupItem = React.forwardRef<
     </button>
   )
 })
-ToggleGroupItem.displayName = "ToggleGroupItem"
+ToggleGroupItem.displayName = 'ToggleGroupItem'
 
 export { ToggleGroup, ToggleGroupItem }

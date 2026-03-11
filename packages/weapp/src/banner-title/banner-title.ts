@@ -2,7 +2,8 @@ import { bannerTitleVariants } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   externalClasses: ['ext-class'],
   properties: {

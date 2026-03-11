@@ -1,0 +1,29 @@
+<div data-slot="notification" class="{{notificationVariants}}">
+  <div class="flex gap-3">
+    <div data-slot="notification-icon" class="{{notificationIconVariants}}">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="9" />
+      </svg>
+    </div>
+    <div class="{{tagsInputRootVariants}}">
+      <p data-slot="notification-title" class="{{stepperTitleVariants}}">Notification title</p>
+      <p data-slot="notification-description" class="{{notificationDescriptionVariants}}">
+        This is a notification description.
+      </p>
+      <div data-slot="notification-actions" class="{{notificationActionsVariants}}">
+        <button class="{{stepperTitleVariants}}">Action</button>
+        <button class="{{stepperTitleVariants}}">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>

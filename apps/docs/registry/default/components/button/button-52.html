@@ -1,0 +1,36 @@
+<div class="flex flex-col items-center gap-2">
+  <div class="relative inline-flex">
+    <button type="button" data-slot="button"
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground relative size-16 overflow-hidden p-0 shadow-none"
+      aria-label="Upload image" id="upload-button" onclick="document.getElementById('file-upload').click()">
+      <div aria-hidden="true" id="avatar-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-circle-user-round size-4 opacity-60">
+          <path d="M18 20a6 6 0 0 0-12 0" />
+          <circle cx="12" cy="10" r="4" />
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+      </div>
+      <img class="size-full object-cover" alt="Preview of uploaded image" width="64" height="64"
+        style="object-fit: cover; display: none;" id="avatar-image" />
+    </button>
+    <button type="button" data-slot="button"
+      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 border-background focus-visible:border-background absolute -top-2 -right-2 size-6 rounded-full border-2 shadow-none"
+      aria-label="Remove image" id="remove-button" style="display: none;"
+      onclick="document.getElementById('file-upload').value = ''; document.getElementById('avatar-icon').style.display = 'block'; document.getElementById('avatar-image').style.display = 'none'; document.getElementById('avatar-image').src = ''; document.getElementById('upload-button').setAttribute('aria-label', 'Upload image'); document.getElementById('remove-button').style.display = 'none'; document.getElementById('file-name').style.display = 'none'; document.getElementById('file-name').textContent = '';">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-x size-3.5">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    </button>
+    <input type="file" id="file-upload" accept="image/*" class="sr-only" aria-label="Upload image file" tabindex="-1"
+      onchange="const file = this.files[0]; if (file) { const url = URL.createObjectURL(file); document.getElementById('avatar-icon').style.display = 'none'; document.getElementById('avatar-image').style.display = 'block'; document.getElementById('avatar-image').src = url; document.getElementById('upload-button').setAttribute('aria-label', 'Change image'); document.getElementById('remove-button').style.display = 'inline-flex'; document.getElementById('file-name').style.display = 'block'; document.getElementById('file-name').textContent = file.name; }" />
+  </div>
+  <p id="file-name" class="text-muted-foreground text-xs" style="display: none;"></p>
+  <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
+    Avatar upload button
+  </p>
+</div>

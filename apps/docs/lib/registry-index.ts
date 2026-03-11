@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { cache } from 'react'
-import type { RegistryItem } from '@timui/core'
+import type { JsonValue, RegistryItem } from '@timui/core'
 
 import { resolveRegistryAlias } from '@/lib/registry-aliases'
 
@@ -32,11 +32,11 @@ const DATA_ROOT = (() => {
 const REGISTRY_INDEX_PATH = path.join(DATA_ROOT, 'registry-index.json')
 const REGISTRY_ALL_PATH = path.join(DATA_ROOT, 'registry-all.json')
 
-const readJsonFile = cache((filePath: string): any => {
+const readJsonFile = cache((filePath: string): JsonValue | null => {
   if (!fs.existsSync(filePath)) return null
   try {
     const raw = fs.readFileSync(filePath, 'utf-8')
-    return JSON.parse(raw)
+    return JSON.parse(raw) as JsonValue
   } catch {
     return null
   }

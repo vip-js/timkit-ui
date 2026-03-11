@@ -1,13 +1,20 @@
 import type * as numberInput from '@zag-js/number-input'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type StepperOrientation = 'horizontal' | 'vertical'
 
 export type StepperValueChangeEvent = TimEvent<{ value: string; valueAsNumber: number }>
 
 export type StepperProps = Omit<numberInput.Props, 'onValueChange'> & {
-    onValueChange?: (event: StepperValueChangeEvent) => void
-    orientation?: StepperOrientation
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (event: StepperValueChangeEvent) => void
+  /**
+   * The orientation of the component.
+   */
+  orientation?: StepperOrientation
 }
 
 /**

@@ -1,4 +1,7 @@
 export type AlertVariant = 'default' | 'destructive'
 export type AlertProps = {
-    variant?: AlertVariant
+  /**
+   * The visual style variant of the component.
+   */
+  variant?: AlertVariant
 }

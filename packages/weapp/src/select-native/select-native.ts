@@ -1,6 +1,9 @@
+import { emitTimEvent } from '../utils'
+
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   externalClasses: ['ext-class'],
   properties: {
@@ -11,6 +14,10 @@ Component({
     value: {
       type: Number,
       value: 0,
+    },
+    id: {
+      type: String,
+      value: 'select-native',
     },
     extClass: {
       type: String,
@@ -48,7 +55,9 @@ Component({
     },
     handleChange(e: WechatMiniprogram.CustomEvent<{ value: string }>) {
       const value = Number(e.detail.value)
-      this.triggerEvent('change', { value })
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'select-native', {
+        value,
+      })
       this.setData({ displayText: (this.properties.options || [])[value] || '' })
     },
   },

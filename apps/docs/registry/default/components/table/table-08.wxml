@@ -1,0 +1,14 @@
+<view>
+  <view><view class="bg-background overflow-hidden rounded-md border"><table><tableheader><tablerow class="hover:bg-transparent"><tablehead class="h-11"><checkbox checked="{{allSelected || (someSelected && 'indeterminate')}}" oncheckedchange="{{(value) => {
+                    const checked = toChecked(value)
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, checked])))
+                  }}}" bindtap="{
+                    const next = !allSelected
+                    setSelectedRows(Object.fromEntries(items.map((item) => [item.id, next])))
+                  }" aria-label="Select all rows" /></tablehead><tablehead class="h-11">Name</tablehead><tablehead class="h-11">Email</tablehead><tablehead class="h-11">Location</tablehead><tablehead class="h-11">Status</tablehead><tablehead class="h-11 text-right">Balance</tablehead></tablerow></tableheader><tablebody><tablerow wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" data-state="{{selectedRows[item.id] ? 'selected' : undefined}}"><tablecell><checkbox id="{{`table-checkbox-${item.id}`}}" checked="{{!!selectedRows[item.id]}}" oncheckedchange="{{(value) => {
+                      const checked = toChecked(value)
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: checked }))
+                    }}}" bindtap="{
+                      setSelectedRows((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                    }" aria-label="{{`Select ${item.name}`}}" /></tablecell><tablecell class="font-medium">{{ item.name }}</tablecell><tablecell>{{ item.email }}</tablecell><tablecell>{{ item.location }}</tablecell><tablecell>{{ item.status }}</tablecell><tablecell class="text-right">{{ item.balance }}</tablecell></tablerow></tablebody><tablefooter class="bg-transparent"><tablerow class="hover:bg-transparent"><tablecell colspan="{{5}}">Total</tablecell><tablecell class="text-right">$2,500.00</tablecell></tablerow></tablefooter></table></view><text class="text-muted-foreground mt-4 text-center text-sm">Card Table</text></view>
+</view>

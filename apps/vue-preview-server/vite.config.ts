@@ -1,129 +1,156 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 
 const docsDemoRoot = fileURLToPath(new URL('../docs/registry/default/components', import.meta.url))
 const docsVueRoot = fileURLToPath(new URL('../docs/registry/default/vue', import.meta.url))
-const packageVueUiRoot = fileURLToPath(new URL('../../packages/vue/src/components/ui', import.meta.url))
+const packageHtmlRoot = fileURLToPath(new URL('../../packages/html/src', import.meta.url))
+const packageVueUiRoot = fileURLToPath(
+  new URL('../../packages/vue/src/components/ui', import.meta.url)
+)
+const packageVueUiIndex = path.join(packageVueUiRoot, 'index.ts')
+const VIRTUAL_UI_PREFIX = '\0timui-ui:'
 
 function walkVueFiles(rootDir: string): string[] {
-    if (!fs.existsSync(rootDir)) return []
-    const entries = fs.readdirSync(rootDir, { withFileTypes: true })
-    const result: string[] = []
+  if (!fs.existsSync(rootDir)) return []
+  const entries = fs.readdirSync(rootDir, { withFileTypes: true })
+  const result: string[] = []
 
-    for (const entry of entries) {
-        const fullPath = path.join(rootDir, entry.name)
-        if (entry.isDirectory()) {
-            result.push(...walkVueFiles(fullPath))
-            continue
-        }
-        if (entry.isFile() && entry.name.endsWith('.vue')) {
-            result.push(fullPath)
-        }
+  for (const entry of entries) {
+    const fullPath = path.join(rootDir, entry.name)
+    if (entry.isDirectory()) {
+      result.push(...walkVueFiles(fullPath))
+      continue
     }
-    return result
+    if (entry.isFile() && entry.name.endsWith('.vue')) {
+      result.push(fullPath)
+    }
+  }
+  return result
 }
+
+const toPascalCase = (value: string) =>
+  value
+    .split('-')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('')
 
 const packageUiByFileName = new Map<string, string>()
 for (const filePath of walkVueFiles(packageVueUiRoot)) {
-    const baseName = path.basename(filePath, '.vue')
-    if (!packageUiByFileName.has(baseName)) {
-        packageUiByFileName.set(baseName, filePath)
-    }
+  const baseName = path.basename(filePath, '.vue')
+  if (!packageUiByFileName.has(baseName)) {
+    packageUiByFileName.set(baseName, filePath)
+  }
+}
+
+const virtualUiModules = new Map<string, string>()
+
+function resolveExactUiModule(token: string): string | null {
+  if (!token) return null
+
+  const roots = [docsVueRoot, packageVueUiRoot]
+  for (const root of roots) {
+    const direct = path.join(root, token)
+    const directTs = `${direct}.ts`
+    const directVue = `${direct}.vue`
+    const indexTs = path.join(direct, 'index.ts')
+    const indexVue = path.join(direct, 'index.vue')
+    const nestedVue = path.join(direct, `${path.basename(token)}.vue`)
+
+    if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return direct
+    if (fs.existsSync(directTs)) return directTs
+    if (fs.existsSync(directVue)) return directVue
+    if (fs.existsSync(indexTs)) return indexTs
+    if (fs.existsSync(indexVue)) return indexVue
+    if (fs.existsSync(nestedVue)) return nestedVue
+  }
+
+  const byFileName = packageUiByFileName.get(token)
+  if (byFileName && fs.existsSync(byFileName)) return byFileName
+  return null
+}
+
+function resolveVirtualUiModule(token: string): string | null {
+  if (!token || token.includes('/')) return null
+
+  const folder = path.join(packageVueUiRoot, token)
+  if (!fs.existsSync(folder) || !fs.statSync(folder).isDirectory()) return null
+
+  const vueFiles = fs
+    .readdirSync(folder)
+    .filter((file) => file.endsWith('.vue'))
+    .sort()
+  if (vueFiles.length === 0) return null
+
+  const lines = vueFiles.map((file) => {
+    const base = path.basename(file, '.vue')
+    const exportName = toPascalCase(base)
+    const absPath = path.join(folder, file)
+    return `export { default as ${exportName} } from ${JSON.stringify(absPath)}`
+  })
+
+  if (fs.existsSync(packageVueUiIndex)) {
+    lines.push(`export * from ${JSON.stringify(packageVueUiIndex)}`)
+  }
+
+  const virtualId = `${VIRTUAL_UI_PREFIX}${token}`
+  virtualUiModules.set(virtualId, `${lines.join('\n')}\n`)
+  return virtualId
 }
 
 function resolveUiToken(token: string): string | null {
-    if (!token) return null
-
-    const docsEntryVue = path.join(docsVueRoot, `${token}.vue`)
-    if (fs.existsSync(docsEntryVue)) return docsEntryVue
-
-    const docsEntryDir = path.join(docsVueRoot, token)
-    if (fs.existsSync(docsEntryDir) && fs.statSync(docsEntryDir).isDirectory()) {
-        return docsEntryDir
-    }
-
-    const packageEntryVue = path.join(packageVueUiRoot, token, `${token}.vue`)
-    if (fs.existsSync(packageEntryVue)) return packageEntryVue
-
-    const packageEntryDir = path.join(packageVueUiRoot, token)
-    if (fs.existsSync(packageEntryDir) && fs.statSync(packageEntryDir).isDirectory()) {
-        return packageEntryDir
-    }
-
-    const byFileName = packageUiByFileName.get(token)
-    if (byFileName && fs.existsSync(byFileName)) return byFileName
-
-    return null
+  const exact = resolveExactUiModule(token)
+  if (exact) return exact
+  const virtual = resolveVirtualUiModule(token)
+  if (virtual) return virtual
+  return null
 }
 
 function resolveUiImport(source: string): string | null {
-    if (!source.startsWith('@/components/ui/')) return null
-    const token = source.slice('@/components/ui/'.length)
-    return resolveUiToken(token)
-}
-
-const BROKEN_DEMOS = (() => {
-    const broken = new Set<string>()
-    if (!fs.existsSync(docsDemoRoot)) return []
-
-    const importPattern = /from\s+['"]@\/components\/ui\/([^'"]+)['"]/g
-    for (const groupEntry of fs.readdirSync(docsDemoRoot, { withFileTypes: true })) {
-        if (!groupEntry.isDirectory()) continue
-        const groupDir = path.join(docsDemoRoot, groupEntry.name)
-        for (const fileEntry of fs.readdirSync(groupDir, { withFileTypes: true })) {
-            if (!fileEntry.isFile() || !fileEntry.name.endsWith('.vue')) continue
-            const fullPath = path.join(groupDir, fileEntry.name)
-            const source = fs.readFileSync(fullPath, 'utf-8')
-            let missingToken = false
-            let match: RegExpExecArray | null
-            while ((match = importPattern.exec(source))) {
-                if (!resolveUiToken(match[1])) {
-                    missingToken = true
-                    break
-                }
-            }
-            importPattern.lastIndex = 0
-            if (missingToken) {
-                broken.add(fileEntry.name.replace(/\.vue$/, '').toLowerCase())
-            }
-        }
-    }
-    return Array.from(broken)
-})()
-
-if (BROKEN_DEMOS.length > 0) {
-    // eslint-disable-next-line no-console
-    console.warn(`[timui][vue-preview] skipped demos with unresolved ui imports: ${BROKEN_DEMOS.length}`)
+  if (!source.startsWith('@/components/ui/')) return null
+  const token = source.slice('@/components/ui/'.length)
+  return resolveUiToken(token)
 }
 
 export default defineConfig({
-    define: {
-        __TIMUI_DOCS_DEMO_ROOT__: JSON.stringify(
-            docsDemoRoot
-        ),
-        __TIMUI_BROKEN_DEMOS__: JSON.stringify(BROKEN_DEMOS),
+  define: {
+    __TIMUI_DOCS_DEMO_ROOT__: JSON.stringify(docsDemoRoot),
+  },
+  plugins: [
+    {
+      name: 'timui-vue-preview-ui-resolver',
+      enforce: 'pre',
+      resolveId(source) {
+        if (!source.startsWith('@/components/ui/')) return null
+        return resolveUiImport(source)
+      },
+      load(id) {
+        return virtualUiModules.get(id) ?? null
+      },
     },
-    plugins: [vue()],
-    server: {
-        port: 3002,
-        cors: true
-    },
-    resolve: {
-        alias: [
-            {
-                find: /^@\/components\/ui\/.+$/,
-                replacement: '',
-                customResolver(source) {
-                    return resolveUiImport(source) ?? source
-                },
-            },
-            {
-                find: '@',
-                replacement: fileURLToPath(new URL('./src', import.meta.url)),
-            },
-        ],
-    }
+    vue(),
+  ],
+  server: {
+    port: 3002,
+    cors: true,
+  },
+  resolve: {
+    alias: [
+      {
+        find: '@/components/ui',
+        replacement: packageVueUiRoot,
+      },
+      {
+        find: '@timui/html',
+        replacement: path.join(packageHtmlRoot, 'index.ts'),
+      },
+      {
+        find: '@',
+        replacement: fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    ],
+  },
 })

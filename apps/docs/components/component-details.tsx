@@ -26,8 +26,8 @@ export default function ComponentDetails({ component }: { component: RegistryIte
   // Remove local frameworkTabs definition
   // Use shared framework tabs definition
   const frameworkTabs = useMemo<FrameworkTab[]>(
-    () => getAvailableFrameworkTabs(component?.files || []),
-    [component?.files]
+    () => getAvailableFrameworkTabs(component),
+    [component]
   )
 
   // ...
@@ -35,7 +35,7 @@ export default function ComponentDetails({ component }: { component: RegistryIte
   const frameworkPanes = useMemo<FrameworkPane[]>(() => {
     if (!component?.files) return []
 
-    const paneMap = getFrameworkCodePanes(component.files)
+    const paneMap = getFrameworkCodePanes(component)
 
     return frameworkTabs.map((tab) => ({
       value: tab.value,

@@ -1,3 +1,5 @@
+import { emitTimEvent } from '../utils'
+
 type CommandItem = {
   label: string
   value: string
@@ -10,7 +12,10 @@ const normalize = (value: object) => String(value ?? '').toLowerCase()
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     items: {
@@ -20,6 +25,10 @@ Component({
     placeholder: {
       type: String,
       value: 'Type a command...',
+    },
+    id: {
+      type: String,
+      value: 'command',
     },
     extClass: {
       type: String,
@@ -70,7 +79,7 @@ Component({
       const item = (this.data.filteredItems || []).find((entry) => entry.value === value)
       if (!item || item.disabled) return
       this.triggerEvent('select', item)
-      this.triggerEvent('change', item)
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'command', item)
     },
   },
 })

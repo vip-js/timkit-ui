@@ -1,4 +1,5 @@
 import { setupStepperMachine } from '../stepper/use-stepper'
+import { emitTimEvent } from '../utils'
 
 type WeappNumberInputApi = {
   decrement?: () => void
@@ -17,32 +18,35 @@ type NumberInputEvent = WechatMiniprogram.CustomEvent<{
   value: string
 }>
 
-type WeappNumberInputInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
-  _service?: WeappService
-  _cleanup?: () => void
-  _send?: (event: object) => void
-  data: {
-    api: WeappNumberInputApi
+type WeappNumberInputInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+    _service?: WeappService
+    _cleanup?: () => void
+    _send?: (event: object) => void
+    data: {
+      api: WeappNumberInputApi
+    }
+    properties: {
+      value: string
+      min: number
+      max: number
+      step: number
+      disabled: boolean
+      readOnly: boolean
+      allowMouseWheel: boolean
+      clampValueOnBlur: boolean
+      id: string
+      extClass: string
+    }
   }
-  properties: {
-    value: string
-    min: number
-    max: number
-    step: number
-    disabled: boolean
-    readOnly: boolean
-    allowMouseWheel: boolean
-    clampValueOnBlur: boolean
-    id: string
-    extClass: string
-  }
-}
 
 Component({
   options: {
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: { type: String, value: '0' },
@@ -76,8 +80,10 @@ Component({
         allowMouseWheel: this.properties.allowMouseWheel,
         clampValueOnBlur: this.properties.clampValueOnBlur,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
-        }
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'number-input', {
+            value: details.value,
+          })
+        },
       })
 
       self._service = service as WeappService

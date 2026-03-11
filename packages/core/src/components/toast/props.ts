@@ -1,15 +1,28 @@
 import type * as toast from '@zag-js/toast'
+
 import type { LogicDefinition } from '../../shared'
 
 export interface ToastAction {
-    label: string
-    onClick: () => void
+  /**
+   * The text label displayed alongside or within the component.
+   */
+  label: string
+  onClick: () => void
 }
 
 export type ToastProps = toast.Options & {
-    title?: string
-    description?: string
-    action?: ToastAction
+  /**
+   * The primary title string or content.
+   */
+  title?: string
+  /**
+   * The supportive description string or content.
+   */
+  description?: string
+  /**
+   * The primary action configuration or component.
+   */
+  action?: ToastAction
 }
 
 /**

@@ -2,9 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": [
     "vue-shims.d.ts",
@@ -13,8 +11,5 @@
     "registry/default/components/**/*.vue",
     "registry/default/components/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next"
-  ]
+  "exclude": ["node_modules", ".next"]
 }

@@ -2,10 +2,9 @@
 
 import * as React from 'react'
 import type { AssertNoExtraKeys, InputProps as CoreInputProps } from '@timui/core'
-import { cn, inputVariants, createTimEvent } from '@timui/core'
+import { cn, createTimEvent, inputVariants } from '@timui/core'
 
-type InputProps = CoreInputProps &
-  Omit<React.ComponentProps<'input'>, keyof CoreInputProps>
+type InputProps = CoreInputProps & Omit<React.ComponentProps<'input'>, keyof CoreInputProps>
 
 function Input({ className, type, id, onValueChange, onChange, ...props }: InputProps) {
   const generatedId = React.useId()
@@ -15,8 +14,7 @@ function Input({ className, type, id, onValueChange, onChange, ...props }: Input
     onValueChange?.(createTimEvent('change', inputId, { value: event.target.value }))
   }
 
-  const inputType =
-    type === 'search' ? 'search' : type === 'file' ? 'file' : 'default'
+  const inputType = type === 'search' ? 'search' : type === 'file' ? 'file' : 'default'
 
   return (
     <input

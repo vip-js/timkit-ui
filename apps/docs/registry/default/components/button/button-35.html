@@ -1,0 +1,20 @@
+<div dir="ltr" class="inline-flex items-center justify-center gap-1 rounded-md" data-orientation="horizontal">
+  <button type="button"
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3 flex-1 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+    value="left" data-state="on"
+    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
+    Left
+  </button>
+  <button type="button"
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3 flex-1 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+    value="center" data-state="off"
+    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
+    Center
+  </button>
+  <button type="button"
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3 flex-1 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+    value="right" data-state="off"
+    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
+    Right
+  </button>
+</div>

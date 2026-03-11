@@ -1,0 +1,4 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with helper text</label><textarea id="{{id}}" placeholder="Leave a comment" /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Please add as many details as you can
+      </text></view>
+</view>

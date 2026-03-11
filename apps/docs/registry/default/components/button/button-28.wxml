@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex -space-x-px rounded-full shadow-xs rtl:space-x-reverse"><button class="rounded-none shadow-none first:rounded-s-full last:rounded-e-full focus-visible:z-10" size="icon" aria-label="Upvote"><chevronupicon size="{{16}}" aria-hidden="true" /></button><text class="bg-primary text-primary-foreground flex items-center px-1 text-sm font-medium">235
+      </text><button class="rounded-none shadow-none first:rounded-s-full last:rounded-e-full focus-visible:z-10" size="icon" aria-label="Downvote"><chevrondownicon size="{{16}}" aria-hidden="true" /></button></view>
+</view>

@@ -1,28 +1,13 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { CreditCardIcon } from 'lucide-vue-next';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-48-id">Card Number</Label>
-      <div class="relative">
-        <Input id="input-48-id"
-          class="peer ps-9 [direction:inherit]"
-        />
-        <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </div>
-      </div>
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Built with 
-        <a
-          class="hover:text-foreground underline"
-          href="https://github.com/medipass/react-payment-inputs"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          React Payment Inputs
-        </a>
-      </p>
-    </div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="`number-${id}`">Card Number</Label><div class="relative"><Input :id="`number-${id}`" class="peer ps-9 [direction:inherit]" /><div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50"><CreditCardIcon :size="16" aria-hidden="true" /></div></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://github.com/medipass/react-payment-inputs" target="_blank" rel="noopener nofollow">React Payment Inputs
+        </a></p></div>
 </template>

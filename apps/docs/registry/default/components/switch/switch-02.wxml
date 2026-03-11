@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" class="h-5 w-8 [&_span]:size-4 data-[state=checked]:[&_span]:translate-x-3 data-[state=checked]:[&_span]:rtl:-translate-x-3" /><label htmlfor="{{id}}" class="sr-only">Small switch
+      </label></view>
+</view>

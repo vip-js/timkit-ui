@@ -25,10 +25,7 @@ const readRegistryItem = (name: string): RegistryItem => {
   return JSON.parse(raw) as RegistryItem
 }
 
-const findFrameworkFile = (
-  item: RegistryItem,
-  framework: keyof typeof FRAMEWORK_EXTENSIONS
-) => {
+const findFrameworkFile = (item: RegistryItem, framework: keyof typeof FRAMEWORK_EXTENSIONS) => {
   const exts = FRAMEWORK_EXTENSIONS[framework]
   return item.files?.find((file) => {
     if (!file.path) return false

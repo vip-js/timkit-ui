@@ -1,8 +1,11 @@
 import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
 
-const ROOT_DIR = process.cwd()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const ROOT_DIR = path.resolve(__dirname, '..')
 const TOKENS_CSS = path.join(ROOT_DIR, 'packages/tokens/dist/tailwind.css')
 const SHARED_STYLES = path.join(ROOT_DIR, 'packages/core/src/styles')
 const OUTPUT_FILE = path.join(ROOT_DIR, 'packages/weapp/src/utilities.wxss')
@@ -22,6 +25,7 @@ const inputContent = `
 @plugin "tailwindcss-animate";
 @import "${TOKENS_CSS}";
 @source "${SHARED_STYLES}/**/*.ts";
+@source "${path.join(ROOT_DIR, 'packages/weapp/src')}/**/*.{ts,wxml,json}";
 
 /* Disable preflight for Weapp as it targets HTML tags */
 @layer base {

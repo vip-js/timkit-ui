@@ -1,8 +1,9 @@
-import { resolveClasses } from '../utils'
+import { emitTimEvent, resolveClasses } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   relations: {
     '../dropdown-menu/dropdown-menu': {
@@ -15,6 +16,7 @@ Component({
     checked: { type: Boolean, value: false },
     disabled: { type: Boolean, value: false },
     closeOnSelect: { type: Boolean, value: true },
+    id: { type: String, value: 'dropdown-menu-radio-item' },
     extClass: { type: String, value: '' },
   },
   data: {
@@ -22,7 +24,8 @@ Component({
   },
   observers: {
     extClass: function (extClass: string) {
-      const base = 'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm'
+      const base =
+        'relative flex cursor-default select-none items-center rounded-sm py-3 pl-8 pr-2 text-sm'
       this.setData({
         className: resolveClasses(base, extClass),
       })
@@ -31,7 +34,9 @@ Component({
   methods: {
     onSelect() {
       if (this.properties.disabled) return
-      this.triggerEvent('change', { value: this.properties.value })
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'dropdown-menu-radio-item', {
+        value: this.properties.value,
+      })
       if (this.properties.closeOnSelect) {
         const parents = this.getRelationNodes('../dropdown-menu/dropdown-menu')
         if (parents.length) {

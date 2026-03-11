@@ -1,28 +1,17 @@
 <script setup lang="ts">
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+import { ChevronDownIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+
+
 </script>
+
 <template>
-<DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          Checkbox items
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuCheckboxItem >
-          Next.js
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem >
-          SvelteKit
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem disabled>
-          Remix
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem >
-          Astro
-        </DropdownMenuCheckboxItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+  <DropdownMenu><DropdownMenuTrigger as-child><Button variant="outline">Checkbox items
+          <ChevronDownIcon class="-me-1 opacity-60" :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuCheckboxItem :checked="nextjs" :onCheckedChange="setNextjs">Next.js
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem :checked="sveltekit" :onCheckedChange="setSveltekit">SvelteKit
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem :checked="remix" :onCheckedChange="setRemix" disabled>Remix
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem :checked="astro" :onCheckedChange="setAstro">Astro
+        </DropdownMenuCheckboxItem></DropdownMenuContent></DropdownMenu>
 </template>

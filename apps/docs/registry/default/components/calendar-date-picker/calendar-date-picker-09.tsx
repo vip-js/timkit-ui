@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import { Calendar } from '@timui/react'
 import { addDays } from 'date-fns'
-import { DateRange } from 'react-day-picker'
+
+type CalendarRangeValue = { from: Date | undefined; to?: Date }
+type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
 
 export default function Component() {
   const today = new Date()
-  const [date, setDate] = useState<DateRange | undefined>({
+  const [date, setDate] = useState<CalendarRangeValue | undefined>({
     from: today,
     to: addDays(today, 3),
   })
@@ -17,7 +19,7 @@ export default function Component() {
       <Calendar
         mode="range"
         selected={date}
-        onSelect={setDate}
+        onSelect={(next: CalendarSelectedValue) => setDate(next as CalendarRangeValue | undefined)}
         className="rounded-md border p-2"
         classNames={{
           day: 'relative before:absolute before:inset-y-px before:inset-x-0 [&.range-start:not(.range-end):before]:bg-linear-to-r before:from-transparent before:from-50% before:to-accent before:to-50% [&.range-end:not(.range-start):before]:bg-linear-to-l',

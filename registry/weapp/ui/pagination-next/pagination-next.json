@@ -1,6 +1,6 @@
 {
-    "component": true,
-    "usingComponents": {
-        "pagination-link": "../pagination-link/pagination-link"
-    }
+  "component": true,
+  "usingComponents": {
+    "pagination-link": "../pagination-link/pagination-link"
+  }
 }

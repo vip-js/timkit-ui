@@ -1,0 +1,24 @@
+<div data-slot="accordion" data-type="single" data-collapsible="true" class="{{accordionVariants}}">
+    {{#if children}}
+    {{{children}}}
+    {{else}}
+    <div data-slot="accordion-item" data-value="item-1" data-state="closed" class="{{accordionItemVariants}} border-b">
+        <div class="flex">
+            <button type="button" data-slot="accordion-trigger" data-value="item-1" data-state="closed"
+                aria-expanded="false" aria-controls="accordion-content-1" id="accordion-trigger-1"
+                class="{{accordionTriggerVariants}}">
+                Accordion Item 1
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="{{accordionTriggerIconVariants}}">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+        </div>
+        <div id="accordion-content-1" role="region" aria-labelledby="accordion-trigger-1" data-slot="accordion-content"
+            data-value="item-1" data-state="closed" hidden class="{{accordionContentVariants}}">
+            <div class="{{accordionContentInnerVariants}}">Accordion Content 1</div>
+        </div>
+    </div>
+    {{/if}}
+</div>

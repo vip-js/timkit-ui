@@ -1,15 +1,10 @@
-<label 
-    id="{{api.rootProps.id}}"
-    class="{{className}}"
-    data-state="{{api.checked ? 'checked' : 'unchecked'}}"
-    data-disabled="{{disabled}}"
-    bindtap="onTap"
->
-  <view 
-    class="pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0 {{thumbClassName}}"
-    data-state="{{api.checked ? 'checked' : 'unchecked'}}"
-  ></view>
-  
-  <!-- Hidden Input -->
-  <input type="text" class="hidden" name="{{name}}" value="{{api.checked}}" style="display: none;" />
-</label>
+<view class="{{className}}">
+  <switch
+    checked="{{checked}}"
+    disabled="{{disabled}}"
+    color="{{color}}"
+    name="{{name}}"
+    type="switch"
+    bindchange="onSwitchChange"
+  />
+</view>

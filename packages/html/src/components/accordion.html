@@ -1,54 +1,20 @@
-<!-- Static Accordion Markup (no JS required) -->
-<div class="space-y-1" data-slot="accordion" data-type="single" data-collapsible="true">
-    <!-- Accordion Item 1 (Open) -->
-    <div class="border-b" data-slot="accordion-item" data-value="item-1" data-state="open">
-        <button type="button"
-            class="flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180"
-            data-slot="accordion-trigger" data-value="item-1" data-state="open" aria-expanded="true"
-            aria-controls="accordion-content-1" id="accordion-trigger-1">
-            Is it accessible?
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="h-4 w-4 shrink-0 transition-transform duration-200">
-                <path d="m6 9 6 6 6-6" />
-            </svg>
-        </button>
-        <div id="accordion-content-1" role="region" aria-labelledby="accordion-trigger-1"
-            class="overflow-hidden text-sm transition-all" data-slot="accordion-content" data-value="item-1"
-            data-state="open">
-            <div class="pb-4 pt-0">
-                Yes. It adheres to the WAI-ARIA design pattern.
-            </div>
+<div data-slot="accordion" data-type="single" data-collapsible="true" class="">
+    <div data-slot="accordion-item" data-value="item-1" data-state="closed" class="w-full border-b last:border-b-0 border-b">
+        <div class="flex">
+            <button type="button" data-slot="accordion-trigger" data-value="item-1" data-state="closed"
+                aria-expanded="false" aria-controls="accordion-content-1" id="accordion-trigger-1"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 flex w-full flex-1 items-center justify-between gap-4 rounded-md py-4 text-left text-sm font-semibold transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&amp;[data-state&#x3D;open]&gt;svg]:rotate-180">
+                Accordion Item 1
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="pointer-events-none shrink-0 opacity-60 transition-transform duration-200">
+                    <path d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
         </div>
-    </div>
-
-    <!-- Accordion Item 2 (Closed) -->
-    <div class="border-b" data-slot="accordion-item" data-value="item-2" data-state="closed">
-        <button type="button"
-            class="flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180"
-            data-slot="accordion-trigger" data-value="item-2" data-state="closed" aria-expanded="false"
-            aria-controls="accordion-content-2" id="accordion-trigger-2">
-            Is it styled?
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="h-4 w-4 shrink-0 transition-transform duration-200">
-                <path d="m6 9 6 6 6-6" />
-            </svg>
-        </button>
-        <div id="accordion-content-2" role="region" aria-labelledby="accordion-trigger-2"
-            class="hidden text-sm transition-all" data-slot="accordion-content" data-value="item-2" data-state="closed"
-            hidden>
-            <div class="pb-4 pt-0">
-                Yes. It comes with default styles that matches the other components' aesthetic.
-            </div>
+        <div id="accordion-content-1" role="region" aria-labelledby="accordion-trigger-1" data-slot="accordion-content"
+            data-value="item-1" data-state="closed" hidden class="overflow-hidden text-sm transition-all data-[state&#x3D;open]:animate-accordion-down data-[state&#x3D;closed]:animate-accordion-up">
+            <div class="pt-0 pb-4">Accordion Content 1</div>
         </div>
     </div>
 </div>
-
-<!-- Optional: Zag adapter (uncomment to enable JS behavior) -->
-<!--
-<script type="module">
-  import { initAccordion } from './accordion.adapter.js'
-  initAccordion()
-</script>
--->

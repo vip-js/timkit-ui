@@ -5,6 +5,7 @@ import { add } from './commands/add'
 import { doctor } from './commands/doctor'
 import { init } from './commands/init'
 import { list } from './commands/list'
+import { generatePlatforms } from './commands/generate'
 
 const program = new Command()
 
@@ -14,5 +15,6 @@ program.addCommand(init)
 program.addCommand(add)
 program.addCommand(list)
 program.addCommand(doctor)
+program.addCommand(generatePlatforms)
 
 program.parse()

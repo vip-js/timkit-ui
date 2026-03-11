@@ -11,8 +11,12 @@ function toCssVarName(path: string[]): string {
   return `--${path.join('-')}`
 }
 
+type TokenTree = {
+  [key: string]: string | TokenTree
+}
+
 function processTokens(
-  obj: any,
+  obj: TokenTree,
   prefix: string[] = [],
   callback: (path: string[], value: string) => void
 ) {

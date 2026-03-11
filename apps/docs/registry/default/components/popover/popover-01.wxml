@@ -1,55 +1,9 @@
-<view class="flex flex-col gap-4">
-      <popover>
-        <popover-trigger asChild>
-          <button variant="outline" size="icon" aria-label="Filters">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </button>
-        </popover-trigger>
-        <popover-content class="w-36 p-3">
-          <view class="space-y-3">
-            <view class="text-muted-foreground text-xs font-medium">Filters</view>
-            <form>
-              <view class="space-y-3">
-                <view class="flex items-center gap-2">
-                  <checkbox id="popover-01-id" />
-                  <label for="popover-01-id" class="font-normal">
-                    Real Time
-                  </label>
-                </view>
-                <view class="flex items-center gap-2">
-                  <checkbox id="popover-01-id" />
-                  <label for="popover-01-id" class="font-normal">
-                    Top Channels
-                  </label>
-                </view>
-                <view class="flex items-center gap-2">
-                  <checkbox id="popover-01-id" />
-                  <label for="popover-01-id" class="font-normal">
-                    Last Orders
-                  </label>
-                </view>
-                <view class="flex items-center gap-2">
-                  <checkbox id="popover-01-id" />
-                  <label for="popover-01-id" class="font-normal">
-                    Total Spent
-                  </label>
-                </view>
-              </view>
-              <view
-                role="separator"
-                aria-orientation="horizontal"
-                class="bg-border -mx-3 my-3 h-px"
-              ></view>
-              <view class="flex justify-between gap-2">
-                <button size="sm" variant="outline" class="h-7 px-2">
-                  Clear
-                </button>
-                <button size="sm" class="h-7 px-2">
-                  Apply
-                </button>
-              </view>
-            </form>
-          </view>
-        </popover-content>
-      </popover>
-    </view>
+<view>
+  <view class="flex flex-col gap-4"><popover><popovertrigger aschild><button variant="outline" size="icon" aria-label="Filters"><listfiltericon size="{{16}}" aria-hidden="true" /></button></popovertrigger><popovercontent class="w-36 p-3"><view class="space-y-3"><view class="text-muted-foreground text-xs font-medium">Filters</view><form><view class="space-y-3"><view class="flex items-center gap-2"><checkbox id="{{`${id}-1`}}" /><label htmlfor="{{`${id}-1`}}" class="font-normal">Real Time
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-2`}}" /><label htmlfor="{{`${id}-2`}}" class="font-normal">Top Channels
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-3`}}" /><label htmlfor="{{`${id}-3`}}" class="font-normal">Last Orders
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-4`}}" /><label htmlfor="{{`${id}-4`}}" class="font-normal">Total Spent
+                  </label></view></view><view role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></view><view class="flex justify-between gap-2"><button size="sm" variant="outline" class="h-7 px-2">Clear
+                </button><button size="sm" class="h-7 px-2">Apply
+                </button></view></form></view></popovercontent></popover></view>
+</view>

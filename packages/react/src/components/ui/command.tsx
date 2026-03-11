@@ -23,14 +23,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
-    <CommandPrimitive
-      data-slot="command"
-      className={cn(
-        commandVariants(),
-        className
-      )}
-      {...props}
-    />
+    <CommandPrimitive data-slot="command" className={cn(commandVariants(), className)} {...props} />
   )
 }
 
@@ -50,9 +43,7 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent className={commandDialogContentVariants()}>
-        <Command className={commandDialogVariants()}>
-          {children}
-        </Command>
+        <Command className={commandDialogVariants()}>{children}</Command>
       </DialogContent>
     </Dialog>
   )
@@ -67,10 +58,7 @@ function CommandInput({
       <SearchIcon size={20} className="text-muted-foreground/80 me-3" />
       <CommandPrimitive.Input
         data-slot="command-input-wrapper"
-        className={cn(
-          commandInputVariants(),
-          className
-        )}
+        className={cn(commandInputVariants(), className)}
         {...props}
       />
     </div>
@@ -104,10 +92,7 @@ function CommandGroup({
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
-      className={cn(
-        commandGroupVariants(),
-        className
-      )}
+      className={cn(commandGroupVariants(), className)}
       {...props}
     />
   )
@@ -130,10 +115,7 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
-      className={cn(
-        commandItemVariants(),
-        className
-      )}
+      className={cn(commandItemVariants(), className)}
       {...props}
     />
   )
@@ -143,10 +125,7 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<'span'>) 
   return (
     <kbd
       data-slot="command-shortcut"
-      className={cn(
-        commandShortcutVariants(),
-        className
-      )}
+      className={cn(commandShortcutVariants(), className)}
       {...props}
     />
   )

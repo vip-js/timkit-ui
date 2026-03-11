@@ -2,7 +2,8 @@ import { resolveClasses } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   relations: {
     '../dropdown-menu/dropdown-menu': {
@@ -21,7 +22,8 @@ Component({
   },
   observers: {
     'extClass, inset': function (extClass: string, inset: boolean) {
-      const base = 'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm'
+      const base =
+        'relative flex cursor-default select-none items-center rounded-sm px-2 py-3 text-sm'
       const insetClass = inset ? 'pl-8' : ''
       this.setData({
         className: resolveClasses(base, insetClass, extClass),

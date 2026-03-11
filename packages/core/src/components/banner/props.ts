@@ -1,3 +1,6 @@
 export type BannerProps = {
-    onClose?: () => void
+  /**
+   * Callback fired when the component is closed or dismissed.
+   */
+  onClose?: () => void
 }

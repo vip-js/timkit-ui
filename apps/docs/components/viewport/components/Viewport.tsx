@@ -1,11 +1,12 @@
 import React, {
-  MouseEvent,
   MouseEventHandler,
   TouchEventHandler,
   useCallback,
   useEffect,
   useRef,
   useState,
+  type MouseEvent as ReactMouseEvent,
+  type ReactPortal,
 } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -19,34 +20,35 @@ interface Props {
 
 const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false)
-  const [compContent, setCompContent] = useState<any>(null)
+  const [compContent, setCompContent] = useState<ReactPortal | null>(null)
   const [pressure, setPressure] = useState<boolean>(false)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const iframe = useRef<HTMLIFrameElement>(null)
   const iframeContainerRef = useRef<HTMLDivElement>(null)
 
-  const handleEvent: MouseEventHandler = (e) => {
+  const handleEvent: MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault()
     e.stopPropagation()
   }
 
-  const mouseUp = useCallback(
-    (e: any) => {
-      handleEvent(e)
-      setPressure(false)
-      const iframeContainerRefEl = iframeContainerRef.current as HTMLIFrameElement
-      if (iframeContainerRefEl) {
-        iframeContainerRefEl.classList.remove('pointer-events-none')
-        const containerRefEl = containerRef.current as HTMLDivElement
-        containerRefEl.style.cursor = ''
-      }
-    },
-    [setPressure]
-  )
+  const releaseDrag = useCallback(() => {
+    setPressure(false)
+    if (iframeContainerRef.current) {
+      iframeContainerRef.current.classList.remove('pointer-events-none')
+    }
+    if (containerRef.current) {
+      containerRef.current.style.cursor = ''
+    }
+  }, [])
+
+  const mouseUp: MouseEventHandler<HTMLDivElement> = (e) => {
+    handleEvent(e)
+    releaseDrag()
+  }
 
   useEffect(() => {
-    document.addEventListener('mouseup', mouseUp)
+    document.addEventListener('mouseup', releaseDrag)
     const timer = setTimeout(() => {
       const iframeEl = iframe.current as HTMLIFrameElement | null
       const iframeDc = iframeEl?.contentWindow?.document
@@ -58,12 +60,12 @@ const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
 
     return () => {
       clearTimeout(timer)
-      document.removeEventListener('mouseup', mouseUp)
+      document.removeEventListener('mouseup', releaseDrag)
     }
-  }, [children, mouseUp])
+  }, [children, releaseDrag])
 
   useEffect(() => {
-    const checkAndHandleH = (iframeDc: any) => {
+    const checkAndHandleH = (iframeDc: Document | undefined) => {
       if (iframeDc && iframeDc.body && iframeDc.body.childNodes[1]) {
         handleIframeHeight()
       }
@@ -98,7 +100,7 @@ const Viewport = ({ children, dir, srcDoc = template, ...props }: Props) => {
 
   const mouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
     handleEvent(e)
-    const x = e.clientX - (e.target as HTMLDivElement).getBoundingClientRect().x
+    const x = e.clientX - e.currentTarget.getBoundingClientRect().x
     const containerW = (containerRef.current as HTMLDivElement).getBoundingClientRect().width
     if (pressure && x >= 400) {
       ;(iframeContainerRef.current as HTMLIFrameElement).style.width =

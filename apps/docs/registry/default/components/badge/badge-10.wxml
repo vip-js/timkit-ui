@@ -1,2 +1,4 @@
-<badge><text class="size-1.5 rounded-full bg-red-500" ></text>
-      Badge</badge>
+<view>
+  <badge variant="outline" class="gap-1.5"><text class="size-1.5 rounded-full bg-red-500" aria-hidden="true"></text>Badge
+    </badge>
+</view>

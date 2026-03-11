@@ -1,14 +1,14 @@
 Component({
-    relations: {
-        '../combobox/combobox': { type: 'ancestor' }
+  relations: {
+    '../combobox/combobox': { type: 'ancestor' },
+  },
+  data: {
+    contentApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ contentApi: parentApi.contentProps })
     },
-    data: {
-        contentApi: {} as any
-    },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ contentApi: parentApi.contentProps })
-        }
-    }
+  },
 })

@@ -1,30 +1,12 @@
 <script setup lang="ts">
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+
+
 </script>
+
 <template>
-<div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button size="icon" variant="outline" aria-label="Select theme">
-            
-            
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent class="min-w-32">
-          <DropdownMenuItem >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Light</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Dark</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>System</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+  <div><DropdownMenu><DropdownMenuTrigger as-child><Button size="icon" variant="outline" aria-label="Select theme"><SunIcon v-if="displayTheme === 'light'" :size="16" aria-hidden="true" /><MoonIcon v-if="displayTheme === 'dark'" :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent class="min-w-32"><DropdownMenuItem @click="setTheme('light')"><SunIcon :size="16" class="opacity-60" aria-hidden="true" /><span>Light</span></DropdownMenuItem><DropdownMenuItem @click="setTheme('dark')"><MoonIcon :size="16" class="opacity-60" aria-hidden="true" /><span>Dark</span></DropdownMenuItem><DropdownMenuItem @click="setTheme('system')"><MonitorIcon :size="16" class="opacity-60" aria-hidden="true" /><span>System</span></DropdownMenuItem></DropdownMenuContent></DropdownMenu></div>
 </template>

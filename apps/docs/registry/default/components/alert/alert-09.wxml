@@ -1,12 +1,7 @@
-<alert class="rounded-md border px-4 py-3">
-  <view class="flex gap-3">
-    <text class="mt-0.5 shrink-0 text-amber-500">!</text>
-    <view class="flex grow justify-between gap-3">
-      <alert-description class="text-sm text-current">Some information is missing!</alert-description>
-      <view class="group text-sm font-medium whitespace-nowrap">
-        Link
-        <text class="ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5">-&gt;</text>
-      </view>
-    </view>
-  </view>
-</alert>
+<view>
+  <alert class="rounded-md border px-4 py-3"><view class="flex gap-3"><text class="mt-0.5 shrink-0 text-amber-500" aria-hidden="true">!
+        </text><view class="flex grow justify-between gap-3"><alertdescription class="text-sm text-current">Some information is missing!
+          </alertdescription><a href="#" class="group text-sm font-medium whitespace-nowrap">Link
+            <text class="ms-1 -mt-0.5 inline-flex opacity-60 transition-transform group-hover:translate-x-0.5" aria-hidden="true">-&gt;
+            </text></a></view></view></alert>
+</view>

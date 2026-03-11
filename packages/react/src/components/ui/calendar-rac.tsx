@@ -133,4 +133,4 @@ function RangeCalendarRAC({ className, ...props }: RangeCalendarProps) {
   )
 }
 
-export { CalendarRAC, RangeCalendarRAC, RangeCalendarRAC as RangeCalendar }
+export { CalendarRAC, RangeCalendarRAC }

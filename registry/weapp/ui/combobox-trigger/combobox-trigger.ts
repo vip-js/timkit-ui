@@ -1,17 +1,17 @@
 Component({
-    relations: {
-        '../combobox/combobox': { type: 'ancestor' }
+  relations: {
+    '../combobox/combobox': { type: 'ancestor' },
+  },
+  data: {
+    triggerApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ triggerApi: parentApi.triggerProps })
     },
-    data: {
-        triggerApi: {} as any
+    handleTap() {
+      if (this.data.triggerApi.onClick) this.data.triggerApi.onClick()
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ triggerApi: parentApi.triggerProps })
-        },
-        handleTap() {
-            if (this.data.triggerApi.onClick) this.data.triggerApi.onClick()
-        }
-    }
+  },
 })

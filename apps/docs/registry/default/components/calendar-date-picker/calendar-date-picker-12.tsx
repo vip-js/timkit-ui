@@ -9,7 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@timui/react'
-import { DropdownNavProps, DropdownProps } from 'react-day-picker'
+
+type DropdownOption = { value: string | number; label: string; disabled?: boolean }
+type DropdownNavProps = { children?: React.ReactNode }
+type DropdownProps = {
+  value?: string | number
+  options?: DropdownOption[]
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>
+}
 
 export default function Component() {
   const [date, setDate] = useState<Date | undefined>(new Date())

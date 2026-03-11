@@ -10,6 +10,47 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.js"
+    },
+    "./components/ui/*": {
+      "types": "./dist/components/ui/*.d.ts",
+      "import": "./dist/components/ui/*.mjs",
+      "require": "./dist/components/ui/*.js"
+    },
+    "./ui": {
+      "types": "./dist/components/ui/index.d.ts",
+      "import": "./dist/components/ui/index.mjs",
+      "require": "./dist/components/ui/index.js"
+    },
+    "./ui/*": {
+      "types": "./dist/components/ui/*.d.ts",
+      "import": "./dist/components/ui/*.mjs",
+      "require": "./dist/components/ui/*.js"
+    },
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "import": "./dist/manifest.mjs",
+      "require": "./dist/manifest.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.js"
+    },
+    "./hooks/*": {
+      "types": "./dist/hooks/*.d.ts",
+      "import": "./dist/hooks/*.mjs",
+      "require": "./dist/hooks/*.js"
+    },
+    "./tailwind-preset": {
+      "types": "./tailwind-preset.ts",
+      "import": "./tailwind-preset.ts",
+      "require": "./tailwind-preset.ts"
+    },
+    "./styles.css": "./styles.css",
     "./package.json": "./package.json"
   },
   "sideEffects": false,
@@ -23,13 +64,45 @@
     "access": "public"
   },
   "peerDependencies": {
+    "@internationalized/date": "^3.7.0",
+    "@origin-space/image-cropper": "^0.1.8",
+    "cmdk": "1.0.4",
+    "lucide-react": "^0.509.0",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-aria-components": "^1.7.1",
+    "react-dom": "^19.0.0",
+    "react-resizable-panels": "^2.1.7",
+    "sonner": "^1.7.4"
+  },
+  "peerDependenciesMeta": {
+    "@internationalized/date": {
+      "optional": true
+    },
+    "@origin-space/image-cropper": {
+      "optional": true
+    },
+    "cmdk": {
+      "optional": true
+    },
+    "lucide-react": {
+      "optional": true
+    },
+    "next-themes": {
+      "optional": true
+    },
+    "react-aria-components": {
+      "optional": true
+    },
+    "react-resizable-panels": {
+      "optional": true
+    },
+    "sonner": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@headless-tree/core": "^1.0.0",
-    "@internationalized/date": "^3.7.0",
-    "@origin-space/image-cropper": "^0.1.8",
     "@timui/core": "workspace:*",
     "@zag-js/collection": "^1.32.0",
     "@zag-js/core": "^1.32.0",
@@ -38,15 +111,7 @@
     "@zag-js/popper": "^1.32.0",
     "@zag-js/presence": "^1.32.0",
     "@zag-js/react": "^1.32.0",
-    "class-variance-authority": "^0.7.1",
-    "cmdk": "1.0.4",
-    "lucide-react": "^0.509.0",
-    "next-themes": "^0.4.6",
-    "react-aria-components": "^1.7.1",
-    "react-day-picker": "^9.6.4",
-    "react-easy-crop": "^5.5.6",
-    "react-resizable-panels": "^2.1.7",
-    "sonner": "^1.7.4"
+    "class-variance-authority": "^0.7.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

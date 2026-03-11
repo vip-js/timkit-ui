@@ -1,32 +1,17 @@
 <script setup lang="ts">
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+import { BoltIcon, ChevronDownIcon, CopyPlusIcon, FilesIcon, Layers2Icon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+
+
 </script>
+
 <template>
-<DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          Menu with icons
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          Copy
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          Edit
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          Group
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          Clone
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+  <DropdownMenu><DropdownMenuTrigger as-child><Button variant="outline">Menu with icons
+          <ChevronDownIcon class="-me-1 opacity-60" :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuItem><CopyPlusIcon :size="16" class="opacity-60" aria-hidden="true" />Copy
+        </DropdownMenuItem><DropdownMenuItem><BoltIcon :size="16" class="opacity-60" aria-hidden="true" />Edit
+        </DropdownMenuItem><DropdownMenuItem><Layers2Icon :size="16" class="opacity-60" aria-hidden="true" />Group
+        </DropdownMenuItem><DropdownMenuItem><FilesIcon :size="16" class="opacity-60" aria-hidden="true" />Clone
+        </DropdownMenuItem></DropdownMenuContent></DropdownMenu>
 </template>

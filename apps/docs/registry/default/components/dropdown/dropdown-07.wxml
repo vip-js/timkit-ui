@@ -1,18 +1,5 @@
-<dropdown-menu>
-      <dropdown-menu-trigger asChild>
-        <button variant="outline">
-          Radio items
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </dropdown-menu-trigger>
-      <dropdown-menu-content>
-        <dropdown-menu-radio-group >
-          <dropdown-menu-radio-item value="nextjs">Next.js</dropdown-menu-radio-item>
-          <dropdown-menu-radio-item value="sveltekit" disabled>
-            SvelteKit
-          </dropdown-menu-radio-item>
-          <dropdown-menu-radio-item value="remix">Remix</dropdown-menu-radio-item>
-          <dropdown-menu-radio-item value="astro">Astro</dropdown-menu-radio-item>
-        </dropdown-menu-radio-group>
-      </dropdown-menu-content>
-    </dropdown-menu>
+<view>
+  <dropdownmenu><dropdownmenutrigger aschild><button variant="outline">Radio items
+          <chevrondownicon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent><dropdownmenuradiogroup value="{{framework}}" bindchange="setFramework"><dropdownmenuradioitem value="nextjs">Next.js</dropdownmenuradioitem><dropdownmenuradioitem value="sveltekit" disabled>SvelteKit
+          </dropdownmenuradioitem><dropdownmenuradioitem value="remix">Remix</dropdownmenuradioitem><dropdownmenuradioitem value="astro">Astro</dropdownmenuradioitem></dropdownmenuradiogroup></dropdownmenucontent></dropdownmenu>
+</view>

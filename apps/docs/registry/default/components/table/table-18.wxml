@@ -1,0 +1,80 @@
+<view>
+  <view class="space-y-4"><view class="bg-background overflow-hidden rounded-md border"><table class="table-fixed"><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="hover:bg-transparent">{{ headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead
+                      key={header.id}
+                      style={{ width: `${header.getSize()}px` }}
+                      className="h-11"
+                    >
+                      {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                        <div
+                          className={cn(
+                            header.column.getCanSort() &&
+                              'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
+                          )}
+                          onClick={header.column.getToggleSortingHandler()}
+                          onKeyDown={(e) => {
+                            // Enhanced keyboard handling for sorting
+                            if (
+                              header.column.getCanSort() &&
+                              (e.key === 'Enter' || e.key === ' ')
+                            ) {
+                              e.preventDefault()
+                              header.column.getToggleSortingHandler()?.(e)
+                            }
+                          }}
+                          tabIndex={header.column.getCanSort() ? 0 : undefined}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: (
+                              <ChevronUpIcon
+                                className="shrink-0 opacity-60"
+                                size={16}
+                                aria-hidden="true"
+                              />
+                            ),
+                            desc: (
+                              <ChevronDownIcon
+                                className="shrink-0 opacity-60"
+                                size={16}
+                                aria-hidden="true"
+                              />
+                            ),
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      ) : (
+                        flexRender(header.column.columnDef.header, header.getContext())
+                      )}
+                    </TableHead>
+                  )
+                }) }}</tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  No results.
+                </TableCell>
+              </TableRow>
+            ) }}</tablebody></table></view><view class="flex items-center justify-between gap-8"><view class="flex items-center gap-3"><label htmlfor="{{id}}" class="max-sm:sr-only">Rows per page
+          </label><select value="{{table.getState().pagination.pageSize.toString()}}" bindchange="{
+              table.setPageSize(Number(value))
+            }"><selecttrigger id="{{id}}" class="w-fit whitespace-nowrap"><selectvalue placeholder="Select number of results" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><selectitem wx:for="{{[5, 10, 25, 50]}}" wx:for-item="pageSize" wx:for-index="index" wx:key="index" key="{{pageSize}}" value="{{pageSize.toString()}}">{{ pageSize }}</selectitem></selectcontent></select></view><view class="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap"><text class="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite"><text class="text-foreground">{{ table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1 }}-
+              {{ Math.min(
+                Math.max(
+                  table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
+                    table.getState().pagination.pageSize,
+                  0
+                ),
+                table.getRowCount()
+              ) }}</text>{{ ' ' }}of <text class="text-foreground">{{ table.getRowCount().toString() }}</text></text></view><view><pagination><paginationcontent><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.firstPage()" disabled="{{!table.getCanPreviousPage()}}" aria-label="Go to first page"><chevronfirsticon size="{{16}}" aria-hidden="true" /></button></paginationitem><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.previousPage()" disabled="{{!table.getCanPreviousPage()}}" aria-label="Go to previous page"><chevronlefticon size="{{16}}" aria-hidden="true" /></button></paginationitem><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.nextPage()" disabled="{{!table.getCanNextPage()}}" aria-label="Go to next page"><chevronrighticon size="{{16}}" aria-hidden="true" /></button></paginationitem><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.lastPage()" disabled="{{!table.getCanNextPage()}}" aria-label="Go to last page"><chevronlasticon size="{{16}}" aria-hidden="true" /></button></paginationitem></paginationcontent></pagination></view></view><text class="text-muted-foreground mt-4 text-center text-sm">Paginated table made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
+        </a></text></view>
+</view>

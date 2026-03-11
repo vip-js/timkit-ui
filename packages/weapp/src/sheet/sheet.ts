@@ -1,11 +1,20 @@
-import { sheetContentVariants, sheetOverlayVariants, sheetCloseVariants, sheetTitleVariants, sheetDescriptionVariants } from '@timui/core'
-import { setupSheetMachine } from './use-sheet'
-import { resolveClasses } from '../utils'
+import {
+  sheetCloseVariants,
+  sheetContentVariants,
+  sheetDescriptionVariants,
+  sheetOverlayVariants,
+  sheetTitleVariants,
+} from '@timui/core'
 
-type MachineEvent = string | {
-  type: string
-  [key: string]: string | number | boolean | string[] | number[] | null | undefined
-}
+import { emitTimEvent, resolveClasses } from '../utils'
+import { setupSheetMachine } from './use-sheet'
+
+type MachineEvent =
+  | string
+  | {
+      type: string
+      [key: string]: string | number | boolean | string[] | number[] | null | undefined
+    }
 
 type SheetSide = 'top' | 'bottom' | 'left' | 'right'
 
@@ -20,29 +29,29 @@ type WeappSheetApi = {
 }
 
 type WeappService = {
-  setContext: (context: {
-    open?: boolean
-  }) => void
+  setContext: (context: { open?: boolean }) => void
 }
 
 type OpenChangeDetails = {
   open: boolean
 }
 
-type WeappSheetInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
-  _service?: WeappService
-  _cleanup?: () => void
-  _send?: (event: MachineEvent) => void
-  data: {
-    api: WeappSheetApi
+type WeappSheetInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+    _service?: WeappService
+    _cleanup?: () => void
+    _send?: (event: MachineEvent) => void
+    _connect?: (state: object, send: (event: MachineEvent) => void) => WeappSheetApi
+    data: {
+      api: WeappSheetApi
+    }
+    properties: {
+      open: boolean
+      side: string
+      id: string
+      extClass: string
+    }
   }
-  properties: {
-    open: boolean
-    side: string
-    id: string
-    extClass: string
-  }
-}
 
 function toSheetSide(value: string): SheetSide {
   if (value === 'top' || value === 'left' || value === 'right') return value
@@ -54,6 +63,8 @@ Component({
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     open: { type: Boolean, value: false },
@@ -74,19 +85,22 @@ Component({
   lifetimes: {
     attached() {
       const self = this as WeappSheetInternal
-      const { service, cleanup, send } = setupSheetMachine(this, {
+      const { service, cleanup, send, connect } = setupSheetMachine(this, {
         id: this.properties.id || 'sheet',
         open: this.properties.open,
         onOpenChange: (details: OpenChangeDetails) => {
           this.triggerEvent('change', details)
-          if (!details.open) {
-            this.triggerEvent('close')
-          }
-        }
+          emitTimEvent(this, 'openchange', 'sheet.openChange', this.properties.id || 'sheet', {
+            open: details.open,
+          })
+          if (details.open) this.triggerEvent('open')
+          else this.triggerEvent('close')
+        },
       })
       self._service = service as WeappService
       self._cleanup = cleanup
       self._send = send as (event: MachineEvent) => void
+      self._connect = connect
     },
     detached() {
       const self = this as WeappSheetInternal
@@ -95,12 +109,11 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappSheetInternal
-      if (!state || !self._send) return
+      if (!state || !self._send || !self._connect) return
 
-      const { connect } = setupSheetMachine(this, { id: this.properties.id })
-      const api = connect(state, self._send) as WeappSheetApi
+      const api = self._connect(state, self._send) as WeappSheetApi
 
       const side = toSheetSide(this.properties.side)
       const contentClass = resolveClasses(sheetContentVariants({ side }), self.properties.extClass)
@@ -116,10 +129,10 @@ Component({
         backdropClass,
         titleClass,
         descriptionClass,
-        closeClass
+        closeClass,
       })
     },
-    'open': function (val) {
+    open: function (val) {
       const self = this as WeappSheetInternal
       if (self._service && val !== self.data.api.open) {
         self._send?.(val ? 'OPEN' : 'CLOSE')
@@ -136,6 +149,6 @@ Component({
       const self = this as WeappSheetInternal
       self.data.api.closeTriggerProps?.onClick?.()
     },
-    noop() { },
-  }
+    noop() {},
+  },
 })

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/badge';
+
+
+
 </script>
 
 <template>
-<Badge class="rounded">Badge</Badge>
+  <Badge class="rounded">Badge</Badge>
 </template>

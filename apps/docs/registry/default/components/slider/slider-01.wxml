@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Simple slider</label><slider default-value="{{[25]}}" aria-label="Simple slider" /></view>
+</view>

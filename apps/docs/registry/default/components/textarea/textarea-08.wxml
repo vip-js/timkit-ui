@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Shorter textarea</label><textarea id="{{id}}" class="min-h-0" placeholder="Leave a comment" rows="{{2}}" /></view>
+</view>

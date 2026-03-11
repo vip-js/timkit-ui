@@ -7,6 +7,8 @@
   maxlength="{{maxlength}}"
   focus="{{focus}}"
   confirm-type="{{confirmType}}"
+  adjust-position="{{true}}"
+  cursor-spacing="{{16}}"
   bindinput="onInput"
   bindfocus="onFocus"
   bindblur="onBlur"

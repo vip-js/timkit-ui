@@ -1,19 +1,6 @@
-<view class="*:not-first:mt-2">
-      <label>Multiselect</label>
-      <multiple-selector
-        placeholder="Select frameworks"
-        hideClearAllButton
-        hidePlaceholderWhenSelected
-      />
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Inspired by 
-        <a
-          class="hover:text-foreground underline"
-          href="https://shadcnui-expansions.typeart.cc/docs/multiple-selector"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          shadcn/ui expansions
-        </a>
-      </p>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label>Multiselect</label><multipleselector commandprops="{{{
+          label: 'Select frameworks',
+        }}}" value="{{frameworks.slice(0, 2)}}" defaultoptions="{{frameworks}}" placeholder="Select frameworks" hideclearallbutton hideplaceholderwhenselected emptyindicator="{{<p className="text-center text-sm">No results found</p>}}" /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Inspired by{{ ' ' }}<a class="hover:text-foreground underline" href="https://shadcnui-expansions.typeart.cc/docs/multiple-selector" target="_blank" rel="noopener nofollow">shadcn/ui expansions
+        </a></text></view>
+</view>

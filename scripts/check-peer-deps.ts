@@ -30,9 +30,7 @@ for (const target of TARGETS) {
 
   const hasReactDeps = deps.react || deps['react-dom']
   if (hasReactDeps && (!peers.react || !peers['react-dom'])) {
-    errors.push(
-      `[${name}] depends on React runtime but missing peerDependencies.react/react-dom`
-    )
+    errors.push(`[${name}] depends on React runtime but missing peerDependencies.react/react-dom`)
   }
 
   if (deps.vue && !peers.vue) {

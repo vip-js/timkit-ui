@@ -1,0 +1,17 @@
+<label data-slot="checkbox-root" class="{{checkboxRootVariants}}">
+    <button type="button" role="checkbox" data-slot="checkbox" data-state="unchecked" class="{{checkboxVariants}}">
+        <span data-slot="checkbox-indicator"
+            class="{{checkboxIndicatorVariants}} {{#if checked}}opacity-100{{else}}opacity-0{{/if}}">
+            {{#if indeterminate}}
+            <span class="{{checkboxIndicatorCheckVariants}}"></span>
+            {{else}}
+            <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round" class="{{checkboxIndicatorIconVariants}}">
+                <path d="M3.5 8.5l3 3 6-7" />
+            </svg>
+            {{/if}}
+        </span>
+    </button>
+    <input type="checkbox"
+        style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; word-wrap: normal;" />
+</label>

@@ -1,7 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="input-22-id">Input with button</label>
-      <view class="flex gap-2">
-        <input id="input-22-id" class="flex-1" placeholder="Email" type="email" />
-        <button variant="outline">Send</button>
-      </view>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with button</label><view class="flex gap-2"><input id="{{id}}" class="flex-1" placeholder="Email" type="email" /><button variant="outline">Send</button></view></view>
+</view>

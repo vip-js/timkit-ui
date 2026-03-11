@@ -1,0 +1,3 @@
+<view>
+  <view class="inline-flex items-center gap-2"><button variant="ghost">Cancel</button><button>Save</button></view>
+</view>

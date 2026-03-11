@@ -1,0 +1,68 @@
+<template>
+  <div class="flex h-full flex-col gap-2 *:nth-2:grow"><div class="relative"><Input ref="${inputRef}" class="peer ps-9" value="${searchValue}" onchange="${(e) => {
+            const value = e.target.value
+            setSearchValue(value)
+
+            // Apply the search to the tree's internal state as well
+            const searchProps = tree.getSearchInputElementProps()
+            if (searchProps.onChange) {
+              searchProps.onChange(e)
+            }
+
+            if (value.length > 0) {
+              // If input has at least one character, expand all items
+              tree.expandAll()
+            } else {
+              // If input is cleared, reset to initial expanded state
+              setState((prevState) => ({
+                ...prevState,
+                expandedItems: initialExpandedItems,
+              }))
+              setFilteredItems([])
+            }
+          }}" onblur="${(e) => {
+            // Prevent default blur behavior
+            e.preventDefault()
+
+            // Re-apply the search to ensure it stays active
+            if (searchValue && searchValue.length > 0) {
+              const searchProps = tree.getSearchInputElementProps()
+              if (searchProps.onChange) {
+                const syntheticEvent = {
+                  target: { value: searchValue },
+                } as React.ChangeEvent<HTMLInputElement>
+                searchProps.onChange(syntheticEvent)
+              }
+            }
+          }}" type="search" placeholder="Filter items..." /><div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50"><FilterIcon class="size-4" aria-hidden="true" /></div><!-- if searchValue -->
+<button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" aria-label="Clear search" on-click="${handleClearSearch}"><CircleXIcon class="size-4" aria-hidden="true" /></button>
+<!-- endif --></div><Tree indent="${indent}" tree="${tree}">${searchValue && filteredItems.length === 0 ? (
+          <p className="px-3 py-4 text-center text-sm">No items found for "{searchValue}"</p>
+        ) : (
+          tree.getItems().map((item) => {
+            const isVisible = shouldShowItem(item.getId())
+
+            return (
+              <TreeItem
+                key={item.getId()}
+                item={item}
+                data-visible={isVisible || !searchValue}
+                className="data-[visible=false]:hidden"
+              >
+                <TreeItemLabel>
+                  <span className="flex items-center gap-2">
+                    {item.isFolder() &&
+                      (item.isExpanded() ? (
+                        <FolderOpenIcon className="text-muted-foreground pointer-events-none size-4" />
+                      ) : (
+                        <FolderIcon className="text-muted-foreground pointer-events-none size-4" />
+                      ))}
+                    {item.getItemName()}
+                  </span>
+                </TreeItemLabel>
+              </TreeItem>
+            )
+          })
+        )}</Tree><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Tree with filtering ∙${' '}<a href="https://headless-tree.lukasbach.com" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></p></div>
+</template>

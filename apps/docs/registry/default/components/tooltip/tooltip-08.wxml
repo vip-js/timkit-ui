@@ -1,0 +1,4 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">Stats
+          </button></tooltiptrigger><tooltipcontent class="py-3"><ul class="grid gap-3 text-xs"><li class="grid gap-0.5"><text class="text-muted-foreground">Status</text><text class="font-medium">Completed</text></li><li class="grid gap-0.5"><text class="text-muted-foreground">Code Coverage</text><text class="font-medium">94.3%</text></li><li class="grid gap-0.5"><text class="text-muted-foreground">Last Deploy</text><text class="font-medium">Today at 15:42</text></li><li class="grid gap-0.5"><text class="text-muted-foreground">Performance Score</text><text class="font-medium">98/100</text></li></ul></tooltipcontent></tooltip></tooltipprovider>
+</view>

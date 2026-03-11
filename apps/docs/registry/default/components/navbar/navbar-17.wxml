@@ -1,31 +1,3 @@
-<header class="border-b px-4 md:px-6">
-      <view class="flex h-16 items-center justify-between gap-4">
-        
-        <breadcrumb>
-          <breadcrumb-list>
-            <breadcrumb-item>
-              <breadcrumb-link href="#">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                <span class="sr-only">Home</span>
-              </breadcrumb-link>
-            </breadcrumb-item>
-            <breadcrumb-separator />
-            <breadcrumb-item>
-              <breadcrumb-page>Reports</breadcrumb-page>
-            </breadcrumb-item>
-          </breadcrumb-list>
-        </breadcrumb>
-        
-        <view class="flex items-center gap-2">
-          
-          <date-picker />
-          
-          <filters />
-          
-          <button size="sm" variant="outline" class="aspect-square text-sm max-sm:p-0">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 sm:-ms-1"><circle cx="12" cy="12" r="9" /></svg>
-            <span class="max-sm:sr-only">Saved</span>
-          </button>
-        </view>
-      </view>
-    </header>
+<view>
+  <header class="border-b px-4 md:px-6"><view class="flex h-16 items-center justify-between gap-4"><breadcrumb><breadcrumblist><breadcrumbitem><breadcrumblink href="#"><homeicon size="{{16}}" aria-hidden="true" /><text class="sr-only">Home</text></breadcrumblink></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><breadcrumbpage>Reports</breadcrumbpage></breadcrumbitem></breadcrumblist></breadcrumb><view class="flex items-center gap-2"><datepicker /><filters /><button size="sm" variant="outline" class="aspect-square text-sm max-sm:p-0"><bookmarkicon class="text-muted-foreground/80 sm:-ms-1" size="{{16}}" aria-hidden="true" /><text class="max-sm:sr-only">Saved</text></button></view></view></header>
+</view>

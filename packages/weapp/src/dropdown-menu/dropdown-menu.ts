@@ -1,5 +1,16 @@
 // @ts-nocheck
-import { setupDropdownMenuMachine, connectDropdownMenuMachine, type WeappDropdownMenuApi, type WeappDropdownMenuService } from './use-dropdown-menu'
+import { emitTimEvent } from '../utils'
+import {
+  createWeappBaseProps,
+  createWeappOptions,
+  WEAPP_EXTERNAL_CLASSES,
+} from '../utils/component'
+import {
+  connectDropdownMenuMachine,
+  setupDropdownMenuMachine,
+  type WeappDropdownMenuApi,
+  type WeappDropdownMenuService,
+} from './use-dropdown-menu'
 
 type MenuItemTapEvent = WechatMiniprogram.BaseEvent & {
   currentTarget: {
@@ -25,16 +36,14 @@ type WeappDropdownMenuInternal = WechatMiniprogram.Component.InstanceMethods<{}>
 }
 
 Component({
-  options: {
-    styleIsolation: 'apply-shared',
-    pureDataPattern: /^_/,
-  },
+  options: createWeappOptions({ pureData: true }),
+
+  externalClasses: WEAPP_EXTERNAL_CLASSES,
 
   properties: {
     open: { type: Boolean, value: false },
     closeOnSelect: { type: Boolean, value: true },
-    id: { type: String, value: 'dropdown-menu' },
-    extClass: { type: String, value: '' },
+    ...createWeappBaseProps('dropdown-menu'),
   },
 
   data: {
@@ -51,6 +60,15 @@ Component({
         closeOnSelect: this.properties.closeOnSelect,
         onOpenChange: (details) => {
           this.triggerEvent('change', details)
+          emitTimEvent(
+            this,
+            'openchange',
+            'dropdownMenu.openChange',
+            this.properties.id || 'dropdown-menu',
+            {
+              open: details.open,
+            }
+          )
         },
         onSelect: (details) => {
           this.triggerEvent('select', details)
@@ -68,7 +86,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappDropdownMenuInternal
       if (!state || !self._send) return
       const api = connectDropdownMenuMachine(state, self._send)

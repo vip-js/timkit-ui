@@ -26,7 +26,7 @@ interface CvaConfig<V extends VariantMap, D extends DefaultVariants<V>> {
 
 function falsyToString(v: VariantValue): string | null {
   if (typeof v === 'boolean') return String(v)
-  if (v === 0 as unknown as VariantValue) return '0'
+  if (v === (0 as unknown as VariantValue)) return '0'
   return v ? String(v) : null
 }
 
@@ -64,7 +64,13 @@ export function cva<V extends VariantMap, D extends DefaultVariants<V>>(
       return matches ? [...acc, cvClass, cvClassName] : acc
     }, [])
 
-    return clsx(base, getVariantClassNames, getCompoundVariantClassNames, props?.class, props?.className)
+    return clsx(
+      base,
+      getVariantClassNames,
+      getCompoundVariantClassNames,
+      props?.class,
+      props?.className
+    )
   }
 }
 

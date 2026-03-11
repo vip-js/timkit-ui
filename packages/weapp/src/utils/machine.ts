@@ -1,6 +1,21 @@
+/**
+ * machine.ts — WeApp Zag.js 官方机器集成
+ *
+ * 此文件用于与 @zag-js/core 官方状态机（Machine）集成，适合具有复杂交互逻辑的组件，
+ * 例如：switchMachine、accordionMachine 等。
+ *
+ * ⚠️ 与 machine-adapter.ts 的分工：
+ * - machine.ts      → 使用 Zag 官方 Machine 实例的组件（需要完整状态机能力）
+ * - machine-adapter.ts → 无复杂状态机需求的简单组件（Button、Badge 等），
+ *                       模拟机器接口并适配小程序的 setData 更新模型
+ */
 import { Machine, StateMachine } from '@zag-js/core'
 
-export interface MachineOptions<TC, TS extends StateMachine.StateSchema, TE extends StateMachine.EventObject> {
+export interface MachineOptions<
+  TC,
+  TS extends StateMachine.StateSchema,
+  TE extends StateMachine.EventObject,
+> {
   context?: Partial<TC>
   state?: StateMachine.State<TC, TS, TE>
 }
@@ -8,7 +23,7 @@ export interface MachineOptions<TC, TS extends StateMachine.StateSchema, TE exte
 export function useMachine<
   TC extends Record<string, object>,
   TS extends StateMachine.StateSchema,
-  TE extends StateMachine.EventObject
+  TE extends StateMachine.EventObject,
 >(
   component: WechatMiniprogram.Component.TrivialInstance,
   machine: Machine<TC, TS, TE>,
@@ -38,7 +53,7 @@ export function useMachine<
     service,
     send: service.send,
     start,
-    stop: () => service.stop()
+    stop: () => service.stop(),
   }
 }
 

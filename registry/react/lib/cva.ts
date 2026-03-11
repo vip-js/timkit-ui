@@ -3,11 +3,11 @@
  * Adapted from https://github.com/joe-bell/cva (Apache-2.0 License, Joe Bell)
  */
 import { clsx, type ClassValue } from './clsx'
+
 export type { ClassValue } from './clsx'
 export { clsx }
 
 // ── Types ────────────────────────────────────────────────────────────
-
 
 type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T
 type CxOptions = Parameters<typeof clsx>
@@ -38,13 +38,19 @@ export type ConfigVariants<T extends ConfigSchema> = {
 }
 
 export type ConfigVariantsMulti<T extends ConfigSchema> = {
-  [Variant in keyof T]?: StringToBoolean<keyof T[Variant]> | StringToBoolean<keyof T[Variant]>[] | null | undefined
+  [Variant in keyof T]?:
+    | StringToBoolean<keyof T[Variant]>
+    | StringToBoolean<keyof T[Variant]>[]
+    | null
+    | undefined
 }
 
 export type Config<T extends ConfigSchema = ConfigSchema> = {
   variants?: T
   defaultVariants?: ConfigVariants<T>
-  compoundVariants?: (T extends ConfigSchema ? (ConfigVariants<T> | ConfigVariantsMulti<T>) & { class?: ClassValue; className?: ClassValue } : { class?: ClassValue; className?: ClassValue })[]
+  compoundVariants?: (T extends ConfigSchema
+    ? (ConfigVariants<T> | ConfigVariantsMulti<T>) & { class?: ClassValue; className?: ClassValue }
+    : { class?: ClassValue; className?: ClassValue })[]
 }
 
 // ── cva ──────────────────────────────────────────────────────────────
@@ -52,8 +58,7 @@ export type Config<T extends ConfigSchema = ConfigSchema> = {
 export const cva =
   <T extends ConfigSchema>(base?: ClassValue, config?: Config<T>) =>
   (props?: ConfigVariants<T> & { class?: ClassValue; className?: ClassValue }): string => {
-    if ((config?.variants) == null)
-      return cx(base, props?.class, props?.className)
+    if (config?.variants == null) return cx(base, props?.class, props?.className)
 
     const { variants, defaultVariants } = config
 
@@ -63,7 +68,8 @@ export const cva =
 
       if (variantProp === null) return null
 
-      const variantKey = (falsyToString(variantProp) || falsyToString(defaultVariantProp)) as keyof (typeof variants)[typeof variant]
+      const variantKey = (falsyToString(variantProp) ||
+        falsyToString(defaultVariantProp)) as keyof (typeof variants)[typeof variant]
       return variants[variant][variantKey]
     })
 
@@ -74,17 +80,30 @@ export const cva =
         return acc
       }, {})
 
-    const getCompoundVariantClassNames = config?.compoundVariants?.reduce<ClassValue[]>((acc, compoundVariant) => {
-      const { class: cvClass, className: cvClassName, ...compoundVariantOptions } = compoundVariant
+    const getCompoundVariantClassNames = config?.compoundVariants?.reduce<ClassValue[]>(
+      (acc, compoundVariant) => {
+        const {
+          class: cvClass,
+          className: cvClassName,
+          ...compoundVariantOptions
+        } = compoundVariant
 
-      return Object.entries(compoundVariantOptions).every(([key, value]) =>
-        Array.isArray(value)
-          ? value.includes({ ...defaultVariants, ...propsWithoutUndefined }[key])
-          : ({ ...defaultVariants, ...propsWithoutUndefined })[key] === value
-      )
-        ? [...acc, cvClass, cvClassName]
-        : acc
-    }, [])
+        return Object.entries(compoundVariantOptions).every(([key, value]) =>
+          Array.isArray(value)
+            ? value.includes({ ...defaultVariants, ...propsWithoutUndefined }[key])
+            : { ...defaultVariants, ...propsWithoutUndefined }[key] === value
+        )
+          ? [...acc, cvClass, cvClassName]
+          : acc
+      },
+      []
+    )
 
-    return cx(base, getVariantClassNames, getCompoundVariantClassNames, props?.class, props?.className)
+    return cx(
+      base,
+      getVariantClassNames,
+      getCompoundVariantClassNames,
+      props?.class,
+      props?.className
+    )
   }

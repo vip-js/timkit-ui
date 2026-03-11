@@ -1,25 +1,4 @@
-<view class="flex flex-col items-center gap-2">
-      <view class="flex w-full flex-col gap-4">
-        <cropper
-          class="h-80" cropPadding="20"
-          image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-09_qskkln.jpg" >
-          <cropper-description />
-          <cropper-image />
-          <cropper-crop-area />
-        </cropper>
-
-        
-      </view>
-
-      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
-        Cropper with crop data output ∙ 
-        <a
-          href="https://github.com/origin-space/image-cropper"
-          class="hover:text-foreground underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          API
-        </a>
-      </p>
-    </view>
+<view>
+  <view class="flex flex-col items-center gap-2"><view class="flex w-full flex-col gap-4"><cropper class="h-80" croppadding="{{20}}" image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-09_qskkln.jpg" oncropchange="{{setCropData}}"><cropperdescription /><cropperimage /><croppercroparea /></cropper><pre wx:if="{{cropData}}" class="bg-muted text-foreground/80 overflow-auto rounded-md border px-4 py-3 font-mono text-xs"><code>{{ JSON.stringify(cropData, null, 2) }}</code></pre></view><text aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Cropper with crop data output ∙{{ ' ' }}<a href="https://github.com/origin-space/image-cropper" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></text></view>
+</view>

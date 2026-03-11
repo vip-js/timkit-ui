@@ -1,26 +1,4 @@
-// To make the notification fixed, add classes like "fixed bottom-4 right-4" to the container element.
-    <view class="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg">
-      <view class="flex gap-2">
-        <view class="flex grow gap-3">
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
-          <view class="flex grow flex-col gap-3">
-            <view class="space-y-1">
-              <p class="text-sm font-medium">Your request was completed!</p>
-              <p class="text-muted-foreground text-sm">
-                It demonstrates that the task or request has been processed.
-              </p>
-            </view>
-            <view class="flex gap-2">
-              <button size="sm">Learn more</button>
-            </view>
-          </view>
-          <button
-            variant="ghost"
-            class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
-            aria-label="Close notification"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 transition-opacity group-hover:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
-          </button>
-        </view>
-      </view>
-    </view>
+<view>
+  <view class="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg"><view class="flex gap-2"><view class="flex grow gap-3"><circlecheckicon class="mt-0.5 shrink-0 text-emerald-500" size="{{16}}" aria-hidden="true" /><view class="flex grow flex-col gap-3"><view class="space-y-1"><text class="text-sm font-medium">Your request was completed!</text><text class="text-muted-foreground text-sm">It demonstrates that the task or request has been processed.
+              </text></view><view class="flex gap-2"><button size="sm">Learn more</button></view></view><button variant="ghost" class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent" aria-label="Close notification"><xicon size="{{16}}" class="opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" /></button></view></view></view>
+</view>

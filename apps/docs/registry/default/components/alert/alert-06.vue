@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Alert } from '@/components/ui/alert';
+import { AlertDescription } from '@/components/ui/alert-description';
+
+
+
 </script>
 
 <template>
-<Alert class="rounded-md border border-emerald-500/50 px-4 py-3 text-emerald-600">
-  <div class="flex gap-3">
-    <span class="me-3 -mt-0.5 inline-flex opacity-60" aria-hidden="true">!</span>
-    <AlertDescription class="text-sm text-current">Completed successfully!</AlertDescription>
-  </div>
-</Alert>
+  <Alert class="rounded-md border border-emerald-500/50 px-4 py-3 text-emerald-600"><div class="flex gap-3"><span class="me-3 -mt-0.5 inline-flex opacity-60" aria-hidden="true">!
+        </span><AlertDescription class="text-sm text-current">Completed successfully!
+        </AlertDescription></div></Alert>
 </template>

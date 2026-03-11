@@ -1,0 +1,4 @@
+<view>
+  <hovercard><hovercardtrigger aschild><button class="size-auto overflow-hidden rounded-full bg-transparent p-0 hover:bg-transparent" aria-label="My profile" aschild><a href="#"><image src="/avatar-40-04.jpg" width="{{40}}" height="{{40}}" alt="Avatar" /></a></button></hovercardtrigger><hovercardcontent class="w-[340px]"><view class="flex items-start gap-3"><image class="shrink-0 rounded-full" src="/avatar-40-04.jpg" width="{{40}}" height="{{40}}" alt="Avatar" /><view class="space-y-1"><text class="text-sm font-medium">@Origin_UI</text><text class="text-muted-foreground text-sm">Beautiful UI components built with Tailwind CSS and Next.js.
+            </text></view></view></hovercardcontent></hovercard>
+</view>

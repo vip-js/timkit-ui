@@ -1,0 +1,4 @@
+<view>
+  <view class="space-y-4"><legend class="text-foreground text-sm font-medium">Object position</legend><view class="space-y-2"><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[-2]}}" default-value="{{[0]}}" label="X" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 0)}}" /><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[4]}}" default-value="{{[0]}}" label="Y" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 1)}}" /><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[2]}}" default-value="{{[0]}}" label="Z" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 2)}}" /></view><button class="w-full" variant="outline" bindtap="resetAll"><rotateccwicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Reset
+      </button></view>
+</view>

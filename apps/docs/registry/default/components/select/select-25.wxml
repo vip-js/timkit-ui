@@ -1,22 +1,3 @@
-<view class="*:not-first:mt-2">
-      <label for="select-25-id">Select with options groups</label>
-      <select defaultValue="1">
-        <select-trigger id="select-25-id">
-          <select-value placeholder="Select framework" />
-        </select-trigger>
-        <select-content>
-          <select-group>
-            <select-label>Frontend</select-label>
-            <select-item value="1">React</select-item>
-            <select-item value="2">Vue</select-item>
-            <select-item value="3">Angular</select-item>
-          </select-group>
-          <select-group>
-            <select-label>Backend</select-label>
-            <select-item value="4">Node.js</select-item>
-            <select-item value="5">Python</select-item>
-            <select-item value="6">Java</select-item>
-          </select-group>
-        </select-content>
-      </select>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with options groups</label><select default-value="1"><selecttrigger id="{{id}}"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent><selectgroup><selectlabel>Frontend</selectlabel><selectitem value="1">React</selectitem><selectitem value="2">Vue</selectitem><selectitem value="3">Angular</selectitem></selectgroup><selectgroup><selectlabel>Backend</selectlabel><selectitem value="4">Node.js</selectitem><selectitem value="5">Python</selectitem><selectitem value="6">Java</selectitem></selectgroup></selectcontent></select></view>
+</view>

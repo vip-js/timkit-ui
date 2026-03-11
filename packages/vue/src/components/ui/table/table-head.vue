@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <th :class="cn(tableHeadVariants(), props.class)">
+  <th data-slot="table-head" :class="cn(tableHeadVariants(), props.class)">
     <slot />
   </th>
 </template>

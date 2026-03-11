@@ -1,10 +1,18 @@
 // @ts-nocheck
-import { setupPaginationMachine, connectPaginationMachine, type WeappPaginationApi, type WeappPaginationService } from './use-pagination'
+import { emitTimEvent } from '../utils'
+import {
+  connectPaginationMachine,
+  setupPaginationMachine,
+  type WeappPaginationApi,
+  type WeappPaginationService,
+} from './use-pagination'
 
-type MachineEvent = string | {
-  type: string
-  [key: string]: string | number | boolean | string[] | number[] | null | undefined
-}
+type MachineEvent =
+  | string
+  | {
+      type: string
+      [key: string]: string | number | boolean | string[] | number[] | null | undefined
+    }
 
 type PageTapEvent = WechatMiniprogram.BaseEvent & {
   currentTarget: {
@@ -37,6 +45,8 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
     page: { type: Number, value: 1 },
     pageSize: { type: Number, value: 10 },
@@ -61,7 +71,10 @@ Component({
         count: this.properties.total,
         siblingCount: this.properties.siblingCount,
         onPageChange: (details) => {
-          this.triggerEvent('change', details)
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'pagination', {
+            page: details.page,
+            pageSize: details.pageSize,
+          })
         },
       })
 
@@ -76,7 +89,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappPaginationInternal
       if (!state || !self._send) return
       const api = connectPaginationMachine(state, self._send) as WeappPaginationApi

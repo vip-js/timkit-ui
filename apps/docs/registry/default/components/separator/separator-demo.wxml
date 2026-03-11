@@ -1,0 +1,3 @@
+<view>
+  <view><view class="space-y-1"><h4 class="text-sm font-medium leading-none">Radix Primitives</h4><text class="text-sm text-muted-foreground">An open-source UI component library.</text></view><separator class="my-4" /><view class="flex h-5 items-center space-x-4 text-sm"><view>Blog</view><separator orientation="vertical" /><view>Docs</view><separator orientation="vertical" /><view>Source</view></view></view>
+</view>

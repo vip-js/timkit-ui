@@ -13,21 +13,20 @@ type Finding = {
 
 const ROOT = path.resolve(__dirname, '..')
 const DATA_FILE = path.join(ROOT, 'apps/docs/data/registry-all.json')
-const ucsRegistry =
-  ((registryModule as { ucsRegistry?: Record<string, object> }).ucsRegistry ||
-    (
-      registryModule as {
-        default?: { ucsRegistry?: Record<string, object> }
-        'module.exports'?: { ucsRegistry?: Record<string, object> }
-      }
-    ).default?.ucsRegistry ||
-    (
-      registryModule as {
-        default?: { ucsRegistry?: Record<string, object> }
-        'module.exports'?: { ucsRegistry?: Record<string, object> }
-      }
-    )['module.exports']?.ucsRegistry ||
-    {}) as Record<string, object>
+const ucsRegistry = ((registryModule as { ucsRegistry?: Record<string, object> }).ucsRegistry ||
+  (
+    registryModule as {
+      default?: { ucsRegistry?: Record<string, object> }
+      'module.exports'?: { ucsRegistry?: Record<string, object> }
+    }
+  ).default?.ucsRegistry ||
+  (
+    registryModule as {
+      default?: { ucsRegistry?: Record<string, object> }
+      'module.exports'?: { ucsRegistry?: Record<string, object> }
+    }
+  )['module.exports']?.ucsRegistry ||
+  {}) as Record<string, object>
 
 type RegistryItem = {
   name: string

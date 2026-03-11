@@ -1,93 +1,16 @@
-<view class="*:not-first:mt-2">
-      <label>Listbox with option groups</label>
-      <view class="border-input overflow-hidden rounded-md border">
-        <list-box
-          class="bg-background max-h-72 min-h-20 space-y-2 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]"
-          aria-label="Select some foods"
-          selectionMode="multiple"
-        >
-          <list-box-section class="space-y-1">
-            <header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">
-              Veggies
-            </header>
-            <list-box-item
-              id="lettuce"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Lettuce
-            </list-box-item>
-            <list-box-item
-              id="tomato"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Tomato
-            </list-box-item>
-            <list-box-item
-              id="onion"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Onion
-            </list-box-item>
-          </list-box-section>
-          <separator class="bg-border -mx-1 my-2 h-px" />
-          <list-box-section class="space-y-1">
-            <header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">
-              Protein
-            </header>
-            <list-box-item
-              id="ham"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Ham
-            </list-box-item>
-            <list-box-item
-              id="tuna"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Tuna
-            </list-box-item>
-            <list-box-item
-              id="tofu"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Tofu
-            </list-box-item>
-          </list-box-section>
-          <separator class="bg-border -mx-1 my-2 h-px" />
-          <list-box-section class="space-y-1">
-            <header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">
-              Condiments
-            </header>
-            <list-box-item
-              id="mayo"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Mayonaise
-            </list-box-item>
-            <list-box-item
-              id="mustard"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Mustard
-            </list-box-item>
-            <list-box-item
-              id="ranch"
-              class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]"
-            >
-              Ranch
-            </list-box-item>
-          </list-box-section>
-        </list-box>
-      </view>
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Built with 
-        <a
-          class="hover:text-foreground underline"
-          href="https://react-spectrum.adobe.com/react-aria/ListBox.html"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          React Aria
-        </a>
-      </p>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label>Listbox with option groups</label><view class="border-input overflow-hidden rounded-md border"><listbox class="bg-background max-h-72 min-h-20 space-y-2 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]" aria-label="Select some foods" selectionmode="multiple" defaultselectedkeys="{{['lettuce', 'tuna']}}"><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Veggies
+            </header><listboxitem id="lettuce" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Lettuce
+            </listboxitem><listboxitem id="tomato" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tomato
+            </listboxitem><listboxitem id="onion" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Onion
+            </listboxitem></listboxsection><separator class="bg-border -mx-1 my-2 h-px" /><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Protein
+            </header><listboxitem id="ham" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Ham
+            </listboxitem><listboxitem id="tuna" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tuna
+            </listboxitem><listboxitem id="tofu" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tofu
+            </listboxitem></listboxsection><separator class="bg-border -mx-1 my-2 h-px" /><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Condiments
+            </header><listboxitem id="mayo" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Mayonaise
+            </listboxitem><listboxitem id="mustard" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Mustard
+            </listboxitem><listboxitem id="ranch" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Ranch
+            </listboxitem></listboxsection></listbox></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/ListBox.html" target="_blank" rel="noopener nofollow">React Aria
+        </a></text></view>
+</view>

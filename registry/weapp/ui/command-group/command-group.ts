@@ -1,3 +1,3 @@
 Component({
-    properties: { heading: { type: String, value: '' } }
+  properties: { heading: { type: String, value: '' } },
 })

@@ -11,7 +11,9 @@ import {
   subMonths,
   subYears,
 } from 'date-fns'
-import { DateRange } from 'react-day-picker'
+
+type CalendarRangeValue = { from: Date | undefined; to?: Date }
+type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
 
 export default function Component() {
   const today = new Date()
@@ -44,7 +46,7 @@ export default function Component() {
     to: endOfYear(subYears(today, 1)),
   }
   const [month, setMonth] = useState(today)
-  const [date, setDate] = useState<DateRange | undefined>(last7Days)
+  const [date, setDate] = useState<CalendarRangeValue | undefined>(last7Days)
 
   return (
     <div>
@@ -150,9 +152,9 @@ export default function Component() {
           <Calendar
             mode="range"
             selected={date}
-            onSelect={(newDate) => {
+            onSelect={(newDate: CalendarSelectedValue) => {
               if (newDate) {
-                setDate(newDate)
+                setDate(newDate as CalendarRangeValue)
               }
             }}
             month={month}

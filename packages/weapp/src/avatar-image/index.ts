@@ -2,8 +2,11 @@ import { avatarImageVariants } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
   relations: {
     '../avatar/index': {
       type: 'parent',

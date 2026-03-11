@@ -1,0 +1,10 @@
+<view>
+  <view class="flex flex-col gap-4"><popover><popovertrigger aschild><button variant="outline" size="sm" class="text-sm"><listfiltericon size="{{16}}" class="text-muted-foreground/80 -ms-1" aria-hidden="true" />Filters
+          </button></popovertrigger><popovercontent class="w-36 p-3"><view class="space-y-3"><view class="text-xs font-medium">Filters</view><form><view class="space-y-3"><view class="flex items-center gap-2"><checkbox id="{{`${id}-1`}}" /><label htmlfor="{{`${id}-1`}}" class="font-normal">Real Time
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-2`}}" /><label htmlfor="{{`${id}-2`}}" class="font-normal">Top Channels
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-3`}}" /><label htmlfor="{{`${id}-3`}}" class="font-normal">Last Orders
+                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-4`}}" /><label htmlfor="{{`${id}-4`}}" class="font-normal">Total Spent
+                  </label></view></view><view role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></view><view class="flex justify-between gap-2"><button size="sm" variant="outline" class="h-7 px-2">Clear
+                </button><button size="sm" class="h-7 px-2">Apply
+                </button></view></form></view></popovercontent></popover></view>
+</view>

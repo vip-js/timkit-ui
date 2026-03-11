@@ -1,6 +1,17 @@
-<view class="{{rootClass}} py-4" data-disabled="{{disabled}}" bindtouchmove="handleTouchMove">
-  <view class="{{trackClass}}">
-    <view class="{{rangeClass}}" style="width: {{left}}%"></view>
-  </view>
-  <view class="{{thumbClass}}" style="margin-left: {{left}}%; transform: translateX(-50%)"></view>
+<view class="{{rootClass}}">
+  <slider
+    min="{{min}}"
+    max="{{max}}"
+    value="{{value}}"
+    step="{{step}}"
+    disabled="{{disabled}}"
+    show-value="{{showValue}}"
+    activeColor="{{activeColor}}"
+    backgroundColor="{{backgroundColor}}"
+    block-size="{{blockSize}}"
+    block-color="{{blockColor}}"
+    name="{{name}}"
+    bindchange="onSliderChange"
+    bindchanging="onSliderChanging"
+  />
 </view>

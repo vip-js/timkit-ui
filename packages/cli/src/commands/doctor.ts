@@ -68,7 +68,9 @@ export const doctor = new Command()
       const content = fs.readFileSync(path.join(cwd, twConfig), 'utf-8')
       if (!content.includes('timkitTailwindPreset')) {
         if (twVersion && twVersion >= 4) {
-          infos.push('tailwind.config does not include timkitTailwindPreset (optional in v4 setup).')
+          infos.push(
+            'tailwind.config does not include timkitTailwindPreset (optional in v4 setup).'
+          )
         } else {
           issues.push('tailwind.config missing timkitTailwindPreset.')
         }
@@ -138,7 +140,9 @@ export const doctor = new Command()
       if (aliases.components) {
         const compDir = path.join(cwd, aliases.components)
         if (!fs.existsSync(compDir)) {
-          infos.push(`components alias path ${aliases.components} does not exist; it will be created on add.`)
+          infos.push(
+            `components alias path ${aliases.components} does not exist; it will be created on add.`
+          )
         }
       }
       if (config?.tailwind?.css && !fs.existsSync(path.join(cwd, config.tailwind.css))) {

@@ -2,28 +2,29 @@
 
 import * as React from 'react'
 import { createContext, useContext } from 'react'
-import { Slot } from './slot'
-import type { Machine as NumberInputMachine } from '@zag-js/number-input'
-import type { Machine as ZagMachine, MachineSchema as ZagMachineSchema } from '@zag-js/core'
 import type { AssertNoExtraKeys, StepperProps as CoreStepperProps } from '@timui/core'
 import {
   cn,
   createTimEvent,
   stepperConnect,
-  stepperMachine,
   stepperDescriptionVariants,
   stepperIndicatorCheckVariants,
   stepperIndicatorLabelVariants,
   stepperIndicatorLoaderVariants,
   stepperIndicatorVariants,
   stepperItemVariants,
+  stepperMachine,
   stepperSeparatorVariants,
   stepperTitleVariants,
   stepperTriggerVariants,
   stepperVariants,
 } from '@timui/core'
-import { CheckIcon, LoaderCircleIcon } from 'lucide-react'
+import type { Machine as ZagMachine, MachineSchema as ZagMachineSchema } from '@zag-js/core'
+import type { Machine as NumberInputMachine } from '@zag-js/number-input'
 import { mergeProps, normalizeProps, useMachine } from '@zag-js/react'
+import { CheckIcon, LoaderCircleIcon } from 'lucide-react'
+
+import { Slot } from './slot'
 
 // Types
 type StepperContextValue = {
@@ -81,8 +82,7 @@ function Stepper({
 }: StepperProps) {
   const generatedId = React.useId()
   const stepperId = props.id ?? generatedId
-  const normalizedValue =
-    typeof value === 'number' ? String(value) : value
+  const normalizedValue = typeof value === 'number' ? String(value) : value
   const normalizedDefaultValue =
     typeof defaultValue === 'number' ? String(defaultValue) : defaultValue
 
@@ -90,12 +90,12 @@ function Stepper({
     id: stepperId,
     value: normalizedValue,
     defaultValue: normalizedDefaultValue,
-      onValueChange(details: { value: string; valueAsNumber: number }) {
-        onValueChange?.(
-          createTimEvent('change', stepperId, {
-            value: details.value,
-            valueAsNumber: details.valueAsNumber,
-          }) as never as Parameters<NonNullable<CoreStepperProps['onValueChange']>>[0]
+    onValueChange(details: { value: string; valueAsNumber: number }) {
+      onValueChange?.(
+        createTimEvent('change', stepperId, {
+          value: details.value,
+          valueAsNumber: details.valueAsNumber,
+        }) as never as Parameters<NonNullable<CoreStepperProps['onValueChange']>>[0]
       )
     },
   })
@@ -223,14 +223,8 @@ function StepperIndicator({
         children
       ) : (
         <>
-          <span className={stepperIndicatorLabelVariants()}>
-            {step}
-          </span>
-          <CheckIcon
-            className={stepperIndicatorCheckVariants()}
-            size={16}
-            aria-hidden="true"
-          />
+          <span className={stepperIndicatorLabelVariants()}>{step}</span>
+          <CheckIcon className={stepperIndicatorCheckVariants()} size={16} aria-hidden="true" />
           {isLoading && (
             <span className={stepperIndicatorLoaderVariants()}>
               <LoaderCircleIcon className="animate-spin" size={14} aria-hidden="true" />

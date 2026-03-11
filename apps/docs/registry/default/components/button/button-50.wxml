@@ -1,0 +1,4 @@
+<view>
+  <button variant="link" class="gap-1"><chevronlefticon class="opacity-60" size="{{16}}" aria-hidden="true" />Go back
+    </button>
+</view>

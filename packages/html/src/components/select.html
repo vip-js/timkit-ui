@@ -1,15 +1,15 @@
-<div data-slot="select" class="w-full">
-  <button data-slot="select-trigger" class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm">
+<div data-slot="select" class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 ps-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+  <button data-slot="select-trigger" class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 ps-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
     <span data-slot="select-value" class="line-clamp-1">Select option</span>
   </button>
   <div
     data-slot="select-content"
-    class="relative z-50 mt-2 min-w-32 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md"
+    class="bg-popover text-popover-foreground data-[state&#x3D;open]:animate-in data-[state&#x3D;closed]:animate-out data-[state&#x3D;closed]:fade-out-0 data-[state&#x3D;open]:fade-in-0 data-[state&#x3D;closed]:zoom-out-95 data-[state&#x3D;open]:zoom-in-95 data-[side&#x3D;bottom]:slide-in-from-top-2 data-[side&#x3D;left]:slide-in-from-right-2 data-[side&#x3D;right]:slide-in-from-left-2 data-[side&#x3D;top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md"
   >
-    <div data-slot="select-item" class="relative flex w-full items-center rounded-sm py-1.5 pl-8 pr-2 text-sm">
+    <div data-slot="select-item" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
       Option one
     </div>
-    <div data-slot="select-item" class="relative flex w-full items-center rounded-sm py-1.5 pl-8 pr-2 text-sm">
+    <div data-slot="select-item" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
       Option two
     </div>
   </div>

@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type {
   AssertNoExtraKeys,
+  CalendarApi,
   CalendarMode,
   CalendarRangeValue,
   CalendarVueProps,
@@ -33,15 +34,23 @@ import type { VisibleRange } from "@zag-js/date-picker";
 import { useCalendar, type UseCalendarProps } from "./use-calendar";
 
 type CalendarProps = CalendarVueProps & {
+  id?: string;
+  selected?: Date | CalendarRangeValue;
+  onSelect?: (value?: Date | CalendarRangeValue) => void;
   class?: string;
   classNames?: Partial<Record<string, string>>;
+  externalApi?: CalendarApi;
 };
 
 type _CalendarPropsGuard = AssertNoExtraKeys<
   CalendarProps,
   CalendarVueProps & {
+    id?: string;
+    selected?: Date | CalendarRangeValue;
+    onSelect?: (value?: Date | CalendarRangeValue) => void;
     class?: string;
     classNames?: Partial<Record<string, string>>;
+    externalApi?: CalendarApi;
   }
 >;
 
@@ -56,7 +65,8 @@ const emit = defineEmits<{
   (e: "change", value?: Date | { from?: Date; to?: Date }): void;
 }>();
 
-const { api } = useCalendar(props, emit);
+const { api: internalApi } = useCalendar(props, emit);
+const api = computed(() => props.externalApi ?? internalApi.value);
 
 const defaultClassNames = {
   months: calendarMonthsVariants(),

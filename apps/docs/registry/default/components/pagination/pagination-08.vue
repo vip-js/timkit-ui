@@ -1,65 +1,34 @@
 <script setup lang="ts">
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination'
+import { cn } from '@/lib/utils';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
+import { buttonVariants } from '@/components/ui/button';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { usePagination } from '@/registry/default/hooks/use-pagination.vue';
 
-const currentPage = 3
-const pages = [1, 2, 3, 4, 5]
+
 </script>
+
 <template>
-  <Pagination>
-    <PaginationContent class="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse">
-      <PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md">
-        <PaginationLink
-          href="#/page/pagination-08-prev"
-          aria-label="Go to previous page"
-          class="rounded-none shadow-none focus-visible:z-10"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="size-4 opacity-60"
-          >
-            <circle cx="12" cy="12" r="9" />
-          </svg>
-        </PaginationLink>
-      </PaginationItem>
-
-      <PaginationItem v-for="page in pages" :key="page">
-        <PaginationLink
-          :href="`#/page/${page}`"
-          :class="[
-            'rounded-none shadow-none focus-visible:z-10',
-            page === currentPage ? 'bg-accent' : ''
-          ]"
-        >
-          {{ page }}
-        </PaginationLink>
-      </PaginationItem>
-
-      <PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md">
-        <PaginationLink
-          href="#/page/pagination-08-next"
-          aria-label="Go to next page"
-          class="rounded-none shadow-none focus-visible:z-10"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="size-4 opacity-60"
-          >
-            <circle cx="12" cy="12" r="9" />
-          </svg>
-        </PaginationLink>
-      </PaginationItem>
-    </PaginationContent>
-  </Pagination>
+  <Pagination><PaginationContent class="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse"><PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationLink :class="cn(
+              buttonVariants({
+                variant: 'outline',
+              }),
+              'rounded-none shadow-none focus-visible:z-10 aria-disabled:pointer-events-none [&[aria-disabled]>svg]:opacity-50'
+            )" :href="currentPage === 1 ? undefined : `#/page/${currentPage - 1}`" aria-label="Go to previous page" :aria-disabled="currentPage === 1 ? true : undefined" :role="currentPage === 1 ? 'link' : undefined"><ChevronLeftIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem v-if="showLeftEllipsis" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationEllipsis /></PaginationItem><PaginationItem v-for="(page, index) in pages" :key="index" :key="page"><PaginationLink :class="cn(
+                buttonVariants({
+                  variant: 'outline',
+                }),
+                'rounded-none shadow-none focus-visible:z-10',
+                page === currentPage && 'bg-accent'
+              )" :href="`#/page/${page}`" :isActive="page === currentPage">{{ page }}</PaginationLink></PaginationItem><PaginationItem v-if="showRightEllipsis" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationEllipsis :class="cn(
+                buttonVariants({
+                  variant: 'outline',
+                }),
+                'pointer-events-none rounded-none shadow-none'
+              )" /></PaginationItem><PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationLink :class="cn(
+              buttonVariants({
+                variant: 'outline',
+              }),
+              'rounded-none shadow-none focus-visible:z-10 aria-disabled:pointer-events-none [&[aria-disabled]>svg]:opacity-50'
+            )" :href="currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`" aria-label="Go to next page" :aria-disabled="currentPage === totalPages ? true : undefined" :role="currentPage === totalPages ? 'link' : undefined"><ChevronRightIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem></PaginationContent></Pagination>
 </template>

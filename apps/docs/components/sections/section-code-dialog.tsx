@@ -18,6 +18,7 @@ import {
   TooltipTrigger,
 } from '@timui/react'
 import { CodeIcon } from 'lucide-react'
+import type { BundledLanguage } from 'shiki/bundle/web'
 
 import type { SectionCodeGroup } from '@/lib/sections'
 import CodeBlock from '@/components/code-block'
@@ -25,6 +26,13 @@ import CopyButton from '@/components/copy-button'
 
 const FILE_TRIGGER_STYLES =
   'rounded-full border px-4 py-1.5 text-xs font-medium transition hover:bg-muted data-[active=true]:bg-foreground data-[active=true]:text-background'
+
+const toCodeLanguage = (language: string): BundledLanguage => {
+  if (language === 'tsx' || language === 'vue' || language === 'html') {
+    return language
+  }
+  return 'tsx'
+}
 
 const emptyState = (
   <p className="text-muted-foreground text-sm">暂无可展示的源码，稍后再试或查看 React 版本。</p>
@@ -132,7 +140,10 @@ export default function SectionCodeDialog({ codeGroups, title }: SectionCodeDial
                     <div className="relative">
                       {currentFile && currentFile.code ? (
                         <>
-                          <CodeBlock code={currentFile.code} lang={group.language as any} />
+                          <CodeBlock
+                            code={currentFile.code}
+                            lang={toCodeLanguage(group.language)}
+                          />
                           <CopyButton componentSource={currentFile.code} />
                         </>
                       ) : (

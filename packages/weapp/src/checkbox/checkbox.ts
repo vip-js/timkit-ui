@@ -1,5 +1,5 @@
-import { setupCheckboxMachine } from './use-checkbox'
 import { checkboxVariants } from '../utils'
+import { setupCheckboxMachine } from './use-checkbox'
 
 type CheckboxChecked = boolean | 'indeterminate'
 
@@ -56,6 +56,7 @@ Component({
     form: { type: String, value: '' },
     value: { type: String, value: 'on' },
     id: { type: String, value: 'checkbox' },
+    extClass: { type: String, value: '' },
   },
 
   data: {
@@ -83,7 +84,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappCheckboxInternal
       if (!state || !self._send || !self._connect) return
       const api = self._connect(state, self._send) as WeappCheckboxApi
@@ -92,13 +93,13 @@ Component({
       this.setData({ api, className: baseClass })
     },
 
-    'checked': function (val) {
+    checked: function (val) {
       const self = this as WeappCheckboxInternal
       if (self._service && val !== self.data.api.checked) {
         self._send?.({ type: 'CHECKED.SET', checked: val })
       }
     },
-    'disabled': function (val) {
+    disabled: function (val) {
       const self = this as WeappCheckboxInternal
       self._service?.send({ type: 'DISABLED.SET', disabled: val })
     },

@@ -1,16 +1,5 @@
 
+
 > @timui/weapp@0.0.1 lint /Users/jiawei01.mao/sine/timkit-ui/packages/weapp
-> eslint . --ext .js,.jsx,.ts,.tsx
-
-
-/Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist/datefield/datefield.js
-  9825:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
-  9838:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
-
-/Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist/utils.js
-  24500:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
-  24513:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-unused-vars')
-
-✖ 4 problems (0 errors, 4 warnings)
-  0 errors and 4 warnings potentially fixable with the `--fix` option.
+> eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist
 

@@ -1,4 +1,4 @@
-import type { RegistryItem } from '@timui/core'
+import type { JsonValue, RegistryItem } from '@timui/core'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 
@@ -39,7 +39,7 @@ export type UnifiedFamily = {
 
 export const getUnifiedFamilies = async (): Promise<UnifiedFamily[]> => {
   const uiItems = getUiItems()
-  const uiNameSet = new Set(uiItems.map((item: any) => item.name))
+  const uiNameSet = new Set(uiItems.map((item) => item.name))
   const indexItems = getIndexItems()
 
   // 1. Load Shadcn Family (UI Components)
@@ -52,16 +52,24 @@ export const getUnifiedFamilies = async (): Promise<UnifiedFamily[]> => {
   if (catalog.categories) {
     for (const cat of catalog.categories) {
       // Preferred lookup: by catalog.components name list
-      const nameSet = new Set((cat.components || []).map((c: any) => c.name))
+      const nameSet = new Set(
+        (cat.components || [])
+          .map((component) =>
+            typeof component === 'object' && component !== null && 'name' in component
+              ? (component as { name?: string }).name
+              : undefined
+          )
+          .filter((name): name is string => typeof name === 'string')
+      )
       const categoryItems = indexItems.filter(
-        (item: any) =>
+        (item) =>
           (item.type === 'registry:ui' || item.type === 'registry:component') &&
           (nameSet.has(item.name) ||
             item.categories?.includes(cat.slug) ||
             item.meta?.category === cat.slug)
       )
 
-      const entries: UnifiedEntry[] = categoryItems.map((item: any) => {
+      const entries: UnifiedEntry[] = categoryItems.map((item) => {
         const fullItem = (loadRegistryItemFromData(item.name) || item) as RegistryItem
         return {
           id: item.name,
@@ -104,27 +112,32 @@ export const getUnifiedFamilies = async (): Promise<UnifiedFamily[]> => {
 
       // Find items
       const sectionItems = indexItems.filter(
-        (item: any) => item.categories?.includes(slug) || item.meta?.category === slug
+        (item) => item.categories?.includes(slug) || item.meta?.category === slug
       )
 
-      const sectionItemPromises = sectionItems.map(async (item: any, index: number) => {
+      const sectionItemPromises = sectionItems.map(async (item, index: number) => {
         // Skip if a UI component with the same name exists (de-dup shadcn vs float)
         if (uiNameSet.has(item.name)) return null
-        const meta = item.meta as any
+        const meta = item.meta as Record<string, JsonValue> | undefined
+        const mdxBody = typeof meta?.mdxBody === 'string' ? meta.mdxBody : undefined
+        const isActive = meta?.isActive !== false
+        const title = typeof meta?.title === 'string' ? meta.title : item.name
+        const description =
+          typeof meta?.description === 'string' ? meta.description : section.description
         // Only process if we have MDX body (for sections)
-        if (!meta?.mdxBody) return null
-        if (meta?.isActive === false) return null
+        if (!mdxBody) return null
+        if (!isActive) return null
 
         try {
-          const mdxSource = await serialize(meta.mdxBody)
+          const mdxSource = await serialize(mdxBody)
           const id = `${slug}-${index}`
           return {
             id,
-            title: meta.title ?? item.name,
-            description: meta.description ?? section.description,
+            title,
+            description,
             variant: 'section' as Variant,
             mdxSource,
-            codeGroups: extractSectionCode(meta.ltr, id),
+            codeGroups: extractSectionCode((meta?.ltr ?? {}) as object, id),
           }
         } catch (e) {
           console.warn(`Failed to process section item ${item.name}`, e)

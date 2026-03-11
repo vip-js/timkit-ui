@@ -1,21 +1,49 @@
 import type * as radioGroup from '@zag-js/radio-group'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type RadioGroupValueChangeEvent = TimEvent<{ value: string | null }>
 
 export type RadioGroupProps = Omit<radioGroup.Props, 'onValueChange'> & {
-    onValueChange?: (event: RadioGroupValueChangeEvent) => void
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (event: RadioGroupValueChangeEvent) => void
 }
 
 export type RadioGroupVueProps = {
-    id?: string
-    value?: string | null
-    defaultValue?: string | null
-    disabled?: boolean
-    required?: boolean
-    name?: string
-    modelValue?: string | null
-    onValueChange?: (details: { value: string | null }) => void
+  /**
+   * A unique identifier for the component.
+   */
+  id?: string
+  /**
+   * The controlled value of the component.
+   */
+  value?: string | null
+  /**
+   * The default value of the component when uncontrolled.
+   */
+  defaultValue?: string | null
+  /**
+   * When `true`, prevents the user from interacting with the component.
+   */
+  disabled?: boolean
+  /**
+   * When `true`, indicates that the user must specify a value for the input before the form can be submitted.
+   */
+  required?: boolean
+  /**
+   * The name of the component, used when submitting an HTML form.
+   */
+  name?: string
+  /**
+   * The controlled value bound via `v-model` (Vue specific).
+   */
+  modelValue?: string | null
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (details: { value: string | null }) => void
 }
 
 export type RadioGroupItemProps = radioGroup.ItemProps

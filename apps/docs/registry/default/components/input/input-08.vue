@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-08-id">Disabled input</Label>
-      <Input id="input-08-id" placeholder="Email" type="email" disabled />
-    </div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Disabled input</Label><Input :id="id" placeholder="Email" type="email" disabled /></div>
 </template>

@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center" role="group" aria-labelledby="volume-control"><text id="volume-control" class="sr-only">Volume Control
+      </text><button class="rounded-full" variant="outline" size="icon" aria-label="Decrease volume" bindtap="decreaseVolume" disabled="{{volume === 0}}"><minusicon size="{{16}}" aria-hidden="true" /></button><view class="flex items-center px-3 text-sm font-medium tabular-nums" aria-live="polite"><icon class="opacity-60" size="{{16}}" aria-hidden="true" /><text class="ms-2" aria-label="{{`Current volume is ${volume}`}}">{{ volume }}</text></view><button class="rounded-full" variant="outline" size="icon" aria-label="Increase volume" bindtap="increaseVolume" disabled="{{volume === 6}}"><plusicon size="{{16}}" aria-hidden="true" /></button></view>
+</view>

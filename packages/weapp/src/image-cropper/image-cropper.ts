@@ -1,7 +1,12 @@
+import { emitTimEvent } from '../utils'
+
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     src: {
@@ -27,6 +32,10 @@ Component({
     disabled: {
       type: Boolean,
       value: false,
+    },
+    id: {
+      type: String,
+      value: 'image-cropper',
     },
     extClass: {
       type: String,
@@ -91,7 +100,7 @@ Component({
         },
       }
       this.triggerEvent('crop', detail)
-      this.triggerEvent('change', detail)
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'image-cropper', detail)
     },
   },
 })

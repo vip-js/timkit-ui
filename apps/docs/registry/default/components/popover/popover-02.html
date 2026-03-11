@@ -1,157 +1,24 @@
-<popover>
-      <popover-trigger asChild>
-        <button size="icon" variant="outline" class="relative" aria-label="Open notifications">
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          
-        </button>
-      </popover-trigger>
-      <popover-content class="w-80 p-1">
-        <div class="flex items-baseline justify-between gap-4 px-3 py-2">
-          <div class="text-sm font-semibold">Notifications</div>
-          
-        </div>
-        <div
-          role="separator"
-          aria-orientation="horizontal"
-          class="bg-border -mx-1 my-1 h-px"
-        ></div>
-        
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    Chris Tompson
-                  </span> 
-                  requested review on 
-                  <span class="text-foreground font-medium hover:underline">
-                    PR #42: Feature implementation
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">15 minutes ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    Emma Davis
-                  </span> 
-                  shared 
-                  <span class="text-foreground font-medium hover:underline">
-                    New component library
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">45 minutes ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    James Wilson
-                  </span> 
-                  assigned you to 
-                  <span class="text-foreground font-medium hover:underline">
-                    API integration task
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">4 hours ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    Alex Morgan
-                  </span> 
-                  replied to your comment in 
-                  <span class="text-foreground font-medium hover:underline">
-                    Authentication flow
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">12 hours ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    Sarah Chen
-                  </span> 
-                  commented on 
-                  <span class="text-foreground font-medium hover:underline">
-                    Dashboard redesign
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">2 days ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-
-          <div
-            class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"
-          >
-            <div class="relative flex items-start pe-3">
-              <div class="flex-1 space-y-1">
-                <button
-                  class="text-foreground/80 text-left after:absolute after:inset-0" >
-                  <span class="text-foreground font-medium hover:underline">
-                    Miky Derya
-                  </span> 
-                  mentioned you in 
-                  <span class="text-foreground font-medium hover:underline">
-                    Timkit UI open graph image
-                  </span>
-                  .
-                </button>
-                <div class="text-muted-foreground text-xs">2 weeks ago</div>
-              </div>
-              
-            </div>
-          </div>
-        
-      </popover-content>
-    </popover>
+<div data-slot="popover" class="relative inline-block">
+  <button
+    data-slot="popover-trigger"
+    type="button"
+    aria-expanded="false"
+    aria-label="Open notifications"
+    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
+  >
+    Notifications
+  </button>
+  <div
+    data-slot="popover-content"
+    data-state="closed"
+    hidden
+    class="absolute right-0 top-full z-10 mt-2 w-80 rounded-md border bg-popover p-2 shadow-md"
+  >
+    <div class="px-2 py-2 text-sm font-semibold">Notifications</div>
+    <div class="space-y-1">
+      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">Chris Tompson requested review on PR #42.</div>
+      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">Emma Davis shared a new component library.</div>
+      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">James Wilson assigned you to API integration.</div>
+    </div>
+  </div>
+</div>

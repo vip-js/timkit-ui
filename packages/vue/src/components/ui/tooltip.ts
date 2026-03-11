@@ -1,0 +1,5 @@
+export { default } from './tooltip/tooltip.vue'
+export { default as TooltipContent } from './tooltip/tooltip-content.vue'
+export { default as TooltipProvider } from './tooltip/tooltip-provider.vue'
+export { default as TooltipTrigger } from './tooltip/tooltip-trigger.vue'
+export { default as Tooltip } from './tooltip/tooltip.vue'

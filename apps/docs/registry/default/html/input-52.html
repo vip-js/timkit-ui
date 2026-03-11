@@ -1,0 +1,14 @@
+<template>
+  <div><div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with password strength indicator</Label><div class="relative"><Input id="${id}" class="pe-9" placeholder="Password" type="${isVisible ? 'text' : 'password'}" value="${password}" onchange="${(e) => setPassword(e.target.value)}" aria-describedby="${`${id}-description`}" /><button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" type="button" on-click="${toggleVisibility}" aria-label="${isVisible ? 'Hide password' : 'Show password'}" aria-pressed="${isVisible}" aria-controls="password">${isVisible ? (
+              <EyeOffIcon size={16} aria-hidden="true" />
+            ) : (
+              <EyeIcon size={16} aria-hidden="true" />
+            )}</button></div></div><div class="bg-border mt-3 mb-4 h-1 w-full overflow-hidden rounded-full" role="progressbar" aria-valuenow="${strengthScore}" aria-valuemin="${0}" aria-valuemax="${4}" aria-label="Password strength"><div class="${`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}" style="${{ width: `${(strengthScore / 4) * 100}%` }}"></div></div><p id="${`${id}-description`}" class="text-foreground mb-2 text-sm font-medium">${getStrengthText(strengthScore)}. Must contain:
+      </p><ul class="space-y-1.5" aria-label="Password requirements"><!-- Loop strength -->
+<li key="${index}" class="flex items-center gap-2">${req.met ? (
+              <CheckIcon size={16} className="text-emerald-500" aria-hidden="true" />
+            ) : (
+              <XIcon size={16} className="text-muted-foreground/80" aria-hidden="true" />
+            )}<span class="${`text-xs ${req.met ? 'text-emerald-600' : 'text-muted-foreground'}`}">${req.text}<span class="sr-only">${req.met ? ' - Requirement met' : ' - Requirement not met'}</span></span></li>
+<!-- End Loop --></ul></div>
+</template>

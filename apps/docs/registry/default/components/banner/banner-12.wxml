@@ -1,30 +1,43 @@
-<banner class="bg-muted px-4 py-3 md:py-2">
-  <banner-content class="flex-wrap items-center justify-center gap-x-4 gap-y-2">
-    <banner-description class="text-sm text-foreground">
-      <text class="font-medium">v2.1.0</text>
-      <text class="text-muted-foreground mx-2">•</text>
-      New features and improvements available
-    </banner-description>
-    <banner-actions>
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs min-w-24">
-        <svg
-          class="-ms-0.5"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 3v12" />
-          <path d="m7 10 5 5 5-5" />
-          <path d="M5 21h14" />
-        </svg>
-        Update now
-      </button>
-    </banner-actions>
-  </banner-content>
-</banner>
+<view>
+  <banner class="bg-muted px-4 py-3 md:py-2"><bannercontent class="flex-wrap items-center justify-center gap-x-4 gap-y-2"><bannerdescription class="text-sm text-foreground"><text class="font-medium">v2.1.0</text><text class="text-muted-foreground mx-2">•</text>New features and improvements available
+        </bannerdescription><banneractions><button size="sm" variant="outline" disabled="{{isDownloading}}" bindtap="handleDownload" class="min-w-24">{{ isDownloading ? (
+              <>
+                <svg
+                  className="-ms-0.5 me-2 animate-spin"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" opacity="0.25" />
+                  <path d="M22 12a10 10 0 0 1-10 10" />
+                </svg>
+                Updating...
+              </>
+            ) : (
+              <>
+                <svg
+                  className="-ms-0.5"
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3v12" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M5 21h14" />
+                </svg>
+                Update now
+              </>
+            ) }}</button></banneractions></bannercontent></banner>
+</view>

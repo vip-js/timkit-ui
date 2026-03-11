@@ -1,3 +1,4 @@
+import { emitTimEvent } from '../utils'
 import { setupToggleGroupMachine } from './use-toggle-group'
 
 type WeappToggleGroupApi = {
@@ -17,28 +18,31 @@ type ToggleGroupTapEvent = WechatMiniprogram.BaseEvent & {
   }
 }
 
-type WeappToggleGroupInternal = WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
-  _service?: WeappService
-  _cleanup?: () => void
-  _send?: (event: object) => void
-  data: {
-    api: WeappToggleGroupApi
+type WeappToggleGroupInternal =
+  WechatMiniprogram.Component.InstanceMethods<WechatMiniprogram.IAnyObject> & {
+    _service?: WeappService
+    _cleanup?: () => void
+    _send?: (event: object) => void
+    data: {
+      api: WeappToggleGroupApi
+    }
+    properties: {
+      value: string[]
+      multiple: boolean
+      disabled: boolean
+      loop: boolean
+      id: string
+      extClass: string
+    }
   }
-  properties: {
-    value: string[]
-    multiple: boolean
-    disabled: boolean
-    loop: boolean
-    id: string
-    extClass: string
-  }
-}
 
 Component({
   options: {
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: { type: Array, value: [] },
@@ -64,8 +68,10 @@ Component({
         disabled: this.properties.disabled,
         loop: this.properties.loop,
         onValueChange: (details) => {
-          this.triggerEvent('change', details)
-        }
+          emitTimEvent(this, 'change', 'change', this.properties.id || 'toggle-group', {
+            value: details.value,
+          })
+        },
       })
 
       self._service = service as WeappService
@@ -79,7 +85,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappToggleGroupInternal
       if (!state || !self._send) return
       const { connect } = setupToggleGroupMachine(this, { id: this.properties.id })
@@ -87,7 +93,7 @@ Component({
       this.setData({ api, className: this.properties.extClass })
     },
 
-    'value': function (val) {
+    value: function (val) {
       const self = this as WeappToggleGroupInternal
       if (self._service) {
         self._service.setContext({ value: val })

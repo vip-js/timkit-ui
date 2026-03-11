@@ -1,103 +1,11 @@
 <script setup lang="ts">
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination'
+import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { usePagination } from '@/registry/default/hooks/use-pagination.vue';
+
+
 </script>
+
 <template>
-<Pagination>
-      <PaginationContent>
-        
-        <PaginationItem>
-          <PaginationLink
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-07-id"
-            aria-label="Go to first page"
-            aria-disabled=undefined
-            role=undefined
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </PaginationLink>
-        </PaginationItem>
-
-        
-        <PaginationItem>
-          <PaginationLink
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-07-id"
-            aria-label="Go to previous page"
-            aria-disabled=undefined
-            role=undefined
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </PaginationLink>
-        </PaginationItem>
-
-        
-        
-
-        
-        
-          <PaginationItem>
-            <PaginationLink href="#/page/1">
-              1
-            </PaginationLink>
-          </PaginationItem>
-        
-
-          <PaginationItem>
-            <PaginationLink href="#/page/2">
-              2
-            </PaginationLink>
-          </PaginationItem>
-        
-
-          <PaginationItem>
-            <PaginationLink href="#/page/3">
-              3
-            </PaginationLink>
-          </PaginationItem>
-        
-
-          <PaginationItem>
-            <PaginationLink href="#/page/4">
-              4
-            </PaginationLink>
-          </PaginationItem>
-        
-
-          <PaginationItem>
-            <PaginationLink href="#/page/5">
-              5
-            </PaginationLink>
-          </PaginationItem>
-        
-
-        
-        
-
-        
-        <PaginationItem>
-          <PaginationLink
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-07-id"
-            aria-label="Go to next page"
-            aria-disabled=undefined
-            role=undefined
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </PaginationLink>
-        </PaginationItem>
-
-        
-        <PaginationItem>
-          <PaginationLink
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-07-id"
-            aria-label="Go to last page"
-            aria-disabled=undefined
-            role=undefined
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-          </PaginationLink>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+  <Pagination><PaginationContent><PaginationItem><PaginationLink class="aria-disabled:pointer-events-none aria-disabled:opacity-50" :href="currentPage === 1 ? undefined : `#/page/${currentPage - 1}`" aria-label="Go to first page" :aria-disabled="currentPage === 1 ? true : undefined" :role="currentPage === 1 ? 'link' : undefined"><ChevronFirstIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem><PaginationLink class="aria-disabled:pointer-events-none aria-disabled:opacity-50" :href="currentPage === 1 ? undefined : `#/page/${currentPage - 1}`" aria-label="Go to previous page" :aria-disabled="currentPage === 1 ? true : undefined" :role="currentPage === 1 ? 'link' : undefined"><ChevronLeftIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem v-if="showLeftEllipsis"><PaginationEllipsis /></PaginationItem><PaginationItem v-for="(page, index) in pages" :key="index" :key="page"><PaginationLink :href="`#/page/${page}`" :isActive="page === currentPage">{{ page }}</PaginationLink></PaginationItem><PaginationItem v-if="showRightEllipsis"><PaginationEllipsis /></PaginationItem><PaginationItem><PaginationLink class="aria-disabled:pointer-events-none aria-disabled:opacity-50" :href="currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`" aria-label="Go to next page" :aria-disabled="currentPage === totalPages ? true : undefined" :role="currentPage === totalPages ? 'link' : undefined"><ChevronRightIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem><PaginationLink class="aria-disabled:pointer-events-none aria-disabled:opacity-50" :href="currentPage === totalPages ? undefined : `#/page/${totalPages}`" aria-label="Go to last page" :aria-disabled="currentPage === totalPages ? true : undefined" :role="currentPage === totalPages ? 'link' : undefined"><ChevronLastIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem></PaginationContent></Pagination>
 </template>

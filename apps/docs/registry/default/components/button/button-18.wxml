@@ -1,0 +1,3 @@
+<view>
+  <button variant="ghost" class="h-auto p-0 hover:bg-transparent"><avatar><avatarimage src="./avatar.jpg" alt="Profile image" /><avatarfallback>KK</avatarfallback></avatar><chevrondownicon size="{{16}}" class="opacity-60" aria-hidden="true" /></button>
+</view>

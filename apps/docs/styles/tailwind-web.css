@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '../app/theme.css';
+
+@plugin "tailwindcss-animate";
+
+/* Docs app */
+@source '../app/**/*.{ts,tsx,mdx}';
+@source '../components/**/*.{ts,tsx,vue}';
+@source '../lib/**/*.{ts,tsx}';
+
+/* Registry demos and source-distributed UI */
+@source '../registry/default/components/**/*.{ts,tsx,vue,html}';
+@source '../registry/default/ui/**/*.{ts,tsx}';
+@source '../registry/default/vue/**/*.{ts,vue}';
+
+/* Preview host */
+@source '../../vue-preview-server/src/**/*.{ts,vue}';
+
+/* Shared packages */
+@source '../../../packages/core/src/**/*.{ts,tsx,vue,html}';
+@source '../../../packages/react/src/**/*.{ts,tsx}';
+@source '../../../packages/vue/src/**/*.{ts,vue}';
+@source '../../../packages/html/src/**/*.{ts,js,hbs,html}';

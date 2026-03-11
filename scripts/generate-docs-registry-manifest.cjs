@@ -15,33 +15,27 @@ const resolveRepoRoot = () => {
 }
 
 const REPO_ROOT = resolveRepoRoot()
-const ROOT = path.join(REPO_ROOT, 'apps/docs/registry')
+const REGISTRY_INDEX = path.join(REPO_ROOT, 'apps/docs/data/registry-index.json')
 const OUTPUT = path.join(REPO_ROOT, 'apps/docs/registry/registry-manifest.ts')
 
 const toPosix = (value) => value.replace(/\\/g, '/')
 
-const walk = (dir, acc = []) => {
-  const entries = fs.readdirSync(dir, { withFileTypes: true })
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) {
-      walk(fullPath, acc)
-      continue
-    }
-    if (entry.isFile() && entry.name.endsWith('.tsx')) {
-      acc.push(fullPath)
-    }
-  }
-  return acc
-}
-
 const registryRoot = path.join(REPO_ROOT, 'apps/docs')
-const files = walk(ROOT)
+const registryIndex = JSON.parse(fs.readFileSync(REGISTRY_INDEX, 'utf-8'))
+const files = Array.from(
+  new Set(
+    (registryIndex.items || [])
+      .flatMap((item) => item.files || [])
+      .map((file) => file.path)
+      .filter((filePath) => typeof filePath === 'string' && filePath.endsWith('.tsx'))
+      .filter((filePath) => filePath.startsWith('registry/'))
+      .filter((filePath) => fs.existsSync(path.join(registryRoot, filePath)))
+  )
+)
 
 const entries = files
   .map((filePath) => {
-    const relFromDocs = toPosix(path.relative(registryRoot, filePath))
-    if (!relFromDocs.startsWith('registry/')) return null
+    const relFromDocs = toPosix(path.relative(registryRoot, path.join(registryRoot, filePath)))
     const importPath = relFromDocs.endsWith('.tsx')
       ? `@/${relFromDocs.slice(0, -4)}`
       : `@/${relFromDocs}`

@@ -1,27 +1,27 @@
 Component({
-    relations: {
-        '../avatar/avatar': { type: 'ancestor' }
+  relations: {
+    '../avatar/avatar': { type: 'ancestor' },
+  },
+  properties: {
+    src: { type: String, value: '' },
+  },
+  data: {
+    imageApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ imageApi: parentApi.imageProps })
     },
-    properties: {
-        src: { type: String, value: '' }
+    handleLoad() {
+      if (this.data.imageApi && this.data.imageApi.onLoad) {
+        this.data.imageApi.onLoad()
+      }
     },
-    data: {
-        imageApi: {} as any
+    handleError() {
+      if (this.data.imageApi && this.data.imageApi.onError) {
+        this.data.imageApi.onError()
+      }
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ imageApi: parentApi.imageProps })
-        },
-        handleLoad() {
-            if (this.data.imageApi && this.data.imageApi.onLoad) {
-                this.data.imageApi.onLoad()
-            }
-        },
-        handleError() {
-            if (this.data.imageApi && this.data.imageApi.onError) {
-                this.data.imageApi.onError()
-            }
-        }
-    }
+  },
 })

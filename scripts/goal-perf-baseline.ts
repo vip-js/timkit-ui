@@ -10,10 +10,13 @@ type ComponentSize = {
 
 type Baseline = {
   generatedAt: string
-  platforms: Record<Platform, {
-    total: number
-    components: Record<string, number>
-  }>
+  platforms: Record<
+    Platform,
+    {
+      total: number
+      components: Record<string, number>
+    }
+  >
 }
 
 const ROOT = path.resolve(__dirname, '..')
@@ -89,7 +92,10 @@ const toComponentMap = (items: ComponentSize[]) =>
     return acc
   }, {})
 
-const outPath = path.resolve(ROOT, process.env.GOAL_PERF_BASELINE_OUT || 'scripts/perf-baseline.json')
+const outPath = path.resolve(
+  ROOT,
+  process.env.GOAL_PERF_BASELINE_OUT || 'scripts/perf-baseline.json'
+)
 const names = parseCoreComponentNames()
 const sizes = collectPlatformSizes(names)
 

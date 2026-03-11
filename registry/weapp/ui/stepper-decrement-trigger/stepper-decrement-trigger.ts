@@ -1,17 +1,17 @@
 Component({
-    relations: {
-        '../stepper/stepper': { type: 'ancestor' }
+  relations: {
+    '../stepper/stepper': { type: 'ancestor' },
+  },
+  data: {
+    triggerApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ triggerApi: parentApi.decrementTriggerProps })
     },
-    data: {
-        triggerApi: {} as any
+    handleTap() {
+      if (this.data.triggerApi.onClick) this.data.triggerApi.onClick()
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ triggerApi: parentApi.decrementTriggerProps })
-        },
-        handleTap() {
-            if (this.data.triggerApi.onClick) this.data.triggerApi.onClick()
-        }
-    }
+  },
 })

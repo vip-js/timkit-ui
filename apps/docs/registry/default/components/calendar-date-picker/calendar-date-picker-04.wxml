@@ -1,28 +1,4 @@
-<date-picker class="w-full">
-  <button
-    data-slot="date-picker-trigger"
-    class="inline-flex items-center justify-between whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs w-full"
-  >
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="text-muted-foreground/80 -ms-1 shrink-0"
-      aria-hidden="true"
-    >
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <path d="M3 10h18" />
-    </svg>
-    <text class="truncate font-medium">Date</text>
-  </button>
-  <view data-slot="date-picker-content" class="mt-2 w-auto rounded-md border bg-background p-2 text-foreground shadow-md">
-    <text class="text-sm text-muted-foreground">Calendar</text>
-  </view>
-</date-picker>
+<view>
+  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
+        </a></text></view>
+</view>

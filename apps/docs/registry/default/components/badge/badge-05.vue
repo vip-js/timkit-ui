@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/badge';
+
+
+
 </script>
 
 <template>
-<Badge>
-      <a href="#">Link</a>
-    </Badge>
+  <Badge as-child><a href="#">Link</a></Badge>
 </template>

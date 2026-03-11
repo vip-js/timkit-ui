@@ -1,0 +1,25 @@
+<script setup lang="ts">
+import { CircleUserRoundIcon, XIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { useFileUpload } from '@/registry/default/hooks/use-file-upload.vue';
+
+
+</script>
+
+<template>
+  <div class="flex flex-col items-center gap-2"><div class="relative inline-flex"><Button variant="outline" class="relative size-16 overflow-hidden p-0 shadow-none" @click="openFileDialog" :aria-label="previewUrl ? 'Change image' : 'Upload image'">{{ previewUrl ? (
+            <img
+              className="size-full object-cover"
+              src={previewUrl}
+              alt="Preview of uploaded image"
+              width={64}
+              height={64}
+              style={{ objectFit: 'cover' }}
+            />
+          ) : (
+            <div aria-hidden="true">
+              <CircleUserRoundIcon className="size-4 opacity-60" />
+            </div>
+          ) }}</Button><Button v-if="previewUrl" @click="removeFile(files[0]?.id)" size="icon" class="border-background focus-visible:border-background absolute -top-2 -right-2 size-6 rounded-full border-2 shadow-none" aria-label="Remove image"><XIcon class="size-3.5" /></Button><input class="sr-only" aria-label="Upload image file" :tabIndex="-1" /></div><p v-if="fileName" class="text-muted-foreground text-xs">{{ fileName }}</p><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Avatar upload button
+      </p></div>
+</template>

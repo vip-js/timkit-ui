@@ -1,17 +1,36 @@
 import type * as datePicker from '@zag-js/date-picker'
-import type { TimEvent, LogicDefinition } from '../../shared'
 
-export type DateFieldValueChangeEvent = TimEvent<{ value: datePicker.DateValue[], valueAsString: string[] }>
+import type { LogicDefinition, TimEvent } from '../../shared'
+
+export type DateFieldValueChangeEvent = TimEvent<{
+  value: datePicker.DateValue[]
+  valueAsString: string[]
+}>
 
 export type DateFieldProps = Omit<datePicker.Props, 'onValueChange'> & {
-    onValueChange?: (event: DateFieldValueChangeEvent) => void
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (event: DateFieldValueChangeEvent) => void
 }
 
 export type DateFieldVueProps = {
-    modelValue?: string
-    type?: 'date' | 'time'
-    unstyled?: boolean
-    invalid?: boolean
+  /**
+   * The controlled value bound via `v-model` (Vue specific).
+   */
+  modelValue?: string
+  /**
+   * The specific type or behavior subset of the component.
+   */
+  type?: 'date' | 'time'
+  /**
+   * When `true`, strips all default visual styles from the component.
+   */
+  unstyled?: boolean
+  /**
+   * When `true`, indicates that the user input is invalid.
+   */
+  invalid?: boolean
 }
 
 /**

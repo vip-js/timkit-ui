@@ -1,57 +1,22 @@
-<dialog >
-      <dialog-trigger asChild>
-        <button variant="outline">Onboarding</button>
-      </dialog-trigger>
-      <dialog-content class="gap-0 p-0 [&>button:last-child]:text-white">
-        <view class="p-2">
-          <img
-            class="w-full rounded-md"
-            src="/dialog-content.png" width="382" height="216"
-            alt="dialog"
-          />
-        </view>
-        <view class="space-y-6 px-6 pt-3 pb-6">
-          <dialog-header>
-            <dialog-title>Welcome to Timkit UI</dialog-title>
-            <dialog-description>Discover a powerful collection of components designed to enhance your development workflow.</dialog-description>
-          </dialog-header>
-          <view class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-            <view class="flex justify-center space-x-1.5 max-sm:order-1">
-              
-                <view
-                  class="bg-primary size-1.5 rounded-full"
-                />
-              
-
-                <view
-                  class="bg-primary size-1.5 rounded-full opacity-20"
-                />
-              
-
-                <view
-                  class="bg-primary size-1.5 rounded-full opacity-20"
-                />
-              
-
-                <view
-                  class="bg-primary size-1.5 rounded-full opacity-20"
-                />
-              
-            </view>
-            <dialog-footer>
-              <dialog-close asChild>
-                <button type="button" variant="ghost">
-                  Skip
-                </button>
-              </dialog-close>
-              
-                <button class="group" type="button" >
+<view>
+  <dialog bindchange="{
+        if (open) setStep(1)
+      }"><dialogtrigger aschild><button variant="outline">Onboarding</button></dialogtrigger><dialogcontent class="gap-0 p-0 [&>button:last-child]:text-white"><view class="p-2"><image class="w-full rounded-md" src="/dialog-content.png" width="{{382}}" height="{{216}}" alt="dialog" /></view><view class="space-y-6 px-6 pt-3 pb-6"><dialogheader><dialogtitle>{{ stepContent[step - 1].title }}</dialogtitle><dialogdescription>{{ stepContent[step - 1].description }}</dialogdescription></dialogheader><view class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><view class="flex justify-center space-x-1.5 max-sm:order-1"><div wx:for="{{[...Array(totalSteps)]}}" wx:for-item="_" wx:for-index="index" wx:key="index" key="{{index}}" class="{{cn(
+                    'bg-primary size-1.5 rounded-full',
+                    index + 1 === step ? 'bg-primary' : 'opacity-20'
+                  )}}" /></view><dialogfooter><dialogclose aschild><button type="button" variant="ghost">Skip
+                </button></dialogclose>{{ step < totalSteps ? (
+                <Button className="group" type="button" onClick={handleContinue}>
                   Next
-                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5"><circle cx="12" cy="12" r="9" /></svg>
-                </button>
-              
-            </dialog-footer>
-          </view>
-        </view>
-      </dialog-content>
-    </dialog>
+                  <ArrowRightIcon
+                    className="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5"
+                    size={16}
+                    aria-hidden="true"
+                  />
+                </Button>
+              ) : (
+                <DialogClose asChild>
+                  <Button type="button">Okay</Button>
+                </DialogClose>
+              ) }}</dialogfooter></view></view></dialogcontent></dialog>
+</view>

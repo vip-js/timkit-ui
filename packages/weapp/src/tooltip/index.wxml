@@ -1,8 +1,9 @@
 <view class="relative inline-block">
-  <view bindtouchstart="handleTriggerTouchStart" bindtouchend="handleTriggerTouchEnd">
+  <view bindlongtap="onTriggerLongPress" bindtouchend="onTriggerTouchEnd">
     <slot name="trigger"></slot>
   </view>
   <view wx:if="{{open}}" class="{{contentClass}} absolute z-50">
     <slot name="content"></slot>
   </view>
 </view>
+

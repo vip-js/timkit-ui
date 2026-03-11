@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-import vm from 'vm'
 import { pathToFileURL } from 'url'
 
 type ComponentDefinition = {
@@ -27,24 +26,6 @@ const loadTsComponent = async (relativePath: string) => {
   const absolutePath = path.join(ROOT, relativePath)
   const moduleUrl = `${pathToFileURL(absolutePath).href}?t=${Date.now()}`
   await import(moduleUrl)
-
-  assert(!!captured, `Component() was not called in ${relativePath}`)
-  return captured as ComponentDefinition
-}
-
-const loadJsComponent = async (relativePath: string) => {
-  let captured: ComponentDefinition | null = null
-  const register: ComponentRegistrar = (definition) => {
-    captured = definition
-  }
-
-  const absolutePath = path.join(ROOT, relativePath)
-  const source = fs.readFileSync(absolutePath, 'utf-8')
-  const context = vm.createContext({
-    Component: register,
-    console,
-  })
-  vm.runInContext(source, context, { filename: absolutePath })
 
   assert(!!captured, `Component() was not called in ${relativePath}`)
   return captured as ComponentDefinition
@@ -139,24 +120,31 @@ const runDialogMethodChecks = async () => {
   assert(calls.includes('dialog.close.click'), 'dialog onCloseTap should invoke onClick')
 }
 
-const runTabsFallbackChecks = async () => {
-  const definition = await loadJsComponent('packages/weapp/src/tabs/index.js')
+const runTabsMethodChecks = async () => {
+  const definition = await loadTsComponent('packages/weapp/src/tabs/index.ts')
   const methods = definition.methods || {}
-  assert(typeof methods.handleTabClick === 'function', 'tabs fallback handleTabClick should exist')
+  assert(typeof methods.handleTabClick === 'function', 'tabs handleTabClick should exist')
 
-  const emitted: Array<{ name: string; detail: object }> = []
+  const setDataCalls: Array<Record<string, string>> = []
+  const sent: Array<Record<string, string>> = []
   const context = {
-    setData: (_payload: object) => {},
-    triggerEvent: (name: string, detail: object) => emitted.push({ name, detail }),
+    _send: (event: Record<string, string>) => sent.push(event),
+    setData: (payload: Record<string, string>) => {
+      setDataCalls.push(payload)
+    },
   }
 
   methods.handleTabClick?.call(context, { currentTarget: { dataset: { value: 'overview' } } })
 
-  assert(emitted.length === 1, 'tabs fallback should emit one event on click')
-  assert(emitted[0]?.name === 'change', 'tabs fallback should emit change event')
   assert(
-    JSON.stringify(emitted[0]?.detail) === JSON.stringify({ value: 'overview' }),
-    'tabs fallback change payload should contain value'
+    setDataCalls.some((payload) => payload.activeValue === 'overview'),
+    'tabs handleTabClick should sync activeValue'
+  )
+  assert(
+    sent.some(
+      (event) => JSON.stringify(event) === JSON.stringify({ type: 'VALUE.SET', value: 'overview' })
+    ),
+    'tabs handleTabClick should dispatch VALUE.SET'
   )
 }
 
@@ -213,7 +201,10 @@ const runRadioGroupObserverChecks = async () => {
   valueObserver?.call(context, 'news')
   disabledObserver?.call(context, true)
 
-  assert(calls.some((item) => item.value === 'news'), 'radio-group value observer should sync value')
+  assert(
+    calls.some((item) => item.value === 'news'),
+    'radio-group value observer should sync value'
+  )
   assert(
     calls.some((item) => item.disabled === true),
     'radio-group disabled observer should sync disabled state'
@@ -247,11 +238,15 @@ const runCheckboxChecks = async () => {
 
   assert(clicks.includes('checkbox.click'), 'checkbox onTap should invoke root onClick')
   assert(
-    sent.some((event) => JSON.stringify(event) === JSON.stringify({ type: 'CHECKED.SET', checked: true })),
+    sent.some(
+      (event) => JSON.stringify(event) === JSON.stringify({ type: 'CHECKED.SET', checked: true })
+    ),
     'checkbox checked observer should dispatch CHECKED.SET'
   )
   assert(
-    sent.some((event) => JSON.stringify(event) === JSON.stringify({ type: 'DISABLED.SET', disabled: true })),
+    sent.some(
+      (event) => JSON.stringify(event) === JSON.stringify({ type: 'DISABLED.SET', disabled: true })
+    ),
     'checkbox disabled observer should dispatch DISABLED.SET'
   )
 
@@ -264,57 +259,88 @@ const runSwitchChecks = async () => {
   const methods = definition.methods || {}
   const observers = definition.observers || {}
 
-  const clicks: string[] = []
-  const sent: object[] = []
+  const emitted: Array<{ name: string; detail: Record<string, unknown> }> = []
+  const setDataCalls: Array<Record<string, string>> = []
   const context = {
-    _service: { send: (event: object) => sent.push(event) },
-    _send: (event: object) => sent.push(event),
-    data: {
-      api: {
-        checked: false,
-        rootProps: {
-          onClick: () => clicks.push('switch.click'),
-        },
-      },
+    properties: {
+      id: 'switch',
+      extClass: 'custom-switch',
     },
+    setData: (payload: Record<string, string>) => {
+      setDataCalls.push(payload)
+    },
+    triggerEvent: (name: string, detail: Record<string, unknown>) => {
+      emitted.push({ name, detail })
+    },
+    data: {
+      className: '',
+    },
+    updateClassName: methods.updateClassName,
   }
 
-  methods.onTap?.call(context, { type: 'tap' })
-  observers.checked?.call(context, true)
-  observers.disabled?.call(context, true)
+  observers.extClass?.call(context, 'custom-switch')
+  methods.onSwitchChange?.call(context, { detail: { value: true } })
 
-  assert(clicks.includes('switch.click'), 'switch onTap should invoke root onClick')
   assert(
-    sent.some((event) => JSON.stringify(event) === JSON.stringify({ type: 'CHECKED.SET', checked: true })),
-    'switch checked observer should dispatch CHECKED.SET'
+    setDataCalls.some((payload) => String(payload.className || '').includes('custom-switch')),
+    'switch extClass observer should refresh className'
   )
   assert(
-    sent.some((event) => JSON.stringify(event) === JSON.stringify({ type: 'DISABLED.SET', disabled: true })),
-    'switch disabled observer should dispatch DISABLED.SET'
+    emitted.some(
+      (event) =>
+        event.name === 'input' && JSON.stringify(event.detail) === JSON.stringify({ value: true })
+    ),
+    'switch should emit raw input event'
+  )
+  assert(
+    emitted.some((event) => event.name === 'change' && typeof event.detail === 'object'),
+    'switch should emit TimEvent change'
   )
 }
 
 const runSliderObserverChecks = async () => {
   const definition = await loadTsComponent('packages/weapp/src/slider/slider.ts')
   const observers = definition.observers || {}
+  const methods = definition.methods || {}
 
-  const contexts: Array<Record<string, object>> = []
+  const emitted: Array<{ name: string; detail: Record<string, unknown> }> = []
+  const setDataCalls: Array<Record<string, string>> = []
   const context = {
-    _service: {
-      setContext: (payload: Record<string, object>) => contexts.push(payload),
+    properties: {
+      id: 'slider',
+      extClass: 'custom-slider',
     },
+    setData: (payload: Record<string, string>) => {
+      setDataCalls.push(payload)
+    },
+    triggerEvent: (name: string, detail: Record<string, unknown>) => {
+      emitted.push({ name, detail })
+    },
+    updateClassName: methods.updateClassName,
   }
 
-  observers.value?.call(context, [42])
-  observers.disabled?.call(context, true)
+  observers.extClass?.call(context, 'custom-slider')
+  methods.onSliderChanging?.call(context, { detail: { value: 42 } })
+  methods.onSliderChange?.call(context, { detail: { value: 42 } })
 
   assert(
-    contexts.some((item) => JSON.stringify(item) === JSON.stringify({ value: [42] })),
-    'slider value observer should sync value context'
+    setDataCalls.some((payload) => String(payload.rootClass || '').includes('custom-slider')),
+    'slider extClass observer should refresh rootClass'
   )
   assert(
-    contexts.some((item) => JSON.stringify(item) === JSON.stringify({ disabled: true })),
-    'slider disabled observer should sync disabled context'
+    emitted.some(
+      (event) =>
+        event.name === 'changing' && JSON.stringify(event.detail) === JSON.stringify({ value: 42 })
+    ),
+    'slider should emit raw changing event'
+  )
+  assert(
+    emitted.some((event) => event.name === 'change' && typeof event.detail === 'object'),
+    'slider should emit TimEvent change'
+  )
+  assert(
+    emitted.some((event) => event.name === 'change-end' && typeof event.detail === 'object'),
+    'slider should emit TimEvent change-end'
   )
 }
 
@@ -515,9 +541,11 @@ const runSelectNativeChecks = async () => {
     emitted.some(
       (item) =>
         item.name === 'change' &&
-        JSON.stringify(item.detail) === JSON.stringify({ value: 2 })
+        item.detail.type === 'change' &&
+        JSON.stringify(item.detail.target) === JSON.stringify({ id: 'select-native' }) &&
+        JSON.stringify(item.detail.detail) === JSON.stringify({ value: 2 })
     ),
-    'select-native handleChange should emit change event with numeric value'
+    'select-native handleChange should emit TimEvent change payload'
   )
 }
 
@@ -648,7 +676,7 @@ const main = async () => {
   await runCheck('pagination', runPaginationMethodChecks)
   await runCheck('stepper', runStepperMethodChecks)
   await runCheck('number-input', runNumberInputMethodChecks)
-  await runCheck('tabs-fallback', runTabsFallbackChecks)
+  await runCheck('tabs-methods', runTabsMethodChecks)
   console.log('Weapp runtime smoke: PASS')
 }
 

@@ -1,15 +1,16 @@
-import { resolveClasses } from '../utils'
 import {
-  dialogContentVariants,
-  dialogOverlayVariants,
+  alertDialogCancelVariants,
+  buttonVariants,
   dialogCloseVariants,
-  dialogTitleVariants,
+  dialogContentVariants,
   dialogDescriptionVariants,
   dialogFooterVariants,
   dialogHeaderVariants,
-  buttonVariants,
-  alertDialogCancelVariants,
+  dialogOverlayVariants,
+  dialogTitleVariants,
 } from '@timui/core'
+
+import { resolveClasses } from '../utils'
 import { setupAlertDialogMachine } from './use-alert-dialog'
 
 type AlertDialogApi = {
@@ -33,6 +34,7 @@ type AlertDialogInstance = WechatMiniprogram.Component.InstanceMethods<AlertDial
     api: AlertDialogApi
   }
   properties: {
+    id: string
     open: boolean
   }
 }
@@ -43,11 +45,15 @@ Component({
     pureDataPattern: /^_/,
   },
 
+  externalClasses: ['ext-class'],
+
   properties: {
+    id: { type: String, value: 'alert-dialog' },
     open: { type: Boolean, value: false },
     showTrigger: { type: Boolean, value: true },
     showClose: { type: Boolean, value: true },
     className: { type: String, value: '' },
+    extClass: { type: String, value: '' },
     title: { type: String, value: '' },
     description: { type: String, value: '' },
     cancelText: { type: String, value: '' },
@@ -84,7 +90,7 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as AlertDialogInstance
       if (!state || !self._send || !self._connect) return
 
@@ -110,11 +116,11 @@ Component({
         headerClass,
         cancelClass,
         confirmClass,
-        closeClass
+        closeClass,
       })
     },
 
-    'open': function (val) {
+    open: function (val) {
       const self = this as AlertDialogInstance
       if (self._service) {
         if (val !== self.data.api.open) {
@@ -147,6 +153,6 @@ Component({
       const self = this as AlertDialogInstance
       self._send?.('CLOSE')
     },
-    noop() { }
+    noop() {},
   },
 })

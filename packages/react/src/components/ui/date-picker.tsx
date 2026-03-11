@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import type { DateRange } from 'react-day-picker'
 import {
   cn,
   datePickerContentVariants,
@@ -15,11 +14,12 @@ import {
 
 import { Button } from './button'
 import { Calendar } from './calendar'
+import type { CalendarRangeValue } from './calendar'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 type DatePickerMode = 'single' | 'range'
 
-type DatePickerValue = Date | DateRange | undefined
+type DatePickerValue = Date | CalendarRangeValue | undefined
 
 interface DatePickerProps {
   mode?: DatePickerMode
@@ -37,7 +37,7 @@ const formatSingle = (value: Date) =>
   new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).format(
     value
   )
-const formatRange = (value: DateRange) => {
+const formatRange = (value: CalendarRangeValue) => {
   if (value.from && value.to) {
     return `${formatSingle(value.from)} - ${formatSingle(value.to)}`
   }
@@ -63,7 +63,7 @@ function DatePicker({
   const selected = isControlled ? value : uncontrolled
   const calendarSelected =
     mode === 'range'
-      ? (selected as DateRange | undefined)
+      ? (selected as CalendarRangeValue | undefined)
       : selected instanceof Date
         ? selected
         : undefined
@@ -79,7 +79,7 @@ function DatePicker({
   const label = React.useMemo(() => {
     if (mode === 'range') {
       return selected && typeof selected === 'object' && 'from' in selected
-        ? formatRange(selected as DateRange)
+        ? formatRange(selected as CalendarRangeValue)
         : ''
     }
     return selected instanceof Date ? formatSingle(selected) : ''
@@ -107,10 +107,7 @@ function DatePicker({
           <Button
             variant="outline"
             size="sm"
-            className={cn(
-              datePickerTriggerButtonVariants(),
-              triggerClassName
-            )}
+            className={cn(datePickerTriggerButtonVariants(), triggerClassName)}
           >
             <svg
               width={16}
@@ -147,9 +144,7 @@ function DatePicker({
           <Calendar
             mode={mode}
             selected={calendarSelected as never}
-            onSelect={(next: Date | DateRange | undefined) =>
-              handleChange(next as DatePickerValue)
-            }
+            onSelect={(next) => handleChange(next as DatePickerValue)}
             {...calendarProps}
           />
         </PopoverContent>

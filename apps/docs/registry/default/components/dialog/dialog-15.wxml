@@ -1,96 +1,15 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Invite members</button>
-      </dialog-trigger>
-      <dialog-content >
-        <view class="flex flex-col gap-2">
-          <view
-            class="flex size-11 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
-          </view>
-          <dialog-header>
-            <dialog-title class="text-left">Invite team members</dialog-title>
-            <dialog-description class="text-left">
-              Invite teammates to earn free components.
-            </dialog-description>
-          </dialog-header>
-        </view>
-
-        <form class="space-y-5">
-          <view class="space-y-4">
-            <view class="*:not-first:mt-2">
-              <label>Invite via email</label>
-              <view class="space-y-3">
-                
-                  <input
-                    id="dialog-15-id-1"
-                    placeholder="hi@yourcompany.com"
-                    type="email"
-                    value="mark@yourcompany.com" ref=undefined
-                  />
-                
-
-                  <input
-                    id="dialog-15-id-2"
-                    placeholder="hi@yourcompany.com"
-                    type="email"
-                    value="jane@yourcompany.com" ref=undefined
-                  />
-                
-
-                  <input
-                    id="dialog-15-id-3"
-                    placeholder="hi@yourcompany.com"
-                    type="email"
-                    value="" ref=undefined
-                  />
-                
-              </view>
-            </view>
-            <button
-              type="button" class="text-sm underline hover:no-underline"
-            >
-              + Add another
-            </button>
-          </view>
-          <button type="button" class="w-full">
-            Send invites
-          </button>
-        </form>
-
-        <hr class="my-1 border-t" />
-
-        <view class="*:not-first:mt-2">
-          <label for="dialog-15-id">Invite via magic link</label>
-          <view class="relative">
-            <input id="dialog-15-id"
-              class="pe-9"
-              type="text"
-              defaultValue="https://ui.timkit.cn/refer/87689"
-              readOnly
-            />
-            <tooltip-provider delayDuration="0">
-              <tooltip>
-                <tooltip-trigger asChild>
-                  <button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed"
-                    aria-label='Copy to clipboard'
-                  >
-                    <view
-                    >
-                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
-                    </view>
-                    <view
-                    >
-                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                    </view>
-                  </button>
-                </tooltip-trigger>
-                <tooltip-content class="px-2 py-1 text-xs">Copy to clipboard</tooltip-content>
-              </tooltip>
-            </tooltip-provider>
-          </view>
-        </view>
-      </dialog-content>
-    </dialog>
+<view>
+  <dialog><dialogtrigger aschild><button variant="outline">Invite members</button></dialogtrigger><dialogcontent onopenautofocus="{{(e) => {
+          e.preventDefault()
+          lastInputRef.current?.focus()
+        }}}"><view class="flex flex-col gap-2"><view class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><userroundplusicon class="opacity-80" size="{{16}}" /></view><dialogheader><dialogtitle class="text-left">Invite team members</dialogtitle><dialogdescription class="text-left">Invite teammates to earn free components.
+            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="space-y-4"><view class="*:not-first:mt-2"><label>Invite via email</label><view class="space-y-3"><input wx:for="{{emails}}" wx:for-item="email" wx:for-index="index" wx:key="index" key="{{index}}" id="{{`team-email-${index + 1}`}}" placeholder="hi@yourcompany.com" type="email" value="{{email}}" onchange="{{(e) => handleEmailChange(index, e.target.value)}}" ref="{{index === emails.length - 1 ? lastInputRef : undefined}}" /></view></view><button type="button" bindtap="addEmail" class="text-sm underline hover:no-underline">+ Add another
+            </button></view><button type="button" class="w-full">Send invites
+          </button></form><hr class="my-1 border-t" /><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Invite via magic link</label><view class="relative"><input ref="{{inputRef}}" id="{{id}}" class="pe-9" type="text" default-value="https://ui.timkit.cn/refer/87689" readonly /><tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button bindtap="handleCopy" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed" aria-label="{{copied ? 'Copied' : 'Copy to clipboard'}}" disabled="{{copied}}"><view class="{{cn(
+                        'transition-all',
+                        copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                      )}}"><checkicon class="stroke-emerald-500" size="{{16}}" aria-hidden="true" /></view><view class="{{cn(
+                        'absolute transition-all',
+                        copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+                      )}}"><copyicon size="{{16}}" aria-hidden="true" /></view></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Copy to clipboard</tooltipcontent></tooltip></tooltipprovider></view></view></dialogcontent></dialog>
+</view>

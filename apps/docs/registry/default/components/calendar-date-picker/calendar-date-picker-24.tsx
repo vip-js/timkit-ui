@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react'
 import { cn } from '@timui/core'
 import { Calendar } from '@timui/react'
 import { format } from 'date-fns'
-import { DayButtonProps } from 'react-day-picker'
 
 const GOOD_PRICE_THRESHOLD = 100
+type CalendarDayButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  day: { date: Date }
+  modifiers: Record<string, boolean>
+  children?: React.ReactNode
+}
 
 export default function Component() {
   const today = new Date()
@@ -53,7 +57,9 @@ export default function Component() {
           today: '*:after:hidden',
         }}
         components={{
-          DayButton: (props: DayButtonProps) => <DayButton {...props} prices={mockPriceData} />,
+          DayButton: (props: CalendarDayButtonProps) => (
+            <DayButton {...props} prices={mockPriceData} />
+          ),
         }}
         disabled={isDateDisabled}
       />
@@ -76,7 +82,7 @@ export default function Component() {
   )
 }
 
-function DayButton(props: DayButtonProps & { prices: Record<string, number> }) {
+function DayButton(props: CalendarDayButtonProps & { prices: Record<string, number> }) {
   const { day, modifiers, prices, ...buttonProps } = props
   const price = prices[format(day.date, 'yyyy-MM-dd')]
   const isGoodPrice = price < GOOD_PRICE_THRESHOLD

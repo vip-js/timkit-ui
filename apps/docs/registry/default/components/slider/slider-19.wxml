@@ -1,0 +1,11 @@
+<view>
+  <view class="*:not-first:mt-3"><label>Dual range slider with input</label><view class="flex items-center gap-4"><input class="h-8 w-12 px-2 py-1" type="text" inputmode="decimal" value="{{inputValues[0]}}" onchange="{{(e) => handleInputChange(e, 0)}}" onblur="{{() => validateAndUpdateValue(inputValues[0], 0)}}" onkeydown="{{(e) => {
+            if (e.key === 'Enter') {
+              validateAndUpdateValue(inputValues[0], 0)
+            }
+          }}}" aria-label="Enter minimum value" /><slider class="grow" value="{{sliderValue}}" bindchange="handleSliderChange" min="{{minValue}}" max="{{maxValue}}" aria-label="Dual range slider with input" /><input class="h-8 w-12 px-2 py-1" type="text" inputmode="decimal" value="{{inputValues[1]}}" onchange="{{(e) => handleInputChange(e, 1)}}" onblur="{{() => validateAndUpdateValue(inputValues[1], 1)}}" onkeydown="{{(e) => {
+            if (e.key === 'Enter') {
+              validateAndUpdateValue(inputValues[1], 1)
+            }
+          }}}" aria-label="Enter maximum value" /></view></view>
+</view>

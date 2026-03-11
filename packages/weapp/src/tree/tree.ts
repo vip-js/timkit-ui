@@ -19,7 +19,10 @@ const flatten = (nodes: TreeNode[], level = 0, acc: FlatNode[] = []) => {
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     nodes: {

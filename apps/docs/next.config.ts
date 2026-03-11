@@ -36,14 +36,6 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    // domains 字段也可同步更新
-    domains: [
-      'api.uifaces.co',
-      'randomuser.me',
-      'images.unsplash.com',
-      'avatars.githubusercontent.com',
-      'avatars.githubusercontent.com',
-    ],
   },
   webpack: (config) => {
     config.module.rules.push({

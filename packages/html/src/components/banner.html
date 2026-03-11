@@ -1,14 +1,14 @@
-<div class="relative w-full rounded-lg border bg-background text-foreground" data-slot="banner">
-  <div class="flex w-full items-center gap-3" data-slot="banner-content">
-    <div class="shrink-0 text-muted-foreground" data-slot="banner-icon">!</div>
-    <div class="flex grow flex-col gap-1">
-      <h5 class="text-sm font-medium leading-none" data-slot="banner-title">Update available</h5>
-      <div class="text-sm text-muted-foreground" data-slot="banner-description">
+<div class="relative flex w-full items-center justify-between gap-4 border-b bg-muted/30 px-4 py-3" data-slot="banner">
+  <div class="flex items-center gap-3" data-slot="banner-content">
+    <div class="size-5 shrink-0" data-slot="banner-icon">!</div>
+    <div class="flex items-center gap-3">
+      <h5 class="text-sm font-medium" data-slot="banner-title">Update available</h5>
+      <div class="text-muted-foreground text-sm" data-slot="banner-description">
         A newer version is ready to install.
       </div>
     </div>
     <div class="flex items-center gap-2" data-slot="banner-actions">
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
         Update
       </button>
     </div>

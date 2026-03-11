@@ -138,3 +138,45 @@ Components are maintained in `apps/docs/registry/` following the shadcn/ui patte
 - tsup for package bundling (CJS/ESM dual output)
 - Tailwind CSS v4 for styling
 - TypeScript compilation with strict settings
+
+## 多端架构决策（Mobile & Cross-Platform Architecture）
+
+### 平台分层原则
+
+所有端从 `@timui/core` 获取 variant 函数、Props 类型和 TimEvent 协议，保持单一真相源。
+
+| 平台         | 包             | 策略                                            |
+| ------------ | -------------- | ----------------------------------------------- |
+| Web React    | `@timui/react` | 响应式 CSS + mobile-first utilities             |
+| Web Vue      | `@timui/vue`   | 响应式 CSS + mobile-first utilities             |
+| 微信小程序   | `@timui/weapp` | 独立实现，环境差异太大（无 DOM / setData 模型） |
+| 静态 HTML    | `@timui/html`  | 代码片段/复制模板，无 JS 运行时                 |
+| React Native | _(未来)_       | 预留 `FrameworkId: 'react-native'`              |
+
+### 移动端 Web 策略（方案 B）
+
+- **简单组件**（Button、Badge、Input 等）：响应式 CSS 一套搞定，使用 `@media (hover: none) and (pointer: coarse)` 做触摸优化
+- **重交互组件**（DatePicker、Select、Dialog 等）：在 `packages/react/src/components/mobile/` 和 `packages/vue/src/components/mobile/` 下提供特化版本（BottomSheet、MobilePicker 等）
+- **Safe Area** tokens：使用 `pt-safe-top`, `pb-safe-bottom` 等（来自 `timkitTailwindPreset`）处理 iOS 刘海/Home Bar
+- **Touch Target**：使用 `min-h-touch-target`, `min-w-touch-target` 满足 WCAG AAA 44px 最小触摸目标
+
+### WeApp 机器适配器分工
+
+WeApp 包内有两个机器适配文件，分工明确：
+
+- **`utils/machine.ts`** → 与 `@zag-js/core` 官方 `Machine` 集成，用于有完整状态机的组件（Switch、Accordion 等）
+- **`utils/machine-adapter.ts`** → 自研轻量适配器，用于无复杂状态机的简单组件（Button、Badge 等）
+
+### 跨端事件协议（TimEvent）
+
+所有端的交互事件必须触发 `TimEvent`（通过 `createTimEvent()` 生成）：
+
+```ts
+// React / Vue
+onPress?.(createTimEvent('press', buttonId, {}))
+
+// WeApp
+this.triggerEvent('press', createTimEvent('press', buttonId, {}) as unknown as object)
+```
+
+WeApp 同时触发 `tap`（原生约定）和 `press`（TimEvent 协议），两者并存。

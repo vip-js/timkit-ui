@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with left button</label><textarea id="{{id}}" placeholder="Leave a comment" /><button variant="outline">Send</button></view>
+</view>

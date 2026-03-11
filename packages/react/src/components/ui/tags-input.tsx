@@ -3,25 +3,24 @@
 import * as React from 'react'
 import {
   cn,
+  createTimEvent,
   tagsInputClearVariants,
+  tagsInputConnect,
   tagsInputControlVariants,
   tagsInputInputVariants,
   tagsInputItemDeleteVariants,
   tagsInputItemSelectedVariants,
   tagsInputItemVariants,
-  tagsInputRootVariants,
-} from '@timui/core'
-import {
-  tagsInputConnect,
-  createTimEvent,
   tagsInputMachine,
-  type TagsInputApi,
+  tagsInputRootVariants,
   type TagsInputProps as CoreTagsInputProps,
+  type TagsInputApi,
   type TagsInputValueChangeDetails,
 } from '@timui/core'
+import { XIcon } from 'lucide-react'
+
 import { useTagsInput } from './tags-input/use-tags-input'
 import { TagsInputProvider, useTagsInputContext } from './tags-input/use-tags-input-context'
-import { XIcon } from 'lucide-react'
 
 // Context is imported from ./tags-input/use-tags-input-context
 
@@ -41,7 +40,7 @@ function TagsInput({
   const api = useTagsInput({
     onValueChange,
     onValueChangeDetails,
-    ...props
+    ...props,
   })
 
   return (
@@ -91,9 +90,7 @@ function TagsInputItem({
   const api = useTagsInputContext()
   const itemState = api.getItemState({ index, value })
   const isSelected =
-    'selected' in itemState && typeof itemState.selected === 'boolean'
-      ? itemState.selected
-      : false
+    'selected' in itemState && typeof itemState.selected === 'boolean' ? itemState.selected : false
 
   return (
     <div
@@ -118,11 +115,7 @@ function TagsInputItem({
   )
 }
 
-function TagsInputClearTrigger({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<'button'>) {
+function TagsInputClearTrigger({ className, children, ...props }: React.ComponentProps<'button'>) {
   const api = useTagsInputContext()
   return (
     <button
@@ -135,10 +128,4 @@ function TagsInputClearTrigger({
   )
 }
 
-export {
-  TagsInput,
-  TagsInputControl,
-  TagsInputInput,
-  TagsInputItem,
-  TagsInputClearTrigger
-}
+export { TagsInput, TagsInputControl, TagsInputInput, TagsInputItem, TagsInputClearTrigger }

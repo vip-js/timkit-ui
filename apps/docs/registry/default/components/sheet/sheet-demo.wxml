@@ -1,0 +1,6 @@
+<view>
+  <view class="grid grid-cols-2 gap-2"><sheet wx:for="{{SHEET_SIDES}}" wx:for-item="side" wx:for-index="index" wx:key="index" key="{{side}}"><sheettrigger aschild><button variant="outline">{{ side }}</button></sheettrigger><sheetcontent side="{{side}}"><sheetheader><sheettitle>Edit profile</sheettitle><sheetdescription>Make changes to your profile here. Click save when you're done.
+              </sheetdescription></sheetheader><view class="grid gap-4 py-4"><view class="grid grid-cols-4 items-center gap-4"><label htmlfor="name" class="text-right">Name
+                </label><input id="name" value="Pedro Duarte" class="col-span-3" /></view><view class="grid grid-cols-4 items-center gap-4"><label htmlfor="username" class="text-right">Username
+                </label><input id="username" value="@peduarte" class="col-span-3" /></view></view><sheetfooter><sheetclose aschild><button type="submit">Save changes</button></sheetclose></sheetfooter></sheetcontent></sheet></view>
+</view>

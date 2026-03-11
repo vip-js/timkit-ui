@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Dual range slider</label><slider default-value="{{[25, 75]}}" step="{{10}}" aria-label="Dual range slider" /></view>
+</view>

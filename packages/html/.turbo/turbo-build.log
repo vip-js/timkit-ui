@@ -1,5 +1,64 @@
 
 
+> @timui/html@0.0.1 prebuild /Users/jiawei01.mao/sine/timkit-ui/packages/html
+> tsx scripts/compile.ts
+
+✅ Compiled accordion.hbs -> accordion.html
+✅ Compiled alert-dialog.hbs -> alert-dialog.html
+✅ Compiled alert.hbs -> alert.html
+✅ Compiled avatar.hbs -> avatar.html
+✅ Compiled badge.hbs -> badge.html
+✅ Compiled banner.hbs -> banner.html
+✅ Compiled breadcrumb.hbs -> breadcrumb.html
+✅ Compiled button.hbs -> button.html
+✅ Compiled calendar.hbs -> calendar.html
+✅ Compiled card.hbs -> card.html
+✅ Compiled checkbox-tree.hbs -> checkbox-tree.html
+✅ Compiled checkbox.hbs -> checkbox.html
+✅ Compiled collapsible.hbs -> collapsible.html
+✅ Compiled combobox.hbs -> combobox.html
+✅ Compiled command.hbs -> command.html
+✅ Compiled date-picker.hbs -> date-picker.html
+✅ Compiled datefield.hbs -> datefield.html
+✅ Compiled dialog-content.hbs -> dialog-content.html
+✅ Compiled dialog.hbs -> dialog.html
+✅ Compiled dropdown-menu.hbs -> dropdown-menu.html
+✅ Compiled hover-card.hbs -> hover-card.html
+✅ Compiled image-cropper.hbs -> image-cropper.html
+✅ Compiled input.hbs -> input.html
+✅ Compiled label.hbs -> label.html
+✅ Compiled multiselect.hbs -> multiselect.html
+✅ Compiled navbar.hbs -> navbar.html
+✅ Compiled navigation-menu.hbs -> navigation-menu.html
+✅ Compiled notification.hbs -> notification.html
+✅ Compiled pagination.hbs -> pagination.html
+✅ Compiled popover-content.hbs -> popover-content.html
+✅ Compiled popover.hbs -> popover.html
+✅ Compiled progress.hbs -> progress.html
+✅ Compiled radio-group.hbs -> radio-group.html
+✅ Compiled resizable.hbs -> resizable.html
+✅ Compiled scroll-area.hbs -> scroll-area.html
+✅ Compiled select-native.hbs -> select-native.html
+✅ Compiled select.hbs -> select.html
+✅ Compiled separator.hbs -> separator.html
+✅ Compiled sheet-content.hbs -> sheet-content.html
+✅ Compiled sheet.hbs -> sheet.html
+✅ Compiled slider.hbs -> slider.html
+✅ Compiled stepper.hbs -> stepper.html
+✅ Compiled switch.hbs -> switch.html
+✅ Compiled table.hbs -> table.html
+✅ Compiled tabs.hbs -> tabs.html
+✅ Compiled tags-input.hbs -> tags-input.html
+✅ Compiled textarea.hbs -> textarea.html
+✅ Compiled timeline.hbs -> timeline.html
+✅ Compiled toast.hbs -> toast.html
+✅ Compiled toggle-group.hbs -> toggle-group.html
+✅ Compiled toggle.hbs -> toggle.html
+✅ Compiled tooltip.hbs -> tooltip.html
+✅ Compiled tree.hbs -> tree.html
+
+🎉 Successfully compiled 53 Handlebars templates.
+
 > @timui/html@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/html
 > node --import tsx ../../scripts/build-html-package.ts
 

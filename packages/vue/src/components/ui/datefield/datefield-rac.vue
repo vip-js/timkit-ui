@@ -2,6 +2,7 @@
 import { defineComponent, h } from "vue";
 import type { AssertNoExtraKeys, DateFieldVueProps } from "@timui/core";
 import { cn, dateFieldInputVariants, dateFieldSegmentVariants } from "@timui/core";
+import { DateFieldProvider } from "./use-date-field-context";
 
 type DateInputProps = DateFieldVueProps & { class?: string };
 type _DateInputPropsGuard = AssertNoExtraKeys<
@@ -21,6 +22,7 @@ export const DateField = defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
+    DateFieldProvider({ inputType: "date" });
     return () =>
       h(
         "div",
@@ -43,6 +45,7 @@ export const TimeField = defineComponent({
     },
   },
   setup(props, { attrs, slots }) {
+    DateFieldProvider({ inputType: "time" });
     return () =>
       h(
         "div",

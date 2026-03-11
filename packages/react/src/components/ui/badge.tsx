@@ -1,9 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from './slot'
 import type { AssertNoExtraKeys, BadgeProps as CoreBadgeProps } from '@timui/core'
 import { badgeVariants, cn } from '@timui/core'
+
+import { Slot } from './slot'
 
 type BadgeProps = CoreBadgeProps & React.ComponentProps<'span'> & { asChild?: boolean }
 type _BadgePropsGuard = AssertNoExtraKeys<

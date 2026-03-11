@@ -1,0 +1,470 @@
+// scripts/generate-navbar-platforms.ts
+import { execSync } from 'child_process'
+import * as fs from 'fs'
+import * as path from 'path'
+import { fileURLToPath } from 'url'
+import {
+  Identifier,
+  JsxElement,
+  JsxFragment,
+  JsxSelfClosingElement,
+  Node,
+  Project,
+  SyntaxKind,
+  TemplateLiteral,
+} from 'ts-morph'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const ROOT = path.resolve(__dirname, '..')
+const COMPONENT_DIR = path.join(ROOT, 'registry/default/components/navbar')
+const HTML_DIR = path.join(ROOT, 'registry/default/html')
+
+const project = new Project()
+
+// Simple mapping for React to Vue specific components
+const tagMapping: Record<string, string> = {
+  // Lucide icons stay the same
+}
+
+const attrMapping: Record<string, string> = {
+  className: 'class',
+  strokeWidth: 'stroke-width',
+  strokeLinecap: 'stroke-linecap',
+  strokeLinejoin: 'stroke-linejoin',
+  viewBox: 'viewBox',
+  defaultValue: 'default-value',
+  defaultOpen: 'default-open',
+  onValueChange: 'on-value-change', // handled dynamically later
+  onOpenChange: 'on-open-change',
+  onClick: 'on-click',
+}
+
+// Event naming mappings per platform
+const vueEventMapping: Record<string, string> = {
+  'on-click': '@click',
+  'on-value-change': '@update:modelValue',
+  'on-open-change': '@update:open',
+  'on-change': '@change',
+  'on-submit': '@submit',
+}
+
+const wxmlEventMapping: Record<string, string> = {
+  'on-click': 'bindtap',
+  'on-value-change': 'bindchange',
+  'on-open-change': 'bindchange',
+  'on-change': 'bindchange',
+  'on-submit': 'bindsubmit',
+}
+
+type ParsedImport = { named: string[]; default?: string; module: string }
+
+function resolveVueImports(
+  tags: string[],
+  originalImports: ParsedImport[],
+  componentDirRef: string
+): string {
+  const uiImports: Record<string, string[]> = {}
+  const lucideImports: string[] = []
+  const localImports: string[] = []
+  let hasCn = false
+
+  originalImports.forEach((imp) => {
+    if (imp.module === 'lucide-react') imp.named.forEach((n) => lucideImports.push(n))
+    if (imp.module === '@timui/core' && imp.named.includes('cn')) hasCn = true
+
+    if (imp.module === '@timui/react') {
+      imp.named.forEach((comp) => {
+        let group = comp
+        if (comp.startsWith('NavigationMenu')) group = 'navigation-menu'
+        else if (comp.startsWith('Breadcrumb')) group = 'breadcrumb'
+        else if (comp.startsWith('Popover')) group = 'popover'
+        else if (comp.startsWith('Select')) group = 'select'
+        else if (comp.startsWith('Pagination')) group = 'pagination'
+        else if (comp.startsWith('Button') || comp === 'buttonVariants') group = 'button'
+        else if (comp.startsWith('Dialog')) group = 'dialog'
+        else if (comp.startsWith('DropdownMenu')) group = 'dropdown-menu'
+        else if (comp.startsWith('Avatar')) group = 'avatar'
+        else if (comp.startsWith('Sheet')) group = 'sheet'
+        else group = comp.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+
+        const path = `@/components/ui/${group}`
+        if (!uiImports[path]) uiImports[path] = []
+        uiImports[path].push(comp)
+      })
+    }
+
+    if (imp.module.startsWith('.')) {
+      // Re-map relative imports
+      const resolvedRef = imp.module.replace('.tsx', '')
+      if (imp.named.length > 0)
+        localImports.push(`import { ${imp.named.join(', ')} } from '${resolvedRef}.vue';`)
+      if (imp.default) localImports.push(`import ${imp.default} from '${resolvedRef}.vue';`)
+    } else if (imp.module.startsWith('@/registry/')) {
+      const resolvedRef = imp.module.replace('.tsx', '')
+      if (imp.named.length > 0)
+        localImports.push(`import { ${imp.named.join(', ')} } from '${resolvedRef}.vue';`)
+      if (imp.default) localImports.push(`import ${imp.default} from '${resolvedRef}.vue';`)
+    }
+  })
+
+  let importBlock = ''
+  if (hasCn) importBlock += `import { cn } from '@/lib/utils';\n`
+  if (lucideImports.length > 0)
+    importBlock += `import { ${lucideImports.join(', ')} } from 'lucide-vue-next';\n`
+
+  for (const [path, items] of Object.entries(uiImports)) {
+    importBlock += `import { ${items.join(', ')} } from '${path}';\n`
+  }
+
+  importBlock += localImports.join('\n') + '\n'
+  return importBlock
+}
+
+function processAttributes(attributes: any[], platform: 'vue' | 'html' | 'wxml'): string {
+  let attrs = attributes
+    .map((attr) => {
+      if (attr.isKind(SyntaxKind.JsxAttribute)) {
+        const name = attr.getNameNode().getText()
+        let mappedName = attrMapping[name] || name
+
+        if (platform === 'vue' && vueEventMapping[mappedName]) {
+          mappedName = vueEventMapping[mappedName]
+        } else if (platform === 'wxml' && wxmlEventMapping[mappedName]) {
+          mappedName = wxmlEventMapping[mappedName]
+        } else if (platform === 'html' || platform === 'wxml') {
+          mappedName = name === 'className' ? 'class' : mappedName.toLowerCase()
+        }
+
+        const init = attr.getInitializer()
+        if (init?.isKind(SyntaxKind.StringLiteral)) {
+          return `${mappedName}=${init.getText()}`
+        } else if (init?.isKind(SyntaxKind.JsxExpression)) {
+          let exp = init.getExpression()?.getText() || '""'
+
+          // Extract inner body if arrow function used in event handler
+          if (
+            init.getExpression()?.isKind(SyntaxKind.ArrowFunction) &&
+            (mappedName.startsWith('@') || mappedName.startsWith('bind'))
+          ) {
+            const arrow = init.getExpression().asKind(SyntaxKind.ArrowFunction)
+            if (arrow) exp = arrow.getBody().getText()
+          }
+
+          if (platform === 'vue') {
+            if (mappedName === 'asChild' || mappedName === 'as-child') return `as-child`
+            if (mappedName.startsWith('@')) return `${mappedName}="${exp}"`
+            return `:${mappedName}="${exp}"`
+          } else if (platform === 'wxml') {
+            if (mappedName === 'asChild' || mappedName === 'as-child') return ``
+            if (mappedName.startsWith('bind')) return `${mappedName}="${exp}"`
+            return `${mappedName}="{{${exp}}}"`
+          } else {
+            if (mappedName === 'asChild' || mappedName === 'as-child') return ``
+            return `${mappedName}="\${${exp}}"`
+          }
+        }
+
+        // Handle boolean attributes without initializers
+        if (platform === 'vue') {
+          if (mappedName === 'asChild' || mappedName === 'as-child') return 'as-child'
+        } else if (platform === 'wxml' || platform === 'html') {
+          if (mappedName === 'asChild' || mappedName === 'as-child') return ''
+        }
+        return mappedName // boolean attr
+      }
+      return ''
+    })
+    .filter(Boolean)
+    .join(' ')
+
+  return attrs ? ` ${attrs}` : ''
+}
+
+function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
+  if (node.isKind(SyntaxKind.JsxText)) {
+    return node.getText().replace(/^{|}$/g, '') // Basic text mapping
+  }
+
+  if (node.isKind(SyntaxKind.JsxExpression)) {
+    const expr = node.getExpression()
+    if (!expr) return ''
+
+    // Handle array maps like {navigationLinks.map(...)}
+    if (expr.isKind(SyntaxKind.CallExpression)) {
+      const caller = expr.getExpression()
+      if (caller.isKind(SyntaxKind.PropertyAccessExpression)) {
+        if (caller.getName() === 'map') {
+          const arrName = caller.getExpression().getText()
+          const args = expr.getArguments()
+          if (args.length > 0 && args[0].isKind(SyntaxKind.ArrowFunction)) {
+            const arrowFunc = args[0]
+            const params = arrowFunc.getParameters()
+            const itemParam = params[0]?.getName() || 'item'
+            const indexParam = params[1]?.getName() || 'index'
+            const body = arrowFunc.getBody()
+
+            let innerContent = ''
+            if (body.isKind(SyntaxKind.ParenthesizedExpression)) {
+              innerContent = processJsxNode(body.getExpression(), platform)
+            } else if (Node.isJsxElement(body) || Node.isJsxSelfClosingElement(body)) {
+              innerContent = processJsxNode(body, platform)
+            }
+
+            // Extract the root tag of the inner content and attach loop directive
+            const tagMatch = innerContent.match(/^<([\w-]+)([^>]*)>/)
+            if (tagMatch) {
+              const [fullMatch, tagName, attrs] = tagMatch
+              // Strip original key attr if any
+              const newAttrs = attrs.replace(/key=\{[^}]+\}/, '').trim()
+
+              if (platform === 'vue') {
+                const vForStr = `v-for="(${itemParam}, ${indexParam}) in ${arrName}" :key="${indexParam}" ${newAttrs}`
+                return innerContent.replace(/^<[\w-]+[^>]*>/, `<${tagName} ${vForStr}>`)
+              } else if (platform === 'wxml') {
+                const wxForStr = `wx:for="{{${arrName}}}" wx:for-item="${itemParam}" wx:for-index="${indexParam}" wx:key="${indexParam}" ${newAttrs}`
+                return innerContent.replace(/^<[\w-]+[^>]*>/, `<${tagName} ${wxForStr}>`)
+              } else {
+                return `<!-- Loop ${arrName} -->\n${innerContent}\n<!-- End Loop -->`
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Handle conditional rendering like {condition && <Element />}
+    if (expr.isKind(SyntaxKind.BinaryExpression)) {
+      const binExpr = expr.asKind(SyntaxKind.BinaryExpression)
+      if (binExpr?.getOperatorToken().getText() === '&&') {
+        const left = binExpr.getLeft()
+        const right = binExpr.getRight()
+
+        let rootNode = right
+        if (right.isKind(SyntaxKind.ParenthesizedExpression)) {
+          rootNode = right.getExpression()
+        }
+
+        if (
+          rootNode.isKind(SyntaxKind.JsxElement) ||
+          rootNode.isKind(SyntaxKind.JsxSelfClosingElement) ||
+          rootNode.isKind(SyntaxKind.JsxFragment)
+        ) {
+          const condition = left.getText()
+          let innerContent = processJsxNode(rootNode, platform)
+
+          const tagMatch = innerContent.match(/^<([\w-]+)([^>]*)>/)
+          if (tagMatch) {
+            const [fullMatch, tagName, attrs] = tagMatch
+            if (platform === 'vue') {
+              return innerContent.replace(
+                /^<[\w-]+[^>]*>/,
+                `<${tagName} v-if="${condition}"${attrs}>`
+              )
+            } else if (platform === 'wxml') {
+              return innerContent.replace(
+                /^<[\w-]+[^>]*>/,
+                `<${tagName} wx:if="{{${condition}}}"${attrs}>`
+              )
+            } else {
+              return `<!-- if ${condition} -->\n${innerContent}\n<!-- endif -->`
+            }
+          } else if (rootNode.isKind(SyntaxKind.JsxFragment)) {
+            // Since fragmented roots can't hold v-if, wrap it
+            if (platform === 'vue') {
+              return `<template v-if="${condition}">\n${innerContent}\n</template>`
+            } else if (platform === 'wxml') {
+              return `<block wx:if="{{${condition}}}">\n${innerContent}\n</block>`
+            } else {
+              return `<!-- if ${condition} -->\n${innerContent}\n<!-- endif -->`
+            }
+          }
+        }
+      }
+    }
+
+    // expression output
+    if (platform === 'vue') return `{{ ${expr.getText()} }}`
+    if (platform === 'wxml') return `{{ ${expr.getText()} }}`
+    // HTML placeholder
+    return `\${${expr.getText()}}`
+  }
+
+  if (node.isKind(SyntaxKind.JsxElement)) {
+    const opening = node.getOpeningElement()
+    const originalTagName = opening.getTagNameNode().getText()
+    // basic tag mapping for wxml
+    const tagName =
+      platform === 'wxml'
+        ? originalTagName === 'div'
+          ? 'view'
+          : originalTagName === 'span' || originalTagName === 'p'
+            ? 'text'
+            : originalTagName.toLowerCase()
+        : originalTagName
+
+    const attrs = processAttributes(opening.getAttributes(), platform)
+    const children = node
+      .getJsxChildren()
+      .map((child) => processJsxNode(child, platform))
+      .join('')
+    return `<${tagName}${attrs}>${children}</${tagName}>`
+  }
+
+  if (node.isKind(SyntaxKind.JsxSelfClosingElement)) {
+    const originalTagName = node.getTagNameNode().getText()
+    const tagName =
+      platform === 'wxml'
+        ? originalTagName === 'img'
+          ? 'image'
+          : originalTagName.toLowerCase()
+        : originalTagName
+
+    const attrs = processAttributes(node.getAttributes(), platform)
+    return `<${tagName}${attrs} />`
+  }
+
+  if (node.isKind(SyntaxKind.JsxFragment)) {
+    return node
+      .getJsxChildren()
+      .map((child) => processJsxNode(child, platform))
+      .join('')
+  }
+
+  return ''
+}
+
+function processComponent(filePath: string) {
+  const sourceFile = project.addSourceFileAtPath(filePath)
+  const baseName = path.basename(filePath, '.tsx')
+
+  // Extract Data context (navigationLinks)
+  const navLinksDecl = sourceFile.getVariableDeclaration('navigationLinks')
+  let navLinksCode = ''
+  if (navLinksDecl) {
+    const initializer = navLinksDecl.getInitializerIfKind(SyntaxKind.ArrayLiteralExpression)
+    if (initializer) {
+      navLinksCode = `const navigationLinks = ${initializer.getText()};`
+    }
+  }
+
+  // Extract JSX returning block
+  let vueTemplate = ''
+  let htmlTemplate = ''
+  let wxmlTemplate = ''
+
+  const defaultExport = sourceFile.getDefaultExportSymbol()
+  if (defaultExport) {
+    const dec = defaultExport.getDeclarations()[0]
+    if (dec && dec.isKind(SyntaxKind.FunctionDeclaration)) {
+      const returnStmt = dec.getStatementByKind(SyntaxKind.ReturnStatement)
+      if (returnStmt) {
+        const expr = returnStmt.getExpression()
+        if (expr?.isKind(SyntaxKind.ParenthesizedExpression)) {
+          const jsxExpr = expr.getExpression()
+          vueTemplate = processJsxNode(jsxExpr, 'vue')
+          htmlTemplate = processJsxNode(jsxExpr, 'html')
+          wxmlTemplate = processJsxNode(jsxExpr, 'wxml')
+        } else if (
+          expr &&
+          (expr.isKind(SyntaxKind.JsxElement) || expr.isKind(SyntaxKind.JsxFragment))
+        ) {
+          vueTemplate = processJsxNode(expr, 'vue')
+          htmlTemplate = processJsxNode(expr, 'html')
+          wxmlTemplate = processJsxNode(expr, 'wxml')
+        }
+      }
+    }
+  }
+
+  // Extract original source imports to resolve dynamically
+  const sourceImports = sourceFile.getImportDeclarations().map((imp) => {
+    return {
+      module: imp.getModuleSpecifierValue(),
+      named: imp.getNamedImports().map((n) => n.getName()),
+      default: imp.getDefaultImport()?.getText(),
+    }
+  })
+
+  // Find all used tags to auto-generate imports (just in case)
+  const importsToAdd = new Set<string>()
+  const matchTags = vueTemplate.match(/<([A-Z][a-zA-Z0-9]*)/g)
+  if (matchTags) {
+    matchTags.forEach((t) => importsToAdd.add(t.substring(1)))
+  }
+
+  const componentDirRef = path.basename(path.dirname(filePath))
+  const resolvedImports = resolveVueImports(
+    Array.from(importsToAdd),
+    sourceImports,
+    componentDirRef
+  )
+
+  const generatedVue = `<script setup lang="ts">
+${resolvedImports}
+${navLinksCode}
+</script>
+
+<template>
+  ${vueTemplate.trim()}
+</template>
+`
+
+  const componentDir = path.dirname(filePath)
+
+  const outputPathVue = path.join(componentDir, `${baseName}.vue`)
+  fs.writeFileSync(outputPathVue, generatedVue, 'utf-8')
+
+  const generatedHtml = `<template>\n  ${htmlTemplate.trim()}\n</template>`
+  const outputPathHtml = path.join(HTML_DIR, `${baseName}.html`)
+  fs.writeFileSync(outputPathHtml, generatedHtml, 'utf-8')
+
+  const generatedWxml = `<view>\n  ${wxmlTemplate.trim()}\n</view>`
+  const outputPathWxml = path.join(componentDir, `${baseName}.wxml`)
+  fs.writeFileSync(outputPathWxml, generatedWxml, 'utf-8')
+
+  // Format with Prettier
+  try {
+    execSync(`npx prettier --write ${outputPathVue} ${outputPathHtml}`, {
+      stdio: 'inherit',
+      cwd: ROOT,
+    })
+  } catch (e) {
+    console.error('Failed to run prettier', e)
+  }
+
+  console.log(`Generated and formatted platforms for ${baseName}`)
+}
+
+function processDirectory(dir: string) {
+  const files = fs.readdirSync(dir)
+  for (const file of files) {
+    const filePath = path.join(dir, file)
+    const stat = fs.statSync(filePath)
+
+    if (stat.isDirectory()) {
+      processDirectory(filePath)
+    } else if (file.endsWith('.tsx') && !file.includes('-generated')) {
+      console.log(`\nProcessing ${filePath}...`)
+      try {
+        processComponent(filePath)
+      } catch (e) {
+        console.error(`Error processing ${file}:`, e)
+      }
+    }
+  }
+}
+
+function main() {
+  console.log('Starting AST parsing of components...')
+  const targetDir = process.argv[2] ? path.resolve(process.cwd(), process.argv[2]) : COMPONENT_DIR
+
+  if (fs.statSync(targetDir).isDirectory()) {
+    processDirectory(targetDir)
+  } else {
+    processComponent(targetDir)
+  }
+}
+
+main()

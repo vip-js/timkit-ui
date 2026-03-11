@@ -1,0 +1,17 @@
+<div data-slot="command" class="rounded-lg border border-input bg-background p-2">
+  <input
+    type="text"
+    placeholder="Type a command..."
+    class="{{commandInputVariants}}"
+  />
+  <div class="mt-2 rounded-md bg-muted/40 p-1 text-sm">
+    <button type="button" class="{{commandInputWrapperVariants}}">
+      <span>Open Settings</span>
+      <span class="text-xs text-muted-foreground">⌘S</span>
+    </button>
+    <button type="button" class="{{commandInputWrapperVariants}}">
+      <span>Create Project</span>
+      <span class="text-xs text-muted-foreground">⌘P</span>
+    </button>
+  </div>
+</div>

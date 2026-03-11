@@ -1,0 +1,6 @@
+<view>
+  <view class="mx-auto max-w-xl space-y-8 text-center"><view class="space-y-3"><stepper value="{{currentStep}}" bindchange="setCurrentStep"><stepperitem wx:for="{{steps}}" wx:for-item="step" wx:for-index="index" wx:key="index" key="{{step}}" step="{{step}}" class="flex-1"><steppertrigger class="w-full flex-col items-start gap-2" aschild><stepperindicator aschild class="bg-border h-2 w-full rounded-none"><text class="sr-only">{{ step }}</text></stepperindicator></steppertrigger></stepperitem></stepper><view class="text-muted-foreground text-sm font-medium tabular-nums">Step {{ currentStep }}of {{ steps.length }}</view></view><view class="flex justify-center space-x-4"><button variant="outline" class="w-32" bindtap="setCurrentStep((prev) => prev - 1)" disabled="{{currentStep === 1}}">Prev step
+        </button><button variant="outline" class="w-32" bindtap="setCurrentStep((prev) => prev + 1)" disabled="{{currentStep >= steps.length}}">Next step
+        </button></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Progress stepper
+      </text></view>
+</view>

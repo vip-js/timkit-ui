@@ -1,0 +1,4 @@
+<view>
+  <button class="group" variant="ghost"><arrowlefticon class="-ms-1 opacity-60 transition-transform group-hover:-translate-x-0.5" size="{{16}}" aria-hidden="true" />Button
+    </button>
+</view>

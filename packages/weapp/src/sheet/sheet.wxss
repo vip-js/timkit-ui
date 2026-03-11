@@ -1,0 +1,5 @@
+/* Sheet 底部安全区适配（iPhone X+ Home Indicator） */
+.sheet-safe-area {
+  padding-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
+  padding-bottom: env(safe-area-inset-bottom);
+}

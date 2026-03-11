@@ -1,0 +1,5 @@
+<view>
+  <alertdialog><alertdialogtrigger aschild><button variant="outline">Show Dialog</button></alertdialogtrigger><alertdialogcontent><alertdialogheader><alertdialogtitle>Are you absolutely sure?</alertdialogtitle><alertdialogdescription>This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
+          </alertdialogdescription></alertdialogheader><alertdialogfooter><alertdialogcancel>Cancel</alertdialogcancel><alertdialogaction>Continue</alertdialogaction></alertdialogfooter></alertdialogcontent></alertdialog>
+</view>

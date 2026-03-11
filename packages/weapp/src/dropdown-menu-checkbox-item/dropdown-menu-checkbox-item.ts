@@ -1,8 +1,9 @@
-import { resolveClasses } from '../utils'
+import { emitTimEvent, resolveClasses } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   relations: {
     '../dropdown-menu/dropdown-menu': {
@@ -14,6 +15,7 @@ Component({
     checked: { type: Boolean, value: false },
     disabled: { type: Boolean, value: false },
     closeOnSelect: { type: Boolean, value: false },
+    id: { type: String, value: 'dropdown-menu-checkbox-item' },
     extClass: { type: String, value: '' },
   },
   data: {
@@ -21,7 +23,8 @@ Component({
   },
   observers: {
     extClass: function (extClass: string) {
-      const base = 'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm'
+      const base =
+        'relative flex cursor-default select-none items-center rounded-sm py-3 pl-8 pr-2 text-sm'
       this.setData({
         className: resolveClasses(base, extClass),
       })
@@ -31,7 +34,9 @@ Component({
     onToggle() {
       if (this.properties.disabled) return
       const nextChecked = !this.properties.checked
-      this.triggerEvent('change', { checked: nextChecked })
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'dropdown-menu-checkbox-item', {
+        checked: nextChecked,
+      })
       if (this.properties.closeOnSelect) {
         const parents = this.getRelationNodes('../dropdown-menu/dropdown-menu')
         if (parents.length) {

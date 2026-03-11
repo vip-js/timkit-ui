@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center gap-2 [--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]"><switch id="{{id}}" defaultchecked /><label htmlfor="{{id}}" class="sr-only">Colored switch
+      </label></view>
+</view>

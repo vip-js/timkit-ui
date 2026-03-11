@@ -1,14 +1,5 @@
-<view class="flex items-start gap-2">
-      <checkbox id="checkbox-11-id" aria-describedby="checkbox-11-id-description" />
-      <view class="grid grow gap-2">
-        <label for="checkbox-11-id">
-          Label 
-          <span class="text-muted-foreground text-xs leading-[inherit] font-normal">
-            (Sublabel)
-          </span>
-        </label>
-        <p id="checkbox-11-id" class="text-muted-foreground text-xs">
-          You can use this checkbox with a label and a description.
-        </p>
-      </view>
-    </view>
+<view>
+  <view class="flex items-start gap-2"><checkbox id="{{id}}" aria-describedby="{{`${id}-description`}}" /><view class="grid grow gap-2"><label htmlfor="{{id}}">Label{{ ' ' }}<text class="text-muted-foreground text-xs leading-[inherit] font-normal">(Sublabel)
+          </text></label><text id="{{`${id}-description`}}" class="text-muted-foreground text-xs">You can use this checkbox with a label and a description.
+        </text></view></view>
+</view>

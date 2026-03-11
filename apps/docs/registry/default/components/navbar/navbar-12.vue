@@ -1,133 +1,47 @@
 <script setup lang="ts">
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu'
+import { HouseIcon, InboxIcon, SparklesIcon, ZapIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import Logo from '@/registry/default/components/navbar-components/logo.vue';
+import UserMenu from '@/registry/default/components/navbar-components/user-menu.vue';
+
+const navigationLinks = [
+  { href: '#', label: 'Home', icon: HouseIcon, active: true },
+  { href: '#', label: 'Inbox', icon: InboxIcon },
+  { href: '#', label: 'Insights', icon: ZapIcon },
+];
 </script>
+
 <template>
-<header class="border-b px-4 md:px-6">
-      <div class="flex h-16 items-center justify-between gap-4">
-        
-        <div class="flex flex-1 items-center gap-2">
-          
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button class="group size-8 md:hidden" variant="ghost" size="icon">
-                <svg
-                  class="pointer-events-none" width="16" height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 12L20 12"
-                    class="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
-                  />
-                  <path
-                    d="M4 12H20"
-                    class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                  />
-                  <path
-                    d="M4 12H20"
-                    class="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
-                  />
-                </svg>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent align="start" class="w-36 p-1 md:hidden">
-              <NavigationMenu class="max-w-none *:w-full">
-                <NavigationMenuList class="flex-col items-start gap-0 md:gap-2">
-                  
-                      <NavigationMenuItem class="w-full">
+  <header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div class="flex flex-1 items-center gap-2"><Popover><PopoverTrigger as-child><Button class="group size-8 md:hidden" variant="ghost" size="icon"><svg class="pointer-events-none" :width="16" :height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 12L20 12" class="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]" /><path d="M4 12H20" class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45" /><path d="M4 12H20" class="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]" /></svg></Button></PopoverTrigger><PopoverContent align="start" class="w-36 p-1 md:hidden"><NavigationMenu class="max-w-none *:w-full"><NavigationMenuList class="flex-col items-start gap-0 md:gap-2">{{ navigationLinks.map((link, index) => {
+                    const Icon = link.icon
+                    return (
+                      <NavigationMenuItem key={index} className="w-full">
                         <NavigationMenuLink
-                          class="flex-row items-center gap-2 py-1.5"
+                          href={link.href}
+                          className="flex-row items-center gap-2 py-1.5"
+                          active={link.active}
                         >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                          <span></span>
+                          <Icon size={16} className="text-muted-foreground/80" aria-hidden="true" />
+                          <span>{link.label}</span>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
-                    
-
-                      <NavigationMenuItem class="w-full">
-                        <NavigationMenuLink
-                          class="flex-row items-center gap-2 py-1.5"
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                          <span></span>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    
-
-                      <NavigationMenuItem class="w-full">
-                        <NavigationMenuLink
-                          class="flex-row items-center gap-2 py-1.5"
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                          <span></span>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    
-                </NavigationMenuList>
-              </NavigationMenu>
-            </PopoverContent>
-          </Popover>
-
-          <NavigationMenu class="max-md:hidden">
-            <NavigationMenuList class="gap-2">
-              
-                  <NavigationMenuItem>
+                    )
+                  }) }}</NavigationMenuList></NavigationMenu></PopoverContent></Popover><NavigationMenu class="max-md:hidden"><NavigationMenuList class="gap-2">{{ navigationLinks.map((link, index) => {
+                const Icon = link.icon
+                return (
+                  <NavigationMenuItem key={index}>
                     <NavigationMenuLink
-                      class="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
+                      active={link.active}
+                      href={link.href}
+                      className="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
                     >
-                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                      <span></span>
+                      <Icon size={16} className="text-muted-foreground/80" aria-hidden="true" />
+                      <span>{link.label}</span>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-                
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink
-                      class="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
-                    >
-                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                      <span></span>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink
-                      class="text-foreground hover:text-primary flex-row items-center gap-2 py-1.5 font-medium"
-                    >
-                       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80"><circle cx="12" cy="12" r="9" /></svg>
-                      <span></span>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-
-        
-        <div class="flex items-center">
-          <a href="#" class="text-primary hover:text-primary/90">
-            <Logo />
-          </a>
-        </div>
-
-        
-        <div class="flex flex-1 items-center justify-end gap-4">
-          
-          <UserMenu />
-          
-          <Button size="sm" class="aspect-square text-sm">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 max-sm:hidden sm:-ms-1"><circle cx="12" cy="12" r="9" /></svg>
-            Upgrade
-          </Button>
-        </div>
-      </div>
-    </header>
+                )
+              }) }}</NavigationMenuList></NavigationMenu></div><div class="flex items-center"><a href="#" class="text-primary hover:text-primary/90"><Logo /></a></div><div class="flex flex-1 items-center justify-end gap-4"><UserMenu /><Button size="sm" class="aspect-square text-sm"><SparklesIcon class="opacity-60 max-sm:hidden sm:-ms-1" :size="16" aria-hidden="true" />Upgrade
+          </Button></div></div></header>
 </template>

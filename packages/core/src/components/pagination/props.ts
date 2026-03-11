@@ -1,12 +1,19 @@
 import type * as pagination from '@zag-js/pagination'
-import type { TimEvent, LogicDefinition } from '../../shared'
+
+import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type PaginationValueChangeEvent = TimEvent<{ page: number; pageSize: number }>
 export type PaginationPageSizeChangeEvent = TimEvent<{ pageSize: number }>
 
 export type PaginationProps = Omit<pagination.Props, 'onPageChange' | 'onPageSizeChange'> & {
-    onPageChange?: (event: PaginationValueChangeEvent) => void
-    onPageSizeChange?: (event: PaginationPageSizeChangeEvent) => void
+  /**
+   * Callback fired when the active page index changes.
+   */
+  onPageChange?: (event: PaginationValueChangeEvent) => void
+  /**
+   * Callback fired when the number of items per page changes.
+   */
+  onPageSizeChange?: (event: PaginationPageSizeChangeEvent) => void
 }
 
 /**

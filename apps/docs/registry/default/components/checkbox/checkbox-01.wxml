@@ -1,4 +1,3 @@
-<view class="flex items-center gap-2">
-      <checkbox id="checkbox-01-id" />
-      <label for="checkbox-01-id">Simple checkbox</label>
-    </view>
+<view>
+  <view class="flex items-center gap-2"><checkbox id="{{id}}" /><label htmlfor="{{id}}">Simple checkbox</label></view>
+</view>

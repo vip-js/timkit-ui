@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import type { CollectionItem } from '@zag-js/collection'
 import {
   cn,
   comboboxContentVariants,
@@ -20,8 +19,10 @@ import {
   type ItemGroupProps,
   type ItemProps,
 } from '@timui/core'
-import { ComboboxProvider, useComboboxContext } from './combobox/use-combobox-context'
+import type { CollectionItem } from '@zag-js/collection'
+
 import { useCombobox, type ComboboxProps } from './combobox/use-combobox'
+import { ComboboxProvider, useComboboxContext } from './combobox/use-combobox-context'
 
 function Combobox(props: ComboboxProps) {
   const { className, children } = props
@@ -46,11 +47,7 @@ function ComboboxLabel({ className, ...props }: React.ComponentProps<'label'>) {
 function ComboboxControl({ className, children, ...props }: React.ComponentProps<'div'>) {
   const api = useComboboxContext()
   return (
-    <div
-      {...api.getControlProps()}
-      className={cn(comboboxControlVariants(), className)}
-      {...props}
-    >
+    <div {...api.getControlProps()} className={cn(comboboxControlVariants(), className)} {...props}>
       {children}
     </div>
   )
@@ -59,11 +56,7 @@ function ComboboxControl({ className, children, ...props }: React.ComponentProps
 function ComboboxInput({ className, ...props }: React.ComponentProps<'input'>) {
   const api = useComboboxContext()
   return (
-    <input
-      {...api.getInputProps()}
-      className={cn(comboboxInputVariants(), className)}
-      {...props}
-    />
+    <input {...api.getInputProps()} className={cn(comboboxInputVariants(), className)} {...props} />
   )
 }
 
@@ -75,11 +68,7 @@ function ComboboxContent({ className, children, ...props }: React.ComponentProps
 
   return (
     <div {...positionerProps} className={cn(comboboxPositionerVariants())}>
-      <div
-        {...contentProps}
-        className={cn(comboboxContentVariants(), className)}
-        {...props}
-      >
+      <div {...contentProps} className={cn(comboboxContentVariants(), className)} {...props}>
         {children}
       </div>
     </div>
@@ -95,7 +84,12 @@ function ComboboxList({ className, children, ...props }: React.ComponentProps<'d
   )
 }
 
-function ComboboxItem({ item, className, children, ...props }: { item: CollectionItem } & React.ComponentProps<'div'>) {
+function ComboboxItem({
+  item,
+  className,
+  children,
+  ...props
+}: { item: CollectionItem } & React.ComponentProps<'div'>) {
   const api = useComboboxContext()
   const itemState = api.getItemState({ item } as ItemProps)
 
@@ -107,7 +101,10 @@ function ComboboxItem({ item, className, children, ...props }: { item: Collectio
       data-selected={itemState.selected || undefined}
       {...props}
     >
-      <span {...api.getItemIndicatorProps({ item } as ItemProps)} className={comboboxItemIndicatorVariants()}>
+      <span
+        {...api.getItemIndicatorProps({ item } as ItemProps)}
+        className={comboboxItemIndicatorVariants()}
+      >
         {itemState.selected ? '✓' : null}
       </span>
       <span {...api.getItemTextProps({ item } as ItemProps)} className={comboboxItemTextVariants()}>
@@ -117,20 +114,25 @@ function ComboboxItem({ item, className, children, ...props }: { item: Collectio
   )
 }
 
-function ComboboxGroup({ id, className, children, ...props }: ItemGroupProps & React.ComponentProps<'div'>) {
+function ComboboxGroup({
+  id,
+  className,
+  children,
+  ...props
+}: ItemGroupProps & React.ComponentProps<'div'>) {
   const api = useComboboxContext()
   return (
-    <div
-      {...api.getItemGroupProps({ id })}
-      className={cn(className)}
-      {...props}
-    >
+    <div {...api.getItemGroupProps({ id })} className={cn(className)} {...props}>
       {children}
     </div>
   )
 }
 
-function ComboboxGroupLabel({ htmlFor, className, ...props }: ItemGroupLabelProps & React.ComponentProps<'div'>) {
+function ComboboxGroupLabel({
+  htmlFor,
+  className,
+  ...props
+}: ItemGroupLabelProps & React.ComponentProps<'div'>) {
   const api = useComboboxContext()
   return (
     <div

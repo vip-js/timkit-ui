@@ -1,31 +1,52 @@
-import plugin from 'tailwindcss/plugin'
 import type { Config } from 'tailwindcss'
-import { defaultTokens } from './theme'
 
 const config: Config = {
   content: [],
   theme: {
     extend: {
-      colors: {
-        ...defaultTokens.colors,
-      },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      }
+        full: 'var(--radius-full)',
+        lg: 'var(--radius-lg)',
+        md: 'var(--radius-md)',
+        sm: 'var(--radius-sm)',
+      },
+      colors: {
+        background: 'var(--background-default)',
+        foreground: 'var(--foreground-default)',
+        primary: {
+          DEFAULT: 'var(--primary-DEFAULT)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary-DEFAULT)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive-DEFAULT)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        border: 'var(--border-default)',
+        input: 'var(--border-input)',
+        ring: 'var(--ring)',
+      },
+      // Mobile: safe-area utilities (iOS notch / Android gesture bar)
+      // Usage: pb-safe-bottom, pt-safe-top, pl-safe-left, pr-safe-right
+      padding: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
+      // Mobile: WCAG AAA / Apple HIG minimum touch target (44pt/px)
+      minHeight: {
+        'touch-target': '44px',
+      },
+      minWidth: {
+        'touch-target': '44px',
+      },
     },
   },
-  plugins: [
-    plugin(function ({ addBase }) {
-      addBase({
-        ':root': {
-          '--radius': '0.5rem',
-        },
-      })
-    }),
-  ],
+  plugins: [],
 }
 
 export default config
-

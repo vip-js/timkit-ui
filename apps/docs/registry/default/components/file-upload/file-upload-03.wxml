@@ -1,27 +1,17 @@
-<view class="flex flex-col items-center gap-2">
-      <view class="relative inline-flex">
-        
-        <button
-          class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 focus-visible:border-ring focus-visible:ring-ring/50 relative flex size-16 items-center justify-center overflow-hidden rounded-full border border-dashed transition-colors outline-none focus-visible:ring-[3px] has-disabled:pointer-events-none has-disabled:opacity-50 has-[img]:border-none"
-          aria-label='Upload image'
-        >
-          <view aria-hidden="true">
-               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            </view>
-        </button>
-        
-        <input
-          class="sr-only"
-          aria-label="Upload image file"
-        />
-      </view>
-      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
-        Avatar uploader with droppable area ∙ 
-        <a
-          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
-          class="hover:text-foreground underline"
-        >
-          API
-        </a>
-      </p>
-    </view>
+<view>
+  <view class="flex flex-col items-center gap-2"><view class="relative inline-flex"><button class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 focus-visible:border-ring focus-visible:ring-ring/50 relative flex size-16 items-center justify-center overflow-hidden rounded-full border border-dashed transition-colors outline-none focus-visible:ring-[3px] has-disabled:pointer-events-none has-disabled:opacity-50 has-[img]:border-none" bindtap="openFileDialog" ondragenter="{{handleDragEnter}}" ondragleave="{{handleDragLeave}}" ondragover="{{handleDragOver}}" ondrop="{{handleDrop}}" data-dragging="{{isDragging || undefined}}" aria-label="{{previewUrl ? 'Change image' : 'Upload image'}}">{{ previewUrl ? (
+            <img
+              className="size-full object-cover"
+              src={previewUrl}
+              alt={files[0]?.file?.name || 'Uploaded image'}
+              width={64}
+              height={64}
+              style={{ objectFit: 'cover' }}
+            />
+          ) : (
+            <div aria-hidden="true">
+              <CircleUserRoundIcon className="size-4 opacity-60" />
+            </div>
+          ) }}</button><button wx:if="{{previewUrl}}" bindtap="removeFile(files[0]?.id)" size="icon" class="border-background focus-visible:border-background absolute -top-1 -right-1 size-6 rounded-full border-2 shadow-none" aria-label="Remove image"><xicon class="size-3.5" /></button><input class="sr-only" aria-label="Upload image file" tabindex="{{-1}}" /></view><text aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Avatar uploader with droppable area ∙{{ ' ' }}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
+        </a></text></view>
+</view>

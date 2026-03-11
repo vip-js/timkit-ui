@@ -1,140 +1,76 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Rating</button>
-      </dialog-trigger>
-      <dialog-content class="flex flex-col gap-0 p-0 [&>button:last-child]:top-3.5">
-        <dialog-header class="contents space-y-0 text-left">
-          <dialog-title class="border-b px-6 py-4 text-base">Help us improve</dialog-title>
-        </dialog-header>
-        <div class="px-6 py-4">
-          <form class="space-y-5">
-            <div class="space-y-4">
-              <div>
-                <fieldset class="space-y-4">
-                  <legend class="text-foreground text-lg leading-none font-semibold">
-                    How hard was it to set up your account?
-                  </legend>
-                  <radio-group class="flex gap-0 -space-x-px rounded-md shadow-xs">
-                    
-                      <label
-                        key=0
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        0
-                      </label>
-                    
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rv:" data-state="closed">
+  Rating
+</button>
 
-                      <label
-                        key=1
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        1
-                      </label>
-                    
+<!-- 
+Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
+Here is the structural representation of the opened dialog:
 
-                      <label
-                        key=2
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        2
-                      </label>
-                    
-
-                      <label
-                        key=3
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        3
-                      </label>
-                    
-
-                      <label
-                        key=4
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        4
-                      </label>
-                    
-
-                      <label
-                        key=5
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        5
-                      </label>
-                    
-
-                      <label
-                        key=6
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        6
-                      </label>
-                    
-
-                      <label
-                        key=7
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        7
-                      </label>
-                    
-
-                      <label
-                        key=8
-                        class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10"
-                      >
-                        <radio-group-item id="dialog-11-id"
-                          class="sr-only after:absolute after:inset-0"
-                        />
-                        8
-                      </label>
-                    
-                  </radio-group>
-                </fieldset>
-                <div class="text-muted-foreground mt-2 flex justify-between text-xs">
-                  <p>Very easy</p>
-                  <p>Very dificult</p>
-                </div>
-              </div>
-
-              <div class="*:not-first:mt-2">
-                <label>Why did you give this rating?</label>
-                <textarea
-                  id="feedback"
-                  placeholder="How can we improve Timkit UI?"
-                  aria-label="Send feedback"
-                />
-              </div>
-            </div>
-            <button type="button" class="w-full">
-              Send feedback
-            </button>
-          </form>
-        </div>
-      </dialog-content>
-    </dialog>
+<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
+<div role="dialog" id="radix-:rv:" aria-describedby="radix-:rx:" aria-labelledby="radix-:rw:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg flex flex-col gap-0 p-0 [&>button:last-child]:top-3.5" tabindex="-1" style="pointer-events: auto;">
+  <div class="flex flex-col space-y-1.5 text-center sm:text-left contents space-y-0 text-left">
+    <h2 id="radix-:rw:" class="font-semibold tracking-tight border-b px-6 py-4 text-base">Help us improve</h2>
+  </div>
+  <div class="px-6 py-4">
+    <form class="space-y-5">
+      <div class="space-y-4">
+        <div>
+          <fieldset class="space-y-4">
+            <legend class="text-foreground text-lg leading-none font-semibold">How hard was it to set up your account?</legend>
+            <div class="grid gap-2 flex gap-0 -space-x-px rounded-md shadow-xs" role="radiogroup" tabindex="0" style="outline: none;">
+              <!-- Repeat for each number 0-8 -->
+<label
+  class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10">
+  <button type="button" role="radio" aria-checked="false" data-state="unchecked" value="0"
+    class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sr-only after:absolute after:inset-0"
+    id="radio-17-r0" tabindex="-1"></button>
+  0
+</label>
+<label
+  class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10">
+  <button type="button" role="radio" aria-checked="false" data-state="unchecked" value="1"
+    class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sr-only after:absolute after:inset-0"
+    id="radio-17-r1" tabindex="-1"></button>
+  1
+</label>
+<label
+  class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex size-9 flex-1 cursor-pointer flex-col items-center justify-center gap-3 border text-center text-sm transition-[color,box-shadow] outline-none first:rounded-s-md last:rounded-e-md has-focus-visible:ring-[3px] has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-[state=checked]:z-10">
+  <button type="button" role="radio" aria-checked="false" data-state="unchecked" value="2"
+    class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sr-only after:absolute after:inset-0"
+    id="radio-17-r2" tabindex="-1"></button>
+  2
+</label>
+<!-- ... up to 8 -->
+</div>
+</fieldset>
+<div class="text-muted-foreground mt-2 flex justify-between text-xs">
+  <p>Very easy</p>
+  <p>Very dificult</p>
+</div>
+</div>
+<div class="*:not-first:mt-2">
+  <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Why did you
+    give this rating?</label>
+  <textarea
+    class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+    id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback"></textarea>
+</div>
+</div>
+<button type="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">Send
+  feedback</button>
+</form>
+</div>
+<button type="button"
+  class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground top-3.5">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4">
+    <path d="M18 6 6 18" />
+    <path d="m6 6 12 12" />
+  </svg>
+  <span class="sr-only">Close</span>
+</button>
+</div>
+-->

@@ -1,0 +1,3 @@
+<view>
+  <dropdownmenu><dropdownmenutrigger aschild><button variant="ghost" class="p-0 hover:bg-transparent"><text class="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full">{{ selectedProject.charAt(0).toUpperCase() }}</text><view class="flex flex-col gap-0.5 leading-none"><text class="">{{ selectedProject }}</text></view><chevronsupdown size="{{14}}" class="text-muted-foreground/80" /></button></dropdownmenutrigger><dropdownmenucontent align="start"><dropdownmenuitem wx:for="{{teams}}" wx:for-item="project" wx:for-index="index" wx:key="index" key="{{project}}" onselect="{{() => setSelectedProject(project)}}">{{ project }}</dropdownmenuitem></dropdownmenucontent></dropdownmenu>
+</view>

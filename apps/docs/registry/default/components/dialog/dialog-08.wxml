@@ -1,41 +1,6 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Delete project</button>
-      </dialog-trigger>
-      <dialog-content>
-        <view class="flex flex-col items-center gap-2">
-          <view
-            class="flex size-9 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
-          </view>
-          <dialog-header>
-            <dialog-title class="sm:text-center">Final confirmation</dialog-title>
-            <dialog-description class="sm:text-center">
-              This action cannot be undone. To confirm, please enter the project name 
-              <span class="text-foreground">Timkit UI</span>.
-            </dialog-description>
-          </dialog-header>
-        </view>
-
-        <form class="space-y-5">
-          <view class="*:not-first:mt-2">
-            <label for="dialog-08-id">Project name</label>
-            <input id="dialog-08-id"
-              type="text"
-              placeholder="Type Timkit UI to confirm" />
-          </view>
-          <dialog-footer>
-            <dialog-close asChild>
-              <button type="button" variant="outline" class="flex-1">
-                Cancel
-              </button>
-            </dialog-close>
-            <button type="button" class="flex-1">
-              Delete
-            </button>
-          </dialog-footer>
-        </form>
-      </dialog-content>
-    </dialog>
+<view>
+  <dialog><dialogtrigger aschild><button variant="outline">Delete project</button></dialogtrigger><dialogcontent><view class="flex flex-col items-center gap-2"><view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><circlealerticon class="opacity-80" size="{{16}}" /></view><dialogheader><dialogtitle class="sm:text-center">Final confirmation</dialogtitle><dialogdescription class="sm:text-center">This action cannot be undone. To confirm, please enter the project name{{ ' ' }}<text class="text-foreground">Timkit UI</text>.
+            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Project name</label><input id="{{id}}" type="text" placeholder="Type Timkit UI to confirm" value="{{inputValue}}" onchange="{{(e) => setInputValue(e.target.value)}}" /></view><dialogfooter><dialogclose aschild><button type="button" variant="outline" class="flex-1">Cancel
+              </button></dialogclose><button type="button" class="flex-1" disabled="{{inputValue !== PROJECT_NAME}}">Delete
+            </button></dialogfooter></form></dialogcontent></dialog>
+</view>

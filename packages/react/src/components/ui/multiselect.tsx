@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
+import { useEffect } from 'react'
 import type {
   AssertNoExtraKeys,
-  MultiselectOption,
   MultiselectProps as CoreMultiselectProps,
+  MultiselectOption,
 } from '@timui/core'
-import { useEffect } from 'react'
 import {
   cn,
   multiselectClearButtonVariants,
@@ -383,14 +383,8 @@ export const MultipleSelector = ({
     () => removePickedOption(options, selected),
     [options, selected]
   )
-  const selectableEntries = React.useMemo(
-    () => Object.entries(selectables),
-    [selectables]
-  )
-  const fixedSelected = React.useMemo(
-    () => selected.filter((item) => item.fixed),
-    [selected]
-  )
+  const selectableEntries = React.useMemo(() => Object.entries(selectables), [selectables])
+  const fixedSelected = React.useMemo(() => selected.filter((item) => item.fixed), [selected])
 
   /** Avoid Creatable Selector freezing or lagging when paste a long string. */
   const commandFilter = React.useMemo(() => {
@@ -435,10 +429,7 @@ export const MultipleSelector = ({
             return (
               <div
                 key={option.value}
-                className={cn(
-                  multiselectTagVariants(),
-                  badgeClassName
-                )}
+                className={cn(multiselectTagVariants(), badgeClassName)}
                 data-fixed={option.fixed}
                 data-disabled={disabled || undefined}
               >

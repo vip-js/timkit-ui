@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { DownloadIcon } from 'lucide-vue-next';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-20-id">Input with end icon button</Label>
-      <div class="flex rounded-md shadow-xs">
-        <Input id="input-20-id"
-          class="-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10"
-          placeholder="Email"
-          type="email"
-        />
-        <button
-          class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-          aria-label="Subscribe"
-        >
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </div>
-    </div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with end icon button</Label><div class="flex rounded-md shadow-xs"><Input :id="id" class="-me-px flex-1 rounded-e-none shadow-none focus-visible:z-10" placeholder="Email" type="email" /><button class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-ring/50 inline-flex w-9 items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" aria-label="Subscribe"><DownloadIcon :size="16" aria-hidden="true" /></button></div></div>
 </template>

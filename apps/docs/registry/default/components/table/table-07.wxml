@@ -1,0 +1,14 @@
+<view>
+  <view><table><tableheader><tablerow class="hover:bg-transparent"><tablehead><checkbox checked="{{allSelected || (someSelected && 'indeterminate')}}" oncheckedchange="{{(value) => {
+                  const checked = toChecked(value)
+                  setSelectedRows(Object.fromEntries(items.map((item) => [item.id, checked])))
+                }}}" bindtap="{
+                  const next = !allSelected
+                  setSelectedRows(Object.fromEntries(items.map((item) => [item.id, next])))
+                }" aria-label="Select all rows" /></tablehead><tablehead>Name</tablehead><tablehead>Email</tablehead><tablehead>Location</tablehead><tablehead>Status</tablehead><tablehead class="text-right">Balance</tablehead></tablerow></tableheader><tablebody><tablerow wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" data-state="{{selectedRows[item.id] ? 'selected' : undefined}}" class="has-data-[state=checked]:bg-muted/50"><tablecell><checkbox id="{{`table-checkbox-${item.id}`}}" checked="{{!!selectedRows[item.id]}}" oncheckedchange="{{(value) => {
+                    const checked = toChecked(value)
+                    setSelectedRows((prev) => ({ ...prev, [item.id]: checked }))
+                  }}}" bindtap="{
+                    setSelectedRows((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                  }" aria-label="{{`Select ${item.name}`}}" /></tablecell><tablecell class="font-medium">{{ item.name }}</tablecell><tablecell>{{ item.email }}</tablecell><tablecell>{{ item.location }}</tablecell><tablecell>{{ item.status }}</tablecell><tablecell class="text-right">{{ item.balance }}</tablecell></tablerow></tablebody><tablefooter class="bg-transparent"><tablerow class="hover:bg-transparent"><tablecell colspan="{{5}}">Total</tablecell><tablecell class="text-right">$2,500.00</tablecell></tablerow></tablefooter></table><text class="text-muted-foreground mt-4 text-center text-sm">Table with row selection</text></view>
+</view>

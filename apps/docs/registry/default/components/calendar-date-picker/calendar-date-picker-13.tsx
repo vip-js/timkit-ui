@@ -2,7 +2,10 @@
 
 import { useState } from 'react'
 import { Calendar } from '@timui/react'
-import type { WeekNumberProps } from 'react-day-picker'
+
+type CalendarWeekNumberProps = React.ThHTMLAttributes<HTMLTableCellElement> & {
+  week: { weekNumber: number }
+}
 
 export default function Component() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -17,7 +20,7 @@ export default function Component() {
         fixedWeeks
         showWeekNumber
         components={{
-          WeekNumber: ({ week, ...props }: WeekNumberProps) => {
+          WeekNumber: ({ week, ...props }: CalendarWeekNumberProps) => {
             return (
               <th {...props}>
                 <span className="inline-flex size-9 items-center justify-center">

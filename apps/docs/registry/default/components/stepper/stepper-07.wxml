@@ -1,0 +1,4 @@
+<view>
+  <view class="mx-auto max-w-xl space-y-8 text-center"><stepper default-value="{{2}}" class="items-start gap-4"><stepperitem wx:for="{{steps}}" wx:for-item="{ step, title }" wx:for-index="index" wx:key="index" key="{{step}}" step="{{step}}" class="flex-1"><steppertrigger class="w-full flex-col items-start gap-2 rounded"><stepperindicator aschild class="bg-border h-1 w-full"><text class="sr-only">{{ step }}</text></stepperindicator><view class="space-y-0.5"><steppertitle>{{ title }}</steppertitle></view></steppertrigger></stepperitem></stepper><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with labels
+      </text></view>
+</view>

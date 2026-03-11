@@ -1,26 +1,12 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import { SparklesIcon, UploadIcon } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button';
+import AppToggle from '@/registry/default/components/navbar-components/app-toggle.vue';
+import TeamSwitcher from '@/registry/default/components/navbar-components/team-switcher.vue';
+
+
 </script>
+
 <template>
-<header class="border-b px-4 md:px-6">
-      <div class="flex h-16 items-center justify-between gap-4">
-        
-        <div class="flex flex-1 items-center gap-2">
-          <TeamSwitcher />
-        </div>
-        
-        <AppToggle />
-        
-        <div class="flex flex-1 items-center justify-end gap-2">
-          <Button size="sm" variant="ghost" class="aspect-square text-sm max-sm:p-0">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 sm:-ms-1"><circle cx="12" cy="12" r="9" /></svg>
-            <span class="max-sm:sr-only">Export</span>
-          </Button>
-          <Button size="sm" class="aspect-square text-sm max-sm:p-0">
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 sm:-ms-1"><circle cx="12" cy="12" r="9" /></svg>
-            <span class="max-sm:sr-only">Upgrade</span>
-          </Button>
-        </div>
-      </div>
-    </header>
+  <header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div class="flex flex-1 items-center gap-2"><TeamSwitcher :teams="teams" :defaultTeam="teams[0]" /></div><AppToggle /><div class="flex flex-1 items-center justify-end gap-2"><Button size="sm" variant="ghost" class="aspect-square text-sm max-sm:p-0"><UploadIcon class="opacity-60 sm:-ms-1" :size="16" aria-hidden="true" /><span class="max-sm:sr-only">Export</span></Button><Button size="sm" class="aspect-square text-sm max-sm:p-0"><SparklesIcon class="opacity-60 sm:-ms-1" :size="16" aria-hidden="true" /><span class="max-sm:sr-only">Upgrade</span></Button></div></div></header>
 </template>

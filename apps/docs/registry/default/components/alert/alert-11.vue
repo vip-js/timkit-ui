@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
+import { Alert } from '@/components/ui/alert';
+import { AlertDescription } from '@/components/ui/alert-description';
+import { AlertTitle } from '@/components/ui/alert-title';
+
+
+
 </script>
 
 <template>
-<Alert class="rounded-md border px-4 py-3">
-  <div class="flex gap-3">
-    <span class="mt-0.5 shrink-0 text-red-500 opacity-60" aria-hidden="true">!</span>
-    <div class="grow space-y-1">
-      <AlertTitle class="text-sm font-medium text-current">Password does not meet requirements:</AlertTitle>
-      <ul class="text-muted-foreground list-inside list-disc text-sm">
-      <li>Minimum 8 characters</li>
-      <li>Inlcude a special character</li>
-      </ul>
-    </div>
-  </div>
-</Alert>
+  <Alert class="rounded-md border px-4 py-3"><div class="flex gap-3"><span class="mt-0.5 shrink-0 text-red-500 opacity-60" aria-hidden="true">!
+        </span><div class="grow space-y-1"><AlertTitle class="text-sm font-medium text-current">Password does not meet requirements:
+          </AlertTitle><ul class="text-muted-foreground list-inside list-disc text-sm"><li>Minimum 8 characters</li><li>Inlcude a special character</li></ul></div></div></Alert>
 </template>

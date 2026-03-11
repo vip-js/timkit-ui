@@ -1,0 +1,32 @@
+<div data-slot="sheet-root" data-state="closed">
+  <button
+    data-slot="sheet-trigger"
+    type="button"
+    aria-expanded="false"
+    class="rounded-md border px-4 py-2 text-sm"
+  >
+    Open sheet
+  </button>
+  <div
+    data-slot="sheet-overlay"
+    data-state="closed"
+    hidden
+    class="fixed inset-0 z-40 bg-black/40"
+  ></div>
+  <aside
+    data-slot="sheet-content"
+    data-state="closed"
+    hidden
+    class="fixed right-0 top-0 z-50 h-full w-80 border-l border-input bg-background p-4 shadow-lg"
+  >
+    <div class="space-y-3">
+      <h2 class="text-lg font-semibold">Release checklist</h2>
+      <p class="text-sm text-muted-foreground">
+        Confirm docs parity, HTML capability labels, and Weapp TimEvent coverage.
+      </p>
+      <button data-slot="sheet-close" type="button" class="rounded-md border px-3 py-2 text-sm">
+        Close
+      </button>
+    </div>
+  </aside>
+</div>

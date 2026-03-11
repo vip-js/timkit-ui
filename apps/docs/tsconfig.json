@@ -51,6 +51,9 @@
     "**/*.jsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "registry/default/composables",
+    "registry/default/vue",
+    "registry/default/weapp"
   ]
 }

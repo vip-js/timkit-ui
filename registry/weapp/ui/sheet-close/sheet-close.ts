@@ -1,19 +1,19 @@
 Component({
-    relations: {
-        '../sheet/sheet': { type: 'ancestor' }
+  relations: {
+    '../sheet/sheet': { type: 'ancestor' },
+  },
+  data: {
+    closeApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ closeApi: parentApi.closeTriggerProps })
     },
-    data: {
-        closeApi: {} as any
+    handleClick() {
+      if (this.data.closeApi && this.data.closeApi.onClick) {
+        this.data.closeApi.onClick()
+      }
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ closeApi: parentApi.closeTriggerProps })
-        },
-        handleClick() {
-            if (this.data.closeApi && this.data.closeApi.onClick) {
-                this.data.closeApi.onClick()
-            }
-        }
-    }
+  },
 })

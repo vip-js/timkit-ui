@@ -1,7 +1,12 @@
+import { emitTimEvent } from '../utils'
+
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     leftPercent: {
@@ -16,6 +21,10 @@ Component({
       type: Number,
       value: 80,
     },
+    id: {
+      type: String,
+      value: 'resizable',
+    },
     extClass: {
       type: String,
       value: '',
@@ -26,7 +35,10 @@ Component({
     onSliderChange(e: WechatMiniprogram.SliderChange) {
       const raw = Number(e.detail.value || this.properties.leftPercent)
       const next = Math.max(this.properties.minPercent, Math.min(this.properties.maxPercent, raw))
-      this.triggerEvent('change', { leftPercent: next, rightPercent: 100 - next })
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'resizable', {
+        leftPercent: next,
+        rightPercent: 100 - next,
+      })
       this.triggerEvent('update:leftPercent', next)
     },
   },

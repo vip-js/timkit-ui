@@ -1,0 +1,10 @@
+<button
+  data-slot="button"
+  class="{{buttonVariants variant=variant size=size}}"
+>
+  {{#if children}}
+    {{{children}}}
+  {{else}}
+    Button
+  {{/if}}
+</button>

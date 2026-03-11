@@ -3,21 +3,24 @@
 import * as React from 'react'
 import type {
   AssertNoExtraKeys,
-  RadioGroupProps as CoreRadioGroupProps,
   RadioGroupItemProps as CoreRadioGroupItemProps,
+  RadioGroupProps as CoreRadioGroupProps,
 } from '@timui/core'
-import { createTimEvent, radioGroupConnect, radioGroupMachine } from '@timui/core'
 import {
   cn,
+  createTimEvent,
+  radioGroupConnect,
   radioGroupIndicatorIconVariants,
   radioGroupIndicatorVariants,
   radioGroupItemVariants,
+  radioGroupMachine,
   radioGroupVariants,
 } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
 import { CircleIcon } from 'lucide-react'
-import { RadioGroupProvider, useRadioGroupContext } from './radio-group/use-radio-group-context'
+
 import { useRadioGroup } from './radio-group/use-radio-group'
+import { RadioGroupProvider, useRadioGroupContext } from './radio-group/use-radio-group-context'
 
 type RadioGroupProps = CoreRadioGroupProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreRadioGroupProps>
@@ -48,7 +51,7 @@ const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     )
   }
 )
-RadioGroup.displayName = "RadioGroup"
+RadioGroup.displayName = 'RadioGroup'
 
 type RadioGroupItemProps = CoreRadioGroupItemProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreRadioGroupItemProps>
@@ -86,6 +89,6 @@ const RadioGroupItem = React.forwardRef<HTMLDivElement, RadioGroupItemProps>(
     )
   }
 )
-RadioGroupItem.displayName = "RadioGroupItem"
+RadioGroupItem.displayName = 'RadioGroupItem'
 
 export { RadioGroup, RadioGroupItem }

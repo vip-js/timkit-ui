@@ -1,0 +1,6 @@
+export { default } from './notification/notification.vue'
+export { default as Notification } from './notification/notification.vue'
+export { default as NotificationActions } from './notification/notification-actions.vue'
+export { default as NotificationDescription } from './notification/notification-description.vue'
+export { default as NotificationIcon } from './notification/notification-icon.vue'
+export { default as NotificationTitle } from './notification/notification-title.vue'

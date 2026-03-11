@@ -1,0 +1,4 @@
+<view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" class="rounded-sm [&_span]:rounded" /><label htmlfor="{{id}}" class="sr-only">Square switch
+      </label></view>
+</view>

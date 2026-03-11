@@ -1,6 +1,7 @@
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   externalClasses: ['ext-class'],
   properties: {
@@ -15,14 +16,16 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        className: `inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-sm ${this.properties.extClass}`.trim(),
+        className:
+          `inline-flex items-center gap-1 rounded-md px-2.5 py-3 text-sm ${this.properties.extClass}`.trim(),
       })
     },
   },
   observers: {
     extClass(extClass) {
       this.setData({
-        className: `inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-sm ${extClass}`.trim(),
+        className:
+          `inline-flex items-center gap-1 rounded-md px-2.5 py-3 text-sm ${extClass}`.trim(),
       })
     },
   },

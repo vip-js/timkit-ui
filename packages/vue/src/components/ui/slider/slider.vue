@@ -23,6 +23,7 @@ const emit = defineEmits(["update:modelValue", "change", "commit"]);
 
 const api = useSlider(props, emit);
 const rootProps = computed(() => api.value?.getRootProps?.() ?? {});
+const controlProps = computed(() => api.value?.getControlProps?.() ?? {});
 const trackProps = computed(() => api.value?.getTrackProps?.() ?? {});
 const rangeProps = computed(() => api.value?.getRangeProps?.() ?? {});
 
@@ -46,23 +47,34 @@ const hiddenInputPropsList = computed(() =>
     :class="cn(sliderRootVariants(), props.class)"
   >
     <div
-      v-bind="trackProps"
-      data-slot="slider-track"
-      :class="cn(sliderTrackVariants(), trackProps.class)"
+      v-bind="controlProps"
+      data-slot="slider-control"
+      :class="
+        cn(
+          'relative flex w-full touch-none items-center select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-44 data-[orientation=vertical]:w-auto data-[orientation=vertical]:flex-col',
+          controlProps.class
+        )
+      "
     >
       <div
-        v-bind="rangeProps"
-        data-slot="slider-range"
-        :class="cn(sliderRangeVariants(), rangeProps.class)"
-      />
+        v-bind="trackProps"
+        data-slot="slider-track"
+        :class="cn(sliderTrackVariants(), trackProps.class)"
+      >
+        <div
+          v-bind="rangeProps"
+          data-slot="slider-range"
+          :class="cn(sliderRangeVariants(), rangeProps.class)"
+        />
+      </div>
+      <template v-for="(thumbProps, index) in thumbPropsList" :key="index">
+        <div
+          v-bind="thumbProps"
+          data-slot="slider-thumb"
+          :class="cn(sliderThumbVariants(), thumbProps.class)"
+        />
+        <input v-bind="hiddenInputPropsList[index] ?? {}" />
+      </template>
     </div>
-    <template v-for="(thumbProps, index) in thumbPropsList" :key="index">
-      <div
-        v-bind="thumbProps"
-        data-slot="slider-thumb"
-        :class="cn(sliderThumbVariants(), thumbProps.class)"
-      />
-      <input v-bind="hiddenInputPropsList[index] ?? {}" />
-    </template>
   </div>
 </template>

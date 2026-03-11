@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Slider with solid thumb</label><slider default-value="{{[25]}}" class="[&>:last-child>span]:bg-primary [&>:first-child>span]:opacity-70" aria-label="Slider with solid thumb" /></view>
+</view>

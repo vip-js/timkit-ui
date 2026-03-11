@@ -8367,11 +8367,6 @@
       }
     }
   }
-  .data-\[slot\=comp-542\]\:px-0 {
-    &[data-slot="comp-542"] {
-      padding-inline: calc(var(--spacing) * 0);
-    }
-  }
   .\*\*\:data-\[slot\=navigation-menu-link\]\:focus\:ring-0 {
     :is(& *) {
       &[data-slot="navigation-menu-link"] {

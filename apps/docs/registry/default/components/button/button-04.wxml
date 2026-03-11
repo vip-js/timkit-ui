@@ -1,0 +1,4 @@
+<view>
+  <button><archiveicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Button
+    </button>
+</view>

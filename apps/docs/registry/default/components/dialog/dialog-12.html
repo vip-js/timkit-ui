@@ -1,43 +1,40 @@
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r12:" data-state="closed">
+  OTP code
+</button>
 
-    <dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">OTP code</button>
-      </dialog-trigger>
-      <dialog-content>
-        <div class="flex flex-col items-center gap-2">
-          <div
-            class="flex size-11 shrink-0 items-center justify-center rounded-full border"
-            aria-hidden="true"
-          >
-            <svg
-              class="stroke-zinc-800 dark:stroke-zinc-100"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 32 32"
-              aria-hidden="true"
-            >
-              <circle cx="16" cy="16" r="12" fill="none" strokeWidth="8" />
-            </svg>
-          </div>
-          <dialog-header>
-            <dialog-title class="sm:text-center">Enter confirmation code</dialog-title>
-            <dialog-description class="sm:text-center">
-              Check your email and enter the code - Try 6548
-            </dialog-description>
-          </dialog-header>
-        </div>
+<!-- 
+Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
+Here is the structural representation of the opened dialog:
 
-        <div class="space-y-4">
-          <div class="flex justify-center">
-            <div class="flex gap-2"><div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div><div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div><div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div><div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div></div>
-          </div>
-          <p class="text-center text-sm">
-            <a class="underline hover:no-underline" href="#">
-              Resend code
-            </a>
-          </p>
-        </div>
-      </dialog-content>
-    </dialog>
-  
+<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
+<div role="dialog" id="radix-:r12:" aria-describedby="radix-:r14:" aria-labelledby="radix-:r13:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
+  <div class="flex flex-col items-center gap-2">
+    <div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
+      <svg class="stroke-zinc-800 dark:stroke-zinc-100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="12" fill="none" stroke-width="8" />
+      </svg>
+    </div>
+    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+      <h2 id="radix-:r13:" class="text-lg font-semibold leading-none tracking-tight sm:text-center">Enter confirmation code</h2>
+      <p id="radix-:r14:" class="text-sm text-muted-foreground sm:text-center">Check your email and enter the code - Try 6548</p>
+    </div>
+  </div>
+  <div class="space-y-4">
+    <div class="flex justify-center">
+      <div class="flex gap-2">
+        <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
+        <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
+        <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs"></div>
+        <div class="border-input bg-background text-foreground flex size-9 items-center justify-center rounded-md border font-medium shadow-xs z-10 border-ring ring-ring/50 ring-[3px]"></div>
+      </div>
+    </div>
+    <p class="text-center text-sm"><a class="underline hover:no-underline" href="#">Resend code</a></p>
+  </div>
+  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+</div>
+-->

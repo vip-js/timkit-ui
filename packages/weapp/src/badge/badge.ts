@@ -1,14 +1,19 @@
 import { badgeVariants } from '../utils'
+import {
+  createWeappBaseProps,
+  createWeappOptions,
+  WEAPP_EXTERNAL_CLASSES,
+} from '../utils/component'
 
 Component({
-  options: {
-    styleIsolation: 'apply-shared',
-  },
+  options: createWeappOptions({ pureData: true }),
+
+  externalClasses: WEAPP_EXTERNAL_CLASSES,
 
   properties: {
     variant: { type: String, value: 'default' },
     size: { type: String, value: 'default' },
-    extClass: { type: String, value: '' },
+    ...createWeappBaseProps(),
   },
 
   data: {
@@ -32,7 +37,7 @@ Component({
       // Use core package's badgeVariants for consistent styling
       const { baseClass } = badgeVariants({
         variant: this.properties.variant || 'default',
-        className: this.properties.extClass
+        className: this.properties.extClass,
       })
 
       const classes = [baseClass]

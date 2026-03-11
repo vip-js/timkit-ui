@@ -1,0 +1,7 @@
+<view>
+  <view class="flex flex-col gap-2"><button variant="outline"><rigooglefill class="me-1 text-[#DB4437] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with Google
+      </button><button variant="outline"><ritwitterxfill class="me-1 text-[#14171a] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with X
+      </button><button variant="outline"><rifacebookfill class="me-1 text-[#1877f2] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with Facebook
+      </button><button variant="outline"><rigithubfill class="me-1 text-[#333333] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with GitHub
+      </button></view>
+</view>

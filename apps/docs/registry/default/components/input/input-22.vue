@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
+
+
 </script>
+
 <template>
-<div class="*:not-first:mt-2">
-      <Label for="input-22-id">Input with button</Label>
-      <div class="flex gap-2">
-        <Input id="input-22-id" class="flex-1" placeholder="Email" type="email" />
-        <Button variant="outline">Send</Button>
-      </div>
-    </div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with button</Label><div class="flex gap-2"><Input :id="id" class="flex-1" placeholder="Email" type="email" /><Button variant="outline">Send</Button></div></div>
 </template>

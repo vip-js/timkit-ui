@@ -3,9 +3,20 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import ts from 'typescript'
 
-import { RegistryItem, registryItemSchema } from '../packages/core/src/shared/schema'
-import { sha256OfString } from '../packages/cli/src/lib/checksum'
+import {
+  buildDemoFrameworkMatrix,
+  getDemoComponentGroup,
+  isDemoLikeName,
+} from '../apps/docs/lib/demo-canonical'
 import { resolveDemoDisplayTitle } from '../apps/docs/lib/demo-title'
+import { sha256OfString } from '../packages/cli/src/lib/checksum'
+import { RegistryItem, registryItemSchema } from '../packages/core/src/shared/schema'
+import { getHtmlCapabilityLevel } from '../packages/html/src/capabilities'
+import {
+  HTML_RUNTIME_AUTO_ATTRIBUTE,
+  HTML_RUNTIME_AUTO_VALUE,
+  HTML_RUNTIME_ROOT_ATTRIBUTE,
+} from '../packages/html/src/runtime-metadata'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -38,11 +49,16 @@ const HTML_COMPONENTS_DIR = path.join(ROOT, 'packages/html/src/components')
 const DOCS_HTML_DIR = path.join(ROOT, 'apps/docs/registry/default/html')
 const DOCS_WEAPP_DIR = path.join(ROOT, 'apps/docs/registry/default/weapp')
 const DOCS_VUE_DIR = path.join(ROOT, 'apps/docs/registry/default/vue')
+const REACT_HOOKS_DIR = path.join(ROOT, 'packages/react/src/hooks')
+
+const REACT_PACKAGE_JSON = path.join(ROOT, 'packages/react/package.json')
+const VUE_PACKAGE_JSON = path.join(ROOT, 'packages/vue/package.json')
+const FRAMEWORK_RUNTIME_DEPS = new Set(['react', 'react-dom', 'vue'])
 
 const frameworkExtensions: Record<string, string[]> = {
   react: ['.tsx', '.jsx'],
   vue: ['.vue', '.ts'], // Added .ts for Vue hooks
-  html: ['.html', '.htm'],
+  html: ['.html', '.htm', '.hbs'],
   weapp: ['.wxml', '.wxss', '.ts', '.js'],
 }
 
@@ -88,9 +104,46 @@ const CLIENT_ONLY_COMPONENTS = ['tree', 'cropper']
 const CLIENT_ONLY_CATEGORIES = ['tree']
 
 const PLACEHOLDERS = {
-  html: (name: string) => `<div class="flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">Placeholder for ${name} (HTML)</div>`,
+  html: (name: string) =>
+    `<div class="flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">Placeholder for ${name} (HTML)</div>`,
   weapp: (name: string) =>
     `<!-- Placeholder for ${name} (WeApp) -->\n<view class="flex h-32 w-full items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">Placeholder</view>\n`,
+}
+
+function getDocsDemoCandidates(name: string) {
+  const group = getDemoComponentGroup(name)
+  const groupDemoName = `${group}-demo`
+  return Array.from(new Set([name, groupDemoName, group].filter(Boolean)))
+}
+
+function indentBlock(content: string, spaces = 2): string {
+  const prefix = ' '.repeat(spaces)
+  return content
+    .split('\n')
+    .map((line) => (line ? `${prefix}${line}` : line))
+    .join('\n')
+}
+
+function decorateHtmlRegistryContent(name: string, content: string): string {
+  const normalized = content.trim()
+  if (!normalized) return normalized
+  if (getHtmlCapabilityLevel(name) !== 'template+adapter') return normalized
+
+  const hasRuntimeRoot =
+    normalized.includes(HTML_RUNTIME_ROOT_ATTRIBUTE) ||
+    normalized.includes(HTML_RUNTIME_AUTO_ATTRIBUTE)
+  const hasRuntimeInit = normalized.includes('autoInitHtmlRuntime(')
+  const hasInlineScript = /<script\b/i.test(normalized)
+
+  const wrapped = hasRuntimeRoot
+    ? normalized
+    : `<div ${HTML_RUNTIME_ROOT_ATTRIBUTE} ${HTML_RUNTIME_AUTO_ATTRIBUTE}="${HTML_RUNTIME_AUTO_VALUE}">\n${indentBlock(normalized)}\n</div>`
+
+  if (hasRuntimeInit || hasInlineScript) {
+    return wrapped
+  }
+
+  return `${wrapped}\n<script type="module">\n  import { autoInitHtmlRuntime } from '@timui/html'\n  autoInitHtmlRuntime({ components: ['${name}'] })\n</script>`
 }
 
 function extractImportsFromTs(content: string): string[] {
@@ -137,7 +190,9 @@ function loadRegistryAliases(): Record<string, string> {
       object
     >
     return Object.fromEntries(
-      Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === 'string')
+      Object.entries(parsed).filter(
+        (entry): entry is [string, string] => typeof entry[1] === 'string'
+      )
     )
   } catch {
     return {}
@@ -166,6 +221,244 @@ function safeReadJson<T>(path: string): T | undefined {
 
 function normalizeSourceContent(content: string): string {
   return content.replace(/^(?:'use client'\s*\n){2,}/, "'use client'\n")
+}
+
+function findDocsSiblingByCandidates(
+  primaryDir: string,
+  name: string,
+  ext: string
+): string | undefined {
+  for (const candidate of getDocsDemoCandidates(name)) {
+    const candidatePath = path.join(primaryDir, `${candidate}.${ext}`)
+    if (fs.existsSync(candidatePath)) {
+      return candidatePath
+    }
+  }
+  return undefined
+}
+
+function loadOptionalPeers(pkgPath: string): Set<string> {
+  if (!fs.existsSync(pkgPath)) return new Set()
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8')) as {
+      peerDependencies?: Record<string, string>
+      peerDependenciesMeta?: Record<string, { optional?: boolean }>
+    }
+    const optional = new Set<string>()
+    const meta = pkg.peerDependenciesMeta || {}
+    Object.entries(meta).forEach(([dep, info]) => {
+      if (info?.optional) optional.add(dep)
+    })
+    return optional
+  } catch {
+    return new Set()
+  }
+}
+
+const OPTIONAL_PEERS_REACT = loadOptionalPeers(REACT_PACKAGE_JSON)
+const OPTIONAL_PEERS_VUE = loadOptionalPeers(VUE_PACKAGE_JSON)
+
+function collectReactComponentNames(): Set<string> {
+  if (!fs.existsSync(WEB_COMPONENTS_DIR)) return new Set()
+  const entries = fs.readdirSync(WEB_COMPONENTS_DIR)
+  const names = entries
+    .filter((entry) => entry.endsWith('.tsx'))
+    .map((entry) => entry.replace(/\.tsx$/, ''))
+    .filter((name) => name !== 'index')
+  return new Set(names)
+}
+
+function walkFiles(dir: string, acc: string[] = []): string[] {
+  if (!fs.existsSync(dir)) return acc
+  const entries = fs.readdirSync(dir, { withFileTypes: true })
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name)
+    if (entry.isDirectory()) {
+      walkFiles(fullPath, acc)
+      continue
+    }
+    if (entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx'))) {
+      if (entry.name.endsWith('.d.ts')) continue
+      acc.push(fullPath)
+    }
+  }
+  return acc
+}
+
+function collectReactSupportFiles(name: string): RegistryItem['files'] {
+  const scopedDir = path.join(WEB_COMPONENTS_DIR, name)
+  if (!fs.existsSync(scopedDir) || !fs.statSync(scopedDir).isDirectory()) return []
+
+  const files = walkFiles(scopedDir)
+  return files.map((filePath) => {
+    const relative = path.relative(scopedDir, filePath)
+    const content = fs.readFileSync(filePath, 'utf-8')
+    return {
+      path: `registry/default/ui/${name}/${relative.replace(/\\/g, '/')}`,
+      target: `components/ui/${name}/${relative.replace(/\\/g, '/')}`,
+      type: 'registry:ui',
+      content: normalizeSourceContent(content),
+    }
+  })
+}
+
+function extractImportsFromVue(content: string): string[] {
+  const deps: string[] = []
+  const add = (m: string) => {
+    if (m && !deps.includes(m)) deps.push(m)
+  }
+  const regex = /(?:import|export)\s+(?:[^'"]+?\s+from\s+)?['"]([^'"]+)['"]/g
+  let match: RegExpExecArray | null
+  while ((match = regex.exec(content))) {
+    add(match[1])
+  }
+  return deps
+}
+
+function extractImportsFromSource(filePath: string, content: string): string[] {
+  const ext = path.extname(filePath)
+  if (ext === '.ts' || ext === '.tsx' || ext === '.js' || ext === '.jsx') {
+    return extractImportsFromTs(content)
+  }
+  if (ext === '.vue') {
+    return extractImportsFromVue(content)
+  }
+  return []
+}
+
+function pickOptionalPeersForFile(filePath: string): Set<string> {
+  if (filePath.includes('/vue/')) return OPTIONAL_PEERS_VUE
+  if (filePath.endsWith('.vue')) return OPTIONAL_PEERS_VUE
+  return OPTIONAL_PEERS_REACT
+}
+
+function scanItemDependencies(files: RegistryItem['files']): {
+  registryDependencies: string[]
+  dependencies: string[]
+  optionalPeerDependencies: string[]
+} {
+  const registryDeps = new Set<string>()
+  const externalDeps = new Set<string>()
+  const optionalDeps = new Set<string>()
+
+  files?.forEach((file) => {
+    if (!file.content) return
+    const imports = extractImportsFromSource(file.path, file.content)
+    const optionalPeers = pickOptionalPeersForFile(file.path)
+
+    imports.forEach((spec) => {
+      if (!spec || spec.startsWith('.') || spec.startsWith('@/')) {
+        normalizeRegistryDeps([spec], []).forEach((dep) => registryDeps.add(dep))
+        return
+      }
+
+      if (FRAMEWORK_RUNTIME_DEPS.has(spec)) return
+
+      externalDeps.add(spec)
+      if (optionalPeers.has(spec)) optionalDeps.add(spec)
+    })
+  })
+
+  optionalDeps.forEach((dep) => externalDeps.delete(dep))
+
+  return {
+    registryDependencies: Array.from(registryDeps).sort(),
+    dependencies: Array.from(externalDeps).sort(),
+    optionalPeerDependencies: Array.from(optionalDeps).sort(),
+  }
+}
+
+function filterFilesByFramework(
+  files: RegistryItem['files'],
+  framework: string
+): RegistryItem['files'] {
+  if (!files?.length) return []
+  const extForReact = new Set(['.tsx', '.jsx', '.ts', '.js'])
+  const extForVue = new Set(['.vue', '.ts'])
+  const extForWeapp = new Set(['.wxml', '.wxss', '.ts', '.js', '.json'])
+  const extForHtml = new Set(['.html', '.htm', '.hbs'])
+
+  return files.filter((file) => {
+    const ext = path.extname(file.path).toLowerCase()
+    const lower = file.path.toLowerCase()
+
+    if (framework === 'react') {
+      if (!extForReact.has(ext)) return false
+      if (lower.includes('/vue/') || lower.includes('/weapp/') || lower.includes('/html/'))
+        return false
+      return true
+    }
+    if (framework === 'vue') {
+      if (!extForVue.has(ext) && !lower.includes('/vue/')) return false
+      return lower.includes('/vue/') || ext === '.vue'
+    }
+    if (framework === 'weapp') {
+      if (!extForWeapp.has(ext) && !lower.includes('/weapp/')) return false
+      return lower.includes('/weapp/')
+    }
+    if (framework === 'html') {
+      if (!extForHtml.has(ext) && !lower.includes('/html/')) return false
+      return lower.includes('/html/') || extForHtml.has(ext)
+    }
+    return true
+  })
+}
+
+function resolveRegistrySourcePath(filePath: string, itemName: string): string | undefined {
+  if (filePath.startsWith('registry/default/ui/')) {
+    const relative = filePath.replace('registry/default/ui/', '')
+    const candidate = path.join(WEB_COMPONENTS_DIR, relative)
+    if (fs.existsSync(candidate)) return candidate
+    const byName = path.join(WEB_COMPONENTS_DIR, `${itemName}.tsx`)
+    if (fs.existsSync(byName)) return byName
+  }
+
+  if (filePath.startsWith('registry/default/hooks/')) {
+    const basename = path.basename(filePath)
+    const candidate = path.join(REACT_HOOKS_DIR, basename)
+    if (fs.existsSync(candidate)) return candidate
+  }
+
+  if (filePath.startsWith('registry/default/vue/')) {
+    const relative = filePath.replace('registry/default/vue/', '')
+    const basename = path.basename(relative)
+    const candidates = [
+      path.join(VUE_UI_COMPONENTS_DIR, itemName, basename),
+      path.join(VUE_UI_COMPONENTS_DIR, `${itemName}.vue`),
+      path.join(VUE_UI_COMPONENTS_DIR, relative),
+      path.join(VUE_COMPONENTS_DIR, relative),
+      path.join(VUE_HOOKS_DIR, basename),
+    ]
+    for (const candidate of candidates) {
+      if (fs.existsSync(candidate)) return candidate
+    }
+  }
+
+  if (filePath.startsWith('registry/default/weapp/')) {
+    const relative = filePath.replace('registry/default/weapp/', '')
+    const candidateDirect = path.join(WEAPP_SRC_DIR, relative)
+    if (fs.existsSync(candidateDirect)) return candidateDirect
+
+    const basename = path.basename(relative)
+    const ext = path.extname(basename)
+    if (itemName && ext) {
+      const candidates = [
+        path.join(WEAPP_SRC_DIR, itemName, `${itemName}${ext}`),
+        path.join(WEAPP_SRC_DIR, itemName, `index${ext}`),
+        path.join(WEAPP_SRC_DIR, itemName, basename),
+      ]
+      for (const candidate of candidates) {
+        if (fs.existsSync(candidate)) return candidate
+      }
+    }
+  }
+
+  if (filePath.startsWith('registry/default/html/')) {
+    const candidate = path.join(HTML_COMPONENTS_DIR, `${itemName}.html`)
+    if (fs.existsSync(candidate)) return candidate
+  }
+
+  return undefined
 }
 
 function collectVueFilesForComponent(name: string): Array<{
@@ -226,6 +519,8 @@ async function main() {
   }
   console.timeEnd('Read Base Registry')
 
+  const reactComponentNames = collectReactComponentNames()
+
   const registryMap = new Map<string, RegistryItem>()
   const uiNameSet = new Set<string>()
 
@@ -237,22 +532,27 @@ async function main() {
       const frameworks: string[] = []
       const filesWithContent =
         result.data.files?.map((file) => {
-          // Resolve to the docs registry folder
+          const overridePath = resolveRegistrySourcePath(file.path, item.name)
           const docPath = path.join(ROOT, 'apps/docs', file.path)
-          const absolutePath = fs.existsSync(docPath) ? docPath : path.join(ROOT, file.path)
+          const absolutePath =
+            overridePath || (fs.existsSync(docPath) ? docPath : path.join(ROOT, file.path))
           let content = fs.existsSync(absolutePath)
             ? fs.readFileSync(absolutePath, 'utf-8')
             : undefined
 
-          // Fallback to packages/react/vue components by name
+          // Fallback to packages/react/vue components by name (legacy)
           if (!content && file.path.endsWith('.tsx')) {
             content = tryReadFile([path.join(WEB_COMPONENTS_DIR, `${item.name}.tsx`)])
           }
-          if (!content && (file.path.endsWith('.vue') || (file.path.endsWith('.ts') && file.path.includes('/vue/')))) {
+          if (
+            !content &&
+            (file.path.endsWith('.vue') ||
+              (file.path.endsWith('.ts') && file.path.includes('/vue/')))
+          ) {
             const basename = path.basename(file.path)
             content = tryReadFile([
               path.join(VUE_COMPONENTS_DIR, basename),
-              path.join(VUE_HOOKS_DIR, basename)
+              path.join(VUE_HOOKS_DIR, basename),
             ])
           }
 
@@ -276,6 +576,19 @@ async function main() {
             content: content ? normalizeSourceContent(content) : content,
           }
         }) ?? []
+
+      // Always append React support files from packages for base UI components.
+      if (
+        reactComponentNames.has(item.name) &&
+        (item.type === 'registry:ui' || item.type === 'registry:component' || !item.type)
+      ) {
+        const supportFiles = collectReactSupportFiles(item.name)
+        supportFiles.forEach((file) => {
+          if (!filesWithContent.some((existing) => existing.path === file.path)) {
+            filesWithContent.push(file)
+          }
+        })
+      }
 
       if (filesWithContent.some((f) => f.path.endsWith('.tsx'))) {
         frameworks.push('react')
@@ -318,57 +631,72 @@ async function main() {
 
       // 3. Fallback/real multi-framework files for ALL components
       // [NEW] Colocation Discovery: Check the directory of the primary file (tsx) for siblings
-      const primaryFile = filesWithContent.find(f => f.path.endsWith('.tsx')) || filesWithContent[0]
+      const primaryFile =
+        filesWithContent.find((f) => f.path.endsWith('.tsx')) || filesWithContent[0]
       if (primaryFile) {
         // file.path is relative to apps/docs usually, but let's resolve it carefully
         const relPath = primaryFile.path
         // If it starts with 'registry/', it's inside apps/docs
         const possiblePrimaryPath = path.join(ROOT, 'apps/docs', relPath)
-        const primaryDir = fs.existsSync(possiblePrimaryPath) ? path.dirname(possiblePrimaryPath) : undefined
+        const primaryDir = fs.existsSync(possiblePrimaryPath)
+          ? path.dirname(possiblePrimaryPath)
+          : undefined
 
         if (primaryDir) {
           const basename = path.basename(primaryFile.path, path.extname(primaryFile.path)) // e.g. 'button-01' from 'button-01.tsx'
 
           // Helper to add if exists and not already present
           const tryAddSibling = (ext: string, type: 'vue' | 'html' | 'weapp') => {
-            const siblingPath = path.join(primaryDir, `${basename}.${ext}`)
-            const alreadyHas = filesWithContent.some(f => f.path.endsWith(`.${ext}`))
-            // Note: checking endsWith is loose, but usually sufficient for same-name check
+            const siblingPath = findDocsSiblingByCandidates(primaryDir, basename, ext)
+            const alreadyHas = filesWithContent.some((file) => {
+              if (type === 'vue') {
+                return (
+                  /\.vue$/.test(file.path) ||
+                  (/\.ts$/.test(file.path) && file.path.includes('/vue/'))
+                )
+              }
+              if (type === 'html') {
+                return /\.(html|htm|hbs)$/.test(file.path)
+              }
+              return /\.(wxml|wxss|json|ts|js)$/.test(file.path) && /weapp/i.test(file.path)
+            })
 
-            if (fs.existsSync(siblingPath) && !alreadyHas) {
+            if (siblingPath && !alreadyHas) {
               // Construct relative path for registry
-              // We want to keep the same folder structure in registry output? 
+              // We want to keep the same folder structure in registry output?
               // Result path: "registry/default/components/button/button-01.vue"
               const docRelPath = path.relative(path.join(ROOT, 'apps/docs'), siblingPath)
 
               // Construct target
               // For 'registry:component', target is usually components/ui/[filename]
               // But for Weapp, we might want consistent structure.
-              let target = `components/ui/${basename}.${ext}`
+              let target = `components/ui/${item.name}.${ext}`
               if (type === 'weapp') {
-                target = `components/ui/${item.name}/${basename}.${ext}`
+                target = `components/ui/${item.name}/${item.name}.${ext}`
               }
 
               let content = fs.readFileSync(siblingPath, 'utf-8')
+              if (type === 'html') {
+                content = decorateHtmlRegistryContent(item.name, content)
+              }
 
               filesWithContent.push({
                 path: docRelPath,
                 target,
                 type: 'registry:component',
-                content
+                content,
               })
-
 
               // For Weapp, also check wxml/wxss/json/ts/js siblings
               if (type === 'weapp' && ext === 'wxml') {
-                ['wxss', 'json', 'ts', 'js'].forEach(extraExt => {
+                ;['wxss', 'json', 'ts', 'js'].forEach((extraExt) => {
                   const extraPath = path.join(primaryDir, `${basename}.${extraExt}`)
                   if (fs.existsSync(extraPath)) {
                     filesWithContent.push({
                       path: path.relative(path.join(ROOT, 'apps/docs'), extraPath),
                       target: `components/ui/${item.name}/${basename}.${extraExt}`,
                       type: 'registry:component',
-                      content: fs.readFileSync(extraPath, 'utf-8')
+                      content: fs.readFileSync(extraPath, 'utf-8'),
                     })
                   }
                 })
@@ -381,26 +709,66 @@ async function main() {
           tryAddSibling('wxml', 'weapp')
         }
       }
+
+      if (isDemoLikeName(item.name)) {
+        const canonicalReactPath = path.join(
+          ROOT,
+          'apps/docs/registry/default/components',
+          getDemoComponentGroup(item.name),
+          `${item.name}.tsx`
+        )
+
+        if (
+          fs.existsSync(canonicalReactPath) &&
+          !filesWithContent.some(
+            (file) => path.basename(file.path, path.extname(file.path)) === item.name
+          )
+        ) {
+          filesWithContent.unshift({
+            path: path
+              .relative(path.join(ROOT, 'apps/docs'), canonicalReactPath)
+              .replace(/\\/g, '/'),
+            target: `components/ui/${item.name}.tsx`,
+            type: 'registry:component',
+            content: normalizeSourceContent(fs.readFileSync(canonicalReactPath, 'utf-8')),
+          })
+        }
+
+        const hasCanonicalReactFile = filesWithContent.some(
+          (file) =>
+            file.path ===
+            `registry/default/components/${getDemoComponentGroup(item.name)}/${item.name}.tsx`
+        )
+        if (hasCanonicalReactFile) {
+          const legacyCompIndex = filesWithContent.findIndex((file) =>
+            /^registry\/default\/components\/comp-\d+\.tsx$/.test(file.path)
+          )
+          if (legacyCompIndex >= 0) {
+            filesWithContent.splice(legacyCompIndex, 1)
+          }
+        }
+      }
+
       let placeholderAdded = false
       const existingExts = filesWithContent.map((f) => path.extname(f.path))
 
       // 1. HTML Discovery
-      const docHtmlPath = path.join(DOCS_HTML_DIR, `${item.name}.html`)
-      if (fs.existsSync(docHtmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
+      const htmlPath = path.join(HTML_COMPONENTS_DIR, `${item.name}.html`)
+      if (fs.existsSync(htmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
         filesWithContent.push({
           path: `registry/default/html/${item.name}.html`,
           target: `components/ui/${item.name}.html`,
           type: 'registry:component',
-          content: fs.readFileSync(docHtmlPath, 'utf-8'),
+          content: decorateHtmlRegistryContent(item.name, fs.readFileSync(htmlPath, 'utf-8')),
         })
       } else {
-        const htmlPath = path.join(HTML_COMPONENTS_DIR, `${item.name}.html`)
-        if (fs.existsSync(htmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
+        const docHtmlPath = path.join(DOCS_HTML_DIR, `${item.name}.html`)
+        if (fs.existsSync(docHtmlPath) && !filesWithContent.some((f) => f.path.endsWith('.html'))) {
           filesWithContent.push({
             path: `registry/default/html/${item.name}.html`,
             target: `components/ui/${item.name}.html`,
             type: 'registry:component',
-            content: fs.readFileSync(htmlPath, 'utf-8'),
+            content: decorateHtmlRegistryContent(item.name, fs.readFileSync(docHtmlPath, 'utf-8')),
           })
         } else if (
           !filesWithContent.some((f) => f.path.endsWith('.html')) &&
@@ -414,7 +782,7 @@ async function main() {
             path: `registry/default/html/${item.name}.html`,
             target: `components/ui/${item.name}.html`,
             type: 'registry:component',
-            content: htmlContent,
+            content: decorateHtmlRegistryContent(item.name, htmlContent),
           })
         }
       }
@@ -424,11 +792,11 @@ async function main() {
         // Check both Primitives dir and Src dir
         // Also check primitive folder structure where files are named index.wxml or [name].wxml
         const possiblePaths = [
-          path.join(DOCS_WEAPP_DIR, `${item.name}.wxml`),
           path.join(WEAPP_SRC_DIR, item.name, `${item.name}.wxml`), // packages/weapp/src/[name]/[name].wxml
-          path.join(WEAPP_SRC_DIR, item.name, 'index.wxml'),        // packages/weapp/src/[name]/index.wxml
+          path.join(WEAPP_SRC_DIR, item.name, 'index.wxml'), // packages/weapp/src/[name]/index.wxml
           path.join(ROOT, 'packages/weapp/primitives', item.name, `${item.name}.wxml`),
           path.join(ROOT, 'packages/weapp/primitives', item.name, 'index.wxml'),
+          path.join(DOCS_WEAPP_DIR, `${item.name}.wxml`),
         ]
 
         let weappContent: string | undefined
@@ -469,7 +837,7 @@ async function main() {
               path: `registry/default/weapp/${item.name}.wxss`,
               target: `components/ui/${item.name}.wxss`,
               type: 'registry:component',
-              content: fs.readFileSync(wxssPath, 'utf-8')
+              content: fs.readFileSync(wxssPath, 'utf-8'),
             })
           }
           // Add TS/JS
@@ -479,7 +847,7 @@ async function main() {
               path: `registry/default/weapp/${item.name}.ts`,
               target: `components/ui/${item.name}.ts`,
               type: 'registry:component',
-              content: fs.readFileSync(scriptPath, 'utf-8')
+              content: fs.readFileSync(scriptPath, 'utf-8'),
             })
           }
           // Add JSON
@@ -489,7 +857,7 @@ async function main() {
               path: `registry/default/weapp/${item.name}.json`,
               target: `components/ui/${item.name}.json`,
               type: 'registry:component',
-              content: fs.readFileSync(jsonPath, 'utf-8')
+              content: fs.readFileSync(jsonPath, 'utf-8'),
             })
           }
           // Add JS (if not TS)
@@ -499,7 +867,7 @@ async function main() {
               path: `registry/default/weapp/${item.name}.js`,
               target: `components/ui/${item.name}.js`,
               type: 'registry:component',
-              content: fs.readFileSync(jsPath, 'utf-8')
+              content: fs.readFileSync(jsPath, 'utf-8'),
             })
           }
         }
@@ -511,7 +879,10 @@ async function main() {
         try {
           const wDirs = fs.readdirSync(WEAPP_SRC_DIR)
           wDirs.forEach((dir: string) => {
-            if (dir.startsWith(`${item.name}-`) && fs.statSync(path.join(WEAPP_SRC_DIR, dir)).isDirectory()) {
+            if (
+              dir.startsWith(`${item.name}-`) &&
+              fs.statSync(path.join(WEAPP_SRC_DIR, dir)).isDirectory()
+            ) {
               // Support both index.* and folder-name.* (e.g. alert-title.wxml)
               const subName = dir // e.g. accordion-item
               const exts = ['wxml', 'wxss', 'json', 'js', 'ts']
@@ -528,14 +899,14 @@ async function main() {
                       path: `registry/default/weapp/${subName}/${fileName}`, // Virtual path
                       target: `components/ui/${subName}/${fileName}`, // Target in user project
                       type: 'registry:component',
-                      content: fs.readFileSync(resolvedPath, 'utf-8')
+                      content: fs.readFileSync(resolvedPath, 'utf-8'),
                     })
                   }
                 })
               }
             }
           })
-        } catch (e) { }
+        } catch (e) {}
       }
 
       // Recalculate frameworks based on final files list
@@ -546,13 +917,74 @@ async function main() {
       if (filesWithContent.some((f) => f.path.endsWith('.tsx'))) finalFrameworks.add('react')
 
       const sortedFrameworks = orderFrameworks(Array.from(finalFrameworks))
+      const depsByFramework: Record<
+        string,
+        {
+          registryDependencies: string[]
+          dependencies: string[]
+          optionalPeerDependencies: string[]
+        }
+      > = {}
+      const demoFrameworkMatrix = isDemoLikeName(item.name)
+        ? buildDemoFrameworkMatrix(filesWithContent, item.name)
+        : undefined
+
+      sortedFrameworks.forEach((framework) => {
+        const frameworkFiles = filterFilesByFramework(filesWithContent, framework)
+        depsByFramework[framework] = scanItemDependencies(frameworkFiles)
+      })
+
+      const defaultDeps =
+        depsByFramework[sortedFrameworks[0]] || scanItemDependencies(filesWithContent)
 
       const enrichedItem = {
         ...result.data,
         files: filesWithContent,
+        dependencies: defaultDeps.dependencies.length
+          ? defaultDeps.dependencies
+          : result.data.dependencies,
+        registryDependencies: defaultDeps.registryDependencies.length
+          ? defaultDeps.registryDependencies
+          : result.data.registryDependencies,
+        optionalPeerDependencies: defaultDeps.optionalPeerDependencies.length
+          ? defaultDeps.optionalPeerDependencies
+          : result.data.optionalPeerDependencies,
         meta: {
           ...result.data.meta,
           frameworks: sortedFrameworks,
+          ...(demoFrameworkMatrix
+            ? {
+                demoCanonical: {
+                  componentName: item.name,
+                  group: getDemoComponentGroup(item.name),
+                  frameworks: Object.fromEntries(
+                    Object.entries(demoFrameworkMatrix).map(([framework, info]) => [
+                      framework,
+                      {
+                        sourceFramework: info.sourceFramework,
+                        sourceMode: info.sourceMode,
+                        matchedName: info.matchedName,
+                        path: info.file?.path,
+                      },
+                    ])
+                  ),
+                },
+              }
+            : {}),
+          dependenciesByFramework: Object.fromEntries(
+            Object.entries(depsByFramework).map(([framework, deps]) => [
+              framework,
+              {
+                dependencies: deps.dependencies.length ? deps.dependencies : undefined,
+                registryDependencies: deps.registryDependencies.length
+                  ? deps.registryDependencies
+                  : undefined,
+                optionalPeerDependencies: deps.optionalPeerDependencies.length
+                  ? deps.optionalPeerDependencies
+                  : undefined,
+              },
+            ])
+          ),
           placeholder: (result.data.meta as object)?.placeholder || placeholderAdded || false,
           clientOnly:
             CLIENT_ONLY_COMPONENTS.includes(item.name) ||
@@ -641,24 +1073,24 @@ async function main() {
 
         const files: RegistryItem['files'] = []
         const frameworks: string[] = []
-          ; (block.frameworks || []).forEach((fw: object) => {
-            const fwName = fw.framework || fw.name
-            if (!fwName) return
-            const normalized = String(fwName).toLowerCase()
-            if (!frameworks.includes(normalized)) frameworks.push(normalized)
-              ; (fw.files || []).forEach((file: object, idx: number) => {
-                files.push({
-                  path:
-                    file.path ||
-                    `${name}.${normalized === 'vue' ? 'vue' : normalized === 'html' ? 'html' : 'tsx'}`,
-                  target:
-                    file.target ||
-                    `components/ui/${name}.${normalized === 'vue' ? 'vue' : normalized === 'html' ? 'html' : 'tsx'}`,
-                  content: file.content || '',
-                  type: 'registry:component',
-                })
-              })
+        ;(block.frameworks || []).forEach((fw: object) => {
+          const fwName = fw.framework || fw.name
+          if (!fwName) return
+          const normalized = String(fwName).toLowerCase()
+          if (!frameworks.includes(normalized)) frameworks.push(normalized)
+          ;(fw.files || []).forEach((file: object, idx: number) => {
+            files.push({
+              path:
+                file.path ||
+                `${name}.${normalized === 'vue' ? 'vue' : normalized === 'html' ? 'html' : 'tsx'}`,
+              target:
+                file.target ||
+                `components/ui/${name}.${normalized === 'vue' ? 'vue' : normalized === 'html' ? 'html' : 'tsx'}`,
+              content: file.content || '',
+              type: 'registry:component',
+            })
           })
+        })
 
         const frameworksOrdered = orderFrameworks(frameworks)
 
@@ -730,16 +1162,10 @@ async function main() {
 
   // 1.5. Prepare Synthetic Items (Utils & Tokens)
   console.time('Prepare Synthetic Items')
-  const SHARED_UTILS_PATH = path.join(ROOT, 'packages/core/src/utils.ts')
+  const SHARED_UTILS_PATH = path.join(ROOT, 'packages/core/src/shared/utils.ts')
   let utilsContent = ''
   if (fs.existsSync(SHARED_UTILS_PATH)) {
     utilsContent = fs.readFileSync(SHARED_UTILS_PATH, 'utf-8')
-    const SHARED_VARIANTS_PATH = path.join(ROOT, 'packages/core/src/variants/index.ts')
-    if (fs.existsSync(SHARED_VARIANTS_PATH)) {
-      const variantsContent = fs.readFileSync(SHARED_VARIANTS_PATH, 'utf-8')
-      utilsContent += '\n' + variantsContent
-    }
-    // Remove imports that might be specific to monorepo if object
   }
 
   const utilsItem: RegistryItem = {
@@ -768,9 +1194,11 @@ async function main() {
   if (fs.existsSync(TOKENS_CSS_PATH)) {
     cssContent = fs.readFileSync(TOKENS_CSS_PATH, 'utf-8')
   } else {
-    // If dist is missing, maybe we can run the build? 
+    // If dist is missing, maybe we can run the build?
     // Or just warn? For robustness, let's warn.
-    console.warn('[Build] Warning: packages/tokens/dist/theme.css not found. ui-tokens will be empty.')
+    console.warn(
+      '[Build] Warning: packages/tokens/dist/theme.css not found. ui-tokens will be empty.'
+    )
   }
 
   const tokensItem: RegistryItem = {
@@ -795,19 +1223,13 @@ async function main() {
   for (const item of registryMap.values()) {
     if (item.name === 'utils') continue
 
-    // Add utils dependency if it's missing and needed? 
+    // Add utils dependency if it's missing and needed?
     // Actually we will detect usages below.
 
     item.files?.forEach((file) => {
       if (!file.content) return
 
-      // Transform @timui/core -> @/lib/utils
-      if (file.content.includes('@timui/core')) {
-        file.content = file.content.replace(/['"]@timui\/core['"]/g, '"@/lib/utils"')
-
-        // Auto-add registry dependency
-        const currentDeps = item.registryDependencies || []
-      }
+      // Keep @timui/core imports intact for source-distribution.
 
       // Transform relative hooks imports: ../../hooks/ -> ../hooks/
       // Logic:
@@ -817,7 +1239,6 @@ async function main() {
         console.log(`[Transform] Fixing hooks import in ${item.name} (${file.path})`)
         file.content = file.content.replace(/\.\.\/\.\.\/hooks\//g, '../hooks/')
       }
-
 
       // Transform @timui/tokens -> CSS variables are globally available, no import needed usually?
       // Or maybe usage of token values in JS?
@@ -854,7 +1275,9 @@ async function main() {
     if (meta.isActive === undefined) {
       meta.isActive = !uiNameSet.has(item.name) && !meta.migratedTo
       if (!meta.isActive) {
-        console.log(`[Build] Deactivating block ${item.name}: uiNameSet=${uiNameSet.has(item.name)}, migratedTo=${meta.migratedTo}`)
+        console.log(
+          `[Build] Deactivating block ${item.name}: uiNameSet=${uiNameSet.has(item.name)}, migratedTo=${meta.migratedTo}`
+        )
       }
     }
     // Populate mdxBody from first available file to enable preview
@@ -873,7 +1296,7 @@ async function main() {
   if (catalogSkeleton.categories?.length) {
     const nameToCategories = new Map<string, Set<string>>()
     catalogSkeleton.categories.forEach((cat: object) => {
-      ; (cat.components || []).forEach((c: object) => {
+      ;(cat.components || []).forEach((c: object) => {
         if (!nameToCategories.has(c.name)) nameToCategories.set(c.name, new Set())
         nameToCategories.get(c.name)!.add(cat.slug)
       })
@@ -954,7 +1377,7 @@ async function main() {
   */
 
   // Empty sections to remove "Marketing UI" and "Application UI" from sidebar
-  const finalSections: object[] = [];
+  const finalSections: object[] = []
 
   const fullRegistry = {
     name: '@timui/react-registry',

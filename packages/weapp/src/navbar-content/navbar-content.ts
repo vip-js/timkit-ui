@@ -1,6 +1,7 @@
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   externalClasses: ['ext-class'],
   properties: {
@@ -15,7 +16,8 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        className: `flex h-16 items-center justify-between gap-4 ${this.properties.extClass}`.trim(),
+        className:
+          `flex h-16 items-center justify-between gap-4 ${this.properties.extClass}`.trim(),
       })
     },
   },

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import type { ButtonProps as CoreButtonProps } from '@timui/core'
-import { Slot } from './slot'
 import { buttonVariants, cn, createTimEvent } from '@timui/core'
+
+import { Slot } from './slot'
 
 export type ButtonProps = CoreButtonProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof CoreButtonProps>

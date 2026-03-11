@@ -1,33 +1,15 @@
-<view class="flex flex-col items-center gap-2">
-      <view class="flex w-full flex-col gap-4 md:flex-row">
-        <cropper
-          class="h-64 md:flex-1" >
-          <cropper-description />
-          <cropper-image />
-          <cropper-crop-area />
-        </cropper>
-        <view class="flex w-26 flex-col gap-4">
-          <button>
-            Crop preview
-          </button>
-          
-          <view class="aspect-square w-full shrink-0 overflow-hidden rounded-lg border">
-            <view class="bg-muted text-muted-foreground/80 flex h-full w-full items-center justify-center p-2 text-center text-xs">
+<view>
+  <view class="flex flex-col items-center gap-2"><view class="flex w-full flex-col gap-4 md:flex-row"><cropper class="h-64 md:flex-1" image="{{ORIGINAL_IMAGE_URL}}" oncropchange="{{handleCropChange}}"><cropperdescription /><cropperimage /><croppercroparea /></cropper><view class="flex w-26 flex-col gap-4"><button bindtap="handleCrop" disabled="{{!croppedAreaPixels}}">Crop preview
+          </button><view class="aspect-square w-full shrink-0 overflow-hidden rounded-lg border">{{ croppedImageUrl ? (
+              <img
+                src={croppedImageUrl}
+                alt="Cropped result"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="bg-muted text-muted-foreground/80 flex h-full w-full items-center justify-center p-2 text-center text-xs">
                 Image preview
-              </view>
-          </view>
-        </view>
-      </view>
-
-      <p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">
-        Cropper with image preview ∙ 
-        <a
-          href="https://github.com/origin-space/image-cropper"
-          class="hover:text-foreground underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          API
-        </a>
-      </p>
-    </view>
+              </div>
+            ) }}</view></view></view><text aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Cropper with image preview ∙{{ ' ' }}<a href="https://github.com/origin-space/image-cropper" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></text></view>
+</view>

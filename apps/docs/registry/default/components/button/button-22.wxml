@@ -1,0 +1,3 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="icon" aria-label="Add new item"><plusicon size="{{16}}" aria-hidden="true" /></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Tooltip</tooltipcontent></tooltip></tooltipprovider>
+</view>

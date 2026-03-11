@@ -3,9 +3,11 @@ import React from 'react'
 import type { JSX } from 'react'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import type { JsonValue } from '@timui/core'
 
 import { getCategoryBySlug, getSectionBySlug, getSections } from '@/lib/catalog'
 import { resolveDemoDisplayTitle } from '@/lib/demo-title'
+import { getDocsFrameworkPreviewHints } from '@/lib/framework-preview-server'
 import { adaptRegistryItemToComponentData } from '@/lib/registry-adapter'
 import { getRegistryIndexItems, loadRegistryItemFromData } from '@/lib/registry-index'
 import { extractSectionCode } from '@/lib/sections'
@@ -20,8 +22,24 @@ import { DashboardTableOfContents } from '@/components/toc'
 type Params = { slug: string }
 
 type PageDetails = {
-  description: string
-  section_name: string
+  description?: string
+  section_name?: string
+  title?: string
+  name?: string
+  components?: Array<{ name: string }>
+}
+
+const resolvePageDetails = (slug: string): PageDetails | null => {
+  const section = getSectionBySlug(`/${slug}`)
+  if (section) return section as PageDetails
+  const category = getCategoryBySlug(slug)
+  if (category) return category as PageDetails
+  return null
+}
+
+const getMetaString = (meta: Record<string, JsonValue> | undefined, key: string): string => {
+  const value = meta?.[key]
+  return typeof value === 'string' ? value : ''
 }
 
 const shouldProfile =
@@ -60,11 +78,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
 
-  let pageDetails = getSectionBySlug(`/${slug}`) as PageDetails | undefined
-
-  if (!pageDetails) {
-    pageDetails = getCategoryBySlug(slug) as any
-  }
+  const pageDetails = resolvePageDetails(slug)
 
   if (!pageDetails) {
     return {
@@ -73,7 +87,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     }
   }
 
-  const title = `${pageDetails.section_name || (pageDetails as any).title || (pageDetails as any).name} - Tailwind CSS Components`
+  const title = `${pageDetails.section_name || pageDetails.title || pageDetails.name || slug} - Tailwind CSS Components`
 
   const description = pageDetails.description
 
@@ -95,7 +109,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
 
     /* 1. Find Page Configuration (Section OR Category) */
     markStart('components-page:find-page')
-    const pageDetails = (getSectionBySlug(`/${slug}`) || getCategoryBySlug(slug)) as any
+    const pageDetails = resolvePageDetails(slug)
 
     if (!pageDetails) {
       markEnd('components-page:find-page')
@@ -105,7 +119,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
 
     /* 2. Get Component Names from Catalog */
     markStart('components-page:catalog')
-    const catalogComponentNames = new Set((pageDetails.components || []).map((c: any) => c.name))
+    const catalogComponentNames = new Set((pageDetails.components || []).map((c) => c.name))
     markEnd('components-page:catalog')
 
     markStart('components-page:registry-index')
@@ -114,8 +128,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
 
     markStart('components-page:filter-items')
     const sectionItems = indexItems.filter((item) => {
-      const meta = item.meta as any
-      const isCategoryMatch = item.categories?.includes(slug) || meta?.category === slug
+      const meta = item.meta as Record<string, JsonValue> | undefined
+      const isCategoryMatch =
+        item.categories?.includes(slug) || getMetaString(meta, 'category') === slug
       const isInCatalog = catalogComponentNames.has(item.name)
 
       // Match Sections (registry:block) AND Components (registry:ui/component)
@@ -139,9 +154,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       sectionItems.map(async (itemMeta) => {
         markStart(`components-page:load:${itemMeta.name}`)
         const fullItem = loadRegistryItemFromData(itemMeta.name) || itemMeta
-        const meta = fullItem.meta as any
+        const meta = fullItem.meta as Record<string, JsonValue> | undefined
 
-        let mdxBody = meta?.mdxBody || meta?.ltr || ''
+        let mdxBody = getMetaString(meta, 'mdxBody') || getMetaString(meta, 'ltr')
 
         // Try reading local MDX file
         try {
@@ -158,7 +173,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         // NO SERIALIZE - Pass raw string
         const mdxSource = mdxBody
         markStart(`components-page:code:${itemMeta.name}`)
-        const codeGroups = extractSectionCode(meta?.ltr, fullItem.name)
+        const codeGroups = extractSectionCode((meta?.ltr ?? {}) as object, fullItem.name)
         markEnd(`components-page:code:${itemMeta.name}`)
 
         markStart(`components-page:adapt:${itemMeta.name}`)
@@ -180,7 +195,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
             fullItem.name.replace(/-\d{1,3}$/, ''),
             fullItem.name,
             fullItem.files,
-            meta?.title || adapted.title
+            getMetaString(meta, 'title') || adapted.title
           ),
         }
       })
@@ -199,11 +214,12 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       )
 
     let apiReferenceDoc: React.ReactNode = null
-    const apiSource = sectionComponents[0]?.mdxSource as unknown as string | undefined
-    if (apiSource?.trim()) {
+    const apiSource = sectionComponents[0]?.mdxSource
+    const apiSourceText = typeof apiSource === 'string' ? apiSource : ''
+    if (apiSourceText.trim()) {
       markStart('components-page:markdoc')
       const { renderMarkdoc } = await import('@/lib/markdoc')
-      apiReferenceDoc = renderMarkdoc(apiSource)
+      apiReferenceDoc = renderMarkdoc(apiSourceText)
       markEnd('components-page:markdoc')
     }
 
@@ -223,12 +239,14 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       { title: 'API Reference', url: '#api-reference' },
     ]
 
+    const pageTitle = pageDetails.section_name || pageDetails.name || slug
+
     // 5. Render Page
     return (
       <main className="relative lg:gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_180px]">
         <div className="mx-auto w-full min-w-0">
           <ComponentPageHeader
-            title={pageDetails.section_name || pageDetails.name}
+            title={pageTitle}
             description={pageDetails.description}
             slug={slug}
           />
@@ -247,6 +265,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
                     : undefined
                 const previewName =
                   component.sourceName || fallbackFromId || component.slug || component.title
+                const resolvedPreviewName = String(
+                  previewName || component.id || component.title || slug
+                )
                 return (
                   <div
                     key={component.id}
@@ -257,7 +278,8 @@ export default async function Page({ params }: { params: Promise<Params> }) {
                       {component.title}
                     </span>
                     <ComponentPreviewLazy
-                      componentName={previewName}
+                      componentName={resolvedPreviewName}
+                      previewHints={getDocsFrameworkPreviewHints(resolvedPreviewName)}
                       className="my-0 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(15,23,42,0.15)] dark:hover:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.2)]"
                     />
                   </div>

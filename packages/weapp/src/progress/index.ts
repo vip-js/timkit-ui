@@ -1,7 +1,11 @@
 // @ts-nocheck
-import { setupProgressMachine, connectProgressMachine, type WeappProgressApi, type WeappProgressService } from './use-progress'
-import { resolveClasses } from '../utils'
-import { progressRootVariants, progressIndicatorVariants } from '../utils'
+import { progressIndicatorVariants, progressRootVariants, resolveClasses } from '../utils'
+import {
+  connectProgressMachine,
+  setupProgressMachine,
+  type WeappProgressApi,
+  type WeappProgressService,
+} from './use-progress'
 
 type WeappProgressInternal = WechatMiniprogram.Component.InstanceMethods<{}> & {
   _service?: WeappProgressService
@@ -24,6 +28,8 @@ Component({
     styleIsolation: 'apply-shared',
     pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     value: {
@@ -75,32 +81,35 @@ Component({
   },
 
   observers: {
-    'state': function (state) {
+    state: function (state) {
       const self = this as WeappProgressInternal
       if (!state || !self._send) return
       const api = connectProgressMachine(state, self._send) as WeappProgressApi
 
-      const { baseClass: rootClass } = resolveClasses(progressRootVariants(), self.properties.extClass)
+      const { baseClass: rootClass } = resolveClasses(
+        progressRootVariants(),
+        self.properties.extClass
+      )
       const { baseClass: indicatorClass } = resolveClasses(progressIndicatorVariants())
 
       this.setData({ api, rootClass, indicatorClass })
     },
 
-    'value': function (val) {
+    value: function (val) {
       const self = this as WeappProgressInternal
       if (self._service) {
         self._service.setContext({ value: val })
       }
     },
 
-    'max': function (val) {
+    max: function (val) {
       const self = this as WeappProgressInternal
       if (self._service) {
         self._service.setContext({ max: val })
       }
     },
 
-    'min': function (val) {
+    min: function (val) {
       const self = this as WeappProgressInternal
       if (self._service) {
         self._service.setContext({ min: val })

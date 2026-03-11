@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Slider with square thumb</label><slider default-value="{{[25]}}" max="{{100}}" step="{{10}}" class="[&>:last-child>span]:rounded" aria-label="Slider with square thumb" /></view>
+</view>

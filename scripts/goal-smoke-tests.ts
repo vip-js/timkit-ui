@@ -8,6 +8,8 @@ type SmokeTask = {
 const tasks: SmokeTask[] = [
   { name: 'core-behavior', script: 'scripts/goal-smoke-core.ts' },
   { name: 'registry-consistency', script: 'scripts/goal-smoke-registry.ts' },
+  { name: 'preview-protocol', script: 'scripts/goal-smoke-preview-protocol.ts' },
+  { name: 'preview-runtime', script: 'scripts/goal-smoke-preview-runtime.ts' },
   { name: 'weapp-semantics', script: 'scripts/goal-smoke-weapp-semantics.ts' },
   { name: 'weapp-runtime', script: 'scripts/goal-smoke-weapp-runtime.ts' },
 ]

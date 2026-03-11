@@ -1,0 +1,13 @@
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with search</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><span class="${cn('truncate', !value && 'text-muted-foreground')}">${value
+                ? frameworks.find((framework) => framework.value === value)?.label
+                : 'Select framework'}</span><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command><CommandInput placeholder="Search framework..." /><CommandList><CommandEmpty>No framework found.</CommandEmpty><CommandGroup><!-- Loop frameworks -->
+<CommandItem key="${framework.value}" value="${framework.value}" onselect="${(currentValue) => {
+                      const val = currentValue as string
+                      setValue(val === value ? '' : val)
+                      setOpen(false)
+                    }}">${framework.label}<!-- if value === framework.value -->
+<CheckIcon size="${16}" class="ml-auto" />
+<!-- endif --></CommandItem>
+<!-- End Loop --></CommandGroup></CommandList></Command></PopoverContent></Popover></div>
+</template>

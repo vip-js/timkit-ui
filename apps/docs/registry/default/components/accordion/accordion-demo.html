@@ -1,0 +1,56 @@
+<div class="space-y-4">
+  <h2 class="text-xl font-bold">Frequently asked questions</h2>
+  <div data-slot="accordion" data-type="single" data-collapsible="true" class="w-full rounded-md border">
+    <div data-slot="accordion-item" data-value="core" data-state="open" class="border-b last:border-b-0">
+      <button
+        type="button"
+        data-slot="accordion-trigger"
+        data-value="core"
+        data-state="open"
+        aria-expanded="true"
+        aria-controls="accordion-demo-core"
+        id="accordion-demo-trigger-core"
+        class="flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold"
+      >
+        What does Timkit UI share across platforms?
+      </button>
+      <div
+        id="accordion-demo-core"
+        role="region"
+        aria-labelledby="accordion-demo-trigger-core"
+        data-slot="accordion-content"
+        data-value="core"
+        data-state="open"
+        class="px-4 pb-4 text-sm text-muted-foreground"
+      >
+        Variants, props contracts, and event semantics all come from the shared core package.
+      </div>
+    </div>
+    <div data-slot="accordion-item" data-value="delivery" data-state="closed" class="last:border-b-0">
+      <button
+        type="button"
+        data-slot="accordion-trigger"
+        data-value="delivery"
+        data-state="closed"
+        aria-expanded="false"
+        aria-controls="accordion-demo-delivery"
+        id="accordion-demo-trigger-delivery"
+        class="flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold"
+      >
+        How do docs stay aligned?
+      </button>
+      <div
+        id="accordion-demo-delivery"
+        role="region"
+        aria-labelledby="accordion-demo-trigger-delivery"
+        data-slot="accordion-content"
+        data-value="delivery"
+        data-state="closed"
+        hidden
+        class="px-4 pb-4 text-sm text-muted-foreground"
+      >
+        Every family now has React, Vue, HTML, and WXML examples so demo gaps are visible in CI.
+      </div>
+    </div>
+  </div>
+</div>

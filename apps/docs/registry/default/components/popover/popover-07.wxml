@@ -1,56 +1,9 @@
-<view class="flex flex-col gap-4">
-      <popover>
-        <popover-trigger asChild>
-          <button variant="outline">Share</button>
-        </popover-trigger>
-        <popover-content class="w-72">
-          <view class="flex flex-col gap-3 text-center">
-            <view class="text-sm font-medium">Share code</view>
-            <view class="flex flex-wrap justify-center gap-2">
-              <button size="icon" variant="outline" aria-label="Embed">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share on Twitter">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share on Facebook">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-              <button size="icon" variant="outline" aria-label="Share via email">
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
-            </view>
-            <view class="space-y-2">
-              <view class="relative">
-                <input id="popover-07-id"
-                  class="pe-9"
-                  type="text"
-                  defaultValue="https://ui.timkit.cn/Avx8HD"
-                  aria-label="Share link"
-                  readOnly
-                />
-                <tooltip-provider delayDuration="0">
-                  <tooltip>
-                    <tooltip-trigger asChild>
-                      <button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed"
-                        aria-label='Copy to clipboard'
-                      >
-                        <view
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
-                        </view>
-                        <view
-                        >
-                           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                        </view>
-                      </button>
-                    </tooltip-trigger>
-                    <tooltip-content class="px-2 py-1 text-xs">Copy to clipboard</tooltip-content>
-                  </tooltip>
-                </tooltip-provider>
-              </view>
-            </view>
-          </view>
-        </popover-content>
-      </popover>
-    </view>
+<view>
+  <view class="flex flex-col gap-4"><popover><popovertrigger aschild><button variant="outline">Share</button></popovertrigger><popovercontent class="w-72"><view class="flex flex-col gap-3 text-center"><view class="text-sm font-medium">Share code</view><view class="flex flex-wrap justify-center gap-2"><button size="icon" variant="outline" aria-label="Embed"><ricodefill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share on Twitter"><ritwitterxfill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share on Facebook"><rifacebookfill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share via email"><rimailline size="{{16}}" aria-hidden="true" /></button></view><view class="space-y-2"><view class="relative"><input ref="{{inputRef}}" id="{{id}}" class="pe-9" type="text" default-value="https://ui.timkit.cn/Avx8HD" aria-label="Share link" readonly /><tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button bindtap="handleCopy" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed" aria-label="{{copied ? 'Copied' : 'Copy to clipboard'}}" disabled="{{copied}}"><view class="{{cn(
+                            'transition-all',
+                            copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                          )}}"><checkicon class="stroke-emerald-500" size="{{16}}" aria-hidden="true" /></view><view class="{{cn(
+                            'absolute transition-all',
+                            copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+                          )}}"><copyicon size="{{16}}" aria-hidden="true" /></view></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Copy to clipboard</tooltipcontent></tooltip></tooltipprovider></view></view></view></popovercontent></popover></view>
+</view>

@@ -1,72 +1,72 @@
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r25:" data-state="closed">
+  Checkout
+</button>
 
-  <dialog>
-    <dialog-trigger asChild>
-      <button variant="outline">Checkout</button>
-    </dialog-trigger>
-    <dialog-content>
-      <div class="mb-2 flex flex-col gap-2">
-        <div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><circle cx="12" cy="12" r="9" /></svg>
-        </div>
-        <dialog-header>
-          <dialog-title class="text-left">Confirm and pay</dialog-title>
-          <dialog-description class="text-left">
-            Pay securely and cancel any time.
-          </dialog-description>
-        </dialog-header>
-      </div>
+<!-- 
+Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
+Here is the structural representation of the opened dialog:
 
-      <form class="space-y-5">
-        <div class="space-y-4">
-          <radio-group class="grid-cols-2" defaultValue="yearly">
-            <label class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col gap-1 rounded-md border px-4 py-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
-              <radio-group-item id="radio-monthly" value="monthly" class="sr-only after:absolute after:inset-0" />
-              <p class="text-foreground text-sm font-medium">Monthly</p>
-              <p class="text-muted-foreground text-sm">$32/month</p>
-            </label>
-            <label class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col gap-1 rounded-md border px-4 py-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
-              <radio-group-item id="radio-yearly" value="yearly" class="sr-only after:absolute after:inset-0" />
-              <div class="inline-flex items-start justify-between gap-2">
-                <p class="text-foreground text-sm font-medium">Yearly</p>
-                <badge>Popular</badge>
-              </div>
-              <p class="text-muted-foreground text-sm">$320/month</p>
-            </label>
-          </radio-group>
-          <div class="*:not-first:mt-2">
-            <label for="name-dialog-17-id">Name on card</label>
-            <input id="name-dialog-17-id" type="text" required />
+<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
+<div role="dialog" id="radix-:r25:" aria-describedby="radix-:r27:" aria-labelledby="radix-:r26:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
+  <div class="mb-2 flex flex-col gap-2">
+    <div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-store opacity-80"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h2V14h8v8h2a2 2 0 0 0 2-2v-8"/><path d="M2 7h20v1.5c0 1.38-1.12 2.5-2.5 2.5S17 9.88 17 8.5V7"/><path d="M17 7v1.5c0 1.38-1.12 2.5-2.5 2.5S12 9.88 12 8.5V7"/><path d="M12 7v1.5c0 1.38-1.12 2.5-2.5 2.5S7 9.88 7 8.5V7"/><path d="M7 7v1.5C7 9.88 5.88 11 4.5 11S2 9.88 2 8.5V7"/></svg>
+    </div>
+    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+      <h2 id="radix-:r26:" class="text-lg font-semibold leading-none tracking-tight text-left">Confirm and pay</h2>
+      <p id="radix-:r27:" class="text-sm text-muted-foreground text-left">Pay securely and cancel any time.</p>
+    </div>
+  </div>
+  <form class="space-y-5">
+    <div class="space-y-4">
+      <div class="grid gap-2 grid-cols-2" role="radiogroup" tabindex="0" style="outline: none;">
+        <label class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col gap-1 rounded-md border px-4 py-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
+          <button type="button" role="radio" aria-checked="false" data-state="unchecked" value="monthly" class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sr-only after:absolute after:inset-0" id="radio-monthly" tabindex="-1"></button>
+          <p class="text-foreground text-sm font-medium">Monthly</p>
+          <p class="text-muted-foreground text-sm">$32/month</p>
+        </label>
+        <label class="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col gap-1 rounded-md border px-4 py-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]" data-state="checked">
+          <button type="button" role="radio" aria-checked="true" data-state="checked" value="yearly" class="aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sr-only after:absolute after:inset-0" id="radio-yearly" tabindex="-1"></button>
+          <div class="inline-flex items-start justify-between gap-2">
+            <p class="text-foreground text-sm font-medium">Yearly</p>
+            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">Popular</div>
           </div>
-          <div class="*:not-first:mt-2">
-            <legend class="text-foreground text-sm font-medium">Card Details</legend>
-            <div class="rounded-md shadow-xs">
-              <div class="relative focus-within:z-10">
-                <input class="peer rounded-b-none pe-9 shadow-none [direction:inherit]" />
-                <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
-                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                </div>
-              </div>
-              <div class="-mt-px flex">
-                <div class="min-w-0 flex-1 focus-within:z-10">
-                  <input class="rounded-e-none rounded-t-none shadow-none [direction:inherit]" />
-                </div>
-                <div class="-ms-px min-w-0 flex-1 focus-within:z-10">
-                  <input class="rounded-s-none rounded-t-none shadow-none [direction:inherit]" />
-                </div>
-              </div>
+          <p class="text-muted-foreground text-sm">$320/month</p>
+        </label>
+      </div>
+      <div class="*:not-first:mt-2">
+        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="name-dialog-17">Name on card</label>
+        <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="name-dialog-17" required="">
+      </div>
+      <div class="*:not-first:mt-2">
+        <legend class="text-foreground text-sm font-medium">Card Details</legend>
+        <div class="rounded-md shadow-xs">
+          <div class="relative focus-within:z-10">
+            <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm peer rounded-b-none pe-9 shadow-none [direction:inherit]" placeholder="Card number">
+            <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
             </div>
           </div>
-          <button type="button" class="text-sm underline hover:no-underline">
-            + Add coupon
-          </button>
+          <div class="-mt-px flex">
+            <div class="min-w-0 flex-1 focus-within:z-10">
+              <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-e-none rounded-t-none shadow-none [direction:inherit]" placeholder="MM/YY">
+            </div>
+            <div class="-ms-px min-w-0 flex-1 focus-within:z-10">
+              <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm rounded-s-none rounded-t-none shadow-none [direction:inherit]" placeholder="CVC">
+            </div>
+          </div>
         </div>
-        <button type="button" class="w-full">
-          Subscribe
-        </button>
-      </form>
-
-      <p class="text-muted-foreground text-center text-xs">
-        Payments are non-refundable. Cancel anytime.
-      </p>
-    </dialog-content>
-  </dialog>
+      </div>
+      <button type="button" class="text-sm underline hover:no-underline">+ Add coupon</button>
+    </div>
+    <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">Subscribe</button>
+  </form>
+  <p class="text-muted-foreground text-center text-xs">Payments are non-refundable. Cancel anytime.</p>
+  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+</div>
+-->

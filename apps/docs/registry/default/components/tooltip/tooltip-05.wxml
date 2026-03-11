@@ -1,0 +1,6 @@
+<view>
+  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">W/ icon
+          </button></tooltiptrigger><tooltipcontent class="dark py-3"><view class="flex gap-3"><globeicon class="mt-0.5 shrink-0 opacity-60" size="{{16}}" aria-hidden="true" /><view class="space-y-1"><text class="text-[13px] font-medium">Tooltip with title and icon</text><text class="text-muted-foreground text-xs">Tooltips are made to be highly customizable, with features like dynamic placement,
+                rich content, and a robust API.
+              </text></view></view></tooltipcontent></tooltip></tooltipprovider>
+</view>

@@ -35,7 +35,18 @@ if (first.status !== 0) {
 }
 
 const second = run(
-  ['add', 'button', '--yes', '--no-install', '--framework', 'react', '--path', 'components/ui', '--cwd', tmp],
+  [
+    'add',
+    'button',
+    '--yes',
+    '--no-install',
+    '--framework',
+    'react',
+    '--path',
+    'components/ui',
+    '--cwd',
+    tmp,
+  ],
   ROOT
 )
 if (second.status !== 0) {

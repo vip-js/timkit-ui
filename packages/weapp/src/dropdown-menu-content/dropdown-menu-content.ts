@@ -2,7 +2,8 @@ import { resolveClasses } from '../utils'
 
 Component({
   options: {
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
   relations: {
     '../dropdown-menu/dropdown-menu': {

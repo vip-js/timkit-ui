@@ -1,0 +1,4 @@
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with button</label><textarea id="{{id}}" placeholder="Leave a comment" /><button variant="outline" class="w-full">Send
+      </button></view>
+</view>

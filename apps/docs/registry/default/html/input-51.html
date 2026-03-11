@@ -1,0 +1,14 @@
+<template>
+  <div class="*:not-first:mt-2"><legend class="text-foreground text-sm font-medium">Card Details</legend><div class="rounded-md shadow-xs"><div class="relative focus-within:z-10"><Input class="peer rounded-b-none pe-9 shadow-none [direction:inherit]" id="${`number-${id}`}" /><div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">${meta.cardType ? (
+              <svg
+                className="overflow-hidden rounded-sm"
+                {...getCardImageProps({
+                  images: images as unknown as CardImages,
+                })}
+                width={20}
+              />
+            ) : (
+              <CreditCardIcon size={16} aria-hidden="true" />
+            )}</div></div><div class="-mt-px flex"><div class="min-w-0 flex-1 focus-within:z-10"><Input class="rounded-e-none rounded-t-none shadow-none [direction:inherit]" id="${`expiry-${id}`}" /></div><div class="-ms-px min-w-0 flex-1 focus-within:z-10"><Input class="rounded-s-none rounded-t-none shadow-none [direction:inherit]" id="${`cvc-${id}`}" /></div></div></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://github.com/medipass/react-payment-inputs" target="_blank" rel="noopener nofollow">React Payment Inputs
+        </a></p></div>
+</template>

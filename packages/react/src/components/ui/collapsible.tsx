@@ -1,12 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import { collapsibleConnect, collapsibleMachine } from '@timui/core'
-import { cn } from '@timui/core'
+import { cn, collapsibleConnect, collapsibleMachine } from '@timui/core'
 import { mergeProps } from '@zag-js/react'
-import { useCollapsibleContext, CollapsibleProvider } from './collapsible/use-collapsible-context'
-import { useCollapsible } from './collapsible/use-collapsible'
 
+import { useCollapsible } from './collapsible/use-collapsible'
+import { CollapsibleProvider, useCollapsibleContext } from './collapsible/use-collapsible-context'
 import { Slot } from './slot'
 
 // Context is imported from ./collapsible/use-collapsible-context

@@ -2,17 +2,21 @@
  * Centralized injection keys for Vue component context sharing.
  * Replaces all string-based inject<any>() calls with typed InjectionKey<T>.
  */
-import type { InjectionKey } from 'vue'
-import type * as tabs from '@zag-js/tabs'
-import type * as tooltip from '@zag-js/tooltip'
-import type * as dialog from '@zag-js/dialog'
-import type * as menu from '@zag-js/menu'
-import type * as combobox from '@zag-js/combobox'
-import type * as tagsInput from '@zag-js/tags-input'
-import type * as popover from '@zag-js/popover'
 import type * as avatar from '@zag-js/avatar'
+// Collapsible (uses @zag-js/collapsible)
+import type * as collapsible from '@zag-js/collapsible'
+import type * as combobox from '@zag-js/combobox'
+import type * as dialog from '@zag-js/dialog'
+// Hover-card (uses @zag-js/hover-card)
+import type * as hoverCard from '@zag-js/hover-card'
+import type * as menu from '@zag-js/menu'
+import type * as popover from '@zag-js/popover'
 import type * as radioGroup from '@zag-js/radio-group'
 import type * as select from '@zag-js/select'
+import type * as tabs from '@zag-js/tabs'
+import type * as tagsInput from '@zag-js/tags-input'
+import type * as tooltip from '@zag-js/tooltip'
+import type { InjectionKey } from 'vue'
 
 // Zag-js API types (for components using zag state machines)
 export const tabsContextKey: InjectionKey<tabs.Api> = Symbol('tabs')
@@ -35,10 +39,6 @@ export interface CommandContext {
 }
 export const commandContextKey: InjectionKey<CommandContext> = Symbol('command')
 
-// Hover-card (uses @zag-js/hover-card)
-import type * as hoverCard from '@zag-js/hover-card'
 export const hoverCardContextKey: InjectionKey<hoverCard.Api> = Symbol('hover-card')
 
-// Collapsible (uses @zag-js/collapsible)
-import type * as collapsible from '@zag-js/collapsible'
 export const collapsibleContextKey: InjectionKey<collapsible.Api> = Symbol('collapsible')

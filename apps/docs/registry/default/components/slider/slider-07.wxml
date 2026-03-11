@@ -1,0 +1,3 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Slider with ticks</label><view><slider default-value="{{[5]}}" max="{{max}}" aria-label="Slider with ticks" /><text class="text-muted-foreground mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium" aria-hidden="true"><text wx:for="{{ticks}}" wx:for-item="_" wx:for-index="i" wx:key="i" key="{{i}}" class="flex w-0 flex-col items-center justify-center gap-2"><span class="{{cn('bg-muted-foreground/70 h-1 w-px', i % skipInterval !== 0 && 'h-0.5')}}" /><text class="{{cn(i % skipInterval !== 0 && 'opacity-0')}}">{{ i }}</text></text></text></view></view>
+</view>

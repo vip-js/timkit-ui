@@ -1,0 +1,16 @@
+<view>
+  <view class="*:not-first:mt-4"><label>Price slider</label><view><view class="flex h-12 w-full items-end px-3" aria-hidden="true"><view wx:for="{{itemCounts}}" wx:for-item="count" wx:for-index="i" wx:key="i" key="{{i}}" class="flex flex-1 justify-center" style="{{{
+                height: `${(count / maxCount) * 100}%`,
+              }}}"><text data-selected="{{isBarInSelectedRange(i, minValue, priceStep, sliderValue)}}" class="bg-primary/20 size-full"></text></view></view><slider value="{{sliderValue}}" bindchange="handleSliderValueChange" min="{{minValue}}" max="{{maxValue}}" aria-label="Price range" /></view><view class="flex items-center justify-between gap-4"><view class="*:not-first:mt-1"><label htmlfor="{{`${id}-min`}}">Min price</label><view class="relative"><input id="{{`${id}-min`}}" class="peer w-full ps-6" type="text" inputmode="decimal" value="{{inputValues[0]}}" onchange="{{(e) => handleInputChange(e, 0)}}" onblur="{{() => validateAndUpdateValue(inputValues[0], 0)}}" onkeydown="{{(e) => {
+                if (e.key === 'Enter') {
+                  validateAndUpdateValue(inputValues[0], 0)
+                }
+              }}}" aria-label="Enter minimum price" /><text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+            </text></view></view><view class="*:not-first:mt-1"><label htmlfor="{{`${id}-max`}}">Max price</label><view class="relative"><input id="{{`${id}-max`}}" class="peer w-full ps-6" type="text" inputmode="decimal" value="{{inputValues[1]}}" onchange="{{(e) => handleInputChange(e, 1)}}" onblur="{{() => validateAndUpdateValue(inputValues[1], 1)}}" onkeydown="{{(e) => {
+                if (e.key === 'Enter') {
+                  validateAndUpdateValue(inputValues[1], 1)
+                }
+              }}}" aria-label="Enter maximum price" /><text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+            </text></view></view></view><button class="w-full" variant="outline">Show {{ countItemsInRange(sliderValue[0], sliderValue[1]) }}items
+      </button></view>
+</view>

@@ -1,11 +1,12 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { TimEvent, JsonValue } from './schema'
+
+import { JsonValue, TimEvent } from './schema'
 
 export type AssertNoExtraKeys<T, Expected> = [T] extends [Expected]
   ? [Expected] extends [T]
-  ? T
-  : 'Error: Extra keys detected in Prop implementation'
+    ? T
+    : 'Error: Extra keys detected in Prop implementation'
   : 'Error: Prop implementation is missing required keys'
 
 export function createTimEvent<TDetail = Record<string, JsonValue>>(

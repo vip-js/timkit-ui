@@ -1,7 +1,4 @@
-<view class="*:not-first:mt-2">
-      <label for="input-03-id">Input with helper text</label>
-      <input id="input-03-id" placeholder="Email" type="email" />
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        We won&lsquo;t share your email with anyone
-      </p>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with helper text</label><input id="{{id}}" placeholder="Email" type="email" /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">We won&lsquo;t share your email with anyone
+      </text></view>
+</view>

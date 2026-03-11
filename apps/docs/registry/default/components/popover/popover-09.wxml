@@ -1,31 +1,5 @@
-<view class="flex flex-col gap-4">
-      <popover >
-        <view class="grid grid-cols-2 place-items-center gap-4">
-          
-        </view>
-
-        <popover-trigger asChild>
-          <button variant="outline">Start tour</button>
-        </popover-trigger>
-
-        <popover-content
-          class="max-w-[280px] py-3 shadow-none"
-          side='right' showArrow
-        >
-          <view class="space-y-3">
-            <view class="space-y-1">
-              <p class="text-[13px] font-medium"></p>
-              <p class="text-muted-foreground text-xs"></p>
-            </view>
-            <view class="flex items-center justify-between gap-2">
-              <span class="text-muted-foreground text-xs">
-                /
-              </span>
-              <button class="text-xs font-medium hover:underline" >
-                'Next'
-              </button>
-            </view>
-          </view>
-        </popover-content>
-      </popover>
-    </view>
+<view>
+  <view class="flex flex-col gap-4"><popover bindchange="{
+          if (open) setCurrentTip(0)
+        }"><view class="grid grid-cols-2 place-items-center gap-4"><card wx:for="{{tourSteps}}" wx:for-item="step" wx:for-index="index" wx:key="index" key="{{step.title}}" number="{{index}}" isactive="{{currentTip === index}}" /></view><popovertrigger aschild><button variant="outline">Start tour</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="{{currentTip % 2 === 0 ? 'left' : 'right'}}" showarrow="{{true}}"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">{{ tourSteps[currentTip].title }}</text><text class="text-muted-foreground text-xs">{{ tourSteps[currentTip].description }}</text></view><view class="flex items-center justify-between gap-2"><text class="text-muted-foreground text-xs">{{ currentTip + 1 }}/{{ tourSteps.length }}</text><button class="text-xs font-medium hover:underline" bindtap="handleNavigation">{{ currentTip === tourSteps.length - 1 ? 'Start over' : 'Next' }}</button></view></view></popovercontent></popover></view>
+</view>

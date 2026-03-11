@@ -1,0 +1,4 @@
+<view>
+  <button disabled><loadercircleicon class="-ms-1 animate-spin" size="{{16}}" aria-hidden="true" />Button
+    </button>
+</view>

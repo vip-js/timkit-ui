@@ -1,0 +1,3 @@
+<view>
+  <button bindtap="handleClick" disabled="{{isLoading}}" data-loading="{{isLoading || undefined}}" class="group relative disabled:opacity-100"><text class="group-data-loading:text-transparent">Click me</text><view wx:if="{{isLoading}}" class="absolute inset-0 flex items-center justify-center"><loadercircleicon class="animate-spin" size="{{16}}" aria-hidden="true" /></view></button>
+</view>

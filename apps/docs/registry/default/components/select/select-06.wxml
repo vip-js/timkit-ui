@@ -1,12 +1,4 @@
-<view class="*:not-first:mt-2">
-      <label for="select-06-id">Select with error (native)</label>
-      <select-native id="select-06-id" aria-invalid>
-        <option value="1">React</option>
-        <option value="2">Next.js</option>
-        <option value="3">Astro</option>
-        <option value="4">Gatsby</option>
-      </select-native>
-      <p class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-        Selected option is invalid
-      </p>
-    </view>
+<view>
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with error (native)</label><selectnative id="{{id}}" aria-invalid><option value="1">React</option><option value="2">Next.js</option><option value="3">Astro</option><option value="4">Gatsby</option></selectnative><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Selected option is invalid
+      </text></view>
+</view>

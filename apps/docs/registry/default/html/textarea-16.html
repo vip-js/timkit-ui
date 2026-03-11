@@ -1,0 +1,4 @@
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Textarea with characters left</Label><Textarea id="${id}" value="${value}" maxlength="${maxLength}" onchange="${handleChange}" aria-describedby="${`${id}-description`}" /><p id="${`${id}-description`}" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite"><span class="tabular-nums">${limit - characterCount}</span>characters left
+      </p></div>
+</template>

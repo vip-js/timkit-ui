@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ComponentType } from 'react'
 import type { RegistryItem } from '@timui/core'
 import { LoaderCircleIcon } from 'lucide-react'
 
+import type { FrameworkPreviewHints } from '@/lib/framework-preview'
 import { cn } from '@/registry/default/lib/utils'
 
 function PreviewLoading({ className }: { className?: string }) {
@@ -24,12 +25,14 @@ function PreviewLoading({ className }: { className?: string }) {
 
 interface ComponentPreviewLazyProps {
   componentName?: string
+  previewHints?: FrameworkPreviewHints
   align?: 'center' | 'start' | 'end'
   className?: string
 }
 
 export default function ComponentPreviewLazy({
   componentName,
+  previewHints,
   align = 'center',
   className,
 }: ComponentPreviewLazyProps) {
@@ -41,6 +44,7 @@ export default function ComponentPreviewLazy({
   const [loadError, setLoadError] = useState<string | null>(null)
   const [PreviewComponent, setPreviewComponent] = useState<ComponentType<{
     component: RegistryItem
+    previewHints?: FrameworkPreviewHints
     align?: 'center' | 'start' | 'end'
     className?: string
   }> | null>(null)
@@ -152,7 +156,12 @@ export default function ComponentPreviewLazy({
           {loadError}
         </div>
       ) : visible && component && PreviewComponent ? (
-        <PreviewComponent component={component} align={align} className={className} />
+        <PreviewComponent
+          component={component}
+          previewHints={previewHints}
+          align={align}
+          className={className}
+        />
       ) : (
         <PreviewLoading className={className} />
       )}

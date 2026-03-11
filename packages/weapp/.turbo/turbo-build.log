@@ -4,31 +4,4 @@
 > node --import tsx build.ts
 
 Building @timui/weapp...
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNo matching export in "src/accordion/use-accordion.ts" for import "toArray"[0m
-
-    src/accordion/index.ts:1:32:
-[37m      1 │ ...ordionMachine, [32mtoArray[37m, getAccordion...
-        ╵                   [32m~~~~~~~[0m
-
-[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mNo matching export in "src/accordion/use-accordion.ts" for import "getAccordionItemOpen"[0m
-
-    src/accordion/index.ts:1:41:
-[37m      1 │ ...oArray, [32mgetAccordionItemOpen[37m, Accord...
-        ╵            [32m~~~~~~~~~~~~~~~~~~~~[0m
-
-Error: Build failed with 2 errors:
-src/accordion/index.ts:1:32: ERROR: No matching export in "src/accordion/use-accordion.ts" for import "toArray"
-src/accordion/index.ts:1:41: ERROR: No matching export in "src/accordion/use-accordion.ts" for import "getAccordionItemOpen"
-    at failureErrorWithLog (/Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:1467:15)
-    at /Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:926:25
-    at /Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:878:52
-    at buildResponseToResult (/Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:924:7)
-    at /Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:951:16
-    at responseCallbacks.<computed> (/Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:603:9)
-    at handleIncomingPacket (/Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:658:12)
-    at Socket.readFromStdout (/Users/jiawei01.mao/sine/timkit-ui/node_modules/[4m.pnpm[24m/esbuild@0.27.3/node_modules/[4mesbuild[24m/lib/main.js:581:7)
-[90m    at Socket.emit (node:events:508:28)[39m
-[90m    at addChunk (node:internal/streams/readable:559:12)[39m {
-  errors: [36m[Getter/Setter][39m,
-  warnings: [36m[Getter/Setter][39m
-}
+Build complete! Artifacts in /Users/jiawei01.mao/sine/timkit-ui/packages/weapp/dist

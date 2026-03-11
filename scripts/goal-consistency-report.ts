@@ -81,11 +81,14 @@ const loadRegistryItems = (): RegistryItem[] => {
   return payload.items || []
 }
 
-const detectFrameworkFromPath = (filePath: string): 'react' | 'vue' | 'weapp' | 'html' | 'other' => {
+const detectFrameworkFromPath = (
+  filePath: string
+): 'react' | 'vue' | 'weapp' | 'html' | 'other' => {
   const ext = path.extname(filePath).toLowerCase()
   if (ext === '.tsx' || ext === '.jsx') return 'react'
   if (ext === '.vue') return 'vue'
-  if (ext === '.wxml' || ext === '.wxss' || ext === '.js' || ext === '.ts' || ext === '.json') return 'weapp'
+  if (ext === '.wxml' || ext === '.wxss' || ext === '.js' || ext === '.ts' || ext === '.json')
+    return 'weapp'
   if (ext === '.html' || ext === '.htm') return 'html'
   return 'other'
 }
@@ -155,7 +158,9 @@ const main = () => {
     const react = hasReactImpl(name)
     const vue = Boolean(resolveVueImpl(name))
     const weappWxml = Boolean(resolveWeappComponentPath(name, 'wxml'))
-    const weappLogic = Boolean(resolveWeappComponentPath(name, 'ts') || resolveWeappComponentPath(name, 'js'))
+    const weappLogic = Boolean(
+      resolveWeappComponentPath(name, 'ts') || resolveWeappComponentPath(name, 'js')
+    )
     const weappJsonPath = resolveWeappComponentPath(name, 'json')
     const weappJson = Boolean(weappJsonPath)
     const weappWxss = Boolean(resolveWeappComponentPath(name, 'wxss'))
@@ -228,7 +233,9 @@ const main = () => {
   })
 
   const reactFiles = walkFiles(REACT_UI_DIR, (file) => /\.(tsx|ts|jsx|js)$/.test(file))
-  const vueFiles = walkFiles(path.join(ROOT, 'packages/vue/src/components/ui'), (file) => /\.(vue|ts)$/.test(file))
+  const vueFiles = walkFiles(path.join(ROOT, 'packages/vue/src/components/ui'), (file) =>
+    /\.(vue|ts)$/.test(file)
+  )
   const weappFiles = walkFiles(WEAPP_UI_DIR, (file) => /\.(ts|js|wxml|wxss)$/.test(file))
   const htmlFiles = walkFiles(HTML_UI_DIR, (file) => /\.(html|htm)$/.test(file))
   const implementationFiles = [...reactFiles, ...vueFiles, ...weappFiles, ...htmlFiles]

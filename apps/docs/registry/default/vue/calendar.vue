@@ -10,6 +10,8 @@ type RangeValue = { from?: Date; to?: Date } | undefined;
 const props = withDefaults(
   defineProps<{
     modelValue?: Date | RangeValue;
+    selected?: Date | RangeValue;
+    onSelect?: (value?: Date | RangeValue) => void;
     defaultValue?: Date | RangeValue;
     mode?: CalendarMode;
     showOutsideDays?: boolean;
@@ -31,13 +33,19 @@ const props = withDefaults(
 const emit = defineEmits(["update:modelValue", "change"]);
 
 const internalValue = ref<Date | RangeValue | undefined>(
-  props.modelValue ?? props.defaultValue
+  props.modelValue ?? props.selected ?? props.defaultValue
 );
 
 watch(
-  () => props.modelValue,
-  (val) => {
-    if (val !== undefined) internalValue.value = val;
+  () => [props.modelValue, props.selected] as const,
+  ([modelValue, selected]) => {
+    if (modelValue !== undefined) {
+      internalValue.value = modelValue;
+      return;
+    }
+    if (selected !== undefined) {
+      internalValue.value = selected;
+    }
   }
 );
 
@@ -162,6 +170,7 @@ const selectDate = (date: Date) => {
   if (props.isDateUnavailable?.(date)) return;
   if (props.mode === "single") {
     internalValue.value = date;
+    props.onSelect?.(date);
     emit("update:modelValue", date);
     emit("change", date);
     return;
@@ -171,6 +180,7 @@ const selectDate = (date: Date) => {
   if (!current.from || (current.from && current.to)) {
     const next = { from: date, to: undefined };
     internalValue.value = next;
+    props.onSelect?.(next);
     emit("update:modelValue", next);
     emit("change", next);
     return;
@@ -181,6 +191,7 @@ const selectDate = (date: Date) => {
   const nextFrom = date.getTime() < from.getTime() ? date : from;
   const next = { from: nextFrom, to };
   internalValue.value = next;
+  props.onSelect?.(next);
   emit("update:modelValue", next);
   emit("change", next);
 };

@@ -1,3 +1,5 @@
+import { emitTimEvent } from '../utils'
+
 type CheckboxTreeNode = {
   id: string
   label: string
@@ -24,7 +26,10 @@ const flattenNodes = (nodes: CheckboxTreeNode[], level = 0, acc: FlatNode[] = []
 Component({
   options: {
     styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
   },
+
+  externalClasses: ['ext-class'],
 
   properties: {
     nodes: {
@@ -34,6 +39,10 @@ Component({
     checkedKeys: {
       type: Array,
       value: [],
+    },
+    id: {
+      type: String,
+      value: 'checkbox-tree',
     },
     extClass: {
       type: String,
@@ -80,7 +89,7 @@ Component({
       checkedMap[id] = !checkedMap[id]
       const checkedKeys = Object.keys(checkedMap).filter((key) => checkedMap[key])
       this.setData({ checkedMap })
-      this.triggerEvent('change', {
+      emitTimEvent(this, 'change', 'change', this.properties.id || 'checkbox-tree', {
         checkedKeys,
       })
       this.triggerEvent('update:checkedKeys', checkedKeys)

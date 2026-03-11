@@ -1,19 +1,19 @@
 Component({
-    relations: {
-        '../alert-dialog/alert-dialog': { type: 'ancestor' }
+  relations: {
+    '../alert-dialog/alert-dialog': { type: 'ancestor' },
+  },
+  data: {
+    overlayApi: {} as any,
+  },
+  methods: {
+    updateFromParent(parentApi) {
+      if (!parentApi) return
+      this.setData({ overlayApi: parentApi.backdropProps })
     },
-    data: {
-        overlayApi: {} as any
+    handleClick() {
+      if (this.data.overlayApi && this.data.overlayApi.onClick) {
+        this.data.overlayApi.onClick()
+      }
     },
-    methods: {
-        updateFromParent(parentApi) {
-            if (!parentApi) return
-            this.setData({ overlayApi: parentApi.backdropProps })
-        },
-        handleClick() {
-            if (this.data.overlayApi && this.data.overlayApi.onClick) {
-                this.data.overlayApi.onClick()
-            }
-        }
-    }
+  },
 })

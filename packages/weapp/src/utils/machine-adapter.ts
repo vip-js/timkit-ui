@@ -1,3 +1,14 @@
+/**
+ * machine-adapter.ts — WeApp 轻量机器适配器
+ *
+ * 此适配器用于 **不依赖 Zag 官方 Machine** 的简单组件（如 Button、Badge 等）。
+ * 它模拟 Zag 机器的 context/state/send 接口，同时适配小程序的 setData 更新模型，
+ * 使简单组件也可以使用声明式的状态机风格定义，而无需引入完整 Zag Machine 实例。
+ *
+ * ⚠️ 与 machine.ts 的分工：
+ * - machine-adapter.ts → 简单组件（Button、Badge 等），无复杂状态迁移需求
+ * - machine.ts         → 使用 Zag 官方 Machine 实例的组件（Switch、Accordion 等）
+ */
 import { createGuards } from '@zag-js/core'
 
 type AnyRecord = Record<string, object>
@@ -85,7 +96,9 @@ export function createWeappMachine(
   let scope: Scope = { ...noopScope, id: String(rawProps.id || '') }
 
   const getResolvedProps = () =>
-    typeof machine.props === 'function' ? machine.props({ props: { ...rawProps }, scope }) : rawProps
+    typeof machine.props === 'function'
+      ? machine.props({ props: { ...rawProps }, scope })
+      : rawProps
 
   let resolvedProps = getResolvedProps()
   const prop = (key: string) => resolvedProps[key]
@@ -115,7 +128,9 @@ export function createWeappMachine(
         }
       },
       hash: (value: object) =>
-        typeof params.hash === 'function' ? (params.hash as (v: object) => string)(value) : String(value),
+        typeof params.hash === 'function'
+          ? (params.hash as (v: object) => string)(value)
+          : String(value),
     }
   }
 

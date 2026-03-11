@@ -1,35 +1,28 @@
-<dialog>
-      <dialog-trigger asChild>
-        <button variant="outline">Feedback</button>
-      </dialog-trigger>
-      <dialog-content>
-        <dialog-header>
-          <dialog-title>Send us feedback</dialog-title>
-          <dialog-description>
-            Watch 
-            <a class="text-foreground hover:underline" href="#">
-              tutorials
-            </a>
-            , read Timkit UI&lsquo;s 
-            <a class="text-foreground hover:underline" href="#">
-              documentation
-            </a>
-            , or join our 
-            <a class="text-foreground hover:underline" href="#">
-              Discord
-            </a> 
-            for community help.
-          </dialog-description>
-        </dialog-header>
-        <form class="space-y-5">
-          <textarea
-            id="feedback"
-            placeholder="How can we improve Timkit UI?"
-            aria-label="Send feedback"
-          />
-          <div class="flex flex-col sm:flex-row sm:justify-end">
-            <button type="button">Send feedback</button>
-          </div>
-        </form>
-      </dialog-content>
-    </dialog>
+<button type="button" data-slot="button"
+  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:rs:" data-state="closed">
+  Feedback
+</button>
+
+<!-- 
+Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
+Here is the structural representation of the opened dialog:
+
+<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
+<div role="dialog" id="radix-:rs:" aria-describedby="radix-:ru:" aria-labelledby="radix-:rt:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
+  <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+    <h2 id="radix-:rt:" class="text-lg font-semibold leading-none tracking-tight">Send us feedback</h2>
+    <p id="radix-:ru:" class="text-sm text-muted-foreground">Watch <a class="text-foreground hover:underline" href="#">tutorials</a>, read Timkit UI‘s <a class="text-foreground hover:underline" href="#">documentation</a>, or join our <a class="text-foreground hover:underline" href="#">Discord</a> for community help.</p>
+  </div>
+  <form class="space-y-5">
+    <textarea class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback"></textarea>
+    <div class="flex flex-col sm:flex-row sm:justify-end">
+      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">Send feedback</button>
+    </div>
+  </form>
+  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+</div>
+-->

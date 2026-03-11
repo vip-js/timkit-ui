@@ -1,9 +1,11 @@
-<div data-slot="popover" class="relative inline-flex">
-  <button data-slot="popover-trigger" class="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm">
+<div data-slot="popover" class="relative">
+  <button data-slot="popover-trigger" aria-expanded="false" class="inline-flex items-center">
     Open popover
   </button>
   <div
     data-slot="popover-content"
+    data-state="closed"
+    hidden
     class="absolute z-50 mt-2 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md"
   >
     Popover content

@@ -1,6 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import { RegistryItem, registryPayloadSchema } from '@timui/core'
+import {
+  RegistryItem,
+  registryItemSchema,
+  registryPayloadSchema,
+  type JsonValue,
+} from '@timui/core'
+import { z } from 'zod'
 
 import { sha256OfString } from './checksum'
 import { fetchJsonWithRetry, fetchTextWithRetry } from './http'
@@ -11,8 +17,7 @@ const CLI_VERSION: string = CLI_PACKAGE_JSON.version || '0.0.0'
 
 function getRegistryBases(override?: string): string[] {
   if (override) return [override]
-  const mirrors =
-    process.env.REGISTRY_MIRRORS || process.env.REGISTRY_MIRROR_URLS || ''
+  const mirrors = process.env.REGISTRY_MIRRORS || process.env.REGISTRY_MIRROR_URLS || ''
   const mirrorList = mirrors
     .split(',')
     .map((m) => m.trim())
@@ -20,26 +25,81 @@ function getRegistryBases(override?: string): string[] {
   return [REGISTRY_URL, ...mirrorList]
 }
 
-function verifyChecksum(payload: any): boolean {
+type RegistryPayloadRecord = Record<string, JsonValue> & {
+  checksum?: string
+  minCliVersion?: string
+}
+
+const registryItemsSchema = z.array(registryItemSchema)
+
+function toError(error: unknown): Error {
+  if (error instanceof Error) return error
+  return new Error(String(error))
+}
+
+function isRegistryPayloadRecord(
+  payload: RegistryItem[] | RegistryPayloadRecord
+): payload is RegistryPayloadRecord {
+  return !Array.isArray(payload)
+}
+
+function verifyChecksum(payload: RegistryPayloadRecord): boolean {
   if (!payload?.checksum) return true
   const { checksum, ...rest } = payload
   const raw = JSON.stringify(rest, null, 2)
   return sha256OfString(raw) === checksum
 }
 
-export function validateRegistryPayload(payload: any): RegistryItem[] {
+export function validateRegistryPayload(
+  payload: RegistryItem[] | RegistryPayloadRecord
+): RegistryItem[] {
   const parsed = registryPayloadSchema.safeParse(payload)
-  const items = parsed.success ? parsed.data.items : payload.items || payload
-  const isValidChecksum = verifyChecksum(payload)
-  if (payload?.checksum && !isValidChecksum) {
-    throw new Error('Registry checksum mismatch')
+  if (parsed.success) {
+    const isValidChecksum = verifyChecksum(parsed.data as RegistryPayloadRecord)
+    if (parsed.data.checksum && !isValidChecksum) {
+      throw new Error('Registry checksum mismatch')
+    }
+    if (parsed.data.minCliVersion && !isVersionGte(CLI_VERSION, parsed.data.minCliVersion)) {
+      throw new Error(
+        `Registry requires CLI >= ${parsed.data.minCliVersion}, current ${CLI_VERSION}. Please upgrade.`
+      )
+    }
+    return parsed.data.items
   }
-  if (payload?.minCliVersion && !isVersionGte(CLI_VERSION, payload.minCliVersion)) {
-    throw new Error(
-      `Registry requires CLI >= ${payload.minCliVersion}, current ${CLI_VERSION}. Please upgrade.`
-    )
+
+  const fallbackItems = registryItemsSchema.safeParse(
+    isRegistryPayloadRecord(payload) ? payload.items : payload
+  )
+  if (!fallbackItems.success) {
+    throw new Error('Invalid registry payload format')
   }
-  return items as RegistryItem[]
+
+  if (isRegistryPayloadRecord(payload)) {
+    const isValidChecksum = verifyChecksum(payload)
+    if (payload.checksum && !isValidChecksum) {
+      throw new Error('Registry checksum mismatch')
+    }
+    if (payload.minCliVersion && !isVersionGte(CLI_VERSION, payload.minCliVersion)) {
+      throw new Error(
+        `Registry requires CLI >= ${payload.minCliVersion}, current ${CLI_VERSION}. Please upgrade.`
+      )
+    }
+  }
+
+  return fallbackItems.data
+}
+
+function parseRegistryPayload(raw: string): RegistryItem[] {
+  const parsedJson = JSON.parse(raw) as RegistryItem[] | RegistryPayloadRecord
+  return validateRegistryPayload(parsedJson)
+}
+
+function parseLocalRegistryItems(raw: string): RegistryItem[] {
+  const parsed = JSON.parse(raw) as { items?: RegistryItem[] }
+  if (!Array.isArray(parsed.items)) {
+    throw new Error('Local registry-all.json must contain an items array of registry components.')
+  }
+  return parsed.items
 }
 
 function isVersionGte(current: string, required: string): boolean {
@@ -58,34 +118,32 @@ export async function loadRegistryIndex(registryBase?: string): Promise<Registry
   const baseCandidates = getRegistryBases(registryBase)
   // Prefer local registry-all.json if present
   if (fs.existsSync('registry-all.json')) {
-    return JSON.parse(fs.readFileSync('registry-all.json', 'utf-8')).items
+    return parseLocalRegistryItems(fs.readFileSync('registry-all.json', 'utf-8'))
   }
   if (fs.existsSync(path.join(process.cwd(), 'apps/docs/data/registry-all.json'))) {
-    return JSON.parse(
+    return parseLocalRegistryItems(
       fs.readFileSync(path.join(process.cwd(), 'apps/docs/data/registry-all.json'), 'utf-8')
-    ).items
+    )
   }
 
-  let lastError: any
+  let lastError: Error | null = null
   for (const base of baseCandidates) {
     const normalized = base.replace(/\/$/, '')
     // Try index (lighter) else fallback to registry-all
     const indexUrl = `${normalized}/registry-index.json`
     try {
       const raw = await fetchTextWithRetry(indexUrl)
-      const json = JSON.parse(raw)
-      const items = validateRegistryPayload(json)
+      const items = parseRegistryPayload(raw)
       return items
     } catch (e) {
-      lastError = e
+      lastError = toError(e)
       const allUrl = `${normalized}/registry-all.json`
       try {
         const raw = await fetchTextWithRetry(allUrl)
-        const json = JSON.parse(raw)
-        const items = validateRegistryPayload(json)
+        const items = parseRegistryPayload(raw)
         return items
       } catch (e2) {
-        lastError = e2
+        lastError = toError(e2)
         continue
       }
     }
@@ -95,14 +153,14 @@ export async function loadRegistryIndex(registryBase?: string): Promise<Registry
 
 export async function loadRegistryItem(name: string, registryBase?: string): Promise<RegistryItem> {
   const baseCandidates = getRegistryBases(registryBase)
-  let lastError: any
+  let lastError: Error | null = null
   for (const base of baseCandidates) {
     const normalized = base.replace(/\/$/, '')
     const itemUrl = `${normalized}/registry/${name}.json`
     try {
-      return await fetchJsonWithRetry(itemUrl)
+      return await fetchJsonWithRetry<RegistryItem>(itemUrl)
     } catch (e) {
-      lastError = e
+      lastError = toError(e)
       continue
     }
   }
