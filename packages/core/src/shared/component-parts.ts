@@ -47,6 +47,12 @@ export const componentParts = {
     'notification-icon',
     'notification-title',
   ],
+  'number-field': [
+    'number-field-control',
+    'number-field-decrement',
+    'number-field-increment',
+    'number-field-input',
+  ],
   pagination: [
     'pagination-content',
     'pagination-ellipsis',

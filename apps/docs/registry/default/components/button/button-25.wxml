@@ -1,3 +1,8 @@
 <view>
-  <button variant="outline" size="icon" class="relative" bindtap="handleClick" aria-label="Notifications"><bellicon size="{{16}}" aria-hidden="true" /><badge wx:if="{{count > 0}}" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1">{{ count > 99 ? '99+' : count }}</badge></button>
+  <button variant="outline" size="icon" class="relative" bindtap="handleClick" aria-label="Notifications"><bellicon size="{{16}}" aria-hidden="true" /><badge wx:if="{{count > 0}}" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><block wx:if="{{count > 99}}">
+{{ '99+' }}
+</block>
+<block wx:else>
+{{ count }}
+</block></badge></button>
 </view>

@@ -1,24 +1,7 @@
-<div>
-      <dropdown-menu>
-        <dropdown-menu-trigger asChild>
-          <button size="icon" variant="outline" aria-label="Select theme">
-            
-            
-          </button>
-        </dropdown-menu-trigger>
-        <dropdown-menu-content class="min-w-32">
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Light</span>
-          </dropdown-menu-item>
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>Dark</span>
-          </dropdown-menu-item>
-          <dropdown-menu-item >
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-            <span>System</span>
-          </dropdown-menu-item>
-        </dropdown-menu-content>
-      </dropdown-menu>
-    </div>
+<template>
+  <div><DropdownMenu><DropdownMenuTrigger aschild><Button size="icon" variant="outline" aria-label="Select theme"><!-- if displayTheme === 'light' -->
+<SunIcon size="${16}" aria-hidden="true" />
+<!-- endif --><!-- if displayTheme === 'dark' -->
+<MoonIcon size="${16}" aria-hidden="true" />
+<!-- endif --></Button></DropdownMenuTrigger><DropdownMenuContent class="min-w-32"><DropdownMenuItem on-click="${() => setTheme('light')}"><SunIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>Light</span></DropdownMenuItem><DropdownMenuItem on-click="${() => setTheme('dark')}"><MoonIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>Dark</span></DropdownMenuItem><DropdownMenuItem on-click="${() => setTheme('system')}"><MonitorIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>System</span></DropdownMenuItem></DropdownMenuContent></DropdownMenu></div>
+</template>

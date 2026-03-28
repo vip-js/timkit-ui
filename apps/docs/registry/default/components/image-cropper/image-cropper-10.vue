@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@/components/ui/image-cropper';
+import { ref } from 'vue';
+import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/vue';
 
 
+
+const cropData = ref<Area | null>(null);
+
+
+function setCropData(next: typeof cropData.value | ((prev: typeof cropData.value) => typeof cropData.value)) {
+  cropData.value = typeof next === 'function'
+    ? (next as (prev: typeof cropData.value) => typeof cropData.value)(cropData.value)
+    : next;
+}
 
 </script>
 

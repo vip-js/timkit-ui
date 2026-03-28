@@ -1,20 +1,3 @@
-<div dir="ltr" class="inline-flex items-center justify-center gap-1 rounded-md" data-orientation="horizontal">
-  <button type="button"
-    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-muted hover:text-muted-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-    value="left" data-state="off"
-    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
-    Left
-  </button>
-  <button type="button"
-    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-muted hover:text-muted-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-    value="center" data-state="off"
-    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
-    Center
-  </button>
-  <button type="button"
-    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-muted hover:text-muted-foreground data-[state=on]:bg-accent data-[state=on]:text-accent-foreground border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-3"
-    value="right" data-state="off"
-    onclick="this.parentElement.querySelectorAll('button').forEach(btn => btn.setAttribute('data-state', 'off')); this.setAttribute('data-state', 'on');">
-    Right
-  </button>
-</div>
+<template>
+  <ToggleGroup variant="outline" class="inline-flex" type="single"><ToggleGroupItem value="left">Left</ToggleGroupItem><ToggleGroupItem value="center">Center</ToggleGroupItem><ToggleGroupItem value="right">Right</ToggleGroupItem></ToggleGroup>
+</template>

@@ -18,11 +18,11 @@ const props = withDefaults(
 
 type BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void);
 type SelectApi = {
-  triggerProps?: Record<string, BindValue>;
+  getTriggerProps?: () => Record<string, BindValue>;
 };
 
 const api = useSelectContext() as Ref<SelectApi | undefined> | undefined;
-const triggerProps = computed(() => api?.value?.triggerProps || {});
+const triggerProps = computed(() => api?.value?.getTriggerProps?.() || {});
 </script>
 
 <template>
@@ -32,12 +32,12 @@ const triggerProps = computed(() => api?.value?.triggerProps || {});
     v-bind="triggerProps"
     :class="
       cn(
-        selectTriggerVariants(),
+        !props.asChild && selectTriggerVariants(),
         props.class
       )
     "
   >
     <slot />
-    <ChevronDownIcon :class="selectTriggerIconVariants()" />
+    <ChevronDownIcon v-if="!props.asChild" :class="selectTriggerIconVariants()" />
   </Primitive>
 </template>

@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ChevronDownIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@timui/vue';
 
 
+
+const framework = ref('nextjs');
+
+
+function setFramework(next: typeof framework.value | ((prev: typeof framework.value) => typeof framework.value)) {
+  framework.value = typeof next === 'function'
+    ? (next as (prev: typeof framework.value) => typeof framework.value)(framework.value)
+    : next;
+}
 
 </script>
 

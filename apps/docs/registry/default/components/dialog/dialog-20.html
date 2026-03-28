@@ -1,42 +1,16 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r38:" data-state="closed">
-  Onboarding
-</button>
-
-<!-- 
-Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
-Here is the structural representation of the opened dialog:
-
-<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
-<div role="dialog" id="radix-:r38:" aria-describedby="radix-:r3a:" aria-labelledby="radix-:r39:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg gap-0 p-0 [&>button:last-child]:text-white" tabindex="-1" style="pointer-events: auto;">
-  <div class="p-2">
-    <img class="w-full rounded-md" src="/dialog-content.png" width="382" height="216" alt="dialog">
-  </div>
-  <div class="space-y-6 px-6 pt-3 pb-6">
-    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
-      <h2 id="radix-:r39:" class="text-lg font-semibold leading-none tracking-tight">Welcome to Timkit UI</h2>
-      <p id="radix-:r3a:" class="text-sm text-muted-foreground">Discover a powerful collection of components designed to enhance your development workflow.</p>
-    </div>
-    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-      <div class="flex justify-center space-x-1.5 max-sm:order-1">
-        <div class="bg-primary size-1.5 rounded-full bg-primary"></div>
-        <div class="bg-primary size-1.5 rounded-full opacity-20"></div>
-        <div class="bg-primary size-1.5 rounded-full opacity-20"></div>
-        <div class="bg-primary size-1.5 rounded-full opacity-20"></div>
-      </div>
-      <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-        <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">Skip</button>
-        <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 group">
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right -me-1 opacity-60 transition-transform group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-white hidden">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    <span class="sr-only">Close</span>
-  </button>
-</div>
--->
+<template>
+  <Dialog on-open-change="${(open) => {
+        if (open) setStep(1)
+      }}"><DialogTrigger aschild><Button variant="outline">Onboarding</Button></DialogTrigger><DialogContent class="gap-0 p-0 [&>button:last-child]:text-white"><div class="p-2"><img class="w-full rounded-md" src="/dialog-content.png" width="${382}" height="${216}" alt="dialog" /></div><div class="space-y-6 px-6 pt-3 pb-6"><DialogHeader><DialogTitle>${stepContent[step - 1].title}</DialogTitle><DialogDescription>${stepContent[step - 1].description}</DialogDescription></DialogHeader><div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><div class="flex justify-center space-x-1.5 max-sm:order-1"><!-- Loop [...Array(totalSteps)] -->
+<div key="${index}" class="${cn(
+                    'bg-primary size-1.5 rounded-full',
+                    index + 1 === step ? 'bg-primary' : 'opacity-20'
+                  )}" />
+<!-- End Loop --></div><DialogFooter><DialogClose aschild><Button type="button" variant="ghost">Skip
+                </Button></DialogClose><!-- if step < totalSteps -->
+<Button class="group" type="button" on-click="${handleContinue}">Next
+                  <ArrowRightIcon class="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5" size="${16}" aria-hidden="true" /></Button>
+<!-- else -->
+<DialogClose aschild><Button type="button">Okay</Button></DialogClose>
+<!-- endif --></DialogFooter></div></div></DialogContent></Dialog>
+</template>

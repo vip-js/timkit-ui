@@ -10,6 +10,11 @@ export interface UseTooltipProps {
   onOpenChange?: (open: boolean) => void
   openDelay?: number
   closeDelay?: number
+  closeOnPointerDown?: boolean
+  closeOnEscape?: boolean
+  closeOnScroll?: boolean
+  closeOnClick?: boolean
+  interactive?: boolean
   positioning?: PositioningOptions
   disabled?: boolean
 }
@@ -22,6 +27,11 @@ export function useTooltip(props: UseTooltipProps) {
     defaultOpen: props.defaultOpen,
     openDelay: props.openDelay,
     closeDelay: props.closeDelay,
+    closeOnPointerDown: props.closeOnPointerDown,
+    closeOnEscape: props.closeOnEscape,
+    closeOnScroll: props.closeOnScroll,
+    closeOnClick: props.closeOnClick,
+    interactive: props.interactive,
     positioning: props.positioning,
     disabled: props.disabled,
     onOpenChange: (details) => props.onOpenChange?.(details.open),

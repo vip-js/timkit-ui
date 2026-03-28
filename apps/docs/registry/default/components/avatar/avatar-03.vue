@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@timui/vue';
+
 
 
 

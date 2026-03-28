@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { BotMessageSquareIcon, MessageCircleDashedIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@timui/vue';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@timui/vue';
 import UserMenu from '@/registry/default/components/navbar-components/user-menu.vue';
+
 
 
 </script>

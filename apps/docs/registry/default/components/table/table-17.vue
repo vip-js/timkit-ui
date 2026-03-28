@@ -1,65 +1,71 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
-import { ChevronDownIcon, ChevronUpIcon, InfoIcon } from 'lucide-vue-next';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table-body';
-import { TableCell } from '@/components/ui/table-cell';
-import { TableHead } from '@/components/ui/table-head';
-import { TableHeader } from '@/components/ui/table-header';
-import { TableRow } from '@/components/ui/table-row';
+import { reactive } from 'vue'
+import { ChevronDownIcon, ChevronRightIcon } from 'lucide-vue-next'
+import { Table } from '@timui/vue'
+import { TableBody } from '@timui/vue'
+import { TableCell } from '@timui/vue'
+import { TableHead } from '@timui/vue'
+import { TableHeader } from '@timui/vue'
+import { TableRow } from '@timui/vue'
+import { formatCurrency, tableUsers } from './table-demo-data'
 
+const rows = tableUsers.slice(0, 8)
+const expandedIds = reactive(new Set<string>())
 
-
+function toggleRow(id: string) {
+  if (expandedIds.has(id)) {
+    expandedIds.delete(id)
+  } else {
+    expandedIds.add(id)
+  }
+}
 </script>
 
 <template>
-  <div><Table><TableHeader><TableRow v-for="(headerGroup, index) in table.getHeaderGroups()" :key="index" :key="headerGroup.id" class="hover:bg-transparent">{{ headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                )
-              }) }}</TableRow></TableHeader><TableBody>{{ table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <Fragment key={row.id}>
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="whitespace-nowrap [&:has([aria-expanded])]:w-px [&:has([aria-expanded])]:py-0 [&:has([aria-expanded])]:pr-0"
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-                {row.getIsExpanded() && (
-                  <TableRow>
-                    <TableCell colSpan={row.getVisibleCells().length}>
-                      <div className="text-primary/80 flex items-start py-2">
-                        <span
-                          className="me-3 mt-0.5 flex w-7 shrink-0 justify-center"
-                          aria-hidden="true"
-                        >
-                          <InfoIcon className="opacity-60" size={16} />
-                        </span>
-                        <p className="text-sm">{row.original.note}</p>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                )}
-              </Fragment>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          ) }}</TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Expanding sub-row made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></p></div>
+  <div>
+    <Table>
+      <TableHeader>
+        <TableRow class="bg-muted/50">
+          <TableHead class="w-10" />
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Location</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead class="text-right">Balance</TableHead>
+        </TableRow>
+      </TableHeader>
+
+      <TableBody>
+        <template v-for="row in rows" :key="row.id">
+          <TableRow :data-state="expandedIds.has(row.id) ? 'expanded' : undefined">
+            <TableCell>
+              <button class="inline-flex h-6 w-6 items-center justify-center" :aria-label="`Toggle ${row.name}`" @click="toggleRow(row.id)">
+                <ChevronDownIcon v-if="expandedIds.has(row.id)" :size="14" />
+                <ChevronRightIcon v-else :size="14" />
+              </button>
+            </TableCell>
+            <TableCell class="font-medium">{{ row.name }}</TableCell>
+            <TableCell>{{ row.email }}</TableCell>
+            <TableCell>{{ row.flag }} {{ row.location }}</TableCell>
+            <TableCell>{{ row.status }}</TableCell>
+            <TableCell class="text-right">{{ formatCurrency(row.balance) }}</TableCell>
+          </TableRow>
+
+          <TableRow v-if="expandedIds.has(row.id)" class="bg-muted/20 hover:bg-muted/20">
+            <TableCell />
+            <TableCell :colSpan="5">
+              <p class="text-sm">{{ row.note }}</p>
+            </TableCell>
+          </TableRow>
+        </template>
+      </TableBody>
+    </Table>
+
+    <p class="text-muted-foreground mt-4 text-center text-sm">
+      Expanding sub-row made with
+      <a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">
+        TanStack Table
+      </a>
+    </p>
+  </div>
 </template>

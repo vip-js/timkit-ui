@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table-body';
-import { TableCell } from '@/components/ui/table-cell';
-import { TableRow } from '@/components/ui/table-row';
+import { Table } from '@timui/vue';
+import { TableBody } from '@timui/vue';
+import { TableCell } from '@timui/vue';
+import { TableRow } from '@timui/vue';
+
 
 
 

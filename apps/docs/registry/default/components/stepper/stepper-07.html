@@ -1,16 +1,6 @@
-<ol data-slot="stepper" class="mx-auto flex max-w-xl items-center gap-3">
-  <li class="flex flex-1 items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border">1</button>
-    <span class="text-sm">Plan</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="flex flex-1 items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border bg-primary text-primary-foreground">2</button>
-    <span class="text-sm">Build</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="flex items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border">3</button>
-    <span class="text-sm">Verify</span>
-  </li>
-</ol>
+<template>
+  <div class="mx-auto max-w-xl space-y-8 text-center"><Stepper default-value="${2}" class="items-start gap-4"><!-- Loop steps -->
+<StepperItem key="${step}" step="${step}" class="flex-1"><StepperTrigger class="w-full flex-col items-start gap-2 rounded"><StepperIndicator aschild class="bg-border h-1 w-full"><span class="sr-only">${step}</span></StepperIndicator><div class="space-y-0.5"><StepperTitle>${title}</StepperTitle></div></StepperTrigger></StepperItem>
+<!-- End Loop --></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with labels
+      </p></div>
+</template>

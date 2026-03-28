@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@timui/vue';
 
 
+
+const theme = ref<Theme>('system');
+
+
+function setTheme(next: typeof theme.value | ((prev: typeof theme.value) => typeof theme.value)) {
+  theme.value = typeof next === 'function'
+    ? (next as (prev: typeof theme.value) => typeof theme.value)(theme.value)
+    : next;
+}
 
 </script>
 

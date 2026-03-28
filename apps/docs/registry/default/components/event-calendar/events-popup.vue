@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { XIcon } from 'lucide-vue-next';
-import { EventItem, CalendarEvent } from '@/registry/default/components/event-calendar.vue';
-
-
+defineProps<{ title?: string }>()
 </script>
 
 <template>
-  
+  <div class="text-muted-foreground p-4 text-sm">
+    <slot>{{ title || 'Events popup placeholder' }}</slot>
+  </div>
 </template>

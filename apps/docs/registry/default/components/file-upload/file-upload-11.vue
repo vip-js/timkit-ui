@@ -1,21 +1,101 @@
 <script setup lang="ts">
 import { AlertCircleIcon, DownloadIcon, FileArchiveIcon, FileIcon, FileSpreadsheetIcon, FileTextIcon, HeadphonesIcon, ImageIcon, Trash2Icon, UploadCloudIcon, UploadIcon, VideoIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table-body';
-import { TableCell } from '@/components/ui/table-cell';
-import { TableHead } from '@/components/ui/table-head';
-import { TableHeader } from '@/components/ui/table-header';
-import { TableRow } from '@/components/ui/table-row';
-import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload.vue';
+import { Button } from '@timui/vue';
+import { Table } from '@timui/vue';
+import { TableBody } from '@timui/vue';
+import { TableCell } from '@timui/vue';
+import { TableHead } from '@timui/vue';
+import { TableHeader } from '@timui/vue';
+import { TableRow } from '@timui/vue';
+import { formatBytes, useFileUpload } from '@/registry/default/hooks/use-file-upload-vue';
 
+const initialFiles = [
+  {
+    name: 'document.pdf',
+    size: 528737,
+    type: 'application/pdf',
+    url: 'https://example.com/document.pdf',
+    id: 'document.pdf-1744638436563-8u5xuls',
+  },
+  {
+    name: 'intro.zip',
+    size: 252873,
+    type: 'application/zip',
+    url: 'https://example.com/intro.zip',
+    id: 'intro.zip-1744638436563-8u5xuls',
+  },
+  {
+    name: 'conclusion.xlsx',
+    size: 352873,
+    type: 'application/xlsx',
+    url: 'https://example.com/conclusion.xlsx',
+    id: 'conclusion.xlsx-1744638436563-8u5xuls',
+  },
+];
 
+const maxSize = 100 * 1024 * 1024;
+const maxFiles = 10;
+
+const [
+  { files, isDragging, errors },
+  {
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    openFileDialog,
+    removeFile,
+    clearFiles,
+  },
+] = useFileUpload({
+  multiple: true,
+  maxFiles,
+  maxSize,
+  initialFiles,
+});
+
+function getFileIcon(file: { file: File | { type: string; name: string } }) {
+  const fileType = file.file.type;
+  const fileName = file.file.name;
+
+  if (
+    fileType.includes('pdf') ||
+    fileType.includes('word') ||
+    fileName.endsWith('.pdf') ||
+    fileName.endsWith('.doc') ||
+    fileName.endsWith('.docx')
+  ) {
+    return FileTextIcon;
+  }
+
+  if (
+    fileType.includes('zip') ||
+    fileType.includes('archive') ||
+    fileName.endsWith('.zip') ||
+    fileName.endsWith('.rar')
+  ) {
+    return FileArchiveIcon;
+  }
+
+  if (
+    fileType.includes('excel') ||
+    fileName.endsWith('.xls') ||
+    fileName.endsWith('.xlsx')
+  ) {
+    return FileSpreadsheetIcon;
+  }
+
+  if (fileType.includes('video/')) return VideoIcon;
+  if (fileType.includes('audio/')) return HeadphonesIcon;
+  if (fileType.startsWith('image/')) return ImageIcon;
+  return FileIcon;
+}
 </script>
 
 <template>
-  <div class="flex flex-col gap-2"><div :onDragEnter="handleDragEnter" :onDragLeave="handleDragLeave" :onDragOver="handleDragOver" :onDrop="handleDrop" :data-dragging="isDragging || undefined" :data-files="files.length > 0 || undefined" class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px] data-[files]:hidden"><input class="sr-only" aria-label="Upload files" /><div class="flex flex-col items-center justify-center text-center"><div class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><FileIcon class="size-4 opacity-60" /></div><p class="mb-1.5 text-sm font-medium">Upload files</p><p class="text-muted-foreground text-xs">Max {{ maxFiles }}files ∙ Up to {{ formatBytes(maxSize) }}</p><Button variant="outline" class="mt-4" @click="openFileDialog"><UploadIcon class="-ms-1 opacity-60" aria-hidden="true" />Select files
+  <div class="flex flex-col gap-2"><div @dragenter="handleDragEnter" @dragleave="handleDragLeave" @dragover="handleDragOver" @drop="handleDrop" :data-dragging="isDragging || undefined" :data-files="files.length > 0 || undefined" class="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px] data-[files]:hidden"><input class="sr-only" aria-label="Upload files" /><div class="flex flex-col items-center justify-center text-center"><div class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><FileIcon class="size-4 opacity-60" /></div><p class="mb-1.5 text-sm font-medium">Upload files</p><p class="text-muted-foreground text-xs">Max {{ maxFiles }}files ∙ Up to {{ formatBytes(maxSize) }}</p><Button variant="outline" class="mt-4" @click="openFileDialog"><UploadIcon class="-ms-1 opacity-60" aria-hidden="true" />Select files
           </Button></div></div><div v-if="files.length > 0" class="flex items-center justify-between gap-2"><h3 class="text-sm font-medium">Files ({{ files.length }})</h3><div class="flex gap-2"><Button variant="outline" size="sm" @click="openFileDialog"><UploadCloudIcon class="-ms-0.5 size-3.5 opacity-60" aria-hidden="true" />Add files
               </Button><Button variant="outline" size="sm" @click="clearFiles"><Trash2Icon class="-ms-0.5 size-3.5 opacity-60" aria-hidden="true" />Remove all
-              </Button></div></div><div class="bg-background overflow-hidden rounded-md border"><Table><TableHeader class="text-xs"><TableRow class="bg-muted/50"><TableHead class="h-9 py-2">Name</TableHead><TableHead class="h-9 py-2">Type</TableHead><TableHead class="h-9 py-2">Size</TableHead><TableHead class="h-9 w-0 py-2 text-right">Actions</TableHead></TableRow></TableHeader><TableBody class="text-[13px]"><TableRow v-for="(file, index) in files" :key="index" :key="file.id"><TableCell class="max-w-48 py-2 font-medium"><span class="flex items-center gap-2"><span class="shrink-0">{{ getFileIcon(file) }}</span>{{ ' ' }}<span class="truncate">{{ file.file.name }}</span></span></TableCell><TableCell class="text-muted-foreground py-2">{{ file.file.type.split('/')[1]?.toUpperCase() || 'UNKNOWN' }}</TableCell><TableCell class="text-muted-foreground py-2">{{ formatBytes(file.file.size) }}</TableCell><TableCell class="py-2 text-right whitespace-nowrap"><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Download ${file.file.name}`" @click="window.open(file.preview, '_blank')"><DownloadIcon class="size-4" /></Button><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Remove ${file.file.name}`" @click="removeFile(file.id)"><Trash2Icon class="size-4" /></Button></TableCell></TableRow></TableBody></Table></div><div v-if="errors.length > 0" class="text-destructive flex items-center gap-1 text-xs" role="alert"><AlertCircleIcon class="size-3 shrink-0" /><span>{{ errors[0] }}</span></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-center text-xs">Multiple files uploader w/ table ∙{{ ' ' }}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
+              </Button></div></div><div class="bg-background overflow-hidden rounded-md border"><Table><TableHeader class="text-xs"><TableRow class="bg-muted/50"><TableHead class="h-9 py-2">Name</TableHead><TableHead class="h-9 py-2">Type</TableHead><TableHead class="h-9 py-2">Size</TableHead><TableHead class="h-9 w-0 py-2 text-right">Actions</TableHead></TableRow></TableHeader><TableBody class="text-[13px]"><TableRow v-for="(file, index) in files" :key="file.id"><TableCell class="max-w-48 py-2 font-medium"><span class="flex items-center gap-2"><span class="shrink-0"><component :is="getFileIcon(file)" class="size-4 opacity-60" /></span>{{ ' ' }}<span class="truncate">{{ file.file.name }}</span></span></TableCell><TableCell class="text-muted-foreground py-2">{{ file.file.type.split('/')[1]?.toUpperCase() || 'UNKNOWN' }}</TableCell><TableCell class="text-muted-foreground py-2">{{ formatBytes(file.file.size) }}</TableCell><TableCell class="py-2 text-right whitespace-nowrap"><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Download ${file.file.name}`" @click="window.open(file.preview, '_blank')"><DownloadIcon class="size-4" /></Button><Button size="icon" variant="ghost" class="text-muted-foreground/80 hover:text-foreground size-8 hover:bg-transparent" :aria-label="`Remove ${file.file.name}`" @click="removeFile(file.id)"><Trash2Icon class="size-4" /></Button></TableCell></TableRow></TableBody></Table></div><div v-if="errors.length > 0" class="text-destructive flex items-center gap-1 text-xs" role="alert"><AlertCircleIcon class="size-3 shrink-0" /><span>{{ errors[0] }}</span></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-center text-xs">Multiple files uploader w/ table ∙{{ ' ' }}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
         </a></p></div>
 </template>

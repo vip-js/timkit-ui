@@ -29,8 +29,8 @@ const Slider = React.forwardRef<
       max = 100,
       step = 1,
       orientation = 'horizontal',
-      showTooltip: _showTooltip,
-      tooltipContent: _tooltipContent,
+      showTooltip = false,
+      tooltipContent,
       onValueChange,
       onValueCommit,
       disabled,
@@ -38,9 +38,6 @@ const Slider = React.forwardRef<
     },
     ref
   ) => {
-    void _showTooltip
-    void _tooltipContent
-
     const service = useMachine(sliderMachine, {
       id: React.useId(),
       value,
@@ -110,6 +107,8 @@ const Slider = React.forwardRef<
           {api.value.map((_, index) => {
             const thumbProps = api.getThumbProps({ index })
             const hiddenInputProps = api.getHiddenInputProps({ index })
+            const thumbValue = api.value[index] ?? min
+            const tooltipText = tooltipContent?.(thumbValue) ?? `${thumbValue}`
             return (
               <React.Fragment key={index}>
                 <div
@@ -119,7 +118,20 @@ const Slider = React.forwardRef<
                     'border-primary bg-background ring-ring/50 block size-5 shrink-0 rounded-full border-2 shadow-sm transition-[color,box-shadow] outline-none hover:ring-4 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50',
                     thumbProps.className
                   )}
-                />
+                >
+                  {showTooltip ? (
+                    <span
+                      className={cn(
+                        'bg-foreground text-background pointer-events-none absolute z-10 inline-flex min-w-6 items-center justify-center rounded px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap shadow-sm',
+                        orientation === 'vertical'
+                          ? 'top-1/2 left-full ml-2 -translate-y-1/2'
+                          : '-top-8 left-1/2 -translate-x-1/2'
+                      )}
+                    >
+                      {tooltipText}
+                    </span>
+                  ) : null}
+                </div>
                 <input {...hiddenInputProps} />
               </React.Fragment>
             )

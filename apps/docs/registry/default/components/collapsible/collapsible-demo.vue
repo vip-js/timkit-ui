@@ -1,11 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ChevronsUpDown, Plus, X } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Collapsible } from '@/components/ui/collapsible';
-import { CollapsibleContent } from '@/components/ui/collapsible-content';
-import { CollapsibleTrigger } from '@/components/ui/collapsible-trigger';
+import { Button } from '@timui/vue';
+import { Collapsible } from '@timui/vue';
+import { CollapsibleContent } from '@timui/vue';
+import { CollapsibleTrigger } from '@timui/vue';
 
 
+
+const isOpen = ref(false);
+
+
+function setIsOpen(next: typeof isOpen.value | ((prev: typeof isOpen.value) => typeof isOpen.value)) {
+  isOpen.value = typeof next === 'function'
+    ? (next as (prev: typeof isOpen.value) => typeof isOpen.value)(isOpen.value)
+    : next;
+}
 
 </script>
 

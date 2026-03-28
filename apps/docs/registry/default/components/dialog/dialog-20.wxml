@@ -5,18 +5,11 @@
                     'bg-primary size-1.5 rounded-full',
                     index + 1 === step ? 'bg-primary' : 'opacity-20'
                   )}}" /></view><dialogfooter><dialogclose aschild><button type="button" variant="ghost">Skip
-                </button></dialogclose>{{ step < totalSteps ? (
-                <Button className="group" type="button" onClick={handleContinue}>
-                  Next
-                  <ArrowRightIcon
-                    className="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5"
-                    size={16}
-                    aria-hidden="true"
-                  />
-                </Button>
-              ) : (
-                <DialogClose asChild>
-                  <Button type="button">Okay</Button>
-                </DialogClose>
-              ) }}</dialogfooter></view></view></dialogcontent></dialog>
+                </button></dialogclose><block wx:if="{{step < totalSteps}}">
+<button class="group" type="button" bindtap="handleContinue">Next
+                  <arrowrighticon class="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5" size="{{16}}" aria-hidden="true" /></button>
+</block>
+<block wx:else>
+<dialogclose aschild><button type="button">Okay</button></dialogclose>
+</block></dialogfooter></view></view></dialogcontent></dialog>
 </view>

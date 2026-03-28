@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -23,6 +24,8 @@ import NotificationMenu from '@/registry/default/components/navbar-components/no
 import UserMenu from '@/registry/default/components/navbar-components/user-menu'
 
 export default function Component() {
+  const [projectValue, setProjectValue] = useState('1')
+
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -61,7 +64,7 @@ export default function Component() {
               </BreadcrumbItem>
               <BreadcrumbSeparator> / </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <Select defaultValue="1">
+                <Select value={projectValue} onValueChange={(value) => setProjectValue(value)}>
                   <SelectTrigger aria-label="Select project" asChild>
                     <Button
                       variant="ghost"

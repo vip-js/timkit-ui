@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { BookmarkIcon, HomeIcon } from 'lucide-vue-next';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@timui/vue';
+import { Button } from '@timui/vue';
 import DatePicker from '@/registry/default/components/navbar-components/date-picker.vue';
 import Filters from '@/registry/default/components/navbar-components/filters.vue';
+
 
 
 </script>

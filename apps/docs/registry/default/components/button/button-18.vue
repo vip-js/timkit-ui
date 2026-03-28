@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ChevronDownIcon } from 'lucide-vue-next';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@timui/vue';
+import { Button } from '@timui/vue';
+
 
 
 

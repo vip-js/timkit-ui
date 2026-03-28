@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioGroupItem } from '@/components/ui/radio-group-item';
+import { ref } from 'vue';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { RadioGroup } from '@timui/vue';
+import { RadioGroupItem } from '@timui/vue';
 
 
+
+const selectedValue = ref('without-expansion');
+
+
+function setSelectedValue(next: typeof selectedValue.value | ((prev: typeof selectedValue.value) => typeof selectedValue.value)) {
+  selectedValue.value = typeof next === 'function'
+    ? (next as (prev: typeof selectedValue.value) => typeof selectedValue.value)(selectedValue.value)
+    : next;
+}
 
 </script>
 

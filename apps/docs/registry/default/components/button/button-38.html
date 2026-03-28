@@ -1,22 +1,4 @@
-<div class="divide-primary-foreground/30 inline-flex divide-x rounded-md shadow-xs rtl:space-x-reverse">
-  <button type="button" data-slot="button"
-    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 w-9 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
-    aria-label="Options">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"
-      aria-hidden="true">
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  </button>
-  <button type="button" data-slot="button"
-    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin -ms-1 opacity-60"
-      aria-hidden="true">
-      <line x1="12" x2="12" y1="17" y2="22" />
-      <path
-        d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.68V6a3 3 0 1 0-6 0v4.68a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z" />
-    </svg>
-    Pinned
-  </button>
-</div>
+<template>
+  <div class="divide-primary-foreground/30 inline-flex divide-x rounded-md shadow-xs rtl:space-x-reverse"><Button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10" size="icon" aria-label="Options"><ChevronDownIcon size="${16}" aria-hidden="true" /></Button><Button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"><PinIcon class="-ms-1 opacity-60" size="${16}" aria-hidden="true" />Pinned
+      </Button></div>
+</template>

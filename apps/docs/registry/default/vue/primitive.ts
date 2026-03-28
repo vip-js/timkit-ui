@@ -53,7 +53,7 @@ export const Primitive = defineComponent({
       const children = slots.default?.()
 
       if (props.asChild && children && children.length === 1) {
-        return cloneVNode(children[0], { ...attrs, ...(children[0].props ?? {}) })
+        return cloneVNode(children[0], { ...(children[0].props ?? {}), ...attrs })
       }
 
       const component = props.as ?? 'div'

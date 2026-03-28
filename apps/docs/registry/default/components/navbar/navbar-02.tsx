@@ -166,10 +166,18 @@ export default function Component() {
                           <ul className={cn(link.type === 'description' ? 'min-w-64' : 'min-w-48')}>
                             {link.items.map((item, itemIndex) => (
                               <li key={itemIndex}>
-                                <NavigationMenuLink href={item.href} className="py-1.5">
+                                <NavigationMenuLink
+                                  href={item.href}
+                                  className={cn(
+                                    'py-1.5',
+                                    link.type === 'icon' &&
+                                      'icon' in item &&
+                                      'inline-flex items-center gap-2'
+                                  )}
+                                >
                                   {/* Display icon if present */}
                                   {link.type === 'icon' && 'icon' in item && (
-                                    <div className="flex items-center gap-2">
+                                    <>
                                       {item.icon === 'BookOpenIcon' && (
                                         <BookOpenIcon
                                           size={16}
@@ -191,8 +199,8 @@ export default function Component() {
                                           aria-hidden="true"
                                         />
                                       )}
-                                      <span>{item.label}</span>
-                                    </div>
+                                      <span className="leading-none">{item.label}</span>
+                                    </>
                                   )}
 
                                   {/* Display label with description if present */}

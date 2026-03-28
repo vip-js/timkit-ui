@@ -1,13 +1,4 @@
-<div class="*:not-first:mt-2">
-      <label for="input-35-id">Input with characters left</label>
-      <input id="input-35-id"
-        type="text" aria-describedby="input-35-id-description"
-      />
-      <p id="input-35-id"
-        class="text-muted-foreground mt-2 text-xs"
-        role="status"
-        aria-live="polite"
-      >
-        <span class="tabular-nums"></span> characters left
-      </p>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with characters left</Label><Input id="${id}" type="text" value="${value}" maxlength="${maxLength}" onchange="${handleChange}" aria-describedby="${`${id}-description`}" /><p id="${`${id}-description`}" class="text-muted-foreground mt-2 text-xs" role="status" aria-live="polite"><span class="tabular-nums">${limit - characterCount}</span>characters left
+      </p></div>
+</template>

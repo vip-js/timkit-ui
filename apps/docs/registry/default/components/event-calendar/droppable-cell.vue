@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
-import { useCalendarDnd } from '@/registry/default/components/event-calendar.vue';
-
-
 </script>
 
 <template>
-  
+  <div class="min-h-8">
+    <slot />
+  </div>
 </template>

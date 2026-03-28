@@ -1,16 +1,8 @@
-<div data-slot="tabs" data-orientation="horizontal" class="w-full max-w-md">
-  <div data-slot="tabs-list" class="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
-    <button data-slot="tabs-trigger" data-state="active" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Overview</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Docs</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">QA</button>
-  </div>
-  <div data-slot="tabs-content" data-state="active" class="text-muted-foreground mt-4 text-sm">
-    Shared core props keep React and Vue behavior aligned.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    P2 adds multi-framework docs samples for every component family.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    CI reports now show demo gaps separately from implementation gaps.
-  </div>
-</div>
+<template>
+  <Tabs default-value="tab-1"><ScrollArea><TabsList class="mb-3"><TabsTrigger value="tab-1"><HouseIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Overview
+          </TabsTrigger><TabsTrigger value="tab-2" class="group"><PanelsTopLeftIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Projects
+            <Badge class="bg-primary/15 ms-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50" variant="secondary">3
+            </Badge></TabsTrigger><TabsTrigger value="tab-3" class="group"><BoxIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Packages
+            <Badge class="ms-1.5 transition-opacity group-data-[state=inactive]:opacity-50">New
+            </Badge></TabsTrigger></TabsList><ScrollBar orientation="horizontal" /></ScrollArea><TabsContent value="tab-1"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
+</template>

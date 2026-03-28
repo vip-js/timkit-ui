@@ -71,11 +71,11 @@ export type SelectVueProps = {
   /**
    * Callback fired when the value changes.
    */
-  onValueChange?: (details: { value: string[] }) => void
+  onValueChange?: (value?: string) => void
   /**
    * Callback fired when the open state changes.
    */
-  onOpenChange?: (details: { open: boolean }) => void
+  onOpenChange?: (open: boolean) => void
 }
 
 /**

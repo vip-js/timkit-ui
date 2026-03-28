@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@timui/vue';
+import { Popover, PopoverContent, PopoverTrigger } from '@timui/vue';
+
 
 
 

@@ -12,6 +12,7 @@ const props = withDefaults(
     modelValue?: boolean
     defaultPressed?: boolean
     disabled?: boolean
+    onPressedChange?: (pressed: boolean) => void
   }>(),
   {
     variant: 'default',
@@ -27,6 +28,7 @@ const api = useToggle({
   defaultPressed: (props.pressed ?? props.modelValue) === undefined ? props.defaultPressed : undefined,
   disabled: props.disabled,
   onPressedChange: (next: boolean) => {
+    props.onPressedChange?.(next)
     emit('update:pressed', next)
     emit('update:modelValue', next)
     emit('pressedChange', next)

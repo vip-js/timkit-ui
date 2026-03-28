@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
-import { DraggableEvent, DroppableCell, EventItem, isMultiDayEvent, useCurrentTimeIndicator, WeekCellsHeight, CalendarEvent } from '@/registry/default/components/event-calendar.vue';
-import { EndHour, StartHour } from '@/registry/default/components/event-calendar/constants.vue';
-
-
+defineProps<{ title?: string }>()
 </script>
 
 <template>
-  
+  <div class="text-muted-foreground p-4 text-sm">
+    <slot>{{ title || 'Day view placeholder' }}</slot>
+  </div>
 </template>

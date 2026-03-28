@@ -1,18 +1,6 @@
-<div class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg" data-slot="banner">
-  <div
-    class="flex-col justify-between gap-3 md:flex-row md:items-center flex w-full items-center gap-3"
-    data-slot="banner-content"
-  >
-    <div class="text-sm text-muted-foreground text-foreground" data-slot="banner-description">
-      We use cookies to improve your experience, analyze site usage, and show personalized content.
-    </div>
-    <div class="flex gap-2 max-md:flex-wrap flex items-center gap-2" data-slot="banner-actions">
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
-        Accept
-      </button>
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 text-xs">
-        Decline
-      </button>
-    </div>
-  </div>
-</div>
+<template>
+  <Banner class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg"><BannerContent class="flex-col justify-between gap-3 md:flex-row md:items-center"><BannerDescription class="text-sm text-foreground">We use cookies to improve your experience, analyze site usage, and show personalized
+          content.
+        </BannerDescription><BannerActions class="flex gap-2 max-md:flex-wrap"><Button size="sm">Accept</Button><Button variant="outline" size="sm">Decline
+          </Button></BannerActions></BannerContent></Banner>
+</template>

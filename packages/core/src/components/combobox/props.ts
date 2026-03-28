@@ -75,12 +75,12 @@ export type ComboboxVueProps = {
   /**
    * Callback fired when the value changes.
    */
-  onValueChange?: (details: { value: string[] }) => void
-  onInputValueChange?: (details: { inputValue: string }) => void
+  onValueChange?: (value: string[]) => void
+  onInputValueChange?: (inputValue: string) => void
   /**
    * Callback fired when the open state changes.
    */
-  onOpenChange?: (details: { open: boolean }) => void
+  onOpenChange?: (open: boolean) => void
 }
 
 export type ItemProps = combobox.ItemProps

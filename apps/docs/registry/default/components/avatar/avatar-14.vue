@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { Avatar, AvatarImage } from '@timui/vue'
 
-
-
+const avatars = [
+  { src: '/avatar-80-03.jpg', alt: 'Avatar 01' },
+  { src: '/avatar-80-04.jpg', alt: 'Avatar 02' },
+  { src: '/avatar-80-05.jpg', alt: 'Avatar 03' },
+  { src: '/avatar-80-06.jpg', alt: 'Avatar 04' },
+]
 </script>
 
 <template>
-  <div class="flex -space-x-[0.6rem]"><img class="ring-background rounded-full ring-2" src="/avatar-80-03.jpg" :width="32" :height="32" alt="Avatar 01" /><img class="ring-background rounded-full ring-2" src="/avatar-80-04.jpg" :width="32" :height="32" alt="Avatar 02" /><img class="ring-background rounded-full ring-2" src="/avatar-80-05.jpg" :width="32" :height="32" alt="Avatar 03" /><img class="ring-background rounded-full ring-2" src="/avatar-80-06.jpg" :width="32" :height="32" alt="Avatar 04" /></div>
+  <div class="flex -space-x-[0.6rem]">
+    <Avatar v-for="avatar in avatars" :key="avatar.src" :class="'size-8 ring-2 ring-background'">
+      <AvatarImage :src="avatar.src" :alt="avatar.alt" />
+    </Avatar>
+  </div>
 </template>

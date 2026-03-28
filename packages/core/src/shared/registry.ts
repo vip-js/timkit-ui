@@ -25,6 +25,7 @@ import { multiselectSchema } from '../components/multiselect'
 import { navbarSchema } from '../components/navbar'
 import { navigationMenuSchema } from '../components/navigation-menu'
 import { notificationSchema } from '../components/notification'
+import { numberFieldSchema } from '../components/number-field'
 import { paginationSchema } from '../components/pagination'
 import { popoverSchema } from '../components/popover'
 import { progressSchema } from '../components/progress'
@@ -81,6 +82,7 @@ export const ucsRegistry: UCSRegistry = {
   alert: alertSchema,
   banner: bannerSchema,
   notification: notificationSchema,
+  'number-field': numberFieldSchema,
   avatar: avatarSchema,
   progress: progressSchema,
   select: selectSchema,

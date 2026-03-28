@@ -1,8 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { PlusIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Button } from '@timui/vue';
 
 
+
+const open = ref<boolean>(false);
+
+
+function setOpen(next: typeof open.value | ((prev: typeof open.value) => typeof open.value)) {
+  open.value = typeof next === 'function'
+    ? (next as (prev: typeof open.value) => typeof open.value)(open.value)
+    : next;
+}
 
 </script>
 

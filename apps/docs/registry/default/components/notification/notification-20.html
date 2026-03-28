@@ -1,38 +1,8 @@
-<toast-provider swipeDirection="left">
-      <button variant="outline" >
-        Custom toast
-      </button>
-      <toast >
-        <div class="flex w-full justify-between gap-3">
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-emerald-500"><circle cx="12" cy="12" r="9" /></svg>
-          <div class="flex grow flex-col gap-3">
-            <div class="space-y-1">
-              <toast-title>Your request was completed!</toast-title>
-              <toast-description>
-                It demonstrates that the task or request has been processed.
-              </toast-description>
-            </div>
-            <div>
-              <toast-action altText="Undo changes" asChild>
-                <button size="sm">Undo changes</button>
-              </toast-action>
-            </div>
-          </div>
-          <toast-close asChild>
-            <button
-              variant="ghost"
-              class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
-              aria-label="Close notification"
-            >
-               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 transition-opacity group-hover:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
-            </button>
-          </toast-close>
-        </div>
-        <div class="contents" aria-hidden="true">
-          <div
-            class="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-emerald-500"}
-          />
-        </div>
-      </toast>
-      <toast-viewport class="sm:right-auto sm:left-0" />
-    </toast-provider>
+<template>
+  <ToastProvider swipedirection="left"><Button variant="outline" on-click="${handleButtonClick}">Custom toast
+      </Button><Toast open="${open}" on-open-change="${handleOpenChange}" onpause="${pause}" onresume="${resume}"><div class="flex w-full justify-between gap-3"><CircleCheckIcon class="mt-0.5 shrink-0 text-emerald-500" size="${16}" aria-hidden="true" /><div class="flex grow flex-col gap-3"><div class="space-y-1"><ToastTitle>Your request was completed!</ToastTitle><ToastDescription>It demonstrates that the task or request has been processed.
+              </ToastDescription></div><div><ToastAction alttext="Undo changes" aschild><Button size="sm">Undo changes</Button></ToastAction></div></div><ToastClose aschild><Button variant="ghost" class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent" aria-label="Close notification"><XIcon size="${16}" class="opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" /></Button></ToastClose></div><div class="contents" aria-hidden="true"><div class="pointer-events-none absolute bottom-0 left-0 h-1 w-full bg-emerald-500" style="${{
+              width: `${(progress / toastDuration) * 100}%`,
+              transition: 'width 100ms linear',
+            }}" /></div></Toast><ToastViewport class="sm:right-auto sm:left-0" /></ToastProvider>
+</template>

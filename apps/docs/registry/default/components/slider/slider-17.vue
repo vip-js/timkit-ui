@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
+import { ref } from 'vue';
+import { Label } from '@timui/vue';
+import { Slider } from '@timui/vue';
 
 
+
+const value = ref([3]);
+
+
+function setValue(next: typeof value.value | ((prev: typeof value.value) => typeof value.value)) {
+  value.value = typeof next === 'function'
+    ? (next as (prev: typeof value.value) => typeof value.value)(value.value)
+    : next;
+}
 
 </script>
 

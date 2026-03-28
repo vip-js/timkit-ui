@@ -53,8 +53,8 @@ const machineProps = computed(() => {
     disabled: props.disabled,
     value,
     defaultValue: value === undefined ? defaultValue : undefined,
-    onValueChange(details: { value: string[] }) {
-      const nextValue = multiple ? details.value : details.value[0] || ''
+    onValueChange(value: string[]) {
+      const nextValue = multiple ? value : value[0] || ''
       emit('update:modelValue', nextValue)
       emit('change', nextValue)
     },

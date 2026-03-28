@@ -3,8 +3,7 @@ import { computed } from "vue";
 import type {
   AssertNoExtraKeys,
   CalendarApi,
-  CalendarMode,
-  CalendarRangeValue,
+  CalendarVueValue,
   CalendarVueProps,
 } from "@timui/core";
 import {
@@ -24,19 +23,18 @@ import {
   calendarRangeStartVariants,
   calendarRootVariants,
   calendarTodayVariants,
+  calendarWeekNumberVariants,
   calendarWeekdayVariants,
-  calendarConnect,
-  calendarMachine,
   cn,
   buttonVariants,
 } from "@timui/core";
 import type { VisibleRange } from "@zag-js/date-picker";
-import { useCalendar, type UseCalendarProps } from "./use-calendar";
+import { useCalendar } from "./use-calendar";
 
 type CalendarProps = CalendarVueProps & {
   id?: string;
-  selected?: Date | CalendarRangeValue;
-  onSelect?: (value?: Date | CalendarRangeValue) => void;
+  selected?: CalendarVueValue;
+  onSelect?: (value?: CalendarVueValue) => void;
   class?: string;
   classNames?: Partial<Record<string, string>>;
   externalApi?: CalendarApi;
@@ -46,8 +44,8 @@ type _CalendarPropsGuard = AssertNoExtraKeys<
   CalendarProps,
   CalendarVueProps & {
     id?: string;
-    selected?: Date | CalendarRangeValue;
-    onSelect?: (value?: Date | CalendarRangeValue) => void;
+    selected?: CalendarVueValue;
+    onSelect?: (value?: CalendarVueValue) => void;
     class?: string;
     classNames?: Partial<Record<string, string>>;
     externalApi?: CalendarApi;
@@ -61,11 +59,11 @@ const props = withDefaults(defineProps<CalendarProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value?: Date | { from?: Date; to?: Date }): void;
-  (e: "change", value?: Date | { from?: Date; to?: Date }): void;
+  (e: "update:modelValue", value?: Date | Date[] | { from?: Date; to?: Date }): void;
+  (e: "change", value?: Date | Date[] | { from?: Date; to?: Date }): void;
 }>();
 
-const { api: internalApi } = useCalendar(props, emit);
+const { api: internalApi, localTimeZone } = useCalendar(props, emit);
 const api = computed(() => props.externalApi ?? internalApi.value);
 
 const defaultClassNames = {
@@ -85,6 +83,7 @@ const defaultClassNames = {
   today: calendarTodayVariants(),
   outside: calendarOutsideVariants(),
   hidden: calendarHiddenVariants(),
+  week_number: calendarWeekNumberVariants(),
 };
 
 const mergedClassNames = computed(() => {
@@ -98,6 +97,34 @@ const mergedClassNames = computed(() => {
 });
 
 const weekDays = computed(() => api.value?.weekDays ?? []);
+
+const monthSelectProps = computed(() => api.value?.getMonthSelectProps?.() ?? {});
+const yearSelectProps = computed(() => api.value?.getYearSelectProps?.() ?? {});
+const monthOptions = computed(() =>
+  api.value?.getMonths?.({ format: "long" }).map((item) => ({
+    value: item.value,
+    label: item.label,
+    disabled: item.disabled,
+  })) ?? []
+);
+const yearOptions = computed(() =>
+  api.value?.getYears?.().map((item) => ({
+    value: item.value,
+    label: item.label,
+    disabled: item.disabled,
+  })) ?? []
+);
+const showDropdownCaption = computed(
+  () => props.captionLayout === "dropdown" || props.captionLayout === "dropdown-years"
+);
+
+const getIsoWeekNumber = (date: Date) => {
+  const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = target.getUTCDay() || 7;
+  target.setUTCDate(target.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+  return Math.ceil(((target.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+};
 
 const monthData = computed(() => {
   const instance = api.value;
@@ -114,8 +141,9 @@ const monthData = computed(() => {
       start: monthStart,
       end: monthStart.add({ months: 1 }).subtract({ days: 1 }),
     };
-    const weeks = instance.getMonthWeeks(monthStart).map((week, weekIndex) =>
-      week.map((day, dayIndex) => {
+    const weeks = instance.getMonthWeeks(monthStart).map((week, weekIndex) => {
+      const weekNumber = getIsoWeekNumber(week[0].toDate(localTimeZone));
+      const days = week.map((day, dayIndex) => {
         const state = instance.getDayTableCellState?.({
           value: day,
           visibleRange,
@@ -143,8 +171,14 @@ const monthData = computed(() => {
             state.today && mergedClassNames.value.today
           ),
         };
-      })
-    );
+      });
+
+      return {
+        key: `${id}-${weekIndex}`,
+        weekNumber,
+        days,
+      };
+    });
 
     return {
       id,
@@ -184,13 +218,47 @@ const getTriggerClass = (triggerProps: object) => {
       >
         <div :class="mergedClassNames.month_caption">
           <div :class="mergedClassNames.caption_label">
-            {{ month.label }}
+            <template v-if="index === 0 && showDropdownCaption">
+              <div class="flex items-center gap-2">
+                <select
+                  v-if="props.captionLayout === 'dropdown'"
+                  v-bind="monthSelectProps"
+                  :class="cn('h-8 rounded-md border px-2 text-sm', monthSelectProps.class)"
+                >
+                  <option
+                    v-for="option in monthOptions"
+                    :key="option.value"
+                    :value="String(option.value)"
+                    :disabled="option.disabled"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+                <span v-else>{{ month.label.replace(/\s+\d{4}$/, '') }}</span>
+                <select
+                  v-bind="yearSelectProps"
+                  :class="cn('h-8 rounded-md border px-2 text-sm', yearSelectProps.class)"
+                >
+                  <option
+                    v-for="option in yearOptions"
+                    :key="option.value"
+                    :value="String(option.value)"
+                    :disabled="option.disabled"
+                  >
+                    {{ option.label }}
+                  </option>
+                </select>
+              </div>
+            </template>
+            <template v-else>
+              {{ month.label }}
+            </template>
           </div>
-          <div v-if="index === 0" :class="mergedClassNames.nav">
+          <div v-if="index === 0 && !props.hideNavigation" :class="mergedClassNames.nav">
             <button
               v-bind="prevTriggerProps"
               type="button"
-              :class="mergedClassNames.button_previous"
+              :class="cn(mergedClassNames.button_previous, prevTriggerProps.class)"
             >
               <svg
                 width="16"
@@ -209,7 +277,7 @@ const getTriggerClass = (triggerProps: object) => {
             <button
               v-bind="nextTriggerProps"
               type="button"
-              :class="mergedClassNames.button_next"
+              :class="cn(mergedClassNames.button_next, nextTriggerProps.class)"
             >
               <svg
                 width="16"
@@ -230,6 +298,9 @@ const getTriggerClass = (triggerProps: object) => {
         <table v-bind="month.tableProps" :class="calendarGridVariants()">
           <thead v-bind="month.tableHeadProps">
             <tr v-bind="month.tableRowProps">
+              <th v-if="props.showWeekNumber" :class="mergedClassNames.week_number" aria-hidden="true">
+                #
+              </th>
               <th
                 v-for="day in weekDays"
                 :key="day.short"
@@ -241,9 +312,12 @@ const getTriggerClass = (triggerProps: object) => {
             </tr>
           </thead>
           <tbody v-bind="month.tableBodyProps">
-            <tr v-for="(week, weekIndex) in month.weeks" :key="weekIndex" v-bind="month.tableRowProps">
+            <tr v-for="week in month.weeks" :key="week.key" v-bind="month.tableRowProps">
+              <th v-if="props.showWeekNumber" :class="mergedClassNames.week_number">
+                {{ week.weekNumber }}
+              </th>
               <td
-                v-for="dayCell in week"
+                v-for="dayCell in week.days"
                 :key="dayCell.key"
                 v-bind="dayCell.cellProps"
                 :data-selected="

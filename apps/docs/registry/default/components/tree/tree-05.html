@@ -1,14 +1,20 @@
-<ul data-slot="tree" class="space-y-1 text-sm">
-  <li>
-    <button type="button" class="inline-flex items-center gap-2">
-      <span>▾</span>
-      <span>packages</span>
-    </button>
-    <ul class="ml-5 mt-1 space-y-1">
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">react</button></li>
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">vue</button></li>
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">weapp</button></li>
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">html</button></li>
-    </ul>
-  </li>
-</ul>
+<template>
+  <div class="flex h-full flex-col gap-2 *:first:grow"><Tree indent="${indent}" tree="${tree}"><AssistiveTreeDescription tree="${tree}" />${tree.getItems().map((item) => {
+          return (
+            <TreeItem key={item.getId()} item={item}>
+              <TreeItemLabel>
+                <span className="flex items-center gap-2">
+                  {item.isFolder() &&
+                    (item.isExpanded() ? (
+                      <FolderOpenIcon className="text-muted-foreground pointer-events-none size-4" />
+                    ) : (
+                      <FolderIcon className="text-muted-foreground pointer-events-none size-4" />
+                    ))}
+                  {item.getItemName()}
+                </span>
+              </TreeItemLabel>
+            </TreeItem>
+          )
+        })}<TreeDragLine /></Tree><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Tree with multi-select and drag and drop ∙${' '}<a href="https://headless-tree.lukasbach.com" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+        </a></p></div>
+</template>

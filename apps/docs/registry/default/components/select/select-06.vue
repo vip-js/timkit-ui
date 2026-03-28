@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { SelectNative } from '@/components/ui/select';
+import { Label } from '@timui/vue';
+import { SelectNative } from '@timui/vue';
 
 
+
+
+
+const id = 'select-06';
 
 </script>
 

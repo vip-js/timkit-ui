@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@timui/vue';
+
 
 
 

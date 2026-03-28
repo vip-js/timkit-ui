@@ -1,18 +1,5 @@
-<alert-dialog>
-  <alert-dialog-trigger asChild>
-    <button variant="outline">Show Dialog</button>
-  </alert-dialog-trigger>
-  <alert-dialog-content>
-    <alert-dialog-header>
-      <alert-dialog-title>Are you absolutely sure?</alert-dialog-title>
-      <alert-dialog-description>
-        This action cannot be undone. This will permanently delete your account and remove your
-        data from our servers.
-      </alert-dialog-description>
-    </alert-dialog-header>
-    <alert-dialog-footer>
-      <alert-dialog-cancel>Cancel</alert-dialog-cancel>
-      <alert-dialog-action>Continue</alert-dialog-action>
-    </alert-dialog-footer>
-  </alert-dialog-content>
-</alert-dialog>
+<template>
+  <AlertDialog><AlertDialogTrigger aschild><Button variant="outline">Show Dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle><AlertDialogDescription>This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
+          </AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+</template>

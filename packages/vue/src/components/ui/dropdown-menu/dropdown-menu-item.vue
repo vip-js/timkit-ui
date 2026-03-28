@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDropdownMenuContext } from "./use-dropdown-menu-context";
-import { computed, getCurrentInstance, inject, type Component, type HTMLAttributes, type ComputedRef } from "vue";
+import { computed, useId, type Component, type HTMLAttributes, type ComputedRef } from "vue";
 import { cn, dropdownMenuItemVariants } from "@timui/core";
 import { Primitive } from '../../primitive';
 
@@ -29,8 +29,8 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as ComputedRef<DropdownMenuApi> | undefined;
-const instance = getCurrentInstance();
-const itemValue = computed(() => props.value || `dropdown-item-${instance?.uid ?? 0}`);
+const generatedId = useId();
+const itemValue = computed(() => props.value ?? generatedId);
 const itemProps = computed(() => {
   if (!api?.value) return {};
   return api.value.getItemProps?.({

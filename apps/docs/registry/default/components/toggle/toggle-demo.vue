@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Bold } from 'lucide-vue-next';
-import { Toggle } from '@/components/ui/toggle';
+import { Toggle } from '@timui/vue';
+
 
 
 

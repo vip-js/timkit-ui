@@ -1,15 +1,25 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ArrowUpRightIcon, CircleFadingPlusIcon, FileInputIcon, FolderPlusIcon, SearchIcon } from 'lucide-vue-next';
-import { CommandDialog } from '@/components/ui/command-dialog';
-import { CommandEmpty } from '@/components/ui/command-empty';
-import { CommandGroup } from '@/components/ui/command-group';
-import { CommandInput } from '@/components/ui/command-input';
-import { CommandItem } from '@/components/ui/command-item';
-import { CommandList } from '@/components/ui/command-list';
-import { CommandSeparator } from '@/components/ui/command-separator';
-import { CommandShortcut } from '@/components/ui/command-shortcut';
+import { CommandDialog } from '@timui/vue';
+import { CommandEmpty } from '@timui/vue';
+import { CommandGroup } from '@timui/vue';
+import { CommandInput } from '@timui/vue';
+import { CommandItem } from '@timui/vue';
+import { CommandList } from '@timui/vue';
+import { CommandSeparator } from '@timui/vue';
+import { CommandShortcut } from '@timui/vue';
 
 
+
+const open = ref(false);
+
+
+function setOpen(next: typeof open.value | ((prev: typeof open.value) => typeof open.value)) {
+  open.value = typeof next === 'function'
+    ? (next as (prev: typeof open.value) => typeof open.value)(open.value)
+    : next;
+}
 
 </script>
 

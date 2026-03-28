@@ -18,6 +18,7 @@ const ToggleGroup = React.forwardRef<
       defaultValue?: string | string[]
       onValueChange?: (value: string | string[]) => void
       disabled?: boolean
+      loop?: boolean
     }
 >(
   (
@@ -26,21 +27,25 @@ const ToggleGroup = React.forwardRef<
       variant,
       size,
       children,
+      id,
       type,
       value,
       defaultValue,
       onValueChange,
       disabled,
+      loop,
       ...props
     },
     ref
   ) => {
     const api = useToggleGroup({
+      id,
       multiple: type === 'multiple',
       value,
       defaultValue,
       onValueChange,
       disabled,
+      loop,
     })
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>

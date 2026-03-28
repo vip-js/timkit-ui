@@ -1,0 +1,26 @@
+<div data-slot="number-field" class="w-full">
+  <div data-slot="number-field-control" class="flex items-center">
+    <button
+      data-slot="number-field-decrement"
+      type="button"
+      class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input"
+      aria-label="Decrease value"
+    >
+      -
+    </button>
+    <input
+      data-slot="number-field-input"
+      type="number"
+      class="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs"
+      value="0"
+    />
+    <button
+      data-slot="number-field-increment"
+      type="button"
+      class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-input"
+      aria-label="Increase value"
+    >
+      +
+    </button>
+  </div>
+</div>

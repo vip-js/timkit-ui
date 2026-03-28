@@ -18,20 +18,80 @@ import { mergeProps, Portal } from '@zag-js/react'
 
 import { useDropdownMenu, type DropdownMenuProps } from './dropdown-menu/use-dropdown-menu'
 import {
-  DropdownMenuContext,
   DropdownMenuProvider,
-  DropdownMenuRadioGroupContext,
   DropdownMenuRadioGroupProvider,
   useDropdownMenuContext,
   useDropdownMenuRadioGroupContext,
 } from './dropdown-menu/use-dropdown-menu-context'
 import { Slot } from './slot'
 
+const composeEventHandlers = <E,>(
+  original?: ((event: E) => void) | undefined,
+  next?: ((event: E) => void) | undefined
+) => {
+  return (event: E) => {
+    original?.(event)
+    next?.(event)
+  }
+}
+
+const setRef = <T,>(ref: React.Ref<T> | undefined, value: T | null) => {
+  if (!ref) return
+  if (typeof ref === 'function') {
+    ref(value)
+    return
+  }
+  ;(ref as React.MutableRefObject<T | null>).current = value
+}
+
+const composeRefs = <T,>(...refs: Array<React.Ref<T> | undefined>) => {
+  return (value: T | null) => {
+    refs.forEach((ref) => setRef(ref, value))
+  }
+}
+
+type DropdownMenuSubRootContextValue = {
+  openSubId: string | null
+  setOpenSubId: React.Dispatch<React.SetStateAction<string | null>>
+}
+
+type DropdownMenuSubContextValue = {
+  id: string
+  open: boolean
+  setOpen: (open: boolean) => void
+  triggerElement: HTMLElement | null
+  setTriggerElement: React.Dispatch<React.SetStateAction<HTMLElement | null>>
+}
+
+const DropdownMenuSubRootContext = React.createContext<DropdownMenuSubRootContextValue | null>(null)
+const DropdownMenuSubContext = React.createContext<DropdownMenuSubContextValue | null>(null)
+
+const useDropdownMenuSubRootContext = () => React.useContext(DropdownMenuSubRootContext)
+
+const useDropdownMenuSubContext = () => {
+  const context = React.useContext(DropdownMenuSubContext)
+  if (!context) {
+    throw new Error('DropdownMenuSub components must be used within DropdownMenuSub.')
+  }
+  return context
+}
+
 const DropdownMenu = (props: DropdownMenuProps) => {
   const { children } = props
   const api = useDropdownMenu(props)
+  const [openSubId, setOpenSubId] = React.useState<string | null>(null)
 
-  return <DropdownMenuProvider value={api}>{children}</DropdownMenuProvider>
+  React.useEffect(() => {
+    if (!api.open) {
+      setOpenSubId(null)
+    }
+  }, [api.open])
+
+  return (
+    <DropdownMenuSubRootContext.Provider value={{ openSubId, setOpenSubId }}>
+      <DropdownMenuProvider value={api}>{children}</DropdownMenuProvider>
+    </DropdownMenuSubRootContext.Provider>
+  )
 }
 
 type BaseDivProps = React.ComponentPropsWithoutRef<'div'>
@@ -99,27 +159,36 @@ const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContent
 )
 DropdownMenuContent.displayName = 'DropdownMenuContent'
 
-type DropdownMenuItemProps = BaseDivProps & {
+type DropdownMenuItemProps = Omit<BaseDivProps, 'onSelect'> & {
   inset?: boolean
   value?: string
   disabled?: boolean
   closeOnSelect?: boolean
+  asChild?: boolean
+  onSelect?: () => void
 }
 
-const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
-  ({ className, inset, value, disabled, closeOnSelect, ...props }, ref) => {
+const DropdownMenuItem = React.forwardRef<HTMLElement, DropdownMenuItemProps>(
+  ({ className, inset, value, disabled, closeOnSelect, asChild = false, onSelect, ...props }, ref) => {
     const api = useDropdownMenuContext()
+    const Comp = asChild ? Slot : 'div'
     const generatedId = React.useId()
     const itemValue = value ?? generatedId
     const itemProps = api.getItemProps({ value: itemValue, disabled, closeOnSelect })
     const mergedProps = mergeProps(itemProps, props)
+    const onClick = composeEventHandlers(
+      (mergedProps as React.HTMLAttributes<HTMLElement>).onClick,
+      () => onSelect?.()
+    )
+    const { className: mergedClassName, ...restProps } = mergedProps as React.HTMLAttributes<HTMLElement>
 
     return (
-      <div
-        {...mergedProps}
-        ref={ref}
+      <Comp
+        {...restProps}
+        ref={ref as React.Ref<HTMLDivElement>}
+        onClick={onClick}
         data-slot="dropdown-menu-item"
-        className={cn(dropdownMenuItemVariants(), inset && 'pl-8', className)}
+        className={cn(dropdownMenuItemVariants(), inset && 'pl-8', mergedClassName, className)}
       />
     )
   }
@@ -218,36 +287,153 @@ type DropdownMenuSubProps = BaseDivProps
 type DropdownMenuPortalProps = {
   children: React.ReactNode
 }
-type DropdownMenuSubTriggerProps = BaseDivProps
+type DropdownMenuSubTriggerProps = BaseDivProps & { inset?: boolean }
 type DropdownMenuSubContentProps = BaseDivProps
 
 const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
   <div data-slot="dropdown-menu-group" {...props} />
 )
-const DropdownMenuPortal = (props: DropdownMenuPortalProps) => <>{props.children}</>
-const DropdownMenuSub = (props: DropdownMenuSubProps) => (
-  <div data-slot="dropdown-menu-sub" {...props} />
+const DropdownMenuPortal = (props: DropdownMenuPortalProps) => <Portal>{props.children}</Portal>
+
+const DropdownMenuSub = ({ ...props }: DropdownMenuSubProps) => {
+  const root = useDropdownMenuSubRootContext()
+  const id = React.useId()
+  const [triggerElement, setTriggerElement] = React.useState<HTMLElement | null>(null)
+  const open = root?.openSubId === id
+  const setOpen = React.useCallback(
+    (nextOpen: boolean) => root?.setOpenSubId(nextOpen ? id : null),
+    [id, root]
+  )
+
+  return (
+    <DropdownMenuSubContext.Provider value={{ id, open, setOpen, triggerElement, setTriggerElement }}>
+      <div data-slot="dropdown-menu-sub" data-state={open ? 'open' : 'closed'} {...props} />
+    </DropdownMenuSubContext.Provider>
+  )
+}
+
+const DropdownMenuSubTrigger = React.forwardRef<HTMLDivElement, DropdownMenuSubTriggerProps>(
+  ({ className, inset, onClick, onPointerEnter, onKeyDown, ...props }, ref) => {
+    const sub = useDropdownMenuSubContext()
+
+    const handleClick = composeEventHandlers(onClick, () => {
+      sub.setOpen(!sub.open)
+    })
+
+    const handlePointerEnter = composeEventHandlers(onPointerEnter, () => {
+      sub.setOpen(true)
+    })
+
+    const handleKeyDown = composeEventHandlers(onKeyDown, (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        sub.setOpen(true)
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'Escape') {
+        sub.setOpen(false)
+      }
+    })
+
+    return (
+      <div
+        ref={composeRefs(ref, sub.setTriggerElement)}
+        role="menuitem"
+        tabIndex={-1}
+        aria-haspopup="menu"
+        aria-expanded={sub.open}
+        data-slot="dropdown-menu-sub-trigger"
+        data-state={sub.open ? 'open' : 'closed'}
+        onClick={handleClick}
+        onPointerEnter={handlePointerEnter}
+        onKeyDown={handleKeyDown}
+        {...props}
+        className={cn(dropdownMenuSubTriggerVariants(), inset && 'pl-8', className)}
+      />
+    )
+  }
 )
-const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
-  const { className, ...restProps } = props
-  return (
-    <div
-      data-slot="dropdown-menu-sub-trigger"
-      {...restProps}
-      className={cn(dropdownMenuSubTriggerVariants(), className)}
-    />
-  )
-}
-const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
-  const { className, ...restProps } = props
-  return (
-    <div
-      data-slot="dropdown-menu-sub-content"
-      {...restProps}
-      className={cn(dropdownMenuSubContentVariants(), className)}
-    />
-  )
-}
+DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger'
+
+const DropdownMenuSubContent = React.forwardRef<HTMLDivElement, DropdownMenuSubContentProps>(
+  ({ className, style, onPointerEnter, onPointerLeave, onKeyDown, ...props }, ref) => {
+    const sub = useDropdownMenuSubContext()
+    const contentRef = React.useRef<HTMLDivElement | null>(null)
+    const [position, setPosition] = React.useState<{ left: number; top: number }>({ left: 0, top: 0 })
+
+    const updatePosition = React.useCallback(() => {
+      const trigger = sub.triggerElement
+      const content = contentRef.current
+      if (!trigger || !content) return
+
+      const rect = trigger.getBoundingClientRect()
+      const contentRect = content.getBoundingClientRect()
+      const gap = 6
+      const viewportPadding = 8
+
+      let left = rect.right + gap
+      if (left + contentRect.width > window.innerWidth - viewportPadding) {
+        left = rect.left - contentRect.width - gap
+      }
+
+      let top = rect.top
+      if (top + contentRect.height > window.innerHeight - viewportPadding) {
+        top = Math.max(viewportPadding, window.innerHeight - contentRect.height - viewportPadding)
+      }
+
+      setPosition({ left, top })
+    }, [sub.triggerElement])
+
+    React.useLayoutEffect(() => {
+      if (!sub.open) return
+      updatePosition()
+
+      const scheduleUpdate = () => {
+        requestAnimationFrame(updatePosition)
+      }
+
+      window.addEventListener('resize', scheduleUpdate)
+      window.addEventListener('scroll', scheduleUpdate, true)
+
+      return () => {
+        window.removeEventListener('resize', scheduleUpdate)
+        window.removeEventListener('scroll', scheduleUpdate, true)
+      }
+    }, [sub.open, updatePosition])
+
+    if (!sub.open) return null
+
+    const handlePointerEnter = composeEventHandlers(onPointerEnter, () => {
+      sub.setOpen(true)
+    })
+
+    const handlePointerLeave = composeEventHandlers(onPointerLeave, () => {
+      sub.setOpen(false)
+    })
+
+    const handleKeyDown = composeEventHandlers(onKeyDown, (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Escape' || event.key === 'ArrowLeft') {
+        sub.setOpen(false)
+      }
+    })
+
+    return (
+      <Portal>
+        <div
+          ref={composeRefs(ref, contentRef)}
+          data-slot="dropdown-menu-sub-content"
+          data-state="open"
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onKeyDown={handleKeyDown}
+          style={{ position: 'fixed', top: position.top, left: position.left, zIndex: 60, ...style }}
+          {...props}
+          className={cn(dropdownMenuSubContentVariants(), className)}
+        />
+      </Portal>
+    )
+  }
+)
+DropdownMenuSubContent.displayName = 'DropdownMenuSubContent'
 
 type DropdownMenuRadioGroupProps = BaseDivProps & {
   value?: string

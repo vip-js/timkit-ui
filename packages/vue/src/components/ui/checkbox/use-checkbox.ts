@@ -1,7 +1,7 @@
 import { checkboxConnect, checkboxMachine } from '@timui/core'
 import type { CheckboxVueProps } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
 type UseCheckboxEmit = {
   (event: 'update:modelValue', value: boolean | 'indeterminate'): void
@@ -10,8 +10,10 @@ type UseCheckboxEmit = {
 }
 
 export function useCheckbox(props: CheckboxVueProps, emit: UseCheckboxEmit) {
+  const generatedId = useId()
+
   const machineProps = computed(() => ({
-    id: props.id,
+    id: props.id ?? generatedId,
     checked: props.modelValue ?? props.checked,
     defaultChecked:
       props.modelValue === undefined && props.checked === undefined
@@ -22,6 +24,7 @@ export function useCheckbox(props: CheckboxVueProps, emit: UseCheckboxEmit) {
     name: props.name,
     value: props.value,
     onCheckedChange(details: { checked: boolean | 'indeterminate' }) {
+      props.onCheckedChange?.(details.checked)
       emit('update:modelValue', details.checked)
       emit('update:checked', details.checked)
       emit('change', details.checked)

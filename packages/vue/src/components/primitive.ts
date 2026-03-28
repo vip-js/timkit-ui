@@ -1,4 +1,4 @@
-import { cloneVNode, defineComponent, h, type Component, type PropType } from 'vue'
+import { cloneVNode, defineComponent, h, mergeProps, type Component, type PropType } from 'vue'
 
 export type PrimitiveProps = {
   as?: string | Component
@@ -23,7 +23,7 @@ export const Primitive = defineComponent({
       const children = slots.default?.()
 
       if (props.asChild && children && children.length === 1) {
-        return cloneVNode(children[0], { ...attrs, ...(children[0].props || {}) })
+        return cloneVNode(children[0], mergeProps(attrs, children[0].props || {}))
       }
 
       return h(props.as, attrs, children)

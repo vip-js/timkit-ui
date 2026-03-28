@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, getCurrentInstance, provide } from "vue";
+import { useId } from "vue";
 import type {
   AssertNoExtraKeys,
   TagsInputVueProps as CoreTagsInputProps,
-  TagsInputApi,
   TagsInputValueChangeDetails,
 } from "@timui/core";
 import { cn, tagsInputRootVariants } from "@timui/core";
@@ -16,17 +15,20 @@ type TagsInputProps = CoreTagsInputProps & {
 type _TagsInputPropsGuard = AssertNoExtraKeys<TagsInputProps, CoreTagsInputProps & { class?: string }>;
 
 const props = defineProps<TagsInputProps>();
-const emit = defineEmits(["valueChange"]);
+const emit = defineEmits<{
+  (event: "update:modelValue", value: string[]): void;
+  (event: "change", value: string[]): void;
+  (event: "valueChange", details: TagsInputValueChangeDetails): void;
+}>();
 
-const instance = getCurrentInstance();
-const api = useTagsInput({
-  ...props,
-  id: props.id ?? `tags-input-${instance?.uid ?? 0}`,
-  onValueChange(details: TagsInputValueChangeDetails) {
-    emit("valueChange", details);
-    props.onValueChange?.(details);
+const generatedId = useId();
+const api = useTagsInput(
+  {
+    ...props,
+    id: props.id ?? generatedId,
   },
-});
+  emit
+);
 
 provideTagsInputContext(api);
 </script>

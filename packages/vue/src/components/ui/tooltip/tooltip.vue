@@ -9,12 +9,14 @@ const props = defineProps<{
   defaultOpen?: boolean;
   openDelay?: number;
   closeDelay?: number;
+  disabled?: boolean;
   closeOnPointerDown?: boolean;
   closeOnEscape?: boolean;
   closeOnScroll?: boolean;
   closeOnClick?: boolean;
   interactive?: boolean;
   positioning?: PositioningOptions;
+  onOpenChange?: (open: boolean) => void;
   id?: string;
   class?: HTMLAttributes["class"];
 }>();

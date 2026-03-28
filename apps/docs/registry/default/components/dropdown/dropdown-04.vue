@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { BoltIcon, ChevronDownIcon, CopyPlusIcon, FilesIcon, Layers2Icon, TrashIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@timui/vue';
+
 
 
 

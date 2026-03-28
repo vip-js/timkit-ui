@@ -1,6 +1,6 @@
 <view>
-  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" fixedweeks showweeknumber components="{{{
-          WeekNumber: ({ week, ...props }: WeekNumberProps) => {
+  <view><calendar mode="single" selected="{{date}}" bindchange="setDate" class="rounded-md border p-2" fixedweeks showweeknumber components="{{{
+          WeekNumber: ({ week, ...props }: CalendarWeekNumberProps) => {
             return (
               <th {...props}>
                 <span className="inline-flex size-9 items-center justify-center">

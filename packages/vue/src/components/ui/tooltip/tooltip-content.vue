@@ -6,10 +6,16 @@ import Presence from "../presence/presence.vue";
 import type { Placement } from "@zag-js/popper";
 
 const props = withDefaults(
-  defineProps<{ class?: string; sideOffset?: number; side?: "top" | "bottom" | "left" | "right" }>(),
+  defineProps<{
+    class?: string;
+    sideOffset?: number;
+    side?: "top" | "bottom" | "left" | "right";
+    showArrow?: boolean;
+  }>(),
   {
     sideOffset: 4,
     side: "top",
+    showArrow: false,
   }
 );
 
@@ -19,7 +25,7 @@ const positionerProps = computed(() => context.value.getPositionerProps?.() ?? {
 const contentProps = computed(() => context.value.getContentProps?.() ?? {});
 
 watch(
-  () => props.sideOffset,
+  () => [props.side, props.sideOffset],
   () => {
     context.value.reposition?.({ placement: props.side as Placement, gutter: props.sideOffset });
   },
@@ -35,10 +41,15 @@ watch(
         data-slot="tooltip-content"
         data-state="open"
         :class="
-          cn(tooltipContentVariants(), props.class)
+          cn(tooltipContentVariants(), props.showArrow && 'relative', props.class)
         "
       >
         <slot />
+        <span
+          v-if="props.showArrow"
+          data-slot="tooltip-arrow"
+          class="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 border border-border bg-popover"
+        />
       </div>
     </Presence>
   </Teleport>

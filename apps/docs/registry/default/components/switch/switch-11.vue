@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { MoonIcon, SunIcon } from 'lucide-vue-next';
-import { Switch } from '@/components/ui/switch';
+import { Switch } from '@timui/vue';
 
 
+
+const checked = ref(false);
+
+
+function setChecked(next: typeof checked.value | ((prev: typeof checked.value) => typeof checked.value)) {
+  checked.value = typeof next === 'function'
+    ? (next as (prev: typeof checked.value) => typeof checked.value)(checked.value)
+    : next;
+}
+
+
+const id = 'switch-11';
 
 </script>
 

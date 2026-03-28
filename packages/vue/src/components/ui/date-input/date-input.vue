@@ -30,6 +30,13 @@ const dateRangePicker = useDateRangePickerContext()
 const dateFieldContext = useDateFieldContext()
 
 const resolvedType = computed(() => props.type ?? dateFieldContext?.inputType ?? 'date')
+const resolvedStep = computed(() => {
+  const stepFromAttrs = attrs.step as number | string | undefined
+  if (stepFromAttrs !== undefined) return stepFromAttrs
+  if (dateFieldContext?.granularity === 'second') return 1
+  if (dateFieldContext?.granularity === 'minute') return 60
+  return undefined
+})
 
 const slotIndex = computed(() => {
   const slot = attrs['data-slot']
@@ -65,6 +72,7 @@ const onInput = (event: Event) => {
     v-if="!dateRangePicker"
     v-bind="attrs"
     :type="resolvedType"
+    :step="resolvedStep"
     :value="props.modelValue"
     :class="cn(!props.unstyled && dateFieldInputVariants(), props.class, attrs.class as string)"
     :aria-invalid="props.invalid || undefined"

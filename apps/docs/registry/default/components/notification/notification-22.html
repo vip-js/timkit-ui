@@ -1,21 +1,43 @@
-<button
-      variant="outline" <span class="text-muted-foreground mx-1">·</span> 
+<template>
+  <Button variant="outline" on-click="${() => {
+        toast.custom((t) => (
+          <div className="bg-background text-foreground w-full rounded-md border px-4 py-3 shadow-lg sm:w-[var(--width)]">
+            <div className="flex gap-2">
+              <div className="flex grow gap-3">
+                <CircleCheckIcon
+                  className="mt-0.5 shrink-0 text-emerald-500"
+                  size={16}
+                  aria-hidden="true"
+                />
+                <div className="flex grow justify-between gap-12">
+                  <p className="text-sm">Message sent</p>
+                  <div className="text-sm whitespace-nowrap">
+                    <button className="text-sm font-medium hover:underline">View</button>{' '}
+                    <span className="text-muted-foreground mx-1">·</span>{' '}
                     <button
-                      class="text-sm font-medium hover:underline" >
+                      className="text-sm font-medium hover:underline"
+                      onClick={() => toast.dismiss(t)}
+                    >
                       Undo
                     </button>
                   </div>
                 </div>
               </div>
-              <button
+              <Button
                 variant="ghost"
-                class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent" aria-label="Close banner"
+                className="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent"
+                onClick={() => toast.dismiss(t)}
+                aria-label="Close banner"
               >
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-60 transition-opacity group-hover:opacity-100"><circle cx="12" cy="12" r="9" /></svg>
-              </button>
+                <XIcon
+                  size={16}
+                  className="opacity-60 transition-opacity group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+              </Button>
             </div>
           </div>
         ))
-      }>
-      Custom sonner
-    </button>
+      }}">Custom sonner
+    </Button>
+</template>

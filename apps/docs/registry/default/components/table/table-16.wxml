@@ -1,6 +1,6 @@
 <view>
-  <dndcontext id="{{useId()}}" collisiondetection="{{closestCenter}}" modifiers="{{[restrictToHorizontalAxis]}}" ondragend="{{handleDragEnd}}" sensors="{{sensors}}"><table><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="bg-muted/50"><sortablecontext items="{{columnOrder}}" strategy="{{horizontalListSortingStrategy}}"><draggabletableheader wx:for="{{headerGroup.headers}}" wx:for-item="header" wx:for-index="index" wx:key="index" key="{{header.id}}" header="{{header}}" /></sortablecontext></tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+  <dndcontext id="{{useId()}}" collisiondetection="{{closestCenter}}" modifiers="{{[restrictToHorizontalAxis]}}" ondragend="{{handleDragEnd}}" sensors="{{sensors}}"><table><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="bg-muted/50"><sortablecontext items="{{columnOrder}}" strategy="{{horizontalListSortingStrategy}}"><draggabletableheader wx:for="{{headerGroup.headers}}" wx:for-item="header" wx:for-index="index" wx:key="index" key="{{header.id}}" header="{{header}}" /></sortablecontext></tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
+{{ table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                 {row.getVisibleCells().map((cell) => (
                   <SortableContext
@@ -12,14 +12,12 @@
                   </SortableContext>
                 ))}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          ) }}</tablebody></table><text class="text-muted-foreground mt-4 text-center text-sm">Draggable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
+            )) }}
+</block>
+<block wx:else>
+<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
+              </tablecell></tablerow>
+</block></tablebody></table><text class="text-muted-foreground mt-4 text-center text-sm">Draggable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
         </a>{{ ' ' }}and{{ ' ' }}<a href="https://dndkit.com/" target="_blank" rel="noopener noreferrer">dnd kit
         </a></text></dndcontext>
 </view>

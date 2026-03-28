@@ -1,13 +1,9 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9 rounded-md relative"
-  aria-label="Notifications">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell" aria-hidden="true">
-    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-  </svg>
-  <div
-    class="inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1">
-    3
-  </div>
-</button>
+<template>
+  <Button variant="outline" size="icon" class="relative" on-click="${handleClick}" aria-label="Notifications"><BellIcon size="${16}" aria-hidden="true" /><!-- if count > 0 -->
+<Badge class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><!-- if count > 99 -->
+${'99+'}
+<!-- else -->
+${count}
+<!-- endif --></Badge>
+<!-- endif --></Button>
+</template>

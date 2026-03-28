@@ -1,24 +1,17 @@
-<div data-slot="popover" class="relative inline-block">
-  <button
-    data-slot="popover-trigger"
-    type="button"
-    aria-expanded="false"
-    aria-label="Open notifications"
-    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
-  >
-    Notifications
-  </button>
-  <div
-    data-slot="popover-content"
-    data-state="closed"
-    hidden
-    class="absolute right-0 top-full z-10 mt-2 w-80 rounded-md border bg-popover p-2 shadow-md"
-  >
-    <div class="px-2 py-2 text-sm font-semibold">Notifications</div>
-    <div class="space-y-1">
-      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">Chris Tompson requested review on PR #42.</div>
-      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">Emma Davis shared a new component library.</div>
-      <div class="rounded-md px-2 py-2 text-sm hover:bg-accent">James Wilson assigned you to API integration.</div>
-    </div>
-  </div>
-</div>
+<template>
+  <Popover><PopoverTrigger aschild><Button size="icon" variant="outline" class="relative" aria-label="Open notifications"><BellIcon size="${16}" aria-hidden="true" /><!-- if unreadCount > 0 -->
+<Badge class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><!-- if unreadCount > 99 -->
+${'99+'}
+<!-- else -->
+${unreadCount}
+<!-- endif --></Badge>
+<!-- endif --></Button></PopoverTrigger><PopoverContent class="w-80 p-1"><div class="flex items-baseline justify-between gap-4 px-3 py-2"><div class="text-sm font-semibold">Notifications</div><!-- if unreadCount > 0 -->
+<button class="text-xs font-medium hover:underline" on-click="${handleMarkAllAsRead}">Mark all as read
+            </button>
+<!-- endif --></div><div role="separator" aria-orientation="horizontal" class="bg-border -mx-1 my-1 h-px"></div><!-- Loop notifications -->
+<div key="${notification.id}" class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"><div class="relative flex items-start pe-3"><div class="flex-1 space-y-1"><button class="text-foreground/80 text-left after:absolute after:inset-0" on-click="${() => handleNotificationClick(notification.id)}"><span class="text-foreground font-medium hover:underline">${notification.user}</span>${' '}${notification.action}${' '}<span class="text-foreground font-medium hover:underline">${notification.target}</span>.
+                </button><div class="text-muted-foreground text-xs">${notification.timestamp}</div></div><!-- if notification.unread -->
+<div class="absolute end-0 self-center"><span class="sr-only">Unread</span><Dot /></div>
+<!-- endif --></div></div>
+<!-- End Loop --></PopoverContent></Popover>
+</template>

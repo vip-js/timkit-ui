@@ -3,29 +3,45 @@
 import * as React from 'react'
 import { mergeProps } from '@zag-js/react'
 
-// Simple Slot implementation standardizing accessible composition
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode
 }
 
-const Slot = React.forwardRef<HTMLElement, SlotProps>(({ children, ...props }, ref) => {
-  if (React.isValidElement(children)) {
-    return React.cloneElement(children, {
-      ...mergeProps(props, (children as any).props), // Zag's mergeProps handles event merging well
-      // @ts-ignore
-      ref: (node) => {
-        // Handle merged refs
-        if (typeof ref === 'function') ref(node)
-        else if (ref) (ref as any).current = node
+type SlotChildProps = React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement>
 
-        // Handle child ref
-        const childRef = (children as any).ref
-        if (typeof childRef === 'function') childRef(node)
-        else if (childRef) (childRef as any).current = node
-      },
-    } as any)
+const setRef = <T,>(ref: React.Ref<T> | undefined, value: T | null) => {
+  if (!ref) return
+  if (typeof ref === 'function') {
+    ref(value)
+    return
   }
-  return null
+  ;(ref as React.MutableRefObject<T | null>).current = value
+}
+
+const composeRefs = <T,>(...refs: Array<React.Ref<T> | undefined>) => {
+  return (value: T | null) => {
+    refs.forEach((ref) => setRef(ref, value))
+  }
+}
+
+const getElementRef = (element: React.ReactElement) => {
+  return (element as React.ReactElement & { ref?: React.Ref<HTMLElement> }).ref
+}
+
+const Slot = React.forwardRef<HTMLElement, SlotProps>(({ children, ...props }, forwardedRef) => {
+  if (!React.isValidElement(children)) {
+    return null
+  }
+
+  const child = children as React.ReactElement<SlotChildProps>
+  const mergedProps = mergeProps(props, child.props) as SlotChildProps
+  const childRef = getElementRef(child)
+  const slottedProps: SlotChildProps = {
+    ...mergedProps,
+    ref: composeRefs(forwardedRef, childRef),
+  }
+
+  return React.cloneElement(child, slottedProps)
 })
 Slot.displayName = 'Slot'
 

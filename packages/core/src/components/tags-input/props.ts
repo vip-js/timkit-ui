@@ -17,42 +17,121 @@ export type TagsInputVueProps = {
    */
   id?: string
   /**
-   * The controlled value of the component.
+   * The ids of the elements in the tags input.
    */
-  value?: string[]
+  ids?: tagsInput.ElementIds
   /**
-   * The default value of the component when uncontrolled.
+   * The writing direction of the component.
    */
-  defaultValue?: string[]
+  dir?: 'ltr' | 'rtl'
   /**
-   * The controlled text value of the input.
+   * The locale used for localization.
    */
-  inputValue?: string
+  locale?: string
   /**
-   * The default text value of the input when uncontrolled.
+   * The translated accessibility labels.
    */
-  defaultInputValue?: string
+  translations?: tagsInput.IntlTranslations
   /**
-   * When `true`, prevents the user from interacting with the component.
+   * The max length of the input.
+   */
+  maxLength?: number
+  /**
+   * The delimiter used to split tags.
+   */
+  delimiter?: string | RegExp
+  /**
+   * Whether the input should autofocus.
+   */
+  autoFocus?: boolean
+  /**
+   * Whether the tags input should be disabled.
    */
   disabled?: boolean
   /**
-   * When `true`, keeps the component value from being modified by the user.
+   * Whether the tags input should be read-only.
    */
   readOnly?: boolean
   /**
-   * The name of the component, used when submitting an HTML form.
+   * Whether the tags input is invalid.
    */
-  name?: string
+  invalid?: boolean
+  /**
+   * Whether the tags input is required.
+   */
+  required?: boolean
+  /**
+   * Whether tags can be edited.
+   */
+  editable?: boolean
+  /**
+   * The controlled value of the input text.
+   */
+  inputValue?: string
+  /**
+   * The initial value of the input text.
+   */
+  defaultInputValue?: string
+  /**
+   * The controlled value of tags.
+   */
+  value?: string[]
+  /**
+   * The initial value of tags.
+   */
+  defaultValue?: string[]
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
   modelValue?: string[]
   /**
+   * The behavior of the input on blur.
+   */
+  blurBehavior?: 'clear' | 'add'
+  /**
+   * Whether to add tags when pasting.
+   */
+  addOnPaste?: boolean
+  /**
+   * The max number of tags.
+   */
+  max?: number
+  /**
+   * Whether to allow tags to exceed max.
+   */
+  allowOverflow?: boolean
+  /**
+   * The name of the hidden input.
+   */
+  name?: string
+  /**
+   * The associated form id.
+   */
+  form?: string
+  /**
+   * The placeholder text for the input.
+   */
+  placeholder?: string
+  /**
+   * Callback fired to validate a tag.
+   */
+  validate?: (details: tagsInput.ValidateArgs) => boolean
+  /**
    * Callback fired when the value changes.
    */
-  onValueChange?: (details: { value: string[] }) => void
-  onInputValueChange?: (details: { inputValue: string }) => void
+  onValueChange?: (value: string[]) => void
+  /**
+   * Callback fired when the input value changes.
+   */
+  onInputValueChange?: (inputValue: string) => void
+  /**
+   * Callback fired when highlighted tag changes.
+   */
+  onHighlightChange?: (details: tagsInput.HighlightChangeDetails) => void
+  /**
+   * Callback fired when the value is invalid.
+   */
+  onValueInvalid?: (details: tagsInput.ValidityChangeDetails) => void
 }
 
 /**

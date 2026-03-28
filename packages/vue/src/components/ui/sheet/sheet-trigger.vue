@@ -16,10 +16,10 @@ const props = withDefaults(
 
 type BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void);
 type SheetApi = {
-  triggerProps?: Record<string, BindValue>;
+  getTriggerProps?: () => Record<string, BindValue>;
 };
 const api = inject("sheet") as Ref<SheetApi | undefined> | undefined;
-const triggerProps = computed(() => api?.value?.triggerProps || {});
+const triggerProps = computed(() => api?.value?.getTriggerProps?.() || {});
 </script>
 
 <template>

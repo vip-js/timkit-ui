@@ -26,6 +26,7 @@ export const componentNames = [
   'navbar',
   'navigation-menu',
   'notification',
+  'number-field',
   'pagination',
   'popover',
   'progress',

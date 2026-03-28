@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import Tabs from '@/components/ui/tabs/tabs.vue'
-import TabsContent from '@/components/ui/tabs/tabs-content.vue'
-import TabsList from '@/components/ui/tabs/tabs-list.vue'
-import TabsTrigger from '@/components/ui/tabs/tabs-trigger.vue'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/vue'
 </script>
 
 <template>

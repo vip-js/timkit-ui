@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
+import { Label } from '@timui/vue';
+import { Switch } from '@timui/vue';
 
 
+
+
+
+const id = 'switch-07';
 
 </script>
 

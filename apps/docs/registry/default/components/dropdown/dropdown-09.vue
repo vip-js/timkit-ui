@@ -1,9 +1,33 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ArchiveRestoreIcon, ChevronDownIcon, PlusIcon, Share2Icon, TrashIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@timui/vue';
 
 
+
+const framework = ref('nextjs');
+const emailNotifications = ref(false);
+const pushNotifications = ref(true);
+
+
+function setFramework(next: typeof framework.value | ((prev: typeof framework.value) => typeof framework.value)) {
+  framework.value = typeof next === 'function'
+    ? (next as (prev: typeof framework.value) => typeof framework.value)(framework.value)
+    : next;
+}
+
+function setEmailNotifications(next: typeof emailNotifications.value | ((prev: typeof emailNotifications.value) => typeof emailNotifications.value)) {
+  emailNotifications.value = typeof next === 'function'
+    ? (next as (prev: typeof emailNotifications.value) => typeof emailNotifications.value)(emailNotifications.value)
+    : next;
+}
+
+function setPushNotifications(next: typeof pushNotifications.value | ((prev: typeof pushNotifications.value) => typeof pushNotifications.value)) {
+  pushNotifications.value = typeof next === 'function'
+    ? (next as (prev: typeof pushNotifications.value) => typeof pushNotifications.value)(pushNotifications.value)
+    : next;
+}
 
 </script>
 

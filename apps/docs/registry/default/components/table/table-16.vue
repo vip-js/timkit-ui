@@ -1,39 +1,115 @@
 <script setup lang="ts">
-import { ChevronDownIcon, ChevronUpIcon, GripVerticalIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table-body';
-import { TableCell } from '@/components/ui/table-cell';
-import { TableHead } from '@/components/ui/table-head';
-import { TableHeader } from '@/components/ui/table-header';
-import { TableRow } from '@/components/ui/table-row';
+import { ref } from 'vue'
+import { GripVerticalIcon } from 'lucide-vue-next'
+import { Table } from '@timui/vue'
+import { TableBody } from '@timui/vue'
+import { TableCell } from '@timui/vue'
+import { TableHead } from '@timui/vue'
+import { TableHeader } from '@timui/vue'
+import { TableRow } from '@timui/vue'
+import { formatCurrency, tableUsers } from './table-demo-data'
 
+type ColumnKey = 'name' | 'email' | 'location' | 'status' | 'balance'
 
+type ColumnConfig = {
+  key: ColumnKey
+  label: string
+}
 
+const columns = ref<ColumnConfig[]>([
+  { key: 'name', label: 'Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'location', label: 'Location' },
+  { key: 'status', label: 'Status' },
+  { key: 'balance', label: 'Balance' },
+])
+
+const rows = tableUsers.slice(0, 10)
+const draggingColumn = ref<ColumnKey | null>(null)
+
+function startDrag(key: ColumnKey) {
+  draggingColumn.value = key
+}
+
+function allowDrop(event: DragEvent) {
+  event.preventDefault()
+}
+
+function dropOn(key: ColumnKey) {
+  if (!draggingColumn.value || draggingColumn.value === key) {
+    return
+  }
+
+  const from = columns.value.findIndex((column) => column.key === draggingColumn.value)
+  const to = columns.value.findIndex((column) => column.key === key)
+
+  if (from < 0 || to < 0) {
+    draggingColumn.value = null
+    return
+  }
+
+  const next = [...columns.value]
+  const [moved] = next.splice(from, 1)
+  next.splice(to, 0, moved)
+  columns.value = next
+  draggingColumn.value = null
+}
+
+function dragEnd() {
+  draggingColumn.value = null
+}
+
+function valueFor(row: (typeof rows)[number], key: ColumnKey) {
+  if (key === 'balance') {
+    return formatCurrency(row.balance)
+  }
+
+  if (key === 'location') {
+    return `${row.flag} ${row.location}`
+  }
+
+  return row[key]
+}
 </script>
 
 <template>
-  <DndContext :id="useId()" :collisionDetection="closestCenter" :modifiers="[restrictToHorizontalAxis]" :onDragEnd="handleDragEnd" :sensors="sensors"><Table><TableHeader><TableRow v-for="(headerGroup, index) in table.getHeaderGroups()" :key="index" :key="headerGroup.id" class="bg-muted/50"><SortableContext :items="columnOrder" :strategy="horizontalListSortingStrategy"><DraggableTableHeader v-for="(header, index) in headerGroup.headers" :key="index" :key="header.id" :header="header" /></SortableContext></TableRow></TableHeader><TableBody>{{ table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <SortableContext
-                    key={cell.id}
-                    items={columnOrder}
-                    strategy={horizontalListSortingStrategy}
-                  >
-                    <DragAlongCell key={cell.id} cell={cell} />
-                  </SortableContext>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          ) }}</TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Draggable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a>{{ ' ' }}and{{ ' ' }}<a href="https://dndkit.com/" target="_blank" rel="noopener noreferrer">dnd kit
-        </a></p></DndContext>
+  <div>
+    <Table>
+      <TableHeader>
+        <TableRow class="bg-muted/50">
+          <TableHead
+            v-for="column in columns"
+            :key="column.key"
+            draggable="true"
+            class="select-none"
+            :data-dragging="draggingColumn === column.key ? true : undefined"
+            @dragstart="startDrag(column.key)"
+            @dragover="allowDrop"
+            @drop="dropOn(column.key)"
+            @dragend="dragEnd"
+          >
+            <span class="inline-flex items-center gap-2">
+              <GripVerticalIcon class="opacity-60" :size="14" />
+              {{ column.label }}
+            </span>
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+
+      <TableBody>
+        <TableRow v-for="row in rows" :key="row.id">
+          <TableCell v-for="column in columns" :key="`${row.id}-${column.key}`" :class="column.key === 'balance' ? 'text-right' : undefined">
+            {{ valueFor(row, column.key) }}
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+
+    <p class="text-muted-foreground mt-4 text-center text-sm">
+      Draggable columns made with
+      <a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">
+        TanStack Table
+      </a>
+    </p>
+  </div>
 </template>

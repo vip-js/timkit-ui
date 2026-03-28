@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { CalendarDays } from 'lucide-vue-next';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { HoverCard } from '@/components/ui/hover-card';
-import { HoverCardContent } from '@/components/ui/hover-card-content';
-import { HoverCardTrigger } from '@/components/ui/hover-card-trigger';
+import { Avatar, AvatarFallback, AvatarImage } from '@timui/vue';
+import { Button } from '@timui/vue';
+import { HoverCard } from '@timui/vue';
+import { HoverCardContent } from '@timui/vue';
+import { HoverCardTrigger } from '@timui/vue';
+
 
 
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Alert } from '@/components/ui/alert';
-import { AlertDescription } from '@/components/ui/alert-description';
-import { AlertTitle } from '@/components/ui/alert-title';
+import { Alert } from '@timui/vue';
+import { AlertDescription } from '@timui/vue';
+import { AlertTitle } from '@timui/vue';
+
 
 
 

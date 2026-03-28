@@ -1,22 +1,4 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r0:" data-state="closed">
-  Alert dialog
-</button>
-
-<!-- 
-Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
-Here is the structural representation of the opened dialog:
-
-<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
-<div role="alertdialog" id="radix-:r0:" aria-describedby="radix-:r2:" aria-labelledby="radix-:r1:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
-  <div class="flex flex-col space-y-2 text-center sm:text-left">
-    <h2 id="radix-:r1:" class="text-lg font-semibold">Are you sure?</h2>
-    <p id="radix-:r2:" class="text-sm text-muted-foreground">Take a moment to review the details provided to ensure you understand the implications.</p>
-  </div>
-  <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-    <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 mt-2 sm:mt-0">Cancel</button>
-    <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">Okay</button>
-  </div>
-</div>
--->
+<template>
+  <AlertDialog><AlertDialogTrigger aschild><Button variant="outline">Alert dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>Take a moment to review the details provided to ensure you understand the implications.
+          </AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Okay</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+</template>

@@ -2,14 +2,14 @@
 import { defineComponent, h, type PropType } from 'vue'
 import Calendar from './calendar.vue'
 
-type CalendarModelValue = Date | { from?: Date; to?: Date } | undefined
+type CalendarModelValue = Date | Date[] | { from?: Date; to?: Date } | undefined
 
 export const CalendarRAC = defineComponent({
   name: 'CalendarRAC',
   inheritAttrs: false,
   props: {
     modelValue: {
-      type: [Date, Object] as PropType<Date | Record<string, never>>,
+      type: [Date, Object, Array] as PropType<Date | Date[] | Record<string, never>>,
       default: undefined,
     },
     class: {

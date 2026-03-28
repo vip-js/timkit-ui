@@ -1,3 +1,8 @@
 <view>
-  <popover><popovertrigger aschild><button variant="outline">Tooltip-like with steps</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="top"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">{{ tips[currentTip].title }}</text><text class="text-muted-foreground text-xs">{{ tips[currentTip].description }}</text></view><view class="flex items-center justify-between gap-2"><text class="text-muted-foreground text-xs">{{ currentTip + 1 }}/{{ tips.length }}</text><button class="text-xs font-medium hover:underline" bindtap="handleNavigation">{{ currentTip === tips.length - 1 ? 'Start over' : 'Next' }}</button></view></view></popovercontent></popover>
+  <popover><popovertrigger aschild><button variant="outline">Tooltip-like with steps</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="top"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">{{ tips[currentTip].title }}</text><text class="text-muted-foreground text-xs">{{ tips[currentTip].description }}</text></view><view class="flex items-center justify-between gap-2"><text class="text-muted-foreground text-xs">{{ currentTip + 1 }}/{{ tips.length }}</text><button class="text-xs font-medium hover:underline" bindtap="handleNavigation"><block wx:if="{{currentTip === tips.length - 1}}">
+{{ 'Start over' }}
+</block>
+<block wx:else>
+{{ 'Next' }}
+</block></button></view></view></popovercontent></popover>
 </view>

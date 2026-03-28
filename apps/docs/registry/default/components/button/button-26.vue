@@ -1,8 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { MoonIcon, SunIcon } from 'lucide-vue-next';
-import { Toggle } from '@/components/ui/toggle';
+import { Toggle } from '@timui/vue';
 
 
+
+const theme = ref<string>('light');
+
+
+function setTheme(next: typeof theme.value | ((prev: typeof theme.value) => typeof theme.value)) {
+  theme.value = typeof next === 'function'
+    ? (next as (prev: typeof theme.value) => typeof theme.value)(theme.value)
+    : next;
+}
 
 </script>
 

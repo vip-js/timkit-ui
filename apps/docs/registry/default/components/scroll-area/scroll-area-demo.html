@@ -1,12 +1,5 @@
-<scroll-area class="h-72 w-48 rounded-md border">
-  <div class="p-4">
-    <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-    <div class="text-sm">v1.2.0-beta.8</div>
-    <separator class="my-2"></separator>
-    <div class="text-sm">v1.2.0-beta.7</div>
-    <separator class="my-2"></separator>
-    <div class="text-sm">v1.2.0-beta.6</div>
-    <separator class="my-2"></separator>
-    <div class="text-sm">v1.2.0-beta.5</div>
-  </div>
-</scroll-area>
+<template>
+  <ScrollArea class="h-72 w-48 rounded-md border"><div class="p-4"><h4 class="mb-4 text-sm font-medium leading-none">Tags</h4><!-- Loop tags -->
+<React.Fragment key="${tag}"><div class="text-sm">${tag}</div><Separator class="my-2" /></React.Fragment>
+<!-- End Loop --></div></ScrollArea>
+</template>

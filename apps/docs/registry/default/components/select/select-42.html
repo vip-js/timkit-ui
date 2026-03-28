@@ -1,51 +1,16 @@
-<div class="*:not-first:mt-2">
-      <label for="select-42-id">Select with search and button</label>
-      <popover >
-        <popover-trigger asChild>
-          <button id="select-42-id"
-            variant="outline"
-            role="combobox"
-            class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
-          >
-            <span>
-              'Select organization'
-            </span>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
-          </button>
-        </popover-trigger>
-        <popover-content
-          class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0"
-          align="start"
-        >
-          <command>
-            <command-input placeholder="Find organization" />
-            <command-list>
-              <command-empty>No organization found.</command-empty>
-              <command-group>
-                
-                  <command-item
-                    value="originui" >
-                    Timkit UI
-                    
-                  </command-item>
-                
-
-                  <command-item
-                    value="cruip" >
-                    Cruip
-                    
-                  </command-item>
-                
-              </command-group>
-              <command-separator />
-              <command-group>
-                <button variant="ghost" class="w-full justify-start font-normal">
-                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-ms-2 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-                  New organization
-                </button>
-              </command-group>
-            </command-list>
-          </command>
-        </popover-content>
-      </popover>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with search and button</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><span class="${cn('truncate', !value && 'text-muted-foreground')}"><!-- if value -->
+${organizations.find((organization) => organization.value === value)?.label}
+<!-- else -->
+${'Select organization'}
+<!-- endif --></span><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command><CommandInput placeholder="Find organization" /><CommandList><CommandEmpty>No organization found.</CommandEmpty><CommandGroup><!-- Loop organizations -->
+<CommandItem key="${organization.value}" value="${organization.value}" onselect="${(currentValue) => {
+                      const val = currentValue as string
+                      setValue(val === value ? '' : val)
+                      setOpen(false)
+                    }}">${organization.label}<!-- if value === organization.value -->
+<CheckIcon size="${16}" class="ml-auto" />
+<!-- endif --></CommandItem>
+<!-- End Loop --></CommandGroup><CommandSeparator /><CommandGroup><Button variant="ghost" class="w-full justify-start font-normal"><PlusIcon size="${16}" class="-ms-2 opacity-60" aria-hidden="true" />New organization
+                </Button></CommandGroup></CommandList></Command></PopoverContent></Popover></div>
+</template>

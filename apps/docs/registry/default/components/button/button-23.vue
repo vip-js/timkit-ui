@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
+import { ref } from 'vue';
+import { Button } from '@timui/vue';
 
 
+
+const open = ref<boolean>(false);
+
+
+function setOpen(next: typeof open.value | ((prev: typeof open.value) => typeof open.value)) {
+  open.value = typeof next === 'function'
+    ? (next as (prev: typeof open.value) => typeof open.value)(open.value)
+    : next;
+}
 
 </script>
 

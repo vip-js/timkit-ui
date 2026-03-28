@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination';
+import { Button } from '@timui/vue';
+import { Pagination, PaginationContent, PaginationItem } from '@timui/vue';
+
 
 
 

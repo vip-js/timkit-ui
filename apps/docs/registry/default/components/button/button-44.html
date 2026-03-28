@@ -1,12 +1,4 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star -ms-1 opacity-60"
-    aria-hidden="true">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-  </svg>
-  <span class="flex items-baseline gap-2">
-    Star
-    <span class="text-primary-foreground/60 text-xs">729</span>
-  </span>
-</button>
+<template>
+  <Button><StarIcon class="-ms-1 opacity-60" size="${16}" aria-hidden="true" /><span class="flex items-baseline gap-2">Star
+        <span class="text-primary-foreground/60 text-xs">729</span></span></Button>
+</template>

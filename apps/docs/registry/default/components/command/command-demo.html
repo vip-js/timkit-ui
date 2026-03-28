@@ -1,26 +1,3 @@
-<command class="rounded-lg border shadow-md md:min-w-[450px]">
-  <command-input placeholder="Type a command or search..."></command-input>
-  <command-list>
-    <command-empty>No results found.</command-empty>
-    <command-group heading="Suggestions">
-      <command-item>Calendar</command-item>
-      <command-item>Search Emoji</command-item>
-      <command-item>Calculator</command-item>
-    </command-group>
-    <command-separator></command-separator>
-    <command-group heading="Settings">
-      <command-item>
-        Profile
-        <command-shortcut>Ctrl+P</command-shortcut>
-      </command-item>
-      <command-item>
-        Billing
-        <command-shortcut>Ctrl+B</command-shortcut>
-      </command-item>
-      <command-item>
-        Settings
-        <command-shortcut>Ctrl+S</command-shortcut>
-      </command-item>
-    </command-group>
-  </command-list>
-</command>
+<template>
+  <Command class="rounded-lg border shadow-md md:min-w-[450px]"><CommandInput placeholder="Type a command or search..." /><CommandList><CommandEmpty>No results found.</CommandEmpty><CommandGroup heading="Suggestions"><CommandItem><Calendar class="mr-2 h-4 w-4" /><span>Calendar</span></CommandItem><CommandItem><Smile class="mr-2 h-4 w-4" /><span>Search Emoji</span></CommandItem><CommandItem><Calculator class="mr-2 h-4 w-4" /><span>Calculator</span></CommandItem></CommandGroup><CommandSeparator /><CommandGroup heading="Settings"><CommandItem><User class="mr-2 h-4 w-4" /><span>Profile</span><CommandShortcut>⌘P</CommandShortcut></CommandItem><CommandItem><CreditCard class="mr-2 h-4 w-4" /><span>Billing</span><CommandShortcut>⌘B</CommandShortcut></CommandItem><CommandItem><Settings class="mr-2 h-4 w-4" /><span>Settings</span><CommandShortcut>⌘S</CommandShortcut></CommandItem></CommandGroup></CommandList></Command>
+</template>

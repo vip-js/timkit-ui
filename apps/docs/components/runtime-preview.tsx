@@ -18,6 +18,19 @@ interface RuntimePreviewProps {
   className?: string
 }
 
+type PreviewResizeMessage = {
+  type: 'PREVIEW_RESIZE'
+  height: number
+}
+
+const isPreviewResizeMessage = (
+  value: object | null | undefined
+): value is PreviewResizeMessage => {
+  if (!value || typeof value !== 'object') return false
+  const candidate = value as { type?: string; height?: number }
+  return candidate.type === 'PREVIEW_RESIZE' && typeof candidate.height === 'number'
+}
+
 export default function RuntimePreview({
   framework,
   componentName,
@@ -82,8 +95,15 @@ export default function RuntimePreview({
       if (event.source !== iframeRef.current.contentWindow) return
       if (event.origin !== previewOrigin) return
 
-      const message = event.data as PreviewOutgoingMessage | { type?: string }
-      if (!isPreviewOutgoingMessage(message)) return
+      const payload = event.data as object | null | undefined
+
+      if (isPreviewResizeMessage(payload)) {
+        setIframeHeight(payload.height)
+        return
+      }
+
+      if (!isPreviewOutgoingMessage(payload)) return
+      const message: PreviewOutgoingMessage = payload
 
       if (message.type === 'PREVIEW_READY') {
         setIsReady(true)
@@ -112,14 +132,6 @@ export default function RuntimePreview({
         if (requestId && message.requestId !== requestId) return
         if (message.framework && message.framework !== framework) return
         setLoadError(message.message || 'Preview render failed')
-      }
-
-      // Handle resize messages from the preview iframe
-      if (
-        (message as any).type === 'PREVIEW_RESIZE' &&
-        typeof (message as any).height === 'number'
-      ) {
-        setIframeHeight((message as any).height)
       }
     }
 

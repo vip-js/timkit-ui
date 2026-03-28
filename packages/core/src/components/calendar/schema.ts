@@ -14,7 +14,7 @@ const calendarSchema = defineUCS({
       name: 'mode',
       type: 'enum',
       description: 'The selection mode.',
-      values: ['single', 'range'],
+      values: ['single', 'range', 'multiple'],
       defaultValue: 'single',
     },
   ],

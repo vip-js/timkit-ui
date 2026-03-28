@@ -23,8 +23,16 @@ function componentNames(): string[] {
 
 // ─── Export map builder ───────────────────────────────────────────────────────
 
-function buildExports(): Record<string, unknown> {
-  const exports: Record<string, unknown> = {}
+type DistExportEntry = {
+  types: string
+  import: string
+  require: string
+}
+
+type PackageExportEntry = DistExportEntry | string
+
+function buildExports(): Record<string, PackageExportEntry> {
+  const exports: Record<string, PackageExportEntry> = {}
 
   // ─────────────────────────────────────────────────────────────────────────
   // Tier 0 — Core primitives

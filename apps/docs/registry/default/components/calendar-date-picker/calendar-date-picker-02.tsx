@@ -1,20 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import { getLocalTimeZone, today } from '@internationalized/date'
-import { RangeCalendar } from '@timui/react'
-import type { DateRange } from 'react-aria-components'
+import { RangeCalendar, type CalendarRangeValue } from '@timui/react'
 
 export default function Component() {
-  const now = today(getLocalTimeZone())
-  const [date, setDate] = useState<DateRange | null>({
-    start: now,
-    end: now.add({ days: 3 }),
+  const now = new Date()
+  const [date, setDate] = useState<CalendarRangeValue>({
+    from: now,
+    to: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3),
   })
 
   return (
     <div>
-      <RangeCalendar className="rounded-md border p-2" value={date} onChange={setDate} />
+      <RangeCalendar
+        className="rounded-md border p-2"
+        selected={date}
+        onSelect={(next) => {
+          if (next && typeof next === 'object' && !Array.isArray(next) && !(next instanceof Date)) {
+            setDate(next as CalendarRangeValue)
+          }
+        }}
+      />
       <p
         className="text-muted-foreground mt-4 text-center text-xs"
         role="region"

@@ -1,7 +1,7 @@
 import { popoverConnect, popoverMachine } from '@timui/core'
 import type { PositioningOptions } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, watch } from 'vue'
+import { computed, useId, watch } from 'vue'
 
 export interface UsePopoverProps {
   id?: string
@@ -11,6 +11,7 @@ export interface UsePopoverProps {
   closeOnInteractOutside?: boolean
   closeOnEscape?: boolean
   positioning?: PositioningOptions
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface UsePopoverEmits {
@@ -18,13 +19,11 @@ export interface UsePopoverEmits {
   (e: 'change', value: boolean): void
 }
 
-let staticId = 0
-
 export function usePopover(props: UsePopoverProps, emit: UsePopoverEmits) {
-  const localId = `popover-${++staticId}`
+  const generatedId = useId()
 
   const machineProps = computed(() => ({
-    id: props.id ?? localId,
+    id: props.id ?? generatedId,
     open: props.open,
     defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
     modal: props.modal,
@@ -32,6 +31,7 @@ export function usePopover(props: UsePopoverProps, emit: UsePopoverEmits) {
     closeOnEscape: props.closeOnEscape,
     positioning: props.positioning,
     onOpenChange(details: { open: boolean }) {
+      props.onOpenChange?.(details.open)
       emit('update:open', details.open)
       emit('change', details.open)
     },

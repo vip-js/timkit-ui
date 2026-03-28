@@ -1,15 +1,51 @@
 <script setup lang="ts">
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-vue-next';
+import { computed, ref } from 'vue'
+import { ChevronDownIcon, ChevronUpIcon } from 'lucide-vue-next'
+import { Button } from '@timui/vue'
+import { Input } from '@timui/vue'
+import { Label } from '@timui/vue'
 
+const value = ref(99)
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'EUR',
+  currencySign: 'accounting',
+})
 
+const displayValue = computed(() => formatter.format(value.value))
 </script>
 
 <template>
-  <NumberField :default-value="99" :formatOptions="{
-        style: 'currency',
-        currency: 'EUR',
-        currencySign: 'accounting',
-      }"><div class="*:not-first:mt-2"><Label class="text-foreground text-sm font-medium">Number input with chevrons</Label><Group class="border-input doutline-none data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] data-disabled:opacity-50 data-focus-within:ring-[3px]"><Input class="bg-background text-foreground flex-1 px-3 py-2 tabular-nums" /><div class="flex h-[calc(100%+2px)] flex-col"><Button slot="increment" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px flex h-1/2 w-6 flex-1 items-center justify-center border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><ChevronUpIcon :size="12" aria-hidden="true" /></Button><Button slot="decrement" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px -mt-px flex h-1/2 w-6 flex-1 items-center justify-center border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><ChevronDownIcon :size="12" aria-hidden="true" /></Button></div></Group></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></p></NumberField>
+  <div class="*:not-first:mt-2">
+    <Label>Number input with chevrons</Label>
+    <div class="border-input bg-background relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm shadow-xs">
+      <Input :value="displayValue" readonly class="h-full rounded-none border-0 tabular-nums shadow-none" />
+      <div class="flex h-full flex-col border-l">
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          class="h-1/2 w-8 rounded-none border-b"
+          aria-label="Increase value"
+          @click="value += 1"
+        >
+          <ChevronUpIcon :size="12" aria-hidden="true" />
+        </Button>
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          class="h-1/2 w-8 rounded-none"
+          aria-label="Decrease value"
+          @click="value -= 1"
+        >
+          <ChevronDownIcon :size="12" aria-hidden="true" />
+        </Button>
+      </div>
+    </div>
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with TimUI atomic components
+    </p>
+  </div>
 </template>

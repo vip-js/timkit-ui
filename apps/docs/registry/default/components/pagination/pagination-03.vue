@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
+import { cn } from '@timui/core';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
-import { buttonVariants } from '@/components/ui/button';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
+import { buttonVariants } from '@timui/vue';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@timui/vue';
+
 
 
 

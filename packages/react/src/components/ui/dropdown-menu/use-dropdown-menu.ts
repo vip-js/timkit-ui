@@ -11,11 +11,12 @@ export type DropdownMenuProps = {
   loopFocus?: boolean
   positioning?: PositioningOptions
   onOpenChange?: (open: boolean) => void
+  onSelect?: (value: string) => void
   children?: React.ReactNode
 }
 
 export function useDropdownMenu(props: DropdownMenuProps) {
-  const { onOpenChange, ...menuProps } = props
+  const { onOpenChange, onSelect, ...menuProps } = props
   const generatedId = React.useId()
   const service = useMachine(menuMachine, {
     id: menuProps.id ?? generatedId,
@@ -25,6 +26,7 @@ export function useDropdownMenu(props: DropdownMenuProps) {
     loopFocus: menuProps.loopFocus,
     positioning: menuProps.positioning,
     onOpenChange: (details: { open: boolean }) => onOpenChange?.(details.open),
+    onSelect: (details: { value: string }) => onSelect?.(details.value),
   })
   return menuConnect(service, normalizeProps)
 }

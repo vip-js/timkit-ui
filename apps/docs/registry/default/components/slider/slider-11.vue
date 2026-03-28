@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
+import { Label } from '@timui/vue';
+import { Slider } from '@timui/vue';
+
 
 
 

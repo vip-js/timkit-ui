@@ -1,4 +1,4 @@
 <view>
-  <view><calendar mode="range" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Range calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
+  <view><calendar mode="range" selected="{{date}}" bindchange="setDate(next as CalendarRangeValue | undefined)" class="rounded-md border p-2" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Range calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
         </a></text></view>
 </view>

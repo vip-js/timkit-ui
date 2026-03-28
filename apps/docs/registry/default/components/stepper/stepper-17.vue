@@ -1,17 +1,37 @@
 <script setup lang="ts">
-import { Stepper } from '@/components/ui/stepper';
-import { StepperDescription } from '@/components/ui/stepper-description';
-import { StepperIndicator } from '@/components/ui/stepper-indicator';
-import { StepperItem } from '@/components/ui/stepper-item';
-import { StepperSeparator } from '@/components/ui/stepper-separator';
-import { StepperTitle } from '@/components/ui/stepper-title';
-import { StepperTrigger } from '@/components/ui/stepper-trigger';
+import { Stepper } from '@timui/vue';
+import { StepperDescription } from '@timui/vue';
+import { StepperIndicator } from '@timui/vue';
+import { StepperItem } from '@timui/vue';
+import { StepperSeparator } from '@timui/vue';
+import { StepperTitle } from '@timui/vue';
+import { StepperTrigger } from '@timui/vue';
 
 
+
+
+
+const steps = [
+  {
+    step: 1,
+    title: 'Step One',
+    description: 'Desc for step one',
+  },
+  {
+    step: 2,
+    title: 'Step Two',
+    description: 'Desc for step two',
+  },
+  {
+    step: 3,
+    title: 'Step Three',
+    description: 'Desc for step three',
+  },
+]
 
 </script>
 
 <template>
-  <div class="space-y-8 text-center"><Stepper :default-value="2" orientation="vertical"><StepperItem v-for="({ step, title, description }, index) in steps" :key="index" :key="step" :step="step" class="relative items-start not-last:flex-1"><StepperTrigger class="items-start rounded pb-12 last:pb-0"><StepperIndicator /><div class="mt-0.5 space-y-0.5 px-2 text-left"><StepperTitle>{{ title }}</StepperTitle><StepperDescription>{{ description }}</StepperDescription></div></StepperTrigger><StepperSeparator v-if="step < steps.length" class="absolute inset-y-0 top-[calc(1.5rem+0.125rem)] left-3 -order-1 m-0 -translate-x-1/2 group-data-[orientation=horizontal]/stepper:w-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=horizontal]/stepper:flex-none group-data-[orientation=vertical]/stepper:h-[calc(100%-1.5rem-0.25rem)]" /></StepperItem></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Vertical stepper with inline titles and descriptions
+  <div class="space-y-8 text-center"><Stepper :default-value="2" orientation="vertical"><StepperItem v-for="({ step, title, description }, index) in steps" :key="step" :step="step" class="relative items-start not-last:flex-1"><StepperTrigger class="items-start rounded pb-12 last:pb-0"><StepperIndicator /><div class="mt-0.5 space-y-0.5 px-2 text-left"><StepperTitle>{{ title }}</StepperTitle><StepperDescription>{{ description }}</StepperDescription></div></StepperTrigger><StepperSeparator v-if="step < steps.length" class="absolute inset-y-0 top-[calc(1.5rem+0.125rem)] left-3 -order-1 m-0 -translate-x-1/2 group-data-[orientation=horizontal]/stepper:w-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=horizontal]/stepper:flex-none group-data-[orientation=vertical]/stepper:h-[calc(100%-1.5rem-0.25rem)]" /></StepperItem></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Vertical stepper with inline titles and descriptions
       </p></div>
 </template>

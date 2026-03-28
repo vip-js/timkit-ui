@@ -1,20 +1,5 @@
-<div class="*:not-first:mt-2">
-      <label for="select-12-id">Timezone select (native)</label>
-      <select-native id="select-12-id" defaultValue="Europe/London">
-        
-          <option key=Europe/London value=Europe/London>
-            (GMT+0) Europe/London
-          </option>
-        
-
-          <option key=America/New_York value=America/New_York>
-            (GMT-4) America/New York
-          </option>
-        
-
-          <option key=Asia/Shanghai value=Asia/Shanghai>
-            (GMT+8) Asia/Shanghai
-          </option>
-        
-      </select-native>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Timezone select (native)</Label><SelectNative id="${id}" default-value="Europe/London"><!-- Loop formattedTimezones -->
+<option key="${value}" value="${value}">${label}</option>
+<!-- End Loop --></SelectNative></div>
+</template>

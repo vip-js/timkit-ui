@@ -7,11 +7,18 @@ import { useHoverCardContext } from './use-hover-card-context'
 import Presence from '../presence/presence.vue'
 
 const props = withDefaults(
-  defineProps<{ class?: HTMLAttributes['class']; align?: 'center' | 'start' | 'end'; side?: 'top' | 'bottom' | 'left' | 'right'; sideOffset?: number }>(),
+  defineProps<{
+    class?: HTMLAttributes['class']
+    align?: 'center' | 'start' | 'end'
+    side?: 'top' | 'bottom' | 'left' | 'right'
+    sideOffset?: number
+    showArrow?: boolean
+  }>(),
   {
     align: 'center',
     side: 'bottom',
     sideOffset: 4,
+    showArrow: false,
   }
 )
 
@@ -40,10 +47,15 @@ watch(
         data-slot="hover-card-content"
         data-state="open"
         :class="
-          cn(hoverCardContentVariants(), props.class)
+          cn(hoverCardContentVariants(), props.showArrow && 'relative', props.class)
         "
       >
         <slot />
+        <span
+          v-if="props.showArrow"
+          data-slot="hover-card-arrow"
+          class="absolute -top-1 left-6 h-2 w-2 rotate-45 border border-border bg-popover"
+        />
       </div>
     </Presence>
   </Teleport>

@@ -22,7 +22,15 @@ export type DateFieldVueProps = {
   /**
    * The specific type or behavior subset of the component.
    */
-  type?: 'date' | 'time'
+  type?: 'date' | 'time' | 'datetime-local'
+  /**
+   * Controls the smallest selectable unit when editing date/time values.
+   */
+  granularity?: 'day' | 'minute' | 'second'
+  /**
+   * Preferred hour cycle for time-oriented inputs.
+   */
+  hourCycle?: 12 | 24
   /**
    * When `true`, strips all default visual styles from the component.
    */

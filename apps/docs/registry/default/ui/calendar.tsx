@@ -297,6 +297,14 @@ function Calendar({
     () => (month ? clampMonth(toMonthStart(month), minMonth, maxMonth) : uncontrolledMonth),
     [month, minMonth, maxMonth, uncontrolledMonth]
   )
+  const focusedValue = React.useMemo(
+    () => (month ? toDateValue(viewMonth) : undefined),
+    [month, viewMonth]
+  )
+  const defaultFocusedValue = React.useMemo(
+    () => (month ? undefined : toDateValue(initialMonth)),
+    [initialMonth, month]
+  )
 
   React.useEffect(() => {
     if (!month) return
@@ -324,7 +332,9 @@ function Calendar({
     fixedWeeks,
     min: startMonth ? toDateValue(toMonthStart(startMonth)) : undefined,
     max: endMonth ? toDateValue(toMonthEnd(endMonth)) : undefined,
-    focusedValue: toDateValue(viewMonth),
+    focusedValue,
+    defaultFocusedValue,
+    timeZone,
     value: selected === undefined ? undefined : selectedValues,
     isDateUnavailable: disabledMatchers.length > 0 ? handleUnavailable : undefined,
     onValueChange(details) {

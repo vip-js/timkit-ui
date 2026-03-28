@@ -15,11 +15,13 @@ const props = withDefaults(
     align?: "center" | "start" | "end";
     side?: "top" | "bottom" | "left" | "right";
     sideOffset?: number;
+    showArrow?: boolean;
   }>(),
   {
     align: "center",
     side: "bottom",
     sideOffset: 4,
+    showArrow: false,
   }
 );
 
@@ -48,9 +50,14 @@ watch(
         data-slot="popover-content"
         data-state="open"
         :data-align="props.align"
-        :class="cn(popoverContentVariants(), props.class)"
+        :class="cn(popoverContentVariants(), props.showArrow && 'relative', props.class)"
       >
         <slot />
+        <span
+          v-if="props.showArrow"
+          data-slot="popover-arrow"
+          class="absolute -top-1 left-6 h-2 w-2 rotate-45 border border-border bg-popover"
+        />
       </div>
     </Presence>
   </Teleport>

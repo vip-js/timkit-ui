@@ -1,16 +1,11 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 gap-1"
-  aria-expanded="false" aria-controls="expandable-content"
-  onclick="const expanded = this.getAttribute('aria-expanded') === 'true'; this.setAttribute('aria-expanded', !expanded); const textNode = Array.from(this.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== ''); if (textNode) textNode.textContent = expanded ? 'Show more ' : 'Show less '; const svg1 = this.querySelectorAll('svg')[0]; const svg2 = this.querySelectorAll('svg')[1]; if (expanded) { svg1.style.display = 'block'; svg2.style.display = 'none'; } else { svg1.style.display = 'none'; svg2.style.display = 'block'; }">
-  Show more
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down -me-1"
-    aria-hidden="true">
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up -me-1"
-    aria-hidden="true" style="display: none;">
-    <path d="m18 15-6-6-6 6" />
-  </svg>
-</button>
+<template>
+  <Button class="gap-1" variant="ghost" on-click="${toggleExpand}" aria-expanded="${isExpanded}" aria-controls="expandable-content"><!-- if isExpanded -->
+${'Show less'}
+<!-- else -->
+${'Show more'}
+<!-- endif --><!-- if isExpanded -->
+<ChevronUpIcon class="-me-1" size="${16}" aria-hidden="true" />
+<!-- else -->
+<ChevronDownIcon class="-me-1" size="${16}" aria-hidden="true" />
+<!-- endif --></Button>
+</template>

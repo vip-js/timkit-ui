@@ -1,7 +1,8 @@
 <view>
-  <view class="inline-flex items-center gap-2"><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{setChecked}}" aria-label="Toggle switch" /><label htmlfor="{{id}}"><text class="sr-only">Toggle switch</text>{{ checked ? (
-          <SunIcon size={16} aria-hidden="true" />
-        ) : (
-          <MoonIcon size={16} aria-hidden="true" />
-        ) }}</label></view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{setChecked}}" aria-label="Toggle switch" /><label htmlfor="{{id}}"><text class="sr-only">Toggle switch</text><block wx:if="{{checked}}">
+<sunicon size="{{16}}" aria-hidden="true" />
+</block>
+<block wx:else>
+<moonicon size="{{16}}" aria-hidden="true" />
+</block></label></view>
 </view>

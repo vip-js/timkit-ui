@@ -53,6 +53,7 @@
   "exclude": [
     "node_modules",
     "registry/default/composables",
+    "registry/default/hooks/*-vue.ts",
     "registry/default/vue",
     "registry/default/weapp"
   ]

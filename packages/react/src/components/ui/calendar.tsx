@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { CalendarDate, getLocalTimeZone } from '@internationalized/date'
+import { getLocalTimeZone } from '@internationalized/date'
 import type { DateValue } from '@internationalized/date'
 import {
   calendarCaptionLabelVariants,
@@ -29,220 +29,31 @@ import {
 import { mergeProps, normalizeProps, useMachine } from '@zag-js/react'
 
 import { buttonVariants } from './button'
-
-type CalendarMode = 'single' | 'range' | 'multiple'
-type CalendarRangeValue = { from: Date | undefined; to?: Date }
-type DisabledMatcher =
-  | Date
-  | {
-      before?: Date
-      after?: Date
-      from?: Date
-      to?: Date
-      dayOfWeek?: number[]
-    }
-  | ((date: Date) => boolean)
-
-type CalendarDropdownOption = {
-  value: string | number
-  label: string
-  disabled?: boolean
-}
-
-type CalendarDropdownProps = {
-  value?: string | number
-  options?: CalendarDropdownOption[]
-  onChange?: React.ChangeEventHandler<HTMLSelectElement>
-}
-
-type CalendarWeekNumberProps = React.ThHTMLAttributes<HTMLTableCellElement> & {
-  week: { weekNumber: number }
-}
-
-type CalendarDayButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  day: { date: Date }
-  modifiers: Record<string, boolean>
-  children?: React.ReactNode
-}
-
-type CalendarComponents = {
-  Chevron?: React.ComponentType<{
-    className?: string
-    size?: number
-    disabled?: boolean
-    orientation?: 'left' | 'right' | 'up' | 'down'
-  }>
-  DayButton?: React.ComponentType<CalendarDayButtonProps>
-  WeekNumber?: React.ComponentType<CalendarWeekNumberProps>
-  CaptionLabel?: React.ComponentType<React.HTMLAttributes<HTMLElement>>
-  MonthGrid?: React.ComponentType<React.TableHTMLAttributes<HTMLTableElement>>
-  DropdownNav?: React.ComponentType<{ children?: React.ReactNode }>
-  Dropdown?: React.ComponentType<CalendarDropdownProps>
-  YearsDropdown?: React.ComponentType<CalendarDropdownProps>
-  MonthsDropdown?: React.ComponentType<CalendarDropdownProps>
-}
-
-type CalendarClassNames = Partial<
-  Record<
-    | 'months'
-    | 'month'
-    | 'month_caption'
-    | 'caption_label'
-    | 'nav'
-    | 'button_previous'
-    | 'button_next'
-    | 'weekday'
-    | 'day_button'
-    | 'day'
-    | 'range_start'
-    | 'range_end'
-    | 'range_middle'
-    | 'today'
-    | 'outside'
-    | 'hidden'
-    | 'week_number',
-    string
-  >
->
-
-type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
-
-export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
-  mode?: CalendarMode
-  selected?: CalendarSelectedValue
-  onSelect?: (value: CalendarSelectedValue) => void
-  month?: Date
-  onMonthChange?: (month: Date) => void
-  defaultMonth?: Date
-  startMonth?: Date
-  endMonth?: Date
-  showOutsideDays?: boolean
-  numberOfMonths?: number
-  pagedNavigation?: boolean
-  captionLayout?: 'label' | 'dropdown' | 'dropdown-years'
-  hideNavigation?: boolean
-  fixedWeeks?: boolean
-  showWeekNumber?: boolean
-  disabled?: DisabledMatcher | DisabledMatcher[]
-  excludeDisabled?: boolean
-  classNames?: CalendarClassNames
-  components?: CalendarComponents
-}
-
-const toDateOnly = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
-const toMonthStart = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1)
-const toMonthEnd = (date: Date) => new Date(date.getFullYear(), date.getMonth() + 1, 0)
-const addMonths = (date: Date, count: number) =>
-  new Date(date.getFullYear(), date.getMonth() + count, 1)
-
-const toDateValue = (date: Date) =>
-  new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate())
-
-const isRangeValue = (value: CalendarSelectedValue): value is CalendarRangeValue =>
-  Boolean(value) && typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date)
-
-const dateFromSelected = (selected: CalendarSelectedValue, mode: CalendarMode) => {
-  if (!selected) return undefined
-  if (selected instanceof Date) return selected
-  if (Array.isArray(selected) && mode === 'multiple') return selected[0]
-  if (isRangeValue(selected)) return selected.from ?? selected.to
-  return undefined
-}
-
-const selectedToDateValues = (selected: CalendarSelectedValue, mode: CalendarMode) => {
-  if (!selected) return undefined
-  if (mode === 'single') {
-    if (selected instanceof Date) return [toDateValue(selected)]
-    if (isRangeValue(selected)) {
-      const fallback = selected.from ?? selected.to
-      return fallback ? [toDateValue(fallback)] : undefined
-    }
-    return undefined
-  }
-
-  if (mode === 'multiple') {
-    if (!Array.isArray(selected)) return undefined
-    const values = selected.map(toDateValue)
-    return values.length > 0 ? values : undefined
-  }
-
-  if (!isRangeValue(selected)) return undefined
-  const values: DateValue[] = []
-  if (selected.from) values.push(toDateValue(selected.from))
-  if (selected.to) values.push(toDateValue(selected.to))
-  return values.length > 0 ? values : undefined
-}
-
-const valuesToSelected = (values: DateValue[], mode: CalendarMode, timeZone: string) => {
-  if (mode === 'single') {
-    return values[0]?.toDate(timeZone)
-  }
-
-  if (mode === 'multiple') {
-    const dates = values.map((value) => value.toDate(timeZone))
-    return dates.length > 0 ? dates : undefined
-  }
-
-  const from = values[0]?.toDate(timeZone)
-  const to = values[1]?.toDate(timeZone)
-  return from || to ? { from, to } : undefined
-}
-
-const compareMonth = (a: Date, b: Date) => a.getFullYear() - b.getFullYear() || a.getMonth() - b.getMonth()
-
-const clampMonth = (date: Date, min?: Date, max?: Date) => {
-  if (min && compareMonth(date, min) < 0) return min
-  if (max && compareMonth(date, max) > 0) return max
-  return date
-}
-
-const isSameDay = (a: Date, b: Date) =>
-  a.getFullYear() === b.getFullYear() &&
-  a.getMonth() === b.getMonth() &&
-  a.getDate() === b.getDate()
-
-const isMatchObject = (
-  date: Date,
-  matcher: {
-    before?: Date
-    after?: Date
-    from?: Date
-    to?: Date
-    dayOfWeek?: number[]
-  }
-) => {
-  const current = toDateOnly(date).getTime()
-  const before = matcher.before ? toDateOnly(matcher.before).getTime() : undefined
-  const after = matcher.after ? toDateOnly(matcher.after).getTime() : undefined
-  const from = matcher.from ? toDateOnly(matcher.from).getTime() : undefined
-  const to = matcher.to ? toDateOnly(matcher.to).getTime() : undefined
-  const weekdayMatched = Array.isArray(matcher.dayOfWeek) && matcher.dayOfWeek.includes(date.getDay())
-
-  if (from !== undefined || to !== undefined) {
-    const min = from ?? Number.NEGATIVE_INFINITY
-    const max = to ?? Number.POSITIVE_INFINITY
-    if (current >= min && current <= max) return true
-  }
-
-  if (before !== undefined && current < before) return true
-  if (after !== undefined && current > after) return true
-  if (weekdayMatched) return true
-  return false
-}
-
-const matchDisabled = (date: Date, matcher: DisabledMatcher) => {
-  if (matcher instanceof Date) return isSameDay(date, matcher)
-  if (typeof matcher === 'function') return matcher(date)
-  return isMatchObject(date, matcher)
-}
-
-const getIsoWeekNumber = (date: Date) => {
-  const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-  const day = target.getUTCDay() || 7
-  target.setUTCDate(target.getUTCDate() + 4 - day)
-  const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1))
-  return Math.ceil((((target.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
-}
+import type {
+  CalendarClassNames,
+  CalendarComponents,
+  CalendarDayButtonProps,
+  CalendarDropdownOption,
+  CalendarDropdownProps,
+  CalendarMode,
+  CalendarProps,
+  CalendarSelectedValue,
+  CalendarWeekNumberProps,
+} from './calendar/calendar-types'
+import {
+  addMonths,
+  clampMonth,
+  compareMonth,
+  dateFromSelected,
+  getIsoWeekNumber,
+  hasUnavailableBetween,
+  matchDisabled,
+  selectedToDateValues,
+  toDateValue,
+  toMonthEnd,
+  toMonthStart,
+  valuesToSelected,
+} from './calendar/calendar-utils'
 
 function Calendar({
   className,
@@ -264,10 +75,9 @@ function Calendar({
   fixedWeeks = false,
   showWeekNumber = false,
   disabled,
-  excludeDisabled: _excludeDisabled,
+  excludeDisabled = false,
   ...props
 }: CalendarProps) {
-  void _excludeDisabled
   const timeZone = React.useMemo(() => getLocalTimeZone(), [])
   const generatedId = React.useId()
   const disabledMatchers = React.useMemo(
@@ -290,6 +100,14 @@ function Calendar({
   const viewMonth = React.useMemo(
     () => (month ? clampMonth(toMonthStart(month), minMonth, maxMonth) : uncontrolledMonth),
     [month, minMonth, maxMonth, uncontrolledMonth]
+  )
+  const focusedValue = React.useMemo(
+    () => (month ? toDateValue(viewMonth) : undefined),
+    [month, viewMonth]
+  )
+  const defaultFocusedValue = React.useMemo(
+    () => (month ? undefined : toDateValue(initialMonth)),
+    [initialMonth, month]
   )
 
   React.useEffect(() => {
@@ -318,12 +136,31 @@ function Calendar({
     fixedWeeks,
     min: startMonth ? toDateValue(toMonthStart(startMonth)) : undefined,
     max: endMonth ? toDateValue(toMonthEnd(endMonth)) : undefined,
-    focusedValue: toDateValue(viewMonth),
+    focusedValue,
+    defaultFocusedValue,
+    timeZone,
     value: selected === undefined ? undefined : selectedValues,
     isDateUnavailable: disabledMatchers.length > 0 ? handleUnavailable : undefined,
     onValueChange(details) {
-      const next = valuesToSelected(details.value, mode, timeZone)
-      onSelect?.(next)
+      const rawNext = valuesToSelected(details.value, mode, timeZone)
+      if (
+        excludeDisabled &&
+        mode === 'range' &&
+        rawNext &&
+        !Array.isArray(rawNext) &&
+        !(rawNext instanceof Date) &&
+        rawNext.from &&
+        rawNext.to
+      ) {
+        const hasUnavailable = hasUnavailableBetween(rawNext.from, rawNext.to, (date) =>
+          disabledMatchers.some((matcher) => matchDisabled(date, matcher))
+        )
+        if (hasUnavailable) {
+          onSelect?.({ from: rawNext.to, to: undefined })
+          return
+        }
+      }
+      onSelect?.(rawNext)
     },
     onVisibleRangeChange(details) {
       const nextMonth = toMonthStart(details.visibleRange.start.toDate(timeZone))
@@ -729,8 +566,9 @@ export type {
   CalendarDayButtonProps,
   CalendarDropdownProps,
   CalendarMode,
+  CalendarProps,
   CalendarRangeValue,
   CalendarSelectedValue,
   CalendarWeekNumberProps,
   DisabledMatcher,
-}
+} from './calendar/calendar-types'

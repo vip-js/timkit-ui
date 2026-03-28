@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { MicIcon, SearchIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@timui/vue';
+import { Input } from '@timui/vue';
 import Logo from '@/registry/default/components/navbar-components/logo.vue';
 import ThemeToggle from '@/registry/default/components/navbar-components/theme-toggle.vue';
 
+
+
+
+const id = 'navbar-10';
 
 </script>
 

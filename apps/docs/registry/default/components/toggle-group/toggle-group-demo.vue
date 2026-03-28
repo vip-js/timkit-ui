@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Bold, Italic, Underline } from 'lucide-vue-next';
-import { ToggleGroup } from '@/components/ui/toggle-group';
-import { ToggleGroupItem } from '@/components/ui/toggle-group-item';
+import { ToggleGroup } from '@timui/vue';
+import { ToggleGroupItem } from '@timui/vue';
+
 
 
 

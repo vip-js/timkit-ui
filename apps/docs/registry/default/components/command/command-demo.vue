@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { Calculator, Calendar, CreditCard, Settings, Smile, User } from 'lucide-vue-next';
-import { Command } from '@/components/ui/command';
-import { CommandEmpty } from '@/components/ui/command-empty';
-import { CommandGroup } from '@/components/ui/command-group';
-import { CommandInput } from '@/components/ui/command-input';
-import { CommandItem } from '@/components/ui/command-item';
-import { CommandList } from '@/components/ui/command-list';
-import { CommandSeparator } from '@/components/ui/command-separator';
-import { CommandShortcut } from '@/components/ui/command-shortcut';
+import { Command } from '@timui/vue';
+import { CommandEmpty } from '@timui/vue';
+import { CommandGroup } from '@timui/vue';
+import { CommandInput } from '@timui/vue';
+import { CommandItem } from '@timui/vue';
+import { CommandList } from '@timui/vue';
+import { CommandSeparator } from '@timui/vue';
+import { CommandShortcut } from '@timui/vue';
+
 
 
 

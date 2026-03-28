@@ -85,8 +85,8 @@
                     </div>
                   </TableHead>
                 )
-              }) }}</tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+              }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
+{{ table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                 {row.getVisibleCells().map((cell) => {
                   const { column } = cell
@@ -110,13 +110,11 @@
                   )
                 })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          ) }}</tablebody></table><text class="text-muted-foreground mt-4 text-center text-sm">Pinnable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
+            )) }}
+</block>
+<block wx:else>
+<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
+              </tablecell></tablerow>
+</block></tablebody></table><text class="text-muted-foreground mt-4 text-center text-sm">Pinnable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
         </a></text></view>
 </view>

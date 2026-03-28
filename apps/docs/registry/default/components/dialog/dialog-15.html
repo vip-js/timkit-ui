@@ -1,56 +1,17 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r1c:" data-state="closed">
-  Invite members
-</button>
-
-<!-- 
-Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
-Here is the structural representation of the opened dialog:
-
-<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
-<div role="dialog" id="radix-:r1c:" aria-describedby="radix-:r1e:" aria-labelledby="radix-:r1d:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
-  <div class="flex flex-col gap-2">
-    <div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus opacity-80"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
-    </div>
-    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
-      <h2 id="radix-:r1d:" class="text-lg font-semibold leading-none tracking-tight text-left">Invite team members</h2>
-      <p id="radix-:r1e:" class="text-sm text-muted-foreground text-left">Invite teammates to earn free components.</p>
-    </div>
-  </div>
-  <form class="space-y-5">
-    <div class="space-y-4">
-      <div class="*:not-first:mt-2">
-        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Invite via email</label>
-        <div class="space-y-3">
-          <input type="email" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="team-email-1" placeholder="hi@yourcompany.com" value="mark@yourcompany.com">
-          <input type="email" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="team-email-2" placeholder="hi@yourcompany.com" value="jane@yourcompany.com">
-          <input type="email" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="team-email-3" placeholder="hi@yourcompany.com" value="">
-        </div>
-      </div>
-      <button type="button" class="text-sm underline hover:no-underline">+ Add another</button>
-    </div>
-    <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">Send invites</button>
-  </form>
-  <hr class="my-1 border-t">
-  <div class="*:not-first:mt-2">
-    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="dialog-15-link">Invite via magic link</label>
-    <div class="relative">
-      <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pe-9" id="dialog-15-link" value="https://ui.timkit.cn/refer/87689" readonly="">
-      <button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed" aria-label="Copy to clipboard" type="button">
-        <div class="transition-all scale-0 opacity-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check stroke-emerald-500" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-        </div>
-        <div class="absolute transition-all scale-100 opacity-100">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-        </div>
-      </button>
-    </div>
-  </div>
-  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    <span class="sr-only">Close</span>
-  </button>
-</div>
--->
+<template>
+  <Dialog><DialogTrigger aschild><Button variant="outline">Invite members</Button></DialogTrigger><DialogContent onopenautofocus="${(e) => {
+          e.preventDefault()
+          lastInputRef.current?.focus()
+        }}"><div class="flex flex-col gap-2"><div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><UserRoundPlusIcon class="opacity-80" size="${16}" /></div><DialogHeader><DialogTitle class="text-left">Invite team members</DialogTitle><DialogDescription class="text-left">Invite teammates to earn free components.
+            </DialogDescription></DialogHeader></div><form class="space-y-5"><div class="space-y-4"><div class="*:not-first:mt-2"><Label>Invite via email</Label><div class="space-y-3"><!-- Loop emails -->
+<Input key="${index}" id="${`team-email-${index + 1}`}" placeholder="hi@yourcompany.com" type="email" value="${email}" onchange="${(e) => handleEmailChange(index, e.target.value)}" ref="${index === emails.length - 1 ? lastInputRef : undefined}" />
+<!-- End Loop --></div></div><button type="button" on-click="${addEmail}" class="text-sm underline hover:no-underline">+ Add another
+            </button></div><Button type="button" class="w-full">Send invites
+          </Button></form><hr class="my-1 border-t" /><div class="*:not-first:mt-2"><Label htmlfor="${id}">Invite via magic link</Label><div class="relative"><Input ref="${inputRef}" id="${id}" class="pe-9" type="text" default-value="https://ui.timkit.cn/refer/87689" readonly /><TooltipProvider delayduration="${0}"><Tooltip><TooltipTrigger aschild><button on-click="${handleCopy}" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed" aria-label="${copied ? 'Copied' : 'Copy to clipboard'}" disabled="${copied}"><div class="${cn(
+                        'transition-all',
+                        copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                      )}"><CheckIcon class="stroke-emerald-500" size="${16}" aria-hidden="true" /></div><div class="${cn(
+                        'absolute transition-all',
+                        copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
+                      )}"><CopyIcon size="${16}" aria-hidden="true" /></div></button></TooltipTrigger><TooltipContent class="px-2 py-1 text-xs">Copy to clipboard</TooltipContent></Tooltip></TooltipProvider></div></div></DialogContent></Dialog>
+</template>

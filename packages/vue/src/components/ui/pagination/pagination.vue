@@ -13,6 +13,8 @@ const props = defineProps<{
   count?: number;
   siblingCount?: number;
   boundaryCount?: number;
+  onPageChange?: (details: { page: number; pageSize: number }) => void;
+  onPageSizeChange?: (details: { page: number; pageSize: number }) => void;
   class?: HTMLAttributes["class"];
 }>();
 

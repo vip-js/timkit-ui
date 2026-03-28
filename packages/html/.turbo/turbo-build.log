@@ -31,6 +31,7 @@
 ✅ Compiled navbar.hbs -> navbar.html
 ✅ Compiled navigation-menu.hbs -> navigation-menu.html
 ✅ Compiled notification.hbs -> notification.html
+✅ Compiled number-field.hbs -> number-field.html
 ✅ Compiled pagination.hbs -> pagination.html
 ✅ Compiled popover-content.hbs -> popover-content.html
 ✅ Compiled popover.hbs -> popover.html
@@ -57,7 +58,7 @@
 ✅ Compiled tooltip.hbs -> tooltip.html
 ✅ Compiled tree.hbs -> tree.html
 
-🎉 Successfully compiled 53 Handlebars templates.
+🎉 Successfully compiled 54 Handlebars templates.
 
 > @timui/html@0.0.1 build /Users/jiawei01.mao/sine/timkit-ui/packages/html
 > node --import tsx ../../scripts/build-html-package.ts

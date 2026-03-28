@@ -48,8 +48,8 @@
                       )}
                     </TableHead>
                   )
-                }) }}</tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+                }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
+{{ table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -57,14 +57,12 @@
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            ) }}</tablebody></table></view><view class="flex items-center justify-between gap-3 max-sm:flex-col"><text class="text-muted-foreground flex-1 text-sm whitespace-nowrap" aria-live="polite">Page <text class="text-foreground">{{ table.getState().pagination.pageIndex + 1 }}</text>{{ ' ' }}of <text class="text-foreground">{{ table.getPageCount() }}</text></text><view class="grow"><pagination><paginationcontent><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.previousPage()" disabled="{{!table.getCanPreviousPage()}}" aria-label="Go to previous page"><chevronlefticon size="{{16}}" aria-hidden="true" /></button></paginationitem><paginationitem wx:if="{{showLeftEllipsis}}"><paginationellipsis /></paginationitem>{{ pages.map((page) => {
+              )) }}
+</block>
+<block wx:else>
+<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
+                </tablecell></tablerow>
+</block></tablebody></table></view><view class="flex items-center justify-between gap-3 max-sm:flex-col"><text class="text-muted-foreground flex-1 text-sm whitespace-nowrap" aria-live="polite">Page <text class="text-foreground">{{ table.getState().pagination.pageIndex + 1 }}</text>{{ ' ' }}of <text class="text-foreground">{{ table.getPageCount() }}</text></text><view class="grow"><pagination><paginationcontent><paginationitem><button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" bindtap="table.previousPage()" disabled="{{!table.getCanPreviousPage()}}" aria-label="Go to previous page"><chevronlefticon size="{{16}}" aria-hidden="true" /></button></paginationitem><paginationitem wx:if="{{showLeftEllipsis}}"><paginationellipsis /></paginationitem>{{ pages.map((page) => {
                 const isActive = page === table.getState().pagination.pageIndex + 1
                 return (
                   <PaginationItem key={page}>

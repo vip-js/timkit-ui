@@ -43,7 +43,7 @@ export type RadioGroupVueProps = {
   /**
    * Callback fired when the value changes.
    */
-  onValueChange?: (details: { value: string | null }) => void
+  onValueChange?: (value: string | null) => void
 }
 
 export type RadioGroupItemProps = radioGroup.ItemProps

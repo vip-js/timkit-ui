@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Badge } from '@/components/ui/badge';
-import { Tabs } from '@/components/ui/tabs';
-import { TabsContent } from '@/components/ui/tabs-content';
-import { TabsList } from '@/components/ui/tabs-list';
-import { TabsTrigger } from '@/components/ui/tabs-trigger';
+import { Badge } from '@timui/vue';
+import { Tabs } from '@timui/vue';
+import { TabsContent } from '@timui/vue';
+import { TabsList } from '@timui/vue';
+import { TabsTrigger } from '@timui/vue';
+
 
 
 

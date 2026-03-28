@@ -53,7 +53,7 @@ export type CheckboxVueProps = {
   /**
    * Callback fired when the state of the checked property changes.
    */
-  onCheckedChange?: (details: { checked: CheckboxCheckedState }) => void
+  onCheckedChange?: (checked: CheckboxCheckedState) => void
 }
 
 /**

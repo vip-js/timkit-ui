@@ -15,25 +15,27 @@ const props = withDefaults(
 type BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void);
 type SelectApi = {
   open?: boolean;
-  positionerProps?: Record<string, BindValue>;
-  contentProps?: Record<string, BindValue>;
+  getPositionerProps?: () => Record<string, BindValue>;
+  getContentProps?: () => Record<string, BindValue>;
 };
 
 const api = useSelectContext() as Ref<SelectApi | undefined> | undefined;
 const isOpen = computed(() => api?.value?.open);
+const positionerProps = computed(() => api?.value?.getPositionerProps?.() || {});
+const contentProps = computed(() => api?.value?.getContentProps?.() || {});
 </script>
 
 <template>
   <Teleport to="body">
     <Presence
       :present="isOpen || false"
-      lazyMount
-      unmountOnExit
-      v-bind="api?.positionerProps"
+      :lazyMount="false"
+      :unmountOnExit="false"
+      v-bind="positionerProps"
       style="z-index: 50"
     >
       <div
-        v-bind="api?.contentProps"
+        v-bind="contentProps"
         :class="
           cn(
             selectContentVariants(),

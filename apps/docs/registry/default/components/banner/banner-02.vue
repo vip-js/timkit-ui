@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Banner } from '@/components/ui/banner';
-import { BannerContent } from '@/components/ui/banner-content';
-import { BannerDescription } from '@/components/ui/banner-description';
+import { Banner } from '@timui/vue';
+import { BannerContent } from '@timui/vue';
+import { BannerDescription } from '@timui/vue';
+
 
 
 

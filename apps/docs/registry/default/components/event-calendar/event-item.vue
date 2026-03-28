@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
-import { getBorderRadiusClasses, getEventColorClasses, CalendarEvent } from '@/registry/default/components/event-calendar.vue';
-
-
+defineProps<{ title?: string }>()
 </script>
 
 <template>
-  
+  <div class="rounded border px-3 py-2 text-sm">
+    <slot>{{ title || 'Event item placeholder' }}</slot>
+  </div>
 </template>

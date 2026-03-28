@@ -2,7 +2,7 @@ import type { RegistryItem } from '@timui/core'
 
 import { getFrameworkDemoFiles, resolveDemoFrameworkSource } from '@/lib/demo-canonical'
 import { resolveFrameworkPreviewTargets, type FrameworkPreviewHints } from '@/lib/framework-preview'
-import { convertRegistryPaths } from '@/lib/utils'
+import { convertRegistryPaths, convertVueAtomicImports } from '@/lib/utils'
 import type { FrameworkTab } from '@/components/frameworks-tabs'
 import { IconHTML, IconReact, IconVue, IconWeapp } from '@/components/icons'
 
@@ -52,7 +52,7 @@ export function getFrameworkCodePanes(
         )
         .map(
           (f) =>
-            `// ${(f.target || '').replace('components/ui/', '')}\n${convertRegistryPaths(f.content || '')}`
+            `// ${(f.target || '').replace('components/ui/', '')}\n${convertVueAtomicImports(convertRegistryPaths(f.content || ''))}`
         )
         .join('\n\n'),
       html: safeFiles
@@ -80,7 +80,7 @@ export function getFrameworkCodePanes(
   const vueCode = vueFiles
     .map(
       (file) =>
-        `// ${(file.target || '').replace('components/ui/', '')}\n${convertRegistryPaths(file.content || '')}`
+        `// ${(file.target || '').replace('components/ui/', '')}\n${convertVueAtomicImports(convertRegistryPaths(file.content || ''))}`
     )
     .join('\n\n')
   const htmlCode = htmlFiles.map((file) => file.content || '').join('\n\n')

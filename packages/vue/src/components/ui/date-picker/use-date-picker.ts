@@ -10,7 +10,7 @@ import { parse as parseDateValue } from '@zag-js/date-picker'
 import type { DateValue } from '@zag-js/date-picker'
 import type { Placement } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
 export type UseDatePickerProps = DatePickerVueProps & {
   numberOfMonths?: number
@@ -31,6 +31,7 @@ export type UseDatePickerEmits = {
 
 export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmits) {
   const localTimeZone = getLocalTimeZone()
+  const generatedId = useId()
   const toPickerDate = (input: string | Date) =>
     parseDateValue(
       input instanceof Date
@@ -46,8 +47,9 @@ export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmit
 
     const range = value as DatePickerRangeValue
     if (mode === 'range') {
+      if (!range?.from) return undefined
       const parsed: DateValue[] = []
-      if (range?.from) parsed.push(toPickerDate(range.from))
+      parsed.push(toPickerDate(range.from))
       if (range?.to) parsed.push(toPickerDate(range.to))
       return parsed.length ? parsed : undefined
     }
@@ -66,27 +68,43 @@ export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmit
   }
 
   const machineProps = computed(() => {
+    const mode = props.mode || 'single'
+    const currentValue = props.modelValue ?? props.value
     const controlledValue =
-      props.modelValue !== undefined
-        ? toDateValueArray(props.modelValue, props.mode || 'single')
-        : undefined
+      currentValue !== undefined ? toDateValueArray(currentValue, mode) : undefined
 
     const defaultValue =
-      props.modelValue === undefined
-        ? toDateValueArray(props.defaultValue, props.mode || 'single')
-        : undefined
+      currentValue === undefined ? toDateValueArray(props.defaultValue, mode) : undefined
+    const min = props.minDate ? toPickerDate(props.minDate) : undefined
+    const max = props.maxDate ? toPickerDate(props.maxDate) : undefined
 
     return {
-      selectionMode: props.mode || 'single',
+      id: props.id ?? generatedId,
+      selectionMode: mode,
       numOfMonths: props.numberOfMonths || 1,
       outsideDaySelectable: true,
       timeZone: localTimeZone,
+      min,
+      max,
       value: controlledValue,
       defaultValue,
+      open: props.open,
+      defaultOpen: props.defaultOpen,
+      disabled: props.disabled,
+      required: props.required,
+      name: props.name,
+      locale: props.locale,
+      isDateUnavailable: props.isDateUnavailable
+        ? (date: DateValue) => props.isDateUnavailable?.(date.toDate(localTimeZone)) ?? false
+        : undefined,
       onValueChange(details: { value: DateValue[] }) {
-        const next = toModelValue(details.value, props.mode || 'single')
+        const next = toModelValue(details.value, mode)
+        props.onValueChange?.(next)
         emit('update:modelValue', next)
         emit('change', next)
+      },
+      onOpenChange(details: { open: boolean }) {
+        props.onOpenChange?.(details.open)
       },
       positioning: {
         placement: 'bottom-start' as Placement,

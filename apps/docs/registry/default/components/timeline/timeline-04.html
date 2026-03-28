@@ -1,18 +1,5 @@
-<ol data-slot="timeline" class="space-y-4">
-  <li class="flex gap-3">
-    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary"></span>
-    <div>
-      <p class="text-xs font-medium text-muted-foreground">Week 1</p>
-      <p class="text-sm font-medium">Audit</p>
-      <p class="text-xs text-muted-foreground">Compare manifests, registry exports, and docs coverage.</p>
-    </div>
-  </li>
-  <li class="flex gap-3">
-    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary"></span>
-    <div>
-      <p class="text-xs font-medium text-muted-foreground">Week 2</p>
-      <p class="text-sm font-medium">Adapters</p>
-      <p class="text-xs text-muted-foreground">Add HTML adapter coverage and tighten capability truth.</p>
-    </div>
-  </li>
-</ol>
+<template>
+  <Timeline default-value="${3}"><!-- Loop items -->
+<TimelineItem key="${item.id}" step="${item.id}"><TimelineHeader><TimelineSeparator /><TimelineTitle class="-mt-0.5">${item.title}</TimelineTitle><TimelineIndicator /></TimelineHeader><TimelineContent>${item.description}<TimelineDate class="mt-2 mb-0">${item.date}</TimelineDate></TimelineContent></TimelineItem>
+<!-- End Loop --></Timeline>
+</template>

@@ -1,18 +1,12 @@
 <view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with flag and search</label><popover open="{{open}}" bindchange="setOpen"><popovertrigger aschild><button id="{{id}}" variant="outline" role="combobox" aria-expanded="{{open}}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]">{{ value ? (
-              <span className="flex min-w-0 items-center gap-2">
-                <span className="text-lg leading-none">
-                  {
-                    countries
+  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with flag and search</label><popover open="{{open}}" bindchange="setOpen"><popovertrigger aschild><button id="{{id}}" variant="outline" role="combobox" aria-expanded="{{open}}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><block wx:if="{{value}}">
+<text class="flex min-w-0 items-center gap-2"><text class="text-lg leading-none">{{ countries
                       .map((group) => group.items.find((item) => item.value === value))
-                      .filter(Boolean)[0]?.flag
-                  }
-                </span>
-                <span className="truncate">{value}</span>
-              </span>
-            ) : (
-              <span className="text-muted-foreground">Select country</span>
-            ) }}<chevrondownicon size="{{16}}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></button></popovertrigger><popovercontent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><command><commandinput placeholder="Search country..." /><commandlist><commandempty>No country found.</commandempty><fragment wx:for="{{countries}}" wx:for-item="group" wx:for-index="index" wx:key="index" key="{{group.continent}}"><commandgroup heading="{{group.continent}}"><commanditem wx:for="{{group.items}}" wx:for-item="country" wx:for-index="index" wx:key="index" key="{{country.value}}" value="{{country.value}}" onselect="{{(currentValue) => {
+                      .filter(Boolean)[0]?.flag }}</text><text class="truncate">{{ value }}</text></text>
+</block>
+<block wx:else>
+<text class="text-muted-foreground">Select country</text>
+</block><chevrondownicon size="{{16}}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></button></popovertrigger><popovercontent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><command><commandinput placeholder="Search country..." /><commandlist><commandempty>No country found.</commandempty><fragment wx:for="{{countries}}" wx:for-item="group" wx:for-index="index" wx:key="index" key="{{group.continent}}"><commandgroup heading="{{group.continent}}"><commanditem wx:for="{{group.items}}" wx:for-item="country" wx:for-index="index" wx:key="index" key="{{country.value}}" value="{{country.value}}" onselect="{{(currentValue) => {
                           const val = currentValue as string
                           setValue(val === value ? '' : val)
                           setOpen(false)

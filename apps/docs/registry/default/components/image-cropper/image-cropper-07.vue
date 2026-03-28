@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@/components/ui/image-cropper';
+import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/vue';
+
 
 
 

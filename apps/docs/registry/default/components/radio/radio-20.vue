@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioGroupItem } from '@/components/ui/radio-group-item';
+import { ref } from 'vue';
+import { RadioGroup } from '@timui/vue';
+import { RadioGroupItem } from '@timui/vue';
 
 
+
+const selectedValue = ref('on');
+
+
+const id = 'radio-20';
+
+
+function setSelectedValue(next: typeof selectedValue.value | ((prev: typeof selectedValue.value) => typeof selectedValue.value)) {
+  selectedValue.value = typeof next === 'function'
+    ? (next as (prev: typeof selectedValue.value) => typeof selectedValue.value)(selectedValue.value)
+    : next;
+}
 
 </script>
 

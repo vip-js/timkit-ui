@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { SendIcon } from 'lucide-vue-next';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
 
 
+
+
+
+const id = 'input-19';
 
 </script>
 

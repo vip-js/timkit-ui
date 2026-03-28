@@ -10,6 +10,7 @@ import { useToggleGroup } from './use-toggle-group'
 
 const props = withDefaults(
   defineProps<{
+    id?: string
     class?: HTMLAttributes['class']
     variant?: ToggleGroupContextValue['variant']
     size?: ToggleGroupContextValue['size']
@@ -18,6 +19,7 @@ const props = withDefaults(
     value?: string | string[]
     defaultValue?: string | string[]
     disabled?: boolean
+    loop?: boolean
   }>(),
   {
     type: 'single',
@@ -34,12 +36,14 @@ const toArray = (value?: string | string[] | null) => {
 }
 
 const api = useToggleGroup({
+  id: props.id,
   multiple: props.type === 'multiple',
   disabled: props.disabled,
+  loop: props.loop,
   value: toArray(props.value ?? props.modelValue),
   defaultValue: toArray(props.value ?? props.modelValue) === undefined ? toArray(props.defaultValue) : undefined,
-  onValueChange(details: { value: string[] }) {
-    const nextValue = props.type === 'multiple' ? details.value : details.value[0] || ''
+  onValueChange(value: string[]) {
+    const nextValue = props.type === 'multiple' ? value : value[0] || ''
     emit('update:modelValue', nextValue)
     emit('change', nextValue)
   },

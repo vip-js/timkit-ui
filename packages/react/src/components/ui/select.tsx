@@ -3,6 +3,7 @@
 import * as React from 'react'
 import {
   cn,
+  selectCollection,
   selectContentPopperVariants,
   selectContentVariants,
   selectItemVariants,
@@ -12,7 +13,7 @@ import {
   selectTriggerVariants,
   selectValueVariants,
 } from '@timui/core'
-import { Portal } from '@zag-js/react'
+import { mergeProps, Portal } from '@zag-js/react'
 import { CheckIcon, ChevronDownIcon } from 'lucide-react'
 
 import { useSelect, type SelectItemData, type SelectProps } from './select/use-select'
@@ -20,10 +21,54 @@ import { SelectProvider, useSelectContext } from './select/use-select-context'
 import { Slot } from './slot'
 
 const Select = (props: SelectProps) => {
-  const { children } = props
-  const api = useSelect(props)
+  const { children, collection: externalCollection } = props
+  const internalCollectionRef = React.useRef(selectCollection<SelectItemData>({ items: [] }))
+  const [itemLabels, setItemLabels] = React.useState<Record<string, string>>({})
+  const collection = externalCollection ?? internalCollectionRef.current
+  const api = useSelect({ ...props, collection })
 
-  return <SelectProvider value={api}>{children}</SelectProvider>
+  const registerItem = React.useCallback(
+    (item: SelectItemData) => {
+      if (!externalCollection) {
+        internalCollectionRef.current.upsert(item.value, item)
+      }
+      setItemLabels((prev) => {
+        if (prev[item.value] === item.label) return prev
+        return { ...prev, [item.value]: item.label }
+      })
+    },
+    [externalCollection]
+  )
+
+  const unregisterItem = React.useCallback(
+    (value: string) => {
+      if (!externalCollection) {
+        internalCollectionRef.current.remove(value)
+      }
+      setItemLabels((prev) => {
+        if (!(value in prev)) return prev
+        const next = { ...prev }
+        delete next[value]
+        return next
+      })
+    },
+    [externalCollection]
+  )
+
+  const getItemLabel = React.useCallback(
+    (value: string) => {
+      if (externalCollection) return externalCollection.find(value)?.label
+      return itemLabels[value]
+    },
+    [externalCollection, itemLabels]
+  )
+
+  const contextValue = React.useMemo(
+    () => ({ ...api, registerItem, unregisterItem, getItemLabel }),
+    [api, getItemLabel, registerItem, unregisterItem]
+  )
+
+  return <SelectProvider value={contextValue}>{children}</SelectProvider>
 }
 
 type SelectTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -34,22 +79,19 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className, children, asChild = false, ...props }, ref) => {
     const api = useSelectContext()
     const Comp = asChild ? Slot : 'button'
+    const triggerProps = api.getTriggerProps?.() ?? {}
+    const mergedProps = mergeProps(triggerProps, props)
 
     if (asChild) {
       return (
-        <Comp {...api?.triggerProps} ref={ref} className={cn(className)} {...props}>
+        <Comp ref={ref} className={cn(className)} {...mergedProps}>
           {children}
         </Comp>
       )
     }
 
     return (
-      <Comp
-        {...api?.triggerProps}
-        ref={ref}
-        className={cn(selectTriggerVariants(), className)}
-        {...props}
-      >
+      <Comp ref={ref} className={cn(selectTriggerVariants(), className)} {...mergedProps}>
         {children}
         <ChevronDownIcon className={selectTriggerIconVariants()} />
       </Comp>
@@ -65,20 +107,21 @@ type SelectContentProps = React.HTMLAttributes<HTMLDivElement> & {
 const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
   ({ className, children, position = 'popper', ...props }, ref) => {
     const api = useSelectContext()
-    if (!api?.open) return null
+    const positionerProps = api.getPositionerProps?.() ?? {}
+    const contentProps = api.getContentProps?.() ?? {}
+    const mergedProps = mergeProps(contentProps, props) as React.HTMLAttributes<HTMLDivElement>
 
     return (
       <Portal>
-        <div {...api.positionerProps} style={{ ...api.positionerProps?.style, zIndex: 50 }}>
+        <div {...positionerProps} style={{ ...positionerProps.style, zIndex: 50 }}>
           <div
-            {...api.contentProps}
             ref={ref}
             className={cn(
               selectContentVariants(),
               position === 'popper' && selectContentPopperVariants(),
               className
             )}
-            {...props}
+            {...mergedProps}
           >
             {children}
           </div>
@@ -91,6 +134,8 @@ SelectContent.displayName = 'SelectContent'
 
 type SelectItemProps = React.HTMLAttributes<HTMLDivElement> & {
   value: string
+  label?: string
+  disabled?: boolean
   children?: React.ReactNode
 }
 
@@ -100,19 +145,34 @@ const isSelected = (apiValue: string | string[] | undefined, value: string) => {
 }
 
 const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ className, children, value, ...props }, ref) => {
+  ({ className, children, value, label, disabled, ...props }, ref) => {
     const api = useSelectContext()
+    const itemLabel = React.useMemo(() => {
+      if (label) return label
+      if (typeof children === 'string' || typeof children === 'number') return String(children)
+      return value
+    }, [children, label, value])
     const item = React.useMemo<SelectItemData>(
-      () => ({ label: children, value }),
-      [children, value]
+      () => ({ label: itemLabel, value, disabled }),
+      [disabled, itemLabel, value]
     )
+    const itemProps = api?.getItemProps?.({ item }) ?? {}
+    const mergedProps = mergeProps(itemProps, props) as React.HTMLAttributes<HTMLDivElement>
+    const registerItem = api.registerItem
+    const unregisterItem = api.unregisterItem
+
+    React.useEffect(() => {
+      registerItem?.(item)
+      return () => {
+        unregisterItem?.(item.value)
+      }
+    }, [item, registerItem, unregisterItem])
 
     return (
       <div
-        {...api?.getItemProps?.({ item })}
         ref={ref}
         className={cn(selectItemVariants(), className)}
-        {...props}
+        {...mergedProps}
       >
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
           {isSelected(api?.value, value) ? <CheckIcon className="h-4 w-4" /> : null}
@@ -145,10 +205,13 @@ type SelectValueProps = React.HTMLAttributes<HTMLSpanElement> & {
 const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(
   ({ className, placeholder, ...props }, ref) => {
     const api = useSelectContext()
-    const displayValue = Array.isArray(api?.value) ? api?.value.join(', ') : api?.value
+    const values = api?.value ?? []
+    const fallbackValue = values.map((value) => api.getItemLabel?.(value) ?? value).join(', ')
+    const hasRegisteredLabel = values.some((value) => api.getItemLabel?.(value) !== undefined)
+    const displayValue = (hasRegisteredLabel ? fallbackValue : api?.valueAsString || fallbackValue) || placeholder
     return (
       <span ref={ref} className={cn(selectValueVariants(), className)} {...props}>
-        {displayValue || placeholder}
+        {displayValue}
       </span>
     )
   }

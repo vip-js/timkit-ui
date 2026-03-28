@@ -1,14 +1,3 @@
-<div class="*:not-first:mt-2">
-      <label for="select-33-id">Select with left text</label>
-      <select defaultValue="1">
-        <select-trigger id="select-33-id">
-          <span>
-            Language: <select-value placeholder="Select a language" />
-          </span>
-        </select-trigger>
-        <select-content>
-          <select-item value="1">Javascript</select-item>
-          <select-item value="2">Bash</select-item>
-        </select-content>
-      </select>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with left text</Label><Select default-value="1"><SelectTrigger id="${id}"><span>Language: <SelectValue placeholder="Select a language" /></span></SelectTrigger><SelectContent><SelectItem value="1">Javascript</SelectItem><SelectItem value="2">Bash</SelectItem></SelectContent></Select></div>
+</template>

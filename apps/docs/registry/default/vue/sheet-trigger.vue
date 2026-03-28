@@ -15,7 +15,7 @@ const props = withDefaults(
 );
 
 const api = inject("sheet") as any;
-const triggerProps = computed(() => api.value?.triggerProps || {});
+const triggerProps = computed(() => api.value?.getTriggerProps?.() || {});
 </script>
 
 <template>

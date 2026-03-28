@@ -14,7 +14,7 @@ export function useSheet(props: UseSheetProps) {
     defaultOpen: props.defaultOpen,
     modal: props.modal,
     onOpenChange(details) {
-      props.onOpenChange?.(details)
+      props.onOpenChange?.(details.open)
     },
   })
 

@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { DateInput } from '@/components/ui/date-input';
-import { TimeField } from '@/components/ui/time-field';
-
-
-
+import { DateInput } from '@timui/vue'
+import { Label } from '@timui/vue'
+import { TimeField } from '@timui/vue'
 </script>
 
 <template>
-  <TimeField class="*:not-first:mt-2"><Label class="text-foreground text-sm font-medium">Time input</Label><DateInput /><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></p></TimeField>
+  <TimeField class="*:not-first:mt-2">
+    <Label class="text-foreground text-sm font-medium">Time input</Label>
+    <DateInput />
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <a
+        class="hover:text-foreground underline"
+        href="https://react-spectrum.adobe.com/react-aria/DateField.html"
+        target="_blank"
+        rel="noopener nofollow"
+      >
+        React Aria
+      </a>
+    </p>
+  </TimeField>
 </template>

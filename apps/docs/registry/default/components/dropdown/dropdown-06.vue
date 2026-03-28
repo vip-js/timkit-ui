@@ -1,9 +1,40 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ChevronDownIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@timui/vue';
 
 
+
+const nextjs = ref<Checked>(false);
+const sveltekit = ref<Checked>(true);
+const astro = ref<Checked>(false);
+const remix = ref<Checked>(false);
+
+
+function setNextjs(next: typeof nextjs.value | ((prev: typeof nextjs.value) => typeof nextjs.value)) {
+  nextjs.value = typeof next === 'function'
+    ? (next as (prev: typeof nextjs.value) => typeof nextjs.value)(nextjs.value)
+    : next;
+}
+
+function setSveltekit(next: typeof sveltekit.value | ((prev: typeof sveltekit.value) => typeof sveltekit.value)) {
+  sveltekit.value = typeof next === 'function'
+    ? (next as (prev: typeof sveltekit.value) => typeof sveltekit.value)(sveltekit.value)
+    : next;
+}
+
+function setRemix(next: typeof remix.value | ((prev: typeof remix.value) => typeof remix.value)) {
+  remix.value = typeof next === 'function'
+    ? (next as (prev: typeof remix.value) => typeof remix.value)(remix.value)
+    : next;
+}
+
+function setAstro(next: typeof astro.value | ((prev: typeof astro.value) => typeof astro.value)) {
+  astro.value = typeof next === 'function'
+    ? (next as (prev: typeof astro.value) => typeof astro.value)(astro.value)
+    : next;
+}
 
 </script>
 

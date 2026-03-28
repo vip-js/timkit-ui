@@ -47,7 +47,7 @@ export type SwitchVueProps = {
   /**
    * Callback fired when the state of the checked property changes.
    */
-  onCheckedChange?: (details: { checked: boolean }) => void
+  onCheckedChange?: (checked: boolean) => void
 }
 
 /**

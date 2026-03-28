@@ -1,14 +1,3 @@
-<radio-group defaultValue="1">
-      <div class="flex items-center gap-2">
-        <radio-group-item value="1" id="radio-01-id" />
-        <label for="radio-01-id">Option 1</label>
-      </div>
-      <div class="flex items-center gap-2">
-        <radio-group-item value="2" id="radio-01-id" />
-        <label for="radio-01-id">Option 2</label>
-      </div>
-      <div class="flex items-center gap-2">
-        <radio-group-item value="3" id="radio-01-id" />
-        <label for="radio-01-id">Option 3</label>
-      </div>
-    </radio-group>
+<template>
+  <RadioGroup default-value="1"><div class="flex items-center gap-2"><RadioGroupItem value="1" id="${`${id}-1`}" /><Label htmlfor="${`${id}-1`}">Option 1</Label></div><div class="flex items-center gap-2"><RadioGroupItem value="2" id="${`${id}-2`}" /><Label htmlfor="${`${id}-2`}">Option 2</Label></div><div class="flex items-center gap-2"><RadioGroupItem value="3" id="${`${id}-3`}" /><Label htmlfor="${`${id}-3`}">Option 3</Label></div></RadioGroup>
+</template>

@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ClockIcon } from 'lucide-vue-next';
-import { Label } from '@/components/ui/label';
-import { SelectNative } from '@/components/ui/select';
+import { Label } from '@timui/vue';
+import { SelectNative } from '@timui/vue';
 
 
+
+
+
+const id = 'select-03';
 
 </script>
 

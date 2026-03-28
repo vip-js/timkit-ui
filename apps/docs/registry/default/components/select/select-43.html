@@ -1,49 +1,19 @@
-<div class="*:not-first:mt-2">
-      <label for="select-43-id">Timezone select with search</label>
-      <popover >
-        <popover-trigger asChild>
-          <button id="select-43-id"
-            variant="outline"
-            role="combobox"
-            class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
-          >
-            <span>
-              'Select timezone'
-            </span>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
-          </button>
-        </popover-trigger>
-        <popover-content
-          class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0"
-          align="start"
-        >
-          <command
-          >
-            <command-input placeholder="Search timezone..." />
-            <command-list>
-              <command-empty>No timezone found.</command-empty>
-              <command-group>
-                
-                  <command-item >
-                    (GMT+0) Europe/London
-                    
-                  </command-item>
-                
-
-                  <command-item >
-                    (GMT-4) America/New York
-                    
-                  </command-item>
-                
-
-                  <command-item >
-                    (GMT+8) Asia/Shanghai
-                    
-                  </command-item>
-                
-              </command-group>
-            </command-list>
-          </command>
-        </popover-content>
-      </popover>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Timezone select with search</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><span class="${cn('truncate', !value && 'text-muted-foreground')}"><!-- if value -->
+${formattedTimezones.find((timezone) => timezone.value === value)?.label}
+<!-- else -->
+${'Select timezone'}
+<!-- endif --></span><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command filter="${(value, search) => {
+              const normalizedValue = value.toLowerCase()
+              const normalizedSearch = search.toLowerCase().replace(/\s+/g, '')
+              return normalizedValue.includes(normalizedSearch) ? 1 : 0
+            }}"><CommandInput placeholder="Search timezone..." /><CommandList><CommandEmpty>No timezone found.</CommandEmpty><CommandGroup><!-- Loop formattedTimezones -->
+<CommandItem key="${itemValue}" value="${itemValue}" onselect="${(currentValue) => {
+                      const val = currentValue as string
+                      setValue(val === value ? '' : val)
+                      setOpen(false)
+                    }}">${label}<!-- if value === itemValue -->
+<CheckIcon size="${16}" class="ml-auto" />
+<!-- endif --></CommandItem>
+<!-- End Loop --></CommandGroup></CommandList></Command></PopoverContent></Popover></div>
+</template>

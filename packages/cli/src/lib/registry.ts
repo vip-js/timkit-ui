@@ -32,7 +32,9 @@ type RegistryPayloadRecord = Record<string, JsonValue> & {
 
 const registryItemsSchema = z.array(registryItemSchema)
 
-function toError(error: unknown): Error {
+type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
+
+function toError(error: ErrorInput): Error {
   if (error instanceof Error) return error
   return new Error(String(error))
 }

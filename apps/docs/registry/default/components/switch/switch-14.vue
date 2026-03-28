@@ -1,8 +1,21 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
+import { ref } from 'vue';
+import { Label } from '@timui/vue';
+import { Switch } from '@timui/vue';
 
 
+
+const checked = ref<boolean>(true);
+
+
+const id = 'switch-14';
+
+
+function setChecked(next: typeof checked.value | ((prev: typeof checked.value) => typeof checked.value)) {
+  checked.value = typeof next === 'function'
+    ? (next as (prev: typeof checked.value) => typeof checked.value)(checked.value)
+    : next;
+}
 
 </script>
 

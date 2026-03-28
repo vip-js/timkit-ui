@@ -1,21 +1,3 @@
-<div class="inline-flex -space-x-px rounded-md shadow-xs rtl:space-x-reverse">
-  <button type="button" data-slot="button"
-    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
-    aria-label="Upvote">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up"
-      aria-hidden="true">
-      <path d="m18 15-6-6-6 6" />
-    </svg>
-  </button>
-  <span class="border-input flex items-center border px-3 text-sm font-medium">235</span>
-  <button type="button" data-slot="button"
-    class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10"
-    aria-label="Downvote">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"
-      aria-hidden="true">
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  </button>
-</div>
+<template>
+  <div class="inline-flex -space-x-px rounded-md shadow-xs rtl:space-x-reverse"><Button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10" variant="outline" size="icon" aria-label="Upvote"><ChevronUpIcon size="${16}" aria-hidden="true" /></Button><span class="border-input flex items-center border px-3 text-sm font-medium">235</span><Button class="rounded-none shadow-none first:rounded-s-md last:rounded-e-md focus-visible:z-10" variant="outline" size="icon" aria-label="Downvote"><ChevronDownIcon size="${16}" aria-hidden="true" /></Button></div>
+</template>

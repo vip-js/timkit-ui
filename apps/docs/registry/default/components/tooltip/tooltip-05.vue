@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { GlobeIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipContent } from '@/components/ui/tooltip-content';
-import { TooltipProvider } from '@/components/ui/tooltip-provider';
-import { TooltipTrigger } from '@/components/ui/tooltip-trigger';
+import { Button } from '@timui/vue';
+import { Tooltip } from '@timui/vue';
+import { TooltipContent } from '@timui/vue';
+import { TooltipProvider } from '@timui/vue';
+import { TooltipTrigger } from '@timui/vue';
+
 
 
 

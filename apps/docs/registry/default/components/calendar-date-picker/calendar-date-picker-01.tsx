@@ -1,20 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { getLocalTimeZone, today } from '@internationalized/date'
 import { Calendar } from '@timui/react'
-import type { DateValue } from 'react-aria-components'
 
 export default function Component() {
-  const [date, setDate] = useState<DateValue | null>(today(getLocalTimeZone()))
+  const [date, setDate] = useState<Date | undefined>(new Date())
 
   return (
     <div>
       <Calendar
         className="rounded-md border p-2"
         mode="single"
-        selected={date as any}
-        onSelect={setDate as any}
+        selected={date}
+        onSelect={(next) => setDate(next instanceof Date ? next : undefined)}
       />
       <p
         className="text-muted-foreground mt-4 text-center text-xs"

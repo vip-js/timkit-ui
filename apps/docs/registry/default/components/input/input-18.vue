@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { SelectNative } from '@/components/ui/select';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { SelectNative } from '@timui/vue';
 
 
+
+
+
+const id = 'input-18';
 
 </script>
 

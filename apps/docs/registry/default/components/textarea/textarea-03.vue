@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@timui/vue';
+import { Textarea } from '@timui/vue';
 
 
+
+
+
+const id = 'textarea-03';
 
 </script>
 

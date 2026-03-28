@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
-import { Label } from '@/components/ui/label';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@timui/vue';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@timui/vue';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/vue';
 
 
+
+
+
+const id = 'pagination-10';
 
 </script>
 

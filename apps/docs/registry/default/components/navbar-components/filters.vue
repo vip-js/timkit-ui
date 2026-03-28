@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { ListFilterIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@timui/vue';
+import { Checkbox } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { Popover, PopoverContent, PopoverTrigger } from '@timui/vue';
 
 
+
+
+
+const id = 'filters';
 
 </script>
 

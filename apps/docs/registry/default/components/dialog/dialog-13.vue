@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@timui/vue';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@timui/vue';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
 
 
+
+
+
+const id = 'dialog-13';
 
 </script>
 

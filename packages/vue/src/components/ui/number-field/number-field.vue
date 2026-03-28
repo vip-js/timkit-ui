@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, watch, useAttrs } from 'vue'
+import { computed, watch, useAttrs, useId } from 'vue'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { connect as numberInputConnect, machine as numberInputMachine } from '@zag-js/number-input'
-import type { Machine as NumberInputMachine } from '@zag-js/number-input'
+import {
+  cn,
+  numberFieldConnect,
+  numberFieldMachine,
+  type NumberFieldMachine,
+} from '@timui/core'
 import type { Machine as ZagMachine, MachineSchema as ZagMachineSchema } from '@zag-js/core'
-import { cn } from '@timui/core'
 import type { HTMLAttributes } from 'vue'
 import { NumberFieldProvider } from './use-number-field-context'
 
@@ -44,6 +47,7 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const generatedId = useId()
 
 const toNumber = (value?: number | string) => {
   if (value === undefined || value === null || value === '') return undefined
@@ -62,7 +66,7 @@ const machineProps = computed(() => {
       : undefined
 
   return {
-    id: props.id,
+    id: props.id ?? generatedId,
     value: controlledValue,
     defaultValue,
     min: resolvedMin,
@@ -87,10 +91,10 @@ const machineProps = computed(() => {
 })
 
 type InferMachineSchema<T> = T extends ZagMachine<infer S> ? S : ZagMachineSchema
-type NumberInputSchema = InferMachineSchema<NumberInputMachine>
+type NumberFieldSchema = InferMachineSchema<NumberFieldMachine>
 
-const service = useMachine<NumberInputSchema>(numberInputMachine, machineProps)
-const api = computed(() => numberInputConnect(service, normalizeProps))
+const service = useMachine<NumberFieldSchema>(numberFieldMachine, machineProps)
+const api = computed(() => numberFieldConnect(service, normalizeProps))
 
 watch(
   () => props.modelValue,

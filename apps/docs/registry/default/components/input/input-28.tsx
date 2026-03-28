@@ -1,42 +1,55 @@
 'use client'
 
+import { useId, useState } from 'react'
+import { Button, Input, Label } from '@timui/react'
 import { MinusIcon, PlusIcon } from 'lucide-react'
-import { Button, Group, Input, Label, NumberField } from 'react-aria-components'
 
 export default function Component() {
+  const id = useId()
+  const [value, setValue] = useState(2048)
+
+  const decrement = () => setValue((prev) => Math.max(0, prev - 1))
+  const increment = () => setValue((prev) => prev + 1)
+
   return (
-    <NumberField defaultValue={2048} minValue={0}>
-      <div className="*:not-first:mt-2">
-        <Label className="text-foreground text-sm font-medium">
-          Number input with plus/minus buttons
-        </Label>
-        <Group className="border-input data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none data-disabled:opacity-50 data-focus-within:ring-[3px]">
-          <Button
-            slot="decrement"
-            className="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -ms-px flex aspect-square h-[inherit] items-center justify-center rounded-s-md border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <MinusIcon size={16} aria-hidden="true" />
-          </Button>
-          <Input className="bg-background text-foreground w-full grow px-3 py-2 text-center tabular-nums" />
-          <Button
-            slot="increment"
-            className="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px flex aspect-square h-[inherit] items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <PlusIcon size={16} aria-hidden="true" />
-          </Button>
-        </Group>
+    <div className="*:not-first:mt-2">
+      <Label htmlFor={id}>Number input with plus/minus buttons</Label>
+      <div className="border-input bg-background relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm shadow-xs">
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="h-full rounded-none border-r"
+          onClick={decrement}
+          aria-label="Decrease value"
+        >
+          <MinusIcon size={16} aria-hidden="true" />
+        </Button>
+        <Input
+          id={id}
+          type="number"
+          min={0}
+          value={String(value)}
+          onChange={(event) => {
+            const next = Number(event.target.value)
+            setValue(Number.isFinite(next) ? Math.max(0, next) : 0)
+          }}
+          className="h-full rounded-none border-0 text-center tabular-nums shadow-none"
+        />
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="h-full rounded-none border-l"
+          onClick={increment}
+          aria-label="Increase value"
+        >
+          <PlusIcon size={16} aria-hidden="true" />
+        </Button>
       </div>
       <p className="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Built with{' '}
-        <a
-          className="hover:text-foreground underline"
-          href="https://react-spectrum.adobe.com/react-aria/DateField.html"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          React Aria
-        </a>
+        Built with TimUI atomic components
       </p>
-    </NumberField>
+    </div>
   )
 }

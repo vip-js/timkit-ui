@@ -1,59 +1,10 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
-  aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r20:" data-state="closed">
-  Card details
-</button>
-
-<!-- 
-Note: The actual dialog content is rendered in a Portal at the root of the document when opened.
-Here is the structural representation of the opened dialog:
-
-<div data-state="open" class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" style="pointer-events: auto;" data-aria-hidden="true" aria-hidden="true"></div>
-<div role="dialog" id="radix-:r20:" aria-describedby="radix-:r22:" aria-labelledby="radix-:r21:" data-state="open" class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg" tabindex="-1" style="pointer-events: auto;">
-  <div class="flex flex-col gap-2">
-    <div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet opacity-80"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a8 8 0 0 1-5.99 7H9.83a2 2 0 0 1-1.69-.91l-1.22-1.83a2 2 0 0 0-1.69-.91h-1.03A2 2 0 0 1 2 17V8a2 2 0 0 1 2-2z"/><path d="M16 11h.01"/></svg>
-    </div>
-    <div class="flex flex-col space-y-1.5 text-center sm:text-left">
-      <h2 id="radix-:r21:" class="text-lg font-semibold leading-none tracking-tight text-left">Update your card</h2>
-      <p id="radix-:r22:" class="text-sm text-muted-foreground text-left">Your new card will replace your current card.</p>
-    </div>
-  </div>
-  <form class="space-y-5">
-    <div class="space-y-4">
-      <div class="*:not-first:mt-2">
-        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="name-dialog-16">Name on card</label>
-        <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="name-dialog-16" required="">
-      </div>
-      <div class="*:not-first:mt-2">
-        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="number-dialog-16">Card Number</label>
-        <div class="relative">
-          <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm peer pe-9 [direction:inherit]" id="number-dialog-16">
-          <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-          </div>
-        </div>
-      </div>
-      <div class="flex gap-4">
-        <div class="flex-1 space-y-2">
-          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="expiry-dialog-16">Expiry date</label>
-          <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm [direction:inherit]" id="expiry-dialog-16" placeholder="MM/YY">
-        </div>
-        <div class="flex-1 space-y-2">
-          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="cvc-dialog-16">CVC</label>
-          <input type="text" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm [direction:inherit]" id="cvc-dialog-16" placeholder="CVC">
-        </div>
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button type="button" role="checkbox" aria-checked="false" data-state="unchecked" value="on" class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" id="primary-dialog-16"></button>
-      <label class="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-muted-foreground font-normal" for="primary-dialog-16">Set as default payment method</label>
-    </div>
-    <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">Update card</button>
-  </form>
-  <button type="button" class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hidden">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-4 w-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    <span class="sr-only">Close</span>
-  </button>
-</div>
--->
+<template>
+  <Dialog><DialogTrigger aschild><Button variant="outline">Card details</Button></DialogTrigger><DialogContent><div class="flex flex-col gap-2"><div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><WalletIcon class="opacity-80" size="${16}" /></div><DialogHeader><DialogTitle class="text-left">Update your card</DialogTitle><DialogDescription class="text-left">Your new card will replace your current card.
+            </DialogDescription></DialogHeader></div><form class="space-y-5"><div class="space-y-4"><div class="*:not-first:mt-2"><Label htmlfor="${`name-${id}`}">Name on card</Label><Input id="${`name-${id}`}" type="text" required /></div><div class="*:not-first:mt-2"><Label htmlfor="${`number-${id}`}">Card Number</Label><div class="relative"><Input id="${`number-${id}`}" class="peer pe-9 [direction:inherit]" /><div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50"><!-- if meta.cardType -->
+<svg class="overflow-hidden rounded-sm" width="${20}" />
+<!-- else -->
+<CreditCardIcon size="${16}" aria-hidden="true" />
+<!-- endif --></div></div></div><div class="flex gap-4"><div class="flex-1 space-y-2"><Label htmlfor="${`expiry-${id}`}">Expiry date</Label><Input class="[direction:inherit]" id="${`expiry-${id}`}" /></div><div class="flex-1 space-y-2"><Label htmlfor="${`cvc-${id}`}">CVC</Label><Input class="[direction:inherit]" id="${`cvc-${id}`}" /></div></div></div><div class="flex items-center gap-2"><Checkbox id="${`primary-${id}`}" /><Label htmlfor="${`primary-${id}`}" class="text-muted-foreground font-normal">Set as default payment method
+            </Label></div><Button type="button" class="w-full">Update card
+          </Button></form></DialogContent></Dialog>
+</template>

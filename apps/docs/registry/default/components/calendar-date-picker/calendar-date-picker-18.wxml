@@ -1,5 +1,5 @@
 <view>
-  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" month="{{month}}" onmonthchange="{{setMonth}}" defaultmonth="{{new Date()}}" startmonth="{{startDate}}" endmonth="{{endDate}}" class="overflow-hidden rounded-md border p-2" classnames="{{{
+  <view><calendar mode="single" selected="{{date}}" bindchange="setDate" month="{{month}}" onmonthchange="{{setMonth}}" defaultmonth="{{new Date()}}" startmonth="{{startDate}}" endmonth="{{endDate}}" class="overflow-hidden rounded-md border p-2" classnames="{{{
           month_caption: 'ms-2.5 me-20 justify-start',
           nav: 'justify-end',
         }}}" components="{{{

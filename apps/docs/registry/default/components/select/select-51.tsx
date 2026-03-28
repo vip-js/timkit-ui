@@ -1,7 +1,6 @@
 'use client'
 
-import { Label } from '@timui/react'
-import { Header, ListBox, ListBoxItem, ListBoxSection, Separator } from 'react-aria-components'
+import { Header, Label, ListBox, ListBoxItem, ListBoxSection, Separator } from '@timui/react'
 
 export default function Component() {
   return (
@@ -91,11 +90,11 @@ export default function Component() {
         Built with{' '}
         <a
           className="hover:text-foreground underline"
-          href="https://react-spectrum.adobe.com/react-aria/ListBox.html"
+          href="https://zagjs.com/"
           target="_blank"
           rel="noopener nofollow"
         >
-          React Aria
+          Zag.js
         </a>
       </p>
     </div>

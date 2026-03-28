@@ -1,4 +1,18 @@
-<div class="space-y-4">
-  <label class="text-sm font-medium">Progress threshold</label>
-  <slider aria-label="Progress threshold"></slider>
-</div>
+<template>
+  <div class="*:not-first:mt-4"><Label>Price slider</Label><div><div class="flex h-12 w-full items-end px-3" aria-hidden="true"><!-- Loop itemCounts -->
+<div key="${i}" class="flex flex-1 justify-center" style="${{
+                height: `${(count / maxCount) * 100}%`,
+              }}"><span data-selected="${isBarInSelectedRange(i, minValue, priceStep, sliderValue)}" class="bg-primary/20 size-full"></span></div>
+<!-- End Loop --></div><Slider value="${sliderValue}" on-value-change="${handleSliderValueChange}" min="${minValue}" max="${maxValue}" aria-label="Price range" /></div><div class="flex items-center justify-between gap-4"><div class="*:not-first:mt-1"><Label htmlfor="${`${id}-min`}">Min price</Label><div class="relative"><Input id="${`${id}-min`}" class="peer w-full ps-6" type="text" inputmode="decimal" value="${inputValues[0]}" onchange="${(e) => handleInputChange(e, 0)}" onblur="${() => validateAndUpdateValue(inputValues[0], 0)}" onkeydown="${(e) => {
+                if (e.key === 'Enter') {
+                  validateAndUpdateValue(inputValues[0], 0)
+                }
+              }}" aria-label="Enter minimum price" /><span class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+            </span></div></div><div class="*:not-first:mt-1"><Label htmlfor="${`${id}-max`}">Max price</Label><div class="relative"><Input id="${`${id}-max`}" class="peer w-full ps-6" type="text" inputmode="decimal" value="${inputValues[1]}" onchange="${(e) => handleInputChange(e, 1)}" onblur="${() => validateAndUpdateValue(inputValues[1], 1)}" onkeydown="${(e) => {
+                if (e.key === 'Enter') {
+                  validateAndUpdateValue(inputValues[1], 1)
+                }
+              }}" aria-label="Enter maximum price" /><span class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+            </span></div></div></div><Button class="w-full" variant="outline">Show ${countItemsInRange(sliderValue[0], sliderValue[1])}items
+      </Button></div>
+</template>

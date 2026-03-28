@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Heading1Icon, Heading2Icon, MinusIcon, PlusIcon, TextQuoteIcon, TypeIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@timui/vue';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@timui/vue';
+
 
 
 

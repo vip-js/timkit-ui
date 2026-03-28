@@ -1,7 +1,7 @@
 import { tooltipConnect, tooltipMachine } from '@timui/core'
 import type { PositioningOptions } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, watch } from 'vue'
+import { computed, useId, watch } from 'vue'
 
 export interface UseTooltipProps {
   id?: string
@@ -9,12 +9,14 @@ export interface UseTooltipProps {
   defaultOpen?: boolean
   openDelay?: number
   closeDelay?: number
+  disabled?: boolean
   closeOnPointerDown?: boolean
   closeOnEscape?: boolean
   closeOnScroll?: boolean
   closeOnClick?: boolean
   interactive?: boolean
   positioning?: PositioningOptions
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface UseTooltipEmits {
@@ -22,17 +24,16 @@ export interface UseTooltipEmits {
   (e: 'change', value: boolean): void
 }
 
-let staticId = 0
-
 export function useTooltip(props: UseTooltipProps, emit: UseTooltipEmits) {
-  const localId = `tooltip-${++staticId}`
+  const generatedId = useId()
 
   const machineProps = computed(() => ({
-    id: props.id ?? localId,
+    id: props.id ?? generatedId,
     open: props.open,
     defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
     openDelay: props.openDelay,
     closeDelay: props.closeDelay,
+    disabled: props.disabled,
     closeOnPointerDown: props.closeOnPointerDown,
     closeOnEscape: props.closeOnEscape,
     closeOnScroll: props.closeOnScroll,
@@ -40,6 +41,7 @@ export function useTooltip(props: UseTooltipProps, emit: UseTooltipEmits) {
     interactive: props.interactive,
     positioning: props.positioning,
     onOpenChange(details: { open: boolean }) {
+      props.onOpenChange?.(details.open)
       emit('update:open', details.open)
       emit('change', details.open)
     },

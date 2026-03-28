@@ -1,43 +1,51 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import type { AssertNoExtraKeys, SliderVueProps } from "@timui/core";
-import { sliderConnect, sliderMachine } from "@timui/core";
-import { normalizeProps, useMachine } from "@zag-js/vue";
+import { computed } from 'vue'
+import type { AssertNoExtraKeys, SliderVueProps } from '@timui/core'
 import {
   cn,
   sliderRangeVariants,
   sliderRootVariants,
   sliderThumbVariants,
   sliderTrackVariants,
-} from "@timui/core";
-import type { HTMLAttributes } from "vue";
+} from '@timui/core'
+import type { HTMLAttributes } from 'vue'
 
-import { useSlider } from "./use-slider";
+import { useSlider } from './use-slider'
 
-type SliderProps = SliderVueProps & { class?: HTMLAttributes["class"] };
-type _SliderPropsGuard = AssertNoExtraKeys<SliderProps, SliderProps>;
+type SliderProps = SliderVueProps & { class?: HTMLAttributes['class'] }
+type _SliderPropsGuard = AssertNoExtraKeys<SliderProps, SliderProps>
 
-const props = defineProps<SliderProps>();
+const props = defineProps<SliderProps>()
 
-const emit = defineEmits(["update:modelValue", "change", "commit"]);
+const emit = defineEmits(['update:modelValue', 'change', 'commit'])
 
-const api = useSlider(props, emit);
-const rootProps = computed(() => api.value?.getRootProps?.() ?? {});
-const controlProps = computed(() => api.value?.getControlProps?.() ?? {});
-const trackProps = computed(() => api.value?.getTrackProps?.() ?? {});
-const rangeProps = computed(() => api.value?.getRangeProps?.() ?? {});
+const api = useSlider(props, emit)
+const rootProps = computed(() => api.value?.getRootProps?.() ?? {})
+const controlProps = computed(() => api.value?.getControlProps?.() ?? {})
+const trackProps = computed(() => api.value?.getTrackProps?.() ?? {})
+const rangeProps = computed(() => api.value?.getRangeProps?.() ?? {})
 
 const getThumbProps = (index: number) =>
-  api.value?.getThumbProps?.({ index }) ?? {};
+  api.value?.getThumbProps?.({ index }) ?? {}
 const getHiddenInputProps = (index: number) =>
-  api.value?.getHiddenInputProps?.({ index }) ?? {};
+  api.value?.getHiddenInputProps?.({ index }) ?? {}
 
 const thumbPropsList = computed(() =>
   (api.value?.value ?? []).map((_, index) => getThumbProps(index))
-);
+)
 const hiddenInputPropsList = computed(() =>
   (api.value?.value ?? []).map((_, index) => getHiddenInputProps(index))
-);
+)
+const isVertical = computed(() => (props.orientation ?? 'horizontal') === 'vertical')
+
+function getTooltipValue(index: number) {
+  return api.value?.value?.[index] ?? props.min ?? 0
+}
+
+function getTooltipText(index: number) {
+  const value = getTooltipValue(index)
+  return props.tooltipContent ? props.tooltipContent(value) : `${value}`
+}
 </script>
 
 <template>
@@ -72,7 +80,21 @@ const hiddenInputPropsList = computed(() =>
           v-bind="thumbProps"
           data-slot="slider-thumb"
           :class="cn(sliderThumbVariants(), thumbProps.class)"
-        />
+        >
+          <span
+            v-if="props.showTooltip"
+            :class="
+              cn(
+                'bg-foreground text-background pointer-events-none absolute z-10 inline-flex min-w-6 items-center justify-center rounded px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap shadow-sm',
+                isVertical
+                  ? 'top-1/2 left-full ml-2 -translate-y-1/2'
+                  : '-top-8 left-1/2 -translate-x-1/2'
+              )
+            "
+          >
+            {{ getTooltipText(index) }}
+          </span>
+        </div>
         <input v-bind="hiddenInputPropsList[index] ?? {}" />
       </template>
     </div>

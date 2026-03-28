@@ -1,137 +1,148 @@
 <script setup lang="ts">
-import { ArrowLeftToLineIcon, ArrowRightToLineIcon, EllipsisIcon, PinOffIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table-body';
-import { TableCell } from '@/components/ui/table-cell';
-import { TableHead } from '@/components/ui/table-head';
-import { TableHeader } from '@/components/ui/table-header';
-import { TableRow } from '@/components/ui/table-row';
+import { computed, ref } from 'vue'
+import { ArrowLeftToLineIcon, ArrowRightToLineIcon, PinOffIcon } from 'lucide-vue-next'
+import { Button } from '@timui/vue'
+import { Table } from '@timui/vue'
+import { TableBody } from '@timui/vue'
+import { TableCell } from '@timui/vue'
+import { TableHead } from '@timui/vue'
+import { TableHeader } from '@timui/vue'
+import { TableRow } from '@timui/vue'
+import { formatCurrency, tableUsers } from './table-demo-data'
 
+type ColumnKey = 'name' | 'email' | 'location' | 'status' | 'balance'
 
+type ColumnConfig = {
+  key: ColumnKey
+  label: string
+  width: number
+  align?: 'left' | 'right'
+}
 
+const columns: ColumnConfig[] = [
+  { key: 'name', label: 'Name', width: 180 },
+  { key: 'email', label: 'Email', width: 220 },
+  { key: 'location', label: 'Location', width: 180 },
+  { key: 'status', label: 'Status', width: 120 },
+  { key: 'balance', label: 'Balance', width: 140, align: 'right' },
+]
+
+const rows = tableUsers.slice(0, 10)
+const leftPinned = ref<ColumnKey | null>('name')
+const rightPinned = ref<ColumnKey | null>('balance')
+
+const tableWidth = computed(() => columns.reduce((total, column) => total + column.width, 0))
+
+function pinLeft(key: ColumnKey) {
+  leftPinned.value = key
+  if (rightPinned.value === key) {
+    rightPinned.value = null
+  }
+}
+
+function pinRight(key: ColumnKey) {
+  rightPinned.value = key
+  if (leftPinned.value === key) {
+    leftPinned.value = null
+  }
+}
+
+function unpin(key: ColumnKey) {
+  if (leftPinned.value === key) {
+    leftPinned.value = null
+  }
+
+  if (rightPinned.value === key) {
+    rightPinned.value = null
+  }
+}
+
+function cellStyle(column: ColumnConfig) {
+  const baseStyle: Record<string, string> = {
+    width: `${column.width}px`,
+  }
+
+  if (leftPinned.value === column.key) {
+    baseStyle.position = 'sticky'
+    baseStyle.left = '0px'
+    baseStyle.zIndex = '20'
+    baseStyle.background = 'var(--background)'
+  }
+
+  if (rightPinned.value === column.key) {
+    baseStyle.position = 'sticky'
+    baseStyle.right = '0px'
+    baseStyle.zIndex = '20'
+    baseStyle.background = 'var(--background)'
+  }
+
+  return baseStyle
+}
+
+function rowValue(row: (typeof rows)[number], column: ColumnConfig) {
+  if (column.key === 'balance') {
+    return formatCurrency(row.balance)
+  }
+
+  if (column.key === 'location') {
+    return `${row.flag} ${row.location}`
+  }
+
+  return row[column.key]
+}
 </script>
 
 <template>
-  <div><Table class="[&_td]:border-border [&_th]:border-border table-fixed border-separate border-spacing-0 [&_tfoot_td]:border-t [&_th]:border-b [&_tr]:border-none [&_tr:not(:last-child)_td]:border-b" :style="{
-          width: table.getTotalSize(),
-        }"><TableHeader><TableRow v-for="(headerGroup, index) in table.getHeaderGroups()" :key="index" :key="headerGroup.id" class="bg-muted/50">{{ headerGroup.headers.map((header) => {
-                const { column } = header
-                const isPinned = column.getIsPinned()
-                const isLastLeftPinned = isPinned === 'left' && column.getIsLastColumn('left')
-                const isFirstRightPinned = isPinned === 'right' && column.getIsFirstColumn('right')
+  <div>
+    <Table
+      class="[&_td]:border-border [&_th]:border-border table-fixed border-separate border-spacing-0 [&_th]:border-b [&_tr]:border-none [&_tr:not(:last-child)_td]:border-b"
+      :style="{ width: `${tableWidth}px` }"
+    >
+      <TableHeader>
+        <TableRow class="bg-muted/50">
+          <TableHead
+            v-for="column in columns"
+            :key="column.key"
+            :style="cellStyle(column)"
+            class="h-11"
+          >
+            <div class="flex items-center justify-between gap-2">
+              <span>{{ column.label }}</span>
+              <div class="flex items-center gap-1">
+                <Button size="icon" variant="ghost" class="size-6" @click="pinLeft(column.key)" :aria-label="`Pin ${column.label} left`">
+                  <ArrowLeftToLineIcon :size="14" />
+                </Button>
+                <Button size="icon" variant="ghost" class="size-6" @click="pinRight(column.key)" :aria-label="`Pin ${column.label} right`">
+                  <ArrowRightToLineIcon :size="14" />
+                </Button>
+                <Button size="icon" variant="ghost" class="size-6" @click="unpin(column.key)" :aria-label="`Unpin ${column.label}`">
+                  <PinOffIcon :size="14" />
+                </Button>
+              </div>
+            </div>
+          </TableHead>
+        </TableRow>
+      </TableHeader>
 
-                return (
-                  <TableHead
-                    key={header.id}
-                    className="[&[data-pinned][data-last-col]]:border-border data-pinned:bg-muted/90 relative h-10 truncate border-t data-pinned:backdrop-blur-xs [&:not([data-pinned]):has(+[data-pinned])_div.cursor-col-resize:last-child]:opacity-0 [&[data-last-col=left]_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=left][data-last-col=left]]:border-r [&[data-pinned=right]:last-child_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=right][data-last-col=right]]:border-l"
-                    colSpan={header.colSpan}
-                    style={{ ...getPinningStyles(column) }}
-                    data-pinned={isPinned || undefined}
-                    data-last-col={
-                      isLastLeftPinned ? 'left' : isFirstRightPinned ? 'right' : undefined
-                    }
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="truncate">
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(header.column.columnDef.header, header.getContext())}
-                      </span>
-                      {/* Pin/Unpin column controls with enhanced accessibility */}
-                      {!header.isPlaceholder &&
-                        header.column.getCanPin() &&
-                        (header.column.getIsPinned() ? (
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            className="-mr-1 size-7 shadow-none"
-                            onClick={() => header.column.pin(false)}
-                            aria-label={`Unpin ${header.column.columnDef.header as string} column`}
-                            title={`Unpin ${header.column.columnDef.header as string} column`}
-                          >
-                            <PinOffIcon className="opacity-60" size={16} aria-hidden="true" />
-                          </Button>
-                        ) : (
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                className="-mr-1 size-7 shadow-none"
-                                aria-label={`Pin options for ${header.column.columnDef.header as string} column`}
-                                title={`Pin options for ${header.column.columnDef.header as string} column`}
-                              >
-                                <EllipsisIcon className="opacity-60" size={16} aria-hidden="true" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => header.column.pin('left')}>
-                                <ArrowLeftToLineIcon
-                                  size={16}
-                                  className="opacity-60"
-                                  aria-hidden="true"
-                                />
-                                Stick to left
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => header.column.pin('right')}>
-                                <ArrowRightToLineIcon
-                                  size={16}
-                                  className="opacity-60"
-                                  aria-hidden="true"
-                                />
-                                Stick to right
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        ))}
-                      {header.column.getCanResize() && (
-                        <div
-                          {...{
-                            onDoubleClick: () => header.column.resetSize(),
-                            onMouseDown: header.getResizeHandler(),
-                            onTouchStart: header.getResizeHandler(),
-                            className:
-                              'absolute top-0 h-full w-4 cursor-col-resize user-select-none touch-none -right-2 z-10 flex justify-center before:absolute before:w-px before:inset-y-0 before:bg-border before:-translate-x-px',
-                          }}
-                        />
-                      )}
-                    </div>
-                  </TableHead>
-                )
-              }) }}</TableRow></TableHeader><TableBody>{{ table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => {
-                  const { column } = cell
-                  const isPinned = column.getIsPinned()
-                  const isLastLeftPinned = isPinned === 'left' && column.getIsLastColumn('left')
-                  const isFirstRightPinned =
-                    isPinned === 'right' && column.getIsFirstColumn('right')
+      <TableBody>
+        <TableRow v-for="row in rows" :key="row.id">
+          <TableCell
+            v-for="column in columns"
+            :key="`${row.id}-${column.key}`"
+            :style="cellStyle(column)"
+            :class="column.align === 'right' ? 'text-right' : undefined"
+          >
+            {{ rowValue(row, column) }}
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
-                  return (
-                    <TableCell
-                      key={cell.id}
-                      className="[&[data-pinned][data-last-col]]:border-border data-pinned:bg-background/90 truncate data-pinned:backdrop-blur-xs [&[data-pinned=left][data-last-col=left]]:border-r [&[data-pinned=right][data-last-col=right]]:border-l"
-                      style={{ ...getPinningStyles(column) }}
-                      data-pinned={isPinned || undefined}
-                      data-last-col={
-                        isLastLeftPinned ? 'left' : isFirstRightPinned ? 'right' : undefined
-                      }
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  )
-                })}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          ) }}</TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Pinnable columns made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></p></div>
+    <p class="text-muted-foreground mt-4 text-center text-sm">
+      Pinnable columns made with
+      <a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">
+        TanStack Table
+      </a>
+    </p>
+  </div>
 </template>

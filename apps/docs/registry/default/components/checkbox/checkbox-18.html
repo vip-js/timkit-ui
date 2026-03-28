@@ -1,33 +1,15 @@
-
-  <div class="space-y-3">
-    <div class="flex items-center gap-2">
-      <checkbox id="checkbox-18-id-1" />
-      <label for="checkbox-18-id-1">Natural Wonders</label>
-    </div>
-    <div class="ms-6 space-y-3">
-      <div class="flex items-center gap-2">
-        <checkbox id="checkbox-18-id-2" checked />
-        <label for="checkbox-18-id-2">Mountains</label>
-      </div>
-      <div>
-        <div class="flex items-center gap-2">
-          <checkbox id="checkbox-18-id-3" />
-          <label for="checkbox-18-id-3">Waterfalls</label>
-        </div>
-        <div class="ms-6 space-y-3">
-          <div class="flex items-center gap-2">
-            <checkbox id="checkbox-18-id-4" />
-            <label for="checkbox-18-id-4">Niagara Falls</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <checkbox id="checkbox-18-id-5" checked />
-            <label for="checkbox-18-id-5">Angel Falls</label>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <checkbox id="checkbox-18-id-6" />
-        <label for="checkbox-18-id-6">Grand Canyon</label>
-      </div>
-    </div>
-  </div>
+<template>
+  <div class="space-y-3"><CheckboxTree tree="${initialTree}" rendernode="${({ node, isChecked, onCheckedChange, children }) => (
+          <Fragment key={`${id}-${node.id}`}>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id={`${id}-${node.id}`}
+                checked={isChecked}
+                onCheckedChange={onCheckedChange}
+              />
+              <Label htmlFor={`${id}-${node.id}`}>{node.label}</Label>
+            </div>
+            {children && <div className="ms-6 space-y-3">{children}</div>}
+          </Fragment>
+        )}" /></div>
+</template>

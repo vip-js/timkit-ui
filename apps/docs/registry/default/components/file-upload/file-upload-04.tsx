@@ -1,12 +1,13 @@
 'use client'
 
+import { Button } from '@timui/react'
 import { AlertCircleIcon, ImageUpIcon, XIcon } from 'lucide-react'
 
 import { useFileUpload } from '@/registry/default/hooks/use-file-upload'
 
 export default function Component() {
   const maxSizeMB = 5
-  const maxSize = maxSizeMB * 1024 * 1024 // 5MB default
+  const maxSize = maxSizeMB * 1024 * 1024
 
   const [
     { files, isDragging, errors },
@@ -29,7 +30,6 @@ export default function Component() {
   return (
     <div className="flex flex-col gap-2">
       <div className="relative">
-        {/* Drop area */}
         <div
           role="button"
           onClick={openFileDialog}
@@ -62,26 +62,28 @@ export default function Component() {
             </div>
           )}
         </div>
-        {previewUrl && (
+
+        {previewUrl ? (
           <div className="absolute top-4 right-4">
-            <button
+            <Button
+              size="icon"
               type="button"
-              className="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]"
+              className="size-8 rounded-full bg-black/60 text-white shadow-none hover:bg-black/80"
               onClick={() => removeFile(files[0]?.id)}
               aria-label="Remove image"
             >
               <XIcon className="size-4" aria-hidden="true" />
-            </button>
+            </Button>
           </div>
-        )}
+        ) : null}
       </div>
 
-      {errors.length > 0 && (
+      {errors.length > 0 ? (
         <div className="text-destructive flex items-center gap-1 text-xs" role="alert">
           <AlertCircleIcon className="size-3 shrink-0" />
           <span>{errors[0]}</span>
         </div>
-      )}
+      ) : null}
 
       <p
         aria-live="polite"

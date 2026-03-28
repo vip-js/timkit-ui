@@ -1,20 +1,5 @@
-<div class="relative w-full overflow-auto">
-  <table data-slot="table" class="w-full caption-bottom text-sm">
-    <thead data-slot="table-header" class="[&_tr]:border-b">
-      <tr data-slot="table-row" class="border-b transition-colors">
-        <th data-slot="table-head" class="h-12 px-4 text-left font-medium text-muted-foreground">Framework</th>
-        <th data-slot="table-head" class="h-12 px-4 text-left font-medium text-muted-foreground">Status</th>
-      </tr>
-    </thead>
-    <tbody data-slot="table-body" class="[&_tr:last-child]:border-0">
-      <tr data-slot="table-row" class="border-b transition-colors">
-        <td data-slot="table-cell" class="p-4 align-middle">React / Vue</td>
-        <td data-slot="table-cell" class="p-4 align-middle">Aligned</td>
-      </tr>
-      <tr data-slot="table-row" class="border-b transition-colors">
-        <td data-slot="table-cell" class="p-4 align-middle">HTML / Weapp</td>
-        <td data-slot="table-cell" class="p-4 align-middle">Tracked in reports</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<template>
+  <div><div class="bg-background overflow-hidden rounded-md border"><Table><TableHeader><TableRow class="bg-muted/50"><TableHead class="h-9 py-2">Name</TableHead><TableHead class="h-9 py-2">Release Year</TableHead><TableHead class="h-9 py-2">Developer</TableHead><TableHead class="h-9 py-2">Typing</TableHead><TableHead class="h-9 py-2">Paradigm</TableHead><TableHead class="h-9 py-2">Extension</TableHead><TableHead class="h-9 py-2">Latest Version</TableHead><TableHead class="h-9 py-2">Popularity</TableHead></TableRow></TableHeader><TableBody><!-- Loop programmingLanguages -->
+<TableRow key="${language.id}"><TableCell class="py-2 font-medium">${language.name}</TableCell><TableCell class="py-2">${language.releaseYear}</TableCell><TableCell class="py-2">${language.developer}</TableCell><TableCell class="py-2">${language.typing}</TableCell><TableCell class="py-2">${language.paradigm}</TableCell><TableCell class="py-2">${language.extension}</TableCell><TableCell class="py-2">${language.latestVersion}</TableCell><TableCell class="py-2">${language.popularity}</TableCell></TableRow>
+<!-- End Loop --></TableBody></Table></div><p class="text-muted-foreground mt-4 text-center text-sm">Dense table</p></div>
+</template>

@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@timui/vue';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/vue';
 
 
+
+
+
+const id = 'select-31';
 
 </script>
 

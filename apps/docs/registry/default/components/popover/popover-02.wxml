@@ -1,5 +1,10 @@
 <view>
-  <popover><popovertrigger aschild><button size="icon" variant="outline" class="relative" aria-label="Open notifications"><bellicon size="{{16}}" aria-hidden="true" /><badge wx:if="{{unreadCount > 0}}" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1">{{ unreadCount > 99 ? '99+' : unreadCount }}</badge></button></popovertrigger><popovercontent class="w-80 p-1"><view class="flex items-baseline justify-between gap-4 px-3 py-2"><view class="text-sm font-semibold">Notifications</view><button wx:if="{{unreadCount > 0}}" class="text-xs font-medium hover:underline" bindtap="handleMarkAllAsRead">Mark all as read
+  <popover><popovertrigger aschild><button size="icon" variant="outline" class="relative" aria-label="Open notifications"><bellicon size="{{16}}" aria-hidden="true" /><badge wx:if="{{unreadCount > 0}}" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><block wx:if="{{unreadCount > 99}}">
+{{ '99+' }}
+</block>
+<block wx:else>
+{{ unreadCount }}
+</block></badge></button></popovertrigger><popovercontent class="w-80 p-1"><view class="flex items-baseline justify-between gap-4 px-3 py-2"><view class="text-sm font-semibold">Notifications</view><button wx:if="{{unreadCount > 0}}" class="text-xs font-medium hover:underline" bindtap="handleMarkAllAsRead">Mark all as read
             </button></view><view role="separator" aria-orientation="horizontal" class="bg-border -mx-1 my-1 h-px"></view><view wx:for="{{notifications}}" wx:for-item="notification" wx:for-index="index" wx:key="index" key="{{notification.id}}" class="hover:bg-accent rounded-md px-3 py-2 text-sm transition-colors"><view class="relative flex items-start pe-3"><view class="flex-1 space-y-1"><button class="text-foreground/80 text-left after:absolute after:inset-0" bindtap="handleNotificationClick(notification.id)"><text class="text-foreground font-medium hover:underline">{{ notification.user }}</text>{{ ' ' }}{{ notification.action }}{{ ' ' }}<text class="text-foreground font-medium hover:underline">{{ notification.target }}</text>.
                 </button><view class="text-muted-foreground text-xs">{{ notification.timestamp }}</view></view><view wx:if="{{notification.unread}}" class="absolute end-0 self-center"><text class="sr-only">Unread</text><dot /></view></view></view></popovercontent></popover>
 </view>

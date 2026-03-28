@@ -1,4 +1,3 @@
-<div class="space-y-4">
-  <label class="text-sm font-medium">Progress threshold</label>
-  <slider aria-label="Progress threshold"></slider>
-</div>
+<template>
+  <div class="*:not-first:mt-3"><Label class="tabular-nums">${value[0]}credits/mo</Label><div class="flex items-center gap-4"><div><Button variant="outline" size="icon" class="size-8" aria-label="Decrease value" on-click="${decreaseValue}" disabled="${value[0] === 0}"><MinusIcon size="${16}" aria-hidden="true" /></Button></div><Slider class="grow" value="${value}" on-value-change="${setValue}" min="${minValue}" max="${maxValue}" step="${steps}" aria-label="Dual range slider with buttons" /><div><Button variant="outline" size="icon" class="size-8" aria-label="Increase value" on-click="${increaseValue}" disabled="${value[0] === 200}"><PlusIcon size="${16}" aria-hidden="true" /></Button></div></div></div>
+</template>

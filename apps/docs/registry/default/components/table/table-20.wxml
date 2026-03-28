@@ -28,7 +28,12 @@
                     </DropdownMenuCheckboxItem>
                   )
                 }) }}</dropdownmenucontent></dropdownmenu></view><view class="flex items-center gap-3"><alertdialog wx:if="{{table.getSelectedRowModel().rows.length > 0}}"><alertdialogtrigger aschild><button class="ml-auto" variant="outline"><trashicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Delete
-                  <text class="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">{{ table.getSelectedRowModel().rows.length }}</text></button></alertdialogtrigger><alertdialogcontent><view class="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4"><view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><circlealerticon class="opacity-80" size="{{16}}" /></view><alertdialogheader><alertdialogtitle>Are you absolutely sure?</alertdialogtitle><alertdialogdescription>This action cannot be undone. This will permanently delete{{ ' ' }}{{ table.getSelectedRowModel().rows.length }}selected{{ ' ' }}{{ table.getSelectedRowModel().rows.length === 1 ? 'row' : 'rows' }}.
+                  <text class="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">{{ table.getSelectedRowModel().rows.length }}</text></button></alertdialogtrigger><alertdialogcontent><view class="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4"><view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><circlealerticon class="opacity-80" size="{{16}}" /></view><alertdialogheader><alertdialogtitle>Are you absolutely sure?</alertdialogtitle><alertdialogdescription>This action cannot be undone. This will permanently delete{{ ' ' }}{{ table.getSelectedRowModel().rows.length }}selected{{ ' ' }}<block wx:if="{{table.getSelectedRowModel().rows.length === 1}}">
+{{ 'row' }}
+</block>
+<block wx:else>
+{{ 'rows' }}
+</block>.
                     </alertdialogdescription></alertdialogheader></view><alertdialogfooter><alertdialogcancel>Cancel</alertdialogcancel><alertdialogaction bindtap="handleDeleteRows">Delete</alertdialogaction></alertdialogfooter></alertdialogcontent></alertdialog><button class="ml-auto" variant="outline"><plusicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Add user
           </button></view></view><view class="bg-background overflow-hidden rounded-md border"><table class="table-fixed"><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="hover:bg-transparent">{{ headerGroup.headers.map((header) => {
                   return (
@@ -79,8 +84,8 @@
                       )}
                     </TableHead>
                   )
-                }) }}</tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+                }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
+{{ table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="last:py-0">
@@ -88,14 +93,12 @@
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            ) }}</tablebody></table></view><view class="flex items-center justify-between gap-8"><view class="flex items-center gap-3"><label htmlfor="{{id}}" class="max-sm:sr-only">Rows per page
+              )) }}
+</block>
+<block wx:else>
+<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
+                </tablecell></tablerow>
+</block></tablebody></table></view><view class="flex items-center justify-between gap-8"><view class="flex items-center gap-3"><label htmlfor="{{id}}" class="max-sm:sr-only">Rows per page
           </label><select value="{{table.getState().pagination.pageSize.toString()}}" bindchange="{
               table.setPageSize(Number(value))
             }"><selecttrigger id="{{id}}" class="w-fit whitespace-nowrap"><selectvalue placeholder="Select number of results" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><selectitem wx:for="{{[5, 10, 25, 50]}}" wx:for-item="pageSize" wx:for-index="index" wx:key="index" key="{{pageSize}}" value="{{pageSize.toString()}}">{{ pageSize }}</selectitem></selectcontent></select></view><view class="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap"><text class="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite"><text class="text-foreground">{{ table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1 }}-

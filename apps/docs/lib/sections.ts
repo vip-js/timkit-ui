@@ -1,3 +1,5 @@
+import { convertRegistryPaths, convertVueAtomicImports } from '@/lib/utils'
+
 type TailEntry = {
   label?: string
   code?: string
@@ -50,7 +52,10 @@ export const extractSectionCode = (ltr: object, prefix: string): SectionCodeGrou
       .map((entry, idx) => ({
         id: `${prefix}-${framework}-${idx}`,
         label: entry.label ?? config.label,
-        code: entry.code ?? '',
+        code:
+          framework === 'vue'
+            ? convertVueAtomicImports(convertRegistryPaths(entry.code ?? ''))
+            : convertRegistryPaths(entry.code ?? ''),
       }))
       .filter((file) => file.code.trim().length > 0)
 

@@ -1,7 +1,7 @@
 import { hoverCardConnect, hoverCardMachine } from '@timui/core'
 import type { PositioningOptions } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, watch } from 'vue'
+import { computed, useId, watch } from 'vue'
 
 export interface UseHoverCardProps {
   id?: string
@@ -11,6 +11,7 @@ export interface UseHoverCardProps {
   closeDelay?: number
   disabled?: boolean
   positioning?: PositioningOptions
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface UseHoverCardEmits {
@@ -18,13 +19,11 @@ export interface UseHoverCardEmits {
   (e: 'change', value: boolean): void
 }
 
-let staticId = 0
-
 export function useHoverCard(props: UseHoverCardProps, emit: UseHoverCardEmits) {
-  const localId = `hover-card-${++staticId}`
+  const generatedId = useId()
 
   const machineProps = computed(() => ({
-    id: props.id ?? localId,
+    id: props.id ?? generatedId,
     open: props.open,
     defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
     openDelay: props.openDelay,
@@ -32,6 +31,7 @@ export function useHoverCard(props: UseHoverCardProps, emit: UseHoverCardEmits) 
     disabled: props.disabled,
     positioning: props.positioning,
     onOpenChange(details: { open: boolean }) {
+      props.onOpenChange?.(details.open)
       emit('update:open', details.open)
       emit('change', details.open)
     },

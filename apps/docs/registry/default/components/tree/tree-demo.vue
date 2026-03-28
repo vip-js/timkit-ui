@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Tree from '@/components/ui/tree/tree.vue'
+import { Tree } from '@timui/vue'
 </script>
 
 <template>

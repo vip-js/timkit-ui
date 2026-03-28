@@ -1,13 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { LayoutGridIcon, PlusIcon, SearchIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
+import { Button } from '@timui/vue';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { Switch } from '@timui/vue';
 import InfoMenu from '@/registry/default/components/navbar-components/info-menu.vue';
 import NotificationMenu from '@/registry/default/components/navbar-components/notification-menu.vue';
 import SettingsMenu from '@/registry/default/components/navbar-components/settings-menu.vue';
 
+
+const checked = ref<boolean>(true);
+
+
+const id = 'navbar-16';
+
+
+function setChecked(next: typeof checked.value | ((prev: typeof checked.value) => typeof checked.value)) {
+  checked.value = typeof next === 'function'
+    ? (next as (prev: typeof checked.value) => typeof checked.value)(checked.value)
+    : next;
+}
 
 </script>
 

@@ -1,6 +1,6 @@
 import { tabsConnect, tabsMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
 export interface UseTabsProps {
   modelValue?: string
@@ -12,6 +12,8 @@ export interface UseTabsProps {
   loopFocus?: boolean
   composite?: boolean
   deselectable?: boolean
+  onValueChange?: (value: string) => void
+  onFocusChange?: (value: string) => void
 }
 
 export interface UseTabsEmits {
@@ -20,27 +22,27 @@ export interface UseTabsEmits {
   (e: 'focusChange', value: string): void
 }
 
-let staticId = 0
-
 export function useTabs(props: UseTabsProps, emit: UseTabsEmits) {
-  const localId = `tabs-${++staticId}`
+  const generatedId = useId()
 
   const machineProps = computed(() => {
-    const value = props.value ?? props.modelValue ?? null
+    const value = props.value ?? props.modelValue
     return {
-      id: props.id ?? localId,
+      id: props.id ?? generatedId,
       value,
-      defaultValue: value == null ? (props.defaultValue ?? null) : undefined,
+      defaultValue: value === undefined ? props.defaultValue : undefined,
       orientation: props.orientation,
       activationMode: props.activationMode,
       loopFocus: props.loopFocus,
       composite: props.composite,
       deselectable: props.deselectable,
       onValueChange(details: { value: string }) {
+        props.onValueChange?.(details.value)
         emit('update:modelValue', details.value)
         emit('change', details.value)
       },
       onFocusChange(details: { focusedValue: string }) {
+        props.onFocusChange?.(details.focusedValue)
         emit('focusChange', details.focusedValue)
       },
     }

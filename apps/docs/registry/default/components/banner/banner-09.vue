@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import { Banner } from '@/components/ui/banner';
-import { BannerActions } from '@/components/ui/banner-actions';
-import { BannerContent } from '@/components/ui/banner-content';
-import { BannerDescription } from '@/components/ui/banner-description';
-import { BannerIcon } from '@/components/ui/banner-icon';
-import { BannerTitle } from '@/components/ui/banner-title';
-import { Button } from '@/components/ui/button';
+import { ref } from 'vue';
+import { Banner } from '@timui/vue';
+import { BannerActions } from '@timui/vue';
+import { BannerContent } from '@timui/vue';
+import { BannerDescription } from '@timui/vue';
+import { BannerIcon } from '@timui/vue';
+import { BannerTitle } from '@timui/vue';
+import { Button } from '@timui/vue';
 
 
+
+const isVisible = ref(true);
+
+
+function setIsVisible(next: typeof isVisible.value | ((prev: typeof isVisible.value) => typeof isVisible.value)) {
+  isVisible.value = typeof next === 'function'
+    ? (next as (prev: typeof isVisible.value) => typeof isVisible.value)(isVisible.value)
+    : next;
+}
 
 </script>
 

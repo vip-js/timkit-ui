@@ -1,7 +1,7 @@
 import type { RadioGroupVueProps } from '@timui/core'
 import { radioGroupConnect, radioGroupMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 
 type RadioGroupEmits = {
   (event: 'update:modelValue', value: string | null): void
@@ -9,8 +9,10 @@ type RadioGroupEmits = {
 }
 
 export function useRadioGroup(props: RadioGroupVueProps, emit: RadioGroupEmits) {
+  const generatedId = useId()
+
   const machineProps = computed(() => ({
-    id: props.id,
+    id: props.id ?? generatedId,
     value: props.modelValue ?? props.value,
     defaultValue:
       props.modelValue === undefined && props.value === undefined ? props.defaultValue : undefined,
@@ -18,6 +20,7 @@ export function useRadioGroup(props: RadioGroupVueProps, emit: RadioGroupEmits) 
     required: props.required,
     name: props.name,
     onValueChange(details: { value: string | null }) {
+      props.onValueChange?.(details.value)
       emit('update:modelValue', details.value)
       emit('change', details.value)
     },

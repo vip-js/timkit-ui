@@ -1,32 +1,8 @@
-<div data-slot="sheet-root" data-state="closed">
-  <button
-    data-slot="sheet-trigger"
-    type="button"
-    aria-expanded="false"
-    class="rounded-md border px-4 py-2 text-sm"
-  >
-    Open sheet
-  </button>
-  <div
-    data-slot="sheet-overlay"
-    data-state="closed"
-    hidden
-    class="fixed inset-0 z-40 bg-black/40"
-  ></div>
-  <aside
-    data-slot="sheet-content"
-    data-state="closed"
-    hidden
-    class="fixed right-0 top-0 z-50 h-full w-80 border-l border-input bg-background p-4 shadow-lg"
-  >
-    <div class="space-y-3">
-      <h2 class="text-lg font-semibold">Release checklist</h2>
-      <p class="text-sm text-muted-foreground">
-        Confirm docs parity, HTML capability labels, and Weapp TimEvent coverage.
-      </p>
-      <button data-slot="sheet-close" type="button" class="rounded-md border px-3 py-2 text-sm">
-        Close
-      </button>
-    </div>
-  </aside>
-</div>
+<template>
+  <div class="grid grid-cols-2 gap-2"><!-- Loop SHEET_SIDES -->
+<Sheet key="${side}"><SheetTrigger aschild><Button variant="outline">${side}</Button></SheetTrigger><SheetContent side="${side}"><SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Make changes to your profile here. Click save when you're done.
+              </SheetDescription></SheetHeader><div class="grid gap-4 py-4"><div class="grid grid-cols-4 items-center gap-4"><Label htmlfor="name" class="text-right">Name
+                </Label><Input id="name" value="Pedro Duarte" class="col-span-3" /></div><div class="grid grid-cols-4 items-center gap-4"><Label htmlfor="username" class="text-right">Username
+                </Label><Input id="username" value="@peduarte" class="col-span-3" /></div></div><SheetFooter><SheetClose aschild><Button type="submit">Save changes</Button></SheetClose></SheetFooter></SheetContent></Sheet>
+<!-- End Loop --></div>
+</template>

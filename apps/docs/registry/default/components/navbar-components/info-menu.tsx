@@ -24,7 +24,7 @@ export default function InfoMenu() {
       <DropdownMenuContent className="pb-2">
         <DropdownMenuLabel>Need help?</DropdownMenuLabel>
         <DropdownMenuItem
-          className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+          className="cursor-pointer py-1 data-[highlighted]:bg-transparent data-[highlighted]:underline"
           asChild
         >
           <a href="#">
@@ -33,7 +33,7 @@ export default function InfoMenu() {
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+          className="cursor-pointer py-1 data-[highlighted]:bg-transparent data-[highlighted]:underline"
           asChild
         >
           <a href="#">
@@ -42,7 +42,7 @@ export default function InfoMenu() {
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem
-          className="cursor-pointer py-1 focus:bg-transparent focus:underline"
+          className="cursor-pointer py-1 data-[highlighted]:bg-transparent data-[highlighted]:underline"
           asChild
         >
           <a href="#">

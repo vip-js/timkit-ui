@@ -1,66 +1,9 @@
-<pagination>
-      <pagination-content>
-        
-        <pagination-item>
-          <pagination-previous
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-06-id"
-            aria-disabled=undefined
-            role=undefined
-          />
-        </pagination-item>
-
-        
-        
-
-        
-        
-          <pagination-item>
-            <pagination-link href="#/page/1">
-              1
-            </pagination-link>
-          </pagination-item>
-        
-
-          <pagination-item>
-            <pagination-link href="#/page/2">
-              2
-            </pagination-link>
-          </pagination-item>
-        
-
-          <pagination-item>
-            <pagination-link href="#/page/3">
-              3
-            </pagination-link>
-          </pagination-item>
-        
-
-          <pagination-item>
-            <pagination-link href="#/page/4">
-              4
-            </pagination-link>
-          </pagination-item>
-        
-
-          <pagination-item>
-            <pagination-link href="#/page/5">
-              5
-            </pagination-link>
-          </pagination-item>
-        
-
-        
-        
-
-        
-        <pagination-item>
-          <pagination-next
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            href="#/page/pagination-06-id"
-            aria-disabled=undefined
-            role=undefined
-          />
-        </pagination-item>
-      </pagination-content>
-    </pagination>
+<template>
+  <Pagination><PaginationContent><PaginationItem><PaginationPrevious class="aria-disabled:pointer-events-none aria-disabled:opacity-50" href="${currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}" aria-disabled="${currentPage === 1 ? true : undefined}" role="${currentPage === 1 ? 'link' : undefined}" /></PaginationItem><!-- if showLeftEllipsis -->
+<PaginationItem><PaginationEllipsis /></PaginationItem>
+<!-- endif --><!-- Loop pages -->
+<PaginationItem key="${page}"><PaginationLink href="${`#/page/${page}`}" isactive="${page === currentPage}">${page}</PaginationLink></PaginationItem>
+<!-- End Loop --><!-- if showRightEllipsis -->
+<PaginationItem><PaginationEllipsis /></PaginationItem>
+<!-- endif --><PaginationItem><PaginationNext class="aria-disabled:pointer-events-none aria-disabled:opacity-50" href="${currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}" aria-disabled="${currentPage === totalPages ? true : undefined}" role="${currentPage === totalPages ? 'link' : undefined}" /></PaginationItem></PaginationContent></Pagination>
+</template>

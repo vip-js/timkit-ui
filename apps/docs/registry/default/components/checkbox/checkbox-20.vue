@@ -1,11 +1,29 @@
 <script setup lang="ts">
-import { MoonIcon, SunIcon } from 'lucide-vue-next';
+import { ref } from 'vue'
+import { MoonIcon, SunIcon } from 'lucide-vue-next'
+import { Checkbox } from '@timui/vue'
+import { Label } from '@timui/vue'
 
+const id = 'checkbox-20'
+const isDark = ref(false)
 
-
+function setChecked(checked: boolean | 'indeterminate') {
+  isDark.value = checked === true
+}
 </script>
 
 <template>
-  <div class="space-y-4"><legend class="text-foreground text-sm leading-none font-medium">Dark mode toggle checkbox
-      </legend><div class="flex flex-col justify-center"><input type="checkbox" :name="id" :id="id" class="peer sr-only" :checked="theme === 'dark'" :onChange="() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))" /><label class="group border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:border-ring peer-focus-visible:ring-ring/50 relative inline-flex size-9 items-center justify-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none peer-focus-visible:ring-[3px]" :htmlFor="id" :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"><MoonIcon :size="16" class="shrink-0 scale-0 opacity-0 transition-all group-peer-checked:scale-100 group-peer-checked:opacity-100" aria-hidden="true" /><SunIcon :size="16" class="absolute shrink-0 scale-100 opacity-100 transition-all group-peer-checked:scale-0 group-peer-checked:opacity-0" aria-hidden="true" /></label></div></div>
+  <fieldset class="space-y-4">
+    <legend class="text-foreground text-sm leading-none font-medium">Dark mode toggle checkbox</legend>
+    <div class="flex items-center gap-2">
+      <Checkbox :id="id" :checked="isDark" :onCheckedChange="setChecked" />
+      <Label :htmlFor="id" class="inline-flex items-center gap-2">
+        <span class="border-input bg-background inline-flex size-9 items-center justify-center rounded-md border">
+          <MoonIcon v-if="isDark" :size="16" aria-hidden="true" />
+          <SunIcon v-else :size="16" aria-hidden="true" />
+        </span>
+        <span class="text-sm">{{ isDark ? 'Dark' : 'Light' }} mode</span>
+      </Label>
+    </div>
+  </fieldset>
 </template>

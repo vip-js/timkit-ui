@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { Progress } from '@/components/ui/progress';
+import { ref } from 'vue';
+import { Progress } from '@timui/vue';
 
 
+
+const progress = ref(13);
 
 </script>
 

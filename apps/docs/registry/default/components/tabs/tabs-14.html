@@ -1,16 +1,9 @@
-<div data-slot="tabs" data-orientation="horizontal" class="w-full max-w-md">
-  <div data-slot="tabs-list" class="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
-    <button data-slot="tabs-trigger" data-state="active" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Overview</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Docs</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">QA</button>
-  </div>
-  <div data-slot="tabs-content" data-state="active" class="text-muted-foreground mt-4 text-sm">
-    Shared core props keep React and Vue behavior aligned.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    P2 adds multi-framework docs samples for every component family.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    CI reports now show demo gaps separately from implementation gaps.
-  </div>
-</div>
+<template>
+  <Tabs default-value="tab-1"><TabsList class="mx-auto flex w-full max-w-xs bg-transparent"><TabsTrigger value="tab-1" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">3
+          </Badge>Overview
+        </TabsTrigger><TabsTrigger value="tab-2" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">0
+          </Badge>Projects
+        </TabsTrigger><TabsTrigger value="tab-3" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">7
+          </Badge>Packages
+        </TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
+</template>

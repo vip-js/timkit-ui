@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RefreshCwIcon, XIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Button } from '@timui/vue';
+
 
 
 

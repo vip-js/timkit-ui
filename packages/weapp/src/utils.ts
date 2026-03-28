@@ -4,7 +4,7 @@ export * from '@timui/core'
 export { cn as resolveClasses } from '@timui/core'
 
 type WeappEventEmitter = {
-  triggerEvent: (name: string, detail?: Record<string, unknown>) => void
+  triggerEvent: (name: string, detail?: Record<string, JsonValue>) => void
 }
 
 export function emitTimEvent<TDetail extends Record<string, JsonValue>>(
@@ -14,8 +14,5 @@ export function emitTimEvent<TDetail extends Record<string, JsonValue>>(
   targetId: string,
   detail: TDetail
 ) {
-  instance.triggerEvent(
-    eventName,
-    createTimEvent(type, targetId, detail) as unknown as Record<string, unknown>
-  )
+  instance.triggerEvent(eventName, createTimEvent(type, targetId, detail) as Record<string, JsonValue>)
 }

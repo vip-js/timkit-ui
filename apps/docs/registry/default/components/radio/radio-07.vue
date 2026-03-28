@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioGroupItem } from '@/components/ui/radio-group-item';
+import { RadioGroup } from '@timui/vue';
+import { RadioGroupItem } from '@timui/vue';
+
 
 
 

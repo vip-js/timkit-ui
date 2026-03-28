@@ -1,16 +1,6 @@
-<ol data-slot="stepper" class="mx-auto flex max-w-xl items-center gap-3">
-  <li class="flex flex-1 items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border">1</button>
-    <span class="text-sm">Plan</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="flex flex-1 items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border bg-primary text-primary-foreground">2</button>
-    <span class="text-sm">Build</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="flex items-center gap-2">
-    <button class="inline-flex h-8 w-8 items-center justify-center rounded-full border">3</button>
-    <span class="text-sm">Verify</span>
-  </li>
-</ol>
+<template>
+  <div class="mx-auto max-w-xl space-y-8 text-center"><div class="flex items-center gap-2"><Button class="shrink-0" variant="ghost" size="icon" on-click="${() => setCurrentStep((prev) => prev - 1)}" disabled="${currentStep === 1}" aria-label="Prev step"><ChevronLeftIcon size="${16}" aria-hidden="true" /></Button><Stepper value="${currentStep}" on-value-change="${setCurrentStep}" class="gap-1"><!-- Loop steps -->
+<StepperItem key="${step}" step="${step}" class="flex-1"><StepperTrigger class="w-full flex-col items-start gap-2" aschild><StepperIndicator aschild class="bg-border h-1 w-full"><span class="sr-only">${step}</span></StepperIndicator></StepperTrigger></StepperItem>
+<!-- End Loop --></Stepper><Button class="shrink-0" variant="ghost" size="icon" on-click="${() => setCurrentStep((prev) => prev + 1)}" disabled="${currentStep === steps.length}" aria-label="Next step"><ChevronRightIcon size="${16}" aria-hidden="true" /></Button></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Paginated stepper
+      </p></div>
+</template>

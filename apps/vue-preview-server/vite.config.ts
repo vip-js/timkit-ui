@@ -6,10 +6,13 @@ import { defineConfig } from 'vite'
 
 const docsDemoRoot = fileURLToPath(new URL('../docs/registry/default/components', import.meta.url))
 const docsVueRoot = fileURLToPath(new URL('../docs/registry/default/vue', import.meta.url))
+const docsHooksRoot = fileURLToPath(new URL('../docs/registry/default/hooks', import.meta.url))
 const packageHtmlRoot = fileURLToPath(new URL('../../packages/html/src', import.meta.url))
+const packageVueRoot = fileURLToPath(new URL('../../packages/vue', import.meta.url))
 const packageVueUiRoot = fileURLToPath(
   new URL('../../packages/vue/src/components/ui', import.meta.url)
 )
+const packageVueIndex = path.join(packageVueRoot, 'src/index.ts')
 const packageVueUiIndex = path.join(packageVueUiRoot, 'index.ts')
 const VIRTUAL_UI_PREFIX = '\0timui-ui:'
 
@@ -142,6 +145,18 @@ export default defineConfig({
       {
         find: '@/components/ui',
         replacement: packageVueUiRoot,
+      },
+      {
+        find: '@/registry/default/components',
+        replacement: docsDemoRoot,
+      },
+      {
+        find: '@/registry/default/hooks',
+        replacement: docsHooksRoot,
+      },
+      {
+        find: /^@timui\/vue$/,
+        replacement: packageVueIndex,
       },
       {
         find: '@timui/html',

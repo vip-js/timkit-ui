@@ -1,13 +1,53 @@
 <script setup lang="ts">
-import { cn, dropdownMenuSubTriggerVariants } from "@timui/core";
-import type { HTMLAttributes } from "vue";
+import { cn, dropdownMenuSubTriggerVariants } from '@timui/core'
+import { ChevronRightIcon } from 'lucide-vue-next'
+import { ref, watchEffect } from 'vue'
+import type { HTMLAttributes } from 'vue'
 
-const props = defineProps<{ class?: HTMLAttributes["class"]; inset?: boolean }>();
+import { useDropdownMenuSubContext } from './use-dropdown-menu-sub-context'
+
+const props = defineProps<{ class?: HTMLAttributes['class']; inset?: boolean }>()
+const subContext = useDropdownMenuSubContext()
+const triggerRef = ref<HTMLElement | null>(null)
+
+watchEffect(() => {
+  if (!subContext) return
+  subContext.triggerElement.value = triggerRef.value
+})
+
+const onPointerEnter = () => {
+  subContext?.setOpen(true)
+}
+
+const onClick = () => {
+  if (!subContext) return
+  subContext.setOpen(!subContext.open.value)
+}
+
+const onKeyDown = (event: KeyboardEvent) => {
+  if (!subContext) return
+  if (event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault()
+    subContext.setOpen(true)
+  }
+  if (event.key === 'ArrowLeft' || event.key === 'Escape') {
+    subContext.setOpen(false)
+  }
+}
 </script>
 
 <template>
   <div
+    ref="triggerRef"
     data-slot="dropdown-menu-sub-trigger"
+    role="menuitem"
+    tabindex="-1"
+    aria-haspopup="menu"
+    :aria-expanded="subContext?.open.value ?? false"
+    :data-state="subContext?.open.value ? 'open' : 'closed'"
+    @pointerenter="onPointerEnter"
+    @click="onClick"
+    @keydown="onKeyDown"
     :class="
       cn(
         dropdownMenuSubTriggerVariants(),
@@ -17,17 +57,6 @@ const props = defineProps<{ class?: HTMLAttributes["class"]; inset?: boolean }>(
     "
   >
     <slot />
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="ml-auto h-4 w-4"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
+    <ChevronRightIcon aria-hidden="true" class="ml-auto h-4 w-4" />
   </div>
 </template>

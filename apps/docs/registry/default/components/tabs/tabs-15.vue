@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-vue-next';
-import { Badge } from '@/components/ui/badge';
-import { Tabs } from '@/components/ui/tabs';
-import { TabsContent } from '@/components/ui/tabs-content';
-import { TabsList } from '@/components/ui/tabs-list';
-import { TabsTrigger } from '@/components/ui/tabs-trigger';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipContent } from '@/components/ui/tooltip-content';
-import { TooltipProvider } from '@/components/ui/tooltip-provider';
-import { TooltipTrigger } from '@/components/ui/tooltip-trigger';
+import { Badge } from '@timui/vue';
+import { Tabs } from '@timui/vue';
+import { TabsContent } from '@timui/vue';
+import { TabsList } from '@timui/vue';
+import { TabsTrigger } from '@timui/vue';
+import { Tooltip } from '@timui/vue';
+import { TooltipContent } from '@timui/vue';
+import { TooltipProvider } from '@timui/vue';
+import { TooltipTrigger } from '@timui/vue';
+
 
 
 

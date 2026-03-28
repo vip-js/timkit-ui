@@ -3,10 +3,21 @@ import { type HTMLAttributes, computed } from 'vue'
 import { Label, type LabelProps } from 'radix-vue'
 import { cn, labelVariants } from '@timui/core'
 
-const props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<
+  LabelProps & {
+    class?: HTMLAttributes['class']
+    htmlFor?: string
+  }
+>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+  const { class: _, htmlFor, ...delegated } = props
+  if (htmlFor !== undefined) {
+    return {
+      ...delegated,
+      for: htmlFor,
+    }
+  }
   return delegated
 })
 </script>

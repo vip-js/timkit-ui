@@ -31,7 +31,7 @@ export type DialogVueProps = {
   /**
    * Callback fired when the open state changes.
    */
-  onOpenChange?: (details: { open: boolean }) => void
+  onOpenChange?: (open: boolean) => void
 }
 
 /**

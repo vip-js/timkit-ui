@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { cn } from '@timui/core'
+import { computed, mergeProps, onBeforeUnmount, useAttrs, useId, watch } from 'vue'
 import type { HTMLAttributes } from 'vue'
+import { cn, listBoxItemVariants, type ListBoxItem } from '@timui/core'
+
 import { useListBoxContext } from '../list-box/use-list-box-context'
 
 defineOptions({
@@ -9,66 +10,60 @@ defineOptions({
 })
 
 const props = defineProps<{
-  id: string
+  id?: string
+  value?: string
   isDisabled?: boolean
+  textValue?: string
   class?: HTMLAttributes['class']
 }>()
 
+const attrs = useAttrs()
+const generatedId = useId()
 const context = useListBoxContext()
-const elRef = ref<HTMLElement | null>(null)
 
-const isDisabled = computed(() => props.isDisabled ?? false)
-const isSelected = computed(() => context.isSelected(props.id))
-const isActive = computed(() => context.activeId.value === props.id)
-
-const tabIndex = computed(() => {
-  if (isDisabled.value) return -1
-  return isActive.value ? 0 : -1
-})
-
-const handleClick = () => {
-  if (isDisabled.value) return
-  context.setActive(props.id)
-  context.selectItem(props.id)
-  context.focusItem(props.id)
-}
-
-const handleFocus = () => {
-  if (isDisabled.value) return
-  context.setActive(props.id)
-}
-
-onMounted(() => {
-  context.registerItem(props.id, elRef.value, isDisabled.value)
-})
-
-onBeforeUnmount(() => {
-  context.unregisterItem(props.id)
+const item = computed<ListBoxItem>(() => {
+  const value = props.value ?? props.id ?? generatedId
+  return {
+    value,
+    label: props.textValue ?? value,
+    disabled: props.isDisabled,
+  }
 })
 
 watch(
-  () => isDisabled.value,
-  (next) => {
-    context.setItemDisabled(props.id, next)
-  }
+  item,
+  (next, prev) => {
+    if (prev && prev.value !== next.value) {
+      context.unregisterItem(prev.value)
+    }
+    context.registerItem(next)
+  },
+  { immediate: true, deep: true }
 )
+
+onBeforeUnmount(() => {
+  context.unregisterItem(item.value.value)
+})
+
+const itemState = computed(() => context.api.value.getItemState({ item: item.value }))
+type MergedProps = Record<string, unknown> & { class?: HTMLAttributes['class'] }
+const mergedItem = computed(() => {
+  const merged = mergeProps(
+    context.api.value.getItemProps({ item: item.value }) as MergedProps,
+    attrs as MergedProps
+  ) as MergedProps
+  const mergedClass = merged.class as HTMLAttributes['class']
+  const { class: _class, ...restProps } = merged
+  return { class: mergedClass, props: restProps as Record<string, unknown> }
+})
 </script>
 
 <template>
   <div
-    ref="elRef"
-    :id="props.id"
-    role="option"
+    v-bind="mergedItem.props"
     data-slot="list-box-item"
-    :data-selected="isSelected ? 'true' : undefined"
-    :data-disabled="isDisabled ? 'true' : undefined"
-    :aria-selected="isSelected || undefined"
-    :aria-disabled="isDisabled || undefined"
-    :tabindex="tabIndex"
-    :class="cn(props.class)"
-    @click="handleClick"
-    @focus="handleFocus"
-    v-bind="$attrs"
+    :data-selected="itemState.selected ? 'true' : undefined"
+    :class="cn(listBoxItemVariants(), props.class, mergedItem.class)"
   >
     <slot />
   </div>

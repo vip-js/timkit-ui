@@ -8,6 +8,11 @@ const props = defineProps<{
   value: string;
   label?: string;
   class?: HTMLAttributes["class"];
+  onSelect?: (value: string) => void;
+}>();
+
+const emit = defineEmits<{
+  (e: "select", value: string): void;
 }>();
 
 const context = useCommandContext();
@@ -23,11 +28,18 @@ onMounted(() => {
 onBeforeUnmount(() => {
   context?.unregisterItem?.(props.value);
 });
+
+const handleSelect = () => {
+  props.onSelect?.(props.value);
+  emit("select", props.value);
+};
 </script>
 
 <template>
   <div
     v-bind="context?.api.value?.getItemProps?.({ item })"
+    @click="handleSelect"
+    @keydown.enter="handleSelect"
     :class="
       cn(
         commandItemVariants(),

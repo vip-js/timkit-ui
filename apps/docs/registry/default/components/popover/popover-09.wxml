@@ -1,5 +1,10 @@
 <view>
   <view class="flex flex-col gap-4"><popover bindchange="{
           if (open) setCurrentTip(0)
-        }"><view class="grid grid-cols-2 place-items-center gap-4"><card wx:for="{{tourSteps}}" wx:for-item="step" wx:for-index="index" wx:key="index" key="{{step.title}}" number="{{index}}" isactive="{{currentTip === index}}" /></view><popovertrigger aschild><button variant="outline">Start tour</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="{{currentTip % 2 === 0 ? 'left' : 'right'}}" showarrow="{{true}}"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">{{ tourSteps[currentTip].title }}</text><text class="text-muted-foreground text-xs">{{ tourSteps[currentTip].description }}</text></view><view class="flex items-center justify-between gap-2"><text class="text-muted-foreground text-xs">{{ currentTip + 1 }}/{{ tourSteps.length }}</text><button class="text-xs font-medium hover:underline" bindtap="handleNavigation">{{ currentTip === tourSteps.length - 1 ? 'Start over' : 'Next' }}</button></view></view></popovercontent></popover></view>
+        }"><view class="grid grid-cols-2 place-items-center gap-4"><card wx:for="{{tourSteps}}" wx:for-item="step" wx:for-index="index" wx:key="index" key="{{step.title}}" number="{{index}}" isactive="{{currentTip === index}}" /></view><popovertrigger aschild><button variant="outline">Start tour</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="{{currentTip % 2 === 0 ? 'left' : 'right'}}" showarrow="{{true}}"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">{{ tourSteps[currentTip].title }}</text><text class="text-muted-foreground text-xs">{{ tourSteps[currentTip].description }}</text></view><view class="flex items-center justify-between gap-2"><text class="text-muted-foreground text-xs">{{ currentTip + 1 }}/{{ tourSteps.length }}</text><button class="text-xs font-medium hover:underline" bindtap="handleNavigation"><block wx:if="{{currentTip === tourSteps.length - 1}}">
+{{ 'Start over' }}
+</block>
+<block wx:else>
+{{ 'Next' }}
+</block></button></view></view></popovercontent></popover></view>
 </view>

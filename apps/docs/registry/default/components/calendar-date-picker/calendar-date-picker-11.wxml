@@ -1,5 +1,5 @@
 <view>
-  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" classnames="{{{
+  <view><calendar mode="single" selected="{{date}}" bindchange="setDate" class="rounded-md border p-2" classnames="{{{
           month_caption: 'mx-0',
         }}}" captionlayout="dropdown" defaultmonth="{{new Date()}}" startmonth="{{new Date(1980, 6)}}" hidenavigation components="{{{
           DropdownNav: (props: DropdownNavProps) => {

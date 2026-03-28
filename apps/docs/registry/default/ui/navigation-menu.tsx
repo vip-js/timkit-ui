@@ -1,87 +1,258 @@
 'use client'
 
 import * as React from 'react'
-import { cn } from '@timui/core'
-import { cva } from 'class-variance-authority'
+import type { NavigationMenuProps as CoreNavigationMenuProps } from '@timui/core'
+import {
+  cn,
+  navigationMenuContentVariants,
+  navigationMenuIndicatorIconVariants,
+  navigationMenuIndicatorVariants,
+  navigationMenuItemVariants,
+  navigationMenuLinkVariants,
+  navigationMenuListVariants,
+  navigationMenuTriggerIconVariants,
+  navigationMenuTriggerStyle,
+  navigationMenuVariants,
+  navigationMenuViewportVariants,
+  navigationMenuViewportWrapperVariants,
+} from '@timui/core'
 import { ChevronDown } from 'lucide-react'
 
 import { Slot } from './slot'
 
-// Simple Navigation Menu Implementation to replace Radix
-// Supports basic hover triggers and interactions.
+type NavigationMenuProps = CoreNavigationMenuProps &
+  Omit<React.HTMLAttributes<HTMLElement>, keyof CoreNavigationMenuProps> & {
+    viewport?: boolean
+  }
 
-const NavigationMenuContext = React.createContext<any>(null)
+type NavigationMenuRootContextValue = {
+  openItem: string | null
+  setOpenItem: React.Dispatch<React.SetStateAction<string | null>>
+  activeItem: string | null
+  setActiveItem: React.Dispatch<React.SetStateAction<string | null>>
+  userSelected: boolean
+  setUserSelected: React.Dispatch<React.SetStateAction<boolean>>
+  viewport: boolean
+}
 
-const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'
-)
+type NavigationMenuItemContextValue = {
+  value: string
+  triggerId: string
+  contentId: string
+  open: boolean
+  setOpen: (open: boolean) => void
+}
 
-const NavigationMenu = React.forwardRef<HTMLElement, any>(
-  ({ className, children, ...props }, ref) => {
-    const [value, setValue] = React.useState('')
+const NavigationMenuRootContext = React.createContext<NavigationMenuRootContextValue | null>(null)
+const NavigationMenuItemContext = React.createContext<NavigationMenuItemContextValue | null>(null)
+
+const setRef = <T,>(ref: React.Ref<T> | undefined, value: T | null) => {
+  if (!ref) return
+  if (typeof ref === 'function') {
+    ref(value)
+    return
+  }
+  ;(ref as React.MutableRefObject<T | null>).current = value
+}
+
+const composeRefs = <T,>(...refs: Array<React.Ref<T> | undefined>) => {
+  return (value: T | null) => {
+    refs.forEach((ref) => setRef(ref, value))
+  }
+}
+
+const composeEventHandlers = <E,>(
+  theirHandler: ((event: E) => void) | undefined,
+  ourHandler: (event: E) => void
+) => {
+  return (event: E) => {
+    theirHandler?.(event)
+    ourHandler(event)
+  }
+}
+
+const useNavigationMenuRootContext = () => React.useContext(NavigationMenuRootContext)
+
+const useNavigationMenuItemContext = () => {
+  const context = React.useContext(NavigationMenuItemContext)
+  if (!context) {
+    throw new Error('NavigationMenu subcomponents must be used within NavigationMenuItem.')
+  }
+  return context
+}
+
+const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
+  ({ className, children, orientation = 'horizontal', viewport = true, ...props }, ref) => {
+    const [openItem, setOpenItem] = React.useState<string | null>(null)
+    const [activeItem, setActiveItem] = React.useState<string | null>(null)
+    const [userSelected, setUserSelected] = React.useState(false)
+    const localRef = React.useRef<HTMLElement | null>(null)
+
+    React.useEffect(() => {
+      const onPointerDown = (event: PointerEvent) => {
+        const target = event.target
+        if (!(target instanceof Node)) return
+        if (!localRef.current?.contains(target)) {
+          setOpenItem(null)
+        }
+      }
+
+      document.addEventListener('pointerdown', onPointerDown)
+      return () => document.removeEventListener('pointerdown', onPointerDown)
+    }, [])
 
     return (
-      <NavigationMenuContext.Provider value={{ value, setValue }}>
+      <NavigationMenuRootContext.Provider
+        value={{
+          openItem,
+          setOpenItem,
+          activeItem,
+          setActiveItem,
+          userSelected,
+          setUserSelected,
+          viewport,
+        }}
+      >
         <nav
-          ref={ref}
-          className={cn(
-            'relative z-10 flex max-w-max flex-1 items-center justify-center',
-            className
-          )}
+          ref={composeRefs(ref, localRef)}
+          data-slot="navigation-menu"
+          data-orientation={orientation}
+          className={cn(navigationMenuVariants(), className)}
           {...props}
         >
           {children}
-          <div className="absolute left-0 top-full flex justify-center">
-            {/* Viewport placeholder */}
-          </div>
         </nav>
-      </NavigationMenuContext.Provider>
+      </NavigationMenuRootContext.Provider>
     )
   }
 )
 NavigationMenu.displayName = 'NavigationMenu'
 
-const NavigationMenuList = React.forwardRef<HTMLUListElement, any>(
+type NavigationMenuListProps = React.ComponentPropsWithoutRef<'ul'>
+type NavigationMenuItemProps = React.ComponentPropsWithoutRef<'li'>
+type NavigationMenuTriggerProps = React.ComponentPropsWithoutRef<'button'> & {
+  asChild?: boolean
+}
+type NavigationMenuContentProps = React.ComponentPropsWithoutRef<'div'>
+type NavigationMenuLinkProps = React.ComponentPropsWithoutRef<'a'> & {
+  asChild?: boolean
+  active?: boolean
+}
+type NavigationMenuViewportProps = React.ComponentPropsWithoutRef<'div'>
+type NavigationMenuIndicatorProps = React.ComponentPropsWithoutRef<'div'>
+
+const NavigationMenuList = React.forwardRef<HTMLUListElement, NavigationMenuListProps>(
   ({ className, ...props }, ref) => (
     <ul
       ref={ref}
-      className={cn('group flex flex-1 list-none items-center justify-center space-x-1', className)}
+      data-slot="navigation-menu-list"
+      className={cn(navigationMenuListVariants(), className)}
       {...props}
     />
   )
 )
 NavigationMenuList.displayName = 'NavigationMenuList'
 
-const NavigationMenuItem = React.forwardRef<HTMLLIElement, any>(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn('relative', className)} {...props} />
-))
+const NavigationMenuItem = React.forwardRef<HTMLLIElement, NavigationMenuItemProps>(
+  ({ className, onBlur, onMouseLeave, ...props }, ref) => {
+    const root = useNavigationMenuRootContext()
+    const value = React.useId()
+    const triggerId = React.useId()
+    const contentId = React.useId()
+    const open = root?.openItem === value
+
+    const setOpen = React.useCallback(
+      (nextOpen: boolean) => root?.setOpenItem(nextOpen ? value : null),
+      [root, value]
+    )
+
+    const handleBlur = composeEventHandlers(onBlur, (event: React.FocusEvent<HTMLLIElement>) => {
+      const relatedTarget = event.relatedTarget as Node | null
+      if (!relatedTarget || !event.currentTarget.contains(relatedTarget)) {
+        setOpen(false)
+      }
+    })
+
+    const handleMouseLeave = composeEventHandlers(onMouseLeave, () => {
+      setOpen(false)
+    })
+
+    return (
+      <NavigationMenuItemContext.Provider value={{ value, triggerId, contentId, open, setOpen }}>
+        <li
+          ref={ref}
+          data-slot="navigation-menu-item"
+          data-state={open ? 'open' : 'closed'}
+          className={cn(navigationMenuItemVariants(), className)}
+          onBlur={handleBlur}
+          onMouseLeave={handleMouseLeave}
+          {...props}
+        />
+      </NavigationMenuItemContext.Provider>
+    )
+  }
+)
 NavigationMenuItem.displayName = 'NavigationMenuItem'
 
-const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, any>(
-  ({ className, children, asChild = false, ...props }, ref) => {
-    // Logic to handle hover/open would go here
+const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
+  ({ className, children, asChild = false, onClick, onKeyDown, onPointerEnter, ...props }, ref) => {
+    const item = useNavigationMenuItemContext()
     const Comp = asChild ? Slot : 'button'
+    const handleClick = composeEventHandlers(onClick, () => {
+      item.setOpen(!item.open)
+    })
+    const handlePointerEnter = composeEventHandlers(onPointerEnter, () => {
+      item.setOpen(true)
+    })
+    const handleKeyDown = composeEventHandlers(onKeyDown, (event: React.KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        item.setOpen(false)
+        return
+      }
+
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+        event.preventDefault()
+        item.setOpen(true)
+      }
+    })
+
     return (
-      <Comp ref={ref} className={cn(navigationMenuTriggerStyle(), className)} {...props}>
+      <Comp
+        ref={ref}
+        id={item.triggerId}
+        aria-controls={item.contentId}
+        aria-expanded={item.open}
+        data-slot="navigation-menu-trigger"
+        data-state={item.open ? 'open' : 'closed'}
+        className={cn(navigationMenuTriggerStyle(), 'group', className)}
+        onClick={handleClick}
+        onPointerEnter={handlePointerEnter}
+        onKeyDown={handleKeyDown}
+        {...props}
+      >
         {children}
-        <ChevronDown
-          className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
-          aria-hidden="true"
-        />
+        <ChevronDown className={navigationMenuTriggerIconVariants()} aria-hidden="true" />
       </Comp>
     )
   }
 )
 NavigationMenuTrigger.displayName = 'NavigationMenuTrigger'
 
-const NavigationMenuContent = React.forwardRef<HTMLDivElement, any>(
+const NavigationMenuContent = React.forwardRef<HTMLDivElement, NavigationMenuContentProps>(
   ({ className, ...props }, ref) => {
-    // Logic to show/hide based on state
+    const item = useNavigationMenuItemContext()
+    if (!item.open) return null
+
     return (
       <div
         ref={ref}
+        id={item.contentId}
+        aria-labelledby={item.triggerId}
+        data-slot="navigation-menu-content"
+        data-state="open"
         className={cn(
-          'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto',
+          navigationMenuContentVariants(),
+          'absolute left-0 top-full mt-1 md:left-0 md:top-full',
           className
         )}
         {...props}
@@ -91,47 +262,81 @@ const NavigationMenuContent = React.forwardRef<HTMLDivElement, any>(
 )
 NavigationMenuContent.displayName = 'NavigationMenuContent'
 
-const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, any>(
-  ({ className, asChild, ...props }, ref) => {
-    // If asChild, we might need cloning, but standard anchor for now
-    return <a ref={ref} className={className} {...props} />
+const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLinkProps>(
+  ({ className, asChild = false, active, onClick, ...props }, ref) => {
+    const root = useNavigationMenuRootContext()
+    const Comp = asChild ? Slot : 'a'
+    const linkId = React.useId()
+    const isActive = root?.userSelected ? root.activeItem === linkId : !!active
+
+    const handleClick = composeEventHandlers(onClick, () => {
+      root?.setOpenItem(null)
+      root?.setActiveItem(linkId)
+      root?.setUserSelected(true)
+    })
+
+    React.useEffect(() => {
+      if (!root) return
+      if (root.userSelected) return
+      if (!active) return
+      if (root.activeItem) return
+      root.setActiveItem(linkId)
+    }, [active, linkId, root])
+
+    return (
+      <Comp
+        ref={ref}
+        data-slot="navigation-menu-link"
+        data-active={isActive ? '' : undefined}
+        aria-current={isActive ? 'page' : props['aria-current']}
+        className={cn(navigationMenuLinkVariants(), className)}
+        onClick={handleClick}
+        {...props}
+      />
+    )
   }
 )
 NavigationMenuLink.displayName = 'NavigationMenuLink'
 
-const NavigationMenuViewport = React.forwardRef<HTMLDivElement, any>(
-  ({ className, ...props }, ref) => (
-    <div className={cn('absolute left-0 top-full flex justify-center')}>
-      <div
-        ref={ref}
-        className={cn(
-          'origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]',
-          className
-        )}
-        {...props}
-      />
-    </div>
-  )
+const NavigationMenuViewport = React.forwardRef<HTMLDivElement, NavigationMenuViewportProps>(
+  ({ className, ...props }, ref) => {
+    const root = useNavigationMenuRootContext()
+    if (root && !root.viewport) return null
+
+    return (
+      <div className={navigationMenuViewportWrapperVariants()}>
+        <div
+          ref={ref}
+          data-slot="navigation-menu-viewport"
+          data-state={root?.openItem ? 'open' : 'closed'}
+          className={cn(navigationMenuViewportVariants(), className)}
+          {...props}
+        />
+      </div>
+    )
+  }
 )
 NavigationMenuViewport.displayName = 'NavigationMenuViewport'
 
-const NavigationMenuIndicator = React.forwardRef<HTMLDivElement, any>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in',
-        className
-      )}
-      {...props}
-    >
-      <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
-    </div>
-  )
+const NavigationMenuIndicator = React.forwardRef<HTMLDivElement, NavigationMenuIndicatorProps>(
+  ({ className, ...props }, ref) => {
+    const root = useNavigationMenuRootContext()
+    if (!root?.openItem) return null
+
+    return (
+      <div
+        ref={ref}
+        data-slot="navigation-menu-indicator"
+        data-state="visible"
+        className={cn(navigationMenuIndicatorVariants(), className)}
+        {...props}
+      >
+        <div className={navigationMenuIndicatorIconVariants()} />
+      </div>
+    )
+  }
 )
 NavigationMenuIndicator.displayName = 'NavigationMenuIndicator'
-
-// Export standard navigation menu components
 
 export {
   NavigationMenu,

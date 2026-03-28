@@ -6,12 +6,10 @@ import {
 } from '@timui/core'
 
 export const extraComponents = [
-  'calendar-rac',
   'cropper',
   'date-field',
   'date-input',
   'date-range-picker',
-  'datefield-rac',
   'group',
   'header',
   'list-box',

@@ -1,0 +1,26 @@
+<div data-slot="number-field" class="{{numberFieldVariants}}">
+  <div data-slot="number-field-control" class="{{numberFieldControlVariants}}">
+    <button
+      data-slot="number-field-decrement"
+      type="button"
+      class="{{numberFieldDecrementVariants}}"
+      aria-label="Decrease value"
+    >
+      -
+    </button>
+    <input
+      data-slot="number-field-input"
+      type="number"
+      class="{{numberFieldInputVariants}}"
+      value="{{#if value}}{{value}}{{else}}0{{/if}}"
+    />
+    <button
+      data-slot="number-field-increment"
+      type="button"
+      class="{{numberFieldIncrementVariants}}"
+      aria-label="Increase value"
+    >
+      +
+    </button>
+  </div>
+</div>

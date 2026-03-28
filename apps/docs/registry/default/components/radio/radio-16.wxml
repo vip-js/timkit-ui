@@ -2,5 +2,10 @@
   <fieldset class="space-y-4"><legend class="text-foreground text-sm leading-none font-medium">Rate your experience
       </legend><radiogroup class="inline-flex gap-0" bindchange="setCurrentRating"><label wx:for="{{['1', '2', '3', '4', '5']}}" wx:for-item="value" wx:for-index="index" wx:key="index" key="{{value}}" class="group has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative cursor-pointer rounded p-0.5 outline-none has-focus-visible:ring-[3px]" onmouseenter="{{() => setHoverRating(value)}}" onmouseleave="{{() => setHoverRating('')}}"><radiogroupitem id="{{`${id}-${value}`}}" value="{{value}}" class="sr-only" /><ristarfill size="{{24}}" class="{{`transition-all ${
                 (hoverRating || currentRating) >= value ? 'text-amber-500' : 'text-input'
-              } group-hover:scale-110`}}" /><text class="sr-only">{{ value }}star{{ value === '1' ? '' : 's' }}</text></label></radiogroup></fieldset>
+              } group-hover:scale-110`}}" /><text class="sr-only">{{ value }}star<block wx:if="{{value === '1'}}">
+{{ '' }}
+</block>
+<block wx:else>
+{{ 's' }}
+</block></text></label></radiogroup></fieldset>
 </view>

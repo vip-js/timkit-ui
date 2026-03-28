@@ -1,7 +1,7 @@
 import type { DialogVueProps as CoreDialogProps } from '@timui/core'
 import { dialogConnect, dialogMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, watch } from 'vue'
+import { computed, useId, watch } from 'vue'
 
 export interface UseDialogProps extends Omit<CoreDialogProps, 'id'> {
   id?: string
@@ -13,17 +13,16 @@ export interface UseDialogEmits {
   (e: 'openChange', value: boolean): void
 }
 
-let staticId = 0
-
 export function useDialog(props: UseDialogProps, emit: UseDialogEmits) {
-  const localId = `dialog-${++staticId}`
+  const generatedId = useId()
 
   const machineProps = computed(() => ({
-    id: props.id ?? localId,
+    id: props.id ?? generatedId,
     open: props.open,
     defaultOpen: props.defaultOpen,
     modal: props.modal !== false,
     onOpenChange(details: { open: boolean }) {
+      props.onOpenChange?.(details.open)
       emit('update:open', details.open)
       emit('openChange', details.open)
     },

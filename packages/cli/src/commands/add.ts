@@ -1,7 +1,7 @@
 import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
-import type { JsonValue, RegistryItem } from '@timui/core'
+import type { JsonValue, RegistryItem, RegistryPayload } from '@timui/core'
 import { Command } from 'commander'
 import prompts from 'prompts'
 import { z } from 'zod'
@@ -21,7 +21,9 @@ const getStringArray = (value: JsonValue | undefined): string[] => {
   return value.filter((item): item is string => typeof item === 'string')
 }
 
-const toError = (error: unknown): Error => {
+type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
+
+const toError = (error: ErrorInput): Error => {
   if (error instanceof Error) return error
   return new Error(String(error))
 }
@@ -77,7 +79,12 @@ async function loadRegistryIndex(
         )
         const items = validateRegistryPayload(json)
         // 4. Update Cache
-        if (!registryUrl) registryCache.setIndex(json as any)
+        if (!registryUrl) {
+          const cachePayload: RegistryPayload | RegistryItem[] = Array.isArray(json)
+            ? json
+            : (json as RegistryPayload)
+          registryCache.setIndex(cachePayload)
+        }
 
         return items
       } catch (e) {

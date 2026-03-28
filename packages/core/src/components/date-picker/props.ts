@@ -19,6 +19,14 @@ export type DatePickerRangeValue = { from?: Date; to?: Date } | undefined
 export type DatePickerVueValue = Date | DatePickerRangeValue | undefined
 export type DatePickerVueProps = {
   /**
+   * A unique identifier for the component.
+   */
+  id?: string
+  /**
+   * The controlled value of the component.
+   */
+  value?: DatePickerVueValue
+  /**
    * The controlled value bound via `v-model` (Vue specific).
    */
   modelValue?: DatePickerVueValue
@@ -38,6 +46,50 @@ export type DatePickerVueProps = {
    * The number of months to display simultaneously.
    */
   numberOfMonths?: number
+  /**
+   * The minimum allowed date.
+   */
+  minDate?: Date
+  /**
+   * The maximum allowed date.
+   */
+  maxDate?: Date
+  /**
+   * Callback to determine whether a given date should be marked as unselectable.
+   */
+  isDateUnavailable?: (date: Date) => boolean
+  /**
+   * BCP 47 locale used for parsing/formatting date labels.
+   */
+  locale?: string
+  /**
+   * When `true`, prevents the user from interacting with the component.
+   */
+  disabled?: boolean
+  /**
+   * When `true`, indicates that the user must provide a value before form submission.
+   */
+  required?: boolean
+  /**
+   * The name of the hidden input when used in a form.
+   */
+  name?: string
+  /**
+   * The controlled open state of the popover.
+   */
+  open?: boolean
+  /**
+   * The default open state of the popover when uncontrolled.
+   */
+  defaultOpen?: boolean
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (value: DatePickerVueValue) => void
+  /**
+   * Callback fired when the open state changes.
+   */
+  onOpenChange?: (open: boolean) => void
 }
 
 /**

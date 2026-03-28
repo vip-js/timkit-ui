@@ -11,6 +11,7 @@ const props = defineProps<{
   closeDelay?: number
   disabled?: boolean
   positioning?: PositioningOptions
+  onOpenChange?: (open: boolean) => void
   id?: string
   class?: HTMLAttributes['class']
 }>()

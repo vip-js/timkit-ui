@@ -1,5 +1,5 @@
 <view>
-  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" classnames="{{{
+  <view><calendar mode="single" selected="{{date}}" bindchange="setDate" class="rounded-md border p-2" classnames="{{{
           month_caption: 'ms-2.5 me-20 justify-start',
           nav: 'justify-end',
         }}}" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Right navigation -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker

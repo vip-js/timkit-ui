@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@timui/vue';
+import { Popover, PopoverContent, PopoverTrigger } from '@timui/vue';
 
 
+
+const currentTip = ref(0);
 
 </script>
 

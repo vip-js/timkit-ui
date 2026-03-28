@@ -16,16 +16,20 @@ const props = withDefaults(
 
 const api = inject("sheet") as any;
 const isOpen = computed(() => api.value?.open);
+const backdropProps = computed(() => api.value?.getBackdropProps?.() || {});
+const positionerProps = computed(() => api.value?.getPositionerProps?.() || {});
+const contentProps = computed(() => api.value?.getContentProps?.() || {});
+const closeTriggerProps = computed(() => api.value?.getCloseTriggerProps?.() || {});
 </script>
 
 <template>
   <Teleport to="body">
-    <div v-if="isOpen" v-bind="api.value?.backdropProps" :class="cn(sheetOverlayVariants())" />
-    <div v-if="isOpen" v-bind="api.value?.positionerProps" class="fixed inset-0 z-50">
-      <div v-bind="api.value?.contentProps" :class="cn(sheetContentVariants({ side: props.side }), props.class)">
+    <div v-if="isOpen" v-bind="backdropProps" :class="cn(sheetOverlayVariants())" />
+    <div v-if="isOpen" v-bind="positionerProps" class="fixed inset-0 z-50">
+      <div v-bind="contentProps" :class="cn(sheetContentVariants({ side: props.side }), props.class)">
         <slot />
         <button
-          v-bind="api.value?.closeTriggerProps"
+          v-bind="closeTriggerProps"
           :class="
             cn(
               'absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'

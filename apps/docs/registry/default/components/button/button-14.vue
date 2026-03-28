@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { LoaderCircleIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
+import { Button } from '@timui/vue';
 
 
+
+const isLoading = ref<boolean>(false);
 
 </script>
 

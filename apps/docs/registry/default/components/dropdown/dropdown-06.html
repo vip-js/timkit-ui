@@ -1,22 +1,8 @@
-<dropdown-menu>
-      <dropdown-menu-trigger asChild>
-        <button variant="outline">
-          Checkbox items
-           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="-me-1 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-        </button>
-      </dropdown-menu-trigger>
-      <dropdown-menu-content>
-        <dropdown-menu-checkbox-item >
-          Next.js
-        </dropdown-menu-checkbox-item>
-        <dropdown-menu-checkbox-item >
-          SvelteKit
-        </dropdown-menu-checkbox-item>
-        <dropdown-menu-checkbox-item disabled>
-          Remix
-        </dropdown-menu-checkbox-item>
-        <dropdown-menu-checkbox-item >
-          Astro
-        </dropdown-menu-checkbox-item>
-      </dropdown-menu-content>
-    </dropdown-menu>
+<template>
+  <DropdownMenu><DropdownMenuTrigger aschild><Button variant="outline">Checkbox items
+          <ChevronDownIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuCheckboxItem checked="${nextjs}" oncheckedchange="${setNextjs}">Next.js
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${sveltekit}" oncheckedchange="${setSveltekit}">SvelteKit
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${remix}" oncheckedchange="${setRemix}" disabled>Remix
+        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${astro}" oncheckedchange="${setAstro}">Astro
+        </DropdownMenuCheckboxItem></DropdownMenuContent></DropdownMenu>
+</template>

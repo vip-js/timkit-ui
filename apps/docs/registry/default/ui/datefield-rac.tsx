@@ -1,77 +1,104 @@
 'use client'
 
-import { cn } from '@timui/core'
-import {
-  composeRenderProps,
-  DateFieldProps,
-  DateField as DateFieldRac,
-  DateInputProps as DateInputPropsRac,
-  DateInput as DateInputRac,
-  DateSegmentProps,
-  DateSegment as DateSegmentRac,
-  DateValue as DateValueRac,
-  TimeFieldProps,
-  TimeField as TimeFieldRac,
-  TimeValue as TimeValueRac,
-} from 'react-aria-components'
+import * as React from 'react'
+import { cn, dateFieldInputVariants, dateFieldSegmentVariants } from '@timui/core'
 
-function DateField<T extends DateValueRac>({ className, children, ...props }: DateFieldProps<T>) {
+type DateInputType = 'date' | 'time' | 'datetime-local'
+type DateGranularity = 'day' | 'minute' | 'second'
+
+type DateFieldContextValue = {
+  inputType: DateInputType
+  granularity?: DateGranularity
+}
+
+const DateFieldContext = React.createContext<DateFieldContextValue | null>(null)
+
+const dateInputStyle = dateFieldInputVariants()
+
+type DateFieldProps<T = unknown> = React.HTMLAttributes<HTMLDivElement> & {
+  type?: DateInputType
+  granularity?: DateGranularity
+  hourCycle?: 12 | 24
+  value?: T
+  defaultValue?: T
+  onChange?: (value: T) => void
+}
+
+type TimeFieldProps<T = unknown> = React.HTMLAttributes<HTMLDivElement> & {
+  type?: DateInputType
+  granularity?: DateGranularity
+  hourCycle?: 12 | 24
+  value?: T
+  defaultValue?: T
+  onChange?: (value: T) => void
+}
+
+type DateSegmentProps = React.HTMLAttributes<HTMLSpanElement>
+
+interface DateInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  unstyled?: boolean
+  invalid?: boolean
+}
+
+function DateField<T = unknown>({
+  type,
+  granularity,
+  className,
+  children,
+  ...props
+}: DateFieldProps<T>) {
+  const inputType: DateInputType =
+    type ?? (granularity && granularity !== 'day' ? 'datetime-local' : 'date')
+
   return (
-    <DateFieldRac
-      className={composeRenderProps(className, (className) => cn(className))}
-      {...props}
-    >
-      {children}
-    </DateFieldRac>
+    <DateFieldContext.Provider value={{ inputType, granularity }}>
+      <div className={cn(className)} {...props}>
+        {children}
+      </div>
+    </DateFieldContext.Provider>
   )
 }
 
-function TimeField<T extends TimeValueRac>({ className, children, ...props }: TimeFieldProps<T>) {
+function TimeField<T = unknown>({
+  type,
+  granularity,
+  className,
+  children,
+  ...props
+}: TimeFieldProps<T>) {
+  const inputType: DateInputType = type ?? 'time'
+
   return (
-    <TimeFieldRac
-      className={composeRenderProps(className, (className) => cn(className))}
-      {...props}
-    >
-      {children}
-    </TimeFieldRac>
+    <DateFieldContext.Provider value={{ inputType, granularity }}>
+      <div className={cn(className)} {...props}>
+        {children}
+      </div>
+    </DateFieldContext.Provider>
   )
 }
 
 function DateSegment({ className, ...props }: DateSegmentProps) {
+  return <span className={cn(dateFieldSegmentVariants(), className)} {...props} />
+}
+
+function DateInput({ className, unstyled = false, invalid, type, step, ...props }: DateInputProps) {
+  const context = React.useContext(DateFieldContext)
+  const resolvedType = type ?? context?.inputType ?? 'date'
+
+  const resolvedStep =
+    step ??
+    (context?.granularity === 'second' ? 1 : context?.granularity === 'minute' ? 60 : undefined)
+
   return (
-    <DateSegmentRac
-      className={composeRenderProps(className, (className) =>
-        cn(
-          'text-foreground data-focused:bg-accent data-invalid:data-focused:bg-destructive data-focused:data-placeholder:text-foreground data-focused:text-foreground data-invalid:data-placeholder:text-destructive data-invalid:text-destructive data-placeholder:text-muted-foreground/70 data-[type=literal]:text-muted-foreground/70 inline rounded p-0.5 caret-transparent outline-hidden data-disabled:cursor-not-allowed data-disabled:opacity-50 data-invalid:data-focused:text-white data-invalid:data-focused:data-placeholder:text-white data-[type=literal]:px-0',
-          className
-        )
-      )}
+    <input
+      type={resolvedType}
+      step={resolvedStep}
+      className={cn(!unstyled && dateFieldInputVariants(), className)}
+      aria-invalid={invalid || undefined}
       {...props}
-      data-invalid
     />
   )
 }
 
-const dateInputStyle =
-  'relative inline-flex h-9 w-full items-center overflow-hidden whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] outline-none data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:ring-[3px] data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive'
-
-interface DateInputProps extends DateInputPropsRac {
-  className?: string
-  unstyled?: boolean
-}
-
-function DateInput({ className, unstyled = false, ...props }: Omit<DateInputProps, 'children'>) {
-  return (
-    <DateInputRac
-      className={composeRenderProps(className, (className) =>
-        cn(!unstyled && dateInputStyle, className)
-      )}
-      {...props}
-    >
-      {(segment) => <DateSegment segment={segment} />}
-    </DateInputRac>
-  )
-}
-
 export { DateField, DateInput, DateSegment, TimeField, dateInputStyle }
-export type { DateInputProps }
+export type { DateFieldProps, DateInputProps, DateSegmentProps, TimeFieldProps }

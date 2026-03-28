@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, type HTMLAttributes } from 'vue'
+import { type HTMLAttributes } from 'vue'
 import { useCollapsible } from './use-collapsible'
 import { provideCollapsibleContext } from './use-collapsible-context'
 
@@ -8,6 +8,7 @@ const props = defineProps<{
   defaultOpen?: boolean
   disabled?: boolean
   id?: string
+  onOpenChange?: (open: boolean) => void
   class?: HTMLAttributes['class']
 }>()
 
@@ -18,9 +19,10 @@ const api = useCollapsible({
   open: props.open,
   defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
   disabled: props.disabled,
-  onOpenChange(details: { open: boolean }) {
-    emit('update:open', details.open)
-    emit('change', details.open)
+  onOpenChange(open: boolean) {
+    props.onOpenChange?.(open)
+    emit('update:open', open)
+    emit('change', open)
   },
 })
 

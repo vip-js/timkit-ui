@@ -34,7 +34,7 @@ export default function TeamSwitcher({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         {teams.map((project) => (
-          <DropdownMenuItem key={project} onSelect={() => setSelectedProject(project)}>
+          <DropdownMenuItem key={project} onClick={() => setSelectedProject(project)}>
             {project}
           </DropdownMenuItem>
         ))}

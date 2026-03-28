@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@/components/ui/image-cropper';
-import { Slider } from '@/components/ui/slider';
+import { ref } from 'vue';
+import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/vue';
+import { Slider } from '@timui/vue';
 
 
+
+const zoom = ref(1);
+
+
+function setZoom(next: typeof zoom.value | ((prev: typeof zoom.value) => typeof zoom.value)) {
+  zoom.value = typeof next === 'function'
+    ? (next as (prev: typeof zoom.value) => typeof zoom.value)(zoom.value)
+    : next;
+}
 
 </script>
 

@@ -14,6 +14,8 @@ const props = defineProps<{
   loopFocus?: boolean;
   composite?: boolean;
   deselectable?: boolean;
+  onValueChange?: (value: string) => void;
+  onFocusChange?: (value: string) => void;
   class?: HTMLAttributes["class"];
 }>();
 

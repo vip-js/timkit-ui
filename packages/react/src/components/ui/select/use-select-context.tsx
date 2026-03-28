@@ -5,10 +5,14 @@ import type { SelectItemData } from './use-select'
 export type SelectApiLike = {
   open?: boolean
   value?: string[]
-  triggerProps?: React.HTMLAttributes<HTMLElement>
-  positionerProps?: React.HTMLAttributes<HTMLElement> & { style?: React.CSSProperties }
-  contentProps?: React.HTMLAttributes<HTMLElement>
+  valueAsString?: string
+  getTriggerProps?: () => React.HTMLAttributes<HTMLElement>
+  getPositionerProps?: () => React.HTMLAttributes<HTMLElement> & { style?: React.CSSProperties }
+  getContentProps?: () => React.HTMLAttributes<HTMLElement>
   getItemProps?: (options: { item: SelectItemData }) => React.HTMLAttributes<HTMLElement>
+  registerItem?: (item: SelectItemData) => void
+  unregisterItem?: (value: string) => void
+  getItemLabel?: (value: string) => string | undefined
 }
 
 export const SelectContext = React.createContext<SelectApiLike | null>(null)

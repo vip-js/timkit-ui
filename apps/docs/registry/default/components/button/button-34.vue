@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ToggleGroup } from '@/components/ui/toggle-group';
-import { ToggleGroupItem } from '@/components/ui/toggle-group-item';
+import { ToggleGroup } from '@timui/vue';
+import { ToggleGroupItem } from '@timui/vue';
+
 
 
 

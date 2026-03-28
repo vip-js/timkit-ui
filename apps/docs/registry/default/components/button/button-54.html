@@ -1,14 +1,4 @@
-<button type="button" data-slot="button"
-  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground px-4 group h-auto gap-4 py-3 text-left">
-  <div class="space-y-1">
-    <h3>Talent Agency</h3>
-    <p class="text-muted-foreground font-normal whitespace-break-spaces">
-      Matches for your roster
-    </p>
-  </div>
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-    class="lucide lucide-chevron-right opacity-60 transition-transform group-hover:translate-x-0.5" aria-hidden="true">
-    <path d="m9 18 6-6-6-6" />
-  </svg>
-</button>
+<template>
+  <Button class="group h-auto gap-4 py-3 text-left" variant="outline"><div class="space-y-1"><h3>Talent Agency</h3><p class="text-muted-foreground font-normal whitespace-break-spaces">Matches for your roster
+        </p></div><ChevronRightIcon class="opacity-60 transition-transform group-hover:translate-x-0.5" size="${16}" aria-hidden="true" /></Button>
+</template>

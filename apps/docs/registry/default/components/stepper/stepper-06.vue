@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Shuffle } from 'lucide-vue-next';
-import { Stepper } from '@/components/ui/stepper';
-import { StepperIndicator } from '@/components/ui/stepper-indicator';
-import { StepperItem } from '@/components/ui/stepper-item';
-import { StepperSeparator } from '@/components/ui/stepper-separator';
-import { StepperTrigger } from '@/components/ui/stepper-trigger';
+import { Stepper } from '@timui/vue';
+import { StepperIndicator } from '@timui/vue';
+import { StepperItem } from '@timui/vue';
+import { StepperSeparator } from '@timui/vue';
+import { StepperTrigger } from '@timui/vue';
+
 
 
 

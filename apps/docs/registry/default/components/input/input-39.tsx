@@ -1,8 +1,7 @@
 'use client'
 
-import { DateInput, TimeField } from '@timui/react'
+import { DateInput, Label, TimeField } from '@timui/react'
 import { ClockIcon } from 'lucide-react'
-import { Label } from 'react-aria-components'
 
 export default function Component() {
   return (

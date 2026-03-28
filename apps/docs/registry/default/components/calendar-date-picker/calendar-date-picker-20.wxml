@@ -19,11 +19,11 @@
                     setDate(lastYear)
                     setMonth(lastYear)
                   }">Last year
-                </button></view></view></view><calendar mode="single" selected="{{date}}" onselect="{{(newDate) => {
+                </button></view></view></view><calendar mode="single" selected="{{date}}" bindchange="{
               if (newDate) {
                 setDate(newDate)
               }
-            }}}" month="{{month}}" onmonthchange="{{setMonth}}" class="p-2" disabled="{{[
+            }" month="{{month}}" onmonthchange="{{setMonth}}" class="p-2" disabled="{{[
               { after: today }, // Dates before today
             ]}}" /></view></view><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Calendar with presets -{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
         </a></text></view>

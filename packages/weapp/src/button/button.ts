@@ -1,4 +1,4 @@
-import { buttonVariants, createTimEvent } from '../utils'
+import { buttonVariants, createTimEvent, type JsonValue } from '../utils'
 import {
   createWeappBaseProps,
   createWeappOptions,
@@ -86,7 +86,10 @@ Component({
       if (!this.properties.disabled && !this.properties.loading) {
         this.triggerEvent('tap', {})
         const buttonId = this.properties.id || 'button'
-        this.triggerEvent('press', createTimEvent('press', buttonId, {}) as unknown as object)
+        this.triggerEvent(
+          'press',
+          createTimEvent('press', buttonId, {}) as Record<string, JsonValue>
+        )
       }
     },
     // 微信原生 button 事件透传

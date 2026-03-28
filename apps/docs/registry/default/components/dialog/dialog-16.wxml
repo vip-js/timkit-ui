@@ -1,16 +1,11 @@
 <view>
   <dialog><dialogtrigger aschild><button variant="outline">Card details</button></dialogtrigger><dialogcontent><view class="flex flex-col gap-2"><view class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><walleticon class="opacity-80" size="{{16}}" /></view><dialogheader><dialogtitle class="text-left">Update your card</dialogtitle><dialogdescription class="text-left">Your new card will replace your current card.
-            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="space-y-4"><view class="*:not-first:mt-2"><label htmlfor="{{`name-${id}`}}">Name on card</label><input id="{{`name-${id}`}}" type="text" required /></view><view class="*:not-first:mt-2"><label htmlfor="{{`number-${id}`}}">Card Number</label><view class="relative"><input id="{{`number-${id}`}}" class="peer pe-9 [direction:inherit]" /><view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">{{ meta.cardType ? (
-                    <svg
-                      className="overflow-hidden rounded-sm"
-                      {...getCardImageProps({
-                        images: images as unknown as CardImages,
-                      })}
-                      width={20}
-                    />
-                  ) : (
-                    <CreditCardIcon size={16} aria-hidden="true" />
-                  ) }}</view></view></view><view class="flex gap-4"><view class="flex-1 space-y-2"><label htmlfor="{{`expiry-${id}`}}">Expiry date</label><input class="[direction:inherit]" id="{{`expiry-${id}`}}" /></view><view class="flex-1 space-y-2"><label htmlfor="{{`cvc-${id}`}}">CVC</label><input class="[direction:inherit]" id="{{`cvc-${id}`}}" /></view></view></view><view class="flex items-center gap-2"><checkbox id="{{`primary-${id}`}}" /><label htmlfor="{{`primary-${id}`}}" class="text-muted-foreground font-normal">Set as default payment method
+            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="space-y-4"><view class="*:not-first:mt-2"><label htmlfor="{{`name-${id}`}}">Name on card</label><input id="{{`name-${id}`}}" type="text" required /></view><view class="*:not-first:mt-2"><label htmlfor="{{`number-${id}`}}">Card Number</label><view class="relative"><input id="{{`number-${id}`}}" class="peer pe-9 [direction:inherit]" /><view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50"><block wx:if="{{meta.cardType}}">
+<svg class="overflow-hidden rounded-sm" width="{{20}}" />
+</block>
+<block wx:else>
+<creditcardicon size="{{16}}" aria-hidden="true" />
+</block></view></view></view><view class="flex gap-4"><view class="flex-1 space-y-2"><label htmlfor="{{`expiry-${id}`}}">Expiry date</label><input class="[direction:inherit]" id="{{`expiry-${id}`}}" /></view><view class="flex-1 space-y-2"><label htmlfor="{{`cvc-${id}`}}">CVC</label><input class="[direction:inherit]" id="{{`cvc-${id}`}}" /></view></view></view><view class="flex items-center gap-2"><checkbox id="{{`primary-${id}`}}" /><label htmlfor="{{`primary-${id}`}}" class="text-muted-foreground font-normal">Set as default payment method
             </label></view><button type="button" class="w-full">Update card
           </button></form></dialogcontent></dialog>
 </view>

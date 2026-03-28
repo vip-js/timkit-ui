@@ -1,5 +1,5 @@
 <view>
-  <view><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" captionlayout="dropdown-years" defaultmonth="{{new Date()}}" startmonth="{{new Date(1980, 6)}}" components="{{{
+  <view><calendar mode="single" selected="{{date}}" bindchange="setDate" class="rounded-md border p-2" captionlayout="dropdown-years" defaultmonth="{{new Date()}}" startmonth="{{new Date(1980, 6)}}" components="{{{
           DropdownNav: (props: DropdownNavProps) => {
             return (
               <div className="flex w-full items-center justify-center gap-3 [&>span]:text-sm [&>span]:font-medium">

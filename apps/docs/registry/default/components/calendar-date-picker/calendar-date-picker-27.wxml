@@ -1,4 +1,9 @@
 <view>
-  <view><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Date picker</label><popover ids="{{{ trigger: id }}}"><popovertrigger aschild><button id="{{id}}" variant="{{'outline'}}" class="group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><text class="{{cn('truncate', !date && 'text-muted-foreground')}}">{{ date ? format(date, 'PPP') : 'Pick a date' }}</text><calendaricon size="{{16}}" class="text-muted-foreground/80 group-hover:text-foreground shrink-0 transition-colors" aria-hidden="true" /></button></popovertrigger><popovercontent class="w-auto p-2" align="start"><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" /></popovercontent></popover></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
+  <view><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Date picker</label><popover ids="{{{ trigger: id }}}"><popovertrigger aschild><button id="{{id}}" variant="{{'outline'}}" class="group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><text class="{{cn('truncate', !date && 'text-muted-foreground')}}"><block wx:if="{{date}}">
+{{ format(date, 'PPP') }}
+</block>
+<block wx:else>
+{{ 'Pick a date' }}
+</block></text><calendaricon size="{{16}}" class="text-muted-foreground/80 group-hover:text-foreground shrink-0 transition-colors" aria-hidden="true" /></button></popovertrigger><popovercontent class="w-auto p-2" align="start"><calendar mode="single" selected="{{date}}" bindchange="setDate" /></popovercontent></popover></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
         </a></text></view>
 </view>

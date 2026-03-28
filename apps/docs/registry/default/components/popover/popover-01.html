@@ -1,28 +1,9 @@
-<div data-slot="popover" class="relative inline-block">
-  <button
-    data-slot="popover-trigger"
-    type="button"
-    aria-expanded="false"
-    class="inline-flex h-9 items-center rounded-md border px-3 text-sm font-medium"
-  >
-    Filters
-  </button>
-  <div
-    data-slot="popover-content"
-    data-state="closed"
-    hidden
-    class="absolute left-0 top-full z-10 mt-2 w-56 rounded-md border bg-popover p-4 shadow-md"
-  >
-    <div class="space-y-3">
-      <div class="text-xs font-medium text-muted-foreground">Filters</div>
-      <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked /> Real time</label>
-      <label class="flex items-center gap-2 text-sm"><input type="checkbox" /> Top channels</label>
-      <label class="flex items-center gap-2 text-sm"><input type="checkbox" /> Last orders</label>
-      <label class="flex items-center gap-2 text-sm"><input type="checkbox" /> Total spent</label>
-      <div class="flex justify-between gap-2 pt-2">
-        <button type="button" class="rounded-md border px-2 py-1 text-xs">Clear</button>
-        <button type="button" class="rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground">Apply</button>
-      </div>
-    </div>
-  </div>
-</div>
+<template>
+  <div class="flex flex-col gap-4"><Popover><PopoverTrigger aschild><Button variant="outline" size="icon" aria-label="Filters"><ListFilterIcon size="${16}" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="w-36 p-3"><div class="space-y-3"><div class="text-muted-foreground text-xs font-medium">Filters</div><form><div class="space-y-3"><div class="flex items-center gap-2"><Checkbox id="${`${id}-1`}" /><Label htmlfor="${`${id}-1`}" class="font-normal">Real Time
+                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-2`}" /><Label htmlfor="${`${id}-2`}" class="font-normal">Top Channels
+                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-3`}" /><Label htmlfor="${`${id}-3`}" class="font-normal">Last Orders
+                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-4`}" /><Label htmlfor="${`${id}-4`}" class="font-normal">Total Spent
+                  </Label></div></div><div role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></div><div class="flex justify-between gap-2"><Button size="sm" variant="outline" class="h-7 px-2">Clear
+                </Button><Button size="sm" class="h-7 px-2">Apply
+                </Button></div></form></div></PopoverContent></Popover></div>
+</template>

@@ -1,18 +1,5 @@
-<div class="*:not-first:mt-2">
-      <label for="select-27-id">Select with disabled options</label>
-      <select defaultValue="2">
-        <select-trigger id="select-27-id">
-          <select-value placeholder="Select framework" />
-        </select-trigger>
-        <select-content>
-          <select-item value="1" disabled>
-            React
-          </select-item>
-          <select-item value="2">Next.js</select-item>
-          <select-item value="3" disabled>
-            Astro
-          </select-item>
-          <select-item value="4">Gatsby</select-item>
-        </select-content>
-      </select>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with disabled options</Label><Select default-value="2"><SelectTrigger id="${id}"><SelectValue placeholder="Select framework" /></SelectTrigger><SelectContent><SelectItem value="1" disabled>React
+          </SelectItem><SelectItem value="2">Next.js</SelectItem><SelectItem value="3" disabled>Astro
+          </SelectItem><SelectItem value="4">Gatsby</SelectItem></SelectContent></Select></div>
+</template>

@@ -1,28 +1,10 @@
-<nav data-slot="navigation-menu" class="relative inline-flex items-center gap-2">
-  <div data-slot="navigation-menu-item" data-state="closed" class="relative">
-    <button
-      data-slot="navigation-menu-trigger"
-      type="button"
-      data-state="closed"
-      aria-expanded="false"
-      class="inline-flex h-10 items-center rounded-md border px-4 text-sm font-medium"
-    >
-      Platform
-    </button>
-    <div
-      data-slot="navigation-menu-content"
-      data-state="closed"
-      hidden
-      class="absolute left-0 top-full z-10 mt-2 w-80 rounded-md border bg-popover p-4 shadow-md"
-    >
-      <div class="grid gap-2 text-sm">
-        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">React and Vue use shared core variants.</a>
-        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">HTML demos declare template-only or adapter-backed behavior.</a>
-        <a href="#" data-slot="navigation-menu-link" class="rounded-sm px-2 py-1.5 hover:bg-accent">Weapp follows TimEvent and mini-program component rules.</a>
-      </div>
-    </div>
-  </div>
-  <a href="#" data-slot="navigation-menu-link" class="inline-flex h-10 items-center rounded-md border px-4 text-sm font-medium">
-    Documentation
-  </a>
-</nav>
+<template>
+  <NavigationMenu><NavigationMenuList><NavigationMenuItem><NavigationMenuTrigger>Getting started</NavigationMenuTrigger><NavigationMenuContent><ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"><li class="row-span-3"><NavigationMenuLink aschild><a class="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md" href="/"><div class="mb-2 mt-4 text-lg font-medium">shadcn/ui</div><p class="text-sm leading-tight text-muted-foreground">Beautifully designed components built with Radix UI and Tailwind CSS.
+                    </p></a></NavigationMenuLink></li><ListItem href="/docs" title="Introduction">Re-usable components built using Radix UI and Tailwind CSS.
+              </ListItem><ListItem href="/docs/installation" title="Installation">How to install dependencies and structure your app.
+              </ListItem><ListItem href="/docs/primitives/typography" title="Typography">Styles for headings, paragraphs, lists...etc
+              </ListItem></ul></NavigationMenuContent></NavigationMenuItem><NavigationMenuItem><NavigationMenuTrigger>Components</NavigationMenuTrigger><NavigationMenuContent><ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] "><!-- Loop components -->
+<ListItem key="${component.title}" title="${component.title}" href="${component.href}">${component.description}</ListItem>
+<!-- End Loop --></ul></NavigationMenuContent></NavigationMenuItem><NavigationMenuItem><Link href="/docs" legacybehavior passhref><NavigationMenuLink class="${navigationMenuTriggerStyle()}">Documentation
+            </NavigationMenuLink></Link></NavigationMenuItem></NavigationMenuList></NavigationMenu>
+</template>

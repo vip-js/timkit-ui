@@ -1,9 +1,4 @@
-<div class="relative">
-      <div data-slot="avatar" class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full rounded-md">
-        <img src="./avatar-80-07.jpg" alt="Kelly King" data-slot="avatar-image" class="aspect-square h-full w-full" />
-        <div data-slot="avatar-fallback" class="flex h-full w-full items-center justify-center rounded-full bg-muted">KK</div>
-      </div>
-      <div class="border-background absolute -top-2 left-full min-w-5 -translate-x-3 px-1">
-        6
-      </div>
-    </div>
+<template>
+  <div class="relative"><Avatar class="rounded-md"><AvatarImage src="./avatar-80-07.jpg" alt="Kelly King" /><AvatarFallback>KK</AvatarFallback></Avatar><Badge class="border-background absolute -top-2 left-full min-w-5 -translate-x-3 px-1">6
+      </Badge></div>
+</template>

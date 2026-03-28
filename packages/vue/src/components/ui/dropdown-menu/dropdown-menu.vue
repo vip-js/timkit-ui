@@ -11,6 +11,7 @@ const props = defineProps<{
   closeOnSelect?: boolean;
   loopFocus?: boolean;
   positioning?: PositioningOptions;
+  onOpenChange?: (open: boolean) => void;
   class?: HTMLAttributes["class"];
 }>();
 

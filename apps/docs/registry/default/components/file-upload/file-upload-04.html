@@ -1,38 +1,12 @@
-<div class="flex flex-col gap-2">
-      <div class="relative">
-        
-        <div
-          role="button"
-          class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-disabled:pointer-events-none has-disabled:opacity-50 has-[img]:border-none has-[input:focus]:ring-[3px]"
-        >
-          <input class="sr-only" aria-label="Upload file" />
-          <div class="flex flex-col items-center justify-center px-4 py-3 text-center">
-              <div
-                class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
-                aria-hidden="true"
-              >
-                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 opacity-60"><circle cx="12" cy="12" r="9" /></svg>
-              </div>
-              <p class="mb-1.5 text-sm font-medium">Drop your image here or click to browse</p>
-              <p class="text-muted-foreground text-xs">Max size: 5MB</p>
-            </div>
-        </div>
-        
-      </div>
-
-      
-
-      <p
-        aria-live="polite"
-        role="region"
-        class="text-muted-foreground mt-2 text-center text-xs"
-      >
-        Single image uploader w/ max size ∙ 
-        <a
-          href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md"
-          class="hover:text-foreground underline"
-        >
-          API
-        </a>
-      </p>
-    </div>
+<template>
+  <div class="flex flex-col gap-2"><div class="relative"><div role="button" on-click="${openFileDialog}" ondragenter="${handleDragEnter}" ondragleave="${handleDragLeave}" ondragover="${handleDragOver}" ondrop="${handleDrop}" data-dragging="${isDragging || undefined}" class="border-input hover:bg-accent/50 data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-disabled:pointer-events-none has-disabled:opacity-50 has-[img]:border-none has-[input:focus]:ring-[3px]"><input class="sr-only" aria-label="Upload file" /><!-- if previewUrl -->
+<div class="absolute inset-0"><img src="${previewUrl}" alt="${files[0]?.file?.name || 'Uploaded image'}" class="size-full object-cover" /></div>
+<!-- else -->
+<div class="flex flex-col items-center justify-center px-4 py-3 text-center"><div class="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><ImageUpIcon class="size-4 opacity-60" /></div><p class="mb-1.5 text-sm font-medium">Drop your image here or click to browse</p><p class="text-muted-foreground text-xs">Max size: ${maxSizeMB}MB</p></div>
+<!-- endif --></div><!-- if previewUrl -->
+<div class="absolute top-4 right-4"><button type="button" class="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]" on-click="${() => removeFile(files[0]?.id)}" aria-label="Remove image"><XIcon class="size-4" aria-hidden="true" /></button></div>
+<!-- endif --></div><!-- if errors.length > 0 -->
+<div class="text-destructive flex items-center gap-1 text-xs" role="alert"><AlertCircleIcon class="size-3 shrink-0" /><span>${errors[0]}</span></div>
+<!-- endif --><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-center text-xs">Single image uploader w/ max size ∙${' '}<a href="https://github.com/origin-space/originui/tree/main/docs/use-file-upload.md" class="hover:text-foreground underline">API
+        </a></p></div>
+</template>

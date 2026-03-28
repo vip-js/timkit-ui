@@ -1,3 +1,8 @@
 <view>
-  <view class="inline-flex items-center gap-2"><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{setChecked}}" aria-label="Toggle switch" /><label htmlfor="{{id}}" class="text-sm font-medium">{{ checked ? 'On' : 'Off' }}</label></view>
+  <view class="inline-flex items-center gap-2"><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{setChecked}}" aria-label="Toggle switch" /><label htmlfor="{{id}}" class="text-sm font-medium"><block wx:if="{{checked}}">
+{{ 'On' }}
+</block>
+<block wx:else>
+{{ 'Off' }}
+</block></label></view>
 </view>

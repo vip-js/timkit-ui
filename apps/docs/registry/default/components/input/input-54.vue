@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
+import { ref } from 'vue';
+import { cn } from '@timui/core';
 import { CheckIcon, CopyIcon } from 'lucide-vue-next';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipContent } from '@/components/ui/tooltip-content';
-import { TooltipProvider } from '@/components/ui/tooltip-provider';
-import { TooltipTrigger } from '@/components/ui/tooltip-trigger';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { Tooltip } from '@timui/vue';
+import { TooltipContent } from '@timui/vue';
+import { TooltipProvider } from '@timui/vue';
+import { TooltipTrigger } from '@timui/vue';
 
 
+
+const copied = ref<boolean>(false);
+
+
+const id = 'input-54';
 
 </script>
 

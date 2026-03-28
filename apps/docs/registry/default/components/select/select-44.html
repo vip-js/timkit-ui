@@ -1,154 +1,19 @@
-<div class="*:not-first:mt-2">
-      <label for="select-44-id">Options with flag and search</label>
-      <popover >
-        <popover-trigger asChild>
-          <button id="select-44-id"
-            variant="outline"
-            role="combobox"
-            class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
-          >
-            <span class="text-muted-foreground">Select country</span>
-             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/80 shrink-0"><circle cx="12" cy="12" r="9" /></svg>
-          </button>
-        </popover-trigger>
-        <popover-content
-          class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0"
-          align="start"
-        >
-          <command>
-            <command-input placeholder="Search country..." />
-            <command-list>
-              <command-empty>No country found.</command-empty>
-              
-                
-                  <command-group heading=America>
-                    
-                      <command-item
-                        value="United States" >
-                        <span class="text-lg leading-none">🇺🇸</span> United States
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Canada" >
-                        <span class="text-lg leading-none">🇨🇦</span> Canada
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Mexico" >
-                        <span class="text-lg leading-none">🇲🇽</span> Mexico
-                        
-                      </command-item>
-                    
-                  </command-group>
-                
-              
-
-                
-                  <command-group heading=Africa>
-                    
-                      <command-item
-                        value="South Africa" >
-                        <span class="text-lg leading-none">🇿🇦</span> South Africa
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Nigeria" >
-                        <span class="text-lg leading-none">🇳🇬</span> Nigeria
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Morocco" >
-                        <span class="text-lg leading-none">🇲🇦</span> Morocco
-                        
-                      </command-item>
-                    
-                  </command-group>
-                
-              
-
-                
-                  <command-group heading=Asia>
-                    
-                      <command-item
-                        value="China" >
-                        <span class="text-lg leading-none">🇨🇳</span> China
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Japan" >
-                        <span class="text-lg leading-none">🇯🇵</span> Japan
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="India" >
-                        <span class="text-lg leading-none">🇮🇳</span> India
-                        
-                      </command-item>
-                    
-                  </command-group>
-                
-              
-
-                
-                  <command-group heading=Europe>
-                    
-                      <command-item
-                        value="United Kingdom" >
-                        <span class="text-lg leading-none">🇬🇧</span> United Kingdom
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="France" >
-                        <span class="text-lg leading-none">🇫🇷</span> France
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="Germany" >
-                        <span class="text-lg leading-none">🇩🇪</span> Germany
-                        
-                      </command-item>
-                    
-                  </command-group>
-                
-              
-
-                
-                  <command-group heading=Oceania>
-                    
-                      <command-item
-                        value="Australia" >
-                        <span class="text-lg leading-none">🇦🇺</span> Australia
-                        
-                      </command-item>
-                    
-
-                      <command-item
-                        value="New Zealand" >
-                        <span class="text-lg leading-none">🇳🇿</span> New Zealand
-                        
-                      </command-item>
-                    
-                  </command-group>
-                
-              
-            </command-list>
-          </command>
-        </popover-content>
-      </popover>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Options with flag and search</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><!-- if value -->
+<span class="flex min-w-0 items-center gap-2"><span class="text-lg leading-none">${countries
+                      .map((group) => group.items.find((item) => item.value === value))
+                      .filter(Boolean)[0]?.flag}</span><span class="truncate">${value}</span></span>
+<!-- else -->
+<span class="text-muted-foreground">Select country</span>
+<!-- endif --><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command><CommandInput placeholder="Search country..." /><CommandList><CommandEmpty>No country found.</CommandEmpty><!-- Loop countries -->
+<Fragment key="${group.continent}"><CommandGroup heading="${group.continent}"><!-- Loop group.items -->
+<CommandItem key="${country.value}" value="${country.value}" onselect="${(currentValue) => {
+                          const val = currentValue as string
+                          setValue(val === value ? '' : val)
+                          setOpen(false)
+                        }}"><span class="text-lg leading-none">${country.flag}</span>${country.value}<!-- if value === country.value -->
+<CheckIcon size="${16}" class="ml-auto" />
+<!-- endif --></CommandItem>
+<!-- End Loop --></CommandGroup></Fragment>
+<!-- End Loop --></CommandList></Command></PopoverContent></Popover></div>
+</template>

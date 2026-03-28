@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
+import { cn } from '@timui/core';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
-import { buttonVariants } from '@/components/ui/button';
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink } from '@/components/ui/pagination';
-import { usePagination } from '@/registry/default/hooks/use-pagination.vue';
+import { buttonVariants } from '@timui/vue';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink } from '@timui/vue';
+import { usePagination } from '@/registry/default/hooks/use-pagination';
 
-
+const currentPage = 1;
+const totalPages = 10;
+const paginationItemsToDisplay = 5;
+const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
+  currentPage,
+  totalPages,
+  paginationItemsToDisplay,
+});
 </script>
 
 <template>
@@ -14,7 +21,7 @@ import { usePagination } from '@/registry/default/hooks/use-pagination.vue';
                 variant: 'outline',
               }),
               'rounded-none shadow-none focus-visible:z-10 aria-disabled:pointer-events-none [&[aria-disabled]>svg]:opacity-50'
-            )" :href="currentPage === 1 ? undefined : `#/page/${currentPage - 1}`" aria-label="Go to previous page" :aria-disabled="currentPage === 1 ? true : undefined" :role="currentPage === 1 ? 'link' : undefined"><ChevronLeftIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem v-if="showLeftEllipsis" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationEllipsis /></PaginationItem><PaginationItem v-for="(page, index) in pages" :key="index" :key="page"><PaginationLink :class="cn(
+            )" :href="currentPage === 1 ? undefined : `#/page/${currentPage - 1}`" aria-label="Go to previous page" :aria-disabled="currentPage === 1 ? true : undefined" :role="currentPage === 1 ? 'link' : undefined"><ChevronLeftIcon :size="16" aria-hidden="true" /></PaginationLink></PaginationItem><PaginationItem v-if="showLeftEllipsis" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationEllipsis /></PaginationItem><PaginationItem v-for="(page, index) in pages" :key="page"><PaginationLink :class="cn(
                 buttonVariants({
                   variant: 'outline',
                 }),

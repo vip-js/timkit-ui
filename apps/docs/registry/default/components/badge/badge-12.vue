@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { Badge } from '@/components/ui/badge';
+import { ref } from 'vue';
+import { Badge } from '@timui/vue';
 
 
+
+const isActive = ref(true);
+
+
+function setIsActive(next: typeof isActive.value | ((prev: typeof isActive.value) => typeof isActive.value)) {
+  isActive.value = typeof next === 'function'
+    ? (next as (prev: typeof isActive.value) => typeof isActive.value)(isActive.value)
+    : next;
+}
 
 </script>
 

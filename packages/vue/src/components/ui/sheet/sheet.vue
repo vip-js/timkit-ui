@@ -17,9 +17,9 @@ const api = useSheet({
   open: props.open,
   defaultOpen: props.defaultOpen,
   modal: true,
-  onOpenChange(details) {
-    emit("update:open", details.open);
-    emit("openChange", details.open);
+  onOpenChange(open) {
+    emit("update:open", open);
+    emit("openChange", open);
   },
 });
 

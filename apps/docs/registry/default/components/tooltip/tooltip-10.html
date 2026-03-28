@@ -1,17 +1,4 @@
-<div data-slot="tooltip-root" data-state="closed" class="relative inline-flex">
-  <button
-    data-slot="tooltip-trigger"
-    type="button"
-    class="rounded-md border px-4 py-2 text-sm"
-  >
-    Hover for details
-  </button>
-  <div
-    data-slot="tooltip-content"
-    data-state="closed"
-    hidden
-    class="absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
-  >
-    HTML adapter coverage is now explicit in CI reports.
-  </div>
-</div>
+<template>
+  <HoverCard><HoverCardTrigger aschild><Button class="size-auto overflow-hidden rounded-full bg-transparent p-0 hover:bg-transparent" aria-label="My profile" aschild><a href="#"><img src="/avatar-40-04.jpg" width="${40}" height="${40}" alt="Avatar" /></a></Button></HoverCardTrigger><HoverCardContent class="w-[340px]"><div class="flex items-start gap-3"><img class="shrink-0 rounded-full" src="/avatar-40-04.jpg" width="${40}" height="${40}" alt="Avatar" /><div class="space-y-1"><p class="text-sm font-medium">@Origin_UI</p><p class="text-muted-foreground text-sm">Beautiful UI components built with Tailwind CSS and Next.js.
+            </p></div></div></HoverCardContent></HoverCard>
+</template>

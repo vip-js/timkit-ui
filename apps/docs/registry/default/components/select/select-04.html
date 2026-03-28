@@ -1,12 +1,4 @@
-<div class="*:not-first:mt-2">
-      <label for="select-04-id">Select with helper text (native)</label>
-      <select-native id="select-04-id">
-        <option value="1">React</option>
-        <option value="2">Next.js</option>
-        <option value="3">Astro</option>
-        <option value="4">Gatsby</option>
-      </select-native>
-      <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
-        Tell us what&lsquo;s your favorite Select framework
-      </p>
-    </div>
+<template>
+  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with helper text (native)</Label><SelectNative id="${id}"><option value="1">React</option><option value="2">Next.js</option><option value="3">Astro</option><option value="4">Gatsby</option></SelectNative><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Tell us what&lsquo;s your favorite Select framework
+      </p></div>
+</template>

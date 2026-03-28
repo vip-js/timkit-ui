@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { ref } from 'vue';
+import { Checkbox } from '@timui/vue';
+import { Input } from '@timui/vue';
+import { Label } from '@timui/vue';
 
 
+
+const checked = ref<boolean | 'indeterminate'>(false);
+
+
+function setChecked(next: typeof checked.value | ((prev: typeof checked.value) => typeof checked.value)) {
+  checked.value = typeof next === 'function'
+    ? (next as (prev: typeof checked.value) => typeof checked.value)(checked.value)
+    : next;
+}
 
 </script>
 

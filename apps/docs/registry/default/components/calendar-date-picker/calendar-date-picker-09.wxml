@@ -1,5 +1,5 @@
 <view>
-  <view><calendar mode="range" selected="{{date}}" onselect="{{setDate}}" class="rounded-md border p-2" classnames="{{{
+  <view><calendar mode="range" selected="{{date}}" bindchange="setDate(next as CalendarRangeValue | undefined)" class="rounded-md border p-2" classnames="{{{
           day: 'relative before:absolute before:inset-y-px before:inset-x-0 [&.range-start:not(.range-end):before]:bg-linear-to-r before:from-transparent before:from-50% before:to-accent before:to-50% [&.range-end:not(.range-start):before]:bg-linear-to-l',
           day_button:
             'rounded-full group-[.range-start:not(.range-end)]:rounded-e-full group-[.range-end:not(.range-start)]:rounded-s-full',

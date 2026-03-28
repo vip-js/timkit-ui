@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useDropdownMenuContext } from "./use-dropdown-menu-context";
-import { computed, getCurrentInstance, inject, type HTMLAttributes, type Ref } from "vue";
+import { computed, useId, type HTMLAttributes, type Ref } from "vue";
 import { cn, dropdownMenuCheckboxItemVariants } from "@timui/core";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
   checked?: boolean;
   value?: string;
+  onCheckedChange?: (checked: boolean) => void;
 }>();
 
 const emit = defineEmits(["update:checked", "checkedChange"]);
@@ -23,8 +24,8 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as Ref<DropdownMenuApi | undefined> | undefined;
-const instance = getCurrentInstance();
-const optionValue = computed(() => props.value || `dropdown-checkbox-${instance?.uid ?? 0}`);
+const generatedId = useId();
+const optionValue = computed(() => props.value ?? generatedId);
 
 const optionProps = computed(() => {
   if (!api?.value) return {};
@@ -33,6 +34,7 @@ const optionProps = computed(() => {
     checked: props.checked,
     value: optionValue.value,
     onCheckedChange: (details: DropdownCheckedDetails) => {
+      props.onCheckedChange?.(details.checked);
       emit("update:checked", details.checked);
       emit("checkedChange", details.checked);
     },

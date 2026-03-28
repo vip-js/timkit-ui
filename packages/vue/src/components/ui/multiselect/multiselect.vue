@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch, type Component, type VNodeChild } from "vue";
+import { computed, onBeforeUnmount, ref, useId, watch, type Component, type VNodeChild } from "vue";
 import {
   cn,
   multiselectClearButtonVariants,
@@ -48,7 +48,7 @@ const props = defineProps<MultiselectProps>();
 const emit = defineEmits(["update:modelValue", "change"]);
 
 const inputRef = ref<{ inputEl?: HTMLInputElement | null } | null>(null);
-const listId = `multiselect-list-${Math.random().toString(36).slice(2)}`;
+const listId = `multiselect-list-${useId()}`;
 type CommandExpose = { rootEl?: HTMLElement | null; api?: ComboboxApi };
 const dropdownRef = ref<CommandExpose | null>(null);
 const open = ref(false);

@@ -9,6 +9,7 @@ const props = defineProps<{
   multiple?: boolean;
   collapsible?: boolean;
   disabled?: boolean;
+  onValueChange?: (value: string | string[]) => void;
   class?: string;
   id?: string;
 }>();

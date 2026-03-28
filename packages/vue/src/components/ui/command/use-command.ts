@@ -1,7 +1,6 @@
 import { comboboxCollection, comboboxConnect, comboboxMachine } from '@timui/core'
-import type { ComboboxVueProps } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, useId, watch } from 'vue'
 import type { HTMLAttributes } from 'vue'
 
 export type CommandItem = { value: string; label: string }
@@ -12,6 +11,7 @@ export interface UseCommandProps {
   modelValue?: string
   defaultValue?: string
   id?: string
+  onValueChange?: (value?: string) => void
 }
 
 export interface UseCommandEmits {
@@ -20,9 +20,8 @@ export interface UseCommandEmits {
   (e: 'change', value?: string): void
 }
 
-type ComboboxValueChangeDetails = Parameters<NonNullable<ComboboxVueProps['onValueChange']>>[0]
-
 export function useCommand(props: UseCommandProps, emit: UseCommandEmits) {
+  const generatedId = useId()
   const options = ref<CommandItem[]>([])
   const registerItem = (item: CommandItem) => {
     if (options.value.find((opt) => opt.value === item.value)) return
@@ -42,15 +41,16 @@ export function useCommand(props: UseCommandProps, emit: UseCommandEmits) {
   const currentValue = computed(() => props.value ?? props.modelValue)
 
   const service = useMachine(comboboxMachine, {
-    id: props.id,
+    id: props.id ?? generatedId,
     collection,
     value: currentValue.value !== undefined ? [currentValue.value] : undefined,
     defaultValue:
       props.value === undefined && props.modelValue === undefined && props.defaultValue
         ? [props.defaultValue]
         : undefined,
-    onValueChange(details: ComboboxValueChangeDetails) {
+    onValueChange(details: { value: string[] }) {
       const nextValue = details.value?.[0]
+      props.onValueChange?.(nextValue)
       emit('update:value', nextValue)
       emit('update:modelValue', nextValue)
       emit('change', nextValue)

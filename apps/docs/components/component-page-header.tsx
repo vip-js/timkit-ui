@@ -54,7 +54,7 @@ export function ComponentPageHeader({ title, description, slug }: ComponentPageH
                 {framework === 'react'
                   ? `import { ${title.replace(/\s+/g, '')} } from "@/components/ui/${slug}"`
                   : framework === 'vue'
-                    ? `import ${title.replace(/\s+/g, '')} from "@/components/ui/${slug}.vue"`
+                    ? `import { ${title.replace(/\s+/g, '')} } from "@timui/vue"`
                     : framework === 'weapp'
                       ? `"usingComponents": {\n  "${slug}": "@/components/ui/${slug}/${slug}"\n}`
                       : `<!-- Copy HTML from preview -->`}

@@ -111,6 +111,11 @@ function resolveVueImports(
       if (imp.named.length > 0)
         localImports.push(`import { ${imp.named.join(', ')} } from '${resolvedRef}.vue';`)
       if (imp.default) localImports.push(`import ${imp.default} from '${resolvedRef}.vue';`)
+    } else if (imp.module !== '@timui/react' && imp.module !== '@timui/core' && imp.module !== 'lucide-react' && imp.module !== 'react') {
+      // Preserve other third party imports like date-fns
+      if (imp.named.length > 0)
+        localImports.push(`import { ${imp.named.join(', ')} } from '${imp.module}';`)
+      if (imp.default) localImports.push(`import ${imp.default} from '${imp.module}';`)
     }
   })
 
@@ -127,14 +132,22 @@ function resolveVueImports(
   return importBlock
 }
 
-function processAttributes(attributes: any[], platform: 'vue' | 'html' | 'wxml'): string {
-  let attrs = attributes
+function processAttributes(
+  tagName: string,
+  attributes: Node[],
+  platform: 'vue' | 'html' | 'wxml'
+): string {
+  const renderedAttrs = attributes
     .map((attr) => {
       if (attr.isKind(SyntaxKind.JsxAttribute)) {
         const name = attr.getNameNode().getText()
         let mappedName = attrMapping[name] || name
 
-        if (platform === 'vue' && vueEventMapping[mappedName]) {
+        // Component-specific attribute overrides
+        if (tagName === 'Calendar' && name === 'onSelect') {
+            if (platform === 'vue') mappedName = '@update:modelValue'
+            if (platform === 'wxml') mappedName = 'bindchange'
+        } else if (platform === 'vue' && vueEventMapping[mappedName]) {
           mappedName = vueEventMapping[mappedName]
         } else if (platform === 'wxml' && wxmlEventMapping[mappedName]) {
           mappedName = wxmlEventMapping[mappedName]
@@ -182,7 +195,16 @@ function processAttributes(attributes: any[], platform: 'vue' | 'html' | 'wxml')
       return ''
     })
     .filter(Boolean)
-    .join(' ')
+
+  // Deduplicate attributes by rendered name (e.g. ":key"), keeping the last one.
+  const dedupedAttrs = new Map<string, string>()
+  renderedAttrs.forEach((entry) => {
+    const attrName = entry.split('=')[0]?.trim()
+    if (!attrName) return
+    dedupedAttrs.set(attrName, entry)
+  })
+
+  const attrs = Array.from(dedupedAttrs.values()).join(' ')
 
   return attrs ? ` ${attrs}` : ''
 }
@@ -289,6 +311,42 @@ function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
       }
     }
 
+    // Handle Ternary expressions {condition ? <True /> : <False />}
+    if (expr.isKind(SyntaxKind.ConditionalExpression)) {
+      const condExpr = expr.asKind(SyntaxKind.ConditionalExpression)
+      if (condExpr) {
+        const condition = condExpr.getCondition().getText()
+        let trueNode = condExpr.getWhenTrue()
+        let falseNode = condExpr.getWhenFalse()
+        
+        if (trueNode.isKind(SyntaxKind.ParenthesizedExpression)) trueNode = trueNode.getExpression()
+        if (falseNode.isKind(SyntaxKind.ParenthesizedExpression)) falseNode = falseNode.getExpression()
+
+        let trueContent = ''
+        let falseContent = ''
+
+        if (Node.isJsxElement(trueNode) || Node.isJsxSelfClosingElement(trueNode) || Node.isJsxFragment(trueNode)) {
+          trueContent = processJsxNode(trueNode, platform)
+        } else {
+          trueContent = platform === 'wxml' ? `{{ ${trueNode.getText()} }}` : (platform === 'vue' ? `{{ ${trueNode.getText()} }}` : `\${${trueNode.getText()}}`)
+        }
+
+        if (Node.isJsxElement(falseNode) || Node.isJsxSelfClosingElement(falseNode) || Node.isJsxFragment(falseNode)) {
+          falseContent = processJsxNode(falseNode, platform)
+        } else {
+          falseContent = platform === 'wxml' ? `{{ ${falseNode.getText()} }}` : (platform === 'vue' ? `{{ ${falseNode.getText()} }}` : `\${${falseNode.getText()}}`)
+        }
+
+        if (platform === 'vue') {
+           return `<template v-if="${condition}">\n${trueContent}\n</template>\n<template v-else>\n${falseContent}\n</template>`
+        } else if (platform === 'wxml') {
+           return `<block wx:if="{{${condition}}}">\n${trueContent}\n</block>\n<block wx:else>\n${falseContent}\n</block>`
+        } else {
+           return `<!-- if ${condition} -->\n${trueContent}\n<!-- else -->\n${falseContent}\n<!-- endif -->`
+        }
+      }
+    }
+
     // expression output
     if (platform === 'vue') return `{{ ${expr.getText()} }}`
     if (platform === 'wxml') return `{{ ${expr.getText()} }}`
@@ -309,7 +367,7 @@ function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
           : originalTagName.toLowerCase()
         : originalTagName
 
-    const attrs = processAttributes(opening.getAttributes(), platform)
+    const attrs = processAttributes(originalTagName, opening.getAttributes(), platform)
     const children = node
       .getJsxChildren()
       .map((child) => processJsxNode(child, platform))
@@ -326,7 +384,7 @@ function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
           : originalTagName.toLowerCase()
         : originalTagName
 
-    const attrs = processAttributes(node.getAttributes(), platform)
+    const attrs = processAttributes(originalTagName, node.getAttributes(), platform)
     return `<${tagName}${attrs} />`
   }
 
@@ -360,9 +418,42 @@ function processComponent(filePath: string, project: Project, htmlDir?: string) 
   let wxmlTemplate = ''
 
   const defaultExport = sourceFile.getDefaultExportSymbol()
+  let hooksCode = ''
+  let hasVueRef = false
+
   if (defaultExport) {
     const dec = defaultExport.getDeclarations()[0]
     if (dec && dec.isKind(SyntaxKind.FunctionDeclaration)) {
+      
+      // Extract hooks (useState -> ref)
+      const statements = dec.getStatements()
+      for (const stmt of statements) {
+        if (stmt.isKind(SyntaxKind.VariableStatement)) {
+          const varDeclNode = stmt.getDeclarationList().getDeclarations()[0]
+          const initializer = varDeclNode.getInitializer()
+          if (initializer && initializer.isKind(SyntaxKind.CallExpression)) {
+            const callExpr = initializer.getExpression()
+            if (callExpr.getText() === 'useState' || callExpr.getText() === 'React.useState') {
+              hasVueRef = true
+              let defaultVal = initializer.getArguments()[0]?.getText() || 'undefined'
+              let stateName = 'state'
+              const nameNode = varDeclNode.getNameNode()
+              
+              if (nameNode.isKind(SyntaxKind.ArrayBindingPattern)) {
+                stateName = nameNode.getElements()[0]?.getText() || 'state'
+              }
+              
+              const typeArgs = initializer.getTypeArguments()
+              let typeDef = ''
+              if (typeArgs.length > 0) {
+                 typeDef = `<${typeArgs[0].getText()}>`
+              }
+              hooksCode += `const ${stateName} = ref${typeDef}(${defaultVal});\n`
+            }
+          }
+        }
+      }
+
       const returnStmt = dec.getStatementByKind(SyntaxKind.ReturnStatement)
       if (returnStmt) {
         const expr = returnStmt.getExpression()
@@ -406,9 +497,12 @@ function processComponent(filePath: string, project: Project, htmlDir?: string) 
     componentDirRef
   )
 
+  const vueRefImport = hasVueRef ? `import { ref } from 'vue';\n` : ''
+
   const generatedVue = `<script setup lang="ts">
-${resolvedImports}
+${vueRefImport}${resolvedImports}
 ${navLinksCode}
+${hooksCode}
 </script>
 
 <template>

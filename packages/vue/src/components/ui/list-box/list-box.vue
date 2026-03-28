@@ -1,22 +1,30 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, mergeProps, ref, useAttrs, useId } from 'vue'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@timui/core'
-import { ListBoxProvider, type ListBoxSelectionMode } from './use-list-box-context'
+import {
+  cn,
+  listBoxCollection,
+  listBoxConnect,
+  listBoxListVariants,
+  listBoxMachine,
+  type ListBoxItem,
+  type ListBoxVueProps,
+  type ListBoxValue,
+} from '@timui/core'
+import { normalizeProps, useMachine } from '@zag-js/vue'
+
+import { ListBoxProvider } from './use-list-box-context'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-type ListBoxValue = string | string[] | undefined
-
 const props = withDefaults(
-  defineProps<{
-    selectionMode?: ListBoxSelectionMode
-    modelValue?: ListBoxValue
-    defaultValue?: ListBoxValue
-    class?: HTMLAttributes['class']
-  }>(),
+  defineProps<
+    ListBoxVueProps & {
+      class?: HTMLAttributes['class']
+    }
+  >(),
   {
     selectionMode: 'single',
   }
@@ -27,178 +35,92 @@ const emit = defineEmits<{
   (e: 'change', value?: ListBoxValue): void
 }>()
 
-const selectionMode = computed(() => props.selectionMode)
-const selectedIds = ref<Set<string>>(new Set())
-const activeId = ref<string | null>(null)
-const itemOrder = ref<string[]>([])
-const itemRefs = new Map<string, HTMLElement>()
-const itemDisabled = new Map<string, boolean>()
+const attrs = useAttrs()
+const generatedId = useId()
+const registeredItems = ref<ListBoxItem[]>([])
 
 const normalizeValue = (value?: ListBoxValue) => {
-  if (value === undefined || value === null) return new Set<string>()
-  if (Array.isArray(value)) return new Set(value)
-  return new Set([value])
+  if (value === undefined || value === null) return undefined
+  if (Array.isArray(value)) return value.map((item) => String(item))
+  return [String(value)]
 }
 
-const emitSelection = (next: Set<string>) => {
-  selectedIds.value = next
-  if (selectionMode.value === 'multiple') {
-    const values = Array.from(next)
-    emit('update:modelValue', values)
-    emit('change', values)
-  } else {
-    const value = Array.from(next)[0]
-    emit('update:modelValue', value)
-    emit('change', value)
+const registerItem = (item: ListBoxItem) => {
+  const index = registeredItems.value.findIndex((existing) => existing.value === item.value)
+  if (index === -1) {
+    registeredItems.value = [...registeredItems.value, item]
+    return
   }
+  const prev = registeredItems.value[index]
+  if (prev.label === item.label && prev.disabled === item.disabled) return
+  const next = [...registeredItems.value]
+  next[index] = item
+  registeredItems.value = next
 }
 
-watch(
-  () => props.modelValue,
-  (next) => {
-    if (next !== undefined) {
-      selectedIds.value = normalizeValue(next)
-    }
-  },
-  { immediate: true }
+const unregisterItem = (value: string) => {
+  if (!registeredItems.value.some((item) => item.value === value)) return
+  registeredItems.value = registeredItems.value.filter((item) => item.value !== value)
+}
+
+const collection = computed(() =>
+  listBoxCollection<ListBoxItem>({
+    items: registeredItems.value,
+    itemToString: (item) => item.label,
+    itemToValue: (item) => item.value,
+  })
 )
 
-const registerItem = (id: string, el: HTMLElement | null, disabled: boolean) => {
-  if (!itemOrder.value.includes(id)) {
-    itemOrder.value.push(id)
-  }
-  if (el) itemRefs.set(id, el)
-  itemDisabled.set(id, disabled)
-  if (!activeId.value && !disabled) {
-    activeId.value = id
-  }
-}
+const selectionMode = computed(() => props.selectionMode ?? 'single')
+const controlledValue = computed<ListBoxValue>(() => props.modelValue ?? props.value)
 
-const unregisterItem = (id: string) => {
-  itemOrder.value = itemOrder.value.filter((item) => item !== id)
-  itemRefs.delete(id)
-  itemDisabled.delete(id)
-  if (activeId.value === id) {
-    const next = itemOrder.value.find((item) => !itemDisabled.get(item))
-    activeId.value = next ?? null
-  }
-}
+const machineProps = computed(() => ({
+  id: props.id ?? generatedId,
+  collection: collection.value,
+  multiple: selectionMode.value === 'multiple',
+  value: controlledValue.value !== undefined ? normalizeValue(controlledValue.value) : undefined,
+  defaultValue:
+    controlledValue.value === undefined ? normalizeValue(props.defaultValue) : undefined,
+  disabled: props.disabled,
+  required: props.required,
+  name: props.name,
+  open: true,
+  defaultOpen: true,
+  closeOnSelect: false,
+  onValueChange(details: { value: string[] }) {
+    const nextValue = selectionMode.value === 'multiple' ? details.value : details.value[0]
+    props.onValueChange?.(nextValue)
+    emit('update:modelValue', nextValue)
+    emit('change', nextValue)
+  },
+}))
 
-const setItemDisabled = (id: string, disabled: boolean) => {
-  itemDisabled.set(id, disabled)
-  if (disabled && activeId.value === id) {
-    const next = itemOrder.value.find((item) => !itemDisabled.get(item))
-    activeId.value = next ?? null
-  }
-}
-
-const setActive = (id: string) => {
-  if (itemDisabled.get(id)) return
-  activeId.value = id
-}
-
-const isSelected = (id: string) => selectedIds.value.has(id)
-const isDisabled = (id: string) => itemDisabled.get(id) ?? false
-
-const selectItem = (id: string) => {
-  if (isDisabled(id)) return
-  const next = new Set(selectedIds.value)
-  if (selectionMode.value === 'multiple') {
-    if (next.has(id)) next.delete(id)
-    else next.add(id)
-  } else {
-    next.clear()
-    next.add(id)
-  }
-  emitSelection(next)
-}
-
-const focusItem = (id: string) => {
-  const el = itemRefs.get(id)
-  if (el) el.focus()
-}
-
-const moveActive = (delta: number) => {
-  if (!itemOrder.value.length) return
-  const currentIndex = activeId.value
-    ? itemOrder.value.indexOf(activeId.value)
-    : -1
-  let index = currentIndex
-  for (let i = 0; i < itemOrder.value.length; i += 1) {
-    index = (index + delta + itemOrder.value.length) % itemOrder.value.length
-    const id = itemOrder.value[index]
-    if (!isDisabled(id)) {
-      activeId.value = id
-      focusItem(id)
-      return
-    }
-  }
-}
-
-const onKeydown = (event: KeyboardEvent) => {
-  switch (event.key) {
-    case 'ArrowDown':
-      event.preventDefault()
-      moveActive(1)
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      moveActive(-1)
-      break
-    case 'Home':
-      event.preventDefault()
-      moveActive(-itemOrder.value.length)
-      break
-    case 'End':
-      event.preventDefault()
-      moveActive(itemOrder.value.length)
-      break
-    case 'Enter':
-    case ' ':
-      event.preventDefault()
-      if (activeId.value) selectItem(activeId.value)
-      break
-    default:
-      break
-  }
-}
-
-const onFocus = () => {
-  if (activeId.value) focusItem(activeId.value)
-}
-
-onMounted(() => {
-  if (props.modelValue === undefined && props.defaultValue !== undefined) {
-    selectedIds.value = normalizeValue(props.defaultValue)
-  }
+const service = useMachine(listBoxMachine, machineProps)
+const api = computed(() => listBoxConnect(service, normalizeProps))
+const rootProps = computed(() => api.value.getRootProps())
+type MergedProps = Record<string, unknown> & { class?: HTMLAttributes['class'] }
+const mergedList = computed(() => {
+  const merged = mergeProps(api.value.getListProps() as MergedProps, attrs as MergedProps) as MergedProps
+  const mergedClass = merged.class as HTMLAttributes['class']
+  const { class: _class, ...restProps } = merged
+  return { class: mergedClass, props: restProps as Record<string, unknown> }
 })
 
 ListBoxProvider({
-  selectionMode,
-  selectedIds,
-  activeId,
+  api,
   registerItem,
   unregisterItem,
-  setItemDisabled,
-  setActive,
-  isSelected,
-  isDisabled,
-  selectItem,
-  focusItem,
 })
 </script>
 
 <template>
-  <div
-    role="listbox"
-    data-slot="list-box"
-    tabindex="0"
-    :aria-multiselectable="selectionMode === 'multiple' ? 'true' : undefined"
-    :class="cn(props.class)"
-    @keydown="onKeydown"
-    @focus="onFocus"
-    v-bind="$attrs"
-  >
-    <slot />
+  <div v-bind="rootProps">
+    <div
+      v-bind="mergedList.props"
+      data-slot="list-box"
+      :class="cn(listBoxListVariants(), props.class, mergedList.class)"
+    >
+      <slot />
+    </div>
   </div>
 </template>

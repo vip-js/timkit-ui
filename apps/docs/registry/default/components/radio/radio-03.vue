@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { Label } from '@/components/ui/label';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioGroupItem } from '@/components/ui/radio-group-item';
+import { Label } from '@timui/vue';
+import { RadioGroup } from '@timui/vue';
+import { RadioGroupItem } from '@timui/vue';
 
 
+
+
+
+const id = 'radio-03';
 
 </script>
 

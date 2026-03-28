@@ -1,4 +1,4 @@
 <view>
-  <view><calendar class="rounded-md border p-2" mode="single" selected="{{date as any}}" onselect="{{setDate as any}}" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html" target="_blank" rel="noopener nofollow">React Aria
+  <view><calendar class="rounded-md border p-2" mode="single" selected="{{date as any}}" bindchange="setDate as any" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html" target="_blank" rel="noopener nofollow">React Aria
         </a></text></view>
 </view>

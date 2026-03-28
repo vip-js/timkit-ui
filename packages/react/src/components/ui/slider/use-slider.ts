@@ -10,26 +10,38 @@ export interface UseSliderProps extends Omit<CoreSliderProps, 'id'> {
 export function useSlider(props: UseSliderProps) {
   const generatedId = React.useId()
   const sliderId = props.id ?? generatedId
+  const {
+    id: _id,
+    onValueChange,
+    onValueChangeEnd,
+    showTooltip: _showTooltip,
+    tooltipContent: _tooltipContent,
+    min,
+    max,
+    step,
+    ...machineProps
+  } = props
+  void _id
+  void _showTooltip
+  void _tooltipContent
 
   const service = useMachine(sliderMachine, {
+    ...machineProps,
     id: sliderId,
-    value: props.value,
-    defaultValue: props.defaultValue,
-    min: props.min ?? 0,
-    max: props.max ?? 100,
-    step: props.step ?? 1,
-    disabled: props.disabled,
+    min: min ?? 0,
+    max: max ?? 100,
+    step: step ?? 1,
     onValueChange(details) {
       const event = createTimEvent('change', sliderId, {
         value: details.value,
       }) as never as Parameters<NonNullable<CoreSliderProps['onValueChange']>>[0]
-      props.onValueChange?.(event)
+      onValueChange?.(event)
     },
     onValueChangeEnd(details) {
       const event = createTimEvent('change-end', sliderId, {
         value: details.value,
       }) as never as Parameters<NonNullable<CoreSliderProps['onValueChangeEnd']>>[0]
-      props.onValueChangeEnd?.(event)
+      onValueChangeEnd?.(event)
     },
   })
 

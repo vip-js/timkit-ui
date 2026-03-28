@@ -48,8 +48,8 @@
                       )}
                     </TableHead>
                   )
-                }) }}</tablerow></tableheader><tablebody>{{ table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+                }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
+{{ table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -57,14 +57,12 @@
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            ) }}</tablebody></table></view><view class="flex items-center justify-between gap-8"><view class="flex items-center gap-3"><label htmlfor="{{id}}" class="max-sm:sr-only">Rows per page
+              )) }}
+</block>
+<block wx:else>
+<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
+                </tablecell></tablerow>
+</block></tablebody></table></view><view class="flex items-center justify-between gap-8"><view class="flex items-center gap-3"><label htmlfor="{{id}}" class="max-sm:sr-only">Rows per page
           </label><select value="{{table.getState().pagination.pageSize.toString()}}" bindchange="{
               table.setPageSize(Number(value))
             }"><selecttrigger id="{{id}}" class="w-fit whitespace-nowrap"><selectvalue placeholder="Select number of results" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><selectitem wx:for="{{[5, 10, 25, 50]}}" wx:for-item="pageSize" wx:for-index="index" wx:key="index" key="{{pageSize}}" value="{{pageSize.toString()}}">{{ pageSize }}</selectitem></selectcontent></select></view><view class="text-muted-foreground flex grow justify-end text-sm whitespace-nowrap"><text class="text-muted-foreground text-sm whitespace-nowrap" aria-live="polite"><text class="text-foreground">{{ table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1 }}-

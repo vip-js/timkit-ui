@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Volume2Icon, VolumeXIcon } from 'lucide-vue-next';
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
+import { Label } from '@timui/vue';
+import { Slider } from '@timui/vue';
 
 
+
+const value = ref([25]);
+
+
+function setValue(next: typeof value.value | ((prev: typeof value.value) => typeof value.value)) {
+  value.value = typeof next === 'function'
+    ? (next as (prev: typeof value.value) => typeof value.value)(value.value)
+    : next;
+}
 
 </script>
 

@@ -109,6 +109,24 @@ export const convertRegistryPaths = (content: string): string => {
     .replace(/\.\.\/\.\.\/ui\//g, '@/components/ui/')
 }
 
+export const convertVueAtomicImports = (content: string): string => {
+  return content
+    .replace(
+      /import\s+([A-Za-z_$][\w$]*)\s*,\s*\{([^}]+)\}\s+from\s+['"]@\/components\/ui\/[^'"]+['"];?/g,
+      (_match, defaultImport: string, namedImports: string) =>
+        `import { ${defaultImport}, ${namedImports.trim()} } from '@timui/vue';`
+    )
+    .replace(
+      /import\s+([A-Za-z_$][\w$]*)\s+from\s+['"]@\/components\/ui\/[^'"]+['"];?/g,
+      (_match, defaultImport: string) => `import { ${defaultImport} } from '@timui/vue';`
+    )
+    .replace(
+      /import\s+type\s+\{([^}]+)\}\s+from\s+['"]@\/components\/ui\/[^'"]+['"];?/g,
+      (_match, typeImports: string) => `import type { ${typeImports.trim()} } from '@timui/vue';`
+    )
+    .replace(/from ['"]@\/components\/ui\/[^'"]+['"]/g, "from '@timui/vue'")
+}
+
 // -------- Shared variants for sheet (used by Weapp/Vue snippets) --------
 export const sheetOverlayVariants = cva(
   'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80'

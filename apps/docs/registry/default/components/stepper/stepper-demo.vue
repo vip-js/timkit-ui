@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import Stepper from '@/components/ui/stepper/stepper.vue'
-import StepperIndicator from '@/components/ui/stepper/stepper-indicator.vue'
-import StepperItem from '@/components/ui/stepper/stepper-item.vue'
-import StepperSeparator from '@/components/ui/stepper/stepper-separator.vue'
-import StepperTrigger from '@/components/ui/stepper/stepper-trigger.vue'
+import { Stepper, StepperIndicator, StepperItem, StepperSeparator, StepperTrigger } from '@timui/vue'
 
 const steps = [1, 2, 3]
 </script>

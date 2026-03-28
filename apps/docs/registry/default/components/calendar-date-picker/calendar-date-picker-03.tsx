@@ -1,31 +1,35 @@
 'use client'
 
-import { getLocalTimeZone, isWeekend, today } from '@internationalized/date'
 import { RangeCalendar } from '@timui/react'
-import { useLocale } from 'react-aria'
-import type { DateValue } from 'react-aria-components'
 
 export default function Component() {
-  const now = today(getLocalTimeZone())
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const disabledRanges = [
-    [now, now], // Disables today
-    [now.add({ days: 14 }), now.add({ days: 14 })], // Disables only the 14th day from now
-    [now.add({ days: 23 }), now.add({ days: 23 })], // Disables only the 23rd day from now
+    [new Date(today), new Date(today)],
+    [
+      new Date(today.getFullYear(), today.getMonth(), today.getDate() + 14),
+      new Date(today.getFullYear(), today.getMonth(), today.getDate() + 14),
+    ],
+    [
+      new Date(today.getFullYear(), today.getMonth(), today.getDate() + 23),
+      new Date(today.getFullYear(), today.getMonth(), today.getDate() + 23),
+    ],
   ]
 
-  const { locale } = useLocale()
-  const isDateUnavailable = (date: DateValue) =>
-    isWeekend(date, locale) ||
+  const isDateUnavailable = (date: Date) =>
+    date.getDay() === 0 ||
+    date.getDay() === 6 ||
     disabledRanges.some(
-      (interval) => date.compare(interval[0]) >= 0 && date.compare(interval[1]) <= 0
+      (interval) =>
+        date.getTime() >= interval[0].getTime() && date.getTime() <= interval[1].getTime()
     )
 
   return (
     <div>
       <RangeCalendar
         className="rounded-md border p-2"
-        isDateUnavailable={isDateUnavailable}
-        minValue={today(getLocalTimeZone())}
+        disabled={[{ before: today }, isDateUnavailable]}
       />
       <p
         className="text-muted-foreground mt-4 text-center text-xs"

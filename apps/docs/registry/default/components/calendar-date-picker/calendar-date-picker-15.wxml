@@ -1,5 +1,5 @@
 <view>
-  <view><view class="rounded-md border p-2"><calendar mode="single" selected="{{date}}" onselect="{{setDate}}" month="{{month}}" onmonthchange="{{setMonth}}" /><button variant="outline" size="sm" class="mt-2 mb-1" bindtap="{
+  <view><view class="rounded-md border p-2"><calendar mode="single" selected="{{date}}" bindchange="setDate" month="{{month}}" onmonthchange="{{setMonth}}" /><button variant="outline" size="sm" class="mt-2 mb-1" bindtap="{
             setDate(today)
             setMonth(today)
           }">Today

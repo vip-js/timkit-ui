@@ -10,6 +10,7 @@ export interface UseAccordionProps {
   collapsible?: boolean
   disabled?: boolean
   id?: string
+  onValueChange?: (value: string | string[]) => void
 }
 
 type AccordionEmits = {
@@ -44,6 +45,7 @@ export const useAccordion = (props: UseAccordionProps, emit?: AccordionEmits) =>
       defaultValue: value === undefined ? defaultValue : undefined,
       onValueChange(details: { value: string[] }) {
         const nextValue = toValue(details.value, multiple)
+        props.onValueChange?.(nextValue)
         if (emit) {
           emit('update:modelValue', nextValue)
           emit('change', nextValue)

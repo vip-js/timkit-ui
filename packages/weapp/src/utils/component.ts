@@ -4,12 +4,19 @@ type WeappComponentOptionsConfig = {
   virtualHost?: boolean
 }
 
+type WeappComponentOptions = {
+  styleIsolation: typeof WEAPP_STYLE_ISOLATION
+  pureDataPattern?: RegExp
+  multipleSlots?: true
+  virtualHost?: true
+}
+
 export const WEAPP_STYLE_ISOLATION = 'apply-shared' as const
 export const WEAPP_EXTERNAL_CLASSES = ['ext-class'] as const
 export const WEAPP_PURE_DATA_PATTERN = /^_/
 
 export function createWeappOptions(config: WeappComponentOptionsConfig = {}) {
-  const options: Record<string, unknown> = {
+  const options: WeappComponentOptions = {
     styleIsolation: WEAPP_STYLE_ISOLATION,
   }
 

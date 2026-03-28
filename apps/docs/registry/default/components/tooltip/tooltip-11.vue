@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { HoverCard } from '@/components/ui/hover-card';
-import { HoverCardContent } from '@/components/ui/hover-card-content';
-import { HoverCardTrigger } from '@/components/ui/hover-card-trigger';
+import { HoverCard } from '@timui/vue';
+import { HoverCardContent } from '@timui/vue';
+import { HoverCardTrigger } from '@timui/vue';
+
 
 
 

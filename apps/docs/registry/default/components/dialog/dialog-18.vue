@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { CheckIcon, RefreshCcwIcon } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { RadioGroupItem } from '@/components/ui/radio-group-item';
+import { Button } from '@timui/vue';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@timui/vue';
+import { Label } from '@timui/vue';
+import { RadioGroup } from '@timui/vue';
+import { RadioGroupItem } from '@timui/vue';
 
 
+
+
+
+const id = 'dialog-18';
 
 </script>
 

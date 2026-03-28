@@ -37,7 +37,7 @@ export const useStepItem = () => {
 </script>
 
 <script setup lang="ts">
-import { computed, provide, toRef, ref, watch } from 'vue'
+import { computed, provide, toRef, watch, useId } from 'vue'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import type { Machine as NumberInputMachine } from '@zag-js/number-input'
 import type { Machine as ZagMachine, MachineSchema as ZagMachineSchema } from '@zag-js/core'
@@ -63,14 +63,17 @@ const props = withDefaults(
 
 const emits = defineEmits<{
   (e: 'update:modelValue', value: number): void
+  (e: 'change', value: number): void
 }>()
+const generatedId = useId()
 
 const service = useMachine<NumberInputSchema>(stepperMachine, {
-  id: props.id,
+  id: props.id ?? generatedId,
   value: props.modelValue !== undefined ? String(props.modelValue) : undefined,
   defaultValue: props.modelValue === undefined ? String(props.defaultValue) : undefined,
   onValueChange(details: { value: string; valueAsNumber: number }) {
     emits('update:modelValue', details.valueAsNumber)
+    emits('change', details.valueAsNumber)
   },
 })
 

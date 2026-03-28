@@ -14,21 +14,55 @@ const Tabs = React.forwardRef<
     value?: string
     defaultValue?: string
     onValueChange?: (value: string) => void
+    onFocusChange?: (value: string) => void
     orientation?: 'horizontal' | 'vertical'
+    activationMode?: 'manual' | 'automatic'
+    loopFocus?: boolean
+    composite?: boolean
+    deselectable?: boolean
     id?: string
   }
->(({ className, value, defaultValue, onValueChange, orientation, id, ...props }, ref) => {
-  const api = useTabs({ value, defaultValue, onValueChange, orientation, id })
-  const rootProps = api.getRootProps()
-  const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
-  const { className: mergedClassName, ...restProps } = mergedProps
+>(
+  (
+    {
+      className,
+      value,
+      defaultValue,
+      onValueChange,
+      onFocusChange,
+      orientation,
+      activationMode,
+      loopFocus,
+      composite,
+      deselectable,
+      id,
+      ...props
+    },
+    ref
+  ) => {
+    const api = useTabs({
+      value,
+      defaultValue,
+      onValueChange,
+      onFocusChange,
+      orientation,
+      activationMode,
+      loopFocus,
+      composite,
+      deselectable,
+      id,
+    })
+    const rootProps = api.getRootProps()
+    const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
+    const { className: mergedClassName, ...restProps } = mergedProps
 
-  return (
-    <TabsProvider value={api}>
-      <div ref={ref} data-slot="tabs" className={cn(className, mergedClassName)} {...restProps} />
-    </TabsProvider>
-  )
-})
+    return (
+      <TabsProvider value={api}>
+        <div ref={ref} data-slot="tabs" className={cn(className, mergedClassName)} {...restProps} />
+      </TabsProvider>
+    )
+  }
+)
 Tabs.displayName = 'Tabs'
 
 const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

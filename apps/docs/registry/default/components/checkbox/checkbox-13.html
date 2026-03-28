@@ -1,14 +1,5 @@
-<div class="flex items-start gap-2">
-      <checkbox id="checkbox-13-id" class="order-1" aria-describedby="checkbox-13-id-description" />
-      <div class="grid grow gap-2">
-        <label for="checkbox-13-id">
-          Label 
-          <span class="text-muted-foreground text-xs leading-[inherit] font-normal">
-            (Sublabel)
-          </span>
-        </label>
-        <p id="checkbox-13-id" class="text-muted-foreground text-xs">
-          You can use this checkbox with a label and a description.
-        </p>
-      </div>
-    </div>
+<template>
+  <div class="flex items-start gap-2"><Checkbox id="${id}" class="order-1" aria-describedby="${`${id}-description`}" /><div class="grid grow gap-2"><Label htmlfor="${id}">Label${' '}<span class="text-muted-foreground text-xs leading-[inherit] font-normal">(Sublabel)
+          </span></Label><p id="${`${id}-description`}" class="text-muted-foreground text-xs">You can use this checkbox with a label and a description.
+        </p></div></div>
+</template>

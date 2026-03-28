@@ -1,16 +1,6 @@
-<div data-slot="tabs" data-orientation="horizontal" class="w-full max-w-md">
-  <div data-slot="tabs-list" class="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
-    <button data-slot="tabs-trigger" data-state="active" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Overview</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">Docs</button>
-    <button data-slot="tabs-trigger" data-state="inactive" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium">QA</button>
-  </div>
-  <div data-slot="tabs-content" data-state="active" class="text-muted-foreground mt-4 text-sm">
-    Shared core props keep React and Vue behavior aligned.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    P2 adds multi-framework docs samples for every component family.
-  </div>
-  <div data-slot="tabs-content" hidden data-state="inactive" class="text-muted-foreground mt-4 text-sm">
-    CI reports now show demo gaps separately from implementation gaps.
-  </div>
-</div>
+<template>
+  <Tabs default-value="tab-1" class="items-center"><TabsList class="gap-1 bg-transparent"><TabsTrigger value="tab-1" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 1
+        </TabsTrigger><TabsTrigger value="tab-2" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 2
+        </TabsTrigger><TabsTrigger value="tab-3" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 3
+        </TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
+</template>
