@@ -3,7 +3,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@timui/rea
 
 import Sidebar from '@/components/sidebar'
 
-const title = 'Modern UI Components | Float UI'
+const title = 'Modern UI Components | Timkit UI'
 
 export const metadata = {
   metadataBase: new URL('https://ui.timkit.cn'),

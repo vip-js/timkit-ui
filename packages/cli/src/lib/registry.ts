@@ -32,9 +32,7 @@ type RegistryPayloadRecord = Record<string, JsonValue> & {
 
 const registryItemsSchema = z.array(registryItemSchema)
 
-type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
-
-function toError(error: ErrorInput): Error {
+function toError(error: unknown): Error {
   if (error instanceof Error) return error
   return new Error(String(error))
 }
@@ -116,16 +114,28 @@ function isVersionGte(current: string, required: string): boolean {
   return true
 }
 
+function findLocalRegistryAll(startDir = process.cwd()): string | undefined {
+  let current = path.resolve(startDir)
+  while (true) {
+    const candidates = [
+      path.join(current, 'registry-all.json'),
+      path.join(current, 'apps/docs/data/registry-all.json'),
+    ]
+    const found = candidates.find((candidate) => fs.existsSync(candidate))
+    if (found) return found
+
+    const parent = path.dirname(current)
+    if (parent === current) return undefined
+    current = parent
+  }
+}
+
 export async function loadRegistryIndex(registryBase?: string): Promise<RegistryItem[]> {
   const baseCandidates = getRegistryBases(registryBase)
   // Prefer local registry-all.json if present
-  if (fs.existsSync('registry-all.json')) {
-    return parseLocalRegistryItems(fs.readFileSync('registry-all.json', 'utf-8'))
-  }
-  if (fs.existsSync(path.join(process.cwd(), 'apps/docs/data/registry-all.json'))) {
-    return parseLocalRegistryItems(
-      fs.readFileSync(path.join(process.cwd(), 'apps/docs/data/registry-all.json'), 'utf-8')
-    )
+  const localRegistryAll = findLocalRegistryAll()
+  if (localRegistryAll) {
+    return parseLocalRegistryItems(fs.readFileSync(localRegistryAll, 'utf-8'))
   }
 
   let lastError: Error | null = null

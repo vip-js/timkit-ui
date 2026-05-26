@@ -30,12 +30,12 @@ export function ComponentPageHeader({ title, description, slug }: ComponentPageH
             <div className="relative p-3">
               <div className="rounded-lg border border-border/15 bg-slate-950/98 px-3 py-2.5 text-[12px] font-mono text-slate-100 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.25)] dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] whitespace-pre overflow-x-auto backdrop-blur-sm">
                 {framework === 'react'
-                  ? `npx @timui/cli add ${slug}`
+                  ? `npx shadcn@latest add https://ui.timkit.cn/r/${slug}.json`
                   : framework === 'vue'
-                    ? `npx @timui/cli add ${slug} --framework vue`
+                    ? `curl https://ui.timkit.cn/r/${slug}.json`
                     : framework === 'weapp'
-                      ? `npx @timui/cli add ${slug} --framework weapp`
-                      : `npx @timui/cli add ${slug} --framework html`}
+                      ? `curl https://ui.timkit.cn/r/${slug}.json`
+                      : `curl https://ui.timkit.cn/r/${slug}.json`}
               </div>
             </div>
           </div>

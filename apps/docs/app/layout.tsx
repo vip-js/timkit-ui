@@ -8,15 +8,14 @@ import { FrameworkProvider } from '@/hooks/framework-context'
 export const viewport: Viewport = {
   initialScale: 1,
   width: 'device-width',
-  maximumScale: 1,
   viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ui.timkit.cn'),
-  title: 'Timkit UI - Beautiful UI components built with Tailwind CSS and React',
+  title: 'Timkit UI - Agent-native mobile UI registry, blocks, and templates',
   description:
-    'An extensive collection of copy-and-paste components for quickly building app UIs. Free, open-source, and ready to drop into your projects.',
+    'A mobile-first UI component, block, and template registry built for agents, CLIs, React, Vue, HTML, and WeApp.',
 }
 
 export default function RootLayout({

@@ -147,7 +147,7 @@
     @apply text-foreground selection:bg-primary selection:text-primary-foreground;
     background: var(--page-bg);
     font-size: 0.9375rem;
-    letter-spacing: -0.006em;
+    letter-spacing: 0;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -155,7 +155,7 @@
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
-    letter-spacing: -0.018em;
+    letter-spacing: 0;
     line-height: 1.25;
   }
   

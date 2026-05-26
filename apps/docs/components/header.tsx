@@ -17,8 +17,8 @@ import ThemeToggle from '@/components/theme-toggle'
 const links: { text: string; href: string; isNew?: boolean }[] = [
   { text: 'Components', href: '/components' },
   { text: 'Blocks', href: '/blocks', isNew: true },
-  { text: 'Layouts', href: '/layouts' },
-  { text: 'Easing Classes', href: '/easings' },
+  { text: 'Templates', href: '/templates', isNew: true },
+  { text: 'Agents', href: '/agents' },
 ]
 
 export default function Header() {
@@ -60,7 +60,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/40 text-muted-foreground transition-all hover:border-border/80 hover:bg-muted/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-              href="https://github.com/origin-space/originui"
+              href="https://github.com/vip-js/tmikit-ui"
               target="_blank"
               rel="noopener noreferrer"
             >

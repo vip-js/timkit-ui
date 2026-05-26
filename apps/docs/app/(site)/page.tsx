@@ -1,223 +1,225 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { RiGithubFill } from '@remixicon/react'
+import { ArrowRight, Blocks, Bot, FileCode2, Github, Smartphone, Terminal } from 'lucide-react'
 
 import { getCategories } from '@/lib/catalog'
-import SearchButton from '@/components/search-button'
 import { SubscribeBottom } from '@/components/subscribe-form'
 import SupportedFrameworks from '@/components/supported-frameworks'
 
+const capabilities = [
+  {
+    title: 'Agent-native registry',
+    description: 'JSON endpoints, item shortcuts, llms.txt, and CLI filters for coding agents.',
+    href: '/agents',
+    icon: Bot,
+  },
+  {
+    title: 'Mobile block library',
+    description: 'Composable app sections with safe-area spacing and 44px touch targets.',
+    href: '/blocks',
+    icon: Blocks,
+  },
+  {
+    title: 'Installable templates',
+    description: 'Complete mobile pages delivered as source through registry:page items.',
+    href: '/templates',
+    icon: FileCode2,
+  },
+]
+
 export default function Page() {
   const categories = getCategories()
+  const componentCount = categories.reduce(
+    (total, category) => total + category.components.length,
+    0
+  )
+
   return (
-    <div data-home className="relative px-4 pb-16 pt-14 md:pb-24 md:pt-20 lg:px-8">
-      {/* Background decoration */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-[10%] left-[5%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute top-[20%] right-[5%] h-[400px] w-[400px] rounded-full bg-blue-500/5 blur-[100px]" />
-      </div>
+    <div data-home className="relative">
+      <section className="relative overflow-hidden border-b">
+        <div className="absolute inset-0">
+          <Image
+            alt="Timkit UI mobile app templates"
+            className="h-full w-full object-cover opacity-35 dark:opacity-25"
+            fill
+            priority
+            sizes="100vw"
+            src="/layouts/app-1.png"
+          />
+          <div className="absolute inset-0 bg-background/80" />
+        </div>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-          <div className="max-w-3xl space-y-8">
-            <div className="space-y-6">
-              <div className="animate-hero-rise inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-primary backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-                </span>
-                Timkit UI v1.0
-              </div>
-
-              <div className="space-y-3">
-                <h1 className="animate-hero-rise font-heading text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-                  极简设计 <br />
-                  <span className="linear-gradient-text">极致体验</span>
-                </h1>
-                <p className="animate-hero-rise text-muted-foreground text-base leading-relaxed max-w-2xl lg:mx-0 mx-auto md:text-lg">
-                  灵感源自
-                  Linear，专注结构与细节。为开发者打造的高质量组件库，助你构建世界级数字产品。
-                </p>
-              </div>
-
-              <div className="animate-hero-rise flex flex-col gap-3 sm:flex-row sm:items-center justify-center lg:justify-start">
-                <Link
-                  href="/components"
-                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-foreground px-6 py-3 text-[13px] font-bold text-background transition-all hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-foreground/10"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    开始探索
-                    <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Link>
-                <a
-                  href="https://github.com/origin-space/originui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass group inline-flex items-center justify-center rounded-xl border border-border/40 px-6 py-3 text-[13px] font-bold text-foreground transition-all hover:bg-muted/50 hover:border-border/60 hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  <RiGithubFill className="mr-2 h-5 w-5" />
-                  GitHub 源码
-                </a>
-              </div>
+        <div className="relative mx-auto flex min-h-[58dvh] max-w-7xl flex-col justify-center px-4 py-12 md:px-8 md:py-16">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-lg border bg-background/80 px-3 py-2 text-xs font-semibold text-primary shadow-sm backdrop-blur">
+              <Smartphone className="size-4" />
+              Mobile-first UI registry for agents
             </div>
+            <h1 className="mt-6 max-w-4xl font-heading text-5xl font-bold tracking-normal text-foreground md:text-7xl">
+              Timkit UI
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
+              A source-distributed component, block, and template library built for mobile apps,
+              shadcn-compatible registries, and CLI-driven agent workflows.
+            </p>
 
-            <div className="animate-hero-rise grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 pt-6">
-              {[
-                { label: '精心雕琢', value: '240+', desc: '开箱即用组件' },
-                { label: '视觉区块', value: '180+', desc: '完整场景布局' },
-                { label: '框架全覆盖', value: '4+', desc: '跨框架一致性' },
-              ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center lg:items-start">
-                  <div className="font-heading text-2xl font-bold text-foreground">
-                    {item.value}
-                  </div>
-                  <div className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/60 mt-1">
-                    {item.label}
-                  </div>
-                  <div className="text-[12px] font-medium text-muted-foreground/50 mt-0.5">
-                    {item.desc}
-                  </div>
-                </div>
-              ))}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-foreground px-5 text-sm font-semibold text-background transition-colors hover:bg-foreground/90"
+                href="/agents"
+              >
+                Open agent contract
+                <ArrowRight className="ml-2 size-4" />
+              </Link>
+              <a
+                className="inline-flex min-h-[44px] items-center justify-center rounded-lg border bg-background/80 px-5 text-sm font-semibold transition-colors hover:bg-muted"
+                href="https://github.com/vip-js/tmikit-ui"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Github className="mr-2 size-4" />
+                GitHub
+              </a>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="relative mt-24">
-        <div className="mb-10 text-center lg:text-left">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            组件库全景
-          </h2>
-          <p className="text-muted-foreground mt-2 text-base md:text-lg">
-            探索每一个精选分类，构建你的下一个杰作
-          </p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {categories
-            .sort((a, b) => {
-              if (a.isNew && !b.isNew) return -1
-              if (!a.isNew && b.isNew) return 1
-              return 0
-            })
-            .map((category, index) => (
+          <div className="mt-8 grid max-w-3xl grid-cols-3 gap-3">
+            {[
+              { label: 'Components', value: `${componentCount}+` },
+              { label: 'Frameworks', value: '4' },
+              { label: 'Agent endpoints', value: '4' },
+            ].map((item) => (
               <div
-                key={category.slug}
-                className="animate-hero-rise"
-                style={{ animationDelay: `${index * 50}ms` }}
+                key={item.label}
+                className="rounded-lg border bg-background/80 p-4 backdrop-blur"
               >
-                <CategoryCard
-                  slug={category.slug}
-                  name={category.name}
-                  componentsCount={category.components.length}
-                  isNew={category.isNew}
-                />
+                <p className="text-2xl font-semibold tracking-normal">{item.value}</p>
+                <p className="mt-1 text-xs font-medium text-muted-foreground">{item.label}</p>
               </div>
             ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="mt-28">
-        <SupportedFrameworks />
-      </div>
+      <section className="border-b px-4 pb-10 pt-4 md:px-8 md:pb-14 md:pt-5">
+        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
+          {capabilities.map((item) => {
+            const Icon = item.icon
+            return (
+              <Link
+                key={item.href}
+                className="group rounded-lg border bg-card p-5 shadow-sm transition-colors hover:bg-muted/40"
+                href={item.href}
+              >
+                <div className="flex items-center justify-between">
+                  <Icon className="size-5 text-primary" />
+                  <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                </div>
+                <h2 className="mt-6 text-lg font-semibold tracking-normal">{item.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
 
-      <div className="mt-24">
-        <SubscribeBottom />
-      </div>
+      <section className="px-4 py-10 md:px-8 md:py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-normal text-primary">
+                Component catalog
+              </p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-normal">
+                Cross-platform base UI
+              </h2>
+            </div>
+            <Link
+              className="inline-flex min-h-[44px] items-center rounded-lg border px-4 text-sm font-semibold transition-colors hover:bg-muted"
+              href="/components"
+            >
+              Browse components
+              <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.slice(0, 12).map((category) => (
+              <CategoryCard
+                key={category.slug}
+                componentsCount={category.components.length}
+                isNew={category.isNew}
+                name={category.name}
+                slug={category.slug}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y px-4 py-10 md:px-8 md:py-14">
+        <div className="mx-auto max-w-7xl">
+          <SupportedFrameworks />
+        </div>
+      </section>
+
+      <section className="px-4 py-10 md:px-8 md:py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+            <Terminal className="size-4" />
+            Registry CLI
+          </div>
+          <pre className="overflow-x-auto rounded-lg border bg-card px-4 py-3 text-sm">
+            <code>npx shadcn@latest add https://ui.timkit.cn/r/commerce-home-01.json</code>
+          </pre>
+          <SubscribeBottom />
+        </div>
+      </section>
     </div>
-  )
-}
-
-function ArrowRightIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2.5}
-        d="M13 7l5 5m0 0l-5 5m5-5H6"
-      />
-    </svg>
   )
 }
 
 type CategoryCardProps = {
   slug: string
   name: string
-  componentsCount?: number
+  componentsCount: number
   isNew?: boolean
 }
 
 function CategoryCard({ slug, name, componentsCount, isNew = false }: CategoryCardProps) {
-  const href = `/components#${slug}`
+  const href = `/components/${slug}`
   const imageBasePath = `/thumbs/${slug}`
-  const alt = `${name} 组件`
-  const isComingSoon = componentsCount === undefined
 
   return (
-    <div className="glass group relative flex flex-col gap-4 rounded-2xl border border-border/40 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-border/60 hover:shadow-xl dark:shadow-none dark:hover:border-primary/20">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border/40 bg-muted/20">
-        {isComingSoon ? (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/40 backdrop-blur-[2px]">
-            <span className="rounded-full bg-background px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 shadow-sm">
-              Coming Soon
-            </span>
-          </div>
-        ) : (
-          <Link href={href} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
-        )}
+    <Link
+      className="group overflow-hidden rounded-lg border bg-card shadow-sm transition-colors hover:bg-muted/40"
+      href={href}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden border-b bg-muted">
         {isNew && (
-          <div className="absolute left-3 top-3 z-20">
-            <span className="rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-foreground shadow-lg">
-              New
-            </span>
-          </div>
+          <span className="absolute left-3 top-3 z-10 rounded-md bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
+            New
+          </span>
         )}
-        <div className="h-full w-full transition-transform duration-500 group-hover:scale-105">
-          <ImageComponent imageBasePath={imageBasePath} alt={alt} />
-        </div>
+        <Image
+          alt={`${name} components`}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 dark:hidden"
+          height={198}
+          src={`${imageBasePath}.png`}
+          width={268}
+        />
+        <Image
+          alt={`${name} components dark theme`}
+          className="hidden h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 dark:block"
+          height={198}
+          src={`${imageBasePath}-dark.png`}
+          width={268}
+        />
       </div>
-      <div className="flex flex-col px-1 pb-1">
-        <h3 className="font-heading text-[15px] font-bold text-foreground">
-          {!isComingSoon ? (
-            <Link href={href} className="transition-colors hover:text-primary">
-              {name}
-            </Link>
-          ) : (
-            <span className="text-muted-foreground/80">{name}</span>
-          )}
-        </h3>
-        <p className="mt-1 text-[12px] font-medium text-muted-foreground/60">
-          {!isComingSoon ? `${componentsCount} Components` : 'Stay Tuned'}
-        </p>
+      <div className="p-4">
+        <h3 className="text-sm font-semibold tracking-normal">{name}</h3>
+        <p className="mt-1 text-xs text-muted-foreground">{componentsCount} examples</p>
       </div>
-    </div>
-  )
-}
-
-type ImageComponentProps = {
-  imageBasePath: string
-  alt: string
-}
-
-function ImageComponent({ imageBasePath, alt }: ImageComponentProps) {
-  return (
-    <>
-      <Image
-        className="w-full dark:hidden"
-        src={`${imageBasePath}.png`}
-        alt={alt}
-        width={268}
-        height={198}
-      />
-      <Image
-        className="hidden w-full dark:block"
-        src={`${imageBasePath}-dark.png`}
-        alt={`${alt} 暗色主题`}
-        width={268}
-        height={198}
-      />
-    </>
+    </Link>
   )
 }

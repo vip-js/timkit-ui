@@ -3,623 +3,1240 @@
 // Do not edit manually.
 
 export const registryComponentManifest = {
-  'registry/default/components/accordion/accordion-01.tsx': () => import('@/registry/default/components/accordion/accordion-01'),
-  'registry/default/components/accordion/accordion-02.tsx': () => import('@/registry/default/components/accordion/accordion-02'),
-  'registry/default/components/accordion/accordion-03.tsx': () => import('@/registry/default/components/accordion/accordion-03'),
-  'registry/default/components/accordion/accordion-04.tsx': () => import('@/registry/default/components/accordion/accordion-04'),
-  'registry/default/components/accordion/accordion-05.tsx': () => import('@/registry/default/components/accordion/accordion-05'),
-  'registry/default/components/accordion/accordion-06.tsx': () => import('@/registry/default/components/accordion/accordion-06'),
-  'registry/default/components/accordion/accordion-07.tsx': () => import('@/registry/default/components/accordion/accordion-07'),
-  'registry/default/components/accordion/accordion-08.tsx': () => import('@/registry/default/components/accordion/accordion-08'),
-  'registry/default/components/accordion/accordion-09.tsx': () => import('@/registry/default/components/accordion/accordion-09'),
-  'registry/default/components/accordion/accordion-10.tsx': () => import('@/registry/default/components/accordion/accordion-10'),
-  'registry/default/components/accordion/accordion-11.tsx': () => import('@/registry/default/components/accordion/accordion-11'),
-  'registry/default/components/accordion/accordion-12.tsx': () => import('@/registry/default/components/accordion/accordion-12'),
-  'registry/default/components/accordion/accordion-13.tsx': () => import('@/registry/default/components/accordion/accordion-13'),
-  'registry/default/components/accordion/accordion-14.tsx': () => import('@/registry/default/components/accordion/accordion-14'),
-  'registry/default/components/accordion/accordion-15.tsx': () => import('@/registry/default/components/accordion/accordion-15'),
-  'registry/default/components/accordion/accordion-16.tsx': () => import('@/registry/default/components/accordion/accordion-16'),
-  'registry/default/components/accordion/accordion-17.tsx': () => import('@/registry/default/components/accordion/accordion-17'),
-  'registry/default/components/accordion/accordion-18.tsx': () => import('@/registry/default/components/accordion/accordion-18'),
-  'registry/default/components/accordion/accordion-19.tsx': () => import('@/registry/default/components/accordion/accordion-19'),
-  'registry/default/components/accordion/accordion-20.tsx': () => import('@/registry/default/components/accordion/accordion-20'),
-  'registry/default/components/alert/alert-01.tsx': () => import('@/registry/default/components/alert/alert-01'),
-  'registry/default/components/alert/alert-02.tsx': () => import('@/registry/default/components/alert/alert-02'),
-  'registry/default/components/alert/alert-03.tsx': () => import('@/registry/default/components/alert/alert-03'),
-  'registry/default/components/alert/alert-04.tsx': () => import('@/registry/default/components/alert/alert-04'),
-  'registry/default/components/alert/alert-05.tsx': () => import('@/registry/default/components/alert/alert-05'),
-  'registry/default/components/alert/alert-06.tsx': () => import('@/registry/default/components/alert/alert-06'),
-  'registry/default/components/alert/alert-07.tsx': () => import('@/registry/default/components/alert/alert-07'),
-  'registry/default/components/alert/alert-08.tsx': () => import('@/registry/default/components/alert/alert-08'),
-  'registry/default/components/alert/alert-09.tsx': () => import('@/registry/default/components/alert/alert-09'),
-  'registry/default/components/alert/alert-10.tsx': () => import('@/registry/default/components/alert/alert-10'),
-  'registry/default/components/alert/alert-11.tsx': () => import('@/registry/default/components/alert/alert-11'),
-  'registry/default/components/alert/alert-12.tsx': () => import('@/registry/default/components/alert/alert-12'),
-  'registry/default/components/avatar/avatar-01.tsx': () => import('@/registry/default/components/avatar/avatar-01'),
-  'registry/default/components/avatar/avatar-02.tsx': () => import('@/registry/default/components/avatar/avatar-02'),
-  'registry/default/components/avatar/avatar-03.tsx': () => import('@/registry/default/components/avatar/avatar-03'),
-  'registry/default/components/avatar/avatar-04.tsx': () => import('@/registry/default/components/avatar/avatar-04'),
-  'registry/default/components/avatar/avatar-05.tsx': () => import('@/registry/default/components/avatar/avatar-05'),
-  'registry/default/components/avatar/avatar-06.tsx': () => import('@/registry/default/components/avatar/avatar-06'),
-  'registry/default/components/avatar/avatar-07.tsx': () => import('@/registry/default/components/avatar/avatar-07'),
-  'registry/default/components/avatar/avatar-08.tsx': () => import('@/registry/default/components/avatar/avatar-08'),
-  'registry/default/components/avatar/avatar-09.tsx': () => import('@/registry/default/components/avatar/avatar-09'),
-  'registry/default/components/avatar/avatar-10.tsx': () => import('@/registry/default/components/avatar/avatar-10'),
-  'registry/default/components/avatar/avatar-11.tsx': () => import('@/registry/default/components/avatar/avatar-11'),
-  'registry/default/components/avatar/avatar-12.tsx': () => import('@/registry/default/components/avatar/avatar-12'),
-  'registry/default/components/avatar/avatar-13.tsx': () => import('@/registry/default/components/avatar/avatar-13'),
-  'registry/default/components/avatar/avatar-14.tsx': () => import('@/registry/default/components/avatar/avatar-14'),
-  'registry/default/components/avatar/avatar-15.tsx': () => import('@/registry/default/components/avatar/avatar-15'),
-  'registry/default/components/avatar/avatar-16.tsx': () => import('@/registry/default/components/avatar/avatar-16'),
-  'registry/default/components/avatar/avatar-17.tsx': () => import('@/registry/default/components/avatar/avatar-17'),
-  'registry/default/components/avatar/avatar-18.tsx': () => import('@/registry/default/components/avatar/avatar-18'),
-  'registry/default/components/avatar/avatar-19.tsx': () => import('@/registry/default/components/avatar/avatar-19'),
-  'registry/default/components/avatar/avatar-20.tsx': () => import('@/registry/default/components/avatar/avatar-20'),
-  'registry/default/components/avatar/avatar-21.tsx': () => import('@/registry/default/components/avatar/avatar-21'),
-  'registry/default/components/avatar/avatar-22.tsx': () => import('@/registry/default/components/avatar/avatar-22'),
-  'registry/default/components/avatar/avatar-23.tsx': () => import('@/registry/default/components/avatar/avatar-23'),
-  'registry/default/components/badge/badge-01.tsx': () => import('@/registry/default/components/badge/badge-01'),
-  'registry/default/components/badge/badge-02.tsx': () => import('@/registry/default/components/badge/badge-02'),
-  'registry/default/components/badge/badge-03.tsx': () => import('@/registry/default/components/badge/badge-03'),
-  'registry/default/components/badge/badge-04.tsx': () => import('@/registry/default/components/badge/badge-04'),
-  'registry/default/components/badge/badge-05.tsx': () => import('@/registry/default/components/badge/badge-05'),
-  'registry/default/components/badge/badge-06.tsx': () => import('@/registry/default/components/badge/badge-06'),
-  'registry/default/components/badge/badge-07.tsx': () => import('@/registry/default/components/badge/badge-07'),
-  'registry/default/components/badge/badge-08.tsx': () => import('@/registry/default/components/badge/badge-08'),
-  'registry/default/components/badge/badge-09.tsx': () => import('@/registry/default/components/badge/badge-09'),
-  'registry/default/components/badge/badge-10.tsx': () => import('@/registry/default/components/badge/badge-10'),
-  'registry/default/components/badge/badge-11.tsx': () => import('@/registry/default/components/badge/badge-11'),
-  'registry/default/components/badge/badge-12.tsx': () => import('@/registry/default/components/badge/badge-12'),
-  'registry/default/components/badge/badge-13.tsx': () => import('@/registry/default/components/badge/badge-13'),
-  'registry/default/components/banner/banner-01.tsx': () => import('@/registry/default/components/banner/banner-01'),
-  'registry/default/components/banner/banner-02.tsx': () => import('@/registry/default/components/banner/banner-02'),
-  'registry/default/components/banner/banner-03.tsx': () => import('@/registry/default/components/banner/banner-03'),
-  'registry/default/components/banner/banner-04.tsx': () => import('@/registry/default/components/banner/banner-04'),
-  'registry/default/components/banner/banner-05.tsx': () => import('@/registry/default/components/banner/banner-05'),
-  'registry/default/components/banner/banner-06.tsx': () => import('@/registry/default/components/banner/banner-06'),
-  'registry/default/components/banner/banner-07.tsx': () => import('@/registry/default/components/banner/banner-07'),
-  'registry/default/components/banner/banner-08.tsx': () => import('@/registry/default/components/banner/banner-08'),
-  'registry/default/components/banner/banner-09.tsx': () => import('@/registry/default/components/banner/banner-09'),
-  'registry/default/components/banner/banner-10.tsx': () => import('@/registry/default/components/banner/banner-10'),
-  'registry/default/components/banner/banner-11.tsx': () => import('@/registry/default/components/banner/banner-11'),
-  'registry/default/components/banner/banner-12.tsx': () => import('@/registry/default/components/banner/banner-12'),
-  'registry/default/components/breadcrumb/breadcrumb-01.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-01'),
-  'registry/default/components/breadcrumb/breadcrumb-02.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-02'),
-  'registry/default/components/breadcrumb/breadcrumb-03.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-03'),
-  'registry/default/components/breadcrumb/breadcrumb-04.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-04'),
-  'registry/default/components/breadcrumb/breadcrumb-05.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-05'),
-  'registry/default/components/breadcrumb/breadcrumb-06.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-06'),
-  'registry/default/components/breadcrumb/breadcrumb-07.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-07'),
-  'registry/default/components/breadcrumb/breadcrumb-08.tsx': () => import('@/registry/default/components/breadcrumb/breadcrumb-08'),
-  'registry/default/components/button/button-01.tsx': () => import('@/registry/default/components/button/button-01'),
-  'registry/default/components/button/button-02.tsx': () => import('@/registry/default/components/button/button-02'),
-  'registry/default/components/button/button-03.tsx': () => import('@/registry/default/components/button/button-03'),
-  'registry/default/components/button/button-04.tsx': () => import('@/registry/default/components/button/button-04'),
-  'registry/default/components/button/button-05.tsx': () => import('@/registry/default/components/button/button-05'),
-  'registry/default/components/button/button-06.tsx': () => import('@/registry/default/components/button/button-06'),
-  'registry/default/components/button/button-07.tsx': () => import('@/registry/default/components/button/button-07'),
-  'registry/default/components/button/button-08.tsx': () => import('@/registry/default/components/button/button-08'),
-  'registry/default/components/button/button-09.tsx': () => import('@/registry/default/components/button/button-09'),
-  'registry/default/components/button/button-10.tsx': () => import('@/registry/default/components/button/button-10'),
-  'registry/default/components/button/button-11.tsx': () => import('@/registry/default/components/button/button-11'),
-  'registry/default/components/button/button-12.tsx': () => import('@/registry/default/components/button/button-12'),
-  'registry/default/components/button/button-13.tsx': () => import('@/registry/default/components/button/button-13'),
-  'registry/default/components/button/button-14.tsx': () => import('@/registry/default/components/button/button-14'),
-  'registry/default/components/button/button-15.tsx': () => import('@/registry/default/components/button/button-15'),
-  'registry/default/components/button/button-16.tsx': () => import('@/registry/default/components/button/button-16'),
-  'registry/default/components/button/button-17.tsx': () => import('@/registry/default/components/button/button-17'),
-  'registry/default/components/button/button-18.tsx': () => import('@/registry/default/components/button/button-18'),
-  'registry/default/components/button/button-19.tsx': () => import('@/registry/default/components/button/button-19'),
-  'registry/default/components/button/button-20.tsx': () => import('@/registry/default/components/button/button-20'),
-  'registry/default/components/button/button-21.tsx': () => import('@/registry/default/components/button/button-21'),
-  'registry/default/components/button/button-22.tsx': () => import('@/registry/default/components/button/button-22'),
-  'registry/default/components/button/button-23.tsx': () => import('@/registry/default/components/button/button-23'),
-  'registry/default/components/button/button-24.tsx': () => import('@/registry/default/components/button/button-24'),
-  'registry/default/components/button/button-25.tsx': () => import('@/registry/default/components/button/button-25'),
-  'registry/default/components/button/button-26.tsx': () => import('@/registry/default/components/button/button-26'),
-  'registry/default/components/button/button-27.tsx': () => import('@/registry/default/components/button/button-27'),
-  'registry/default/components/button/button-28.tsx': () => import('@/registry/default/components/button/button-28'),
-  'registry/default/components/button/button-29.tsx': () => import('@/registry/default/components/button/button-29'),
-  'registry/default/components/button/button-30.tsx': () => import('@/registry/default/components/button/button-30'),
-  'registry/default/components/button/button-31.tsx': () => import('@/registry/default/components/button/button-31'),
-  'registry/default/components/button/button-32.tsx': () => import('@/registry/default/components/button/button-32'),
-  'registry/default/components/button/button-33.tsx': () => import('@/registry/default/components/button/button-33'),
-  'registry/default/components/button/button-34.tsx': () => import('@/registry/default/components/button/button-34'),
-  'registry/default/components/button/button-35.tsx': () => import('@/registry/default/components/button/button-35'),
-  'registry/default/components/button/button-36.tsx': () => import('@/registry/default/components/button/button-36'),
-  'registry/default/components/button/button-37.tsx': () => import('@/registry/default/components/button/button-37'),
-  'registry/default/components/button/button-38.tsx': () => import('@/registry/default/components/button/button-38'),
-  'registry/default/components/button/button-39.tsx': () => import('@/registry/default/components/button/button-39'),
-  'registry/default/components/button/button-40.tsx': () => import('@/registry/default/components/button/button-40'),
-  'registry/default/components/button/button-41.tsx': () => import('@/registry/default/components/button/button-41'),
-  'registry/default/components/button/button-42.tsx': () => import('@/registry/default/components/button/button-42'),
-  'registry/default/components/button/button-43.tsx': () => import('@/registry/default/components/button/button-43'),
-  'registry/default/components/button/button-44.tsx': () => import('@/registry/default/components/button/button-44'),
-  'registry/default/components/button/button-45.tsx': () => import('@/registry/default/components/button/button-45'),
-  'registry/default/components/button/button-46.tsx': () => import('@/registry/default/components/button/button-46'),
-  'registry/default/components/button/button-47.tsx': () => import('@/registry/default/components/button/button-47'),
-  'registry/default/components/button/button-48.tsx': () => import('@/registry/default/components/button/button-48'),
-  'registry/default/components/button/button-49.tsx': () => import('@/registry/default/components/button/button-49'),
-  'registry/default/components/button/button-50.tsx': () => import('@/registry/default/components/button/button-50'),
-  'registry/default/components/button/button-51.tsx': () => import('@/registry/default/components/button/button-51'),
-  'registry/default/components/button/button-52.tsx': () => import('@/registry/default/components/button/button-52'),
-  'registry/default/components/button/button-53.tsx': () => import('@/registry/default/components/button/button-53'),
-  'registry/default/components/button/button-54.tsx': () => import('@/registry/default/components/button/button-54'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-01.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-01'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-02.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-02'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-03.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-03'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-04.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-04'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-05.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-05'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-06.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-06'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-07.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-07'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-08.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-08'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-09.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-09'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-10.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-10'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-11.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-11'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-12.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-12'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-13.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-13'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-14.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-14'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-15.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-15'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-16.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-16'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-17.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-17'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-18.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-18'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-19.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-19'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-20.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-20'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-21.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-21'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-22.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-22'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-23.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-23'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-24.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-24'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-25.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-25'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-26.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-26'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-27.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-27'),
-  'registry/default/components/calendar-date-picker/calendar-date-picker-28.tsx': () => import('@/registry/default/components/calendar-date-picker/calendar-date-picker-28'),
-  'registry/default/components/checkbox/checkbox-01.tsx': () => import('@/registry/default/components/checkbox/checkbox-01'),
-  'registry/default/components/checkbox/checkbox-02.tsx': () => import('@/registry/default/components/checkbox/checkbox-02'),
-  'registry/default/components/checkbox/checkbox-03.tsx': () => import('@/registry/default/components/checkbox/checkbox-03'),
-  'registry/default/components/checkbox/checkbox-04.tsx': () => import('@/registry/default/components/checkbox/checkbox-04'),
-  'registry/default/components/checkbox/checkbox-05.tsx': () => import('@/registry/default/components/checkbox/checkbox-05'),
-  'registry/default/components/checkbox/checkbox-06.tsx': () => import('@/registry/default/components/checkbox/checkbox-06'),
-  'registry/default/components/checkbox/checkbox-07.tsx': () => import('@/registry/default/components/checkbox/checkbox-07'),
-  'registry/default/components/checkbox/checkbox-08.tsx': () => import('@/registry/default/components/checkbox/checkbox-08'),
-  'registry/default/components/checkbox/checkbox-09.tsx': () => import('@/registry/default/components/checkbox/checkbox-09'),
-  'registry/default/components/checkbox/checkbox-10.tsx': () => import('@/registry/default/components/checkbox/checkbox-10'),
-  'registry/default/components/checkbox/checkbox-11.tsx': () => import('@/registry/default/components/checkbox/checkbox-11'),
-  'registry/default/components/checkbox/checkbox-12.tsx': () => import('@/registry/default/components/checkbox/checkbox-12'),
-  'registry/default/components/checkbox/checkbox-13.tsx': () => import('@/registry/default/components/checkbox/checkbox-13'),
-  'registry/default/components/checkbox/checkbox-14.tsx': () => import('@/registry/default/components/checkbox/checkbox-14'),
-  'registry/default/components/checkbox/checkbox-15.tsx': () => import('@/registry/default/components/checkbox/checkbox-15'),
-  'registry/default/components/checkbox/checkbox-16.tsx': () => import('@/registry/default/components/checkbox/checkbox-16'),
-  'registry/default/components/checkbox/checkbox-17.tsx': () => import('@/registry/default/components/checkbox/checkbox-17'),
-  'registry/default/components/checkbox/checkbox-18.tsx': () => import('@/registry/default/components/checkbox/checkbox-18'),
-  'registry/default/components/checkbox/checkbox-19.tsx': () => import('@/registry/default/components/checkbox/checkbox-19'),
-  'registry/default/components/checkbox/checkbox-20.tsx': () => import('@/registry/default/components/checkbox/checkbox-20'),
-  'registry/default/components/dialog/dialog-01.tsx': () => import('@/registry/default/components/dialog/dialog-01'),
-  'registry/default/components/dialog/dialog-02.tsx': () => import('@/registry/default/components/dialog/dialog-02'),
-  'registry/default/components/dialog/dialog-03.tsx': () => import('@/registry/default/components/dialog/dialog-03'),
-  'registry/default/components/dialog/dialog-04.tsx': () => import('@/registry/default/components/dialog/dialog-04'),
-  'registry/default/components/dialog/dialog-05.tsx': () => import('@/registry/default/components/dialog/dialog-05'),
-  'registry/default/components/dialog/dialog-06.tsx': () => import('@/registry/default/components/dialog/dialog-06'),
-  'registry/default/components/dialog/dialog-07.tsx': () => import('@/registry/default/components/dialog/dialog-07'),
-  'registry/default/components/dialog/dialog-08.tsx': () => import('@/registry/default/components/dialog/dialog-08'),
-  'registry/default/components/dialog/dialog-09.tsx': () => import('@/registry/default/components/dialog/dialog-09'),
-  'registry/default/components/dialog/dialog-10.tsx': () => import('@/registry/default/components/dialog/dialog-10'),
-  'registry/default/components/dialog/dialog-11.tsx': () => import('@/registry/default/components/dialog/dialog-11'),
-  'registry/default/components/dialog/dialog-12.tsx': () => import('@/registry/default/components/dialog/dialog-12'),
-  'registry/default/components/dialog/dialog-13.tsx': () => import('@/registry/default/components/dialog/dialog-13'),
-  'registry/default/components/dialog/dialog-14.tsx': () => import('@/registry/default/components/dialog/dialog-14'),
-  'registry/default/components/dialog/dialog-15.tsx': () => import('@/registry/default/components/dialog/dialog-15'),
-  'registry/default/components/dialog/dialog-16.tsx': () => import('@/registry/default/components/dialog/dialog-16'),
-  'registry/default/components/dialog/dialog-17.tsx': () => import('@/registry/default/components/dialog/dialog-17'),
-  'registry/default/components/dialog/dialog-18.tsx': () => import('@/registry/default/components/dialog/dialog-18'),
-  'registry/default/components/dialog/dialog-19.tsx': () => import('@/registry/default/components/dialog/dialog-19'),
-  'registry/default/components/dialog/dialog-20.tsx': () => import('@/registry/default/components/dialog/dialog-20'),
-  'registry/default/components/dialog/dialog-21.tsx': () => import('@/registry/default/components/dialog/dialog-21'),
-  'registry/default/components/dropdown/dropdown-01.tsx': () => import('@/registry/default/components/dropdown/dropdown-01'),
-  'registry/default/components/dropdown/dropdown-02.tsx': () => import('@/registry/default/components/dropdown/dropdown-02'),
-  'registry/default/components/dropdown/dropdown-03.tsx': () => import('@/registry/default/components/dropdown/dropdown-03'),
-  'registry/default/components/dropdown/dropdown-04.tsx': () => import('@/registry/default/components/dropdown/dropdown-04'),
-  'registry/default/components/dropdown/dropdown-05.tsx': () => import('@/registry/default/components/dropdown/dropdown-05'),
-  'registry/default/components/dropdown/dropdown-06.tsx': () => import('@/registry/default/components/dropdown/dropdown-06'),
-  'registry/default/components/dropdown/dropdown-07.tsx': () => import('@/registry/default/components/dropdown/dropdown-07'),
-  'registry/default/components/dropdown/dropdown-08.tsx': () => import('@/registry/default/components/dropdown/dropdown-08'),
-  'registry/default/components/dropdown/dropdown-09.tsx': () => import('@/registry/default/components/dropdown/dropdown-09'),
-  'registry/default/components/dropdown/dropdown-10.tsx': () => import('@/registry/default/components/dropdown/dropdown-10'),
-  'registry/default/components/dropdown/dropdown-11.tsx': () => import('@/registry/default/components/dropdown/dropdown-11'),
-  'registry/default/components/dropdown/dropdown-12.tsx': () => import('@/registry/default/components/dropdown/dropdown-12'),
-  'registry/default/components/dropdown/dropdown-13.tsx': () => import('@/registry/default/components/dropdown/dropdown-13'),
-  'registry/default/components/dropdown/dropdown-14.tsx': () => import('@/registry/default/components/dropdown/dropdown-14'),
-  'registry/default/components/dropdown/dropdown-15.tsx': () => import('@/registry/default/components/dropdown/dropdown-15'),
-  'registry/default/components/event-calendar/agenda-view.tsx': () => import('@/registry/default/components/event-calendar/agenda-view'),
-  'registry/default/components/event-calendar/calendar-dnd-context.tsx': () => import('@/registry/default/components/event-calendar/calendar-dnd-context'),
-  'registry/default/components/event-calendar/day-view.tsx': () => import('@/registry/default/components/event-calendar/day-view'),
-  'registry/default/components/event-calendar/draggable-event.tsx': () => import('@/registry/default/components/event-calendar/draggable-event'),
-  'registry/default/components/event-calendar/droppable-cell.tsx': () => import('@/registry/default/components/event-calendar/droppable-cell'),
-  'registry/default/components/event-calendar/event-calendar-01.tsx': () => import('@/registry/default/components/event-calendar/event-calendar-01'),
-  'registry/default/components/event-calendar/event-calendar.tsx': () => import('@/registry/default/components/event-calendar/event-calendar'),
-  'registry/default/components/event-calendar/event-dialog.tsx': () => import('@/registry/default/components/event-calendar/event-dialog'),
-  'registry/default/components/event-calendar/event-item.tsx': () => import('@/registry/default/components/event-calendar/event-item'),
-  'registry/default/components/event-calendar/events-popup.tsx': () => import('@/registry/default/components/event-calendar/events-popup'),
-  'registry/default/components/event-calendar/month-view.tsx': () => import('@/registry/default/components/event-calendar/month-view'),
-  'registry/default/components/event-calendar/week-view.tsx': () => import('@/registry/default/components/event-calendar/week-view'),
-  'registry/default/components/file-upload/file-upload-03.tsx': () => import('@/registry/default/components/file-upload/file-upload-03'),
-  'registry/default/components/file-upload/file-upload-04.tsx': () => import('@/registry/default/components/file-upload/file-upload-04'),
-  'registry/default/components/file-upload/file-upload-05.tsx': () => import('@/registry/default/components/file-upload/file-upload-05'),
-  'registry/default/components/file-upload/file-upload-06.tsx': () => import('@/registry/default/components/file-upload/file-upload-06'),
-  'registry/default/components/file-upload/file-upload-07.tsx': () => import('@/registry/default/components/file-upload/file-upload-07'),
-  'registry/default/components/file-upload/file-upload-08.tsx': () => import('@/registry/default/components/file-upload/file-upload-08'),
-  'registry/default/components/file-upload/file-upload-09.tsx': () => import('@/registry/default/components/file-upload/file-upload-09'),
-  'registry/default/components/file-upload/file-upload-10.tsx': () => import('@/registry/default/components/file-upload/file-upload-10'),
-  'registry/default/components/file-upload/file-upload-11.tsx': () => import('@/registry/default/components/file-upload/file-upload-11'),
-  'registry/default/components/file-upload/file-upload-12.tsx': () => import('@/registry/default/components/file-upload/file-upload-12'),
-  'registry/default/components/file-upload/file-upload-13.tsx': () => import('@/registry/default/components/file-upload/file-upload-13'),
-  'registry/default/components/image-cropper/image-cropper-01.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-01'),
-  'registry/default/components/image-cropper/image-cropper-02.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-02'),
-  'registry/default/components/image-cropper/image-cropper-03.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-03'),
-  'registry/default/components/image-cropper/image-cropper-04.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-04'),
-  'registry/default/components/image-cropper/image-cropper-05.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-05'),
-  'registry/default/components/image-cropper/image-cropper-06.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-06'),
-  'registry/default/components/image-cropper/image-cropper-07.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-07'),
-  'registry/default/components/image-cropper/image-cropper-08.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-08'),
-  'registry/default/components/image-cropper/image-cropper-09.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-09'),
-  'registry/default/components/image-cropper/image-cropper-10.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-10'),
-  'registry/default/components/image-cropper/image-cropper-11.tsx': () => import('@/registry/default/components/image-cropper/image-cropper-11'),
-  'registry/default/components/input/input-01.tsx': () => import('@/registry/default/components/input/input-01'),
-  'registry/default/components/input/input-02.tsx': () => import('@/registry/default/components/input/input-02'),
-  'registry/default/components/input/input-03.tsx': () => import('@/registry/default/components/input/input-03'),
-  'registry/default/components/input/input-04.tsx': () => import('@/registry/default/components/input/input-04'),
-  'registry/default/components/input/input-05.tsx': () => import('@/registry/default/components/input/input-05'),
-  'registry/default/components/input/input-06.tsx': () => import('@/registry/default/components/input/input-06'),
-  'registry/default/components/input/input-07.tsx': () => import('@/registry/default/components/input/input-07'),
-  'registry/default/components/input/input-08.tsx': () => import('@/registry/default/components/input/input-08'),
-  'registry/default/components/input/input-09.tsx': () => import('@/registry/default/components/input/input-09'),
-  'registry/default/components/input/input-10.tsx': () => import('@/registry/default/components/input/input-10'),
-  'registry/default/components/input/input-11.tsx': () => import('@/registry/default/components/input/input-11'),
-  'registry/default/components/input/input-12.tsx': () => import('@/registry/default/components/input/input-12'),
-  'registry/default/components/input/input-13.tsx': () => import('@/registry/default/components/input/input-13'),
-  'registry/default/components/input/input-14.tsx': () => import('@/registry/default/components/input/input-14'),
-  'registry/default/components/input/input-15.tsx': () => import('@/registry/default/components/input/input-15'),
-  'registry/default/components/input/input-16.tsx': () => import('@/registry/default/components/input/input-16'),
-  'registry/default/components/input/input-17.tsx': () => import('@/registry/default/components/input/input-17'),
-  'registry/default/components/input/input-18.tsx': () => import('@/registry/default/components/input/input-18'),
-  'registry/default/components/input/input-19.tsx': () => import('@/registry/default/components/input/input-19'),
-  'registry/default/components/input/input-20.tsx': () => import('@/registry/default/components/input/input-20'),
-  'registry/default/components/input/input-21.tsx': () => import('@/registry/default/components/input/input-21'),
-  'registry/default/components/input/input-22.tsx': () => import('@/registry/default/components/input/input-22'),
-  'registry/default/components/input/input-23.tsx': () => import('@/registry/default/components/input/input-23'),
-  'registry/default/components/input/input-24.tsx': () => import('@/registry/default/components/input/input-24'),
-  'registry/default/components/input/input-25.tsx': () => import('@/registry/default/components/input/input-25'),
-  'registry/default/components/input/input-26.tsx': () => import('@/registry/default/components/input/input-26'),
-  'registry/default/components/input/input-27.tsx': () => import('@/registry/default/components/input/input-27'),
-  'registry/default/components/input/input-28.tsx': () => import('@/registry/default/components/input/input-28'),
-  'registry/default/components/input/input-29.tsx': () => import('@/registry/default/components/input/input-29'),
-  'registry/default/components/input/input-30.tsx': () => import('@/registry/default/components/input/input-30'),
-  'registry/default/components/input/input-31.tsx': () => import('@/registry/default/components/input/input-31'),
-  'registry/default/components/input/input-32.tsx': () => import('@/registry/default/components/input/input-32'),
-  'registry/default/components/input/input-33.tsx': () => import('@/registry/default/components/input/input-33'),
-  'registry/default/components/input/input-34.tsx': () => import('@/registry/default/components/input/input-34'),
-  'registry/default/components/input/input-35.tsx': () => import('@/registry/default/components/input/input-35'),
-  'registry/default/components/input/input-36.tsx': () => import('@/registry/default/components/input/input-36'),
-  'registry/default/components/input/input-37.tsx': () => import('@/registry/default/components/input/input-37'),
-  'registry/default/components/input/input-38.tsx': () => import('@/registry/default/components/input/input-38'),
-  'registry/default/components/input/input-39.tsx': () => import('@/registry/default/components/input/input-39'),
-  'registry/default/components/input/input-40.tsx': () => import('@/registry/default/components/input/input-40'),
-  'registry/default/components/input/input-43.tsx': () => import('@/registry/default/components/input/input-43'),
-  'registry/default/components/input/input-44.tsx': () => import('@/registry/default/components/input/input-44'),
-  'registry/default/components/input/input-45.tsx': () => import('@/registry/default/components/input/input-45'),
-  'registry/default/components/input/input-46.tsx': () => import('@/registry/default/components/input/input-46'),
-  'registry/default/components/input/input-47.tsx': () => import('@/registry/default/components/input/input-47'),
-  'registry/default/components/input/input-48.tsx': () => import('@/registry/default/components/input/input-48'),
-  'registry/default/components/input/input-49.tsx': () => import('@/registry/default/components/input/input-49'),
-  'registry/default/components/input/input-50.tsx': () => import('@/registry/default/components/input/input-50'),
-  'registry/default/components/input/input-51.tsx': () => import('@/registry/default/components/input/input-51'),
-  'registry/default/components/input/input-52.tsx': () => import('@/registry/default/components/input/input-52'),
-  'registry/default/components/input/input-53.tsx': () => import('@/registry/default/components/input/input-53'),
-  'registry/default/components/input/input-54.tsx': () => import('@/registry/default/components/input/input-54'),
-  'registry/default/components/input/input-55.tsx': () => import('@/registry/default/components/input/input-55'),
-  'registry/default/components/input/input-56.tsx': () => import('@/registry/default/components/input/input-56'),
-  'registry/default/components/input/input-57.tsx': () => import('@/registry/default/components/input/input-57'),
-  'registry/default/components/input/input-58.tsx': () => import('@/registry/default/components/input/input-58'),
-  'registry/default/components/input/input-59.tsx': () => import('@/registry/default/components/input/input-59'),
-  'registry/default/components/navbar-components/app-toggle.tsx': () => import('@/registry/default/components/navbar-components/app-toggle'),
-  'registry/default/components/navbar-components/date-picker.tsx': () => import('@/registry/default/components/navbar-components/date-picker'),
-  'registry/default/components/navbar-components/filters.tsx': () => import('@/registry/default/components/navbar-components/filters'),
-  'registry/default/components/navbar-components/info-menu.tsx': () => import('@/registry/default/components/navbar-components/info-menu'),
-  'registry/default/components/navbar-components/logo.tsx': () => import('@/registry/default/components/navbar-components/logo'),
-  'registry/default/components/navbar-components/notification-menu.tsx': () => import('@/registry/default/components/navbar-components/notification-menu'),
-  'registry/default/components/navbar-components/settings-menu.tsx': () => import('@/registry/default/components/navbar-components/settings-menu'),
-  'registry/default/components/navbar-components/team-switcher.tsx': () => import('@/registry/default/components/navbar-components/team-switcher'),
-  'registry/default/components/navbar-components/theme-toggle.tsx': () => import('@/registry/default/components/navbar-components/theme-toggle'),
-  'registry/default/components/navbar-components/user-menu.tsx': () => import('@/registry/default/components/navbar-components/user-menu'),
-  'registry/default/components/navbar/navbar-01.tsx': () => import('@/registry/default/components/navbar/navbar-01'),
-  'registry/default/components/navbar/navbar-02.tsx': () => import('@/registry/default/components/navbar/navbar-02'),
-  'registry/default/components/navbar/navbar-03.tsx': () => import('@/registry/default/components/navbar/navbar-03'),
-  'registry/default/components/navbar/navbar-04.tsx': () => import('@/registry/default/components/navbar/navbar-04'),
-  'registry/default/components/navbar/navbar-05.tsx': () => import('@/registry/default/components/navbar/navbar-05'),
-  'registry/default/components/navbar/navbar-06.tsx': () => import('@/registry/default/components/navbar/navbar-06'),
-  'registry/default/components/navbar/navbar-07.tsx': () => import('@/registry/default/components/navbar/navbar-07'),
-  'registry/default/components/navbar/navbar-08.tsx': () => import('@/registry/default/components/navbar/navbar-08'),
-  'registry/default/components/navbar/navbar-09.tsx': () => import('@/registry/default/components/navbar/navbar-09'),
-  'registry/default/components/navbar/navbar-10.tsx': () => import('@/registry/default/components/navbar/navbar-10'),
-  'registry/default/components/navbar/navbar-11.tsx': () => import('@/registry/default/components/navbar/navbar-11'),
-  'registry/default/components/navbar/navbar-12.tsx': () => import('@/registry/default/components/navbar/navbar-12'),
-  'registry/default/components/navbar/navbar-13.tsx': () => import('@/registry/default/components/navbar/navbar-13'),
-  'registry/default/components/navbar/navbar-14.tsx': () => import('@/registry/default/components/navbar/navbar-14'),
-  'registry/default/components/navbar/navbar-15.tsx': () => import('@/registry/default/components/navbar/navbar-15'),
-  'registry/default/components/navbar/navbar-16.tsx': () => import('@/registry/default/components/navbar/navbar-16'),
-  'registry/default/components/navbar/navbar-17.tsx': () => import('@/registry/default/components/navbar/navbar-17'),
-  'registry/default/components/navbar/navbar-18.tsx': () => import('@/registry/default/components/navbar/navbar-18'),
-  'registry/default/components/navbar/navbar-19.tsx': () => import('@/registry/default/components/navbar/navbar-19'),
-  'registry/default/components/navbar/navbar-20.tsx': () => import('@/registry/default/components/navbar/navbar-20'),
-  'registry/default/components/notification/notification-01.tsx': () => import('@/registry/default/components/notification/notification-01'),
-  'registry/default/components/notification/notification-02.tsx': () => import('@/registry/default/components/notification/notification-02'),
-  'registry/default/components/notification/notification-03.tsx': () => import('@/registry/default/components/notification/notification-03'),
-  'registry/default/components/notification/notification-04.tsx': () => import('@/registry/default/components/notification/notification-04'),
-  'registry/default/components/notification/notification-05.tsx': () => import('@/registry/default/components/notification/notification-05'),
-  'registry/default/components/notification/notification-06.tsx': () => import('@/registry/default/components/notification/notification-06'),
-  'registry/default/components/notification/notification-07.tsx': () => import('@/registry/default/components/notification/notification-07'),
-  'registry/default/components/notification/notification-08.tsx': () => import('@/registry/default/components/notification/notification-08'),
-  'registry/default/components/notification/notification-09.tsx': () => import('@/registry/default/components/notification/notification-09'),
-  'registry/default/components/notification/notification-10.tsx': () => import('@/registry/default/components/notification/notification-10'),
-  'registry/default/components/notification/notification-11.tsx': () => import('@/registry/default/components/notification/notification-11'),
-  'registry/default/components/notification/notification-12.tsx': () => import('@/registry/default/components/notification/notification-12'),
-  'registry/default/components/notification/notification-13.tsx': () => import('@/registry/default/components/notification/notification-13'),
-  'registry/default/components/notification/notification-14.tsx': () => import('@/registry/default/components/notification/notification-14'),
-  'registry/default/components/notification/notification-15.tsx': () => import('@/registry/default/components/notification/notification-15'),
-  'registry/default/components/notification/notification-16.tsx': () => import('@/registry/default/components/notification/notification-16'),
-  'registry/default/components/notification/notification-17.tsx': () => import('@/registry/default/components/notification/notification-17'),
-  'registry/default/components/notification/notification-18.tsx': () => import('@/registry/default/components/notification/notification-18'),
-  'registry/default/components/notification/notification-19.tsx': () => import('@/registry/default/components/notification/notification-19'),
-  'registry/default/components/notification/notification-20.tsx': () => import('@/registry/default/components/notification/notification-20'),
-  'registry/default/components/notification/notification-21.tsx': () => import('@/registry/default/components/notification/notification-21'),
-  'registry/default/components/notification/notification-22.tsx': () => import('@/registry/default/components/notification/notification-22'),
-  'registry/default/components/pagination/pagination-01.tsx': () => import('@/registry/default/components/pagination/pagination-01'),
-  'registry/default/components/pagination/pagination-02.tsx': () => import('@/registry/default/components/pagination/pagination-02'),
-  'registry/default/components/pagination/pagination-03.tsx': () => import('@/registry/default/components/pagination/pagination-03'),
-  'registry/default/components/pagination/pagination-04.tsx': () => import('@/registry/default/components/pagination/pagination-04'),
-  'registry/default/components/pagination/pagination-05.tsx': () => import('@/registry/default/components/pagination/pagination-05'),
-  'registry/default/components/pagination/pagination-06.tsx': () => import('@/registry/default/components/pagination/pagination-06'),
-  'registry/default/components/pagination/pagination-07.tsx': () => import('@/registry/default/components/pagination/pagination-07'),
-  'registry/default/components/pagination/pagination-08.tsx': () => import('@/registry/default/components/pagination/pagination-08'),
-  'registry/default/components/pagination/pagination-09.tsx': () => import('@/registry/default/components/pagination/pagination-09'),
-  'registry/default/components/pagination/pagination-10.tsx': () => import('@/registry/default/components/pagination/pagination-10'),
-  'registry/default/components/pagination/pagination-11.tsx': () => import('@/registry/default/components/pagination/pagination-11'),
-  'registry/default/components/pagination/pagination-12.tsx': () => import('@/registry/default/components/pagination/pagination-12'),
-  'registry/default/components/popover/popover-01.tsx': () => import('@/registry/default/components/popover/popover-01'),
-  'registry/default/components/popover/popover-02.tsx': () => import('@/registry/default/components/popover/popover-02'),
-  'registry/default/components/popover/popover-03.tsx': () => import('@/registry/default/components/popover/popover-03'),
-  'registry/default/components/popover/popover-04.tsx': () => import('@/registry/default/components/popover/popover-04'),
-  'registry/default/components/popover/popover-05.tsx': () => import('@/registry/default/components/popover/popover-05'),
-  'registry/default/components/popover/popover-06.tsx': () => import('@/registry/default/components/popover/popover-06'),
-  'registry/default/components/popover/popover-07.tsx': () => import('@/registry/default/components/popover/popover-07'),
-  'registry/default/components/popover/popover-08.tsx': () => import('@/registry/default/components/popover/popover-08'),
-  'registry/default/components/popover/popover-09.tsx': () => import('@/registry/default/components/popover/popover-09'),
-  'registry/default/components/radio/radio-01.tsx': () => import('@/registry/default/components/radio/radio-01'),
-  'registry/default/components/radio/radio-02.tsx': () => import('@/registry/default/components/radio/radio-02'),
-  'registry/default/components/radio/radio-03.tsx': () => import('@/registry/default/components/radio/radio-03'),
-  'registry/default/components/radio/radio-04.tsx': () => import('@/registry/default/components/radio/radio-04'),
-  'registry/default/components/radio/radio-05.tsx': () => import('@/registry/default/components/radio/radio-05'),
-  'registry/default/components/radio/radio-06.tsx': () => import('@/registry/default/components/radio/radio-06'),
-  'registry/default/components/radio/radio-07.tsx': () => import('@/registry/default/components/radio/radio-07'),
-  'registry/default/components/radio/radio-08.tsx': () => import('@/registry/default/components/radio/radio-08'),
-  'registry/default/components/radio/radio-09.tsx': () => import('@/registry/default/components/radio/radio-09'),
-  'registry/default/components/radio/radio-10.tsx': () => import('@/registry/default/components/radio/radio-10'),
-  'registry/default/components/radio/radio-11.tsx': () => import('@/registry/default/components/radio/radio-11'),
-  'registry/default/components/radio/radio-12.tsx': () => import('@/registry/default/components/radio/radio-12'),
-  'registry/default/components/radio/radio-13.tsx': () => import('@/registry/default/components/radio/radio-13'),
-  'registry/default/components/radio/radio-14.tsx': () => import('@/registry/default/components/radio/radio-14'),
-  'registry/default/components/radio/radio-15.tsx': () => import('@/registry/default/components/radio/radio-15'),
-  'registry/default/components/radio/radio-16.tsx': () => import('@/registry/default/components/radio/radio-16'),
-  'registry/default/components/radio/radio-17.tsx': () => import('@/registry/default/components/radio/radio-17'),
-  'registry/default/components/radio/radio-18.tsx': () => import('@/registry/default/components/radio/radio-18'),
-  'registry/default/components/radio/radio-19.tsx': () => import('@/registry/default/components/radio/radio-19'),
-  'registry/default/components/radio/radio-20.tsx': () => import('@/registry/default/components/radio/radio-20'),
-  'registry/default/components/select/select-01.tsx': () => import('@/registry/default/components/select/select-01'),
-  'registry/default/components/select/select-02.tsx': () => import('@/registry/default/components/select/select-02'),
-  'registry/default/components/select/select-03.tsx': () => import('@/registry/default/components/select/select-03'),
-  'registry/default/components/select/select-04.tsx': () => import('@/registry/default/components/select/select-04'),
-  'registry/default/components/select/select-05.tsx': () => import('@/registry/default/components/select/select-05'),
-  'registry/default/components/select/select-06.tsx': () => import('@/registry/default/components/select/select-06'),
-  'registry/default/components/select/select-07.tsx': () => import('@/registry/default/components/select/select-07'),
-  'registry/default/components/select/select-08.tsx': () => import('@/registry/default/components/select/select-08'),
-  'registry/default/components/select/select-09.tsx': () => import('@/registry/default/components/select/select-09'),
-  'registry/default/components/select/select-10.tsx': () => import('@/registry/default/components/select/select-10'),
-  'registry/default/components/select/select-11.tsx': () => import('@/registry/default/components/select/select-11'),
-  'registry/default/components/select/select-12.tsx': () => import('@/registry/default/components/select/select-12'),
-  'registry/default/components/select/select-13.tsx': () => import('@/registry/default/components/select/select-13'),
-  'registry/default/components/select/select-14.tsx': () => import('@/registry/default/components/select/select-14'),
-  'registry/default/components/select/select-15.tsx': () => import('@/registry/default/components/select/select-15'),
-  'registry/default/components/select/select-16.tsx': () => import('@/registry/default/components/select/select-16'),
-  'registry/default/components/select/select-17.tsx': () => import('@/registry/default/components/select/select-17'),
-  'registry/default/components/select/select-18.tsx': () => import('@/registry/default/components/select/select-18'),
-  'registry/default/components/select/select-19.tsx': () => import('@/registry/default/components/select/select-19'),
-  'registry/default/components/select/select-20.tsx': () => import('@/registry/default/components/select/select-20'),
-  'registry/default/components/select/select-21.tsx': () => import('@/registry/default/components/select/select-21'),
-  'registry/default/components/select/select-22.tsx': () => import('@/registry/default/components/select/select-22'),
-  'registry/default/components/select/select-23.tsx': () => import('@/registry/default/components/select/select-23'),
-  'registry/default/components/select/select-24.tsx': () => import('@/registry/default/components/select/select-24'),
-  'registry/default/components/select/select-25.tsx': () => import('@/registry/default/components/select/select-25'),
-  'registry/default/components/select/select-26.tsx': () => import('@/registry/default/components/select/select-26'),
-  'registry/default/components/select/select-27.tsx': () => import('@/registry/default/components/select/select-27'),
-  'registry/default/components/select/select-28.tsx': () => import('@/registry/default/components/select/select-28'),
-  'registry/default/components/select/select-29.tsx': () => import('@/registry/default/components/select/select-29'),
-  'registry/default/components/select/select-30.tsx': () => import('@/registry/default/components/select/select-30'),
-  'registry/default/components/select/select-31.tsx': () => import('@/registry/default/components/select/select-31'),
-  'registry/default/components/select/select-32.tsx': () => import('@/registry/default/components/select/select-32'),
-  'registry/default/components/select/select-33.tsx': () => import('@/registry/default/components/select/select-33'),
-  'registry/default/components/select/select-34.tsx': () => import('@/registry/default/components/select/select-34'),
-  'registry/default/components/select/select-35.tsx': () => import('@/registry/default/components/select/select-35'),
-  'registry/default/components/select/select-36.tsx': () => import('@/registry/default/components/select/select-36'),
-  'registry/default/components/select/select-37.tsx': () => import('@/registry/default/components/select/select-37'),
-  'registry/default/components/select/select-38.tsx': () => import('@/registry/default/components/select/select-38'),
-  'registry/default/components/select/select-39.tsx': () => import('@/registry/default/components/select/select-39'),
-  'registry/default/components/select/select-40.tsx': () => import('@/registry/default/components/select/select-40'),
-  'registry/default/components/select/select-41.tsx': () => import('@/registry/default/components/select/select-41'),
-  'registry/default/components/select/select-42.tsx': () => import('@/registry/default/components/select/select-42'),
-  'registry/default/components/select/select-43.tsx': () => import('@/registry/default/components/select/select-43'),
-  'registry/default/components/select/select-44.tsx': () => import('@/registry/default/components/select/select-44'),
-  'registry/default/components/select/select-45.tsx': () => import('@/registry/default/components/select/select-45'),
-  'registry/default/components/select/select-46.tsx': () => import('@/registry/default/components/select/select-46'),
-  'registry/default/components/select/select-47.tsx': () => import('@/registry/default/components/select/select-47'),
-  'registry/default/components/select/select-48.tsx': () => import('@/registry/default/components/select/select-48'),
-  'registry/default/components/select/select-49.tsx': () => import('@/registry/default/components/select/select-49'),
-  'registry/default/components/select/select-50.tsx': () => import('@/registry/default/components/select/select-50'),
-  'registry/default/components/select/select-51.tsx': () => import('@/registry/default/components/select/select-51'),
-  'registry/default/components/slider/slider-01.tsx': () => import('@/registry/default/components/slider/slider-01'),
-  'registry/default/components/slider/slider-02.tsx': () => import('@/registry/default/components/slider/slider-02'),
-  'registry/default/components/slider/slider-03.tsx': () => import('@/registry/default/components/slider/slider-03'),
-  'registry/default/components/slider/slider-04.tsx': () => import('@/registry/default/components/slider/slider-04'),
-  'registry/default/components/slider/slider-05.tsx': () => import('@/registry/default/components/slider/slider-05'),
-  'registry/default/components/slider/slider-06.tsx': () => import('@/registry/default/components/slider/slider-06'),
-  'registry/default/components/slider/slider-07.tsx': () => import('@/registry/default/components/slider/slider-07'),
-  'registry/default/components/slider/slider-08.tsx': () => import('@/registry/default/components/slider/slider-08'),
-  'registry/default/components/slider/slider-09.tsx': () => import('@/registry/default/components/slider/slider-09'),
-  'registry/default/components/slider/slider-10.tsx': () => import('@/registry/default/components/slider/slider-10'),
-  'registry/default/components/slider/slider-11.tsx': () => import('@/registry/default/components/slider/slider-11'),
-  'registry/default/components/slider/slider-12.tsx': () => import('@/registry/default/components/slider/slider-12'),
-  'registry/default/components/slider/slider-13.tsx': () => import('@/registry/default/components/slider/slider-13'),
-  'registry/default/components/slider/slider-14.tsx': () => import('@/registry/default/components/slider/slider-14'),
-  'registry/default/components/slider/slider-15.tsx': () => import('@/registry/default/components/slider/slider-15'),
-  'registry/default/components/slider/slider-16.tsx': () => import('@/registry/default/components/slider/slider-16'),
-  'registry/default/components/slider/slider-17.tsx': () => import('@/registry/default/components/slider/slider-17'),
-  'registry/default/components/slider/slider-18.tsx': () => import('@/registry/default/components/slider/slider-18'),
-  'registry/default/components/slider/slider-19.tsx': () => import('@/registry/default/components/slider/slider-19'),
-  'registry/default/components/slider/slider-20.tsx': () => import('@/registry/default/components/slider/slider-20'),
-  'registry/default/components/slider/slider-21.tsx': () => import('@/registry/default/components/slider/slider-21'),
-  'registry/default/components/slider/slider-22.tsx': () => import('@/registry/default/components/slider/slider-22'),
-  'registry/default/components/slider/slider-23.tsx': () => import('@/registry/default/components/slider/slider-23'),
-  'registry/default/components/slider/slider-24.tsx': () => import('@/registry/default/components/slider/slider-24'),
-  'registry/default/components/slider/slider-25.tsx': () => import('@/registry/default/components/slider/slider-25'),
-  'registry/default/components/slider/slider-26.tsx': () => import('@/registry/default/components/slider/slider-26'),
-  'registry/default/components/slider/slider-27.tsx': () => import('@/registry/default/components/slider/slider-27'),
-  'registry/default/components/stepper/stepper-01.tsx': () => import('@/registry/default/components/stepper/stepper-01'),
-  'registry/default/components/stepper/stepper-02.tsx': () => import('@/registry/default/components/stepper/stepper-02'),
-  'registry/default/components/stepper/stepper-03.tsx': () => import('@/registry/default/components/stepper/stepper-03'),
-  'registry/default/components/stepper/stepper-04.tsx': () => import('@/registry/default/components/stepper/stepper-04'),
-  'registry/default/components/stepper/stepper-05.tsx': () => import('@/registry/default/components/stepper/stepper-05'),
-  'registry/default/components/stepper/stepper-06.tsx': () => import('@/registry/default/components/stepper/stepper-06'),
-  'registry/default/components/stepper/stepper-07.tsx': () => import('@/registry/default/components/stepper/stepper-07'),
-  'registry/default/components/stepper/stepper-08.tsx': () => import('@/registry/default/components/stepper/stepper-08'),
-  'registry/default/components/stepper/stepper-09.tsx': () => import('@/registry/default/components/stepper/stepper-09'),
-  'registry/default/components/stepper/stepper-10.tsx': () => import('@/registry/default/components/stepper/stepper-10'),
-  'registry/default/components/stepper/stepper-11.tsx': () => import('@/registry/default/components/stepper/stepper-11'),
-  'registry/default/components/stepper/stepper-12.tsx': () => import('@/registry/default/components/stepper/stepper-12'),
-  'registry/default/components/stepper/stepper-13.tsx': () => import('@/registry/default/components/stepper/stepper-13'),
-  'registry/default/components/stepper/stepper-14.tsx': () => import('@/registry/default/components/stepper/stepper-14'),
-  'registry/default/components/stepper/stepper-15.tsx': () => import('@/registry/default/components/stepper/stepper-15'),
-  'registry/default/components/stepper/stepper-16.tsx': () => import('@/registry/default/components/stepper/stepper-16'),
-  'registry/default/components/stepper/stepper-17.tsx': () => import('@/registry/default/components/stepper/stepper-17'),
-  'registry/default/components/switch/switch-01.tsx': () => import('@/registry/default/components/switch/switch-01'),
-  'registry/default/components/switch/switch-02.tsx': () => import('@/registry/default/components/switch/switch-02'),
-  'registry/default/components/switch/switch-03.tsx': () => import('@/registry/default/components/switch/switch-03'),
-  'registry/default/components/switch/switch-04.tsx': () => import('@/registry/default/components/switch/switch-04'),
-  'registry/default/components/switch/switch-05.tsx': () => import('@/registry/default/components/switch/switch-05'),
-  'registry/default/components/switch/switch-06.tsx': () => import('@/registry/default/components/switch/switch-06'),
-  'registry/default/components/switch/switch-07.tsx': () => import('@/registry/default/components/switch/switch-07'),
-  'registry/default/components/switch/switch-08.tsx': () => import('@/registry/default/components/switch/switch-08'),
-  'registry/default/components/switch/switch-09.tsx': () => import('@/registry/default/components/switch/switch-09'),
-  'registry/default/components/switch/switch-10.tsx': () => import('@/registry/default/components/switch/switch-10'),
-  'registry/default/components/switch/switch-11.tsx': () => import('@/registry/default/components/switch/switch-11'),
-  'registry/default/components/switch/switch-12.tsx': () => import('@/registry/default/components/switch/switch-12'),
-  'registry/default/components/switch/switch-13.tsx': () => import('@/registry/default/components/switch/switch-13'),
-  'registry/default/components/switch/switch-14.tsx': () => import('@/registry/default/components/switch/switch-14'),
-  'registry/default/components/switch/switch-15.tsx': () => import('@/registry/default/components/switch/switch-15'),
-  'registry/default/components/switch/switch-16.tsx': () => import('@/registry/default/components/switch/switch-16'),
-  'registry/default/components/switch/switch-17.tsx': () => import('@/registry/default/components/switch/switch-17'),
-  'registry/default/components/table/table-01.tsx': () => import('@/registry/default/components/table/table-01'),
-  'registry/default/components/table/table-02.tsx': () => import('@/registry/default/components/table/table-02'),
-  'registry/default/components/table/table-03.tsx': () => import('@/registry/default/components/table/table-03'),
-  'registry/default/components/table/table-04.tsx': () => import('@/registry/default/components/table/table-04'),
-  'registry/default/components/table/table-05.tsx': () => import('@/registry/default/components/table/table-05'),
-  'registry/default/components/table/table-06.tsx': () => import('@/registry/default/components/table/table-06'),
-  'registry/default/components/table/table-07.tsx': () => import('@/registry/default/components/table/table-07'),
-  'registry/default/components/table/table-08.tsx': () => import('@/registry/default/components/table/table-08'),
-  'registry/default/components/table/table-09.tsx': () => import('@/registry/default/components/table/table-09'),
-  'registry/default/components/table/table-10.tsx': () => import('@/registry/default/components/table/table-10'),
-  'registry/default/components/table/table-11.tsx': () => import('@/registry/default/components/table/table-11'),
-  'registry/default/components/table/table-12.tsx': () => import('@/registry/default/components/table/table-12'),
-  'registry/default/components/table/table-13.tsx': () => import('@/registry/default/components/table/table-13'),
-  'registry/default/components/table/table-14.tsx': () => import('@/registry/default/components/table/table-14'),
-  'registry/default/components/table/table-15.tsx': () => import('@/registry/default/components/table/table-15'),
-  'registry/default/components/table/table-16.tsx': () => import('@/registry/default/components/table/table-16'),
-  'registry/default/components/table/table-17.tsx': () => import('@/registry/default/components/table/table-17'),
-  'registry/default/components/table/table-18.tsx': () => import('@/registry/default/components/table/table-18'),
-  'registry/default/components/table/table-19.tsx': () => import('@/registry/default/components/table/table-19'),
-  'registry/default/components/table/table-20.tsx': () => import('@/registry/default/components/table/table-20'),
-  'registry/default/components/tabs/tabs-01.tsx': () => import('@/registry/default/components/tabs/tabs-01'),
-  'registry/default/components/tabs/tabs-02.tsx': () => import('@/registry/default/components/tabs/tabs-02'),
-  'registry/default/components/tabs/tabs-03.tsx': () => import('@/registry/default/components/tabs/tabs-03'),
-  'registry/default/components/tabs/tabs-04.tsx': () => import('@/registry/default/components/tabs/tabs-04'),
-  'registry/default/components/tabs/tabs-05.tsx': () => import('@/registry/default/components/tabs/tabs-05'),
-  'registry/default/components/tabs/tabs-06.tsx': () => import('@/registry/default/components/tabs/tabs-06'),
-  'registry/default/components/tabs/tabs-07.tsx': () => import('@/registry/default/components/tabs/tabs-07'),
-  'registry/default/components/tabs/tabs-08.tsx': () => import('@/registry/default/components/tabs/tabs-08'),
-  'registry/default/components/tabs/tabs-09.tsx': () => import('@/registry/default/components/tabs/tabs-09'),
-  'registry/default/components/tabs/tabs-10.tsx': () => import('@/registry/default/components/tabs/tabs-10'),
-  'registry/default/components/tabs/tabs-11.tsx': () => import('@/registry/default/components/tabs/tabs-11'),
-  'registry/default/components/tabs/tabs-12.tsx': () => import('@/registry/default/components/tabs/tabs-12'),
-  'registry/default/components/tabs/tabs-13.tsx': () => import('@/registry/default/components/tabs/tabs-13'),
-  'registry/default/components/tabs/tabs-14.tsx': () => import('@/registry/default/components/tabs/tabs-14'),
-  'registry/default/components/tabs/tabs-15.tsx': () => import('@/registry/default/components/tabs/tabs-15'),
-  'registry/default/components/tabs/tabs-16.tsx': () => import('@/registry/default/components/tabs/tabs-16'),
-  'registry/default/components/tabs/tabs-17.tsx': () => import('@/registry/default/components/tabs/tabs-17'),
-  'registry/default/components/tabs/tabs-18.tsx': () => import('@/registry/default/components/tabs/tabs-18'),
-  'registry/default/components/tabs/tabs-19.tsx': () => import('@/registry/default/components/tabs/tabs-19'),
-  'registry/default/components/tabs/tabs-20.tsx': () => import('@/registry/default/components/tabs/tabs-20'),
-  'registry/default/components/textarea/textarea-01.tsx': () => import('@/registry/default/components/textarea/textarea-01'),
-  'registry/default/components/textarea/textarea-02.tsx': () => import('@/registry/default/components/textarea/textarea-02'),
-  'registry/default/components/textarea/textarea-03.tsx': () => import('@/registry/default/components/textarea/textarea-03'),
-  'registry/default/components/textarea/textarea-04.tsx': () => import('@/registry/default/components/textarea/textarea-04'),
-  'registry/default/components/textarea/textarea-05.tsx': () => import('@/registry/default/components/textarea/textarea-05'),
-  'registry/default/components/textarea/textarea-06.tsx': () => import('@/registry/default/components/textarea/textarea-06'),
-  'registry/default/components/textarea/textarea-07.tsx': () => import('@/registry/default/components/textarea/textarea-07'),
-  'registry/default/components/textarea/textarea-08.tsx': () => import('@/registry/default/components/textarea/textarea-08'),
-  'registry/default/components/textarea/textarea-09.tsx': () => import('@/registry/default/components/textarea/textarea-09'),
-  'registry/default/components/textarea/textarea-10.tsx': () => import('@/registry/default/components/textarea/textarea-10'),
-  'registry/default/components/textarea/textarea-11.tsx': () => import('@/registry/default/components/textarea/textarea-11'),
-  'registry/default/components/textarea/textarea-12.tsx': () => import('@/registry/default/components/textarea/textarea-12'),
-  'registry/default/components/textarea/textarea-13.tsx': () => import('@/registry/default/components/textarea/textarea-13'),
-  'registry/default/components/textarea/textarea-14.tsx': () => import('@/registry/default/components/textarea/textarea-14'),
-  'registry/default/components/textarea/textarea-15.tsx': () => import('@/registry/default/components/textarea/textarea-15'),
-  'registry/default/components/textarea/textarea-16.tsx': () => import('@/registry/default/components/textarea/textarea-16'),
-  'registry/default/components/textarea/textarea-17.tsx': () => import('@/registry/default/components/textarea/textarea-17'),
-  'registry/default/components/textarea/textarea-18.tsx': () => import('@/registry/default/components/textarea/textarea-18'),
-  'registry/default/components/textarea/textarea-19.tsx': () => import('@/registry/default/components/textarea/textarea-19'),
-  'registry/default/components/timeline/timeline-01.tsx': () => import('@/registry/default/components/timeline/timeline-01'),
-  'registry/default/components/timeline/timeline-02.tsx': () => import('@/registry/default/components/timeline/timeline-02'),
-  'registry/default/components/timeline/timeline-03.tsx': () => import('@/registry/default/components/timeline/timeline-03'),
-  'registry/default/components/timeline/timeline-04.tsx': () => import('@/registry/default/components/timeline/timeline-04'),
-  'registry/default/components/timeline/timeline-05.tsx': () => import('@/registry/default/components/timeline/timeline-05'),
-  'registry/default/components/timeline/timeline-06.tsx': () => import('@/registry/default/components/timeline/timeline-06'),
-  'registry/default/components/timeline/timeline-07.tsx': () => import('@/registry/default/components/timeline/timeline-07'),
-  'registry/default/components/timeline/timeline-08.tsx': () => import('@/registry/default/components/timeline/timeline-08'),
-  'registry/default/components/timeline/timeline-09.tsx': () => import('@/registry/default/components/timeline/timeline-09'),
-  'registry/default/components/timeline/timeline-10.tsx': () => import('@/registry/default/components/timeline/timeline-10'),
-  'registry/default/components/timeline/timeline-11.tsx': () => import('@/registry/default/components/timeline/timeline-11'),
-  'registry/default/components/timeline/timeline-12.tsx': () => import('@/registry/default/components/timeline/timeline-12'),
-  'registry/default/components/tooltip/tooltip-01.tsx': () => import('@/registry/default/components/tooltip/tooltip-01'),
-  'registry/default/components/tooltip/tooltip-02.tsx': () => import('@/registry/default/components/tooltip/tooltip-02'),
-  'registry/default/components/tooltip/tooltip-03.tsx': () => import('@/registry/default/components/tooltip/tooltip-03'),
-  'registry/default/components/tooltip/tooltip-04.tsx': () => import('@/registry/default/components/tooltip/tooltip-04'),
-  'registry/default/components/tooltip/tooltip-05.tsx': () => import('@/registry/default/components/tooltip/tooltip-05'),
-  'registry/default/components/tooltip/tooltip-06.tsx': () => import('@/registry/default/components/tooltip/tooltip-06'),
-  'registry/default/components/tooltip/tooltip-07.tsx': () => import('@/registry/default/components/tooltip/tooltip-07'),
-  'registry/default/components/tooltip/tooltip-08.tsx': () => import('@/registry/default/components/tooltip/tooltip-08'),
-  'registry/default/components/tooltip/tooltip-09.tsx': () => import('@/registry/default/components/tooltip/tooltip-09'),
-  'registry/default/components/tooltip/tooltip-10.tsx': () => import('@/registry/default/components/tooltip/tooltip-10'),
-  'registry/default/components/tooltip/tooltip-11.tsx': () => import('@/registry/default/components/tooltip/tooltip-11'),
-  'registry/default/components/tooltip/tooltip-12.tsx': () => import('@/registry/default/components/tooltip/tooltip-12'),
-  'registry/default/components/tree/tree-01.tsx': () => import('@/registry/default/components/tree/tree-01'),
-  'registry/default/components/tree/tree-02.tsx': () => import('@/registry/default/components/tree/tree-02'),
-  'registry/default/components/tree/tree-03.tsx': () => import('@/registry/default/components/tree/tree-03'),
-  'registry/default/components/tree/tree-04.tsx': () => import('@/registry/default/components/tree/tree-04'),
-  'registry/default/components/tree/tree-05.tsx': () => import('@/registry/default/components/tree/tree-05'),
-  'registry/default/components/tree/tree-06.tsx': () => import('@/registry/default/components/tree/tree-06'),
-  'registry/default/components/tree/tree-07.tsx': () => import('@/registry/default/components/tree/tree-07'),
-  'registry/default/components/tree/tree-08.tsx': () => import('@/registry/default/components/tree/tree-08'),
-  'registry/default/components/tree/tree-09.tsx': () => import('@/registry/default/components/tree/tree-09'),
-  'registry/default/components/tree/tree-10.tsx': () => import('@/registry/default/components/tree/tree-10'),
-  'registry/default/components/tree/tree-11.tsx': () => import('@/registry/default/components/tree/tree-11'),
-  'registry/default/components/tree/tree-12.tsx': () => import('@/registry/default/components/tree/tree-12'),
+  'registry/default/components/accordion/accordion-01.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-01'),
+  'registry/default/components/accordion/accordion-02.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-02'),
+  'registry/default/components/accordion/accordion-03.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-03'),
+  'registry/default/components/accordion/accordion-04.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-04'),
+  'registry/default/components/accordion/accordion-05.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-05'),
+  'registry/default/components/accordion/accordion-06.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-06'),
+  'registry/default/components/accordion/accordion-07.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-07'),
+  'registry/default/components/accordion/accordion-08.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-08'),
+  'registry/default/components/accordion/accordion-09.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-09'),
+  'registry/default/components/accordion/accordion-10.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-10'),
+  'registry/default/components/accordion/accordion-11.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-11'),
+  'registry/default/components/accordion/accordion-12.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-12'),
+  'registry/default/components/accordion/accordion-13.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-13'),
+  'registry/default/components/accordion/accordion-14.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-14'),
+  'registry/default/components/accordion/accordion-15.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-15'),
+  'registry/default/components/accordion/accordion-16.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-16'),
+  'registry/default/components/accordion/accordion-17.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-17'),
+  'registry/default/components/accordion/accordion-18.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-18'),
+  'registry/default/components/accordion/accordion-19.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-19'),
+  'registry/default/components/accordion/accordion-20.tsx': () =>
+    import('@/registry/default/components/accordion/accordion-20'),
+  'registry/default/components/alert/alert-01.tsx': () =>
+    import('@/registry/default/components/alert/alert-01'),
+  'registry/default/components/alert/alert-02.tsx': () =>
+    import('@/registry/default/components/alert/alert-02'),
+  'registry/default/components/alert/alert-03.tsx': () =>
+    import('@/registry/default/components/alert/alert-03'),
+  'registry/default/components/alert/alert-04.tsx': () =>
+    import('@/registry/default/components/alert/alert-04'),
+  'registry/default/components/alert/alert-05.tsx': () =>
+    import('@/registry/default/components/alert/alert-05'),
+  'registry/default/components/alert/alert-06.tsx': () =>
+    import('@/registry/default/components/alert/alert-06'),
+  'registry/default/components/alert/alert-07.tsx': () =>
+    import('@/registry/default/components/alert/alert-07'),
+  'registry/default/components/alert/alert-08.tsx': () =>
+    import('@/registry/default/components/alert/alert-08'),
+  'registry/default/components/alert/alert-09.tsx': () =>
+    import('@/registry/default/components/alert/alert-09'),
+  'registry/default/components/alert/alert-10.tsx': () =>
+    import('@/registry/default/components/alert/alert-10'),
+  'registry/default/components/alert/alert-11.tsx': () =>
+    import('@/registry/default/components/alert/alert-11'),
+  'registry/default/components/alert/alert-12.tsx': () =>
+    import('@/registry/default/components/alert/alert-12'),
+  'registry/default/components/avatar/avatar-01.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-01'),
+  'registry/default/components/avatar/avatar-02.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-02'),
+  'registry/default/components/avatar/avatar-03.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-03'),
+  'registry/default/components/avatar/avatar-04.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-04'),
+  'registry/default/components/avatar/avatar-05.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-05'),
+  'registry/default/components/avatar/avatar-06.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-06'),
+  'registry/default/components/avatar/avatar-07.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-07'),
+  'registry/default/components/avatar/avatar-08.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-08'),
+  'registry/default/components/avatar/avatar-09.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-09'),
+  'registry/default/components/avatar/avatar-10.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-10'),
+  'registry/default/components/avatar/avatar-11.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-11'),
+  'registry/default/components/avatar/avatar-12.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-12'),
+  'registry/default/components/avatar/avatar-13.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-13'),
+  'registry/default/components/avatar/avatar-14.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-14'),
+  'registry/default/components/avatar/avatar-15.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-15'),
+  'registry/default/components/avatar/avatar-16.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-16'),
+  'registry/default/components/avatar/avatar-17.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-17'),
+  'registry/default/components/avatar/avatar-18.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-18'),
+  'registry/default/components/avatar/avatar-19.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-19'),
+  'registry/default/components/avatar/avatar-20.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-20'),
+  'registry/default/components/avatar/avatar-21.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-21'),
+  'registry/default/components/avatar/avatar-22.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-22'),
+  'registry/default/components/avatar/avatar-23.tsx': () =>
+    import('@/registry/default/components/avatar/avatar-23'),
+  'registry/default/components/badge/badge-01.tsx': () =>
+    import('@/registry/default/components/badge/badge-01'),
+  'registry/default/components/badge/badge-02.tsx': () =>
+    import('@/registry/default/components/badge/badge-02'),
+  'registry/default/components/badge/badge-03.tsx': () =>
+    import('@/registry/default/components/badge/badge-03'),
+  'registry/default/components/badge/badge-04.tsx': () =>
+    import('@/registry/default/components/badge/badge-04'),
+  'registry/default/components/badge/badge-05.tsx': () =>
+    import('@/registry/default/components/badge/badge-05'),
+  'registry/default/components/badge/badge-06.tsx': () =>
+    import('@/registry/default/components/badge/badge-06'),
+  'registry/default/components/badge/badge-07.tsx': () =>
+    import('@/registry/default/components/badge/badge-07'),
+  'registry/default/components/badge/badge-08.tsx': () =>
+    import('@/registry/default/components/badge/badge-08'),
+  'registry/default/components/badge/badge-09.tsx': () =>
+    import('@/registry/default/components/badge/badge-09'),
+  'registry/default/components/badge/badge-10.tsx': () =>
+    import('@/registry/default/components/badge/badge-10'),
+  'registry/default/components/badge/badge-11.tsx': () =>
+    import('@/registry/default/components/badge/badge-11'),
+  'registry/default/components/badge/badge-12.tsx': () =>
+    import('@/registry/default/components/badge/badge-12'),
+  'registry/default/components/badge/badge-13.tsx': () =>
+    import('@/registry/default/components/badge/badge-13'),
+  'registry/default/components/banner/banner-01.tsx': () =>
+    import('@/registry/default/components/banner/banner-01'),
+  'registry/default/components/banner/banner-02.tsx': () =>
+    import('@/registry/default/components/banner/banner-02'),
+  'registry/default/components/banner/banner-03.tsx': () =>
+    import('@/registry/default/components/banner/banner-03'),
+  'registry/default/components/banner/banner-04.tsx': () =>
+    import('@/registry/default/components/banner/banner-04'),
+  'registry/default/components/banner/banner-05.tsx': () =>
+    import('@/registry/default/components/banner/banner-05'),
+  'registry/default/components/banner/banner-06.tsx': () =>
+    import('@/registry/default/components/banner/banner-06'),
+  'registry/default/components/banner/banner-07.tsx': () =>
+    import('@/registry/default/components/banner/banner-07'),
+  'registry/default/components/banner/banner-08.tsx': () =>
+    import('@/registry/default/components/banner/banner-08'),
+  'registry/default/components/banner/banner-09.tsx': () =>
+    import('@/registry/default/components/banner/banner-09'),
+  'registry/default/components/banner/banner-10.tsx': () =>
+    import('@/registry/default/components/banner/banner-10'),
+  'registry/default/components/banner/banner-11.tsx': () =>
+    import('@/registry/default/components/banner/banner-11'),
+  'registry/default/components/banner/banner-12.tsx': () =>
+    import('@/registry/default/components/banner/banner-12'),
+  'registry/default/components/breadcrumb/breadcrumb-01.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-01'),
+  'registry/default/components/breadcrumb/breadcrumb-02.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-02'),
+  'registry/default/components/breadcrumb/breadcrumb-03.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-03'),
+  'registry/default/components/breadcrumb/breadcrumb-04.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-04'),
+  'registry/default/components/breadcrumb/breadcrumb-05.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-05'),
+  'registry/default/components/breadcrumb/breadcrumb-06.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-06'),
+  'registry/default/components/breadcrumb/breadcrumb-07.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-07'),
+  'registry/default/components/breadcrumb/breadcrumb-08.tsx': () =>
+    import('@/registry/default/components/breadcrumb/breadcrumb-08'),
+  'registry/default/components/button/button-01.tsx': () =>
+    import('@/registry/default/components/button/button-01'),
+  'registry/default/components/button/button-02.tsx': () =>
+    import('@/registry/default/components/button/button-02'),
+  'registry/default/components/button/button-03.tsx': () =>
+    import('@/registry/default/components/button/button-03'),
+  'registry/default/components/button/button-04.tsx': () =>
+    import('@/registry/default/components/button/button-04'),
+  'registry/default/components/button/button-05.tsx': () =>
+    import('@/registry/default/components/button/button-05'),
+  'registry/default/components/button/button-06.tsx': () =>
+    import('@/registry/default/components/button/button-06'),
+  'registry/default/components/button/button-07.tsx': () =>
+    import('@/registry/default/components/button/button-07'),
+  'registry/default/components/button/button-08.tsx': () =>
+    import('@/registry/default/components/button/button-08'),
+  'registry/default/components/button/button-09.tsx': () =>
+    import('@/registry/default/components/button/button-09'),
+  'registry/default/components/button/button-10.tsx': () =>
+    import('@/registry/default/components/button/button-10'),
+  'registry/default/components/button/button-11.tsx': () =>
+    import('@/registry/default/components/button/button-11'),
+  'registry/default/components/button/button-12.tsx': () =>
+    import('@/registry/default/components/button/button-12'),
+  'registry/default/components/button/button-13.tsx': () =>
+    import('@/registry/default/components/button/button-13'),
+  'registry/default/components/button/button-14.tsx': () =>
+    import('@/registry/default/components/button/button-14'),
+  'registry/default/components/button/button-15.tsx': () =>
+    import('@/registry/default/components/button/button-15'),
+  'registry/default/components/button/button-16.tsx': () =>
+    import('@/registry/default/components/button/button-16'),
+  'registry/default/components/button/button-17.tsx': () =>
+    import('@/registry/default/components/button/button-17'),
+  'registry/default/components/button/button-18.tsx': () =>
+    import('@/registry/default/components/button/button-18'),
+  'registry/default/components/button/button-19.tsx': () =>
+    import('@/registry/default/components/button/button-19'),
+  'registry/default/components/button/button-20.tsx': () =>
+    import('@/registry/default/components/button/button-20'),
+  'registry/default/components/button/button-21.tsx': () =>
+    import('@/registry/default/components/button/button-21'),
+  'registry/default/components/button/button-22.tsx': () =>
+    import('@/registry/default/components/button/button-22'),
+  'registry/default/components/button/button-23.tsx': () =>
+    import('@/registry/default/components/button/button-23'),
+  'registry/default/components/button/button-24.tsx': () =>
+    import('@/registry/default/components/button/button-24'),
+  'registry/default/components/button/button-25.tsx': () =>
+    import('@/registry/default/components/button/button-25'),
+  'registry/default/components/button/button-26.tsx': () =>
+    import('@/registry/default/components/button/button-26'),
+  'registry/default/components/button/button-27.tsx': () =>
+    import('@/registry/default/components/button/button-27'),
+  'registry/default/components/button/button-28.tsx': () =>
+    import('@/registry/default/components/button/button-28'),
+  'registry/default/components/button/button-29.tsx': () =>
+    import('@/registry/default/components/button/button-29'),
+  'registry/default/components/button/button-30.tsx': () =>
+    import('@/registry/default/components/button/button-30'),
+  'registry/default/components/button/button-31.tsx': () =>
+    import('@/registry/default/components/button/button-31'),
+  'registry/default/components/button/button-32.tsx': () =>
+    import('@/registry/default/components/button/button-32'),
+  'registry/default/components/button/button-33.tsx': () =>
+    import('@/registry/default/components/button/button-33'),
+  'registry/default/components/button/button-34.tsx': () =>
+    import('@/registry/default/components/button/button-34'),
+  'registry/default/components/button/button-35.tsx': () =>
+    import('@/registry/default/components/button/button-35'),
+  'registry/default/components/button/button-36.tsx': () =>
+    import('@/registry/default/components/button/button-36'),
+  'registry/default/components/button/button-37.tsx': () =>
+    import('@/registry/default/components/button/button-37'),
+  'registry/default/components/button/button-38.tsx': () =>
+    import('@/registry/default/components/button/button-38'),
+  'registry/default/components/button/button-39.tsx': () =>
+    import('@/registry/default/components/button/button-39'),
+  'registry/default/components/button/button-40.tsx': () =>
+    import('@/registry/default/components/button/button-40'),
+  'registry/default/components/button/button-41.tsx': () =>
+    import('@/registry/default/components/button/button-41'),
+  'registry/default/components/button/button-42.tsx': () =>
+    import('@/registry/default/components/button/button-42'),
+  'registry/default/components/button/button-43.tsx': () =>
+    import('@/registry/default/components/button/button-43'),
+  'registry/default/components/button/button-44.tsx': () =>
+    import('@/registry/default/components/button/button-44'),
+  'registry/default/components/button/button-45.tsx': () =>
+    import('@/registry/default/components/button/button-45'),
+  'registry/default/components/button/button-46.tsx': () =>
+    import('@/registry/default/components/button/button-46'),
+  'registry/default/components/button/button-47.tsx': () =>
+    import('@/registry/default/components/button/button-47'),
+  'registry/default/components/button/button-48.tsx': () =>
+    import('@/registry/default/components/button/button-48'),
+  'registry/default/components/button/button-49.tsx': () =>
+    import('@/registry/default/components/button/button-49'),
+  'registry/default/components/button/button-50.tsx': () =>
+    import('@/registry/default/components/button/button-50'),
+  'registry/default/components/button/button-51.tsx': () =>
+    import('@/registry/default/components/button/button-51'),
+  'registry/default/components/button/button-52.tsx': () =>
+    import('@/registry/default/components/button/button-52'),
+  'registry/default/components/button/button-53.tsx': () =>
+    import('@/registry/default/components/button/button-53'),
+  'registry/default/components/button/button-54.tsx': () =>
+    import('@/registry/default/components/button/button-54'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-01.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-01'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-02.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-02'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-03.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-03'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-04.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-04'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-05.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-05'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-06.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-06'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-07.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-07'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-08.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-08'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-09.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-09'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-10.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-10'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-11.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-11'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-12.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-12'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-13.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-13'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-14.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-14'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-15.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-15'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-16.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-16'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-17.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-17'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-18.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-18'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-19.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-19'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-20.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-20'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-21.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-21'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-22.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-22'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-23.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-23'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-24.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-24'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-25.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-25'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-26.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-26'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-27.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-27'),
+  'registry/default/components/calendar-date-picker/calendar-date-picker-28.tsx': () =>
+    import('@/registry/default/components/calendar-date-picker/calendar-date-picker-28'),
+  'registry/default/components/checkbox/checkbox-01.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-01'),
+  'registry/default/components/checkbox/checkbox-02.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-02'),
+  'registry/default/components/checkbox/checkbox-03.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-03'),
+  'registry/default/components/checkbox/checkbox-04.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-04'),
+  'registry/default/components/checkbox/checkbox-05.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-05'),
+  'registry/default/components/checkbox/checkbox-06.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-06'),
+  'registry/default/components/checkbox/checkbox-07.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-07'),
+  'registry/default/components/checkbox/checkbox-08.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-08'),
+  'registry/default/components/checkbox/checkbox-09.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-09'),
+  'registry/default/components/checkbox/checkbox-10.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-10'),
+  'registry/default/components/checkbox/checkbox-11.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-11'),
+  'registry/default/components/checkbox/checkbox-12.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-12'),
+  'registry/default/components/checkbox/checkbox-13.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-13'),
+  'registry/default/components/checkbox/checkbox-14.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-14'),
+  'registry/default/components/checkbox/checkbox-15.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-15'),
+  'registry/default/components/checkbox/checkbox-16.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-16'),
+  'registry/default/components/checkbox/checkbox-17.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-17'),
+  'registry/default/components/checkbox/checkbox-18.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-18'),
+  'registry/default/components/checkbox/checkbox-19.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-19'),
+  'registry/default/components/checkbox/checkbox-20.tsx': () =>
+    import('@/registry/default/components/checkbox/checkbox-20'),
+  'registry/default/components/dialog/dialog-01.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-01'),
+  'registry/default/components/dialog/dialog-02.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-02'),
+  'registry/default/components/dialog/dialog-03.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-03'),
+  'registry/default/components/dialog/dialog-04.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-04'),
+  'registry/default/components/dialog/dialog-05.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-05'),
+  'registry/default/components/dialog/dialog-06.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-06'),
+  'registry/default/components/dialog/dialog-07.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-07'),
+  'registry/default/components/dialog/dialog-08.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-08'),
+  'registry/default/components/dialog/dialog-09.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-09'),
+  'registry/default/components/dialog/dialog-10.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-10'),
+  'registry/default/components/dialog/dialog-11.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-11'),
+  'registry/default/components/dialog/dialog-12.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-12'),
+  'registry/default/components/dialog/dialog-13.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-13'),
+  'registry/default/components/dialog/dialog-14.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-14'),
+  'registry/default/components/dialog/dialog-15.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-15'),
+  'registry/default/components/dialog/dialog-16.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-16'),
+  'registry/default/components/dialog/dialog-17.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-17'),
+  'registry/default/components/dialog/dialog-18.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-18'),
+  'registry/default/components/dialog/dialog-19.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-19'),
+  'registry/default/components/dialog/dialog-20.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-20'),
+  'registry/default/components/dialog/dialog-21.tsx': () =>
+    import('@/registry/default/components/dialog/dialog-21'),
+  'registry/default/components/dropdown/dropdown-01.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-01'),
+  'registry/default/components/dropdown/dropdown-02.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-02'),
+  'registry/default/components/dropdown/dropdown-03.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-03'),
+  'registry/default/components/dropdown/dropdown-04.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-04'),
+  'registry/default/components/dropdown/dropdown-05.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-05'),
+  'registry/default/components/dropdown/dropdown-06.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-06'),
+  'registry/default/components/dropdown/dropdown-07.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-07'),
+  'registry/default/components/dropdown/dropdown-08.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-08'),
+  'registry/default/components/dropdown/dropdown-09.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-09'),
+  'registry/default/components/dropdown/dropdown-10.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-10'),
+  'registry/default/components/dropdown/dropdown-11.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-11'),
+  'registry/default/components/dropdown/dropdown-12.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-12'),
+  'registry/default/components/dropdown/dropdown-13.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-13'),
+  'registry/default/components/dropdown/dropdown-14.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-14'),
+  'registry/default/components/dropdown/dropdown-15.tsx': () =>
+    import('@/registry/default/components/dropdown/dropdown-15'),
+  'registry/default/components/event-calendar/agenda-view.tsx': () =>
+    import('@/registry/default/components/event-calendar/agenda-view'),
+  'registry/default/components/event-calendar/calendar-dnd-context.tsx': () =>
+    import('@/registry/default/components/event-calendar/calendar-dnd-context'),
+  'registry/default/components/event-calendar/day-view.tsx': () =>
+    import('@/registry/default/components/event-calendar/day-view'),
+  'registry/default/components/event-calendar/draggable-event.tsx': () =>
+    import('@/registry/default/components/event-calendar/draggable-event'),
+  'registry/default/components/event-calendar/droppable-cell.tsx': () =>
+    import('@/registry/default/components/event-calendar/droppable-cell'),
+  'registry/default/components/event-calendar/event-calendar-01.tsx': () =>
+    import('@/registry/default/components/event-calendar/event-calendar-01'),
+  'registry/default/components/event-calendar/event-calendar.tsx': () =>
+    import('@/registry/default/components/event-calendar/event-calendar'),
+  'registry/default/components/event-calendar/event-dialog.tsx': () =>
+    import('@/registry/default/components/event-calendar/event-dialog'),
+  'registry/default/components/event-calendar/event-item.tsx': () =>
+    import('@/registry/default/components/event-calendar/event-item'),
+  'registry/default/components/event-calendar/events-popup.tsx': () =>
+    import('@/registry/default/components/event-calendar/events-popup'),
+  'registry/default/components/event-calendar/month-view.tsx': () =>
+    import('@/registry/default/components/event-calendar/month-view'),
+  'registry/default/components/event-calendar/week-view.tsx': () =>
+    import('@/registry/default/components/event-calendar/week-view'),
+  'registry/default/components/file-upload/file-upload-03.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-03'),
+  'registry/default/components/file-upload/file-upload-04.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-04'),
+  'registry/default/components/file-upload/file-upload-05.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-05'),
+  'registry/default/components/file-upload/file-upload-06.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-06'),
+  'registry/default/components/file-upload/file-upload-07.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-07'),
+  'registry/default/components/file-upload/file-upload-08.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-08'),
+  'registry/default/components/file-upload/file-upload-09.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-09'),
+  'registry/default/components/file-upload/file-upload-10.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-10'),
+  'registry/default/components/file-upload/file-upload-11.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-11'),
+  'registry/default/components/file-upload/file-upload-12.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-12'),
+  'registry/default/components/file-upload/file-upload-13.tsx': () =>
+    import('@/registry/default/components/file-upload/file-upload-13'),
+  'registry/default/components/image-cropper/image-cropper-01.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-01'),
+  'registry/default/components/image-cropper/image-cropper-02.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-02'),
+  'registry/default/components/image-cropper/image-cropper-03.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-03'),
+  'registry/default/components/image-cropper/image-cropper-04.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-04'),
+  'registry/default/components/image-cropper/image-cropper-05.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-05'),
+  'registry/default/components/image-cropper/image-cropper-06.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-06'),
+  'registry/default/components/image-cropper/image-cropper-07.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-07'),
+  'registry/default/components/image-cropper/image-cropper-08.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-08'),
+  'registry/default/components/image-cropper/image-cropper-09.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-09'),
+  'registry/default/components/image-cropper/image-cropper-10.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-10'),
+  'registry/default/components/image-cropper/image-cropper-11.tsx': () =>
+    import('@/registry/default/components/image-cropper/image-cropper-11'),
+  'registry/default/components/input/input-01.tsx': () =>
+    import('@/registry/default/components/input/input-01'),
+  'registry/default/components/input/input-02.tsx': () =>
+    import('@/registry/default/components/input/input-02'),
+  'registry/default/components/input/input-03.tsx': () =>
+    import('@/registry/default/components/input/input-03'),
+  'registry/default/components/input/input-04.tsx': () =>
+    import('@/registry/default/components/input/input-04'),
+  'registry/default/components/input/input-05.tsx': () =>
+    import('@/registry/default/components/input/input-05'),
+  'registry/default/components/input/input-06.tsx': () =>
+    import('@/registry/default/components/input/input-06'),
+  'registry/default/components/input/input-07.tsx': () =>
+    import('@/registry/default/components/input/input-07'),
+  'registry/default/components/input/input-08.tsx': () =>
+    import('@/registry/default/components/input/input-08'),
+  'registry/default/components/input/input-09.tsx': () =>
+    import('@/registry/default/components/input/input-09'),
+  'registry/default/components/input/input-10.tsx': () =>
+    import('@/registry/default/components/input/input-10'),
+  'registry/default/components/input/input-11.tsx': () =>
+    import('@/registry/default/components/input/input-11'),
+  'registry/default/components/input/input-12.tsx': () =>
+    import('@/registry/default/components/input/input-12'),
+  'registry/default/components/input/input-13.tsx': () =>
+    import('@/registry/default/components/input/input-13'),
+  'registry/default/components/input/input-14.tsx': () =>
+    import('@/registry/default/components/input/input-14'),
+  'registry/default/components/input/input-15.tsx': () =>
+    import('@/registry/default/components/input/input-15'),
+  'registry/default/components/input/input-16.tsx': () =>
+    import('@/registry/default/components/input/input-16'),
+  'registry/default/components/input/input-17.tsx': () =>
+    import('@/registry/default/components/input/input-17'),
+  'registry/default/components/input/input-18.tsx': () =>
+    import('@/registry/default/components/input/input-18'),
+  'registry/default/components/input/input-19.tsx': () =>
+    import('@/registry/default/components/input/input-19'),
+  'registry/default/components/input/input-20.tsx': () =>
+    import('@/registry/default/components/input/input-20'),
+  'registry/default/components/input/input-21.tsx': () =>
+    import('@/registry/default/components/input/input-21'),
+  'registry/default/components/input/input-22.tsx': () =>
+    import('@/registry/default/components/input/input-22'),
+  'registry/default/components/input/input-23.tsx': () =>
+    import('@/registry/default/components/input/input-23'),
+  'registry/default/components/input/input-24.tsx': () =>
+    import('@/registry/default/components/input/input-24'),
+  'registry/default/components/input/input-25.tsx': () =>
+    import('@/registry/default/components/input/input-25'),
+  'registry/default/components/input/input-26.tsx': () =>
+    import('@/registry/default/components/input/input-26'),
+  'registry/default/components/input/input-27.tsx': () =>
+    import('@/registry/default/components/input/input-27'),
+  'registry/default/components/input/input-28.tsx': () =>
+    import('@/registry/default/components/input/input-28'),
+  'registry/default/components/input/input-29.tsx': () =>
+    import('@/registry/default/components/input/input-29'),
+  'registry/default/components/input/input-30.tsx': () =>
+    import('@/registry/default/components/input/input-30'),
+  'registry/default/components/input/input-31.tsx': () =>
+    import('@/registry/default/components/input/input-31'),
+  'registry/default/components/input/input-32.tsx': () =>
+    import('@/registry/default/components/input/input-32'),
+  'registry/default/components/input/input-33.tsx': () =>
+    import('@/registry/default/components/input/input-33'),
+  'registry/default/components/input/input-34.tsx': () =>
+    import('@/registry/default/components/input/input-34'),
+  'registry/default/components/input/input-35.tsx': () =>
+    import('@/registry/default/components/input/input-35'),
+  'registry/default/components/input/input-36.tsx': () =>
+    import('@/registry/default/components/input/input-36'),
+  'registry/default/components/input/input-37.tsx': () =>
+    import('@/registry/default/components/input/input-37'),
+  'registry/default/components/input/input-38.tsx': () =>
+    import('@/registry/default/components/input/input-38'),
+  'registry/default/components/input/input-39.tsx': () =>
+    import('@/registry/default/components/input/input-39'),
+  'registry/default/components/input/input-40.tsx': () =>
+    import('@/registry/default/components/input/input-40'),
+  'registry/default/components/input/input-43.tsx': () =>
+    import('@/registry/default/components/input/input-43'),
+  'registry/default/components/input/input-44.tsx': () =>
+    import('@/registry/default/components/input/input-44'),
+  'registry/default/components/input/input-45.tsx': () =>
+    import('@/registry/default/components/input/input-45'),
+  'registry/default/components/input/input-46.tsx': () =>
+    import('@/registry/default/components/input/input-46'),
+  'registry/default/components/input/input-47.tsx': () =>
+    import('@/registry/default/components/input/input-47'),
+  'registry/default/components/input/input-48.tsx': () =>
+    import('@/registry/default/components/input/input-48'),
+  'registry/default/components/input/input-49.tsx': () =>
+    import('@/registry/default/components/input/input-49'),
+  'registry/default/components/input/input-50.tsx': () =>
+    import('@/registry/default/components/input/input-50'),
+  'registry/default/components/input/input-51.tsx': () =>
+    import('@/registry/default/components/input/input-51'),
+  'registry/default/components/input/input-52.tsx': () =>
+    import('@/registry/default/components/input/input-52'),
+  'registry/default/components/input/input-53.tsx': () =>
+    import('@/registry/default/components/input/input-53'),
+  'registry/default/components/input/input-54.tsx': () =>
+    import('@/registry/default/components/input/input-54'),
+  'registry/default/components/input/input-55.tsx': () =>
+    import('@/registry/default/components/input/input-55'),
+  'registry/default/components/input/input-56.tsx': () =>
+    import('@/registry/default/components/input/input-56'),
+  'registry/default/components/input/input-57.tsx': () =>
+    import('@/registry/default/components/input/input-57'),
+  'registry/default/components/input/input-58.tsx': () =>
+    import('@/registry/default/components/input/input-58'),
+  'registry/default/components/input/input-59.tsx': () =>
+    import('@/registry/default/components/input/input-59'),
+  'registry/default/components/navbar-components/app-toggle.tsx': () =>
+    import('@/registry/default/components/navbar-components/app-toggle'),
+  'registry/default/components/navbar-components/date-picker.tsx': () =>
+    import('@/registry/default/components/navbar-components/date-picker'),
+  'registry/default/components/navbar-components/filters.tsx': () =>
+    import('@/registry/default/components/navbar-components/filters'),
+  'registry/default/components/navbar-components/info-menu.tsx': () =>
+    import('@/registry/default/components/navbar-components/info-menu'),
+  'registry/default/components/navbar-components/logo.tsx': () =>
+    import('@/registry/default/components/navbar-components/logo'),
+  'registry/default/components/navbar-components/notification-menu.tsx': () =>
+    import('@/registry/default/components/navbar-components/notification-menu'),
+  'registry/default/components/navbar-components/settings-menu.tsx': () =>
+    import('@/registry/default/components/navbar-components/settings-menu'),
+  'registry/default/components/navbar-components/team-switcher.tsx': () =>
+    import('@/registry/default/components/navbar-components/team-switcher'),
+  'registry/default/components/navbar-components/theme-toggle.tsx': () =>
+    import('@/registry/default/components/navbar-components/theme-toggle'),
+  'registry/default/components/navbar-components/user-menu.tsx': () =>
+    import('@/registry/default/components/navbar-components/user-menu'),
+  'registry/default/components/navbar/navbar-01.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-01'),
+  'registry/default/components/navbar/navbar-02.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-02'),
+  'registry/default/components/navbar/navbar-03.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-03'),
+  'registry/default/components/navbar/navbar-04.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-04'),
+  'registry/default/components/navbar/navbar-05.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-05'),
+  'registry/default/components/navbar/navbar-06.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-06'),
+  'registry/default/components/navbar/navbar-07.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-07'),
+  'registry/default/components/navbar/navbar-08.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-08'),
+  'registry/default/components/navbar/navbar-09.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-09'),
+  'registry/default/components/navbar/navbar-10.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-10'),
+  'registry/default/components/navbar/navbar-11.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-11'),
+  'registry/default/components/navbar/navbar-12.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-12'),
+  'registry/default/components/navbar/navbar-13.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-13'),
+  'registry/default/components/navbar/navbar-14.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-14'),
+  'registry/default/components/navbar/navbar-15.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-15'),
+  'registry/default/components/navbar/navbar-16.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-16'),
+  'registry/default/components/navbar/navbar-17.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-17'),
+  'registry/default/components/navbar/navbar-18.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-18'),
+  'registry/default/components/navbar/navbar-19.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-19'),
+  'registry/default/components/navbar/navbar-20.tsx': () =>
+    import('@/registry/default/components/navbar/navbar-20'),
+  'registry/default/components/notification/notification-01.tsx': () =>
+    import('@/registry/default/components/notification/notification-01'),
+  'registry/default/components/notification/notification-02.tsx': () =>
+    import('@/registry/default/components/notification/notification-02'),
+  'registry/default/components/notification/notification-03.tsx': () =>
+    import('@/registry/default/components/notification/notification-03'),
+  'registry/default/components/notification/notification-04.tsx': () =>
+    import('@/registry/default/components/notification/notification-04'),
+  'registry/default/components/notification/notification-05.tsx': () =>
+    import('@/registry/default/components/notification/notification-05'),
+  'registry/default/components/notification/notification-06.tsx': () =>
+    import('@/registry/default/components/notification/notification-06'),
+  'registry/default/components/notification/notification-07.tsx': () =>
+    import('@/registry/default/components/notification/notification-07'),
+  'registry/default/components/notification/notification-08.tsx': () =>
+    import('@/registry/default/components/notification/notification-08'),
+  'registry/default/components/notification/notification-09.tsx': () =>
+    import('@/registry/default/components/notification/notification-09'),
+  'registry/default/components/notification/notification-10.tsx': () =>
+    import('@/registry/default/components/notification/notification-10'),
+  'registry/default/components/notification/notification-11.tsx': () =>
+    import('@/registry/default/components/notification/notification-11'),
+  'registry/default/components/notification/notification-12.tsx': () =>
+    import('@/registry/default/components/notification/notification-12'),
+  'registry/default/components/notification/notification-13.tsx': () =>
+    import('@/registry/default/components/notification/notification-13'),
+  'registry/default/components/notification/notification-14.tsx': () =>
+    import('@/registry/default/components/notification/notification-14'),
+  'registry/default/components/notification/notification-15.tsx': () =>
+    import('@/registry/default/components/notification/notification-15'),
+  'registry/default/components/notification/notification-16.tsx': () =>
+    import('@/registry/default/components/notification/notification-16'),
+  'registry/default/components/notification/notification-17.tsx': () =>
+    import('@/registry/default/components/notification/notification-17'),
+  'registry/default/components/notification/notification-18.tsx': () =>
+    import('@/registry/default/components/notification/notification-18'),
+  'registry/default/components/notification/notification-19.tsx': () =>
+    import('@/registry/default/components/notification/notification-19'),
+  'registry/default/components/notification/notification-20.tsx': () =>
+    import('@/registry/default/components/notification/notification-20'),
+  'registry/default/components/notification/notification-21.tsx': () =>
+    import('@/registry/default/components/notification/notification-21'),
+  'registry/default/components/notification/notification-22.tsx': () =>
+    import('@/registry/default/components/notification/notification-22'),
+  'registry/default/components/pagination/pagination-01.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-01'),
+  'registry/default/components/pagination/pagination-02.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-02'),
+  'registry/default/components/pagination/pagination-03.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-03'),
+  'registry/default/components/pagination/pagination-04.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-04'),
+  'registry/default/components/pagination/pagination-05.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-05'),
+  'registry/default/components/pagination/pagination-06.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-06'),
+  'registry/default/components/pagination/pagination-07.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-07'),
+  'registry/default/components/pagination/pagination-08.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-08'),
+  'registry/default/components/pagination/pagination-09.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-09'),
+  'registry/default/components/pagination/pagination-10.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-10'),
+  'registry/default/components/pagination/pagination-11.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-11'),
+  'registry/default/components/pagination/pagination-12.tsx': () =>
+    import('@/registry/default/components/pagination/pagination-12'),
+  'registry/default/components/popover/popover-01.tsx': () =>
+    import('@/registry/default/components/popover/popover-01'),
+  'registry/default/components/popover/popover-02.tsx': () =>
+    import('@/registry/default/components/popover/popover-02'),
+  'registry/default/components/popover/popover-03.tsx': () =>
+    import('@/registry/default/components/popover/popover-03'),
+  'registry/default/components/popover/popover-04.tsx': () =>
+    import('@/registry/default/components/popover/popover-04'),
+  'registry/default/components/popover/popover-05.tsx': () =>
+    import('@/registry/default/components/popover/popover-05'),
+  'registry/default/components/popover/popover-06.tsx': () =>
+    import('@/registry/default/components/popover/popover-06'),
+  'registry/default/components/popover/popover-07.tsx': () =>
+    import('@/registry/default/components/popover/popover-07'),
+  'registry/default/components/popover/popover-08.tsx': () =>
+    import('@/registry/default/components/popover/popover-08'),
+  'registry/default/components/popover/popover-09.tsx': () =>
+    import('@/registry/default/components/popover/popover-09'),
+  'registry/default/components/radio/radio-01.tsx': () =>
+    import('@/registry/default/components/radio/radio-01'),
+  'registry/default/components/radio/radio-02.tsx': () =>
+    import('@/registry/default/components/radio/radio-02'),
+  'registry/default/components/radio/radio-03.tsx': () =>
+    import('@/registry/default/components/radio/radio-03'),
+  'registry/default/components/radio/radio-04.tsx': () =>
+    import('@/registry/default/components/radio/radio-04'),
+  'registry/default/components/radio/radio-05.tsx': () =>
+    import('@/registry/default/components/radio/radio-05'),
+  'registry/default/components/radio/radio-06.tsx': () =>
+    import('@/registry/default/components/radio/radio-06'),
+  'registry/default/components/radio/radio-07.tsx': () =>
+    import('@/registry/default/components/radio/radio-07'),
+  'registry/default/components/radio/radio-08.tsx': () =>
+    import('@/registry/default/components/radio/radio-08'),
+  'registry/default/components/radio/radio-09.tsx': () =>
+    import('@/registry/default/components/radio/radio-09'),
+  'registry/default/components/radio/radio-10.tsx': () =>
+    import('@/registry/default/components/radio/radio-10'),
+  'registry/default/components/radio/radio-11.tsx': () =>
+    import('@/registry/default/components/radio/radio-11'),
+  'registry/default/components/radio/radio-12.tsx': () =>
+    import('@/registry/default/components/radio/radio-12'),
+  'registry/default/components/radio/radio-13.tsx': () =>
+    import('@/registry/default/components/radio/radio-13'),
+  'registry/default/components/radio/radio-14.tsx': () =>
+    import('@/registry/default/components/radio/radio-14'),
+  'registry/default/components/radio/radio-15.tsx': () =>
+    import('@/registry/default/components/radio/radio-15'),
+  'registry/default/components/radio/radio-16.tsx': () =>
+    import('@/registry/default/components/radio/radio-16'),
+  'registry/default/components/radio/radio-17.tsx': () =>
+    import('@/registry/default/components/radio/radio-17'),
+  'registry/default/components/radio/radio-18.tsx': () =>
+    import('@/registry/default/components/radio/radio-18'),
+  'registry/default/components/radio/radio-19.tsx': () =>
+    import('@/registry/default/components/radio/radio-19'),
+  'registry/default/components/radio/radio-20.tsx': () =>
+    import('@/registry/default/components/radio/radio-20'),
+  'registry/default/components/select/select-01.tsx': () =>
+    import('@/registry/default/components/select/select-01'),
+  'registry/default/components/select/select-02.tsx': () =>
+    import('@/registry/default/components/select/select-02'),
+  'registry/default/components/select/select-03.tsx': () =>
+    import('@/registry/default/components/select/select-03'),
+  'registry/default/components/select/select-04.tsx': () =>
+    import('@/registry/default/components/select/select-04'),
+  'registry/default/components/select/select-05.tsx': () =>
+    import('@/registry/default/components/select/select-05'),
+  'registry/default/components/select/select-06.tsx': () =>
+    import('@/registry/default/components/select/select-06'),
+  'registry/default/components/select/select-07.tsx': () =>
+    import('@/registry/default/components/select/select-07'),
+  'registry/default/components/select/select-08.tsx': () =>
+    import('@/registry/default/components/select/select-08'),
+  'registry/default/components/select/select-09.tsx': () =>
+    import('@/registry/default/components/select/select-09'),
+  'registry/default/components/select/select-10.tsx': () =>
+    import('@/registry/default/components/select/select-10'),
+  'registry/default/components/select/select-11.tsx': () =>
+    import('@/registry/default/components/select/select-11'),
+  'registry/default/components/select/select-12.tsx': () =>
+    import('@/registry/default/components/select/select-12'),
+  'registry/default/components/select/select-13.tsx': () =>
+    import('@/registry/default/components/select/select-13'),
+  'registry/default/components/select/select-14.tsx': () =>
+    import('@/registry/default/components/select/select-14'),
+  'registry/default/components/select/select-15.tsx': () =>
+    import('@/registry/default/components/select/select-15'),
+  'registry/default/components/select/select-16.tsx': () =>
+    import('@/registry/default/components/select/select-16'),
+  'registry/default/components/select/select-17.tsx': () =>
+    import('@/registry/default/components/select/select-17'),
+  'registry/default/components/select/select-18.tsx': () =>
+    import('@/registry/default/components/select/select-18'),
+  'registry/default/components/select/select-19.tsx': () =>
+    import('@/registry/default/components/select/select-19'),
+  'registry/default/components/select/select-20.tsx': () =>
+    import('@/registry/default/components/select/select-20'),
+  'registry/default/components/select/select-21.tsx': () =>
+    import('@/registry/default/components/select/select-21'),
+  'registry/default/components/select/select-22.tsx': () =>
+    import('@/registry/default/components/select/select-22'),
+  'registry/default/components/select/select-23.tsx': () =>
+    import('@/registry/default/components/select/select-23'),
+  'registry/default/components/select/select-24.tsx': () =>
+    import('@/registry/default/components/select/select-24'),
+  'registry/default/components/select/select-25.tsx': () =>
+    import('@/registry/default/components/select/select-25'),
+  'registry/default/components/select/select-26.tsx': () =>
+    import('@/registry/default/components/select/select-26'),
+  'registry/default/components/select/select-27.tsx': () =>
+    import('@/registry/default/components/select/select-27'),
+  'registry/default/components/select/select-28.tsx': () =>
+    import('@/registry/default/components/select/select-28'),
+  'registry/default/components/select/select-29.tsx': () =>
+    import('@/registry/default/components/select/select-29'),
+  'registry/default/components/select/select-30.tsx': () =>
+    import('@/registry/default/components/select/select-30'),
+  'registry/default/components/select/select-31.tsx': () =>
+    import('@/registry/default/components/select/select-31'),
+  'registry/default/components/select/select-32.tsx': () =>
+    import('@/registry/default/components/select/select-32'),
+  'registry/default/components/select/select-33.tsx': () =>
+    import('@/registry/default/components/select/select-33'),
+  'registry/default/components/select/select-34.tsx': () =>
+    import('@/registry/default/components/select/select-34'),
+  'registry/default/components/select/select-35.tsx': () =>
+    import('@/registry/default/components/select/select-35'),
+  'registry/default/components/select/select-36.tsx': () =>
+    import('@/registry/default/components/select/select-36'),
+  'registry/default/components/select/select-37.tsx': () =>
+    import('@/registry/default/components/select/select-37'),
+  'registry/default/components/select/select-38.tsx': () =>
+    import('@/registry/default/components/select/select-38'),
+  'registry/default/components/select/select-39.tsx': () =>
+    import('@/registry/default/components/select/select-39'),
+  'registry/default/components/select/select-40.tsx': () =>
+    import('@/registry/default/components/select/select-40'),
+  'registry/default/components/select/select-41.tsx': () =>
+    import('@/registry/default/components/select/select-41'),
+  'registry/default/components/select/select-42.tsx': () =>
+    import('@/registry/default/components/select/select-42'),
+  'registry/default/components/select/select-43.tsx': () =>
+    import('@/registry/default/components/select/select-43'),
+  'registry/default/components/select/select-44.tsx': () =>
+    import('@/registry/default/components/select/select-44'),
+  'registry/default/components/select/select-45.tsx': () =>
+    import('@/registry/default/components/select/select-45'),
+  'registry/default/components/select/select-46.tsx': () =>
+    import('@/registry/default/components/select/select-46'),
+  'registry/default/components/select/select-47.tsx': () =>
+    import('@/registry/default/components/select/select-47'),
+  'registry/default/components/select/select-48.tsx': () =>
+    import('@/registry/default/components/select/select-48'),
+  'registry/default/components/select/select-49.tsx': () =>
+    import('@/registry/default/components/select/select-49'),
+  'registry/default/components/select/select-50.tsx': () =>
+    import('@/registry/default/components/select/select-50'),
+  'registry/default/components/select/select-51.tsx': () =>
+    import('@/registry/default/components/select/select-51'),
+  'registry/default/components/slider/slider-01.tsx': () =>
+    import('@/registry/default/components/slider/slider-01'),
+  'registry/default/components/slider/slider-02.tsx': () =>
+    import('@/registry/default/components/slider/slider-02'),
+  'registry/default/components/slider/slider-03.tsx': () =>
+    import('@/registry/default/components/slider/slider-03'),
+  'registry/default/components/slider/slider-04.tsx': () =>
+    import('@/registry/default/components/slider/slider-04'),
+  'registry/default/components/slider/slider-05.tsx': () =>
+    import('@/registry/default/components/slider/slider-05'),
+  'registry/default/components/slider/slider-06.tsx': () =>
+    import('@/registry/default/components/slider/slider-06'),
+  'registry/default/components/slider/slider-07.tsx': () =>
+    import('@/registry/default/components/slider/slider-07'),
+  'registry/default/components/slider/slider-08.tsx': () =>
+    import('@/registry/default/components/slider/slider-08'),
+  'registry/default/components/slider/slider-09.tsx': () =>
+    import('@/registry/default/components/slider/slider-09'),
+  'registry/default/components/slider/slider-10.tsx': () =>
+    import('@/registry/default/components/slider/slider-10'),
+  'registry/default/components/slider/slider-11.tsx': () =>
+    import('@/registry/default/components/slider/slider-11'),
+  'registry/default/components/slider/slider-12.tsx': () =>
+    import('@/registry/default/components/slider/slider-12'),
+  'registry/default/components/slider/slider-13.tsx': () =>
+    import('@/registry/default/components/slider/slider-13'),
+  'registry/default/components/slider/slider-14.tsx': () =>
+    import('@/registry/default/components/slider/slider-14'),
+  'registry/default/components/slider/slider-15.tsx': () =>
+    import('@/registry/default/components/slider/slider-15'),
+  'registry/default/components/slider/slider-16.tsx': () =>
+    import('@/registry/default/components/slider/slider-16'),
+  'registry/default/components/slider/slider-17.tsx': () =>
+    import('@/registry/default/components/slider/slider-17'),
+  'registry/default/components/slider/slider-18.tsx': () =>
+    import('@/registry/default/components/slider/slider-18'),
+  'registry/default/components/slider/slider-19.tsx': () =>
+    import('@/registry/default/components/slider/slider-19'),
+  'registry/default/components/slider/slider-20.tsx': () =>
+    import('@/registry/default/components/slider/slider-20'),
+  'registry/default/components/slider/slider-21.tsx': () =>
+    import('@/registry/default/components/slider/slider-21'),
+  'registry/default/components/slider/slider-22.tsx': () =>
+    import('@/registry/default/components/slider/slider-22'),
+  'registry/default/components/slider/slider-23.tsx': () =>
+    import('@/registry/default/components/slider/slider-23'),
+  'registry/default/components/slider/slider-24.tsx': () =>
+    import('@/registry/default/components/slider/slider-24'),
+  'registry/default/components/slider/slider-25.tsx': () =>
+    import('@/registry/default/components/slider/slider-25'),
+  'registry/default/components/slider/slider-26.tsx': () =>
+    import('@/registry/default/components/slider/slider-26'),
+  'registry/default/components/slider/slider-27.tsx': () =>
+    import('@/registry/default/components/slider/slider-27'),
+  'registry/default/components/stepper/stepper-01.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-01'),
+  'registry/default/components/stepper/stepper-02.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-02'),
+  'registry/default/components/stepper/stepper-03.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-03'),
+  'registry/default/components/stepper/stepper-04.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-04'),
+  'registry/default/components/stepper/stepper-05.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-05'),
+  'registry/default/components/stepper/stepper-06.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-06'),
+  'registry/default/components/stepper/stepper-07.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-07'),
+  'registry/default/components/stepper/stepper-08.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-08'),
+  'registry/default/components/stepper/stepper-09.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-09'),
+  'registry/default/components/stepper/stepper-10.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-10'),
+  'registry/default/components/stepper/stepper-11.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-11'),
+  'registry/default/components/stepper/stepper-12.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-12'),
+  'registry/default/components/stepper/stepper-13.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-13'),
+  'registry/default/components/stepper/stepper-14.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-14'),
+  'registry/default/components/stepper/stepper-15.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-15'),
+  'registry/default/components/stepper/stepper-16.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-16'),
+  'registry/default/components/stepper/stepper-17.tsx': () =>
+    import('@/registry/default/components/stepper/stepper-17'),
+  'registry/default/components/switch/switch-01.tsx': () =>
+    import('@/registry/default/components/switch/switch-01'),
+  'registry/default/components/switch/switch-02.tsx': () =>
+    import('@/registry/default/components/switch/switch-02'),
+  'registry/default/components/switch/switch-03.tsx': () =>
+    import('@/registry/default/components/switch/switch-03'),
+  'registry/default/components/switch/switch-04.tsx': () =>
+    import('@/registry/default/components/switch/switch-04'),
+  'registry/default/components/switch/switch-05.tsx': () =>
+    import('@/registry/default/components/switch/switch-05'),
+  'registry/default/components/switch/switch-06.tsx': () =>
+    import('@/registry/default/components/switch/switch-06'),
+  'registry/default/components/switch/switch-07.tsx': () =>
+    import('@/registry/default/components/switch/switch-07'),
+  'registry/default/components/switch/switch-08.tsx': () =>
+    import('@/registry/default/components/switch/switch-08'),
+  'registry/default/components/switch/switch-09.tsx': () =>
+    import('@/registry/default/components/switch/switch-09'),
+  'registry/default/components/switch/switch-10.tsx': () =>
+    import('@/registry/default/components/switch/switch-10'),
+  'registry/default/components/switch/switch-11.tsx': () =>
+    import('@/registry/default/components/switch/switch-11'),
+  'registry/default/components/switch/switch-12.tsx': () =>
+    import('@/registry/default/components/switch/switch-12'),
+  'registry/default/components/switch/switch-13.tsx': () =>
+    import('@/registry/default/components/switch/switch-13'),
+  'registry/default/components/switch/switch-14.tsx': () =>
+    import('@/registry/default/components/switch/switch-14'),
+  'registry/default/components/switch/switch-15.tsx': () =>
+    import('@/registry/default/components/switch/switch-15'),
+  'registry/default/components/switch/switch-16.tsx': () =>
+    import('@/registry/default/components/switch/switch-16'),
+  'registry/default/components/switch/switch-17.tsx': () =>
+    import('@/registry/default/components/switch/switch-17'),
+  'registry/default/components/table/table-01.tsx': () =>
+    import('@/registry/default/components/table/table-01'),
+  'registry/default/components/table/table-02.tsx': () =>
+    import('@/registry/default/components/table/table-02'),
+  'registry/default/components/table/table-03.tsx': () =>
+    import('@/registry/default/components/table/table-03'),
+  'registry/default/components/table/table-04.tsx': () =>
+    import('@/registry/default/components/table/table-04'),
+  'registry/default/components/table/table-05.tsx': () =>
+    import('@/registry/default/components/table/table-05'),
+  'registry/default/components/table/table-06.tsx': () =>
+    import('@/registry/default/components/table/table-06'),
+  'registry/default/components/table/table-07.tsx': () =>
+    import('@/registry/default/components/table/table-07'),
+  'registry/default/components/table/table-08.tsx': () =>
+    import('@/registry/default/components/table/table-08'),
+  'registry/default/components/table/table-09.tsx': () =>
+    import('@/registry/default/components/table/table-09'),
+  'registry/default/components/table/table-10.tsx': () =>
+    import('@/registry/default/components/table/table-10'),
+  'registry/default/components/table/table-11.tsx': () =>
+    import('@/registry/default/components/table/table-11'),
+  'registry/default/components/table/table-12.tsx': () =>
+    import('@/registry/default/components/table/table-12'),
+  'registry/default/components/table/table-13.tsx': () =>
+    import('@/registry/default/components/table/table-13'),
+  'registry/default/components/table/table-14.tsx': () =>
+    import('@/registry/default/components/table/table-14'),
+  'registry/default/components/table/table-15.tsx': () =>
+    import('@/registry/default/components/table/table-15'),
+  'registry/default/components/table/table-16.tsx': () =>
+    import('@/registry/default/components/table/table-16'),
+  'registry/default/components/table/table-17.tsx': () =>
+    import('@/registry/default/components/table/table-17'),
+  'registry/default/components/table/table-18.tsx': () =>
+    import('@/registry/default/components/table/table-18'),
+  'registry/default/components/table/table-19.tsx': () =>
+    import('@/registry/default/components/table/table-19'),
+  'registry/default/components/table/table-20.tsx': () =>
+    import('@/registry/default/components/table/table-20'),
+  'registry/default/components/tabs/tabs-01.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-01'),
+  'registry/default/components/tabs/tabs-02.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-02'),
+  'registry/default/components/tabs/tabs-03.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-03'),
+  'registry/default/components/tabs/tabs-04.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-04'),
+  'registry/default/components/tabs/tabs-05.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-05'),
+  'registry/default/components/tabs/tabs-06.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-06'),
+  'registry/default/components/tabs/tabs-07.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-07'),
+  'registry/default/components/tabs/tabs-08.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-08'),
+  'registry/default/components/tabs/tabs-09.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-09'),
+  'registry/default/components/tabs/tabs-10.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-10'),
+  'registry/default/components/tabs/tabs-11.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-11'),
+  'registry/default/components/tabs/tabs-12.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-12'),
+  'registry/default/components/tabs/tabs-13.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-13'),
+  'registry/default/components/tabs/tabs-14.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-14'),
+  'registry/default/components/tabs/tabs-15.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-15'),
+  'registry/default/components/tabs/tabs-16.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-16'),
+  'registry/default/components/tabs/tabs-17.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-17'),
+  'registry/default/components/tabs/tabs-18.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-18'),
+  'registry/default/components/tabs/tabs-19.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-19'),
+  'registry/default/components/tabs/tabs-20.tsx': () =>
+    import('@/registry/default/components/tabs/tabs-20'),
+  'registry/default/components/textarea/textarea-01.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-01'),
+  'registry/default/components/textarea/textarea-02.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-02'),
+  'registry/default/components/textarea/textarea-03.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-03'),
+  'registry/default/components/textarea/textarea-04.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-04'),
+  'registry/default/components/textarea/textarea-05.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-05'),
+  'registry/default/components/textarea/textarea-06.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-06'),
+  'registry/default/components/textarea/textarea-07.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-07'),
+  'registry/default/components/textarea/textarea-08.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-08'),
+  'registry/default/components/textarea/textarea-09.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-09'),
+  'registry/default/components/textarea/textarea-10.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-10'),
+  'registry/default/components/textarea/textarea-11.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-11'),
+  'registry/default/components/textarea/textarea-12.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-12'),
+  'registry/default/components/textarea/textarea-13.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-13'),
+  'registry/default/components/textarea/textarea-14.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-14'),
+  'registry/default/components/textarea/textarea-15.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-15'),
+  'registry/default/components/textarea/textarea-16.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-16'),
+  'registry/default/components/textarea/textarea-17.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-17'),
+  'registry/default/components/textarea/textarea-18.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-18'),
+  'registry/default/components/textarea/textarea-19.tsx': () =>
+    import('@/registry/default/components/textarea/textarea-19'),
+  'registry/default/components/timeline/timeline-01.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-01'),
+  'registry/default/components/timeline/timeline-02.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-02'),
+  'registry/default/components/timeline/timeline-03.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-03'),
+  'registry/default/components/timeline/timeline-04.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-04'),
+  'registry/default/components/timeline/timeline-05.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-05'),
+  'registry/default/components/timeline/timeline-06.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-06'),
+  'registry/default/components/timeline/timeline-07.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-07'),
+  'registry/default/components/timeline/timeline-08.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-08'),
+  'registry/default/components/timeline/timeline-09.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-09'),
+  'registry/default/components/timeline/timeline-10.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-10'),
+  'registry/default/components/timeline/timeline-11.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-11'),
+  'registry/default/components/timeline/timeline-12.tsx': () =>
+    import('@/registry/default/components/timeline/timeline-12'),
+  'registry/default/components/tooltip/tooltip-01.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-01'),
+  'registry/default/components/tooltip/tooltip-02.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-02'),
+  'registry/default/components/tooltip/tooltip-03.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-03'),
+  'registry/default/components/tooltip/tooltip-04.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-04'),
+  'registry/default/components/tooltip/tooltip-05.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-05'),
+  'registry/default/components/tooltip/tooltip-06.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-06'),
+  'registry/default/components/tooltip/tooltip-07.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-07'),
+  'registry/default/components/tooltip/tooltip-08.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-08'),
+  'registry/default/components/tooltip/tooltip-09.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-09'),
+  'registry/default/components/tooltip/tooltip-10.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-10'),
+  'registry/default/components/tooltip/tooltip-11.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-11'),
+  'registry/default/components/tooltip/tooltip-12.tsx': () =>
+    import('@/registry/default/components/tooltip/tooltip-12'),
+  'registry/default/components/tree/tree-01.tsx': () =>
+    import('@/registry/default/components/tree/tree-01'),
+  'registry/default/components/tree/tree-02.tsx': () =>
+    import('@/registry/default/components/tree/tree-02'),
+  'registry/default/components/tree/tree-03.tsx': () =>
+    import('@/registry/default/components/tree/tree-03'),
+  'registry/default/components/tree/tree-04.tsx': () =>
+    import('@/registry/default/components/tree/tree-04'),
+  'registry/default/components/tree/tree-05.tsx': () =>
+    import('@/registry/default/components/tree/tree-05'),
+  'registry/default/components/tree/tree-06.tsx': () =>
+    import('@/registry/default/components/tree/tree-06'),
+  'registry/default/components/tree/tree-07.tsx': () =>
+    import('@/registry/default/components/tree/tree-07'),
+  'registry/default/components/tree/tree-08.tsx': () =>
+    import('@/registry/default/components/tree/tree-08'),
+  'registry/default/components/tree/tree-09.tsx': () =>
+    import('@/registry/default/components/tree/tree-09'),
+  'registry/default/components/tree/tree-10.tsx': () =>
+    import('@/registry/default/components/tree/tree-10'),
+  'registry/default/components/tree/tree-11.tsx': () =>
+    import('@/registry/default/components/tree/tree-11'),
+  'registry/default/components/tree/tree-12.tsx': () =>
+    import('@/registry/default/components/tree/tree-12'),
   'registry/default/ui/accordion.tsx': () => import('@/registry/default/ui/accordion'),
   'registry/default/ui/alert-dialog.tsx': () => import('@/registry/default/ui/alert-dialog'),
   'registry/default/ui/alert.tsx': () => import('@/registry/default/ui/alert'),
@@ -669,4 +1286,3 @@ export const registryComponentManifest = {
   'registry/default/ui/tooltip.tsx': () => import('@/registry/default/ui/tooltip'),
   'registry/default/ui/tree.tsx': () => import('@/registry/default/ui/tree'),
 } as const
-

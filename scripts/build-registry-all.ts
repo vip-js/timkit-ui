@@ -1030,11 +1030,15 @@ async function main() {
 
         const importDeps = extractImportsFromTs(content)
         const registryDependencies = normalizeRegistryDeps(importDeps, explicitDeps)
+        const dependencies = importDeps.filter(
+          (dep) => !dep.startsWith('@/') && !dep.startsWith('.') && !FRAMEWORK_RUNTIME_DEPS.has(dep)
+        )
 
         const item: RegistryItem = {
           name,
           type: 'registry:block',
           description: `Block: ${name}`,
+          dependencies: dependencies.length ? Array.from(new Set(dependencies)) : undefined,
           files: [
             {
               path: `blocks/${category}/${file}`,
@@ -1048,7 +1052,9 @@ async function main() {
           meta: {
             frameworks: ['react'], // Blocks are currently React-first
             category,
+            tags: category.startsWith('mobile') ? ['mobile', category] : [category],
             clientOnly: isClient,
+            viewport: category.startsWith('mobile') ? 'mobile-first' : undefined,
           },
         }
 
@@ -1157,6 +1163,66 @@ async function main() {
     }
   }
   console.timeEnd('Scan Blocks')
+
+  // 2.2 Scan page templates. These are installable app screens meant for
+  // agent/CLI flows where the desired output is a complete mobile-first page.
+  console.time('Scan Templates')
+  const WEB_TEMPLATES_DIR = path.join(ROOT, 'packages/react/src/templates')
+  if (fs.existsSync(WEB_TEMPLATES_DIR)) {
+    const categories = fs.readdirSync(WEB_TEMPLATES_DIR)
+    for (const category of categories) {
+      const categoryDir = path.join(WEB_TEMPLATES_DIR, category)
+      if (!fs.statSync(categoryDir).isDirectory()) continue
+
+      const files = fs.readdirSync(categoryDir)
+      for (const file of files) {
+        if (!file.endsWith('.tsx')) continue
+
+        const name = path.basename(file, '.tsx')
+        const content = fs.readFileSync(path.join(categoryDir, file), 'utf-8')
+        const isClient = /^\s*['"]use client['"]/.test(content)
+        const explicitDeps =
+          content
+            .match(/@registryDependencies\s*:\s*([^\n]+)/i)?.[1]
+            ?.split(',')
+            .map((s) => s.trim())
+            .filter(Boolean) || []
+        const importDeps = extractImportsFromTs(content)
+        const registryDependencies = normalizeRegistryDeps(importDeps, explicitDeps)
+        const dependencies = importDeps.filter(
+          (dep) => !dep.startsWith('@/') && !dep.startsWith('.') && !FRAMEWORK_RUNTIME_DEPS.has(dep)
+        )
+
+        const item: RegistryItem = {
+          name,
+          type: 'registry:page',
+          description: `Mobile template: ${name}`,
+          dependencies: dependencies.length ? Array.from(new Set(dependencies)) : undefined,
+          files: [
+            {
+              path: `templates/${category}/${file}`,
+              content,
+              type: 'registry:page',
+              target: `app/${name}/page.tsx`,
+            },
+          ],
+          categories: [category],
+          registryDependencies,
+          meta: {
+            frameworks: ['react'],
+            category,
+            tags: ['mobile', 'template', category],
+            clientOnly: isClient,
+            viewport: 'mobile-first',
+            source: 'packages/react/src/templates',
+          },
+        }
+
+        registryMap.set(name, item)
+      }
+    }
+  }
+  console.timeEnd('Scan Templates')
 
   // Legacy componentsDB ingestion removed intentionally (replaced by blocks-source)
 

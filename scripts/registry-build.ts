@@ -20,6 +20,7 @@ const INPUT_PATHS = [
   path.join(ROOT, 'apps/docs/blocks-source.json'),
   path.join(ROOT, 'packages/react/src/components/ui'),
   path.join(ROOT, 'packages/react/src/blocks'),
+  path.join(ROOT, 'packages/react/src/templates'),
   path.join(ROOT, 'packages/vue/src/components'),
   path.join(ROOT, 'packages/vue/src/hooks'),
   path.join(ROOT, 'packages/html/src/components'),

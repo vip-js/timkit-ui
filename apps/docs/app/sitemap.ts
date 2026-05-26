@@ -12,9 +12,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const easings = {
     url: 'https://ui.timkit.cn/easings',
   }
+  const blocks = {
+    url: 'https://ui.timkit.cn/blocks',
+  }
+  const templates = {
+    url: 'https://ui.timkit.cn/templates',
+  }
+  const agents = {
+    url: 'https://ui.timkit.cn/agents',
+  }
   const categoryPages = getCategories().map((category) => ({
     url: `https://ui.timkit.cn/${category.slug}`,
   }))
 
-  return [home, ...categoryPages, search, easings]
+  return [home, blocks, templates, agents, ...categoryPages, search, easings]
 }
