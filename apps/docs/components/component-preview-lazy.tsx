@@ -71,14 +71,8 @@ export default function ComponentPreviewLazy({
     )
     observer.observe(containerEl)
 
-    // Fallback: ensure previews still load even if observer misses due layout/viewport quirks.
-    const fallbackTimer = window.setTimeout(() => {
-      setVisible(true)
-    }, 1200)
-
     return () => {
       observer.disconnect()
-      window.clearTimeout(fallbackTimer)
     }
   }, [containerEl, visible])
 

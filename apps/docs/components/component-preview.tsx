@@ -7,10 +7,8 @@ import { Monitor, Terminal } from 'lucide-react'
 import type { FrameworkPreviewHints, PreviewFrameworkKey } from '@/lib/framework-preview'
 import { resolveFrameworkPreviewTargets } from '@/lib/framework-preview'
 import { getAvailablePreviewFrameworkTabs, getFrameworkCodePanes } from '@/lib/framework-utils'
-import ComponentLoader from '@/components/component-loader-client'
 import FrameworksTabs, { type FrameworkPane } from '@/components/frameworks-tabs'
-import HtmlPreview from '@/components/html-preview'
-import VuePreview from '@/components/vue-preview'
+import RuntimePreview from '@/components/runtime-preview'
 import { cn } from '@/registry/default/lib/utils'
 
 type PreviewTabFramework = PreviewFrameworkKey | 'weapp'
@@ -150,19 +148,27 @@ export default function ComponentPreview({
                 style={{ maxWidth: previewWidth }}
               >
                 <div className="z-10 w-full p-8 md:p-10">
-                  {effectiveFramework === 'react' ? (
-                    <ComponentLoader
-                      component={component}
-                      componentPath={previewTargets.react.componentPath}
+                  {effectiveFramework === 'react' && currentPreviewTarget?.componentPath ? (
+                    <RuntimePreview
+                      key={`react:${currentPreviewTarget.componentPath}`}
+                      framework="react"
+                      componentName={currentPreviewTarget.componentName || component.name}
+                      componentPath={currentPreviewTarget.componentPath}
+                      props={{}}
                     />
-                  ) : effectiveFramework === 'html' ? (
-                    <HtmlPreview
-                      componentName={previewTargets.html.componentName}
-                      code={previewTargets.html.code || currentPane?.code || ''}
+                  ) : effectiveFramework === 'html' && currentPreviewTarget ? (
+                    <RuntimePreview
+                      key={`html:${currentPreviewTarget.componentName || component.name}`}
+                      framework="html"
+                      componentName={currentPreviewTarget.componentName}
+                      code={currentPreviewTarget.code || currentPane?.code || ''}
                     />
-                  ) : effectiveFramework === 'vue' ? (
-                    <VuePreview
-                      componentName={previewTargets.vue.componentName || component.name}
+                  ) : effectiveFramework === 'vue' && currentPreviewTarget ? (
+                    <RuntimePreview
+                      key={`vue:${currentPreviewTarget.componentName || component.name}`}
+                      framework="vue"
+                      componentName={currentPreviewTarget.componentName || component.name}
+                      props={{}}
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">

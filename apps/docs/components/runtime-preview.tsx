@@ -44,7 +44,7 @@ export default function RuntimePreview({
   const [isRendered, setIsRendered] = React.useState(false)
   const [loadError, setLoadError] = React.useState<string | null>(null)
   const [iframeHeight, setIframeHeight] = React.useState<number | string>(400)
-  const vuePreviewBase = process.env.NEXT_PUBLIC_VUE_PREVIEW_URL || 'http://127.0.0.1:3002'
+  const vuePreviewBase = process.env.NEXT_PUBLIC_VUE_PREVIEW_URL || '/preview/vue'
   const reactPreviewBase =
     process.env.NEXT_PUBLIC_REACT_PREVIEW_URL ||
     (typeof window !== 'undefined' ? `${window.location.origin}/preview/react` : '/preview/react')

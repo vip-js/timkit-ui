@@ -27,6 +27,8 @@ function hasManifestEntry(path: string): path is RegistryComponentKey {
 }
 
 export default function ReactPreviewRuntimePage() {
+  const previewRootRef = React.useRef<HTMLDivElement | null>(null)
+  const lastHeightRef = React.useRef(0)
   const [CurrentComponent, setCurrentComponent] = React.useState<ComponentType<
     Record<string, PreviewData>
   > | null>(null)
@@ -60,6 +62,18 @@ export default function ReactPreviewRuntimePage() {
     },
     [resolveParentOrigin]
   )
+
+  const emitResize = React.useCallback(() => {
+    const height = Math.ceil(
+      previewRootRef.current?.scrollHeight ||
+        document.documentElement?.scrollHeight ||
+        document.body?.scrollHeight ||
+        0
+    )
+    if (!height || height === lastHeightRef.current) return
+    lastHeightRef.current = height
+    postMessage({ type: 'PREVIEW_RESIZE', height })
+  }, [postMessage])
 
   const loadReactComponent = React.useCallback(
     async (message: LoadPreviewMessage) => {
@@ -101,6 +115,7 @@ export default function ReactPreviewRuntimePage() {
           componentName: message.componentName,
           componentPath,
         })
+        window.requestAnimationFrame(emitResize)
       } catch (error) {
         const messageText = String(error)
         setLoadMessage(`Failed to render React component: ${messageText}`)
@@ -115,7 +130,7 @@ export default function ReactPreviewRuntimePage() {
         })
       }
     },
-    [postMessage]
+    [emitResize, postMessage]
   )
 
   React.useEffect(() => {
@@ -151,19 +166,34 @@ export default function ReactPreviewRuntimePage() {
     }
 
     window.addEventListener('message', onMessage)
+    const resizeObserver =
+      'ResizeObserver' in window
+        ? new ResizeObserver(() => window.requestAnimationFrame(emitResize))
+        : null
+    if (resizeObserver) {
+      resizeObserver.observe(document.body)
+    }
+
     postMessage({
       type: 'PREVIEW_READY',
       version: PREVIEW_PROTOCOL_VERSION,
       framework: 'react',
     })
+    window.requestAnimationFrame(emitResize)
 
     return () => {
       window.removeEventListener('message', onMessage)
+      resizeObserver?.disconnect()
     }
-  }, [allowedParentOrigins, loadReactComponent, postMessage])
+  }, [allowedParentOrigins, emitResize, loadReactComponent, postMessage])
+
+  React.useEffect(() => {
+    window.requestAnimationFrame(emitResize)
+  }, [CurrentComponent, componentProps, emitResize])
 
   return (
     <div
+      ref={previewRootRef}
       style={{
         minHeight: '100vh',
         display: 'flex',

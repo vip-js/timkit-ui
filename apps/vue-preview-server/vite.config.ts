@@ -15,6 +15,9 @@ const packageVueUiRoot = fileURLToPath(
 const packageVueIndex = path.join(packageVueRoot, 'src/index.ts')
 const packageVueUiIndex = path.join(packageVueUiRoot, 'index.ts')
 const VIRTUAL_UI_PREFIX = '\0timui-ui:'
+const VIRTUAL_ASSET_PREFIX = '\0timui-preview-asset:'
+const transparentPixel =
+  'data:image/gif;base64,R0lGODlhAQABAAAAACw='
 
 function walkVueFiles(rootDir: string): string[] {
   if (!fs.existsSync(rootDir)) return []
@@ -119,6 +122,7 @@ function resolveUiImport(source: string): string | null {
 }
 
 export default defineConfig({
+  base: '/preview/vue/',
   define: {
     __TIMUI_DOCS_DEMO_ROOT__: JSON.stringify(docsDemoRoot),
   },
@@ -132,6 +136,19 @@ export default defineConfig({
       },
       load(id) {
         return virtualUiModules.get(id) ?? null
+      },
+    },
+    {
+      name: 'timui-vue-preview-asset-placeholder',
+      enforce: 'pre',
+      resolveId(source, importer) {
+        if (!importer?.startsWith(docsDemoRoot)) return null
+        if (!/\.(avif|gif|jpe?g|png|svg|webp)$/i.test(source)) return null
+        return `${VIRTUAL_ASSET_PREFIX}${source}`
+      },
+      load(id) {
+        if (!id.startsWith(VIRTUAL_ASSET_PREFIX)) return null
+        return `export default ${JSON.stringify(transparentPixel)}`
       },
     },
     vue(),

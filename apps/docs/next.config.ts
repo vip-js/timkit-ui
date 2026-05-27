@@ -9,6 +9,19 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    const vuePreviewUrl = process.env.VUE_PREVIEW_INTERNAL_URL || 'http://127.0.0.1:3002'
+    return [
+      {
+        source: '/preview/vue',
+        destination: `${vuePreviewUrl}/preview/vue/`,
+      },
+      {
+        source: '/preview/vue/:path*',
+        destination: `${vuePreviewUrl}/preview/vue/:path*`,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {

@@ -64,6 +64,7 @@ const legacyWarningShown = ref(false)
 const allowedParentOrigins = parsePreviewAllowedOrigins(
   import.meta.env.VITE_PREVIEW_ALLOWED_ORIGINS
 )
+const previewBasePath = import.meta.env.BASE_URL || '/'
 const parentOrigin = ref<string | null>(null)
 const resizeObserver = ref<ResizeObserver | null>(null)
 const resizeTimer = ref<number | null>(null)
@@ -132,6 +133,13 @@ function scheduleResize(delay = 50) {
 }
 
 const componentMap: Record<string, ComponentLoader> = {}
+const demoComponentModules = import.meta.glob<ComponentModule>(
+  '../../docs/registry/default/components/**/*.vue'
+)
+const demoHtmlModules = import.meta.glob('../../docs/registry/default/components/**/*.html', {
+  query: '?raw',
+  import: 'default',
+}) as Record<string, () => Promise<string>>
 const uiModules = import.meta.glob<ComponentModule>(
   '../../../packages/vue/src/components/ui/**/*.vue'
 )
@@ -186,7 +194,15 @@ function inferHtmlRuntimeComponents(target: HTMLElement) {
 async function tryLoadDemoComponent(name: string): Promise<ComponentModule | null> {
   for (const candidate of buildPreviewCandidates(name)) {
     const group = getPreviewGroupName(candidate)
-    const demoUrl = `/@fs/${__TIMUI_DOCS_DEMO_ROOT__}/${group}/${candidate}.vue`
+    const bundledDemoKey = Object.keys(demoComponentModules).find((modulePath) =>
+      modulePath.endsWith(`/${group}/${candidate}.vue`)
+    )
+    if (bundledDemoKey) {
+      // eslint-disable-next-line no-await-in-loop
+      return await demoComponentModules[bundledDemoKey]()
+    }
+
+    const demoUrl = `${previewBasePath}@fs/${__TIMUI_DOCS_DEMO_ROOT__}/${group}/${candidate}.vue`
     try {
       // @ts-ignore vite-ignore keeps runtime path untouched.
       // eslint-disable-next-line no-await-in-loop
@@ -202,7 +218,15 @@ async function tryLoadDemoComponent(name: string): Promise<ComponentModule | nul
 async function tryLoadHtmlDemo(name: string): Promise<string | null> {
   for (const candidate of buildPreviewCandidates(name)) {
     const group = getPreviewGroupName(candidate)
-    const demoUrl = `/@fs/${__TIMUI_DOCS_DEMO_ROOT__}/${group}/${candidate}.html?raw`
+    const bundledDemoKey = Object.keys(demoHtmlModules).find((modulePath) =>
+      modulePath.endsWith(`/${group}/${candidate}.html`)
+    )
+    if (bundledDemoKey) {
+      // eslint-disable-next-line no-await-in-loop
+      return await demoHtmlModules[bundledDemoKey]()
+    }
+
+    const demoUrl = `${previewBasePath}@fs/${__TIMUI_DOCS_DEMO_ROOT__}/${group}/${candidate}.html?raw`
     try {
       // @ts-ignore vite-ignore keeps runtime path untouched.
       // eslint-disable-next-line no-await-in-loop

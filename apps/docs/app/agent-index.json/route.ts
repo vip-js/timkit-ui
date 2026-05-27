@@ -36,6 +36,25 @@ export function GET() {
       shadcnAdd: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
       localTimkitList: 'pnpm --filter @timui/cli exec timkit list --mobile --json',
     },
+    interactionModes: {
+      chat: {
+        entry: 'Ask for an app screen, flow section, or primitive UI control in natural language.',
+        promptShape:
+          'Build a mobile SaaS dashboard with stats, task list, command input, and bottom navigation.',
+        selectionPolicy:
+          'Prefer registry:page for complete screens, registry:block for sections, registry:ui for primitives.',
+      },
+      cli: {
+        list: 'pnpm --filter @timui/cli exec timkit list --mobile --framework react --json',
+        install: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
+      },
+      agent: {
+        discover: 'GET /agent-index.json, then GET /registry-index.json',
+        fetchSource: 'GET /r/{name}.json',
+        verify:
+          'Run pnpm goal:acceptance, pnpm goal:test:preview:protocol, and pnpm goal:test:docs:canonical after changes.',
+      },
+    },
     counts: {
       total: publicItems.length,
       ui: publicItems.filter((item) => item.type === 'registry:ui').length,
@@ -50,6 +69,12 @@ export function GET() {
       frameworks: getStringArray(item.meta?.frameworks),
       url: `https://ui.timkit.cn/r/${item.name}.json`,
     })),
+    previewContract: {
+      protocol: 'LOAD_PREVIEW',
+      frameworks: ['react', 'vue', 'html'],
+      consistency:
+        'Docs resolve demo names through the same canonical source rules before loading runtime previews.',
+    },
   }
 
   return NextResponse.json(payload, {
