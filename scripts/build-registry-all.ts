@@ -49,6 +49,8 @@ const HTML_COMPONENTS_DIR = path.join(ROOT, 'packages/html/src/components')
 const DOCS_HTML_DIR = path.join(ROOT, 'apps/docs/registry/default/html')
 const DOCS_WEAPP_DIR = path.join(ROOT, 'apps/docs/registry/default/weapp')
 const DOCS_VUE_DIR = path.join(ROOT, 'apps/docs/registry/default/vue')
+const DOCS_BLOCKS_DIR = path.join(ROOT, 'apps/docs/registry/default/blocks')
+const DOCS_TEMPLATES_DIR = path.join(ROOT, 'apps/docs/registry/default/templates')
 const REACT_HOOKS_DIR = path.join(ROOT, 'packages/react/src/hooks')
 
 const REACT_PACKAGE_JSON = path.join(ROOT, 'packages/react/package.json')
@@ -221,6 +223,31 @@ function safeReadJson<T>(path: string): T | undefined {
 
 function normalizeSourceContent(content: string): string {
   return content.replace(/^(?:'use client'\s*\n){2,}/, "'use client'\n")
+}
+
+function toDocsReactPreviewSource(content: string): string {
+  return normalizeSourceContent(content).replace(
+    /from ['"]@\/components\/ui\/[^'"]+['"]/g,
+    "from '@timui/react'"
+  )
+}
+
+function writeDocsReactPreviewSource(
+  rootDir: string,
+  category: string,
+  file: string,
+  content: string
+): string {
+  const targetDir = path.join(rootDir, category)
+  if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true })
+  const targetPath = path.join(targetDir, file)
+  fs.writeFileSync(targetPath, toDocsReactPreviewSource(content), 'utf-8')
+  return path.posix.join(
+    'registry/default',
+    rootDir === DOCS_BLOCKS_DIR ? 'blocks' : 'templates',
+    category,
+    file
+  )
 }
 
 function findDocsSiblingByCandidates(
@@ -1017,6 +1044,7 @@ async function main() {
         const name = path.basename(file, '.tsx')
         const content = fs.readFileSync(path.join(categoryDir, file), 'utf-8')
         const isClient = /^\s*['"]use client['"]/.test(content)
+        const previewPath = writeDocsReactPreviewSource(DOCS_BLOCKS_DIR, category, file, content)
 
         // Parse @registryDependencies from comments if avail?
         // Or use AST to detect imports from @/components/ui/ + explicit hints.
@@ -1055,6 +1083,7 @@ async function main() {
             tags: category.startsWith('mobile') ? ['mobile', category] : [category],
             clientOnly: isClient,
             viewport: category.startsWith('mobile') ? 'mobile-first' : undefined,
+            previewPath,
           },
         }
 
@@ -1181,6 +1210,7 @@ async function main() {
         const name = path.basename(file, '.tsx')
         const content = fs.readFileSync(path.join(categoryDir, file), 'utf-8')
         const isClient = /^\s*['"]use client['"]/.test(content)
+        const previewPath = writeDocsReactPreviewSource(DOCS_TEMPLATES_DIR, category, file, content)
         const explicitDeps =
           content
             .match(/@registryDependencies\s*:\s*([^\n]+)/i)?.[1]
@@ -1215,6 +1245,7 @@ async function main() {
             clientOnly: isClient,
             viewport: 'mobile-first',
             source: 'packages/react/src/templates',
+            previewPath,
           },
         }
 

@@ -21,13 +21,6 @@ const getStringArray = (value: JsonValue | undefined): string[] => {
   return value.filter((item): item is string => typeof item === 'string')
 }
 
-type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
-
-const toError = (error: ErrorInput): Error => {
-  if (error instanceof Error) return error
-  return new Error(String(error))
-}
-
 function readLocalRegistryAll(): RegistryItem[] {
   const candidates = [
     path.join(process.cwd(), 'registry-all.json'),
@@ -88,7 +81,7 @@ async function loadRegistryIndex(
 
         return items
       } catch (e) {
-        lastError = toError(e)
+        lastError = e instanceof Error ? e : new Error(String(e))
         continue
       }
     }
@@ -139,7 +132,7 @@ async function loadRegistryItem(
 
         return data
       } catch (e) {
-        lastError = toError(e)
+        lastError = e instanceof Error ? e : new Error(String(e))
         continue
       }
     }

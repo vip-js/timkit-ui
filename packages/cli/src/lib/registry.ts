@@ -32,11 +32,6 @@ type RegistryPayloadRecord = Record<string, JsonValue> & {
 
 const registryItemsSchema = z.array(registryItemSchema)
 
-function toError(error: unknown): Error {
-  if (error instanceof Error) return error
-  return new Error(String(error))
-}
-
 function isRegistryPayloadRecord(
   payload: RegistryItem[] | RegistryPayloadRecord
 ): payload is RegistryPayloadRecord {
@@ -148,14 +143,14 @@ export async function loadRegistryIndex(registryBase?: string): Promise<Registry
       const items = parseRegistryPayload(raw)
       return items
     } catch (e) {
-      lastError = toError(e)
+      lastError = e instanceof Error ? e : new Error(String(e))
       const allUrl = `${normalized}/registry-all.json`
       try {
         const raw = await fetchTextWithRetry(allUrl)
         const items = parseRegistryPayload(raw)
         return items
       } catch (e2) {
-        lastError = toError(e2)
+        lastError = e2 instanceof Error ? e2 : new Error(String(e2))
         continue
       }
     }
@@ -172,7 +167,7 @@ export async function loadRegistryItem(name: string, registryBase?: string): Pro
     try {
       return await fetchJsonWithRetry<RegistryItem>(itemUrl)
     } catch (e) {
-      lastError = toError(e)
+      lastError = e instanceof Error ? e : new Error(String(e))
       continue
     }
   }

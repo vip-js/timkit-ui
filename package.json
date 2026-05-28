@@ -26,7 +26,7 @@
     "goal:demo-titles": "node --import tsx scripts/report-demo-title-coverage.ts",
     "goal:perf": "node --import tsx scripts/goal-perf-report.ts",
     "goal:perf:baseline": "node --import tsx scripts/goal-perf-baseline.ts",
-    "goal:lint": "pnpm --filter @timui/core run lint && pnpm --filter @timui/react run lint && pnpm --filter @timui/vue run lint && pnpm --filter @timui/weapp run lint && pnpm --filter @timui/cli run lint && pnpm --filter @timui/tokens run lint && pnpm --filter @timui/docs run lint",
+    "goal:lint": "pnpm --filter @timui/core run lint && pnpm --filter @timui/agent run lint && pnpm --filter @timui/react run lint && pnpm --filter @timui/vue run lint && pnpm --filter @timui/weapp run lint && pnpm --filter @timui/cli run lint && pnpm --filter @timui/tokens run lint && pnpm --filter @timui/docs run lint",
     "goal:typecheck": "pnpm --filter @timui/react run typecheck && pnpm --filter @timui/vue run typecheck",
     "goal:multi-build": "pnpm --filter @timui/weapp run build && pnpm --filter @timui/html run build",
     "goal:acceptance": "pnpm goal:gap && pnpm goal:consistency && pnpm goal:perf",

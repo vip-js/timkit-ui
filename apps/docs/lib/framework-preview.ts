@@ -35,6 +35,11 @@ function getFileBaseName(filePath: string) {
   return fileName.replace(/\.[^.]+$/, '')
 }
 
+function getMetaString(component: RegistryItem, key: string) {
+  const value = component.meta?.[key]
+  return typeof value === 'string' ? value : undefined
+}
+
 export function getPreviewComponentGroup(name: string) {
   return getDemoComponentGroup(name)
 }
@@ -62,18 +67,20 @@ export function resolveFrameworkPreviewTargets(
   const reactFile = reactSource.file
   const vueFile = vueSource.file
   const htmlFile = htmlSource.file
+  const reactPreviewPath = getMetaString(component, 'previewPath')
 
   return {
     react: {
-      available: Boolean(reactFile || previewHints.react?.available),
+      available: Boolean(reactPreviewPath || reactFile || previewHints.react?.available),
       componentName:
         preferHintedDemo && previewHints.react?.componentName
           ? previewHints.react.componentName
           : component.name,
       componentPath:
-        preferHintedDemo && previewHints.react?.componentPath
+        reactPreviewPath ??
+        (preferHintedDemo && previewHints.react?.componentPath
           ? previewHints.react.componentPath
-          : reactFile?.path,
+          : reactFile?.path),
     },
     vue: {
       available: Boolean(vueSource.file || previewHints.vue?.available),

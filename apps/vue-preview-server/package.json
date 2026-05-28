@@ -6,9 +6,9 @@
   "scripts": {
     "predev": "node ../../scripts/generate-vue-ui-token-entries.cjs",
     "prebuild": "node ../../scripts/generate-vue-ui-token-entries.cjs",
-    "dev": "vite --force --host 127.0.0.1 --port 3002",
+    "dev": "vite --force --host 127.0.0.1 --port 3003",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host 127.0.0.1 --port 3003 --strictPort"
   },
   "dependencies": {
     "@timui/core": "workspace:*",

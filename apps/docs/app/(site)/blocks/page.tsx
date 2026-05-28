@@ -4,6 +4,7 @@ import { ArrowRight, Blocks, Smartphone, Terminal } from 'lucide-react'
 
 import { getRegistryIndexItems } from '@/lib/registry-index'
 import PageHeader from '@/components/page-header'
+import RuntimePreview from '@/components/runtime-preview'
 
 export const dynamic = 'force-static'
 export const runtime = 'nodejs'
@@ -24,6 +25,11 @@ const getCategory = (item: RegistryItem) => {
   const value = item.meta?.category
   if (typeof value === 'string') return value
   return item.categories?.[0] || 'blocks'
+}
+
+const getPreviewPath = (item: RegistryItem) => {
+  const value = item.meta?.previewPath
+  return typeof value === 'string' ? value : undefined
 }
 
 export default function BlocksPage() {
@@ -103,6 +109,17 @@ function BlockCard({ item }: { item: RegistryItem }) {
 
   return (
     <article className="rounded-lg border bg-card p-4 shadow-sm">
+      {getPreviewPath(item) ? (
+        <div className="mb-4 overflow-hidden rounded-lg border bg-background">
+          <RuntimePreview
+            className="relative min-h-[360px] w-full overflow-hidden bg-background"
+            componentName={item.name}
+            componentPath={getPreviewPath(item)}
+            framework="react"
+            props={{}}
+          />
+        </div>
+      ) : null}
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-base font-semibold tracking-normal">{item.name}</h3>

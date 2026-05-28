@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   Code2,
   Database,
+  FileCode2,
   MessagesSquare,
   Play,
   Search,
@@ -30,47 +31,56 @@ const workflow = [
 
 const commands = [
   'curl https://ui.timkit.cn/agent-index.json',
+  'pnpm --filter @timui/cli exec timkit agent plan "build a mobile agent console" --mobile --json',
   'pnpm --filter @timui/cli exec timkit list --mobile --framework react --json',
   'npx shadcn@latest add https://ui.timkit.cn/r/mobile-agent-console.json',
-  'npx shadcn@latest add https://ui.timkit.cn/r/commerce-home-01.json',
 ]
+
+const sdkExample = `import { TimkitAgent } from '@timui/agent'
+
+const agent = new TimkitAgent({ registryItems })
+const plan = agent.plan({
+  prompt: 'Build a mobile AI workspace with chat, tool calls, and preview',
+  framework: 'react',
+  mode: 'agent',
+  mobile: true,
+})
+
+const code = agent.generateComponent({
+  name: plan.selected[0].name,
+  framework: plan.framework,
+})`
 
 export default function AgentsPage() {
   return (
-    <main className="px-4 py-8 md:px-8 md:py-12">
-      <div className="mx-auto max-w-7xl">
-        <section className="grid gap-6 border-b pb-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div className="min-w-0">
-            <div className="inline-flex min-h-[36px] items-center gap-2 rounded-lg border bg-background px-3 text-xs font-semibold text-primary shadow-sm">
+    <main className="py-8 md:py-12">
+      <div className="ued-shell">
+        <section className="grid max-w-full gap-8 overflow-hidden border-b pb-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div className="min-w-0 max-w-full">
+            <div className="ued-eyebrow">
               <Bot className="size-4" />
               Agent-native UI system
             </div>
-            <h1 className="mt-5 max-w-3xl font-heading text-4xl font-bold tracking-normal text-foreground md:text-6xl">
-              Timkit UI for chat, CLI, and coding agents
+            <h1 className="mt-6 max-w-full break-words font-heading text-4xl font-semibold tracking-normal text-foreground md:text-6xl">
+              Timkit UI for chat, CLI, coding agents, and AI app builders
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-              用同一份 registry 源码支撑三类入口：聊天式需求拆解、CLI 安装命令、Agent
-              自动检索和落地代码。React、Vue、HTML、WeApp 的 demo 选择规则保持一致。
+            <p className="mt-5 max-w-full break-words text-base leading-8 text-muted-foreground md:text-lg">
+              用同一份 registry 源码和 @timui/agent SDK 支撑聊天式需求拆解、CLI 命令编排、Agent
+              自动检索、代码生成与落地校验。React、Vue、HTML、WeApp 的选择规则保持一致。
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link
-                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-foreground px-5 text-sm font-semibold text-background transition-colors hover:bg-foreground/90"
-                href="/agent-index.json"
-              >
+              <Link className="ued-primary-action w-full sm:w-auto" href="/agent-index.json">
                 Inspect contract
                 <ArrowRight className="ml-2 size-4" />
               </Link>
-              <Link
-                className="inline-flex min-h-[44px] items-center justify-center rounded-lg border bg-background px-5 text-sm font-semibold transition-colors hover:bg-muted"
-                href="/components"
-              >
-                Browse registry
+              <Link className="ued-secondary-action w-full sm:w-auto" href="/llms.txt">
+                Read llms.txt
               </Link>
             </div>
           </div>
 
-          <div className="grid gap-3 rounded-lg border bg-card p-3 shadow-sm">
-            <div className="rounded-lg border bg-background p-4">
+          <div className="grid min-w-0 max-w-full gap-3">
+            <div className="ued-panel p-4">
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-semibold">
                   <MessagesSquare className="size-4 text-primary" />
@@ -91,21 +101,21 @@ export default function AgentsPage() {
             </div>
 
             <div className="grid gap-3 md:grid-cols-2">
-              <div className="rounded-lg border bg-background p-4">
+              <div className="ued-panel p-4">
                 <div className="flex items-center gap-2 text-sm font-semibold">
                   <Terminal className="size-4 text-emerald-600" />
                   CLI path
                 </div>
-                <code className="mt-4 block overflow-x-auto rounded-md bg-zinc-950 px-3 py-2 text-xs text-zinc-50">
+                <code className="mt-4 block overflow-x-auto rounded-md bg-zinc-950 px-3 py-2 text-xs leading-5 text-zinc-50">
                   npx shadcn@latest add https://ui.timkit.cn/r/mobile-agent-console.json
                 </code>
               </div>
-              <div className="rounded-lg border bg-background p-4">
+              <div className="ued-panel p-4">
                 <div className="flex items-center gap-2 text-sm font-semibold">
                   <Braces className="size-4 text-sky-600" />
                   Agent JSON
                 </div>
-                <pre className="mt-4 overflow-x-auto rounded-md bg-muted px-3 py-2 text-xs">
+                <pre className="ued-kbd mt-4 overflow-x-auto">
                   <code>{'{ type: "registry:page", frameworks: ["react", "vue"] }'}</code>
                 </pre>
               </div>
@@ -113,16 +123,16 @@ export default function AgentsPage() {
           </div>
         </section>
 
-        <section className="grid gap-4 border-b py-6 md:grid-cols-4">
+        <section className="grid gap-4 border-b py-8 md:grid-cols-4">
           {[
             { label: 'Discover', value: 'registry-index.json', icon: Database },
-            { label: 'Ask', value: 'chat prompt recipes', icon: MessagesSquare },
-            { label: 'Install', value: 'shadcn add URL', icon: Terminal },
+            { label: 'Plan', value: '@timui/agent SDK', icon: Bot },
+            { label: 'Install', value: 'timkit agent CLI', icon: Terminal },
             { label: 'Compose', value: 'pages + blocks + ui', icon: Code2 },
           ].map((item) => {
             const Icon = item.icon
             return (
-              <div key={item.label} className="rounded-lg border bg-card p-4">
+              <div key={item.label} className="ued-card p-4">
                 <Icon className="size-5 text-primary" />
                 <p className="mt-4 text-xs font-medium uppercase tracking-normal text-muted-foreground">
                   {item.label}
@@ -133,12 +143,12 @@ export default function AgentsPage() {
           })}
         </section>
 
-        <section className="grid gap-6 py-8 lg:grid-cols-[1fr_0.9fr]">
-          <div className="rounded-lg border bg-card p-5">
-            <h2 className="text-xl font-semibold tracking-normal">Agent build workflow</h2>
+        <section className="grid gap-8 py-10 lg:grid-cols-[1fr_0.9fr]">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-normal">Agent build workflow</h2>
             <div className="mt-5 grid gap-3">
               {workflow.map(([step, title, body]) => (
-                <div key={step} className="flex gap-3 rounded-lg border bg-background p-4">
+                <div key={step} className="ued-card flex gap-3 p-4">
                   <span className="flex size-7 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
                     {step}
                   </span>
@@ -151,14 +161,11 @@ export default function AgentsPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border bg-card p-5">
-            <h2 className="text-xl font-semibold tracking-normal">CLI primitives</h2>
+          <div>
+            <h2 className="text-2xl font-semibold tracking-normal">CLI primitives</h2>
             <div className="mt-5 grid gap-3">
               {commands.map((command) => (
-                <code
-                  key={command}
-                  className="block overflow-x-auto rounded-md bg-muted px-3 py-2 text-xs"
-                >
+                <code key={command} className="ued-kbd block overflow-x-auto">
                   {command}
                 </code>
               ))}
@@ -166,7 +173,27 @@ export default function AgentsPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 border-t py-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <section className="grid gap-8 border-t py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+              <FileCode2 className="size-4" />
+              Programmable Agent SDK
+            </div>
+            <h2 className="mt-3 text-2xl font-semibold tracking-normal">
+              One API for chat sessions, CLI plans, and code agents
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              @timui/agent exposes registry search, component metadata, install planning, starter
+              code generation, validation hints, and multi-turn chat state. Agents can stop scraping
+              prose pages and operate on stable typed contracts.
+            </p>
+          </div>
+          <pre className="overflow-x-auto rounded-lg border bg-zinc-950 px-4 py-4 text-xs leading-5 text-zinc-50 shadow-sm">
+            <code>{sdkExample}</code>
+          </pre>
+        </section>
+
+        <section className="grid gap-8 border-t py-10 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
             <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Search className="size-4" />
@@ -184,7 +211,7 @@ export default function AgentsPage() {
             {endpoints.map(([label, href, description]) => (
               <Link
                 key={href}
-                className="flex min-h-[56px] items-center justify-between rounded-lg border bg-card px-4 text-sm transition-colors hover:bg-muted"
+                className="ued-card flex min-h-16 items-center justify-between px-4 text-sm"
                 href={href}
               >
                 <span>
@@ -200,8 +227,8 @@ export default function AgentsPage() {
           </div>
         </section>
 
-        <section className="rounded-lg border bg-card p-5">
-          <h2 className="text-xl font-semibold tracking-normal">Acceptance gates</h2>
+        <section className="border-t py-10">
+          <h2 className="text-2xl font-semibold tracking-normal">Acceptance gates</h2>
           <div className="mt-5 grid gap-3 md:grid-cols-3">
             {[
               ['Preview protocol', 'React and Vue both use LOAD_PREVIEW runtime messages.'],
@@ -211,14 +238,14 @@ export default function AgentsPage() {
                 'Registry size and preview lazy loading are checked by goal scripts.',
               ],
             ].map(([title, body]) => (
-              <div key={title} className="rounded-lg border bg-background p-4">
+              <div key={title} className="ued-card p-4">
                 <CheckCircle2 className="size-5 text-emerald-600" />
                 <h3 className="mt-4 text-sm font-semibold">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
               </div>
             ))}
           </div>
-          <div className="mt-5 flex items-center gap-2 rounded-lg border bg-background px-4 py-3 text-sm">
+          <div className="ued-panel mt-5 flex items-center gap-2 px-4 py-3 text-sm">
             <Play className="size-4 text-primary" />
             <code>pnpm goal:acceptance && pnpm goal:test:preview:protocol</code>
           </div>

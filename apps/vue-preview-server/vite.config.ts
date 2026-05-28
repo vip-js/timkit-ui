@@ -16,8 +16,7 @@ const packageVueIndex = path.join(packageVueRoot, 'src/index.ts')
 const packageVueUiIndex = path.join(packageVueUiRoot, 'index.ts')
 const VIRTUAL_UI_PREFIX = '\0timui-ui:'
 const VIRTUAL_ASSET_PREFIX = '\0timui-preview-asset:'
-const transparentPixel =
-  'data:image/gif;base64,R0lGODlhAQABAAAAACw='
+const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAAAAACw='
 
 function walkVueFiles(rootDir: string): string[] {
   if (!fs.existsSync(rootDir)) return []
@@ -154,8 +153,14 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    port: 3002,
+    port: 3003,
+    strictPort: true,
     cors: true,
+  },
+  preview: {
+    host: '127.0.0.1',
+    port: 3003,
+    strictPort: true,
   },
   resolve: {
     alias: [

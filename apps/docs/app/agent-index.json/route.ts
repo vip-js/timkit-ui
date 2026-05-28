@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { TimkitAgent } from '@timui/agent'
 import type { JsonValue, RegistryItem } from '@timui/core'
 
 import { getRegistryIndexItems } from '@/lib/registry-index'
@@ -18,6 +19,11 @@ const getMetaString = (item: RegistryItem, key: string): string | undefined => {
 export function GET() {
   const items = getRegistryIndexItems()
   const publicItems = items.filter((item) => item.meta?.isActive !== false)
+  const agent = new TimkitAgent({
+    registryItems: publicItems,
+    registryBaseUrl: 'https://ui.timkit.cn',
+    defaultFramework: 'react',
+  })
   const mobileItems = publicItems.filter((item) => {
     const tags = getStringArray(item.meta?.tags)
     const viewport = getMetaString(item, 'viewport') || ''
@@ -30,11 +36,27 @@ export function GET() {
     registryIndex: 'https://ui.timkit.cn/registry-index.json',
     registryAll: 'https://ui.timkit.cn/registry-all.json',
     itemUrlTemplate: 'https://ui.timkit.cn/r/{name}.json',
+    sdk: {
+      package: '@timui/agent',
+      import: "import { TimkitAgent } from '@timui/agent'",
+      capabilities: [
+        'listComponents',
+        'searchComponents',
+        'getComponentMetadata',
+        'plan',
+        'generateComponent',
+        'validateComponent',
+        'createSession',
+      ],
+    },
     commands: {
       inspect: 'curl https://ui.timkit.cn/agent-index.json',
       fetchItem: 'curl https://ui.timkit.cn/r/{name}.json',
       shadcnAdd: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
       localTimkitList: 'pnpm --filter @timui/cli exec timkit list --mobile --json',
+      agentPlan:
+        'pnpm --filter @timui/cli exec timkit agent plan "build a mobile agent console" --mobile --json',
+      agentInspect: 'pnpm --filter @timui/cli exec timkit agent inspect button --json',
     },
     interactionModes: {
       chat: {
@@ -51,6 +73,8 @@ export function GET() {
       agent: {
         discover: 'GET /agent-index.json, then GET /registry-index.json',
         fetchSource: 'GET /r/{name}.json',
+        sdkPlan:
+          'const plan = new TimkitAgent({ registryItems }).plan({ prompt, framework: "react", mobile: true })',
         verify:
           'Run pnpm goal:acceptance, pnpm goal:test:preview:protocol, and pnpm goal:test:docs:canonical after changes.',
       },
@@ -69,6 +93,13 @@ export function GET() {
       frameworks: getStringArray(item.meta?.frameworks),
       url: `https://ui.timkit.cn/r/${item.name}.json`,
     })),
+    recommendedAgentPlan: agent.plan({
+      prompt:
+        'Build a modern mobile AI agent console with chat, tools, task timeline, and app preview.',
+      framework: 'react',
+      mode: 'agent',
+      mobile: true,
+    }),
     previewContract: {
       protocol: 'LOAD_PREVIEW',
       frameworks: ['react', 'vue', 'html'],

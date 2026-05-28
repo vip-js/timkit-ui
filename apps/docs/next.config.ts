@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   async rewrites() {
-    const vuePreviewUrl = process.env.VUE_PREVIEW_INTERNAL_URL || 'http://127.0.0.1:3002'
+    const vuePreviewUrl = process.env.VUE_PREVIEW_INTERNAL_URL || 'http://127.0.0.1:3003'
     return [
       {
         source: '/preview/vue',

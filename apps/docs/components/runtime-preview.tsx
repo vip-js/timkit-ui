@@ -31,6 +31,26 @@ const isPreviewResizeMessage = (
   return candidate.type === 'PREVIEW_RESIZE' && typeof candidate.height === 'number'
 }
 
+function buildPreviewUrl(
+  base: string,
+  params: Record<string, string | undefined>,
+  origin?: string
+) {
+  const searchParams = new URLSearchParams()
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) searchParams.set(key, value)
+  })
+
+  if (base.startsWith('/')) {
+    const separator = base.includes('?') ? '&' : '?'
+    return `${base}${separator}${searchParams.toString()}`
+  }
+
+  const url = new URL(base, origin || 'http://127.0.0.1')
+  searchParams.forEach((value, key) => url.searchParams.set(key, value))
+  return url.toString()
+}
+
 export default function RuntimePreview({
   framework,
   componentName,
@@ -53,20 +73,20 @@ export default function RuntimePreview({
 
   const previewSrc = React.useMemo(() => {
     const base = framework === 'react' ? reactPreviewBase : vuePreviewBase
-    const url = new URL(
+    return buildPreviewUrl(
       base,
-      typeof window !== 'undefined' ? window.location.origin : 'http://127.0.0.1'
+      {
+        framework,
+        component: framework === 'vue' ? componentName || 'button' : undefined,
+        path: framework === 'react' ? componentPath : undefined,
+      },
+      typeof window !== 'undefined' ? window.location.origin : undefined
     )
-    url.searchParams.set('framework', framework)
-    if (framework === 'vue') {
-      url.searchParams.set('component', componentName || 'button')
-    }
-    if (framework === 'react' && componentPath) {
-      url.searchParams.set('path', componentPath)
-    }
-    return url.toString()
   }, [componentName, componentPath, framework, reactPreviewBase, vuePreviewBase])
-  const previewOrigin = React.useMemo(() => new URL(previewSrc).origin, [previewSrc])
+  const previewOrigin = React.useMemo(() => {
+    if (typeof window !== 'undefined') return new URL(previewSrc, window.location.origin).origin
+    return ''
+  }, [previewSrc])
 
   const postLoadRequest = React.useCallback(() => {
     if (!iframeRef.current?.contentWindow) return

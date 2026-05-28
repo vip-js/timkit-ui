@@ -3,6 +3,14 @@
 // Do not edit manually.
 
 export const registryComponentManifest = {
+  'registry/default/blocks/authentication/login-01.tsx': () =>
+    import('@/registry/default/blocks/authentication/login-01'),
+  'registry/default/blocks/mobile-agent/agent-chat-01.tsx': () =>
+    import('@/registry/default/blocks/mobile-agent/agent-chat-01'),
+  'registry/default/blocks/mobile-commerce/commerce-home-01.tsx': () =>
+    import('@/registry/default/blocks/mobile-commerce/commerce-home-01'),
+  'registry/default/blocks/mobile-finance/wallet-home-01.tsx': () =>
+    import('@/registry/default/blocks/mobile-finance/wallet-home-01'),
   'registry/default/components/accordion/accordion-01.tsx': () =>
     import('@/registry/default/components/accordion/accordion-01'),
   'registry/default/components/accordion/accordion-02.tsx': () =>
@@ -1237,6 +1245,12 @@ export const registryComponentManifest = {
     import('@/registry/default/components/tree/tree-11'),
   'registry/default/components/tree/tree-12.tsx': () =>
     import('@/registry/default/components/tree/tree-12'),
+  'registry/default/templates/mobile-app/mobile-agent-console.tsx': () =>
+    import('@/registry/default/templates/mobile-app/mobile-agent-console'),
+  'registry/default/templates/mobile-app/mobile-marketplace.tsx': () =>
+    import('@/registry/default/templates/mobile-app/mobile-marketplace'),
+  'registry/default/templates/mobile-app/mobile-wallet.tsx': () =>
+    import('@/registry/default/templates/mobile-app/mobile-wallet'),
   'registry/default/ui/accordion.tsx': () => import('@/registry/default/ui/accordion'),
   'registry/default/ui/alert-dialog.tsx': () => import('@/registry/default/ui/alert-dialog'),
   'registry/default/ui/alert.tsx': () => import('@/registry/default/ui/alert'),

@@ -8,9 +8,8 @@ const resolveRepoRoot = () => {
     path.resolve(process.cwd(), '..', '..'),
   ]
   return (
-    candidates.find((candidate) =>
-      fs.existsSync(path.join(candidate, 'apps/docs/registry'))
-    ) || process.cwd()
+    candidates.find((candidate) => fs.existsSync(path.join(candidate, 'apps/docs/registry'))) ||
+    process.cwd()
   )
 }
 
@@ -22,15 +21,34 @@ const toPosix = (value) => value.replace(/\\/g, '/')
 
 const registryRoot = path.join(REPO_ROOT, 'apps/docs')
 const registryIndex = JSON.parse(fs.readFileSync(REGISTRY_INDEX, 'utf-8'))
+function walkTsxFiles(rootDir) {
+  if (!fs.existsSync(rootDir)) return []
+  const entries = fs.readdirSync(rootDir, { withFileTypes: true })
+  return entries.flatMap((entry) => {
+    const fullPath = path.join(rootDir, entry.name)
+    if (entry.isDirectory()) return walkTsxFiles(fullPath)
+    if (entry.isFile() && entry.name.endsWith('.tsx')) {
+      return [toPosix(path.relative(registryRoot, fullPath))]
+    }
+    return []
+  })
+}
+
 const files = Array.from(
-  new Set(
-    (registryIndex.items || [])
-      .flatMap((item) => item.files || [])
-      .map((file) => file.path)
+  new Set([
+    ...(registryIndex.items || [])
+      .flatMap((item) => {
+        const itemFiles = item.files || []
+        const previewPath =
+          item.meta && typeof item.meta.previewPath === 'string' ? item.meta.previewPath : ''
+        return [...itemFiles.map((file) => file.path), previewPath]
+      })
       .filter((filePath) => typeof filePath === 'string' && filePath.endsWith('.tsx'))
       .filter((filePath) => filePath.startsWith('registry/'))
-      .filter((filePath) => fs.existsSync(path.join(registryRoot, filePath)))
-  )
+      .filter((filePath) => fs.existsSync(path.join(registryRoot, filePath))),
+    ...walkTsxFiles(path.join(registryRoot, 'registry/default/blocks')),
+    ...walkTsxFiles(path.join(registryRoot, 'registry/default/templates')),
+  ])
 )
 
 const entries = files

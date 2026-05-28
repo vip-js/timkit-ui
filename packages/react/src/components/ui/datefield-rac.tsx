@@ -75,7 +75,7 @@ function DateField<T = DateFieldValue>({
       if (value === undefined) {
         setUncontrolledValue(nextValue)
       }
-      onChange?.(nextValue as unknown as T)
+      onChange?.(nextValue as T)
     },
     [onChange, value]
   )
@@ -116,7 +116,7 @@ function TimeField<T = DateFieldValue>({
       if (value === undefined) {
         setUncontrolledValue(nextValue)
       }
-      onChange?.(nextValue as unknown as T)
+      onChange?.(nextValue as T)
     },
     [onChange, value]
   )
@@ -146,11 +146,7 @@ function DateInput({ className, unstyled = false, invalid, type, step, ...props 
 
   const resolvedStep =
     step ??
-    (context?.granularity === 'second'
-      ? 1
-      : context?.granularity === 'minute'
-        ? 60
-        : undefined)
+    (context?.granularity === 'second' ? 1 : context?.granularity === 'minute' ? 60 : undefined)
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -3,13 +3,13 @@ import fs from 'fs'
 import path from 'path'
 import { Command } from 'commander'
 import {
+  Identifier,
+  JsxElement,
+  JsxFragment,
+  JsxSelfClosingElement,
+  Node,
   Project,
   SyntaxKind,
-  JsxElement,
-  JsxSelfClosingElement,
-  JsxFragment,
-  Node,
-  Identifier
 } from 'ts-morph'
 
 // Simple mapping for React to Vue specific components
@@ -66,16 +66,16 @@ function resolveVueImports(
     if (imp.module === '@timui/react') {
       imp.named.forEach((comp) => {
         let group = comp
-        
+
         // Handle Hooks
         if (comp.startsWith('use')) {
-           const path = `@/components/hooks/${comp.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`
-           if (!localImports.includes(`import { ${comp} } from '${path}';`)) {
-               localImports.push(`import { ${comp} } from '${path}';`)
-           }
-           return
+          const path = `@/components/hooks/${comp.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`
+          if (!localImports.includes(`import { ${comp} } from '${path}';`)) {
+            localImports.push(`import { ${comp} } from '${path}';`)
+          }
+          return
         }
-        
+
         if (comp.startsWith('NavigationMenu')) group = 'navigation-menu'
         else if (comp.startsWith('Breadcrumb')) group = 'breadcrumb'
         else if (comp.startsWith('Popover')) group = 'popover'
@@ -86,12 +86,13 @@ function resolveVueImports(
         else if (comp.startsWith('DropdownMenu')) group = 'dropdown-menu'
         else if (comp.startsWith('Avatar')) group = 'avatar'
         else if (comp.startsWith('Sheet')) group = 'sheet'
-        else if (comp.startsWith('Cropper')) group = 'image-cropper' // Handle cropper tokens
+        else if (comp.startsWith('Cropper'))
+          group = 'image-cropper' // Handle cropper tokens
         else group = comp.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
         // Handle specific skip cases (DateInputStyle, Option)
         if (group === 'date-input-style' || group === 'option' || group === 'cropper-crop-area') {
-           return
+          return
         }
 
         const path = `@/components/ui/${group}`
@@ -111,7 +112,12 @@ function resolveVueImports(
       if (imp.named.length > 0)
         localImports.push(`import { ${imp.named.join(', ')} } from '${resolvedRef}.vue';`)
       if (imp.default) localImports.push(`import ${imp.default} from '${resolvedRef}.vue';`)
-    } else if (imp.module !== '@timui/react' && imp.module !== '@timui/core' && imp.module !== 'lucide-react' && imp.module !== 'react') {
+    } else if (
+      imp.module !== '@timui/react' &&
+      imp.module !== '@timui/core' &&
+      imp.module !== 'lucide-react' &&
+      imp.module !== 'react'
+    ) {
       // Preserve other third party imports like date-fns
       if (imp.named.length > 0)
         localImports.push(`import { ${imp.named.join(', ')} } from '${imp.module}';`)
@@ -145,8 +151,8 @@ function processAttributes(
 
         // Component-specific attribute overrides
         if (tagName === 'Calendar' && name === 'onSelect') {
-            if (platform === 'vue') mappedName = '@update:modelValue'
-            if (platform === 'wxml') mappedName = 'bindchange'
+          if (platform === 'vue') mappedName = '@update:modelValue'
+          if (platform === 'wxml') mappedName = 'bindchange'
         } else if (platform === 'vue' && vueEventMapping[mappedName]) {
           mappedName = vueEventMapping[mappedName]
         } else if (platform === 'wxml' && wxmlEventMapping[mappedName]) {
@@ -162,11 +168,12 @@ function processAttributes(
           let exp = init.getExpression()?.getText() || '""'
 
           // Extract inner body if arrow function used in event handler
+          const expression = init.getExpression()
           if (
-            init.getExpression()?.isKind(SyntaxKind.ArrowFunction) &&
+            expression?.isKind(SyntaxKind.ArrowFunction) &&
             (mappedName.startsWith('@') || mappedName.startsWith('bind'))
           ) {
-            const arrow = init.getExpression().asKind(SyntaxKind.ArrowFunction)
+            const arrow = expression.asKind(SyntaxKind.ArrowFunction)
             if (arrow) exp = arrow.getBody().getText()
           }
 
@@ -318,31 +325,50 @@ function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
         const condition = condExpr.getCondition().getText()
         let trueNode = condExpr.getWhenTrue()
         let falseNode = condExpr.getWhenFalse()
-        
+
         if (trueNode.isKind(SyntaxKind.ParenthesizedExpression)) trueNode = trueNode.getExpression()
-        if (falseNode.isKind(SyntaxKind.ParenthesizedExpression)) falseNode = falseNode.getExpression()
+        if (falseNode.isKind(SyntaxKind.ParenthesizedExpression))
+          falseNode = falseNode.getExpression()
 
         let trueContent = ''
         let falseContent = ''
 
-        if (Node.isJsxElement(trueNode) || Node.isJsxSelfClosingElement(trueNode) || Node.isJsxFragment(trueNode)) {
+        if (
+          Node.isJsxElement(trueNode) ||
+          Node.isJsxSelfClosingElement(trueNode) ||
+          Node.isJsxFragment(trueNode)
+        ) {
           trueContent = processJsxNode(trueNode, platform)
         } else {
-          trueContent = platform === 'wxml' ? `{{ ${trueNode.getText()} }}` : (platform === 'vue' ? `{{ ${trueNode.getText()} }}` : `\${${trueNode.getText()}}`)
+          trueContent =
+            platform === 'wxml'
+              ? `{{ ${trueNode.getText()} }}`
+              : platform === 'vue'
+                ? `{{ ${trueNode.getText()} }}`
+                : `\${${trueNode.getText()}}`
         }
 
-        if (Node.isJsxElement(falseNode) || Node.isJsxSelfClosingElement(falseNode) || Node.isJsxFragment(falseNode)) {
+        if (
+          Node.isJsxElement(falseNode) ||
+          Node.isJsxSelfClosingElement(falseNode) ||
+          Node.isJsxFragment(falseNode)
+        ) {
           falseContent = processJsxNode(falseNode, platform)
         } else {
-          falseContent = platform === 'wxml' ? `{{ ${falseNode.getText()} }}` : (platform === 'vue' ? `{{ ${falseNode.getText()} }}` : `\${${falseNode.getText()}}`)
+          falseContent =
+            platform === 'wxml'
+              ? `{{ ${falseNode.getText()} }}`
+              : platform === 'vue'
+                ? `{{ ${falseNode.getText()} }}`
+                : `\${${falseNode.getText()}}`
         }
 
         if (platform === 'vue') {
-           return `<template v-if="${condition}">\n${trueContent}\n</template>\n<template v-else>\n${falseContent}\n</template>`
+          return `<template v-if="${condition}">\n${trueContent}\n</template>\n<template v-else>\n${falseContent}\n</template>`
         } else if (platform === 'wxml') {
-           return `<block wx:if="{{${condition}}}">\n${trueContent}\n</block>\n<block wx:else>\n${falseContent}\n</block>`
+          return `<block wx:if="{{${condition}}}">\n${trueContent}\n</block>\n<block wx:else>\n${falseContent}\n</block>`
         } else {
-           return `<!-- if ${condition} -->\n${trueContent}\n<!-- else -->\n${falseContent}\n<!-- endif -->`
+          return `<!-- if ${condition} -->\n${trueContent}\n<!-- else -->\n${falseContent}\n<!-- endif -->`
         }
       }
     }
@@ -363,8 +389,8 @@ function processJsxNode(node: Node, platform: 'vue' | 'html' | 'wxml'): string {
         ? originalTagName === 'div'
           ? 'view'
           : originalTagName === 'span' || originalTagName === 'p'
-          ? 'text'
-          : originalTagName.toLowerCase()
+            ? 'text'
+            : originalTagName.toLowerCase()
         : originalTagName
 
     const attrs = processAttributes(originalTagName, opening.getAttributes(), platform)
@@ -424,7 +450,6 @@ function processComponent(filePath: string, project: Project, htmlDir?: string) 
   if (defaultExport) {
     const dec = defaultExport.getDeclarations()[0]
     if (dec && dec.isKind(SyntaxKind.FunctionDeclaration)) {
-      
       // Extract hooks (useState -> ref)
       const statements = dec.getStatements()
       for (const stmt of statements) {
@@ -438,15 +463,15 @@ function processComponent(filePath: string, project: Project, htmlDir?: string) 
               let defaultVal = initializer.getArguments()[0]?.getText() || 'undefined'
               let stateName = 'state'
               const nameNode = varDeclNode.getNameNode()
-              
+
               if (nameNode.isKind(SyntaxKind.ArrayBindingPattern)) {
                 stateName = nameNode.getElements()[0]?.getText() || 'state'
               }
-              
+
               const typeArgs = initializer.getTypeArguments()
               let typeDef = ''
               if (typeArgs.length > 0) {
-                 typeDef = `<${typeArgs[0].getText()}>`
+                typeDef = `<${typeArgs[0].getText()}>`
               }
               hooksCode += `const ${stateName} = ref${typeDef}(${defaultVal});\n`
             }
@@ -587,6 +612,6 @@ export const generatePlatforms = new Command()
         console.error(`❌ Path not found: ${targetDir}`)
       }
     }
-    
+
     console.log('\n✅ All requested platforms generated successfully.')
   })
