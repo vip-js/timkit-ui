@@ -21,9 +21,7 @@ const getStringArray = (value: JsonValue | undefined): string[] => {
   return value.filter((item): item is string => typeof item === 'string')
 }
 
-type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
-
-const toError = (error: ErrorInput): Error => {
+const toError = (error: unknown): Error => {
   if (error instanceof Error) return error
   return new Error(String(error))
 }

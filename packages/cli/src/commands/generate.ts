@@ -159,14 +159,12 @@ function processAttributes(
         if (init?.isKind(SyntaxKind.StringLiteral)) {
           return `${mappedName}=${init.getText()}`
         } else if (init?.isKind(SyntaxKind.JsxExpression)) {
-          let exp = init.getExpression()?.getText() || '""'
+          const expression = init.getExpression()
+          let exp = expression?.getText() || '""'
 
           // Extract inner body if arrow function used in event handler
-          if (
-            init.getExpression()?.isKind(SyntaxKind.ArrowFunction) &&
-            (mappedName.startsWith('@') || mappedName.startsWith('bind'))
-          ) {
-            const arrow = init.getExpression().asKind(SyntaxKind.ArrowFunction)
+          if (expression?.isKind(SyntaxKind.ArrowFunction) && (mappedName.startsWith('@') || mappedName.startsWith('bind'))) {
+            const arrow = expression.asKind(SyntaxKind.ArrowFunction)
             if (arrow) exp = arrow.getBody().getText()
           }
 

@@ -18,9 +18,7 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
   }
 }
 
-type ErrorInput = Error | string | number | boolean | null | undefined | { message?: string }
-
-function toError(error: ErrorInput): Error {
+function toError(error: unknown): Error {
   if (error instanceof Error) return error
   return new Error(String(error))
 }
