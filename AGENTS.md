@@ -2,6 +2,19 @@
 
 This file contains guidelines and commands for agentic coding agents working in the Timkit UI monorepo.
 
+## Generating UI
+
+Read a component contract before writing code:
+
+- Catalog: `https://ui.timkit.cn/agent-index.json` or `timkit agent plan "<prompt>" --json`
+- One component: `https://ui.timkit.cn/agent/{name}.json` or `timkit agent inspect <name> --json`
+- Install: `npx timkit add <name> --yes --framework react`
+- Source payload: `https://ui.timkit.cn/r/{name}.json` is for installers. Do not infer props from it.
+
+If `plan.confidence` is `none`, ask which component to use and do not install a fallback. Use only enum values from the contract. Primitives are named exports from `@timui/react` or `@timui/vue`. Blocks and pages are default exports from the installed file. `size="icon"` requires `aria-label`.
+
+For a whole screen, start from a recipe instead of inventing the composition: `timkit agent recipe login-form`, `confirm-dialog`, `notification-setting`, or `agent-workbench`. Agent threads import `AgentMessage`, `AgentComposer`, `AgentPlan`, `ToolCall`, `ApprovalCard`, and `CitationList` from `@timui/react/agent`. Leave streaming transport in the app. A pending approval blocks the destructive action, and the chosen result stays visible as a receipt. After editing, run `timkit agent validate <file> --fix`. `--fix` rewrites enum values, the framework import, unnamed buttons, and a missing React export. It does not repair broken syntax. `timkit agent deps <name>` lists registry dependencies.
+
 ## Build Commands
 
 ### Commands from Root

@@ -18,22 +18,23 @@ export const dynamic = 'force-static'
 const endpoints = [
   ['Registry index', '/registry-index.json', '可筛选的轻量目录'],
   ['Full registry', '/registry-all.json', '含源码的完整数据'],
-  ['Agent index', '/agent-index.json', '面向 Agent 的契约'],
+  ['Agent index', '/agent-index.json', '目录、命令和选择规则'],
+  ['Component contract', '/agent/button.json', '单个组件的 props、示例和安装命令'],
   ['LLM guide', '/llms.txt', '模型上下文入口'],
 ]
 
 const workflow = [
   ['1', 'Parse intent', '识别页面、区块、原子组件和目标框架'],
-  ['2', 'Select source', '优先 registry:page，再 fallback 到 block 或 ui'],
-  ['3', 'Install code', '通过 shadcn URL 或 timkit CLI 拉取源码'],
-  ['4', 'Verify', '运行 typecheck、preview protocol 和 framework parity'],
+  ['2', 'Read contract', '先读 /agent/{name}.json，只用里面列出的 props 和示例'],
+  ['3', 'Install code', 'npx timkit add <name> --yes --framework <target>'],
+  ['4', 'Verify', 'timkit agent validate，再跑目标项目的 typecheck'],
 ]
 
 const commands = [
   'curl https://ui.timkit.cn/agent-index.json',
   'pnpm --filter @timui/cli exec timkit agent plan "build a mobile agent console" --mobile --json',
-  'pnpm --filter @timui/cli exec timkit list --mobile --framework react --json',
-  'npx shadcn@latest add https://ui.timkit.cn/r/mobile-agent-console.json',
+  'pnpm --filter @timui/cli exec timkit agent inspect button --json',
+  'npx timkit add button --yes --framework react',
 ]
 
 const sdkExample = `import { TimkitAgent } from '@timui/agent'
@@ -46,9 +47,17 @@ const plan = agent.plan({
   mobile: true,
 })
 
+if (plan.confidence === 'none') {
+  throw new Error(plan.clarification)
+}
+
 const code = agent.generateComponent({
   name: plan.selected[0].name,
   framework: plan.framework,
+})
+const check = agent.validateComponent(code.files[0].content, {
+  framework: plan.framework,
+  component: plan.selected[0].name,
 })`
 
 export default function AgentsPage() {

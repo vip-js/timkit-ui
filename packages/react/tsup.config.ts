@@ -8,6 +8,8 @@ export default defineConfig({
     'src/components/ui/index.ts',
     'src/components/ui/*.tsx',
     'src/hooks/*.ts',
+    'src/agent/index.ts',
+    'src/agent/*.tsx',
   ],
   format: ['cjs', 'esm'],
   dts: true,

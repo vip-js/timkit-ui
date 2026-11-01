@@ -35,6 +35,11 @@
       "import": "./dist/manifest.mjs",
       "require": "./dist/manifest.js"
     },
+    "./agent": {
+      "types": "./dist/agent/index.d.ts",
+      "import": "./dist/agent/index.mjs",
+      "require": "./dist/agent/index.js"
+    },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.mjs",

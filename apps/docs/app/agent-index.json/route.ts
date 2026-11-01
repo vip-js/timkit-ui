@@ -36,6 +36,7 @@ export function GET() {
     registryIndex: 'https://ui.timkit.cn/registry-index.json',
     registryAll: 'https://ui.timkit.cn/registry-all.json',
     itemUrlTemplate: 'https://ui.timkit.cn/r/{name}.json',
+    contractUrlTemplate: 'https://ui.timkit.cn/agent/{name}.json',
     sdk: {
       package: '@timui/agent',
       import: "import { TimkitAgent } from '@timui/agent'",
@@ -46,17 +47,24 @@ export function GET() {
         'plan',
         'generateComponent',
         'validateComponent',
+        'getProjectContext',
         'createSession',
+        'buildAgentContract',
       ],
     },
     commands: {
       inspect: 'curl https://ui.timkit.cn/agent-index.json',
+      contract: 'curl https://ui.timkit.cn/agent/{name}.json',
       fetchItem: 'curl https://ui.timkit.cn/r/{name}.json',
+      timkitAdd: 'npx timkit add {name} --yes --framework react',
       shadcnAdd: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
       localTimkitList: 'pnpm --filter @timui/cli exec timkit list --mobile --json',
       agentPlan:
         'pnpm --filter @timui/cli exec timkit agent plan "build a mobile agent console" --mobile --json',
       agentInspect: 'pnpm --filter @timui/cli exec timkit agent inspect button --json',
+      agentValidate:
+        'pnpm --filter @timui/cli exec timkit agent validate <file> --framework react --json',
+      agentContext: 'pnpm --filter @timui/cli exec timkit agent context --json',
     },
     interactionModes: {
       chat: {
@@ -68,10 +76,11 @@ export function GET() {
       },
       cli: {
         list: 'pnpm --filter @timui/cli exec timkit list --mobile --framework react --json',
-        install: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
+        install: 'npx timkit add {name} --yes --framework react',
+        alternateInstall: 'npx shadcn@latest add https://ui.timkit.cn/r/{name}.json',
       },
       agent: {
-        discover: 'GET /agent-index.json, then GET /registry-index.json',
+        discover: 'GET /agent-index.json, then GET /agent/{name}.json before reading source.',
         fetchSource: 'GET /r/{name}.json',
         sdkPlan:
           'const plan = new TimkitAgent({ registryItems }).plan({ prompt, framework: "react", mobile: true })',

@@ -72,6 +72,18 @@ pnpm goal:lint
 pnpm registry:build:all
 ```
 
+## 4.1 Agent 用法
+
+编码 Agent 先规划，再安装，再校验。`confidence` 为 `none` 时不要安装组件。
+
+```bash
+pnpm --filter @timui/cli exec timkit agent plan "我要一个按钮" --framework react --json
+pnpm --filter @timui/cli exec timkit agent inspect button --json
+pnpm --filter @timui/cli exec timkit agent validate ./ButtonExample.tsx --json
+```
+
+原语从 `@timui/react` 或 `@timui/vue` 引入。区块和页面是复制进项目的源码，从安装路径做 default import，不要从框架包里按名字引入。契约说明见 `LLM-AGENT-READINESS.md` 和 `https://ui.timkit.cn/llms.txt`。
+
 ## 5. 发布说明
 
 ### 发布前检查

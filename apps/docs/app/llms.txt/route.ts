@@ -8,27 +8,36 @@ Primary URLs:
 - Homepage: https://ui.timkit.cn
 - Registry index: https://ui.timkit.cn/registry-index.json
 - Full registry: https://ui.timkit.cn/registry-all.json
-- Item shortcut: https://ui.timkit.cn/r/{name}.json
+- Item source: https://ui.timkit.cn/r/{name}.json
+- Component contract: https://ui.timkit.cn/agent/{name}.json
 - Agent index: https://ui.timkit.cn/agent-index.json
 
 CLI:
-- Inspect agent contract: curl https://ui.timkit.cn/agent-index.json
-- Fetch any item: curl https://ui.timkit.cn/r/{name}.json
-- Add a React component with shadcn CLI: npx shadcn@latest add https://ui.timkit.cn/r/button.json
-- Add a mobile block with shadcn CLI: npx shadcn@latest add https://ui.timkit.cn/r/commerce-home-01.json
-- Add a mobile template with shadcn CLI: npx shadcn@latest add https://ui.timkit.cn/r/mobile-marketplace.json
+- Read one component contract: curl https://ui.timkit.cn/agent/button.json
+- Inspect the catalog: curl https://ui.timkit.cn/agent-index.json
+- Fetch installable source: curl https://ui.timkit.cn/r/{name}.json
+- Plan before installing: npx timkit agent plan "<prompt>" --framework react --json
+- Install one item: npx timkit add button --yes --framework react
+- Inspect props before writing code: npx timkit agent inspect button --json
+- Validate a snippet: npx timkit agent validate ./ButtonExample.tsx --framework react --json
+- Fix safe convention issues: npx timkit agent validate ./ButtonExample.tsx --fix
+- Copy a composed screen: npx timkit agent recipe login-form --framework react --json
+- Check registry dependencies: npx timkit agent deps dialog --json
+- Alternate installer: npx shadcn@latest add https://ui.timkit.cn/r/button.json
 
-Chat / CLI / Agent usage:
-- Chat: collect intent, target framework, viewport, and app flow before choosing items.
-- CLI: use timkit list filters or shadcn add URLs to install source into the target project.
-- Agent: read agent-index.json first, select registry items, fetch /r/{name}.json, then verify locally.
-
-Selection rules for coding agents:
-- Prefer registry:page items when the user asks for a complete mobile screen.
-- Prefer registry:block items when the user asks for a section or flow fragment.
-- Prefer registry:ui items when the user asks for a primitive component.
-- Keep touch targets at least 44px high and preserve safe-area padding classes.
-- Use the file content from registry item JSON as the source of truth.
+Agent rules:
+- If plan.confidence is "none", ask which screen or component to use. Do not install a fallback.
+- If plan.confidence is "low", confirm the selected item before installing.
+- Read https://ui.timkit.cn/agent/{name}.json before writing code. It lists props, variants, examples, pitfalls, the install command, and file targets, without the full source.
+- Fetch /r/{name}.json only when you need the source files. Do not guess the API from those files first.
+- Chinese prompts are understood. 按钮 maps to button, 弹窗 maps to dialog, 输入框 maps to input.
+- Primitives import from @timui/react or @timui/vue.
+- Agent business UI imports from @timui/react/agent: AgentMessage, AgentComposer, AgentPlan, ToolCall, ApprovalCard, CitationList.
+- Keep model transport outside those components. Pass status in props. Wait for ApprovalCard before a destructive tool continues.
+- Copy a full thread with: npx timkit agent recipe agent-workbench --framework react --json
+- Blocks and pages are copied source. Import their default export from the installed path, not from @timui/react.
+- size="icon" requires aria-label.
+- Keep touch targets at least 44px and preserve safe-area padding classes.
 - React, Vue, and HTML previews use the same LOAD_PREVIEW runtime protocol and canonical demo naming.
 `
 
