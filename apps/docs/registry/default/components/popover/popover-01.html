@@ -1,9 +1,9 @@
-<template>
-  <div class="flex flex-col gap-4"><Popover><PopoverTrigger aschild><Button variant="outline" size="icon" aria-label="Filters"><ListFilterIcon size="${16}" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="w-36 p-3"><div class="space-y-3"><div class="text-muted-foreground text-xs font-medium">Filters</div><form><div class="space-y-3"><div class="flex items-center gap-2"><Checkbox id="${`${id}-1`}" /><Label htmlfor="${`${id}-1`}" class="font-normal">Real Time
-                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-2`}" /><Label htmlfor="${`${id}-2`}" class="font-normal">Top Channels
-                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-3`}" /><Label htmlfor="${`${id}-3`}" class="font-normal">Last Orders
-                  </Label></div><div class="flex items-center gap-2"><Checkbox id="${`${id}-4`}" /><Label htmlfor="${`${id}-4`}" class="font-normal">Total Spent
-                  </Label></div></div><div role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></div><div class="flex justify-between gap-2"><Button size="sm" variant="outline" class="h-7 px-2">Clear
-                </Button><Button size="sm" class="h-7 px-2">Apply
-                </Button></div></form></div></PopoverContent></Popover></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="flex flex-col gap-4"><div data-slot="popover"><button type="button" data-slot="popover-trigger"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline" size="icon" aria-label="Filters"><span aria-hidden="true" size="16" aria-hidden="true"></button></button><div data-slot="popover-content"><div class="space-y-3"><div class="text-muted-foreground text-xs font-medium">Filters</div><form><div class="space-y-3"><div class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-1"><label data-slot="label" for="Example-1">Real Time
+                  </label></div><div class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-2"><label data-slot="label" for="Example-2">Top Channels
+                  </label></div><div class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-3"><label data-slot="label" for="Example-3">Last Orders
+                  </label></div><div class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-4"><label data-slot="label" for="Example-4">Total Spent
+                  </label></div></div><div role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></div><div class="flex justify-between gap-2"><button type="button" data-slot="button" class="h-7 px-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">Clear
+                </button><button type="button" data-slot="button" class="h-7 px-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm">Apply
+                </button></div></form></div></div></div></div>
+</div>

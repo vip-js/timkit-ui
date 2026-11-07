@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Input } from '@timui/vue';
 import { Label } from '@timui/vue';
 
@@ -8,8 +9,13 @@ import { Label } from '@timui/vue';
 
 const id = 'input-57';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label class="flex-1">Range</Label><div class="flex"><Input :id="`${id}-1`" class="flex-1 rounded-e-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" placeholder="From" type="number" aria-label="Min Value" /><Input :id="`${id}-2`" class="-ms-px flex-1 rounded-s-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" placeholder="To" type="number" aria-label="Max Value" /></div></div>
+  <div class="*:not-first:mt-2"><Label class="flex-1">Range</Label><div class="flex"><Input @input="onDemoClick" @input="onDemoClick" :id="`${id}-1`" class="flex-1 rounded-e-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" placeholder="From" type="number" aria-label="Min Value" /><Input :id="`${id}-2`" class="-ms-px flex-1 rounded-s-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" placeholder="To" type="number" aria-label="Max Value" /></div></div>
 </template>

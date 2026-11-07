@@ -1,3 +1,3 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">File input</label><input id="{{id}}" class="p-0 pe-3 file:me-3 file:border-0 file:border-e" type="file" /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="input-30">File input</text><input data-slot="input" class="p-0 pe-3 file:me-3 file:border-0 file:border-e flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-30" type="file"></view>
 </view>

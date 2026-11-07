@@ -1,16 +1,17 @@
-<div data-slot="checkbox-tree" class="space-y-2">
-  <label class="{{checkboxTreeNodeContentVariants}}">
-    <input type="checkbox" />
+<div data-slot="checkbox-tree" role="tree" aria-label="Checkbox tree" class="space-y-2">
+  <p role="status">1 checked</p>
+  <div role="treeitem" aria-level="1" aria-label="Workspace" aria-checked="false" tabindex="0" class="{{checkboxTreeNodeContentVariants}}">
+    <input type="checkbox" aria-hidden="true" tabindex="-1" />
     <span>Workspace</span>
-  </label>
-  <div class="ml-6 space-y-2">
-    <label class="{{checkboxTreeNodeContentVariants}}">
-      <input type="checkbox" checked />
-      <span>Frontend</span>
-    </label>
-    <label class="{{checkboxTreeNodeContentVariants}}">
-      <input type="checkbox" />
-      <span>Backend</span>
-    </label>
+    <div role="group" class="ml-6 space-y-2">
+      <div role="treeitem" aria-level="2" aria-label="Frontend" aria-checked="true" tabindex="0" class="{{checkboxTreeNodeContentVariants}}">
+        <input type="checkbox" checked aria-hidden="true" tabindex="-1" />
+        <span>Frontend</span>
+      </div>
+      <div role="treeitem" aria-level="2" aria-label="Backend" aria-checked="false" tabindex="0" class="{{checkboxTreeNodeContentVariants}}">
+        <input type="checkbox" aria-hidden="true" tabindex="-1" />
+        <span>Backend</span>
+      </div>
+    </div>
   </div>
 </div>

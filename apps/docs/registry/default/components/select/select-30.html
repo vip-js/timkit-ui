@@ -1,5 +1,3 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Timezone select</Label><Select default-value="Europe/London"><SelectTrigger id="${id}"><SelectValue placeholder="Select timezone" /></SelectTrigger><SelectContent><!-- Loop formattedTimezones -->
-<SelectItem key="${value}" value="${value}">${label}</SelectItem>
-<!-- End Loop --></SelectContent></Select></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2"><label data-slot="label">Timezone select</label><select data-slot="select"><button type="button" data-slot="select-trigger"><span data-slot="select-value" placeholder="Select timezone"></span></button><div data-slot="select-content"><option data-slot="select-item">Example</option></div></select></div>
+</div>

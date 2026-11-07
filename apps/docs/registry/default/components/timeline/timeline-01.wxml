@@ -1,3 +1,6 @@
-<view>
-  <timeline default-value="{{3}}"><timelineitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" step="{{item.id}}"><timelineheader><timelineseparator /><timelinetitle class="-mt-0.5">{{ item.title }}</timelinetitle><timelineindicator /></timelineheader></timelineitem></timeline>
+<view class="timui-html-demo space-y-4 p-4">
+<view><view step="1"><view data-slot="timeline-header"><text aria-hidden="true"><text>Project Kickoff</text><text aria-hidden="true"></view>
+<view step="2"><view data-slot="timeline-header"><text aria-hidden="true"><text>Design Phase</text><text aria-hidden="true"></view>
+<view step="3"><view data-slot="timeline-header"><text aria-hidden="true"><text>Development Sprint</text><text aria-hidden="true"></view>
+<view step="4"><view data-slot="timeline-header"><text aria-hidden="true"><text>Testing &amp; Deployment</text><text aria-hidden="true"></view></view>
 </view>

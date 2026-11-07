@@ -17,6 +17,16 @@ const contentProps = computed(() => context?.value?.getContentProps?.() ?? {})
 const contentClass = computed(() =>
   cn((contentProps.value as { class?: string }).class, props.class)
 )
+
+const onContentKey = (event: KeyboardEvent) => {
+  const handler = (contentProps.value as { onKeydown?: (event: KeyboardEvent) => void }).onKeydown
+  handler?.(event)
+  if (event.key !== 'Escape') return
+  const triggerId = (context?.value?.getTriggerProps?.() as { id?: string } | undefined)?.id
+  context?.value?.setOpen?.(false)
+  const trigger = typeof triggerId === 'string' ? document.getElementById(triggerId) : null
+  if (trigger instanceof HTMLElement) trigger.focus()
+}
 </script>
 
 <template>
@@ -25,7 +35,8 @@ const contentClass = computed(() =>
       <div
         v-bind="contentProps"
         data-slot="date-range-picker-content"
-        data-state="open"
+        @keydown="onContentKey"
+        :data-state="isOpen ? 'open' : 'closed'"
         :class="contentClass"
       >
         <slot />

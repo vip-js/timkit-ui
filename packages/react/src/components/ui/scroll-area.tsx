@@ -11,16 +11,40 @@ type _ScrollAreaPropsGuard = AssertNoExtraKeys<
   CoreScrollAreaProps & React.HTMLAttributes<HTMLDivElement> & { scrollBarClassName?: string }
 >
 
+const scrollAxis = (orientation: 'horizontal' | 'vertical' | 'both') =>
+  orientation === 'horizontal'
+    ? { overflowX: 'auto' as const, overflowY: 'hidden' as const }
+    : orientation === 'both'
+      ? { overflowX: 'auto' as const, overflowY: 'auto' as const }
+      : { overflowX: 'hidden' as const, overflowY: 'auto' as const }
+
 const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
-  ({ className, children, orientation = 'vertical', scrollBarClassName, ...props }, ref) => (
+  (
+    { className, children, orientation = 'vertical', scrollBarClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props },
+    ref
+  ) => (
     <div
       ref={ref}
-      data-slot="scroll-area"
-      className={cn(scrollAreaVariants(), className)}
       {...props}
+      data-slot="scroll-area"
+      data-orientation={orientation}
+      className={cn(scrollAreaVariants(), className)}
     >
+      {orientation === 'both' ? (
+        <p role="status">Both</p>
+      ) : orientation === 'horizontal' ? (
+        <p role="status">Horizontal</p>
+      ) : (
+        <p role="status">Vertical</p>
+      )}
       <div
         data-slot="scroll-viewport"
+        data-orientation={orientation}
+        aria-labelledby={ariaLabelledBy}
+        aria-label={
+          ariaLabelledBy ? undefined : typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Scroll area'
+        }
+        style={scrollAxis(orientation)}
         className={cn(scrollAreaViewportVariants(), scrollBarClassName)}
       >
         {children}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RangeCalendar } from '@timui/vue'
 
 const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
@@ -26,11 +27,16 @@ function isDateUnavailable(date: Date) {
     )
   )
 }
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div>
-    <RangeCalendar class="rounded-md border p-2" :isDateUnavailable="isDateUnavailable" :minDate="now" />
+    <RangeCalendar @click="onDemoClick" class="rounded-md border p-2" :isDateUnavailable="isDateUnavailable" :minDate="now" />
 
     <p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">
       Disabled dates -

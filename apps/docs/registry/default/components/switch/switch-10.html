@@ -1,7 +1,4 @@
-<template>
-  <div class="inline-flex items-center gap-2"><Switch id="${id}" checked="${checked}" oncheckedchange="${setChecked}" aria-label="Toggle switch" /><Label htmlfor="${id}"><span class="sr-only">Toggle switch</span><!-- if checked -->
-<SunIcon size="${16}" aria-hidden="true" />
-<!-- else -->
-<MoonIcon size="${16}" aria-hidden="true" />
-<!-- endif --></Label></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="inline-flex items-center gap-2"><input type="checkbox" role="switch" data-slot="switch" aria-label="Toggle switch"><label data-slot="label"><span class="sr-only">Toggle switch</span><template>
+<span aria-hidden="true" size="16" aria-hidden="true">
+</div>

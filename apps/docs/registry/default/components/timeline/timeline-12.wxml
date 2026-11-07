@@ -1,3 +1,6 @@
-<view>
-  <timeline default-value="{{3}}" orientation="horizontal"><timelineitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" step="{{item.id}}" class="group-data-[orientation=horizontal]/timeline:mt-0"><timelineheader><timelineseparator class="group-data-[orientation=horizontal]/timeline:top-8" /><timelinedate class="mb-10">{{ item.date }}</timelinedate><timelinetitle>{{ item.title }}</timelinetitle><timelineindicator class="group-data-[orientation=horizontal]/timeline:top-8" /></timelineheader><timelinecontent>{{ item.description }}</timelinecontent></timelineitem></timeline>
+<view class="timui-html-demo space-y-4 p-4">
+<view orientation="horizontal"><view step="1"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Mar 15, 2024<text>Project Kickoff</text><text aria-hidden="true"><view data-slot="timeline-content">Initial team meeting.</view>
+<view step="2"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Mar 22, 2024<text>Design Phase</text><text aria-hidden="true"><view data-slot="timeline-content">Completed wireframes.</view>
+<view step="3"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Apr 5, 2024<text>Development Sprint</text><text aria-hidden="true"><view data-slot="timeline-content">Backend development.</view>
+<view step="4"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Apr 19, 2024<text>Testing &amp; Deployment</text><text aria-hidden="true"><view data-slot="timeline-content">Performance optimization.</view></view>
 </view>

@@ -36,6 +36,33 @@ const comboboxSchema = defineUCS({
       description: 'The search placeholder.',
     },
     {
+      name: 'open',
+      type: 'boolean',
+      description: 'The controlled open state of the list.',
+    },
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the list when uncontrolled.',
+    },
+    {
+      name: 'onOpenChange',
+      type: 'event',
+      description: 'Event handler called when the list open state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening and selection are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, value changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'loop',
       type: 'boolean',
       description: 'Whether to loop through items.',

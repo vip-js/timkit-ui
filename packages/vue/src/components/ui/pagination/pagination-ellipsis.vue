@@ -15,10 +15,12 @@ const ellipsisProps = computed(() =>
   <li>
     <span
       v-bind="ellipsisProps"
+      data-slot="pagination-ellipsis"
+      aria-hidden="true"
       :class="cn(paginationEllipsisVariants(), props.class)"
     >
       <slot>
-        <MoreHorizontal class="h-4 w-4" />
+        <MoreHorizontal class="h-4 w-4" aria-hidden="true" />
         <span class="sr-only">More pages</span>
       </slot>
     </span>

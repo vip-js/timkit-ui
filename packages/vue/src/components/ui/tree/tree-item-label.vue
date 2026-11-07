@@ -38,6 +38,7 @@ const itemName = computed(() =>
   >
     <template v-if="isFolder">
       <ChevronDown
+        aria-hidden="true"
         :class="treeItemLabelIconVariants()"
       />
     </template>

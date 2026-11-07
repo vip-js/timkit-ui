@@ -1,17 +1,20 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import { Input, Label } from '@timui/react'
 import { usePaymentInputs } from 'react-payment-inputs'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   const { getCVCProps } = usePaymentInputs()
 
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={`cvc-${id}`}>Code</Label>
-      <Input {...getCVCProps()} id={`cvc-${id}`} className="[direction:inherit]" />
+      <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} {...getCVCProps()} id={`cvc-${id}`} className="[direction:inherit]" />
       <p className="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
         Built with{' '}
         <a

@@ -26,6 +26,18 @@ const tagsInputSchema = defineUCS({
       type: 'event',
       description: 'Event handler called when tags change.',
     },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, adding and removing tags are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, tag changes are ignored.',
+      defaultValue: false,
+    },
   ],
   slots: [{ name: 'default', description: 'The tags input segments' }],
   supportedPlatforms: ['web', 'wechat'],

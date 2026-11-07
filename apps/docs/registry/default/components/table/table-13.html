@@ -1,73 +1,85 @@
-<template>
-  <div class="space-y-6"><div class="flex flex-wrap gap-3"><div class="w-44"><Filter column="${table.getColumn('keyword')!}" /></div><div class="w-36"><Filter column="${table.getColumn('intents')!}" /></div><div class="w-36"><Filter column="${table.getColumn('volume')!}" /></div><div class="w-36"><Filter column="${table.getColumn('cpc')!}" /></div><div class="w-36"><Filter column="${table.getColumn('traffic')!}" /></div></div><Table><TableHeader><!-- Loop table.getHeaderGroups() -->
-<TableRow key="${headerGroup.id}" class="bg-muted/50">${headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    key={header.id}
-                    className="relative h-10 border-t select-none"
-                    aria-sort={
-                      header.column.getIsSorted() === 'asc'
-                        ? 'ascending'
-                        : header.column.getIsSorted() === 'desc'
-                          ? 'descending'
-                          : 'none'
-                    }
-                  >
-                    {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                      <div
-                        className={cn(
-                          header.column.getCanSort() &&
-                            'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
-                        )}
-                        onClick={header.column.getToggleSortingHandler()}
-                        onKeyDown={(e) => {
-                          // Enhanced keyboard handling for sorting
-                          if (header.column.getCanSort() && (e.key === 'Enter' || e.key === ' ')) {
-                            e.preventDefault()
-                            header.column.getToggleSortingHandler()?.(e)
-                          }
-                        }}
-                        tabIndex={header.column.getCanSort() ? 0 : undefined}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: (
-                            <ChevronUpIcon
-                              className="shrink-0 opacity-60"
-                              size={16}
-                              aria-hidden="true"
-                            />
-                          ),
-                          desc: (
-                            <ChevronDownIcon
-                              className="shrink-0 opacity-60"
-                              size={16}
-                              aria-hidden="true"
-                            />
-                          ),
-                        }[header.column.getIsSorted() as string] ?? (
-                          <span className="size-4" aria-hidden="true" />
-                        )}
-                      </div>
-                    ) : (
-                      flexRender(header.column.columnDef.header, header.getContext())
-                    )}
-                  </TableHead>
-                )
-              })}</TableRow>
-<!-- End Loop --></TableHeader><TableBody><!-- if table.getRowModel().rows?.length -->
-${table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-<!-- else -->
-<TableRow><TableCell colspan="${columns.length}" class="h-24 text-center">No results.
-              </TableCell></TableRow>
-<!-- endif --></TableBody></Table><p class="text-muted-foreground mt-4 text-center text-sm">Data table with filters made with${' '}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-6">
+    <div class="flex flex-wrap gap-3">
+      <div class="relative w-52">
+        <input data-slot="input" class="peer ps-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          placeholder="Search keyword...">
+        <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3">
+          <span aria-hidden="true" aria-hidden="true">
+        </div>
+      </div>
+
+      <div class="w-44">
+        <select data-slot="select"="(value) => (intentFilter = value)">
+          <button type="button" data-slot="select-trigger"><span data-slot="select-value" placeholder="All intents"></span></button>
+          <div data-slot="select-content">
+            <option data-slot="select-item" value="all">All intents</option>
+            <option data-slot="select-item" value="Informational">Informational</option>
+            <option data-slot="select-item" value="Navigational">Navigational</option>
+            <option data-slot="select-item" value="Commercial">Commercial</option>
+            <option data-slot="select-item" value="Transactional">Transactional</option>
+          </div>
+        </select>
+      </div>
+
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Vol min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Vol max">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="CPC min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="CPC max">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Trf min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Trf max">
+    </div>
+
+    <table data-slot="table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Intents</th>
+          <th>
+            <span class="flex items-center gap-1">
+              Volume
+              <span aria-hidden="true" size="14">
+              <span aria-hidden="true" size="14">
+            </span>
+          </th>
+          <th>
+            <span class="flex items-center gap-1">
+              CPC
+              <span aria-hidden="true" size="14">
+              <span aria-hidden="true" size="14">
+            </span>
+          </th>
+          <th>
+            <span class="flex items-center gap-1">
+              Traffic
+              <span aria-hidden="true" size="14">
+              <span aria-hidden="true" size="14">
+            </span>
+          </th>
+          <th>Link</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <template>
+          <tr>
+            <td></td>
+            <td>
+              <div class="flex gap-1">
+                <span>
+                  
+                </span>
+              </div>
+            </td>
+            <td></td>
+            <td>$</td>
+            <td></td>
+            <td>
+              <a class="inline-flex items-center gap-1 hover:underline" target="_blank" rel="noopener noreferrer">
+                
+                <span aria-hidden="true" size="12" aria-hidden="true">
+              </a>
+            </td>
+          </tr>
+</div>

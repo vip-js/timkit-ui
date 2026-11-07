@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { Input, Label } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
 
   return (
@@ -9,7 +11,7 @@ export default function Component() {
       <Label htmlFor={id} className="text-foreground block px-3 pt-2 text-xs font-medium">
         Input with inset label
       </Label>
-      <Input
+      <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
         id={id}
         className="h-10 rounded-none border-0 px-3 pb-2 shadow-none"
         placeholder="Email"

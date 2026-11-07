@@ -1,3 +1,6 @@
-<button class="{{className}}" data-slot="pagination-link" aria-current="{{active ? 'page' : ''}}">
+<button wx:if="{{active}}" class="{{className}}" data-slot="pagination-link" aria-current="page">
+  <slot></slot>
+</button>
+<button wx:else class="{{className}}" data-slot="pagination-link">
   <slot></slot>
 </button>

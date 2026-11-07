@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { dialogConnect } from '@timui/core'
 
-export type AlertDialogContextValue = ReturnType<typeof dialogConnect>
+export type AlertDialogContextValue = ReturnType<typeof dialogConnect> & { disabled?: boolean }
 
 const AlertDialogContext = React.createContext<AlertDialogContextValue | null>(null)
 

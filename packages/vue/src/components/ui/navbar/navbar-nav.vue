@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type HTMLAttributes } from 'vue'
+import { useAttrs, type HTMLAttributes } from 'vue'
 import { cn, navbarNavVariants } from '@timui/core'
 
 interface Props {
@@ -7,10 +7,15 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const attrs = useAttrs()
 </script>
 
 <template>
-  <nav data-slot="navbar-nav" :class="cn(navbarNavVariants(), props.class)">
+  <nav
+    data-slot="navbar-nav"
+    :aria-label="attrs['aria-labelledby'] ? undefined : attrs['aria-label'] || 'Navigation'"
+    :class="cn(navbarNavVariants(), props.class)"
+  >
     <slot />
   </nav>
 </template>

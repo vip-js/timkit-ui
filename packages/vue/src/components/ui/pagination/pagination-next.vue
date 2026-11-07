@@ -7,7 +7,16 @@ import { PaginationContextKey } from "./pagination-context";
 
 const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 const context = inject(PaginationContextKey, null);
-const triggerProps = computed(() => context?.api.value?.getNextTriggerProps?.() ?? {});
+const triggerProps = computed(() => {
+  const machine = context?.api.value?.getNextTriggerProps?.() ?? {};
+  if (!context?.disabled.value) return machine;
+  return {
+    ...machine,
+    disabled: true,
+    "aria-disabled": "true",
+    onClick: (event: Event) => event.preventDefault(),
+  };
+});
 </script>
 
 <template>
@@ -20,7 +29,7 @@ const triggerProps = computed(() => context?.api.value?.getNextTriggerProps?.() 
     >
       <slot>
         <span>Next</span>
-        <ChevronRight class="h-4 w-4" />
+        <ChevronRight aria-hidden="true" class="h-4 w-4" />
       </slot>
     </Button>
   </li>

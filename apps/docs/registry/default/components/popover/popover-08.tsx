@@ -1,11 +1,13 @@
 import { Button, Popover, PopoverContent, PopoverTrigger, Textarea } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="flex flex-col gap-4">
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline">Feedback</Button>
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Feedback</Button>
         </PopoverTrigger>
         <PopoverContent className="w-72">
           <h2 className="mb-2 text-sm font-semibold">Send us feedback</h2>

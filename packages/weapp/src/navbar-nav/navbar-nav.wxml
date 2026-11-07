@@ -1,3 +1,6 @@
-<view class="{{className}}" data-slot="navbar-nav">
+<view wx:if="{{labelledBy}}" class="{{className}}" data-slot="navbar-nav" role="navigation" aria-labelledby="{{labelledBy}}">
+  <slot></slot>
+</view>
+<view wx:else class="{{className}}" data-slot="navbar-nav" role="navigation" aria-label="{{ariaLabel || 'Navigation'}}">
   <slot></slot>
 </view>

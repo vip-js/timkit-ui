@@ -1,9 +1,12 @@
 <script lang="ts">
-import { defineComponent, ref, type PropType, type VNodeChild } from "vue";
-import type {
-  AssertNoExtraKeys,
-  CheckboxTreeNode,
-  CheckboxTreeProps as CoreCheckboxTreeProps,
+import { defineComponent, getCurrentInstance, h, ref, watch, type PropType, type VNodeChild } from "vue";
+import {
+  checkboxTreeChecked,
+  initialCheckboxTreeChecked,
+  toggleCheckboxTree,
+  type AssertNoExtraKeys,
+  type CheckboxTreeNode,
+  type CheckboxTreeProps as CoreCheckboxTreeProps,
 } from "@timui/core";
 
 type CheckboxTreeProps = CoreCheckboxTreeProps<VNodeChild>;
@@ -30,42 +33,42 @@ export default defineComponent({
       >,
       required: true,
     },
+    checkedKeys: {
+      type: Array as PropType<string[] | undefined>,
+      default: undefined,
+    },
   },
-  setup(props) {
-    const checkedNodes = ref(new Set<string>());
-
-    const initializeCheckedNodes = (node: CheckboxTreeNode) => {
-      if (node.defaultChecked) checkedNodes.value.add(node.id);
-      node.children?.forEach(initializeCheckedNodes);
+  emits: ["checkedKeysChange"],
+  setup(props, { emit }) {
+    const instance = getCurrentInstance();
+    const readKeys = () => {
+      const fromProps = props.checkedKeys;
+      const raw = instance?.vnode.props ?? {};
+      const passed =
+        Object.prototype.hasOwnProperty.call(raw, "checkedKeys") ||
+        Object.prototype.hasOwnProperty.call(raw, "checked-keys");
+      const explicit = (raw.checkedKeys ?? raw["checked-keys"]) as string[] | null | undefined;
+      if (passed && explicit == null) return [];
+      return fromProps === undefined ? undefined : fromProps;
     };
+    const checkedNodes = ref(
+      readKeys() === undefined ? initialCheckboxTreeChecked(props.tree) : new Set(readKeys())
+    );
+    watch(readKeys, (keys) => {
+      if (keys === undefined) return;
+      checkedNodes.value = new Set(keys);
+    });
 
-    initializeCheckedNodes(props.tree);
-
-    const isChecked = (node: CheckboxTreeNode): boolean | "indeterminate" => {
-      if (!node.children?.length) return checkedNodes.value.has(node.id);
-
-      const childrenChecked = node.children.map((child) => isChecked(child));
-      if (childrenChecked.every((status) => status === true)) return true;
-      if (childrenChecked.some((status) => status === true || status === "indeterminate")) {
-        return "indeterminate";
-      }
-      return false;
-    };
+    const isChecked = (node: CheckboxTreeNode): boolean | "indeterminate" =>
+      checkboxTreeChecked(node, checkedNodes.value);
 
     const handleCheck = (node: CheckboxTreeNode) => {
-      const next = new Set(checkedNodes.value);
-
-      const toggleNode = (current: CheckboxTreeNode, check: boolean) => {
-        if (check) next.add(current.id);
-        else next.delete(current.id);
-        current.children?.forEach((child) => toggleNode(child, check));
-      };
-
-      const currentStatus = isChecked(node);
-      const nextCheck = currentStatus !== true;
-      toggleNode(node, nextCheck);
-
-      checkedNodes.value = next;
+      if (node.disabled === true) return;
+      const keys = readKeys();
+      const source = keys === undefined ? checkedNodes.value : new Set(keys);
+      const next = toggleCheckboxTree(node, source);
+      if (keys === undefined) checkedNodes.value = next;
+      emit("checkedKeysChange", [...next]);
     };
 
     const renderTreeNode = (node: CheckboxTreeNode): VNodeChild => {
@@ -78,7 +81,14 @@ export default defineComponent({
       });
     };
 
-    return () => renderTreeNode(props.tree);
+    return () => {
+      const count = checkedNodes.value.size;
+      const checkStatus = count > 1 ? `${count} checked` : count === 1 ? "1 checked" : "";
+      return h("div", { "data-slot": "checkbox-tree" }, [
+        checkStatus ? h("p", { role: "status" }, checkStatus) : null,
+        renderTreeNode(props.tree),
+      ]);
+    };
   },
 });
 </script>

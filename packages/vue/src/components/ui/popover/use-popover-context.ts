@@ -1,3 +1,4 @@
+import type { ComputedRef, InjectionKey } from 'vue'
 import { createContext } from '../../../hooks/create-context'
 import type { usePopover } from './use-popover'
 
@@ -7,3 +8,5 @@ export const [PopoverProvider, usePopoverContext] = createContext<UsePopoverRetu
   id: 'popoverContext',
   providerName: '<Popover />',
 })
+
+export const PopoverDisabledKey: InjectionKey<ComputedRef<boolean>> = Symbol('popover-disabled')

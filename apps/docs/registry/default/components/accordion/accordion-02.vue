@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { PlusIcon } from 'lucide-vue-next'
 import { Accordion } from '@timui/vue'
 import { AccordionContent } from '@timui/vue'
@@ -31,12 +32,17 @@ const items = [
       'All components follow WAI-ARIA standards, featuring proper ARIA attributes, keyboard navigation, and screen reader support. Regular testing ensures compatibility with NVDA, VoiceOver, and JAWS.',
   },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="space-y-4">
     <h2 class="text-xl font-bold">W/ plus-minus</h2>
-    <Accordion type="single" collapsible class="w-full" default-value="3">
+    <Accordion @click="onDemoClick" type="single" collapsible class="w-full" default-value="3">
       <AccordionItem v-for="item in items" :key="item.id" :value="item.id" class="py-2">
         <AccordionTrigger
           class="py-2 text-[15px] leading-6 hover:no-underline [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0"

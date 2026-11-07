@@ -6,6 +6,10 @@ export type AccordionValueChangeEvent = TimEvent<{ value: string | string[] }>
 
 export type AccordionProps = Omit<accordion.Props, 'onValueChange'> & {
   /**
+   * Whether one item or several items can be open.
+   */
+  type?: 'single' | 'multiple'
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: AccordionValueChangeEvent) => void

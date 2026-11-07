@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Header } from '@timui/vue'
 import { Label } from '@timui/vue'
 import { ListBox } from '@timui/vue'
 import { ListBoxItem } from '@timui/vue'
 import { ListBoxSection } from '@timui/vue'
 import { Separator } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2">
-    <Label>Listbox with option groups</Label>
+    <Label @click="onDemoClick">Listbox with option groups</Label>
     <div class="border-input overflow-hidden rounded-md border">
       <ListBox
         class="bg-background max-h-72 min-h-20 space-y-2 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]"

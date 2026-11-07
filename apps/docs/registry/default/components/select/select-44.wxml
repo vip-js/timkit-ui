@@ -1,14 +1,14 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with flag and search</label><popover open="{{open}}" bindchange="setOpen"><popovertrigger aschild><button id="{{id}}" variant="outline" role="combobox" aria-expanded="{{open}}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><block wx:if="{{value}}">
-<text class="flex min-w-0 items-center gap-2"><text class="text-lg leading-none">{{ countries
-                      .map((group) => group.items.find((item) => item.value === value))
-                      .filter(Boolean)[0]?.flag }}</text><text class="truncate">{{ value }}</text></text>
-</block>
-<block wx:else>
-<text class="text-muted-foreground">Select country</text>
-</block><chevrondownicon size="{{16}}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></button></popovertrigger><popovercontent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><command><commandinput placeholder="Search country..." /><commandlist><commandempty>No country found.</commandempty><fragment wx:for="{{countries}}" wx:for-item="group" wx:for-index="index" wx:key="index" key="{{group.continent}}"><commandgroup heading="{{group.continent}}"><commanditem wx:for="{{group.items}}" wx:for-item="country" wx:for-index="index" wx:key="index" key="{{country.value}}" value="{{country.value}}" onselect="{{(currentValue) => {
-                          const val = currentValue as string
-                          setValue(val === value ? '' : val)
-                          setOpen(false)
-                        }}}"><text class="text-lg leading-none">{{ country.flag }}</text>{{ country.value }}<checkicon wx:if="{{value === country.value}}" size="{{16}}" class="ml-auto" /></commanditem></commandgroup></fragment></commandlist></command></popovercontent></popover></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label">Options with flag and search</text>
+    <view data-slot="popover">
+      <button type="button" data-slot="popover-trigger">
+        <button type="button" data-slot="button" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          variant="outline"
+          role="combobox">
+          <view>
+            <text class="flex min-w-0 items-center gap-2">
+              <text class="text-lg leading-none"></text>
+              <text class="truncate"></text>
+            </text>
 </view>

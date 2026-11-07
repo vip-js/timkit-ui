@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
+
 import { RangeCalendar } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const disabledRanges = [
@@ -27,7 +30,7 @@ export default function Component() {
 
   return (
     <div>
-      <RangeCalendar
+      <RangeCalendar onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
         className="rounded-md border p-2"
         disabled={[{ before: today }, isDateUnavailable]}
       />

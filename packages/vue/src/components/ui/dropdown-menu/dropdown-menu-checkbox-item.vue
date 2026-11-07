@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useDropdownMenuContext } from "./use-dropdown-menu-context";
-import { computed, useId, type HTMLAttributes, type Ref } from "vue";
+import { computed, inject, ref, useId, type ComputedRef, type HTMLAttributes, type Ref } from "vue";
+import { usePassedProp } from "../../../hooks/passed-prop";
 import { cn, dropdownMenuCheckboxItemVariants } from "@timui/core";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
   checked?: boolean;
   value?: string;
+  disabled?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }>();
 
@@ -24,21 +26,50 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as Ref<DropdownMenuApi | undefined> | undefined;
+const groupDisabled = inject<ComputedRef<boolean>>("dropdown-menu-disabled", computed(() => false));
+const passed = usePassedProp();
 const generatedId = useId();
 const optionValue = computed(() => props.value ?? generatedId);
+const uncontrolled = ref(false);
+const current = computed(() => {
+  const controlled = passed<boolean>(props, "checked");
+  return controlled !== undefined ? controlled : uncontrolled.value;
+});
+
+const writeLocal = (next: boolean) => {
+  if (passed<boolean | null>(props, "checked") === undefined) uncontrolled.value = next;
+};
+
+const notify = (next: boolean) => {
+  writeLocal(next);
+  emit("update:checked", next);
+  emit("checkedChange", next);
+};
+
+const choose = () => {
+  if (props.disabled || groupDisabled.value) return;
+  notify(!current.value);
+};
 
 const optionProps = computed(() => {
   if (!api?.value) return {};
-  return api.value.getOptionItemProps({
+  const machine = api.value.getOptionItemProps({
     type: "checkbox",
-    checked: props.checked,
+    checked: current.value,
     value: optionValue.value,
     onCheckedChange: (details: DropdownCheckedDetails) => {
-      props.onCheckedChange?.(details.checked);
-      emit("update:checked", details.checked);
-      emit("checkedChange", details.checked);
+      if (props.disabled || groupDisabled.value || typeof details?.checked !== "boolean") return;
+      writeLocal(details.checked);
     },
   });
+  const machineClick = machine.onClick as ((event: MouseEvent) => void) | undefined;
+  return {
+    ...machine,
+    onClick: (event: MouseEvent) => {
+      if (props.disabled || groupDisabled.value) return;
+      machineClick?.(event);
+    },
+  };
 });
 </script>
 
@@ -46,6 +77,8 @@ const optionProps = computed(() => {
   <div
     v-bind="optionProps"
     data-slot="dropdown-menu-checkbox-item"
+    :data-state="current ? 'checked' : 'unchecked'"
+    @click="choose"
     :class="
       cn(
         dropdownMenuCheckboxItemVariants(),
@@ -55,7 +88,7 @@ const optionProps = computed(() => {
   >
     <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <svg
-        v-if="props.checked"
+        v-if="current"
         aria-hidden="true"
         viewBox="0 0 16 16"
         fill="none"

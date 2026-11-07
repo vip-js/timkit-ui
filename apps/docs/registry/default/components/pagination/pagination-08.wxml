@@ -1,24 +1,3 @@
-<view>
-  <pagination><paginationcontent class="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse"><paginationitem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><paginationlink class="{{cn(
-              buttonVariants({
-                variant: 'outline',
-              }),
-              'rounded-none shadow-none focus-visible:z-10 aria-disabled:pointer-events-none [&[aria-disabled]>svg]:opacity-50'
-            )}}" href="{{currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}}" aria-label="Go to previous page" aria-disabled="{{currentPage === 1 ? true : undefined}}" role="{{currentPage === 1 ? 'link' : undefined}}"><chevronlefticon size="{{16}}" aria-hidden="true" /></paginationlink></paginationitem><paginationitem wx:if="{{showLeftEllipsis}}" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><paginationellipsis /></paginationitem><paginationitem wx:for="{{pages}}" wx:for-item="page" wx:for-index="index" wx:key="index" key="{{page}}"><paginationlink class="{{cn(
-                buttonVariants({
-                  variant: 'outline',
-                }),
-                'rounded-none shadow-none focus-visible:z-10',
-                page === currentPage && 'bg-accent'
-              )}}" href="{{`#/page/${page}`}}" isactive="{{page === currentPage}}">{{ page }}</paginationlink></paginationitem><paginationitem wx:if="{{showRightEllipsis}}" class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><paginationellipsis class="{{cn(
-                buttonVariants({
-                  variant: 'outline',
-                }),
-                'pointer-events-none rounded-none shadow-none'
-              )}}" /></paginationitem><paginationitem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><paginationlink class="{{cn(
-              buttonVariants({
-                variant: 'outline',
-              }),
-              'rounded-none shadow-none focus-visible:z-10 aria-disabled:pointer-events-none [&[aria-disabled]>svg]:opacity-50'
-            )}}" href="{{currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}}" aria-label="Go to next page" aria-disabled="{{currentPage === totalPages ? true : undefined}}" role="{{currentPage === totalPages ? 'link' : undefined}}"><chevronrighticon size="{{16}}" aria-hidden="true" /></paginationlink></paginationitem></paginationcontent></pagination>
+<view class="timui-html-demo space-y-4 p-4">
+<view aria-label="Pagination"><view><view class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><navigator href="#" aria-label="Go to previous page"><text aria-hidden="true" size="16" aria-hidden="true"></navigator></view><view class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><text aria-hidden="true"></view><view><navigator href="#" href="#/page/Example"></navigator></view><view class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><text aria-hidden="true"></view><view class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><navigator href="#" aria-label="Go to next page"><text aria-hidden="true" size="16" aria-hidden="true"></navigator></view></view></view>
 </view>

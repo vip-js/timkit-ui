@@ -1,4 +1,4 @@
-import { inject, provide, type InjectionKey, type Ref } from 'vue'
+import { inject, provide, type ComputedRef, type InjectionKey, type Ref } from 'vue'
 
 export type NavigationMenuRootContextValue = {
   openItem: Ref<string | null>
@@ -8,6 +8,8 @@ export type NavigationMenuRootContextValue = {
   userSelected: Ref<boolean>
   setUserSelected: (value: boolean) => void
   viewport: Ref<boolean>
+  disabled: ComputedRef<boolean>
+  register: (value: string) => () => void
 }
 
 export type NavigationMenuItemContextValue = {

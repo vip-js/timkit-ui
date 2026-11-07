@@ -32,6 +32,12 @@ const tabsSchema = defineUCS({
       description: 'Event handler called when the value changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, tab changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'orientation',
       type: 'enum',
       description: 'The orientation of the tabs.',

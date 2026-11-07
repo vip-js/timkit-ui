@@ -1,38 +1,65 @@
-<view class="{{className}} pagination">
-  <!-- Previous Button -->
+<view class="{{className}} pagination" role="navigation" aria-label="{{ariaLabel || 'pagination'}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{current > 0}}" role="status">Page {{current}} of {{pageCount}}</view>
   <view 
     class="pagination-btn pagination-prev"
+    role="button"
+    aria-label="上一页"
+    tabindex="{{!disabled && api.previousPage ? 0 : -1}}"
+    aria-disabled="{{!disabled && api.previousPage ? 'false' : 'true'}}"
     bindtap="onPrevTap"
+    bindkeydown="onPrevKey"
     data-disabled="{{!api.previousPage}}"
   >
     <text>上一页</text>
   </view>
 
-  <!-- Page Numbers -->
-  <view class="pagination-pages">
+  <view class="pagination-pages" role="list">
     <block wx:for="{{api.pages}}" wx:key="index">
-      <view 
-        wx:if="{{item.type === 'page'}}"
-        class="pagination-page"
-        data-page="{{item.value}}"
-        data-current="{{item.value === api.page}}"
-        bindtap="onPageTap"
-      >
-        {{item.value}}
+      <view wx:if="{{item.type === 'page' && item.value === api.page}}" role="listitem">
+        <view
+          class="pagination-page"
+          role="button"
+          aria-current="page"
+          tabindex="{{disabled ? -1 : 0}}"
+          aria-disabled="{{disabled ? 'true' : 'false'}}"
+          aria-label="{{item.value}}"
+          data-page="{{item.value}}"
+          data-current="{{true}}"
+          bindtap="onPageTap"
+          bindkeydown="onPageKey"
+        >
+          {{item.value}}
+        </view>
       </view>
-      <text 
-        wx:elif="{{item.type === 'ellipsis'}}"
-        class="pagination-ellipsis"
-      >
-        ...
-      </text>
+      <view wx:elif="{{item.type === 'page'}}" role="listitem">
+        <view
+          class="pagination-page"
+          role="button"
+          tabindex="{{disabled ? -1 : 0}}"
+          aria-disabled="{{disabled ? 'true' : 'false'}}"
+          aria-label="{{item.value}}"
+          data-page="{{item.value}}"
+          data-current="{{false}}"
+          bindtap="onPageTap"
+          bindkeydown="onPageKey"
+        >
+          {{item.value}}
+        </view>
+      </view>
+      <view wx:elif="{{item.type === 'ellipsis'}}" role="listitem" aria-hidden="true">
+        <text class="pagination-ellipsis">...</text>
+      </view>
     </block>
   </view>
 
-  <!-- Next Button -->
   <view 
     class="pagination-btn pagination-next"
+    role="button"
+    aria-label="下一页"
+    tabindex="{{!disabled && api.nextPage ? 0 : -1}}"
+    aria-disabled="{{!disabled && api.nextPage ? 'false' : 'true'}}"
     bindtap="onNextTap"
+    bindkeydown="onNextKey"
     data-disabled="{{!api.nextPage}}"
   >
     <text>下一页</text>

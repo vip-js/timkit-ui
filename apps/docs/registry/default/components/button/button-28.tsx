@@ -1,10 +1,12 @@
 import { Button } from '@timui/react'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="inline-flex -space-x-px rounded-full shadow-xs rtl:space-x-reverse">
-      <Button
+      <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
         className="rounded-none shadow-none first:rounded-s-full last:rounded-e-full focus-visible:z-10"
         size="icon"
         aria-label="Upvote"

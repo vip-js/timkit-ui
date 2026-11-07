@@ -1,0 +1,41 @@
+<view class="timui-html-demo space-y-4 p-4">
+<view>
+    <view class="relative">
+      <input data-slot="input" class="peer ps-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+       
+        type="search"
+       ="(event: Event) => {
+          const target = event.target as HTMLInputElement
+          searchValue = target.value
+          if (target.value) {
+            treeApi.expandAll()
+          }
+        }" />
+      <view
+        class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+        <component class="size-4" aria-hidden="true">
+      </view>
+      <button
+       
+        class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px]"
+        aria-label="Clear search">
+        <text aria-hidden="true" aria-hidden="true">
+      </button>
+    </view>
+
+    <view class="flex items-center gap-2">
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">
+        <text aria-hidden="true" size="16" aria-hidden="true">
+        Expand all
+      </button>
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">
+        <text aria-hidden="true" size="16" aria-hidden="true">
+        Collapse all
+      </button>
+    </view>
+
+    <view>
+      <view data-slot="tree">
+        <view>
+          <text class="px-3 py-4 text-center text-sm">No items found for ""</text>
+</view>

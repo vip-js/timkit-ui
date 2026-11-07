@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
+import { useState } from 'react'
 
 const programmingLanguages = [
   {
@@ -59,12 +60,13 @@ const programmingLanguages = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div>
       <div className="bg-background overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/50">
+            <TableRow onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="bg-muted/50">
               <TableHead className="h-9 py-2">Name</TableHead>
               <TableHead className="h-9 py-2">Release Year</TableHead>
               <TableHead className="h-9 py-2">Developer</TableHead>

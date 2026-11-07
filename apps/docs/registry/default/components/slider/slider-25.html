@@ -1,4 +1,60 @@
-<template>
-  <div class="space-y-4"><legend class="text-foreground text-sm font-medium">Object position</legend><div class="space-y-2"><SliderWithInput minvalue="${-10}" maxvalue="${10}" initialvalue="${[-2]}" default-value="${[0]}" label="X" onregisterreset="${(resetFn) => registerResetFunction(resetFn, 0)}" /><SliderWithInput minvalue="${-10}" maxvalue="${10}" initialvalue="${[4]}" default-value="${[0]}" label="Y" onregisterreset="${(resetFn) => registerResetFunction(resetFn, 1)}" /><SliderWithInput minvalue="${-10}" maxvalue="${10}" initialvalue="${[2]}" default-value="${[0]}" label="Z" onregisterreset="${(resetFn) => registerResetFunction(resetFn, 2)}" /></div><Button class="w-full" variant="outline" on-click="${resetAll}"><RotateCcwIcon class="-ms-1 opacity-60" size="${16}" aria-hidden="true" />Reset
-      </Button></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-4">
+    <legend class="text-foreground text-sm font-medium">Object position</legend>
+
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <label data-slot="label">X</label>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="X" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleXInput(next, 0)"
+         
+         
+          aria-label="Enter X value" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label data-slot="label">Y</label>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="Y" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleYInput(next, 0)"
+         
+         
+          aria-label="Enter Y value" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label data-slot="label">Z</label>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="Z" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleZInput(next, 0)"
+         
+         
+          aria-label="Enter Z value" />
+      </div>
+    </div>
+
+    <button type="button" data-slot="button" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">
+      <span aria-hidden="true" size="16" aria-hidden="true">
+      Reset
+    </button>
+  </div>
+</div>

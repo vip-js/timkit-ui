@@ -1,31 +1,68 @@
-<root-portal wx:if="{{api.open}}">
+<root-portal wx:if="{{opened}}">
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
   <!-- Overlay -->
   <view 
     class="{{overlayClass}}" 
-    data-state="{{api.open ? 'open' : 'closed'}}" 
+    data-state="{{opened ? 'open' : 'closed'}}" 
     bindtap="onBackdropTap" 
     catchtouchmove="noop"
   ></view>
 
   <!-- Sheet Content -->
   <view 
+    wx:if="{{titleId}}"
     class="{{contentClass}}" 
-    data-state="{{api.open ? 'open' : 'closed'}}"
+    data-state="{{opened ? 'open' : 'closed'}}"
     data-side="{{side}}"
-    id="{{api.contentProps.id}}"
+    id="{{id}}-content"
     role="dialog"
+    tabindex="-1"
     aria-modal="true"
-    aria-label="{{api.contentProps['aria-label']}}"
+    aria-labelledby="{{titleId}}"
+    bindkeydown="onKey"
   >
+    <text wx:if="{{title}}" id="{{titleId}}" class="{{titleClass}}" role="heading" aria-level="2">{{title}}</text>
+    <slot></slot>
+    <view 
+      class="{{closeClass}}" 
+      data-slot="sheet-close"
+      data-state="{{opened ? 'open' : 'closed'}}"
+      role="button"
+      tabindex="0"
+      aria-label="Close"
+      bindtap="onCloseTap"
+      bindkeydown="onCloseKey"
+    >
+      <text aria-hidden="true">✕</text>
+    </view>
+  </view>
+  <view 
+    wx:else
+    class="{{contentClass}}" 
+    data-state="{{opened ? 'open' : 'closed'}}"
+    data-side="{{side}}"
+    id="{{id}}-content"
+    role="dialog"
+    tabindex="-1"
+    aria-modal="true"
+    aria-label="{{ariaLabel || 'Sheet'}}"
+    bindkeydown="onKey"
+  >
+    <text wx:if="{{title}}" id="{{titleId}}" class="{{titleClass}}" role="heading" aria-level="2">{{title}}</text>
     <slot></slot>
     
     <!-- Close Button -->
     <view 
       class="{{closeClass}}" 
-      data-state="{{api.open ? 'open' : 'closed'}}"
+      data-slot="sheet-close"
+      data-state="{{opened ? 'open' : 'closed'}}"
+      role="button"
+      tabindex="0"
+      aria-label="Close"
       bindtap="onCloseTap"
+      bindkeydown="onCloseKey"
     >
-      <text>✕</text>
+      <text aria-hidden="true">✕</text>
     </view>
   </view>
 </root-portal>

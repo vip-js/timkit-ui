@@ -1,5 +1,5 @@
-<view>
-  <pagination><paginationcontent class="w-full justify-between gap-3"><paginationitem><button variant="outline" class="aria-disabled:pointer-events-none aria-disabled:opacity-50" aria-disabled="{{currentPage === 1 ? true : undefined}}" role="{{currentPage === 1 ? 'link' : undefined}}" aschild><a href="{{currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}}"><chevronlefticon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Previous
-            </a></button></paginationitem><paginationitem><button variant="outline" class="aria-disabled:pointer-events-none aria-disabled:opacity-50" aria-disabled="{{currentPage === totalPages ? true : undefined}}" role="{{currentPage === totalPages ? 'link' : undefined}}" aschild><a href="{{currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}}">Next
-              <chevronrighticon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></a></button></paginationitem></paginationcontent></pagination>
+<view class="timui-html-demo space-y-4 p-4">
+<view aria-label="Pagination"><view><view><button type="button" data-slot="button" class="aria-disabled:pointer-events-none aria-disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline"><navigator><text aria-hidden="true" size="16" aria-hidden="true">Previous
+            </navigator></button></view><view><button type="button" data-slot="button" class="aria-disabled:pointer-events-none aria-disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"><navigator>Next
+              <text aria-hidden="true" size="16" aria-hidden="true"></navigator></button></view></view></view>
 </view>

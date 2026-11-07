@@ -1,6 +1,6 @@
-<template>
-  <Tabs default-value="tab-1" class="items-center"><TabsList class="gap-1 bg-transparent"><TabsTrigger value="tab-1" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 1
-        </TabsTrigger><TabsTrigger value="tab-2" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 2
-        </TabsTrigger><TabsTrigger value="tab-3" class="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-full data-[state=active]:shadow-none">Tab 3
-        </TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="tabs"><div role="tablist" data-slot="tabs-list"><button type="button" role="tab" data-slot="tabs-trigger" value="tab-1">Tab 1
+        </button><button type="button" role="tab" data-slot="tabs-trigger" value="tab-2">Tab 2
+        </button><button type="button" role="tab" data-slot="tabs-trigger" value="tab-3">Tab 3
+        </button></div><div role="tabpanel" data-slot="tabs-content" value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></div><div role="tabpanel" data-slot="tabs-content" value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></div><div role="tabpanel" data-slot="tabs-content" value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></div></div>
+</div>

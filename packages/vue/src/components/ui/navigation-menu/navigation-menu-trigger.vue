@@ -3,22 +3,27 @@ import { ChevronDownIcon } from 'lucide-vue-next'
 import { cn, navigationMenuTriggerIconVariants, navigationMenuTriggerStyle } from '@timui/core'
 import type { HTMLAttributes } from 'vue'
 
-import { useNavigationMenuItemContext } from './use-navigation-menu-context'
+import { computed } from 'vue'
 
-const props = defineProps<{ class?: HTMLAttributes['class'] }>()
+import { useNavigationMenuItemContext, useNavigationMenuRootContext } from './use-navigation-menu-context'
+
+const props = defineProps<{ class?: HTMLAttributes['class']; disabled?: boolean }>()
 const item = useNavigationMenuItemContext()
+const root = useNavigationMenuRootContext()
+const locked = computed(() => props.disabled === true || root?.disabled.value === true)
 
 const onClick = () => {
-  if (!item) return
+  if (!item || locked.value) return
   item.setOpen(!item.open.value)
 }
 
 const onPointerEnter = () => {
+  if (locked.value) return
   item?.setOpen(true)
 }
 
 const onKeyDown = (event: KeyboardEvent) => {
-  if (!item) return
+  if (!item || locked.value) return
   if (event.key === 'Escape') {
     item.setOpen(false)
     return
@@ -40,6 +45,7 @@ const onKeyDown = (event: KeyboardEvent) => {
     :data-state="item?.open.value ? 'open' : 'closed'"
     :class="cn(navigationMenuTriggerStyle(), 'group', props.class)"
     type="button"
+    :disabled="locked"
     @click="onClick"
     @pointerenter="onPointerEnter"
     @keydown="onKeyDown"

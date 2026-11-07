@@ -1,4 +1,4 @@
-<view>
-  <alert class="rounded-md border px-4 py-3"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex text-red-500" aria-hidden="true">!
-        </text><alertdescription class="text-sm text-current">An error occurred!</alertdescription></view></alert>
+<view class="timui-html-demo space-y-4 p-4">
+<view role="alert" data-slot="alert"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex text-red-500" aria-hidden="true">!
+        </text><text data-slot="alert-description">An error occurred!</text></view></view>
 </view>

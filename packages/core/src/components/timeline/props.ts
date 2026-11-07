@@ -16,4 +16,8 @@ export type TimelineProps = {
    * The orientation of the component.
    */
   orientation?: TimelineOrientation
+  /**
+   * When true, step changes are ignored.
+   */
+  disabled?: boolean
 }

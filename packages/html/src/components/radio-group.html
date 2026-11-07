@@ -1,14 +1,21 @@
-<div class="grid gap-2">
+<div class="grid gap-2" role="radiogroup" aria-label="Radio group">
+    <p role="status">Option 1 of 2</p>
     <div class="flex items-center justify-center">
-        <button type="button" role="radio" aria-checked="true" data-state="checked" value="default"
+        <button type="button" role="radio" aria-checked="true" tabindex="0" aria-labelledby="radio-default-label" data-state="checked" value="default"
             class="h-4 w-4">
             <span class="flex items-center justify-center">
-                <svg width="6" height="6" viewBox="0 0 6 6" fill="currentcolor" xmlns="http://www.w3.org/2000/svg">
+                <svg aria-hidden="true" width="6" height="6" viewBox="0 0 6 6" fill="currentcolor" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="3" cy="3" r="3" />
                 </svg>
             </span>
         </button>
-        <label
+        <label id="radio-default-label"
             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Default</label>
+    </div>
+    <div class="flex items-center justify-center">
+        <button type="button" role="radio" aria-checked="false" tabindex="-1" aria-labelledby="radio-other-label" data-state="unchecked" value="other"
+            class="h-4 w-4"></button>
+        <label id="radio-other-label"
+            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Other</label>
     </div>
 </div>

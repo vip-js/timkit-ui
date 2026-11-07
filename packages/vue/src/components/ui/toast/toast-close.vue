@@ -10,6 +10,8 @@ const toast = inject("toast") as { close?: () => void } | null;
 
 <template>
   <button
+    type="button"
+    aria-label="Close"
     :class="
       cn(
         toastCloseVariants(),
@@ -18,6 +20,6 @@ const toast = inject("toast") as { close?: () => void } | null;
     "
     @click="toast?.close?.()"
   >
-    <XIcon class="h-4 w-4" />
+    <XIcon aria-hidden="true" class="h-4 w-4" />
   </button>
 </template>

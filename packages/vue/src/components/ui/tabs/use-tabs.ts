@@ -1,10 +1,12 @@
 import { tabsConnect, tabsMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId } from 'vue'
+import { computed, ref, useId, watchEffect } from 'vue'
+
+import { usePassedProp } from '../../../hooks/passed-prop'
 
 export interface UseTabsProps {
-  modelValue?: string
-  value?: string
+  modelValue?: string | null
+  value?: string | null
   defaultValue?: string
   id?: string
   orientation?: 'horizontal' | 'vertical'
@@ -24,15 +26,17 @@ export interface UseTabsEmits {
 
 export function useTabs(props: UseTabsProps, emit: UseTabsEmits) {
   const generatedId = useId()
+  const passed = usePassedProp()
 
   const machineProps = computed(() => {
-    const value = props.value ?? props.modelValue
+    const valueProp = passed<string | null>(props, 'value')
+    const modelProp = passed<string | null>(props, 'modelValue')
+    const value = valueProp !== undefined ? valueProp : modelProp
     return {
       id: props.id ?? generatedId,
-      value,
-      defaultValue: value === undefined ? props.defaultValue : undefined,
+      ...(value === undefined ? { defaultValue: props.defaultValue } : { value: value ?? '' }),
       orientation: props.orientation,
-      activationMode: props.activationMode,
+      activationMode: props.activationMode ?? 'automatic',
       loopFocus: props.loopFocus,
       composite: props.composite,
       deselectable: props.deselectable,
@@ -42,14 +46,20 @@ export function useTabs(props: UseTabsProps, emit: UseTabsEmits) {
         emit('change', details.value)
       },
       onFocusChange(details: { focusedValue: string }) {
-        props.onFocusChange?.(details.focusedValue)
         emit('focusChange', details.focusedValue)
       },
     }
   })
 
   const service = useMachine(tabsMachine, machineProps)
-  const api = computed(() => tabsConnect(service, normalizeProps))
+  const phase = ref('')
+  watchEffect(() => {
+    phase.value = String(service.context.get('value') ?? '')
+  })
+  const api = computed(() => {
+    phase.value
+    return tabsConnect(service, normalizeProps)
+  })
 
   return api
 }

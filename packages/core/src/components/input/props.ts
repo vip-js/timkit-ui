@@ -56,6 +56,10 @@ export type TextInputProps = {
    */
   type?: TextInputType | (string & {})
   /**
+   * Typed text longer than this length is cut. An omitted length does not cut the text.
+   */
+  maxLength?: number
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: TextInputValueChangeEvent) => void

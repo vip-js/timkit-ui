@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BookIcon, InfoIcon, LifeBuoyIcon, MessageCircleMoreIcon } from 'lucide-vue-next';
 import { Button } from '@timui/vue';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@timui/vue';
@@ -6,10 +7,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <DropdownMenu><DropdownMenuTrigger as-child><Button size="icon" variant="ghost" class="rounded-full shadow-none" aria-label="Open edit menu"><InfoIcon :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent class="pb-2"><DropdownMenuLabel>Need help?</DropdownMenuLabel><DropdownMenuItem class="cursor-pointer py-1 focus:bg-transparent focus:underline" as-child><a href="#"><BookIcon :size="16" class="opacity-60" aria-hidden="true" />Documentation
+  <DropdownMenu><DropdownMenuTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" size="icon" variant="ghost" class="rounded-full shadow-none" aria-label="Open edit menu"><InfoIcon :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent class="pb-2"><DropdownMenuLabel>Need help?</DropdownMenuLabel><DropdownMenuItem class="cursor-pointer py-1 focus:bg-transparent focus:underline" as-child><a href="#"><BookIcon :size="16" class="opacity-60" aria-hidden="true" />Documentation
           </a></DropdownMenuItem><DropdownMenuItem class="cursor-pointer py-1 focus:bg-transparent focus:underline" as-child><a href="#"><LifeBuoyIcon :size="16" class="opacity-60" aria-hidden="true" />Support
           </a></DropdownMenuItem><DropdownMenuItem class="cursor-pointer py-1 focus:bg-transparent focus:underline" as-child><a href="#"><MessageCircleMoreIcon :size="16" class="opacity-60" aria-hidden="true" />Contact us
           </a></DropdownMenuItem></DropdownMenuContent></DropdownMenu>

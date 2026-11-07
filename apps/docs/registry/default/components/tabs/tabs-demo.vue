@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <Tabs default-value="overview" class="w-full max-w-md">
     <TabsList>
-      <TabsTrigger value="overview">Overview</TabsTrigger>
+      <TabsTrigger @click="onDemoClick" value="overview">Overview</TabsTrigger>
       <TabsTrigger value="docs">Docs</TabsTrigger>
       <TabsTrigger value="qa">QA</TabsTrigger>
     </TabsList>

@@ -1,13 +1,15 @@
 import { comboboxCollection, comboboxConnect, comboboxMachine } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type ComboboxItemRecord = Record<string, object>
 
 export type WeappComboboxApi = {
+  value?: string[]
   triggerProps?: { onClick?: () => void }
   selectValue?: (value: string) => void
   setOpen?: (open: boolean) => void
+  setValue?: (value: string[]) => void
 }
 
 export type WeappComboboxService = {
@@ -24,6 +26,8 @@ export type WeappComboboxContext = {
   name: string
   disabled: boolean
   readOnly: boolean
+  open?: boolean | null
+  defaultOpen?: boolean | null
   onValueChange?: (details: { value: string[] }) => void
 }
 
@@ -31,13 +35,19 @@ export function setupComboboxMachine(
   component: WeappComboboxComponent,
   context: WeappComboboxContext
 ) {
-  const machine = comboboxMachine({
+  const current = context.value ?? []
+  const machine = bindMachine(comboboxMachine, {
     id: context.id,
     collection: context.collection,
-    value: context.value,
-    name: context.name,
-    disabled: context.disabled,
-    readOnly: context.readOnly,
+    ...(current.length ? { defaultValue: current } : {}),
+    name: context.name || undefined,
+    disabled: context.disabled || undefined,
+    readOnly: context.readOnly || undefined,
+    ...(context.open != null
+      ? { open: context.open === true }
+      : context.defaultOpen === true
+        ? { defaultOpen: true }
+        : {}),
     openOnClick: true,
     inputBehavior: 'none',
     selectionBehavior: 'replace',
@@ -46,12 +56,11 @@ export function setupComboboxMachine(
 
   const controller = useMachine(component, machine)
   const service = controller.service as WeappComboboxService
-  const cleanup = controller.start()
   const send = controller.send as MachineSend
 
-  return { service, cleanup, send }
+  return { service, start: () => controller.start(), send }
 }
 
 export function connectComboboxMachine(state: object, send: MachineSend) {
-  return comboboxConnect(state, send, normalizeProps) as WeappComboboxApi
+  return comboboxConnect(state as never, normalizeProps) as WeappComboboxApi
 }

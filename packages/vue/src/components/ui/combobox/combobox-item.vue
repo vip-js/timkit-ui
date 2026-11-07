@@ -29,10 +29,16 @@ const itemProps = computed(() => api?.value?.getItemProps?.({ item: props.item }
 const itemTextProps = computed(() => api?.value?.getItemTextProps?.({ item: props.item }) ?? {});
 const itemIndicatorProps = computed(() => api?.value?.getItemIndicatorProps?.({ item: props.item }) ?? {});
 const itemState = computed(() => api?.value?.getItemState?.({ item: props.item }));
+const visible = computed(() => {
+  const query = String((api?.value as { inputValue?: string } | undefined)?.inputValue ?? '').trim().toLowerCase();
+  if (!query) return true;
+  return String(props.item.label ?? props.item.value ?? '').toLowerCase().includes(query);
+});
 </script>
 
 <template>
   <div
+    v-if="visible"
     v-bind="itemProps"
     data-slot="combobox-item"
     :data-highlighted="itemState?.highlighted || undefined"

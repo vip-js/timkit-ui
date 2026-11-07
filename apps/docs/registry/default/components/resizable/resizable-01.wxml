@@ -1,0 +1,5 @@
+<view class="timui-demo">
+  <text>Left</text>
+  <view></view>
+  <text>Right</text>
+</view>

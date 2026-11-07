@@ -1,10 +1,11 @@
-<view class="{{toastClass}}" role="status">
+<view wx:if="{{open}}" class="{{toastClass}}" role="status" data-slot="toast" data-state="open">
+  <view>Opened</view>
   <view class="flex-1">
     <view wx:if="{{title}}" class="{{titleClass}}">{{title}}</view>
     <view wx:if="{{description}}" class="{{descriptionClass}}">{{description}}</view>
   </view>
-  <view wx:if="{{showClose}}" class="{{closeClass}}" bindtap="onCloseTap">
-    <text>×</text>
+  <view wx:if="{{showClose}}" class="{{closeClass}}" data-slot="toast-close" role="button" tabindex="0" aria-label="Close" bindtap="onCloseTap" bindkeydown="onCloseKey">
+    <text aria-hidden="true">×</text>
   </view>
 </view>
 

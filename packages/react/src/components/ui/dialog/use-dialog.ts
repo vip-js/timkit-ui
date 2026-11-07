@@ -13,10 +13,10 @@ export function useDialog(props: UseDialogProps = {}) {
   const generatedId = React.useId()
   const dialogId = props.id ?? `dialog-${generatedId}`
 
+  const controlled = props.open !== undefined
   const service = useMachine(dialogMachine, {
     id: dialogId,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen }),
     modal: props.modal !== false,
     role: props.role,
     onOpenChange: (details) => {
@@ -27,8 +27,19 @@ export function useDialog(props: UseDialogProps = {}) {
   const api = React.useMemo(() => dialogConnect(service, normalizeProps), [service])
 
   React.useEffect(() => {
-    if (props.open !== undefined && props.open !== api.open) {
-      api.setOpen(props.open)
+    if (!api.open) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      api.setOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [api])
+
+  React.useEffect(() => {
+    if (props.open !== undefined && (props.open === true) !== api.open) {
+      api.setOpen(props.open === true)
     }
   }, [props.open, api])
 

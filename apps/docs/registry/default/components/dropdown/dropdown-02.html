@@ -1,4 +1,4 @@
-<template>
-  <DropdownMenu><DropdownMenuTrigger aschild><Button variant="outline">Same width of trigger
-          <ChevronDownIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent class="min-w-(--radix-dropdown-menu-trigger-width)"><DropdownMenuItem>Option 1</DropdownMenuItem><DropdownMenuItem>Option 2</DropdownMenuItem><DropdownMenuItem>Option 3</DropdownMenuItem><DropdownMenuItem>Option 4</DropdownMenuItem></DropdownMenuContent></DropdownMenu>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Same width of trigger
+          <span aria-hidden="true" size="16" aria-hidden="true"></button></button><div role="menu"><button type="button" role="menuitem">Option 1</button><button type="button" role="menuitem">Option 2</button><button type="button" role="menuitem">Option 3</button><button type="button" role="menuitem">Option 4</button></div></div>
+</div>

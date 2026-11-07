@@ -1,54 +1,110 @@
 <view class="{{className}}">
+  <view wx:if="{{optionStatus}}" role="status">{{optionStatus}}</view>
   <!-- Trigger -->
-  <view 
-    class="multiselect-trigger" 
+  <view
+    wx:if="{{opened && highlight >= 0}}"
+    id="{{id}}-trigger"
+    class="multiselect-trigger"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-activedescendant="{{id}}-option-{{highlight}}"
     bindtap="onTriggerTap"
+    bindkeydown="onKey"
     data-disabled="{{disabled}}"
   >
     <text class="multiselect-label">
-      {{api.value.length > 0 ? '已选 ' + api.value.length + ' 项' : placeholder}}
+      {{displayValue || placeholder}}
     </text>
-    <text class="multiselect-arrow">▼</text>
+    <text class="multiselect-arrow" aria-hidden="true">▼</text>
+  </view>
+  <view
+    wx:elif="{{opened}}"
+    id="{{id}}-trigger"
+    class="multiselect-trigger"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    bindtap="onTriggerTap"
+    bindkeydown="onKey"
+    data-disabled="{{disabled}}"
+  >
+    <text class="multiselect-label">
+      {{displayValue || placeholder}}
+    </text>
+    <text class="multiselect-arrow" aria-hidden="true">▼</text>
+  </view>
+  <view
+    wx:else
+    id="{{id}}-trigger"
+    class="multiselect-trigger"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    bindtap="onTriggerTap"
+    bindkeydown="onKey"
+    data-disabled="{{disabled}}"
+  >
+    <text class="multiselect-label">
+      {{displayValue || placeholder}}
+    </text>
+    <text class="multiselect-arrow" aria-hidden="true">▼</text>
   </view>
 
   <!-- ActionSheet Overlay -->
   <view 
-    wx:if="{{api.open}}" 
+    wx:if="{{opened}}" 
     class="multiselect-overlay" 
     bindtap="onBackdropTap"
   ></view>
   
   <!-- ActionSheet Content -->
   <view 
-    wx:if="{{api.open}}" 
+    wx:if="{{opened}}" 
     class="multiselect-content"
-    data-state="{{api.open ? 'open' : 'closed'}}"
+    data-state="{{opened ? 'open' : 'closed'}}"
   >
     <view class="multiselect-header">
       <text class="multiselect-title">{{label || placeholder}}</text>
-      <view class="multiselect-close" bindtap="onBackdropTap">×</view>
+      <view class="multiselect-close" data-slot="multiselect-close" role="button" tabindex="0" aria-label="Close" bindtap="onBackdropTap" bindkeydown="onCloseKey"><text aria-hidden="true">×</text></view>
     </view>
     
-    <scroll-view scroll-y class="multiselect-list">
+    <scroll-view scroll-y class="multiselect-list" id="{{id}}-listbox" role="listbox" aria-multiselectable="true" aria-labelledby="{{id}}-trigger">
       <view 
         wx:for="{{items}}" 
         wx:key="{{itemValueKey}}"
+        id="{{id}}-option-{{index}}"
         class="multiselect-item"
+        role="option"
+        tabindex="-1"
         data-value="{{item[itemValueKey] || item}}"
+        data-highlighted="{{index === highlight}}"
         mark:value="{{item[itemValueKey] || item}}"
         bindtap="onItemTap"
-        data-selected="{{api.value.includes(item[itemValueKey] || item)}}"
+        bindkeydown="onItemKey"
+        data-selected="{{selected.indexOf(item[itemValueKey] || item) > -1}}"
+        data-disabled="{{item.disabled || item.disable}}"
+        aria-selected="{{selected.indexOf(item[itemValueKey] || item) > -1 ? 'true' : 'false'}}"
+        aria-disabled="{{item.disabled || item.disable ? 'true' : 'false'}}"
       >
-        <view class="multiselect-checkbox" data-checked="{{api.value.includes(item[itemValueKey] || item)}}">
-          <text wx:if="{{api.value.includes(item[itemValueKey] || item)}}">✓</text>
+        <view class="multiselect-checkbox" data-checked="{{selected.indexOf(item[itemValueKey] || item) > -1}}">
+          <text wx:if="{{selected.indexOf(item[itemValueKey] || item) > -1}}" aria-hidden="true">✓</text>
         </view>
         <text>{{item[itemLabelKey] || item}}</text>
       </view>
     </scroll-view>
 
     <view class="multiselect-footer">
-      <view class="multiselect-confirm-btn" bindtap="onConfirmTap">
-        确认 ({{api.value.length}})
+      <view class="multiselect-confirm-btn" role="button" tabindex="0" aria-label="Confirm" bindtap="onConfirmTap" bindkeydown="onConfirmKey">
+        Confirm ({{selected.length}})
       </view>
     </view>
   </view>

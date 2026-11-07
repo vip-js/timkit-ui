@@ -162,6 +162,9 @@ export const MultipleSelector = ({
   onMaxSelected,
   hidePlaceholderWhenSelected,
   disabled,
+  open: openProp,
+  defaultOpen,
+  onOpenChange,
   groupBy,
   className,
   badgeClassName,
@@ -181,12 +184,28 @@ export const MultipleSelector = ({
   )
 
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const [open, setOpen] = React.useState(false)
+  const controlledOpen = openProp != null
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen === true)
+  const open = controlledOpen ? openProp === true : uncontrolledOpen
+  const setOpen = React.useCallback(
+    (next: boolean) => {
+      if (!controlledOpen) setUncontrolledOpen(next)
+      onOpenChange?.(next)
+    },
+    [controlledOpen, onOpenChange]
+  )
   const [onScrollbar, setOnScrollbar] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const dropdownRef = React.useRef<HTMLDivElement>(null) // Added this
 
-  const [selected, setSelected] = React.useState<Option[]>(value || [])
+  const [selected, setSelected] = React.useState<Option[]>(value ?? [])
+  const commitSelected = React.useCallback(
+    (next: Option[]) => {
+      if (value === undefined) setSelected(next)
+      emitValueChange(next)
+    },
+    [emitValueChange, value]
+  )
   const [options, setOptions] = React.useState<GroupOption>(
     transToGroupOption(arrayDefaultOptions, groupBy)
   )
@@ -207,15 +226,15 @@ export const MultipleSelector = ({
       setOpen(false)
       inputRef.current.blur()
     }
-  }, [])
+  }, [setOpen])
 
   const handleUnselect = React.useCallback(
     (option: Option) => {
+      if (disabled) return
       const newOptions = selected.filter((s) => s.value !== option.value)
-      setSelected(newOptions)
-      emitValueChange(newOptions)
+      commitSelected(newOptions)
     },
-    [emitValueChange, selected]
+    [commitSelected, disabled, selected]
   )
 
   const handleKeyDown = React.useCallback(
@@ -233,11 +252,13 @@ export const MultipleSelector = ({
         }
         // This is not a default behavior of the <input /> field
         if (e.key === 'Escape') {
-          input.blur()
+          e.preventDefault()
+          setOpen(false)
+          input.focus()
         }
       }
     },
-    [handleUnselect, selected]
+    [handleUnselect, selected, setOpen]
   )
 
   useEffect(() => {
@@ -256,9 +277,8 @@ export const MultipleSelector = ({
   }, [handleClickOutside, open])
 
   useEffect(() => {
-    if (value) {
-      setSelected(value)
-    }
+    if (value === undefined) return
+    setSelected(value ?? [])
   }, [value])
 
   useEffect(() => {
@@ -344,8 +364,7 @@ export const MultipleSelector = ({
           }
           setInputValue('')
           const newOptions = [...selected, { value, label: value }]
-          setSelected(newOptions)
-          emitValueChange(newOptions)
+          commitSelected(newOptions)
         }}
       >
         {`Create "${inputValue}"`}
@@ -354,7 +373,7 @@ export const MultipleSelector = ({
   }, [
     creatable,
     debouncedSearchTerm.length,
-    emitValueChange,
+    commitSelected,
     inputValue,
     isLoading,
     maxSelected,
@@ -395,7 +414,20 @@ export const MultipleSelector = ({
     }
   }, [creatable, commandProps?.filter])
 
+  const catalog = arrayOptions ?? arrayDefaultOptions
+  const optionStatus =
+    selected.length === 0
+      ? ''
+      : selected.length === 1
+        ? (() => {
+            const index = catalog.findIndex((item) => item.value === selected[0]?.value)
+            return index < 0 ? '' : `Option ${index + 1} of ${catalog.length}`
+          })()
+        : `${selected.length} options selected`
+
   return (
+    <>
+    {optionStatus ? <p role="status">{optionStatus}</p> : null}
     <Command
       ref={dropdownRef}
       {...commandProps}
@@ -410,6 +442,7 @@ export const MultipleSelector = ({
       filter={commandFilter}
     >
       <div
+        data-slot="multiselect"
         className={cn(
           multiselectContainerVariants(),
           {
@@ -487,8 +520,7 @@ export const MultipleSelector = ({
           <button
             type="button"
             onClick={() => {
-              setSelected(fixedSelected)
-              emitValueChange(fixedSelected)
+              commitSelected(fixedSelected)
             }}
             className={cn(
               multiselectClearButtonVariants(),
@@ -511,6 +543,7 @@ export const MultipleSelector = ({
             'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
             !open && 'hidden'
           )}
+          data-slot="multiselect-popup"
           data-state={open ? 'open' : 'closed'}
         >
           {open && (
@@ -547,14 +580,14 @@ export const MultipleSelector = ({
                                 e.stopPropagation()
                               }}
                               onSelect={() => {
+                                if (disabled || option.disable) return
                                 if (selected.length >= maxSelected) {
                                   onMaxSelected?.(selected.length)
                                   return
                                 }
                                 setInputValue('')
                                 const newOptions = [...selected, option]
-                                setSelected(newOptions)
-                                emitValueChange(newOptions)
+                                commitSelected(newOptions)
                               }}
                               className={cn(
                                 'cursor-pointer',
@@ -576,6 +609,7 @@ export const MultipleSelector = ({
         </div>
       </div>
     </Command>
+    </>
   )
 }
 

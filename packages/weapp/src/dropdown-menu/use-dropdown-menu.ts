@@ -1,6 +1,6 @@
 import { menuConnect, menuMachine } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 export type WeappDropdownMenuApi = {
   triggerProps?: { onClick?: () => void }
@@ -14,7 +14,7 @@ export type WeappDropdownMenuService = {
 
 export type WeappDropdownMenuContext = {
   id: string
-  open: boolean
+  open: boolean | null
   closeOnSelect: boolean
   onOpenChange?: (details: { open: boolean }) => void
   onSelect?: (details: { value: string }) => void
@@ -27,9 +27,9 @@ export function setupDropdownMenuMachine(
   component: WeappDropdownMenuComponent,
   context: WeappDropdownMenuContext
 ) {
-  const machine = menuMachine({
+  const machine = bindMachine(menuMachine, {
     id: context.id,
-    open: context.open,
+    defaultOpen: context.open === true ? true : undefined,
     closeOnSelect: context.closeOnSelect,
     onOpenChange: context.onOpenChange,
     onSelect: context.onSelect,
@@ -44,5 +44,5 @@ export function setupDropdownMenuMachine(
 }
 
 export function connectDropdownMenuMachine(state: object, send: MachineSend) {
-  return menuConnect(state, send, normalizeProps) as WeappDropdownMenuApi
+  return menuConnect(state as never, normalizeProps) as WeappDropdownMenuApi
 }

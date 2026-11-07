@@ -1,8 +1,8 @@
 <div data-slot="hover-card" class="inline-block">
-  <button data-slot="hover-card-trigger" class="rounded-md border border-input px-3 py-2 text-sm">
+  <button type="button" data-slot="hover-card-trigger" class="rounded-md border border-input px-3 py-2 text-sm">
     Hover Card Trigger
   </button>
-  <div data-slot="hover-card-content" data-state="closed" hidden class="p-3">
+  <div id="hover-card-content" tabindex="-1" data-slot="hover-card-content" data-state="closed" hidden class="p-3">
     Hover card content preview.
   </div>
 </div>

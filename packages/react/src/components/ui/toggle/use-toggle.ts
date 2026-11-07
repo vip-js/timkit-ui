@@ -3,19 +3,19 @@ import { toggleConnect, toggleMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UseToggleProps {
-  pressed?: boolean
+  pressed?: boolean | null
   defaultPressed?: boolean
   onPressedChange?: (pressed: boolean) => void
   disabled?: boolean
 }
 
 export function useToggle(props: UseToggleProps) {
+  const controlled = props.pressed !== undefined
   const service = useMachine(toggleMachine, {
-    pressed: props.pressed,
-    defaultPressed: props.defaultPressed,
+    ...(controlled ? { pressed: props.pressed === true } : { defaultPressed: props.defaultPressed }),
     disabled: props.disabled,
     onPressedChange: props.onPressedChange,
   })
 
-  return React.useMemo(() => toggleConnect(service, normalizeProps), [service])
+  return toggleConnect(service, normalizeProps)
 }

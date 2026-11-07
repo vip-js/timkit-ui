@@ -10,10 +10,27 @@ const props = defineProps<{
 }>();
 
 const context = inject(PaginationContextKey, null);
-const itemProps = computed(() =>
-  context?.api.value?.getItemProps?.({ type: "page", value: props.page }) ?? {}
+const isActive = computed(
+  () => context?.page.value != null && context.page.value === props.page
 );
-const isActive = computed(() => context?.api.value?.page === props.page);
+const itemProps = computed(() => {
+  const base = context?.api.value?.getItemProps?.({ type: "page", value: props.page }) ?? {}
+  const visible = context?.page.value != null ? base : (() => {
+    const { "data-selected": _selected, ...rest } = base as Record<string, unknown>
+    return rest
+  })()
+  return {
+    ...visible,
+    ...(context?.disabled.value
+      ? {
+          disabled: true,
+          "aria-disabled": "true",
+          onClick: (event: Event) => event.preventDefault(),
+        }
+      : {}),
+    "aria-current": isActive.value ? "page" : undefined,
+  }
+});
 </script>
 
 <template>

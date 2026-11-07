@@ -1,6 +1,6 @@
 import { dateFieldConnect, dateFieldMachine, type DateFieldApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -19,13 +19,15 @@ export function setupDateFieldMachine(
   props: UseDateFieldProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => DateFieldApi
 } {
-  const machine = dateFieldMachine({
+  const rawValue = props.value ?? []
+  const machineValue = rawValue.some((item) => typeof item === 'string') ? undefined : rawValue
+  const machine = bindMachine(dateFieldMachine, {
     id: props.id || 'datefield',
-    value: props.value,
+    ...(machineValue && machineValue.length > 0 ? { value: machineValue } : {}),
     min: props.min,
     max: props.max,
     disabled: props.disabled,
@@ -36,8 +38,8 @@ export function setupDateFieldMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
-    connect: (state: object, send: MachineSend) => dateFieldConnect(state, send) as DateFieldApi,
+    connect: (state: object, send: MachineSend) => dateFieldConnect(state as never, normalizeProps) as DateFieldApi,
   }
 }

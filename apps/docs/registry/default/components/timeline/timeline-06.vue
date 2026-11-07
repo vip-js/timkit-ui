@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { GitCompare, GitFork, GitMerge, GitPullRequest } from 'lucide-vue-next';
 import { Timeline } from '@timui/vue';
 import { TimelineContent } from '@timui/vue';
@@ -45,8 +46,13 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Timeline :default-value="3"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id" class="group-data-[orientation=vertical]/timeline:ms-10"><TimelineHeader><TimelineSeparator class="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" /><TimelineTitle class="mt-0.5">{{ item.title }}</TimelineTitle><TimelineIndicator class="bg-primary/10 group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center border-none group-data-[orientation=vertical]/timeline:-left-7"><item.icon :size="14" /></TimelineIndicator></TimelineHeader><TimelineContent>{{ item.description }}<TimelineDate class="mt-2 mb-0">{{ item.date }}</TimelineDate></TimelineContent></TimelineItem></Timeline>
+  <Timeline @click="onDemoClick" :default-value="3"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id" class="group-data-[orientation=vertical]/timeline:ms-10"><TimelineHeader><TimelineSeparator class="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" /><TimelineTitle class="mt-0.5">{{ item.title }}</TimelineTitle><TimelineIndicator class="bg-primary/10 group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center border-none group-data-[orientation=vertical]/timeline:-left-7"><item.icon :size="14" /></TimelineIndicator></TimelineHeader><TimelineContent>{{ item.description }}<TimelineDate class="mt-2 mb-0">{{ item.date }}</TimelineDate></TimelineContent></TimelineItem></Timeline>
 </template>

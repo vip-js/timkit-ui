@@ -1,6 +1,6 @@
 import { defineUCS } from '../../shared'
 
-const accordionSchema = defineUCS({
+export const accordionSchema = defineUCS({
   name: 'accordion',
   title: 'Accordion',
   description:

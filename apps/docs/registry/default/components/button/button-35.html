@@ -1,8 +1,9 @@
-<template>
-  <ToggleGroup type="single" variant="outline" value="${value}" on-value-change="${(value) => {
-        if (value) setValue(value)
-      }}"><ToggleGroupItem class="flex-1" value="left">Left
-      </ToggleGroupItem><ToggleGroupItem class="flex-1" value="center">Center
-      </ToggleGroupItem><ToggleGroupItem class="flex-1" value="right">Right
-      </ToggleGroupItem></ToggleGroup>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div role="group"
+   
+    variant="outline">
+    <button type="button" value="left">Left</button>
+    <button type="button" value="center">Center</button>
+    <button type="button" value="right">Right</button>
+  </div>
+</div>

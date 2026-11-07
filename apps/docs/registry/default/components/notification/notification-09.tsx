@@ -1,7 +1,9 @@
 import { Button } from '@timui/react'
 import { CircleCheckIcon, XIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.
     <div className="bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg">
@@ -14,7 +16,7 @@ export default function Component() {
           />
           <div className="flex grow items-center justify-between gap-12">
             <p className="text-sm">You&lsquo;ve made changes!</p>
-            <Button size="sm">Undo</Button>
+            <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} size="sm">Undo</Button>
           </div>
         </div>
         <Button

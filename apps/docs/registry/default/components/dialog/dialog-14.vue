@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '@timui/vue';
 import { Checkbox } from '@timui/vue';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@timui/vue';
@@ -11,10 +12,15 @@ import { Label } from '@timui/vue';
 
 const id = 'dialog-14';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Dialog><DialogTrigger as-child><Button variant="outline">Sign in</Button></DialogTrigger><DialogContent><div class="flex flex-col items-center gap-2"><div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><svg class="stroke-zinc-800 dark:stroke-zinc-100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke-width="8" /></svg></div><DialogHeader><DialogTitle class="sm:text-center">Welcome back</DialogTitle><DialogDescription class="sm:text-center">Enter your credentials to login to your account.
+  <Dialog><DialogTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Sign in</Button></DialogTrigger><DialogContent><div class="flex flex-col items-center gap-2"><div class="flex size-11 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><svg class="stroke-zinc-800 dark:stroke-zinc-100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke-width="8" /></svg></div><DialogHeader><DialogTitle class="sm:text-center">Welcome back</DialogTitle><DialogDescription class="sm:text-center">Enter your credentials to login to your account.
             </DialogDescription></DialogHeader></div><form class="space-y-5"><div class="space-y-4"><div class="*:not-first:mt-2"><Label :htmlFor="`${id}-email`">Email</Label><Input :id="`${id}-email`" placeholder="hi@yourcompany.com" type="email" required /></div><div class="*:not-first:mt-2"><Label :htmlFor="`${id}-password`">Password</Label><Input :id="`${id}-password`" placeholder="Enter your password" type="password" required /></div></div><div class="flex justify-between gap-2"><div class="flex items-center gap-2"><Checkbox :id="`${id}-remember`" /><Label :htmlFor="`${id}-remember`" class="text-muted-foreground font-normal">Remember me
               </Label></div><a class="text-sm underline hover:no-underline" href="#">Forgot password?
             </a></div><Button type="button" class="w-full">Sign in

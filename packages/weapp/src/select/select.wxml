@@ -1,11 +1,59 @@
 <view class="{{className}}">
+  <view wx:if="{{optionStatus}}" role="status">{{optionStatus}}</view>
   <!-- Trigger (read-only input) -->
-  <view 
-    class="select-trigger" 
+  <view
+    wx:if="{{opened && highlight >= 0}}"
+    id="{{id}}-trigger"
+    class="select-trigger"
     bindtap="onTriggerTap"
     data-disabled="{{disabled}}"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{api.open ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-required="{{required ? 'true' : 'false'}}"
+    aria-label="{{ariaLabel || displayValue || placeholder}}"
+    aria-activedescendant="{{id}}-option-{{highlight}}"
+    bindkeydown="onKey"
   >
-    <text>{{api.valueAsString || placeholder}}</text>
+    <text>{{displayValue || placeholder}}</text>
+  </view>
+  <view
+    wx:elif="{{opened}}"
+    id="{{id}}-trigger"
+    class="select-trigger"
+    bindtap="onTriggerTap"
+    data-disabled="{{disabled}}"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{api.open ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-required="{{required ? 'true' : 'false'}}"
+    aria-label="{{ariaLabel || displayValue || placeholder}}"
+    bindkeydown="onKey"
+  >
+    <text>{{displayValue || placeholder}}</text>
+  </view>
+  <view
+    wx:else
+    id="{{id}}-trigger"
+    class="select-trigger"
+    bindtap="onTriggerTap"
+    data-disabled="{{disabled}}"
+    role="combobox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="listbox"
+    aria-expanded="{{api.open ? 'true' : 'false'}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-required="{{required ? 'true' : 'false'}}"
+    aria-label="{{ariaLabel || displayValue || placeholder}}"
+    bindkeydown="onKey"
+  >
+    <text>{{displayValue || placeholder}}</text>
   </view>
 
   <!-- ActionSheet-style picker (bottom sheet) -->
@@ -22,21 +70,28 @@
   >
     <view class="select-header">
       <text class="select-title">{{label || placeholder}}</text>
-      <view class="select-close" bindtap="onBackdropTap">×</view>
+      <view class="select-close" data-slot="select-close" role="button" tabindex="0" aria-label="Close" bindtap="onBackdropTap" bindkeydown="onCloseKey"><text aria-hidden="true">×</text></view>
     </view>
     
-    <scroll-view scroll-y class="select-list">
+    <scroll-view scroll-y class="select-list" id="{{id}}-listbox" role="listbox" aria-labelledby="{{id}}-trigger" tabindex="0">
       <view 
         wx:for="{{items}}" 
         wx:key="{{itemValueKey}}"
+        id="{{id}}-option-{{index}}"
         class="select-item"
+        role="option"
+        tabindex="-1"
         data-value="{{item[itemValueKey] || item}}"
+        data-highlighted="{{index === highlight}}"
         mark:value="{{item[itemValueKey] || item}}"
         bindtap="onItemTap"
-        data-selected="{{api.value.includes(item[itemValueKey] || item)}}"
+        bindkeydown="onItemKey"
+        data-selected="{{selected.includes(item[itemValueKey] || item)}}"
+        aria-selected="{{selected.includes(item[itemValueKey] || item) ? 'true' : 'false'}}"
+        aria-disabled="{{item.disabled ? 'true' : 'false'}}"
       >
         <text>{{item[itemLabelKey] || item}}</text>
-        <text wx:if="{{api.value.includes(item[itemValueKey] || item)}}" class="select-check">✓</text>
+        <text wx:if="{{selected.includes(item[itemValueKey] || item)}}" class="select-check" aria-hidden="true">✓</text>
       </view>
     </scroll-view>
   </view>

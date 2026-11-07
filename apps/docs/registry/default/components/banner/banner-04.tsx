@@ -1,8 +1,10 @@
 import { Banner, BannerActions, BannerContent, BannerDescription, BannerIcon } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Banner className="dark bg-muted text-foreground px-4 py-3">
+    <Banner onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="dark bg-muted text-foreground px-4 py-3">
       <BannerContent className="flex-col justify-between gap-2 md:flex-row">
         <div className="flex grow gap-3">
           <BannerIcon className="mt-0.5 opacity-60">

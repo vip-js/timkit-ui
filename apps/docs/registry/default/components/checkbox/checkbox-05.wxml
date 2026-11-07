@@ -1,4 +1,4 @@
-<view>
-  <view class="flex items-center gap-2"><checkbox id="{{id}}" defaultchecked /><label htmlfor="{{id}}" class="peer-data-[state=checked]:line-through">Simple todo item
-      </label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="checkbox-05" defaultChecked><text data-slot="label" for="checkbox-05">Simple todo item
+      </text></view>
 </view>

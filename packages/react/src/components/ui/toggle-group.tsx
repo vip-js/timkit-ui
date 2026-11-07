@@ -14,7 +14,7 @@ const ToggleGroup = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> &
     ToggleVariants & {
       type: 'single' | 'multiple'
-      value?: string | string[]
+      value?: string | string[] | null
       defaultValue?: string | string[]
       onValueChange?: (value: string | string[]) => void
       disabled?: boolean
@@ -34,6 +34,7 @@ const ToggleGroup = React.forwardRef<
       onValueChange,
       disabled,
       loop,
+      'aria-label': ariaLabel,
       ...props
     },
     ref
@@ -47,6 +48,22 @@ const ToggleGroup = React.forwardRef<
       disabled,
       loop,
     })
+    const itemValues = React.Children.toArray(children).flatMap((child) => {
+      if (!React.isValidElement(child)) return []
+      const itemValue = (child.props as { value?: unknown }).value
+      return typeof itemValue === 'string' && itemValue ? [itemValue] : []
+    })
+    const raw = (api as { value?: string | string[] }).value
+    const selected = Array.isArray(raw) ? raw.filter(Boolean) : raw ? [String(raw)] : []
+    const itemStatus =
+      selected.length === 0
+        ? ''
+        : selected.length === 1
+          ? (() => {
+              const index = itemValues.indexOf(selected[0] ?? '')
+              return index < 0 ? '' : `Item ${index + 1} of ${itemValues.length}`
+            })()
+          : `${selected.length} items pressed`
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
     const { className: mergedClassName, ...restProps } = mergedProps
@@ -61,12 +78,14 @@ const ToggleGroup = React.forwardRef<
           disabled,
         }}
       >
+        {itemStatus ? <p role="status">{itemStatus}</p> : null}
         <div
           ref={ref}
           data-slot="toggle-group"
           role="group"
           className={cn(toggleGroupVariants(), className, mergedClassName)}
           {...restProps}
+          aria-label={typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Toggle group'}
         >
           {children}
         </div>
@@ -82,13 +101,14 @@ const ToggleGroupItem = React.forwardRef<
 >(({ className, children, value, ...props }, ref) => {
   const context = useToggleGroupContext()
   const api = context.api
-  const itemState = api?.getItemState?.({ value, disabled: props.disabled }) ?? {
+  const itemDisabled = Boolean(props.disabled || context.disabled)
+  const itemState = api?.getItemState?.({ value, disabled: itemDisabled }) ?? {
     pressed: false,
-    disabled: false,
+    disabled: itemDisabled,
   }
-  const itemProps = api?.getItemProps?.({ value, disabled: props.disabled }) ?? {}
+  const itemProps = api?.getItemProps?.({ value, disabled: itemDisabled }) ?? {}
   const mergedProps = mergeProps(itemProps, props)
-  const { className: mergedClassName, ...restProps } = mergedProps
+  const { className: mergedClassName, onClick: itemOnClick, ...restProps } = mergedProps
 
   return (
     <button
@@ -102,6 +122,11 @@ const ToggleGroupItem = React.forwardRef<
         mergedClassName
       )}
       {...restProps}
+      disabled={itemDisabled || undefined}
+      onClick={(event) => {
+        if (itemDisabled) return
+        itemOnClick?.(event)
+      }}
     >
       {children}
     </button>

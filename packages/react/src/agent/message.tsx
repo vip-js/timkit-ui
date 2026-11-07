@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { cn } from '@timui/core'
 
+const { memo } = React
+
 export type AgentMessageRole = 'user' | 'assistant' | 'system'
 export type AgentMessageStatus = 'idle' | 'streaming' | 'error'
 
@@ -18,7 +20,7 @@ const roleLabel: Record<AgentMessageRole, string> = {
   system: 'System',
 }
 
-export function AgentMessage({
+export const AgentMessage = memo(function AgentMessage({
   role,
   status = 'idle',
   name,
@@ -60,4 +62,6 @@ export function AgentMessage({
       </div>
     </article>
   )
-}
+})
+
+AgentMessage.displayName = 'AgentMessage'

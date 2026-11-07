@@ -20,12 +20,21 @@ const contentProps = computed(() => {
     }) || {}
   );
 });
+const labelledBy = computed(() => {
+  const trigger = api.value.getItemTriggerProps({
+    value: item.value.value,
+    disabled: item.value.disabled,
+  });
+  return contentProps.value["aria-labelledby"] || trigger?.id;
+});
 </script>
 
 <template>
   <div
     v-bind="contentProps"
     data-slot="accordion-content"
+    role="region"
+    :aria-labelledby="labelledBy"
     :data-state="isOpen ? 'open' : 'closed'"
     :hidden="!isOpen"
     :class="

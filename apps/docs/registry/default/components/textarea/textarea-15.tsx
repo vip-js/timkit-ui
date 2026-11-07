@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { Label, Textarea } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
 
   return (
@@ -9,7 +11,7 @@ export default function Component() {
       <Label htmlFor={id} className="text-foreground block px-3 pt-2 text-xs font-medium">
         Textarea with inset label
       </Label>
-      <Textarea id={id} className="min-h-[70px] rounded-none border-0 px-3 pb-2 shadow-none" />
+      <Textarea value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} className="min-h-[70px] rounded-none border-0 px-3 pb-2 shadow-none" />
     </div>
   )
 }

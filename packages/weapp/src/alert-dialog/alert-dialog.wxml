@@ -1,15 +1,36 @@
 <view class="{{className}}">
   <!-- Trigger (optional) -->
-  <view 
-    wx:if="{{showTrigger}}"
+  <view
+    wx:if="{{showTrigger && (opened || api.open)}}"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-haspopup="dialog"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-controls="{{id}}-content"
     bindtap="onTriggerTap"
+    bindkeydown="onTriggerKey"
+  >
+    <slot name="trigger"></slot>
+  </view>
+  <view
+    wx:elif="{{showTrigger}}"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-haspopup="dialog"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    bindtap="onTriggerTap"
+    bindkeydown="onTriggerKey"
   >
     <slot name="trigger"></slot>
   </view>
 
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
+
   <!-- Backdrop -->
   <view 
-    wx:if="{{api.open}}"
+    wx:if="{{opened || api.open}}"
     class="alert-dialog-backdrop"
     bindtap="onBackdropTap"
     data-state="{{api.open ? 'open' : 'closed'}}"
@@ -17,30 +38,42 @@
 
   <!-- Dialog Content -->
   <view 
-    wx:if="{{api.open}}"
-    id="{{api.contentProps.id}}"
+    wx:if="{{(opened || api.open) && title}}"
+    id="{{id}}-content"
     class="alert-dialog-content"
-    role="{{role}}"
+    role="alertdialog"
+    tabindex="-1"
+    aria-modal="true"
+    aria-labelledby="{{id}}-title"
+    aria-describedby="{{id}}-description"
+    bindkeydown="onKey"
     data-state="{{api.open ? 'open' : 'closed'}}"
   >
     <!-- Header -->
     <view class="alert-dialog-header">
       <text 
-        id="{{api.titleProps.id}}"
+        id="{{id}}-title"
         class="alert-dialog-title"
+        role="heading"
+        aria-level="2"
       >
         <slot name="title">{{title}}</slot>
       </text>
       <view 
         wx:if="{{showClose}}"
         class="alert-dialog-close" 
+        data-slot="alert-dialog-close"
+        role="button"
+        tabindex="0"
+        aria-label="Close"
         bindtap="onCloseTap"
-      >×</view>
+        bindkeydown="onCloseKey"
+      ><text aria-hidden="true">×</text></view>
     </view>
 
     <!-- Body -->
     <view 
-      id="{{api.descriptionProps.id}}"
+      id="{{id}}-description"
       class="alert-dialog-body"
     >
       <slot name="description">{{description}}</slot>
@@ -52,15 +85,84 @@
         <view class="alert-dialog-actions">
           <view 
             class="alert-dialog-cancel-btn" 
+            role="button"
+            tabindex="0"
             bindtap="onCancelTap"
+            bindkeydown="onCancelKey"
           >
-            {{cancelText || '取消'}}
+            {{cancelText || 'Cancel'}}
           </view>
           <view 
             class="alert-dialog-confirm-btn" 
+            role="button"
+            tabindex="0"
             bindtap="onConfirmTap"
+            bindkeydown="onConfirmKey"
           >
-            {{confirmText || '确认'}}
+            {{confirmText || 'Confirm'}}
+          </view>
+        </view>
+      </slot>
+    </view>
+  </view>
+  <view
+    wx:elif="{{opened || api.open}}"
+    id="{{id}}-content"
+    class="alert-dialog-content"
+    role="alertdialog"
+    tabindex="-1"
+    aria-modal="true"
+    aria-label="Alert dialog"
+    aria-describedby="{{id}}-description"
+    bindkeydown="onKey"
+    data-state="{{api.open ? 'open' : 'closed'}}"
+  >
+    <view class="alert-dialog-header">
+      <text
+        id="{{id}}-title"
+        class="alert-dialog-title"
+        role="heading"
+        aria-level="2"
+      >
+        <slot name="title">{{title}}</slot>
+      </text>
+      <view
+        wx:if="{{showClose}}"
+        class="alert-dialog-close"
+        data-slot="alert-dialog-close"
+        role="button"
+        tabindex="0"
+        aria-label="Close"
+        bindtap="onCloseTap"
+        bindkeydown="onCloseKey"
+      ><text aria-hidden="true">×</text></view>
+    </view>
+    <view
+      id="{{id}}-description"
+      class="alert-dialog-body"
+    >
+      <slot name="description">{{description}}</slot>
+    </view>
+    <view class="alert-dialog-footer">
+      <slot name="footer">
+        <view class="alert-dialog-actions">
+          <view
+            class="alert-dialog-cancel-btn"
+            role="button"
+            tabindex="0"
+            bindtap="onCancelTap"
+            bindkeydown="onCancelKey"
+          >
+            {{cancelText || 'Cancel'}}
+          </view>
+          <view
+            class="alert-dialog-confirm-btn"
+            role="button"
+            tabindex="0"
+            bindtap="onConfirmTap"
+            bindkeydown="onConfirmKey"
+          >
+            {{confirmText || 'Confirm'}}
           </view>
         </view>
       </slot>

@@ -35,6 +35,22 @@ const notificationSchema = defineUCS({
       defaultValue: true,
     },
     {
+      name: 'open',
+      type: 'boolean',
+      description: 'The controlled open state of the notification.',
+    },
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the notification when uncontrolled.',
+      defaultValue: true,
+    },
+    {
+      name: 'onOpenChange',
+      type: 'event',
+      description: 'Event handler called when the notification open state changes.',
+    },
+    {
       name: 'onClose',
       type: 'event',
       description: 'Callback fired when the notification closes.',

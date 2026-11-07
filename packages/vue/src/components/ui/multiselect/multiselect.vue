@@ -20,6 +20,7 @@ import CommandItem from "../command/command-item.vue";
 import CommandList from "../command/command-list.vue";
 import CommandInput from "../command/command-input.vue";
 import type { AssertNoExtraKeys, MultiselectOption, MultiselectVueProps, ComboboxApi } from "@timui/core";
+import { usePassedProp } from "../../../hooks/passed-prop";
 
 export type Option = MultiselectOption;
 
@@ -27,35 +28,57 @@ interface GroupOption {
   [key: string]: Option[];
 }
 
-type MultiselectProps = MultiselectVueProps & {
+type MultiselectProps = Omit<MultiselectVueProps, "onOpenChange"> & {
   class?: string;
   badgeClass?: string;
   loadingIndicator?: Component | VNodeChild;
   emptyIndicator?: Component | VNodeChild;
+  open?: boolean | null;
+  defaultOpen?: boolean | null;
 };
 type _MultiselectPropsGuard = AssertNoExtraKeys<
   MultiselectProps,
-  MultiselectVueProps & {
+  Omit<MultiselectVueProps, "onOpenChange"> & {
     class?: string;
     badgeClass?: string;
     loadingIndicator?: Component | VNodeChild;
     emptyIndicator?: Component | VNodeChild;
+    open?: boolean | null;
+    defaultOpen?: boolean | null;
   }
 >;
 
 const props = defineProps<MultiselectProps>();
 
-const emit = defineEmits(["update:modelValue", "change"]);
+const emit = defineEmits(["update:modelValue", "change", "openChange"]);
 
 const inputRef = ref<{ inputEl?: HTMLInputElement | null } | null>(null);
 const listId = `multiselect-list-${useId()}`;
 type CommandExpose = { rootEl?: HTMLElement | null; api?: ComboboxApi };
 const dropdownRef = ref<CommandExpose | null>(null);
-const open = ref(false);
+const passed = usePassedProp();
+const localOpen = ref(passed<boolean | null>(props, "defaultOpen") === true);
+const open = computed(() => {
+  const current = passed<boolean | null>(props, "open");
+  return current == null ? localOpen.value : current === true;
+});
+let announced = false;
+const setOpen = (next: boolean) => {
+  const current = passed<boolean | null>(props, "open");
+  const shown = current == null ? localOpen.value : current === true;
+  if (shown === next) return;
+  if (current == null) localOpen.value = next;
+  if (announced) return;
+  announced = true;
+  queueMicrotask(() => {
+    announced = false;
+  });
+  emit("openChange", next);
+};
 const onScrollbar = ref(false);
 const isLoading = ref(false);
 
-const selected = ref<Option[]>(props.modelValue ?? []);
+const selected = ref<Option[]>(props.modelValue == null ? [] : props.modelValue);
 const options = ref<GroupOption>({});
 const inputValue = ref("");
 
@@ -110,7 +133,8 @@ watch(
 watch(
   () => props.modelValue,
   (val) => {
-    if (val) selected.value = val;
+    if (val === undefined) return;
+    selected.value = val ?? [];
   }
 );
 
@@ -161,6 +185,16 @@ const flatSelectables = computed(() =>
   Object.values(selectables.value).flat().filter((item) => !item.disable)
 );
 const selectedValueSet = computed(() => new Set(selected.value.map((item) => item.value)));
+const optionStatus = computed(() => {
+  const picked = selected.value.filter((item) => item.value);
+  if (picked.length === 0) return "";
+  const list = props.options ?? props.defaultOptions ?? [];
+  if (picked.length === 1) {
+    const index = list.findIndex((item) => item.value === picked[0]?.value);
+    return index < 0 ? "" : `Option ${index + 1} of ${list.length}`;
+  }
+  return `${picked.length} options selected`;
+});
 const fixedSelected = computed(() => selected.value.filter((item) => item.fixed));
 const isClearAllHidden = computed(
   () =>
@@ -171,12 +205,13 @@ const isClearAllHidden = computed(
 );
 
 const setSelected = (next: Option[]) => {
-  selected.value = next;
+  if (props.modelValue === undefined) selected.value = next;
   emit("update:modelValue", next);
   emit("change", next);
 };
 
 const handleUnselect = (option: Option) => {
+  if (props.disabled) return;
   setSelected(selected.value.filter((s) => s.value !== option.value));
 };
 
@@ -190,7 +225,7 @@ const handleClickOutside = (event: MouseEvent | TouchEvent) => {
     getInputEl() &&
     !getInputEl()?.contains(event.target as Node)
   ) {
-    open.value = false;
+    setOpen(false);
     getInputEl()?.blur();
   }
 };
@@ -257,7 +292,9 @@ const onKeyDown = (event: KeyboardEvent) => {
     }
   }
   if (event.key === "Escape") {
-    getInputEl()?.blur();
+    event.preventDefault();
+    setOpen(false);
+    getInputEl()?.focus();
   }
 };
 
@@ -306,7 +343,7 @@ const onInputKeyDown = (event: KeyboardEvent) => {
 
 const openDropdown = () => {
   if (props.disabled) return;
-  open.value = true;
+  setOpen(true);
   getInputEl()?.focus();
   if (props.triggerSearchOnFocus) {
     props.onSearch?.(debouncedSearchTerm.value);
@@ -315,12 +352,14 @@ const openDropdown = () => {
 </script>
 
 <template>
+  <p v-if="optionStatus" role="status">{{ optionStatus }}</p>
   <Command
     ref="dropdownRef"
     :class="multiselectCommandVariants()"
     @keydown="onKeyDown"
   >
     <div
+      data-slot="multiselect"
       :class="
         cn(
           multiselectContainerVariants(),
@@ -333,7 +372,7 @@ const openDropdown = () => {
         )
       "
       @focusin="openDropdown"
-      @focusout="() => { if (!onScrollbar) open = false }"
+      @focusout="() => { if (!onScrollbar) setOpen(false) }"
       @click="openDropdown"
     >
       <div class="flex flex-wrap gap-1">
@@ -353,6 +392,7 @@ const openDropdown = () => {
           <button
             :class="multiselectTagRemoveVariants()"
             type="button"
+            aria-label="Remove"
             @mousedown.prevent.stop
             @click="handleUnselect(option)"
           >
@@ -376,7 +416,7 @@ const openDropdown = () => {
             )
           "
           @focus="openDropdown"
-          @blur="() => { if (!onScrollbar) open = false }"
+          @blur="() => { if (!onScrollbar) setOpen(false) }"
           @keydown="onInputKeyDown"
         />
         <button
@@ -407,6 +447,7 @@ const openDropdown = () => {
             !open && 'hidden'
           )
         "
+        data-slot="multiselect-popup"
         :data-state="open ? 'open' : 'closed'"
       >
         <CommandList
@@ -450,6 +491,7 @@ const openDropdown = () => {
                 @mousedown.prevent.stop
                 @click="
                   () => {
+                    if (props.disabled || option.disable) return;
                     if (selected.length >= maxSelected) {
                       props.onMaxSelected?.(selected.length);
                       return;

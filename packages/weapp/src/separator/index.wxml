@@ -1,1 +1,1 @@
-<view class="{{className}}" aria-orientation="{{orientation}}" role="separator"></view>
+<view class="{{className}}" data-slot="separator" data-orientation="{{orientation}}" role="{{role}}" aria-orientation="{{ariaOrientation}}"></view>

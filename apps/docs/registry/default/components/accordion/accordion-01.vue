@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Accordion } from '@timui/vue';
 import { AccordionContent } from '@timui/vue';
 import { AccordionItem } from '@timui/vue';
@@ -35,8 +36,13 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="space-y-4"><h2 class="text-xl font-bold">W/ chevron</h2><Accordion type="single" collapsible class="w-full" default-value="3"><AccordionItem v-for="(item, index) in items" :value="item.id" :key="item.id" class="py-2"><AccordionTrigger class="py-2 text-[15px] leading-6 hover:no-underline">{{ item.title }}</AccordionTrigger><AccordionContent class="text-muted-foreground pb-2">{{ item.content }}</AccordionContent></AccordionItem></Accordion></div>
+  <div class="space-y-4"><h2 class="text-xl font-bold">W/ chevron</h2><Accordion @click="onDemoClick" type="single" collapsible class="w-full" default-value="3"><AccordionItem v-for="(item, index) in items" :value="item.id" :key="item.id" class="py-2"><AccordionTrigger class="py-2 text-[15px] leading-6 hover:no-underline">{{ item.title }}</AccordionTrigger><AccordionContent class="text-muted-foreground pb-2">{{ item.content }}</AccordionContent></AccordionItem></Accordion></div>
 </template>

@@ -17,6 +17,8 @@ Component({
   properties: {
     variant: { type: String, value: 'default' },
     size: { type: String, value: 'default' },
+    label: { type: String, value: '' },
+    ariaLabel: { type: String, value: '' },
     disabled: { type: Boolean, value: false },
     loading: { type: Boolean, value: false },
     plain: { type: Boolean, value: false },
@@ -32,6 +34,8 @@ Component({
 
   data: {
     className: '',
+    accessibleName: '',
+    loadStatus: '',
   },
 
   lifetimes: {
@@ -41,7 +45,7 @@ Component({
   },
 
   observers: {
-    'variant, size, disabled, loading, plain, extClass': function () {
+    'variant, size, label, ariaLabel, disabled, loading, plain, extClass': function () {
       this.updateClassName()
     },
   },
@@ -79,7 +83,15 @@ Component({
         classes.push('button-plain')
       }
 
-      this.setData({ className: classes.join(' ') })
+      const explicit =
+        typeof this.properties.ariaLabel === 'string' ? this.properties.ariaLabel : ''
+      const accessibleName =
+        explicit || (this.properties.size === 'icon' ? String(this.properties.label || '') : '')
+      this.setData({
+        className: classes.join(' '),
+        accessibleName,
+        loadStatus: this.properties.loading ? 'Loading' : '',
+      })
     },
 
     onTap(_e: TapEvent) {

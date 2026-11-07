@@ -1,3 +1,3 @@
-<view>
-  <view class="flex items-center gap-2"><checkbox id="{{id}}" disabled /><label htmlfor="{{id}}">Disabled checkbox</label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="checkbox-04" disabled><text data-slot="label" for="checkbox-04">Disabled checkbox</text></view>
 </view>

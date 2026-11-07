@@ -1,3 +1,3 @@
-<view>
-  <view class="*:not-first:mt-4"><label>Simple slider</label><slider default-value="{{[25]}}" aria-label="Simple slider" /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-4"><text data-slot="label">Simple slider</text><input type="range" data-slot="slider" aria-label="Simple slider"></view>
 </view>

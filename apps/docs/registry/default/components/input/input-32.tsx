@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { Input } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="group relative">
@@ -11,7 +13,7 @@ export default function Component() {
       >
         <span className="bg-background inline-flex px-2">Input with label animation</span>
       </label>
-      <Input id={id} type="email" placeholder=" " />
+      <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} type="email" placeholder=" " />
     </div>
   )
 }

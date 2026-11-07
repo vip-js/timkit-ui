@@ -75,7 +75,7 @@ export type CalendarClassNames = Partial<
   >
 >
 
-export type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
+export type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | null | undefined
 
 export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   mode?: CalendarMode
@@ -94,6 +94,10 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   fixedWeeks?: boolean
   showWeekNumber?: boolean
   disabled?: DisabledMatcher | DisabledMatcher[]
+  /**
+   * When true, days can be focused but not selected.
+   */
+  readOnly?: boolean
   excludeDisabled?: boolean
   classNames?: CalendarClassNames
   components?: CalendarComponents

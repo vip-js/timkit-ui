@@ -38,6 +38,7 @@ type CalendarProps = CalendarVueProps & {
   class?: string;
   classNames?: Partial<Record<string, string>>;
   externalApi?: CalendarApi;
+  readOnly?: boolean;
 };
 
 type _CalendarPropsGuard = AssertNoExtraKeys<
@@ -49,6 +50,7 @@ type _CalendarPropsGuard = AssertNoExtraKeys<
     class?: string;
     classNames?: Partial<Record<string, string>>;
     externalApi?: CalendarApi;
+    readOnly?: boolean;
   }
 >;
 
@@ -63,7 +65,7 @@ const emit = defineEmits<{
   (e: "change", value?: Date | Date[] | { from?: Date; to?: Date }): void;
 }>();
 
-const { api: internalApi, localTimeZone } = useCalendar(props, emit);
+const { api: internalApi, localTimeZone, matchesUnavailable } = useCalendar(props, emit);
 const api = computed(() => props.externalApi ?? internalApi.value);
 
 const defaultClassNames = {
@@ -97,6 +99,46 @@ const mergedClassNames = computed(() => {
 });
 
 const weekDays = computed(() => api.value?.weekDays ?? []);
+
+const guardDay = (trigger: object) => {
+  const propsRecord = trigger as Record<string, unknown>;
+  if (props.readOnly !== true) return propsRecord;
+  return {
+    ...propsRecord,
+    onClick: (event: Event) => {
+      event.preventDefault();
+    },
+  };
+};
+
+const guardTable = (table: object) => {
+  const record = table as Record<string, unknown>;
+  const onKeyDown = record.onKeydown as ((event: KeyboardEvent) => void) | undefined;
+  const onKeyDownCamel = record.onKeyDown as ((event: KeyboardEvent) => void) | undefined;
+  if (props.disabled === true) {
+    return {
+      ...table,
+      onKeydown: (event: KeyboardEvent) => {
+        event.preventDefault();
+      },
+      onKeyDown: (event: KeyboardEvent) => {
+        event.preventDefault();
+      },
+    };
+  }
+  if (props.readOnly !== true) return table;
+  return {
+    ...table,
+    onKeydown: (event: KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        return;
+      }
+      onKeyDown?.(event);
+      onKeyDownCamel?.(event);
+    },
+  };
+};
 
 const monthSelectProps = computed(() => api.value?.getMonthSelectProps?.() ?? {});
 const yearSelectProps = computed(() => api.value?.getYearSelectProps?.() ?? {});
@@ -144,13 +186,15 @@ const monthData = computed(() => {
     const weeks = instance.getMonthWeeks(monthStart).map((week, weekIndex) => {
       const weekNumber = getIsoWeekNumber(week[0].toDate(localTimeZone));
       const days = week.map((day, dayIndex) => {
-        const state = instance.getDayTableCellState?.({
+        const unavailable = matchesUnavailable(day.toDate(localTimeZone));
+        const dayProps = {
           value: day,
           visibleRange,
-        }) ?? {};
-        const cellProps = instance.getDayTableCellProps?.({ value: day, visibleRange }) ?? {};
-        const triggerProps =
-          instance.getDayTableCellTriggerProps?.({ value: day, visibleRange }) ?? {};
+          disabled: props.disabled === true || unavailable,
+        };
+        const state = instance.getDayTableCellState?.(dayProps) ?? {};
+        const cellProps = instance.getDayTableCellProps?.(dayProps) ?? {};
+        const triggerProps = instance.getDayTableCellTriggerProps?.(dayProps) ?? {};
 
         return {
           key: `${id}-${weekIndex}-${dayIndex}-${day.toString()}`,
@@ -158,6 +202,7 @@ const monthData = computed(() => {
           cellProps,
           triggerProps,
           state,
+          blocked: unavailable,
           className: cn(
             mergedClassNames.value.day,
             state.outsideRange && mergedClassNames.value.outside,
@@ -193,9 +238,48 @@ const monthData = computed(() => {
   });
 });
 
+const monthIndex = (value?: { year: number; month: number }) =>
+  value ? value.year * 12 + value.month : undefined;
+const startIndex = computed(() =>
+  props.startMonth ? props.startMonth.getFullYear() * 12 + props.startMonth.getMonth() + 1 : undefined
+);
+const endIndex = computed(() => {
+  if (!props.endMonth) return undefined;
+  const count = Math.max(1, props.numberOfMonths ?? 1);
+  return props.endMonth.getFullYear() * 12 + props.endMonth.getMonth() + 1 - (count - 1);
+});
+const visibleIndex = computed(() => monthIndex(api.value?.visibleRange?.start));
+const canGoPrev = computed(
+  () => startIndex.value == null || visibleIndex.value == null || visibleIndex.value > startIndex.value
+);
+const canGoNext = computed(
+  () => endIndex.value == null || visibleIndex.value == null || visibleIndex.value < endIndex.value
+);
+const guardNav = (raw: object, allowed: boolean) => {
+  const propsRecord = raw as { disabled?: boolean; onClick?: (event: Event) => void; class?: string };
+  return {
+    ...propsRecord,
+    disabled: propsRecord.disabled || !allowed || undefined,
+    onClick(event: Event) {
+      if (!allowed) {
+        event.preventDefault?.();
+        return;
+      }
+      propsRecord.onClick?.(event);
+    },
+  };
+};
+
 const rootProps = computed(() => api.value?.getRootProps?.() ?? {});
-const prevTriggerProps = computed(() => api.value?.getPrevTriggerProps?.({ view: "day" }) ?? {});
-const nextTriggerProps = computed(() => api.value?.getNextTriggerProps?.({ view: "day" }) ?? {});
+const dayStatus = computed(() =>
+  (api.value?.value ?? []).map((item: { toString(): string }) => item.toString()).join(" to ")
+);
+const prevTriggerProps = computed(() =>
+  guardNav(api.value?.getPrevTriggerProps?.({ view: "day" }) ?? {}, canGoPrev.value)
+);
+const nextTriggerProps = computed(() =>
+  guardNav(api.value?.getNextTriggerProps?.({ view: "day" }) ?? {}, canGoNext.value)
+);
 
 const getTriggerClass = (triggerProps: object) => {
   if (!triggerProps || typeof triggerProps !== "object") return "";
@@ -210,6 +294,7 @@ const getTriggerClass = (triggerProps: object) => {
     data-slot="calendar"
     :class="cn(calendarRootVariants(), rootProps.class, props.class)"
   >
+    <p v-if="dayStatus" role="status">{{ dayStatus }}</p>
     <div :class="mergedClassNames.months">
       <div
         v-for="(month, index) in monthData"
@@ -295,7 +380,11 @@ const getTriggerClass = (triggerProps: object) => {
             </button>
           </div>
         </div>
-        <table v-bind="month.tableProps" :class="calendarGridVariants()">
+        <table
+          v-bind="guardTable(month.tableProps)"
+          :aria-label="month.tableProps['aria-label'] || month.label"
+          :class="calendarGridVariants()"
+        >
           <thead v-bind="month.tableHeadProps">
             <tr v-bind="month.tableRowProps">
               <th v-if="props.showWeekNumber" :class="mergedClassNames.week_number" aria-hidden="true">
@@ -324,7 +413,7 @@ const getTriggerClass = (triggerProps: object) => {
                   dayCell.state.selected || dayCell.state.inRange || undefined
                 "
                 :data-disabled="
-                  !dayCell.state.selectable || undefined
+                  !dayCell.state.selectable || dayCell.state.unavailable || undefined
                 "
                 :data-outside="
                   dayCell.state.outsideRange || undefined
@@ -332,8 +421,10 @@ const getTriggerClass = (triggerProps: object) => {
                 :class="dayCell.className"
               >
                 <button
-                  v-bind="dayCell.triggerProps"
+                  v-bind="guardDay(dayCell.triggerProps)"
                   type="button"
+                  :aria-current="dayCell.state.today ? 'date' : undefined"
+                  :disabled="dayCell.blocked || dayCell.state.unavailable || undefined"
                   :class="cn(mergedClassNames.day_button, getTriggerClass(dayCell.triggerProps))"
                 >
                   {{ dayCell.label }}

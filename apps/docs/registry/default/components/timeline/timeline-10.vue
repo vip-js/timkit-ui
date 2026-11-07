@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BookOpenIcon, MessageCircleIcon, PencilIcon, PlusIcon } from 'lucide-vue-next'
 import { Timeline } from '@timui/vue'
 import { TimelineContent } from '@timui/vue'
@@ -52,7 +53,7 @@ const iconMap = {
   create: PlusIcon,
 } as const
 
-const textMap: Record<ActionType, string> = {
+const textMap: Record<ActionType @click="onDemoClick", string> = {
   post: 'wrote a new post',
   reply: 'replied to a comment',
   edit: 'edited a post',
@@ -79,6 +80,11 @@ const getRelativeTimeString = (date: Date): string => {
 
   const days = Math.floor(diffInSeconds / 86400)
   return `${days} ${days === 1 ? 'day' : 'days'} ago`
+}
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
 }
 </script>
 

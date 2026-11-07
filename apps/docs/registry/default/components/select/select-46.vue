@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue'
 import { MultipleSelector } from '@timui/vue'
 
@@ -20,11 +21,16 @@ const frameworks = [
   { value: 'alpine', label: 'Alpine.js' },
   { value: 'lit', label: 'Lit' },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2">
-    <Label>Multiselect</Label>
+    <Label @click="onDemoClick">Multiselect</Label>
     <MultipleSelector
       :command-props="{ label: 'Select frameworks' }"
       :value="frameworks.slice(0, 2)"

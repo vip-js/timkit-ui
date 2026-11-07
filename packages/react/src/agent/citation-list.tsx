@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { cn } from '@timui/core'
 
 export type Citation = {
@@ -12,7 +13,7 @@ export type CitationListProps = {
   className?: string
 }
 
-export function CitationList({ items, className }: CitationListProps) {
+export const CitationList = memo(function CitationList({ items, className }: CitationListProps) {
   if (!items.length) return null
 
   return (
@@ -37,4 +38,6 @@ export function CitationList({ items, className }: CitationListProps) {
       </ol>
     </section>
   )
-}
+})
+
+CitationList.displayName = 'CitationList'

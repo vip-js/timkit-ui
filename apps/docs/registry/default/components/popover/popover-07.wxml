@@ -1,9 +1,41 @@
-<view>
-  <view class="flex flex-col gap-4"><popover><popovertrigger aschild><button variant="outline">Share</button></popovertrigger><popovercontent class="w-72"><view class="flex flex-col gap-3 text-center"><view class="text-sm font-medium">Share code</view><view class="flex flex-wrap justify-center gap-2"><button size="icon" variant="outline" aria-label="Embed"><ricodefill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share on Twitter"><ritwitterxfill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share on Facebook"><rifacebookfill size="{{16}}" aria-hidden="true" /></button><button size="icon" variant="outline" aria-label="Share via email"><rimailline size="{{16}}" aria-hidden="true" /></button></view><view class="space-y-2"><view class="relative"><input ref="{{inputRef}}" id="{{id}}" class="pe-9" type="text" default-value="https://ui.timkit.cn/Avx8HD" aria-label="Share link" readonly /><tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button bindtap="handleCopy" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed" aria-label="{{copied ? 'Copied' : 'Copy to clipboard'}}" disabled="{{copied}}"><view class="{{cn(
-                            'transition-all',
-                            copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-                          )}}"><checkicon class="stroke-emerald-500" size="{{16}}" aria-hidden="true" /></view><view class="{{cn(
-                            'absolute transition-all',
-                            copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
-                          )}}"><copyicon size="{{16}}" aria-hidden="true" /></view></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Copy to clipboard</tooltipcontent></tooltip></tooltipprovider></view></view></view></popovercontent></popover></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex flex-col gap-4">
+    <view data-slot="popover">
+      <button type="button" data-slot="popover-trigger">
+        <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Share</button>
+      </button>
+      <view data-slot="popover-content">
+        <view class="flex flex-col gap-3 text-center">
+          <view class="text-sm font-medium">Share code</view>
+          <view class="flex flex-wrap justify-center gap-2">
+            <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="icon" variant="outline" aria-label="Embed"><text aria-hidden="true" size="16" aria-hidden="true"></button>
+            <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="icon" variant="outline" aria-label="Share on Twitter"><text aria-hidden="true" size="16" aria-hidden="true"></button>
+            <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="icon" variant="outline" aria-label="Share on Facebook"><text aria-hidden="true" size="16" aria-hidden="true"></button>
+            <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="icon" variant="outline" aria-label="Share via email"><text aria-hidden="true" size="16" aria-hidden="true"></button>
+          </view>
+          <view class="space-y-2">
+            <view class="relative">
+              <input data-slot="input" class="pe-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="popover-07" type="text" aria-label="Share link" readOnly>
+              <view data-slot="tooltip-provider" delayDuration="0">
+                <text data-slot="tooltip">
+                  <button type="button" data-slot="tooltip-trigger">
+                    <button
+                      class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed">
+                      <view>
+                        <text aria-hidden="true" size="16" aria-hidden="true">
+                      </view>
+                      <view>
+                        <text aria-hidden="true" size="16" aria-hidden="true">
+                      </view>
+                    </button>
+                  </button>
+                  <text role="tooltip" data-slot="tooltip-content">Copy to clipboard</text>
+                </text>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

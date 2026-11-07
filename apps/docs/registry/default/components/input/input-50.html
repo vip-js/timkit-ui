@@ -1,4 +1,19 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${`cvc-${id}`}">Code</Label><Input id="${`cvc-${id}`}" class="[direction:inherit]" /><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://github.com/medipass/react-payment-inputs" target="_blank" rel="noopener nofollow">React Payment Inputs
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label" for="cvc-Example">Code</label>
+    <input data-slot="input" class="[direction:inherit] flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="cvc-Example"
+     
+      inputmode="numeric"
+      autocomplete="cc-csc">
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <a
+        class="hover:text-foreground underline"
+        href="https://github.com/medipass/react-payment-inputs"
+        target="_blank"
+        rel="noopener nofollow">
+        React Payment Inputs
+      </a>
+    </p>
+  </div>
+</div>

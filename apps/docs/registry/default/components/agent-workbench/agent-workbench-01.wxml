@@ -1,0 +1,10 @@
+<view class="timui-demo">
+  <text>Refund order 1842.</text>
+  <view>
+    <text>Refund 48 dollars</text>
+    <text>Wait for a person before sending the refund.</text>
+    <button bindtap="onApprove">Approve</button>
+    <button bindtap="onReject">Reject</button>
+    <text>{{receipt}}</text>
+  </view>
+</view>

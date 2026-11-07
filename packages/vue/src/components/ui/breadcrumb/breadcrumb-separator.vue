@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { type HTMLAttributes } from 'vue'
+import { computed, inject, type HTMLAttributes } from 'vue'
 import { breadcrumbSeparatorVariants, cn } from '@timui/core'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
+
+const separator = inject('breadcrumb-separator', computed(() => undefined as string | undefined))
 </script>
 
 <template>
@@ -15,19 +17,7 @@ const props = defineProps<{
     :class="cn(breadcrumbSeparatorVariants(), props.class)"
   >
     <slot>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="m9 18 6-6-6-6" />
-      </svg>
+      <span>{{ separator ?? '/' }}</span>
     </slot>
   </li>
 </template>

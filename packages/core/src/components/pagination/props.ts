@@ -7,6 +7,10 @@ export type PaginationPageSizeChangeEvent = TimEvent<{ pageSize: number }>
 
 export type PaginationProps = Omit<pagination.Props, 'onPageChange' | 'onPageSizeChange'> & {
   /**
+   * When true, page changes are ignored.
+   */
+  disabled?: boolean
+  /**
    * Callback fired when the active page index changes.
    */
   onPageChange?: (event: PaginationValueChangeEvent) => void

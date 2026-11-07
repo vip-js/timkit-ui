@@ -29,6 +29,12 @@ const selectNativeSchema = defineUCS({
       defaultValue: false,
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, selection changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'defaultValue',
       type: 'string',
       description: 'The initial value of the select. Use string[] when multiple is true.',

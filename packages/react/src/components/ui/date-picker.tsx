@@ -24,7 +24,7 @@ import type { CalendarProps, CalendarRangeValue, CalendarSelectedValue } from '.
 
 type DatePickerMode = 'single' | 'range'
 
-type DatePickerValue = Date | CalendarRangeValue | undefined
+type DatePickerValue = Date | CalendarRangeValue | null | undefined
 
 interface DatePickerProps {
   id?: string
@@ -32,14 +32,16 @@ interface DatePickerProps {
   value?: DatePickerValue
   defaultValue?: DatePickerValue
   onValueChange?: (value: DatePickerValue) => void
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
   disabled?: boolean
+  readOnly?: boolean
   required?: boolean
   name?: string
   locale?: string
   placeholder?: string
+  numberOfMonths?: number
   className?: string
   triggerClassName?: string
   contentClassName?: string
@@ -96,10 +98,12 @@ function DatePicker({
   defaultOpen,
   onOpenChange,
   disabled,
+  readOnly,
   required,
   name,
   locale,
   placeholder = 'Date',
+  numberOfMonths,
   className,
   triggerClassName,
   contentClassName,
@@ -119,7 +123,7 @@ function DatePicker({
   )
 
   const controlledValue = React.useMemo(
-    () => (value !== undefined ? toDateValueArray(value, mode) : undefined),
+    () => (value !== undefined ? (toDateValueArray(value, mode) ?? []) : undefined),
     [mode, value]
   )
 
@@ -128,17 +132,19 @@ function DatePicker({
     [defaultValue, mode, value]
   )
 
+  const months = numberOfMonths ?? calendarProps?.numberOfMonths ?? 1
+
   const service = useMachine(datePickerMachine, {
     id: datePickerId,
     selectionMode: mode,
-    numOfMonths: calendarProps?.numberOfMonths ?? 1,
+    numOfMonths: months,
     outsideDaySelectable: true,
     timeZone,
     value: controlledValue,
     defaultValue: defaultMachineValue,
-    open,
-    defaultOpen,
+    ...(open === undefined ? { defaultOpen } : { open: open === true }),
     disabled,
+    closeOnSelect: false,
     required,
     name,
     locale,
@@ -156,6 +162,12 @@ function DatePicker({
 
   const api = React.useMemo(() => datePickerConnect(service, normalizeProps), [service])
 
+  const dayStatus = (api.valueAsDate ?? [])
+    .map(
+      (date) =>
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+    )
+    .join(' to ')
   const calendarSelected = React.useMemo(
     () => toCalendarSelected(api.valueAsDate ?? [], mode),
     [api.valueAsDate, mode]
@@ -184,18 +196,11 @@ function DatePicker({
 
   const handleCalendarSelect = React.useCallback(
     (next: CalendarSelectedValue) => {
+      if (readOnly) return
       const values = toDateValueArray(next as DatePickerValue, mode)
       api.setValue(values ?? [])
-
-      if (
-        !values ||
-        (mode === 'single' && values.length >= 1) ||
-        (mode === 'range' && values.length >= 2)
-      ) {
-        api.setOpen(false)
-      }
     },
-    [api, mode]
+    [api, mode, readOnly]
   )
 
   const rootProps = api.getRootProps() as React.HTMLAttributes<HTMLDivElement>
@@ -216,6 +221,7 @@ function DatePicker({
       data-slot="date-picker"
       className={cn(datePickerRootVariants(), rootProps.className, className)}
     >
+      {dayStatus ? <p role="status">{dayStatus}</p> : null}
       <Button
         asChild
         variant="outline"
@@ -227,7 +233,11 @@ function DatePicker({
           triggerPropsClassName
         )}
       >
-        <button {...restTriggerProps}>
+        <button
+          {...restTriggerProps}
+          aria-expanded={api.open ? 'true' : 'false'}
+          aria-required={required ? 'true' : undefined}
+        >
           <svg
             width={16}
             height={16}
@@ -269,10 +279,24 @@ function DatePicker({
               {...restContentProps}
               data-slot="date-picker-content"
               className={cn(datePickerContentVariants(), contentPropsClassName, contentClassName)}
+              onKeyDown={(event) => {
+                restContentProps.onKeyDown?.(event)
+                if (event.key !== 'Escape') return
+                api.setOpen(false)
+                const triggerId = restTriggerProps.id
+                const trigger =
+                  typeof triggerId === 'string'
+                    ? event.currentTarget.ownerDocument.getElementById(triggerId)
+                    : null
+                if (trigger instanceof HTMLElement) trigger.focus()
+              }}
             >
               <Calendar
                 {...calendarProps}
                 mode={mode}
+                numberOfMonths={months}
+                disabled={disabled === true ? true : calendarProps?.disabled}
+                readOnly={readOnly || calendarProps?.readOnly}
                 selected={calendarSelected}
                 onSelect={handleCalendarSelect}
               />

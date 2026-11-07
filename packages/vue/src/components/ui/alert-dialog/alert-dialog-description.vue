@@ -8,7 +8,7 @@ const api = useAlertDialogContext();
 </script>
 
 <template>
-  <p v-bind="api.getDescriptionProps()" :class="cn(dialogDescriptionVariants(), props.class)">
+  <p v-bind="api.getDescriptionProps()" data-slot="alert-dialog-description" :class="cn(dialogDescriptionVariants(), props.class)">
     <slot />
   </p>
 </template>

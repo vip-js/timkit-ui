@@ -14,8 +14,10 @@ const props = defineProps<Props>()
 <template>
   <span
     data-slot="badge"
+    :data-variant="props.variant || 'default'"
     :class="cn(badgeVariants({ variant: props.variant }), props.class)"
   >
+    <p v-if="props.variant === 'destructive'" role="status">Destructive</p>
     <slot />
   </span>
 </template>

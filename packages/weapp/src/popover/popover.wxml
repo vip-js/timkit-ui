@@ -1,26 +1,52 @@
 <view class="{{className}}">
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
   <!-- Trigger -->
-  <view 
+  <view
+    wx:if="{{opened}}"
     id="{{api.triggerProps.id}}"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="dialog"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-controls="{{id}}-content"
     bindtap="onTriggerTap"
-    data-state="{{api.open ? 'open' : 'closed'}}"
+    bindkeydown="onTriggerKey"
+    data-state="{{opened ? 'open' : 'closed'}}"
+  >
+    <slot name="trigger"></slot>
+  </view>
+  <view
+    wx:else
+    id="{{api.triggerProps.id}}"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-haspopup="dialog"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    bindtap="onTriggerTap"
+    bindkeydown="onTriggerKey"
+    data-state="{{opened ? 'open' : 'closed'}}"
   >
     <slot name="trigger"></slot>
   </view>
 
   <!-- Backdrop (if modal) -->
   <view 
-    wx:if="{{api.open && modal}}"
+    wx:if="{{opened && modal}}"
     class="popover-backdrop"
     bindtap="onBackdropTap"
   ></view>
 
   <!-- Content -->
   <view 
-    wx:if="{{api.open}}"
-    id="{{api.contentProps.id}}"
+    wx:if="{{opened}}"
+    id="{{id}}-content"
     class="popover-content"
-    data-state="{{api.open ? 'open' : 'closed'}}"
+    role="dialog"
+    tabindex="-1"
+    aria-modal="{{modal ? 'true' : 'false'}}"
+    aria-label="{{ariaLabel || 'Popover'}}"
+    bindkeydown="onKey"
+    data-state="{{opened ? 'open' : 'closed'}}"
   >
     <view class="popover-arrow" wx:if="{{showArrow}}"></view>
     
@@ -28,8 +54,13 @@
       <text class="popover-title">{{title}}</text>
       <view 
         class="popover-close" 
+        data-slot="popover-close"
+        role="button"
+        tabindex="0"
+        aria-label="Close"
         bindtap="onCloseTap"
-      >×</view>
+        bindkeydown="onCloseKey"
+      ><text aria-hidden="true">×</text></view>
     </view>
 
     <view class="popover-body">

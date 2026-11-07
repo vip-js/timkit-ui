@@ -7,12 +7,18 @@
     <view 
       class="accordion-trigger flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline  {{disabled ? 'opacity-50 pointer-events-none' : ''}}"
       data-slot="accordion-trigger"
-      bindtap="onTap"
-      data-state="{{expanded ? 'open' : 'closed'}}"
+      role="button"
+      tabindex="{{disabled ? -1 : 0}}"
+      id="accordion-item-{{value}}-trigger"
       aria-expanded="{{expanded ? 'true' : 'false'}}"
+      aria-controls="accordion-item-{{value}}-panel"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      bindtap="onTap"
+      bindkeydown="onKey"
+      data-state="{{expanded ? 'open' : 'closed'}}"
     >
       <slot name="trigger"></slot>
-      <view class="icon-container {{expanded ? iconExpandedClass : ''}} transition-transform duration-200">
+      <view class="icon-container {{expanded ? iconExpandedClass : ''}} transition-transform duration-200" aria-hidden="true">
          <slot name="icon">
            <!-- Ideally use an icon component or svg here -->
            <view class="h-4 w-4">⌄</view> 
@@ -23,6 +29,9 @@
   <view 
     class="accordion-content overflow-hidden text-sm transition-all"
     data-slot="accordion-content"
+    id="accordion-item-{{value}}-panel"
+    role="region"
+    aria-labelledby="accordion-item-{{value}}-trigger"
     data-state="{{expanded ? 'open' : 'closed'}}"
     style="{{expanded ? '' : 'height: 0; padding-bottom: 0;'}}"
   >

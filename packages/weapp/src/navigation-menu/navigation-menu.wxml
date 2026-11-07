@@ -1,11 +1,64 @@
-<view class="navigation-menu {{extClass}}">
-  <view
-    wx:for="{{items}}"
-    wx:key="value"
-    class="navigation-menu-item {{item.value === value ? 'is-active' : ''}} {{item.disabled ? 'is-disabled' : ''}}"
-    data-value="{{item.value}}"
-    bindtap="onSelect"
-  >
-    <text>{{item.label}}</text>
-  </view>
+<view wx:if="{{labelledBy}}" class="navigation-menu {{extClass}}" role="navigation" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-labelledby="{{labelledBy}}">
+  <view wx:if="{{itemStatus}}" role="status">{{itemStatus}}</view>
+  <block wx:for="{{items}}" wx:key="value">
+    <view
+      wx:if="{{item.value === selected}}"
+      class="navigation-menu-item is-active {{item.disabled ? 'is-disabled' : ''}}"
+      role="link"
+      aria-current="page"
+      tabindex="{{disabled || item.disabled ? -1 : 0}}"
+      aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      data-selected="{{true}}"
+      data-value="{{item.value}}"
+      bindtap="onSelect"
+      bindkeydown="onSelectKey"
+    >
+      <text>{{item.label}}</text>
+    </view>
+    <view
+      wx:else
+      class="navigation-menu-item {{item.disabled ? 'is-disabled' : ''}}"
+      role="link"
+      tabindex="{{disabled || item.disabled ? -1 : 0}}"
+      aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      data-selected="{{false}}"
+      data-value="{{item.value}}"
+      bindtap="onSelect"
+      bindkeydown="onSelectKey"
+    >
+      <text>{{item.label}}</text>
+    </view>
+  </block>
+</view>
+<view wx:else class="navigation-menu {{extClass}}" role="navigation" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{ariaLabel || 'Navigation'}}">
+  <view wx:if="{{itemStatus}}" role="status">{{itemStatus}}</view>
+  <block wx:for="{{items}}" wx:key="value">
+    <view
+      wx:if="{{item.value === selected}}"
+      class="navigation-menu-item is-active {{item.disabled ? 'is-disabled' : ''}}"
+      role="link"
+      aria-current="page"
+      tabindex="{{disabled || item.disabled ? -1 : 0}}"
+      aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      data-selected="{{true}}"
+      data-value="{{item.value}}"
+      bindtap="onSelect"
+      bindkeydown="onSelectKey"
+    >
+      <text>{{item.label}}</text>
+    </view>
+    <view
+      wx:else
+      class="navigation-menu-item {{item.disabled ? 'is-disabled' : ''}}"
+      role="link"
+      tabindex="{{disabled || item.disabled ? -1 : 0}}"
+      aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      data-selected="{{false}}"
+      data-value="{{item.value}}"
+      bindtap="onSelect"
+      bindkeydown="onSelectKey"
+    >
+      <text>{{item.label}}</text>
+    </view>
+  </block>
 </view>

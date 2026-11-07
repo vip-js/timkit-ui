@@ -1,5 +1,6 @@
-<template>
-  <Timeline default-value="${3}"><!-- Loop items -->
-<TimelineItem key="${item.id}" step="${item.id}"><TimelineHeader><TimelineSeparator /><TimelineTitle class="-mt-0.5">${item.title}</TimelineTitle><TimelineIndicator /></TimelineHeader><TimelineContent>${item.description}<TimelineDate class="mt-2 mb-0">${item.date}</TimelineDate></TimelineContent></TimelineItem>
-<!-- End Loop --></Timeline>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<ol><li step="1"><div data-slot="timeline-header"><span aria-hidden="true"><h3>Pull Request Submitted</h3><span aria-hidden="true"><div data-slot="timeline-content">Submitted PR #342 with new feature implementation. Waiting for code review from team leads.<div data-slot="timeline-date">15 minutes ago</li>
+<li step="2"><div data-slot="timeline-header"><span aria-hidden="true"><h3>CI Pipeline Started</h3><span aria-hidden="true"><div data-slot="timeline-content">Automated tests and build process initiated. Running unit tests and code quality checks.<div data-slot="timeline-date">10 minutes ago</li>
+<li step="3"><div data-slot="timeline-header"><span aria-hidden="true"><h3>Code Review Feedback</h3><span aria-hidden="true"><div data-slot="timeline-content">Received comments on PR. Minor adjustments needed in error handling and documentation.<div data-slot="timeline-date">5 minutes ago</li>
+<li step="4"><div data-slot="timeline-header"><span aria-hidden="true"><h3>Changes Pushed</h3><span aria-hidden="true"><div data-slot="timeline-content">Implemented requested changes and pushed updates to feature branch. Awaiting final approval.<div data-slot="timeline-date"></li></ol>
+</div>

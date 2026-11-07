@@ -1,7 +1,8 @@
-<div data-slot="toggle-group" class="inline-flex rounded-md border border-input p-1">
-  <button type="button" class="rounded-sm px-3 py-1.5 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground" data-state="on">
+<div data-slot="toggle-group" role="group" aria-label="Toggle group" class="inline-flex rounded-md border border-input p-1">
+  <p role="status">Item 1 of 3</p>
+  <button type="button" value="left" aria-pressed="true" tabindex="0" class="rounded-sm px-3 py-1.5 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground" data-state="on">
     Left
   </button>
-  <button type="button" class="rounded-sm px-3 py-1.5 text-sm" data-state="off">Center</button>
-  <button type="button" class="rounded-sm px-3 py-1.5 text-sm" data-state="off">Right</button>
+  <button type="button" value="center" aria-pressed="false" tabindex="-1" class="rounded-sm px-3 py-1.5 text-sm" data-state="off">Center</button>
+  <button type="button" value="right" aria-pressed="false" tabindex="-1" class="rounded-sm px-3 py-1.5 text-sm" data-state="off">Right</button>
 </div>

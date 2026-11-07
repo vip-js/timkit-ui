@@ -1,6 +1,10 @@
-<details data-slot="collapsible" class="p-3">
-  <summary class="font-medium">Project Details</summary>
-  <p class="text-muted-foreground text-sm">
-    This section can be expanded and collapsed.
-  </p>
-</details>
+<div data-slot="collapsible" data-state="closed" class="p-3">
+  <button id="collapsible-trigger" type="button" data-slot="collapsible-trigger" aria-expanded="false" aria-controls="collapsible-content" class="font-medium">
+    Project Details
+  </button>
+  <div id="collapsible-content" data-slot="collapsible-content" role="region" aria-labelledby="collapsible-trigger" hidden>
+    <p class="text-muted-foreground text-sm">
+      This section can be expanded and collapsed.
+    </p>
+  </div>
+</div>

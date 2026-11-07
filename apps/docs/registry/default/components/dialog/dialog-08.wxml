@@ -1,6 +1,36 @@
-<view>
-  <dialog><dialogtrigger aschild><button variant="outline">Delete project</button></dialogtrigger><dialogcontent><view class="flex flex-col items-center gap-2"><view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><circlealerticon class="opacity-80" size="{{16}}" /></view><dialogheader><dialogtitle class="sm:text-center">Final confirmation</dialogtitle><dialogdescription class="sm:text-center">This action cannot be undone. To confirm, please enter the project name{{ ' ' }}<text class="text-foreground">Timkit UI</text>.
-            </dialogdescription></dialogheader></view><form class="space-y-5"><view class="*:not-first:mt-2"><label htmlfor="{{id}}">Project name</label><input id="{{id}}" type="text" placeholder="Type Timkit UI to confirm" value="{{inputValue}}" onchange="{{(e) => setInputValue(e.target.value)}}" /></view><dialogfooter><dialogclose aschild><button type="button" variant="outline" class="flex-1">Cancel
-              </button></dialogclose><button type="button" class="flex-1" disabled="{{inputValue !== PROJECT_NAME}}">Delete
-            </button></dialogfooter></form></dialogcontent></dialog>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dialog">
+    <button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Delete project</button>
+    </button>
+    <view data-slot="dialog-content">
+      <view class="flex flex-col items-center gap-2">
+        <view class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true">
+          <text aria-hidden="true" size="16">
+        </view>
+        <view data-slot="dialog-header">
+          <text data-slot="dialog-title">Final confirmation</text>
+          <text data-slot="dialog-description">
+            This action cannot be undone. To confirm, please enter the project name
+            <text class="text-foreground">Timkit UI</text>.
+          </text>
+        </view>
+      </view>
+
+      <form class="space-y-5">
+        <view class="*:not-first:mt-2">
+          <text data-slot="label" for="dialog-08">Project name</text>
+          <input data-slot="input" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="dialog-08"
+            type="text"
+            placeholder="Type Timkit UI to confirm">
+        </view>
+        <view data-slot="dialog-footer">
+          <view data-slot="dialog-close">
+            <button type="button" data-slot="button" class="flex-1 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button" variant="outline">Cancel</button>
+          
+          <button type="button" data-slot="button" class="flex-1 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">Delete</button>
+        </view>
+      </form>
+    </view>
+  </view>
 </view>

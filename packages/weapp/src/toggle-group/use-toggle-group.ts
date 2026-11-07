@@ -1,6 +1,6 @@
 import { toggleGroupConnect, toggleGroupMachine, type ToggleGroupApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -19,15 +19,16 @@ export function setupToggleGroupMachine(
   props: UseToggleGroupProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => ToggleGroupApi
 } {
-  const machine = toggleGroupMachine({
+  const current = props.value ?? []
+  const machine = bindMachine(toggleGroupMachine, {
     id: props.id || 'toggle-group',
-    value: props.value,
+    ...(current.length ? { defaultValue: current } : {}),
     multiple: props.multiple,
-    disabled: props.disabled,
+    disabled: props.disabled || undefined,
     loop: props.loop,
     onValueChange: props.onValueChange,
   })
@@ -36,9 +37,9 @@ export function setupToggleGroupMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
     connect: (state: object, send: MachineSend) =>
-      toggleGroupConnect(state, send) as ToggleGroupApi,
+      toggleGroupConnect(state as never, normalizeProps) as ToggleGroupApi,
   }
 }

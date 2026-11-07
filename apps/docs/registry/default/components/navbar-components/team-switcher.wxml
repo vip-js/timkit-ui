@@ -1,3 +1,21 @@
-<view>
-  <dropdownmenu><dropdownmenutrigger aschild><button variant="ghost" class="p-0 hover:bg-transparent"><text class="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full">{{ selectedProject.charAt(0).toUpperCase() }}</text><view class="flex flex-col gap-0.5 leading-none"><text class="">{{ selectedProject }}</text></view><chevronsupdown size="{{14}}" class="text-muted-foreground/80" /></button></dropdownmenutrigger><dropdownmenucontent align="start"><dropdownmenuitem wx:for="{{teams}}" wx:for-item="project" wx:for-index="index" wx:key="index" key="{{project}}" onselect="{{() => setSelectedProject(project)}}">{{ project }}</dropdownmenuitem></dropdownmenucontent></dropdownmenu>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dropdown-menu">
+    <button type="button" aria-haspopup="menu">
+      <button type="button" data-slot="button" class="p-0 hover:bg-transparent inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="ghost">
+        <text
+          class="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full">
+          
+        </text>
+        <view class="flex flex-col gap-0.5 leading-none">
+          <text></text>
+        </view>
+        <text aria-hidden="true" size="14">
+      </button>
+    </button>
+    <view role="menu" align="start">
+      <button type="button" role="menuitem">
+        
+      </button>
+    </view>
+  </view>
 </view>

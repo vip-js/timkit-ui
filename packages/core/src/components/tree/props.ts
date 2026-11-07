@@ -25,6 +25,18 @@ export type TreeProps = {
    * The node tree or hierarchical data structure.
    */
   tree?: TreeContainerApi
+  /**
+   * Whether expanding and selecting are ignored.
+   */
+  disabled?: boolean
+  /**
+   * The controlled id of the selected node.
+   */
+  selected?: string
+  /**
+   * Called with the next selected id. A controlled value stays until the parent applies it.
+   */
+  onSelectedChange?: (selected: string) => void
 }
 
 export type TreeContainerApi = TreeInstance<TreeNode>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { ChevronDownIcon } from 'lucide-vue-next';
 import { Accordion } from '@timui/vue';
 import { AccordionContent } from '@timui/vue';
@@ -76,12 +77,17 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="space-y-4">
     <h2 class="text-xl font-bold">Multi-level</h2>
-    <Accordion type="single" collapsible class="w-full -space-y-px" default-value="3">
+    <Accordion @click="onDemoClick" type="single" collapsible class="w-full -space-y-px" default-value="3">
       <AccordionItem
         v-for="item in items"
         :key="item.id"

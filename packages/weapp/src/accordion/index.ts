@@ -7,7 +7,11 @@ import {
 
 type AccordionItemNode = {
   data: {
-    value: string
+    value?: string
+  }
+  properties?: {
+    value?: string
+    disabled?: boolean
   }
   setData: (data: { expanded: boolean }) => void
 }
@@ -26,6 +30,8 @@ type AccordionInternal = WechatMiniprogram.Component.TrivialInstance & {
     type: string
     collapsible: boolean
     disabled: boolean
+    value?: string[] | string | null
+    defaultValue?: string[] | string | null
   }
   updateItem: (target: AccordionItemNode) => void
 }
@@ -88,7 +94,15 @@ Component({
   lifetimes: {
     attached() {
       const self = this as AccordionInternal
-      self.machine = setupAccordionMachine(self)
+      const passed = this.properties.value
+      const initial = passed == null ? toArray(this.properties.defaultValue) : toArray(passed)
+      this.data.value = initial
+      self.machine = setupAccordionMachine(self, {
+        value: initial,
+        multiple: this.properties.type === 'multiple',
+        collapsible: this.properties.collapsible,
+        disabled: this.properties.disabled,
+      })
     },
   },
   observers: {
@@ -116,7 +130,7 @@ Component({
   methods: {
     handleItemTap(itemValue: string) {
       const self = this as AccordionInternal
-      if (!self.machine) return
+      if (!self.machine || self.properties.disabled || !itemValue) return
       self.machine.send({ type: 'TRIGGER.FOCUS', value: itemValue })
       self.machine.send({ type: 'TRIGGER.CLICK', value: itemValue })
     },
@@ -124,7 +138,7 @@ Component({
       if (!target) return
       const self = this as AccordionInternal
       const { value } = self.data
-      const itemValue = target.data.value
+      const itemValue = String(target.properties?.value || '')
       const expanded = getAccordionItemOpen(value, itemValue)
 
       target.setData({ expanded })

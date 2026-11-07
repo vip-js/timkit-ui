@@ -1,4 +1,4 @@
-<view>
-  <view class="inline-flex items-center gap-2"><switch id="{{id}}" /><label htmlfor="{{id}}" class="sr-only">Simple switch
-      </label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="inline-flex items-center gap-2"><input type="checkbox" role="switch" data-slot="switch" id="switch-01"><text data-slot="label" for="switch-01">Simple switch
+      </text></view>
 </view>

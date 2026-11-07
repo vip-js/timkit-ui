@@ -1,72 +1,85 @@
-<view>
-  <view class="space-y-6"><view class="flex flex-wrap gap-3"><view class="w-44"><filter column="{{table.getColumn('keyword')!}}" /></view><view class="w-36"><filter column="{{table.getColumn('intents')!}}" /></view><view class="w-36"><filter column="{{table.getColumn('volume')!}}" /></view><view class="w-36"><filter column="{{table.getColumn('cpc')!}}" /></view><view class="w-36"><filter column="{{table.getColumn('traffic')!}}" /></view></view><table><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="bg-muted/50">{{ headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    key={header.id}
-                    className="relative h-10 border-t select-none"
-                    aria-sort={
-                      header.column.getIsSorted() === 'asc'
-                        ? 'ascending'
-                        : header.column.getIsSorted() === 'desc'
-                          ? 'descending'
-                          : 'none'
-                    }
-                  >
-                    {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                      <div
-                        className={cn(
-                          header.column.getCanSort() &&
-                            'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
-                        )}
-                        onClick={header.column.getToggleSortingHandler()}
-                        onKeyDown={(e) => {
-                          // Enhanced keyboard handling for sorting
-                          if (header.column.getCanSort() && (e.key === 'Enter' || e.key === ' ')) {
-                            e.preventDefault()
-                            header.column.getToggleSortingHandler()?.(e)
-                          }
-                        }}
-                        tabIndex={header.column.getCanSort() ? 0 : undefined}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: (
-                            <ChevronUpIcon
-                              className="shrink-0 opacity-60"
-                              size={16}
-                              aria-hidden="true"
-                            />
-                          ),
-                          desc: (
-                            <ChevronDownIcon
-                              className="shrink-0 opacity-60"
-                              size={16}
-                              aria-hidden="true"
-                            />
-                          ),
-                        }[header.column.getIsSorted() as string] ?? (
-                          <span className="size-4" aria-hidden="true" />
-                        )}
-                      </div>
-                    ) : (
-                      flexRender(header.column.columnDef.header, header.getContext())
-                    )}
-                  </TableHead>
-                )
-              }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
-{{ table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            )) }}
-</block>
-<block wx:else>
-<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
-              </tablecell></tablerow>
-</block></tablebody></table><text class="text-muted-foreground mt-4 text-center text-sm">Data table with filters made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></text></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-6">
+    <view class="flex flex-wrap gap-3">
+      <view class="relative w-52">
+        <input data-slot="input" class="peer ps-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          placeholder="Search keyword...">
+        <view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3">
+          <text aria-hidden="true" aria-hidden="true">
+        </view>
+      </view>
+
+      <view class="w-44">
+        <select data-slot="select"="(value) => (intentFilter = value)">
+          <button type="button" data-slot="select-trigger"><text data-slot="select-value" placeholder="All intents"></text></button>
+          <view data-slot="select-content">
+            <view data-slot="select-item" value="all">All intents</view>
+            <view data-slot="select-item" value="Informational">Informational</view>
+            <view data-slot="select-item" value="Navigational">Navigational</view>
+            <view data-slot="select-item" value="Commercial">Commercial</view>
+            <view data-slot="select-item" value="Transactional">Transactional</view>
+          </view>
+        </select>
+      </view>
+
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Vol min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Vol max">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="CPC min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="CPC max">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Trf min">
+      <input data-slot="input" class="w-28 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" type="number" placeholder="Trf max">
+    </view>
+
+    <view data-slot="table">
+      <view>
+        <view>
+          <text>Keyword</text>
+          <text>Intents</text>
+          <text>
+            <text class="flex items-center gap-1">
+              Volume
+              <text aria-hidden="true" size="14">
+              <text aria-hidden="true" size="14">
+            </text>
+          </text>
+          <text>
+            <text class="flex items-center gap-1">
+              CPC
+              <text aria-hidden="true" size="14">
+              <text aria-hidden="true" size="14">
+            </text>
+          </text>
+          <text>
+            <text class="flex items-center gap-1">
+              Traffic
+              <text aria-hidden="true" size="14">
+              <text aria-hidden="true" size="14">
+            </text>
+          </text>
+          <text>Link</text>
+        </view>
+      </view>
+
+      <view>
+        <view>
+          <view>
+            <text></text>
+            <text>
+              <view class="flex gap-1">
+                <text>
+                  
+                </text>
+              </view>
+            </text>
+            <text></text>
+            <text>$</text>
+            <text></text>
+            <text>
+              <navigator class="inline-flex items-center gap-1 hover:underline" target="_blank" rel="noopener noreferrer">
+                
+                <text aria-hidden="true" size="12" aria-hidden="true">
+              </navigator>
+            </text>
+          </view>
 </view>

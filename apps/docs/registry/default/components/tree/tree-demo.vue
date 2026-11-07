@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Tree } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tree class="max-w-sm rounded-lg border p-4">
+  <Tree @click="onDemoClick" class="max-w-sm rounded-lg border p-4">
     <div class="space-y-2 text-sm">
       <div class="font-medium">packages</div>
       <div class="pl-4 text-muted-foreground">react</div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { cn } from '@timui/core'
 import { Label } from '@timui/vue'
 import {
@@ -12,13 +13,18 @@ import {
 } from '@timui/vue'
 
 const id = 'select-39'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2">
     <Label :htmlFor="id">Options with placeholder avatar</Label>
     <Select default-value="1">
-      <SelectTrigger :id="id" class="ps-2 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_[data-square]]:shrink-0">
+      <SelectTrigger @click="onDemoClick" :id="id" class="ps-2 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_[data-square]]:shrink-0">
         <SelectValue placeholder="Select framework" />
       </SelectTrigger>
       <SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2">

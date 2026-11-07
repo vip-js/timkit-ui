@@ -1,13 +1,42 @@
-<view class="checkbox-tree {{extClass}}">
+<view wx:if="{{labelledBy}}" class="checkbox-tree {{extClass}}" role="tree" aria-labelledby="{{labelledBy}}">
+  <view wx:if="{{checkStatus}}" role="status">{{checkStatus}}</view>
   <view
     wx:for="{{flatNodes}}"
     wx:key="id"
     class="checkbox-tree-item"
+    role="treeitem"
+    tabindex="{{item.disabled ? -1 : 0}}"
+    aria-label="{{item.label}}"
+    aria-checked="{{checkedMap[item.id] ? 'true' : 'false'}}"
+    aria-level="{{item.level + 1}}"
+    aria-disabled="{{item.disabled ? 'true' : 'false'}}"
     style="padding-left: {{item.level * 20}}rpx;"
     data-id="{{item.id}}"
     bindtap="onToggle"
+    bindkeydown="onToggleKey"
   >
-    <checkbox checked="{{checkedMap[item.id]}}" disabled="{{item.disabled}}" />
+    <checkbox checked="{{checkedMap[item.id]}}" disabled="{{item.disabled}}" aria-hidden="true" />
+    <text class="checkbox-tree-label">{{item.label}}</text>
+  </view>
+</view>
+<view wx:else class="checkbox-tree {{extClass}}" role="tree" aria-label="{{ariaLabel || 'Checkbox tree'}}">
+  <view wx:if="{{checkStatus}}" role="status">{{checkStatus}}</view>
+  <view
+    wx:for="{{flatNodes}}"
+    wx:key="id"
+    class="checkbox-tree-item"
+    role="treeitem"
+    tabindex="{{item.disabled ? -1 : 0}}"
+    aria-label="{{item.label}}"
+    aria-checked="{{checkedMap[item.id] ? 'true' : 'false'}}"
+    aria-level="{{item.level + 1}}"
+    aria-disabled="{{item.disabled ? 'true' : 'false'}}"
+    style="padding-left: {{item.level * 20}}rpx;"
+    data-id="{{item.id}}"
+    bindtap="onToggle"
+    bindkeydown="onToggleKey"
+  >
+    <checkbox checked="{{checkedMap[item.id]}}" disabled="{{item.disabled}}" aria-hidden="true" />
     <text class="checkbox-tree-label">{{item.label}}</text>
   </view>
 </view>

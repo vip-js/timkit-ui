@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { AlertDialog } from '@timui/vue';
 import { AlertDialogAction } from '@timui/vue';
 import { AlertDialogCancel } from '@timui/vue';
@@ -13,9 +14,14 @@ import { Button } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <AlertDialog><AlertDialogTrigger as-child><Button variant="outline">Alert dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>Take a moment to review the details provided to ensure you understand the implications.
+  <AlertDialog><AlertDialogTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Alert dialog</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>Take a moment to review the details provided to ensure you understand the implications.
           </AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction>Okay</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
 </template>

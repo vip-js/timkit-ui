@@ -251,7 +251,6 @@ onBeforeUnmount(() => {
               :max="3"
               :step="0.1"
               @update:modelValue="handleZoomValueChange"
-              aria-label="Zoom slider"
             />
             <ZoomInIcon class="shrink-0 opacity-60" :size="16" aria-hidden="true" />
           </div>

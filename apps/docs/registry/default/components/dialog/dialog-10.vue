@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '@timui/vue';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@timui/vue';
 import { Textarea } from '@timui/vue';
@@ -6,10 +7,15 @@ import { Textarea } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Dialog><DialogTrigger as-child><Button variant="outline">Feedback</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Send us feedback</DialogTitle><DialogDescription>Watch{{ ' ' }}<a class="text-foreground hover:underline" href="#">tutorials
+  <Dialog><DialogTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Feedback</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Send us feedback</DialogTitle><DialogDescription>Watch{{ ' ' }}<a class="text-foreground hover:underline" href="#">tutorials
             </a>, read Timkit UI&lsquo;s{{ ' ' }}<a class="text-foreground hover:underline" href="#">documentation
             </a>, or join our{{ ' ' }}<a class="text-foreground hover:underline" href="#">Discord
             </a>{{ ' ' }}for community help.

@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { DateField } from '@timui/vue'
 import { DateInput } from '@timui/vue'
 import { Label } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <DateField class="*:not-first:mt-2">
+  <DateField @click="onDemoClick" class="*:not-first:mt-2">
     <Label class="text-foreground text-sm font-medium">Date input</Label>
     <DateInput />
     <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">

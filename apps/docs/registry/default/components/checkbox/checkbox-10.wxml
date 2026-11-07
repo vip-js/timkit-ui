@@ -1,3 +1,3 @@
-<view>
-  <view class="flex items-center justify-between gap-2"><checkbox id="{{id}}" class="order-1" /><label htmlfor="{{id}}">Right aligned checkbox</label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex items-center justify-between gap-2"><input type="checkbox" data-slot="checkbox" id="checkbox-10"><text data-slot="label" for="checkbox-10">Right aligned checkbox</text></view>
 </view>

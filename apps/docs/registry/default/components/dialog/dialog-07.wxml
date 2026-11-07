@@ -1,5 +1,5 @@
-<view>
-  <dialog><dialogtrigger aschild><button variant="outline">Terms & Conditions</button></dialogtrigger><dialogcontent class="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-lg [&>button:last-child]:top-3.5"><dialogheader class="contents space-y-0 text-left"><dialogtitle class="border-b px-6 py-4 text-base">Terms & Conditions</dialogtitle><view ref="{{contentRef}}" onscroll="{{handleScroll}}" class="overflow-y-auto"><dialogdescription aschild><view class="px-6 py-4"><view class="[&_strong]:text-foreground space-y-4 [&_strong]:font-semibold"><view class="space-y-4"><view class="space-y-1"><text><strong>Acceptance of Terms</strong></text><text>By accessing and using this website, users agree to comply with and be bound
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dialog"><button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Terms & Conditions</button></button><view data-slot="dialog-content" class="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-lg [&>button:last-child]:top-3.5"><view data-slot="dialog-header"><text data-slot="dialog-title">Terms & Conditions</text><view class="overflow-y-auto"><text data-slot="dialog-description"><view class="px-6 py-4"><view class="[&_strong]:text-foreground space-y-4 [&_strong]:font-semibold"><view class="space-y-4"><view class="space-y-1"><text><strong>Acceptance of Terms</strong></text><text>By accessing and using this website, users agree to comply with and be bound
                         by these Terms of Service. Users who do not agree with these terms should
                         discontinue use of the website immediately.
                       </text></view><view class="space-y-1"><text><strong>User Account Responsibilities</strong></text><text>Users are responsible for maintaining the confidentiality of their account
@@ -14,15 +14,15 @@
                         website owners shall not be liable for direct, indirect, incidental,
                         consequential, or punitive damages arising from user interactions with the
                         platform.
-                      </text></view><view class="space-y-1"><text><strong>User Conduct Guidelines</strong></text><ul class="list-disc pl-6"><li>Not upload harmful or malicious content</li><li>Respect the rights of other users</li><li>Avoid activities that could disrupt website functionality</li><li>Comply with applicable local and international laws</li></ul></view><view class="space-y-1"><text><strong>Modifications to Terms</strong></text><text>The website reserves the right to modify these terms at any time. Continued
+                      </text></view><view class="space-y-1"><text><strong>User Conduct Guidelines</strong></text><view class="list-disc pl-6"><view>Not upload harmful or malicious content</view><view>Respect the rights of other users</view><view>Avoid activities that could disrupt website functionality</view><view>Comply with applicable local and international laws</view></view></view><view class="space-y-1"><text><strong>Modifications to Terms</strong></text><text>The website reserves the right to modify these terms at any time. Continued
                         use of the website after changes constitutes acceptance of the new terms.
                       </text></view><view class="space-y-1"><text><strong>Termination Clause</strong></text><text>The website may terminate or suspend user access without prior notice for
                         violations of these terms or for any other reason deemed appropriate by the
                         administration.
                       </text></view><view class="space-y-1"><text><strong>Governing Law</strong></text><text>These terms are governed by the laws of the jurisdiction where the website
                         is primarily operated, without regard to conflict of law principles.
-                      </text></view></view></view></view></dialogdescription></view></dialogheader><dialogfooter class="border-t px-6 py-4 sm:items-center"><text wx:if="{{!hasReadToBottom}}" class="text-muted-foreground grow text-xs max-sm:text-center">Read all terms before accepting.
-            </text><dialogclose aschild><button type="button" variant="outline">Cancel
-            </button></dialogclose><dialogclose aschild><button type="button" disabled="{{!hasReadToBottom}}">I agree
-            </button></dialogclose></dialogfooter></dialogcontent></dialog>
+                      </text></view></view></view></view></text></view></view><view data-slot="dialog-footer"><text class="text-muted-foreground grow text-xs max-sm:text-center">Read all terms before accepting.
+            </text><view data-slot="dialog-close"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button" variant="outline">Cancel
+            </button><view data-slot="dialog-close"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">I agree
+            </button></view></view></view>
 </view>

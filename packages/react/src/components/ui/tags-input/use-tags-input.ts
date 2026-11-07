@@ -16,6 +16,7 @@ export type UseTagsInputProps = CoreTagsInputProps & {
 export function useTagsInput({
   onValueChange,
   onValueChangeDetails,
+  value,
   ...props
 }: UseTagsInputProps): TagsInputApi {
   const generatedId = React.useId()
@@ -23,6 +24,7 @@ export function useTagsInput({
 
   const service = useMachine(tagsInputMachine, {
     ...props,
+    ...(value === undefined ? {} : { value: value ?? [] }),
     id: tagsInputId,
     onValueChange(details) {
       onValueChangeDetails?.(details)
@@ -30,15 +32,13 @@ export function useTagsInput({
     },
   })
 
-  return React.useMemo(() => {
-    return Array.isArray(service)
-      ? (
-          tagsInputConnect as never as (
-            state: never,
-            send: never,
-            props: typeof normalizeProps
-          ) => TagsInputApi
-        )(service[0] as never, service[1] as never, normalizeProps)
-      : tagsInputConnect(service as never, normalizeProps)
-  }, [service])
+  return Array.isArray(service)
+    ? (
+        tagsInputConnect as never as (
+          state: never,
+          send: never,
+          props: typeof normalizeProps
+        ) => TagsInputApi
+      )(service[0] as never, service[1] as never, normalizeProps)
+    : tagsInputConnect(service as never, normalizeProps)
 }

@@ -1,11 +1,12 @@
-<ol data-slot="stepper" class="flex items-center gap-3">
-  <li class="flex items-center gap-2">
+<div data-slot="stepper" role="group" aria-label="Stepper" class="flex items-center gap-3">
+  <p role="status">Step 1 of 2</p>
+  <button type="button" data-slot="stepper-item" aria-current="step" class="flex items-center gap-2">
     <span class="focus-visible:border-ring focus-visible:ring-ring/50 inline-flex items-center gap-3 rounded-full outline-none focus-visible:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50">1</span>
     <span class="text-sm">Start</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="flex items-center gap-2">
+  </button>
+  <span class="h-px w-8 bg-border" aria-hidden="true"></span>
+  <button type="button" data-slot="stepper-item" class="flex items-center gap-2">
     <span class="focus-visible:border-ring focus-visible:ring-ring/50 inline-flex items-center gap-3 rounded-full outline-none focus-visible:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50">2</span>
     <span class="text-muted-foreground text-sm">Review</span>
-  </li>
-</ol>
+  </button>
+</div>

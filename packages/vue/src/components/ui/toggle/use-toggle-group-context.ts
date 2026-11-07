@@ -7,6 +7,7 @@ export type ToggleGroupContextValue = {
   api: ComputedRef<ToggleGroupApi>
   type?: 'single' | 'multiple'
   disabled?: boolean
+  register: (value: string) => () => void
 }
 
 export const ToggleGroupContextKey = Symbol('ToggleGroupContext')

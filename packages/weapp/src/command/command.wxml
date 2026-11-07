@@ -1,26 +1,61 @@
-<view class="command {{extClass}}">
+<view class="command {{extClass}}" tabindex="-1" aria-disabled="{{disabled ? 'true' : 'false'}}">
   <input
+    wx:if="{{highlight >= 0}}"
     class="command-input"
     type="text"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-expanded="{{filteredItems.length ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
     placeholder="{{placeholder}}"
+    aria-label="{{ariaLabel || inputLabel}}"
     value="{{query}}"
+    disabled="{{disabled}}"
+    aria-activedescendant="{{id}}-option-{{highlight}}"
     bindinput="onInput"
+    bindkeydown="onKey"
+  />
+  <input
+    wx:else
+    class="command-input"
+    type="text"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-expanded="{{filteredItems.length ? 'true' : 'false'}}"
+    aria-controls="{{id}}-listbox"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    placeholder="{{placeholder}}"
+    aria-label="{{ariaLabel || inputLabel}}"
+    value="{{query}}"
+    disabled="{{disabled}}"
+    bindinput="onInput"
+    bindkeydown="onKey"
   />
 
-  <view wx:if="{{filteredItems.length === 0}}" class="command-empty">
-    No results.
+  <view wx:if="{{itemStatus}}" role="status">{{itemStatus}}</view>
+  <view wx:if="{{filteredItems.length === 0}}" id="{{id}}-listbox" class="command-empty" role="status">
+    No results
   </view>
 
-  <view wx:else class="command-list">
+  <view wx:else id="{{id}}-listbox" class="command-list" role="listbox" aria-label="Suggestions">
     <view
       wx:for="{{filteredItems}}"
       wx:key="value"
-      class="command-item {{item.disabled ? 'is-disabled' : ''}}"
+      id="{{id}}-option-{{index}}"
+      class="command-item {{item.disabled ? 'is-disabled' : ''}} {{selected === item.value ? 'is-selected' : ''}}"
+      role="option"
+      tabindex="-1"
+      aria-selected="{{selected === item.value ? 'true' : 'false'}}"
+      aria-disabled="{{item.disabled ? 'true' : 'false'}}"
       data-value="{{item.value}}"
+      data-highlighted="{{index === highlight}}"
+      data-selected="{{selected === item.value}}"
       bindtap="onSelect"
+      bindkeydown="onItemKey"
     >
-      <text class="command-item-label">{{item.label}}</text>
-      <text class="command-item-value">{{item.value}}</text>
+      <text class="command-item-label">{{item.label || item.value}}</text>
+      <text wx:if="{{item.label && item.label !== item.value}}" class="command-item-value" aria-hidden="true">{{item.value}}</text>
     </view>
   </view>
 </view>

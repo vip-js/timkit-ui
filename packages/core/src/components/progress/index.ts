@@ -1,4 +1,5 @@
 export * from './props'
+export * from './percent'
 export * from './variants'
 export { default as progressSchema } from './schema'
 export * from './machine'

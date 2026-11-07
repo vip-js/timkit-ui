@@ -50,9 +50,20 @@ const NavbarBrand = React.forwardRef<HTMLDivElement, NavbarBrandProps>(
 NavbarBrand.displayName = 'NavbarBrand'
 
 type NavbarNavProps = React.HTMLAttributes<HTMLElement>
-const NavbarNav = React.forwardRef<HTMLElement, NavbarNavProps>(({ className, ...props }, ref) => (
-  <nav ref={ref} data-slot="navbar-nav" className={cn(navbarNavVariants(), className)} {...props} />
-))
+const NavbarNav = React.forwardRef<HTMLElement, NavbarNavProps>(
+  ({ className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props }, ref) => (
+    <nav
+      ref={ref}
+      data-slot="navbar-nav"
+      className={cn(navbarNavVariants(), className)}
+      {...props}
+      aria-labelledby={ariaLabelledBy}
+      aria-label={
+        ariaLabelledBy ? undefined : typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Navigation'
+      }
+    />
+  )
+)
 NavbarNav.displayName = 'NavbarNav'
 
 type NavbarItemProps = React.HTMLAttributes<HTMLDivElement>

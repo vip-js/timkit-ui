@@ -1,5 +1,8 @@
-<template>
-  <ScrollArea class="h-72 w-48 rounded-md border"><div class="p-4"><h4 class="mb-4 text-sm font-medium leading-none">Tags</h4><!-- Loop tags -->
-<React.Fragment key="${tag}"><div class="text-sm">${tag}</div><Separator class="my-2" /></React.Fragment>
-<!-- End Loop --></div></ScrollArea>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div>
+    <div class="p-4">
+      <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
+      <template>
+        <div class="text-sm"></div>
+        <hr data-slot="separator">
+</div>

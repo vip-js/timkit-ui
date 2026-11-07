@@ -1,6 +1,6 @@
 import { avatarConnect, avatarMachine, type AvatarMachineOptions } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 export type WeappAvatarApi = ReturnType<typeof avatarConnect>
 
@@ -12,10 +12,10 @@ export function setupAvatarMachine(
   component: WechatMiniprogram.Component.TrivialInstance,
   options: AvatarMachineOptions
 ) {
-  const machine = avatarMachine(options)
+  const machine = bindMachine(avatarMachine, options)
   return useMachine(component, machine)
 }
 
 export function connectAvatarMachine(state: object, send: MachineSend): WeappAvatarApi {
-  return avatarConnect(state, send, normalizeProps)
+  return avatarConnect(state as never, normalizeProps)
 }

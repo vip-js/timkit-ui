@@ -15,7 +15,24 @@ const navigationMenuSchema = defineUCS({
   logic: {
     provider: 'none',
   },
-  props: [],
+  props: [
+    {
+      name: 'value',
+      type: 'string',
+      description: 'Value of the open menu item.',
+    },
+    {
+      name: 'onValueChange',
+      type: 'event',
+      description: 'Called when the open item changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening a menu item is ignored.',
+      defaultValue: false,
+    },
+  ],
   slots: [
     {
       name: 'default',
@@ -36,7 +53,7 @@ const navigationMenuSchema = defineUCS({
       ],
     },
   ],
-  supportedPlatforms: ['web'],
+  supportedPlatforms: ['web', 'wechat'],
 })
 
 export default navigationMenuSchema

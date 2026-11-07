@@ -1,10 +1,23 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">OTP input single</Label><OTPInput id="${id}" containerclassname="flex items-center gap-3 has-disabled:opacity-50" maxlength="${4}" render="${({ slots }) => (
-          <div className="flex">
-            {slots.map((slot, idx) => (
-              <Slot key={idx} {...slot} />
-            ))}
-          </div>
-        )}" /><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://github.com/guilhermerodz/input-otp" target="_blank" rel="noopener nofollow">Input OTP
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label">OTP input single</label>
+    <div class="flex">
+      <input
+        class="border-input bg-background text-foreground relative -ms-px flex size-9 items-center justify-center border text-center font-medium shadow-xs transition-[color,box-shadow] first:ms-0 first:rounded-s-md last:rounded-e-md focus:z-10 focus:outline-none focus:ring-2 focus:ring-ring/50"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="1"
+        autocomplete="one-time-code" />
+    </div>
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <a
+        class="hover:text-foreground underline"
+        href="https://github.com/guilhermerodz/input-otp"
+        target="_blank"
+        rel="noopener nofollow">
+        Input OTP
+      </a>
+    </p>
+  </div>
+</div>

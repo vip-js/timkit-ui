@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { cn } from '@timui/core';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
 import { buttonVariants } from '@timui/vue';
@@ -7,10 +8,15 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Pagination><PaginationContent class="w-full justify-between"><PaginationItem><PaginationLink :class="cn(
+  <Pagination @click="onDemoClick"><PaginationContent class="w-full justify-between"><PaginationItem><PaginationLink :class="cn(
               'aria-disabled:pointer-events-none aria-disabled:opacity-50',
               buttonVariants({
                 variant: 'outline',

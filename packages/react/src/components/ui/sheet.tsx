@@ -20,6 +20,15 @@ import { X } from 'lucide-react'
 
 import { useSheet } from './sheet/use-sheet'
 import { SheetProvider, useSheetContext } from './sheet/use-sheet-context'
+import { useReturnFocus } from './use-return-focus'
+
+const SheetFocusContext = React.createContext<(node: HTMLElement | null) => void>(() => undefined)
+const SheetDisabledContext = React.createContext(false)
+const SheetSideContext = React.createContext<CoreSheetProps['side']>(undefined)
+const SheetHasTitleContext = React.createContext({
+  hasTitle: false,
+  setHasTitle: (_present: boolean) => {},
+})
 
 // Context is imported from ./sheet/use-sheet-context
 
@@ -30,15 +39,53 @@ type _SheetPropsGuard = AssertNoExtraKeys<
 >
 
 const Sheet = (props: SheetProps) => {
-  const { children, ...machineProps } = props
+  const { children, side, ...machineProps } = props
   const api = useSheet(machineProps)
+  const rememberTrigger = useReturnFocus(api.open)
+  const [hasTitle, setHasTitle] = React.useState(false)
+  const titlePresence = React.useMemo(() => ({ hasTitle, setHasTitle }), [hasTitle])
 
-  return <SheetProvider value={api}>{children}</SheetProvider>
+  return (
+    <SheetDisabledContext.Provider value={props.disabled === true}>
+      <SheetProvider value={api}>
+        <SheetHasTitleContext.Provider value={titlePresence}>
+        <SheetSideContext.Provider value={side}>
+          <SheetFocusContext.Provider value={rememberTrigger}>
+            {api.open ? <p role="status">Opened</p> : null}
+            {children}
+          </SheetFocusContext.Provider>
+        </SheetSideContext.Provider>
+        </SheetHasTitleContext.Provider>
+      </SheetProvider>
+    </SheetDisabledContext.Provider>
+  )
 }
 
-const SheetTrigger = ({ children }: { children: React.ReactElement }) => {
+const SheetTrigger = ({
+  children,
+}: {
+  children: React.ReactElement<Record<string, unknown>>
+}) => {
   const api = useSheetContext()
-  return React.cloneElement(children, api.getTriggerProps())
+  const rememberTrigger = React.useContext(SheetFocusContext)
+  const groupDisabled = React.useContext(SheetDisabledContext)
+  const locked = Boolean(children.props.disabled) || groupDisabled
+  const triggerProps = api.getTriggerProps()
+  const childClick = children.props.onClick
+  return React.cloneElement(children, {
+    ...triggerProps,
+    disabled: locked || undefined,
+    'aria-disabled': locked || undefined,
+    onClick: (event: React.MouseEvent<HTMLElement>) => {
+      if (locked) {
+        event.preventDefault()
+        return
+      }
+      rememberTrigger(event.currentTarget)
+      triggerProps.onClick?.(event)
+      if (typeof childClick === 'function') childClick(event)
+    },
+  })
 }
 
 const SheetClose = ({ children }: { children: React.ReactElement }) => {
@@ -68,8 +115,12 @@ interface SheetContentProps
   extends React.ComponentPropsWithoutRef<'div'>, VariantProps<typeof sheetContentVariants> {}
 
 const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
-  ({ side = 'right', className, children, ...props }, ref) => {
+  ({ side, className, children, 'aria-label': ariaLabel, ...props }, ref) => {
     const api = useSheetContext()
+    const inheritedSide = React.useContext(SheetSideContext)
+    const resolvedSide = side ?? inheritedSide ?? 'right'
+    const { hasTitle } = React.useContext(SheetHasTitleContext)
+    const passedName = typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : undefined
     if (!api.open) return null
 
     return (
@@ -86,13 +137,19 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
            */}
           <div
             {...api.getContentProps()}
+            data-slot="sheet-content"
             ref={ref}
-            className={cn(sheetContentVariants({ side }), className)}
+            className={cn(sheetContentVariants({ side: resolvedSide }), className)}
             {...props}
+            aria-label={hasTitle ? undefined : passedName ?? 'Sheet'}
           >
             {children}
-            <button {...api.getCloseTriggerProps()} className={cn(sheetCloseVariants())}>
-              <X className={sheetCloseIconVariants()} />
+            <button
+              {...api.getCloseTriggerProps()}
+              data-slot="sheet-close"
+              className={cn(sheetCloseVariants())}
+            >
+              <X aria-hidden="true" className={sheetCloseIconVariants()} />
               <span className="sr-only">Close</span>
             </button>
           </div>
@@ -116,10 +173,16 @@ SheetFooter.displayName = 'SheetFooter'
 const SheetTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => {
     const api = useSheetContext()
+    const { setHasTitle } = React.useContext(SheetHasTitleContext)
+    React.useLayoutEffect(() => {
+      setHasTitle(true)
+      return () => setHasTitle(false)
+    }, [setHasTitle])
     return (
       <h2
         {...api?.getTitleProps?.()}
         ref={ref}
+        data-slot="sheet-title"
         className={cn(sheetTitleVariants(), className)}
         {...props}
       />
@@ -139,6 +202,7 @@ const SheetDescription = React.forwardRef<
       ref={ref}
       className={cn(sheetDescriptionVariants(), className)}
       {...props}
+      data-slot="sheet-description"
     />
   )
 })

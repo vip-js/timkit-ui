@@ -1,3 +1,27 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with placeholder avatar</label><select default-value="1"><selecttrigger id="{{id}}" class="ps-2 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_[data-square]]:shrink-0"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2"><selectgroup><selectlabel class="ps-2">Impersonate user</selectlabel><selectitem value="1"><square class="bg-indigo-400/20 text-indigo-500">F</square><text class="truncate">Frank Morris</text></selectitem><selectitem value="2"><square class="bg-purple-400/20 text-purple-500">X</square><text class="truncate">Xavier Guerra</text></selectitem><selectitem value="3"><square class="bg-rose-400/20 text-rose-500">A</square><text class="truncate">Anne Kelley</text></selectitem></selectgroup></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label" for="select-39">Options with placeholder avatar</text>
+    <select data-slot="select">
+      <button type="button" data-slot="select-trigger" id="select-39" class="ps-2 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_[data-square]]:shrink-0">
+        <text data-slot="select-value" placeholder="Select framework"></text>
+      </button>
+      <view data-slot="select-content" class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2">
+        <view>
+          <text>Impersonate user</text>
+          <view data-slot="select-item" value="1">
+            <text data-square aria-hidden="true">F</text>
+            <text class="truncate">Frank Morris</text>
+          </view>
+          <view data-slot="select-item" value="2">
+            <text data-square aria-hidden="true">X</text>
+            <text class="truncate">Xavier Guerra</text>
+          </view>
+          <view data-slot="select-item" value="3">
+            <text data-square aria-hidden="true">A</text>
+            <text class="truncate">Anne Kelley</text>
+          </view>
+        </view>
+      </view>
+    </select>
+  </view>
 </view>

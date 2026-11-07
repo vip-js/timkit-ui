@@ -1,4 +1,7 @@
+import { createControl, type ControlState } from '@timui/core'
+
 import { emitTimEvent } from '../utils'
+import { commitControl } from '../utils/control'
 import { setupCollapsibleMachine } from './use-collapsible'
 
 type MachineEvent =
@@ -9,8 +12,8 @@ type MachineEvent =
     }
 
 type WeappCollapsibleApi = {
-  open?: () => void
-  close?: () => void
+  open?: boolean
+  setOpen?: (open: boolean) => void
   triggerProps?: {
     onClick?: () => void
   }
@@ -25,8 +28,11 @@ type WeappCollapsibleInternal =
     _service?: WeappService
     _cleanup?: () => void
     _send?: (event: MachineEvent) => void
+    _connect?: (state: object, send: (event: MachineEvent) => void) => WeappCollapsibleApi
     data: {
       api: WeappCollapsibleApi
+      opened: boolean
+      control?: ControlState
     }
     properties: {
       open: boolean
@@ -45,7 +51,8 @@ Component({
   externalClasses: ['ext-class'],
 
   properties: {
-    open: { type: Boolean, value: false },
+    open: { type: null, value: null },
+    defaultOpen: { type: null, value: null },
     disabled: { type: Boolean, value: false },
     id: { type: String, value: 'collapsible' },
     extClass: { type: String, value: '' },
@@ -54,14 +61,18 @@ Component({
   data: {
     api: {} as WeappCollapsibleApi,
     className: '',
+    opened: false,
+    openStatus: '',
+    control: createControl() as ControlState,
   },
 
   lifetimes: {
     attached() {
       const self = this as WeappCollapsibleInternal
-      const { service, cleanup, send } = setupCollapsibleMachine(this, {
+      const passed = this.properties.open
+      const { service, start, send, connect } = setupCollapsibleMachine(this, {
         id: this.properties.id,
-        open: this.properties.open,
+        open: passed == null ? this.properties.defaultOpen : passed,
         disabled: this.properties.disabled,
         onOpenChange: (details) => {
           emitTimEvent(this, 'change', 'change', this.properties.id || 'collapsible', {
@@ -71,8 +82,9 @@ Component({
       })
 
       self._service = service as WeappService
-      self._cleanup = cleanup
       self._send = send as (event: MachineEvent) => void
+      self._connect = connect
+      self._cleanup = start()
     },
     detached() {
       const self = this as WeappCollapsibleInternal
@@ -83,28 +95,43 @@ Component({
   observers: {
     state: function (state) {
       const self = this as WeappCollapsibleInternal
-      if (!state || !self._send) return
-      const { connect } = setupCollapsibleMachine(this, { id: this.properties.id })
-      const api = connect(state, self._send) as WeappCollapsibleApi
-      this.setData({ api, className: this.properties.extClass })
+      if (!state || !self._send || !self._connect) return
+      let api = self.data.api
+      try {
+        api = self._connect(state, self._send)
+      } catch {
+        api = self.data.api
+      }
+      this.setData({
+        api,
+        opened: Boolean(api.open),
+        openStatus: api.open ? 'Opened' : '',
+        className: this.properties.extClass,
+      })
     },
 
-    open: function (val) {
+    open: function (val: boolean) {
       const self = this as WeappCollapsibleInternal
-      if (self._service) {
-        if (val) {
-          self.data.api.open?.()
-        } else {
-          self.data.api.close?.()
-        }
-      }
+      if (val == null || !self.data.api.setOpen || Boolean(val) === self.data.opened) return
+      self.data.api.setOpen(Boolean(val))
     },
   },
 
   methods: {
+    onTriggerKey(event?: { detail?: { key?: string } }) {
+      const key = String(event?.detail?.key || '')
+      if (key === 'Enter' || key === ' ') this.onTriggerTap()
+    },
     onTriggerTap() {
       const self = this as WeappCollapsibleInternal
-      self.data.api.triggerProps?.onClick?.()
+      const next = commitControl(self, self.data.opened ? 'close' : 'open')
+      if (next.disabled) return
+      const open = !self.data.opened
+      if (self.properties.open != null) {
+        emitTimEvent(this, 'change', 'change', this.properties.id || 'collapsible', { open })
+        return
+      }
+      self.data.api.setOpen?.(open)
     },
   },
 })

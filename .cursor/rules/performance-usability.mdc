@@ -1,0 +1,26 @@
+---
+description: Performance and usability are non-negotiable; never sacrifice one for the other
+alwaysApply: true
+---
+
+# Performance + usability (non-negotiable)
+
+These principles outrank shortcuts, deadlines, and bundle hacks.
+
+## Performance
+
+- Keep hot paths small: lazy-load optional chunks (recipes, thread-coach, TypeScript syntax checks).
+- React Agent UI: memo by message/part; stable dispatch; avoid rebuilding full `AgentThread` on every token.
+- Docs/registry JSON: compress, cache with SWR, `optimizePackageImports` for icon and `@timui/*`.
+- Every change that touches `@timui/agent`, `@timui/react/agent`, or `agent-thread` must pass `pnpm goal:perf:agent`.
+
+## Usability
+
+- One obvious import path: `@timui/agent` for SDK + thread helpers (lazy-loaded at runtime, not removed from API).
+- Defaults favor correctness: `validate` runs syntax unless `--no-syntax`; `plan.confidence === 'none'` must not auto-install.
+- Agent-facing docs (`AGENTS.md`, `/agent-index.json`, contracts) stay in sync with CLI and exports.
+- Errors must say what to do next (missing chunk → reinstall package; invalid thread → `validateAgentThread` + `suggestAgentThreadNext`).
+
+## When they conflict
+
+Prefer **splitting** (subpath export, lazy `require`, memo boundary) over **hiding** features or **inflating** the main bundle. If a trade-off is unavoidable, document it in `PERFORMANCE.md` and add a budget or test.

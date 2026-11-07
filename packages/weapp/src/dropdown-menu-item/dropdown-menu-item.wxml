@@ -1,8 +1,13 @@
 <view
   data-slot="dropdown-menu-item"
   class="{{className}}"
+  role="menuitem"
+  tabindex="{{active && !disabled ? 0 : -1}}"
+  aria-disabled="{{disabled ? 'true' : 'false'}}"
+  data-highlighted="{{active}}"
   data-disabled="{{disabled}}"
   bindtap="onSelect"
+  bindkeydown="onKey"
 >
   <slot></slot>
 </view>

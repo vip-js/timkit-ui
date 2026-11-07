@@ -1,3 +1,17 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with character limit</Label><div class="relative"><Input id="${id}" class="peer pe-14" type="text" value="${value}" maxlength="${maxLength}" onchange="${handleChange}" aria-describedby="${`${id}-description`}" /><div id="${`${id}-description`}" class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-xs tabular-nums peer-disabled:opacity-50" aria-live="polite" role="status">${characterCount}/${limit}</div></div></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label">Input with character limit</label>
+    <div class="relative">
+      <input data-slot="input" class="peer pe-14 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+       
+       
+        type="text" aria-describedby="Example-description">
+      <div id="Example-description"
+        class="text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-xs tabular-nums peer-disabled:opacity-50"
+        aria-live="polite"
+        role="status">
+        /
+      </div>
+    </div>
+  </div>
+</div>

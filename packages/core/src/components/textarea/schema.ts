@@ -15,9 +15,21 @@ const textareaSchema = defineUCS({
       description: 'The placeholder text.',
     },
     {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, value changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'disabled',
       type: 'boolean',
       description: 'Whether the textarea is disabled.',
+      defaultValue: false,
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      description: 'When true, the field is announced as required.',
       defaultValue: false,
     },
     {
@@ -29,6 +41,11 @@ const textareaSchema = defineUCS({
       name: 'onValueChange',
       type: 'event',
       description: 'Callback called when value changes.',
+    },
+    {
+      name: 'maxLength',
+      type: 'number',
+      description: 'Typed text longer than this length is cut. An omitted length does not cut the text.',
     },
   ],
   slots: [],

@@ -1,4 +1,4 @@
-<view>
-  <view class="group relative"><label htmlfor="{{id}}" class="bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-disabled:opacity-50">Select with overlapping label
-      </label><select><selecttrigger id="{{id}}"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent><selectitem value="1">React</selectitem><selectitem value="2">Next.js</selectitem><selectitem value="3">Astro</selectitem><selectitem value="4">Gatsby</selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="group relative"><text for="select-28" class="bg-background text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium group-has-disabled:opacity-50">Select with overlapping label
+      </text><select data-slot="select"><button type="button" data-slot="select-trigger" id="select-28"><text data-slot="select-value" placeholder="Select framework"></text></button><view data-slot="select-content"><view data-slot="select-item" value="1">React</view><view data-slot="select-item" value="2">Next.js</view><view data-slot="select-item" value="3">Astro</view><view data-slot="select-item" value="4">Gatsby</view></view></select></view>
 </view>

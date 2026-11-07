@@ -36,7 +36,7 @@ const triggerProps = computed(() => {
     >
       <slot />
       <slot name="icon">
-        <ChevronDownIcon :size="16" :class="cn(accordionTriggerIconVariants())" />
+        <ChevronDownIcon :size="16" aria-hidden="true" :class="cn(accordionTriggerIconVariants())" />
       </slot>
     </button>
   </div>

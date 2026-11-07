@@ -1,9 +1,28 @@
 <scroll-view
+  wx:if="{{labelledBy}}"
   class="scroll-area {{extClass}}"
-  scroll-y="{{scrollY}}"
-  scroll-x="{{scrollX}}"
+  data-slot="scroll-area"
+  data-orientation="{{orientation}}"
+  aria-labelledby="{{labelledBy}}"
+  scroll-y="{{axisY}}"
+  scroll-x="{{axisX}}"
   style="height: {{height}};"
   bindscroll="onScroll"
 >
+  <view wx:if="{{axisStatus}}" role="status">{{axisStatus}}</view>
+  <slot />
+</scroll-view>
+<scroll-view
+  wx:else
+  class="scroll-area {{extClass}}"
+  data-slot="scroll-area"
+  data-orientation="{{orientation}}"
+  aria-label="{{ariaLabel || 'Scroll area'}}"
+  scroll-y="{{axisY}}"
+  scroll-x="{{axisX}}"
+  style="height: {{height}};"
+  bindscroll="onScroll"
+>
+  <view wx:if="{{axisStatus}}" role="status">{{axisStatus}}</view>
   <slot />
 </scroll-view>

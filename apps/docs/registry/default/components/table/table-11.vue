@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { CheckIcon, MonitorIcon, SmartphoneIcon, XIcon } from 'lucide-vue-next';
 import { Table } from '@timui/vue';
 import { TableBody } from '@timui/vue';
@@ -65,10 +66,15 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Table><TableHeader><TableRow class="*:border-border border-y-0 hover:bg-transparent [&>:not(:last-child)]:border-r"><TableCell></TableCell><TableHead class="border-b text-center" :colSpan="5"><MonitorIcon class="inline-flex" :size="16" aria-hidden="true" /><span class="sr-only">Desktop browsers</span></TableHead><TableHead class="border-b text-center" :colSpan="5"><SmartphoneIcon class="inline-flex" :size="16" aria-hidden="true" /><span class="sr-only">Mobile browsers</span></TableHead></TableRow></TableHeader><TableHeader><TableRow class="*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r"><TableCell></TableCell><TableHead v-for="(browser, index) in items[0].desktop" :key="browser.name" class="text-foreground h-auto py-3 align-bottom"><span class="relative left-[calc(50%-.5rem)] block rotate-180 leading-4 whitespace-nowrap [text-orientation:sideways] [writing-mode:vertical-rl]">{{ browser.name }}</span></TableHead><TableHead v-for="(browser, index) in items[0].mobile" :key="browser.name" class="text-foreground h-auto py-3 align-bottom"><span class="relative left-[calc(50%-.5rem)] block rotate-180 leading-4 whitespace-nowrap [text-orientation:sideways] [writing-mode:vertical-rl]">{{ browser.name }}</span></TableHead></TableRow></TableHeader><TableBody><TableRow v-for="(item, index) in items" :key="item.feature" class="*:border-border [&>:not(:last-child)]:border-r"><TableHead class="text-foreground font-medium">{{ item.feature }}</TableHead><TableCell v-for="(browser, index) in [...item.desktop, ...item.mobile]" :key="`${browser.name}-${index}`" class="space-y-1 text-center"><template v-if="browser.supported">
+  <Table @click="onDemoClick"><TableHeader><TableRow class="*:border-border border-y-0 hover:bg-transparent [&>:not(:last-child)]:border-r"><TableCell></TableCell><TableHead class="border-b text-center" :colSpan="5"><MonitorIcon class="inline-flex" :size="16" aria-hidden="true" /><span class="sr-only">Desktop browsers</span></TableHead><TableHead class="border-b text-center" :colSpan="5"><SmartphoneIcon class="inline-flex" :size="16" aria-hidden="true" /><span class="sr-only">Mobile browsers</span></TableHead></TableRow></TableHeader><TableHeader><TableRow class="*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r"><TableCell></TableCell><TableHead v-for="(browser, index) in items[0].desktop" :key="browser.name" class="text-foreground h-auto py-3 align-bottom"><span class="relative left-[calc(50%-.5rem)] block rotate-180 leading-4 whitespace-nowrap [text-orientation:sideways] [writing-mode:vertical-rl]">{{ browser.name }}</span></TableHead><TableHead v-for="(browser, index) in items[0].mobile" :key="browser.name" class="text-foreground h-auto py-3 align-bottom"><span class="relative left-[calc(50%-.5rem)] block rotate-180 leading-4 whitespace-nowrap [text-orientation:sideways] [writing-mode:vertical-rl]">{{ browser.name }}</span></TableHead></TableRow></TableHeader><TableBody><TableRow v-for="(item, index) in items" :key="item.feature" class="*:border-border [&>:not(:last-child)]:border-r"><TableHead class="text-foreground font-medium">{{ item.feature }}</TableHead><TableCell v-for="(browser, index) in [...item.desktop, ...item.mobile]" :key="`${browser.name}-${index}`" class="space-y-1 text-center"><template v-if="browser.supported">
 <CheckIcon class="inline-flex stroke-emerald-600" :size="16" aria-hidden="true" />
 </template>
 <template v-else>

@@ -1,4 +1,60 @@
-<view>
-  <view class="space-y-4"><legend class="text-foreground text-sm font-medium">Object position</legend><view class="space-y-2"><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[-2]}}" default-value="{{[0]}}" label="X" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 0)}}" /><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[4]}}" default-value="{{[0]}}" label="Y" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 1)}}" /><sliderwithinput minvalue="{{-10}}" maxvalue="{{10}}" initialvalue="{{[2]}}" default-value="{{[0]}}" label="Z" onregisterreset="{{(resetFn) => registerResetFunction(resetFn, 2)}}" /></view><button class="w-full" variant="outline" bindtap="resetAll"><rotateccwicon class="-ms-1 opacity-60" size="{{16}}" aria-hidden="true" />Reset
-      </button></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-4">
+    <legend class="text-foreground text-sm font-medium">Object position</legend>
+
+    <view class="space-y-2">
+      <view class="flex items-center gap-2">
+        <text data-slot="label">X</text>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="X" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleXInput(next, 0)"
+         
+         
+          aria-label="Enter X value" />
+      </view>
+
+      <view class="flex items-center gap-2">
+        <text data-slot="label">Y</text>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="Y" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleYInput(next, 0)"
+         
+         
+          aria-label="Enter Y value" />
+      </view>
+
+      <view class="flex items-center gap-2">
+        <text data-slot="label">Z</text>
+        <input type="range" data-slot="slider"
+          class="grow [&>:last-child>span]:rounded"
+         
+          aria-label="Z" />
+        <input data-slot="input" class="h-8 w-12 px-2 py-1 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleZInput(next, 0)"
+         
+         
+          aria-label="Enter Z value" />
+      </view>
+    </view>
+
+    <button type="button" data-slot="button" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">
+      <text aria-hidden="true" size="16" aria-hidden="true">
+      Reset
+    </button>
+  </view>
 </view>

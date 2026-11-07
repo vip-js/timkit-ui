@@ -13,23 +13,29 @@ Component({
   externalClasses: ['ext-class'],
 
   properties: {
+    htmlFor: { type: String, value: '' },
     for: { type: String, value: '' },
     extClass: { type: String, value: '' },
   },
 
   data: {
     className: '',
+    target: '',
   },
 
   lifetimes: {
     attached() {
       this.updateClassName()
+      this.syncTarget()
     },
   },
 
   observers: {
     extClass: function () {
       this.updateClassName()
+    },
+    'htmlFor, for': function () {
+      this.syncTarget()
     },
   },
 
@@ -41,6 +47,10 @@ Component({
       })
 
       this.setData({ className: baseClass })
+    },
+
+    syncTarget() {
+      this.setData({ target: this.properties.htmlFor || this.properties.for || '' })
     },
 
     onTap(e: TapEvent) {

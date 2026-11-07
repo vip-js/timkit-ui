@@ -2,8 +2,14 @@
   id="dropdown-menu-trigger"
   data-slot="dropdown-menu-trigger"
   class="{{className}}"
+  role="button"
+  tabindex="{{disabled ? -1 : 0}}"
+  aria-haspopup="menu"
+  aria-expanded="{{expanded ? 'true' : 'false'}}"
+  aria-disabled="{{disabled ? 'true' : 'false'}}"
   data-disabled="{{disabled}}"
   bindtap="onTap"
+  bindkeydown="onKey"
 >
   <slot></slot>
 </view>

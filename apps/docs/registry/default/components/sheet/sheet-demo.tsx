@@ -23,7 +23,7 @@ export default function SheetSide() {
     <div className="grid grid-cols-2 gap-2">
       {SHEET_SIDES.map((side) => (
         <Sheet key={side}>
-          <SheetTrigger asChild>
+          <SheetTrigger>
             <Button variant="outline">{side}</Button>
           </SheetTrigger>
           <SheetContent side={side}>
@@ -48,7 +48,7 @@ export default function SheetSide() {
               </div>
             </div>
             <SheetFooter>
-              <SheetClose asChild>
+              <SheetClose>
                 <Button type="submit">Save changes</Button>
               </SheetClose>
             </SheetFooter>

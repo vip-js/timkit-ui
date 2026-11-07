@@ -1,4 +1,4 @@
-<view>
-  <button class="relative ps-12">Previous
-      <text class="bg-primary-foreground/15 pointer-events-none absolute inset-y-0 start-0 flex w-9 items-center justify-center"><chevronlefticon class="opacity-60" size="{{16}}" aria-hidden="true" /></text></button>
+<view class="timui-html-demo space-y-4 p-4">
+<button type="button" data-slot="button" class="relative ps-12 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0">Previous
+      <text class="bg-primary-foreground/15 pointer-events-none absolute inset-y-0 start-0 flex w-9 items-center justify-center"><text aria-hidden="true" size="16" aria-hidden="true"></text></button>
 </view>

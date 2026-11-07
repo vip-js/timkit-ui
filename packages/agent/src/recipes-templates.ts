@@ -1,21 +1,4 @@
-import type { FrameworkId } from './intent'
-
-export interface AgentRecipeFile {
-  path: string
-  content: string
-}
-
-export interface AgentRecipe {
-  id: string
-  title: string
-  description: string
-  components: string[]
-  frameworks: Array<'react' | 'vue'>
-  files: {
-    react?: AgentRecipeFile
-    vue?: AgentRecipeFile
-  }
-}
+import type { AgentRecipeFile } from './recipes-types'
 
 const loginReact = `import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label } from '@timui/react'
 
@@ -155,59 +138,25 @@ export function AgentWorkbench() {
 }
 `
 
-export const agentRecipes: AgentRecipe[] = [
-  {
-    id: 'login-form',
-    title: 'Login form',
-    description: 'Email and password sign-in using Card, Label, Input, and Button.',
-    components: ['card', 'label', 'input', 'button'],
-    frameworks: ['react', 'vue'],
-    files: {
-      react: { path: 'LoginForm.tsx', content: loginReact },
-      vue: { path: 'LoginForm.vue', content: loginVue },
-    },
+const files: Record<string, Partial<Record<'react' | 'vue', AgentRecipeFile>>> = {
+  'login-form': {
+    react: { path: 'LoginForm.tsx', content: loginReact },
+    vue: { path: 'LoginForm.vue', content: loginVue },
   },
-  {
-    id: 'confirm-dialog',
-    title: 'Confirm dialog',
-    description: 'Dialog with a titled description and cancel/confirm buttons.',
-    components: ['dialog', 'button'],
-    frameworks: ['react', 'vue'],
-    files: {
-      react: { path: 'ConfirmDialog.tsx', content: confirmReact },
-      vue: { path: 'ConfirmDialog.vue', content: confirmVue },
-    },
+  'confirm-dialog': {
+    react: { path: 'ConfirmDialog.tsx', content: confirmReact },
+    vue: { path: 'ConfirmDialog.vue', content: confirmVue },
   },
-  {
-    id: 'notification-setting',
-    title: 'Notification setting',
-    description: 'Labelled switch for a single boolean setting.',
-    components: ['label', 'switch'],
-    frameworks: ['react', 'vue'],
-    files: {
-      react: { path: 'NotificationSetting.tsx', content: settingsReact },
-      vue: { path: 'NotificationSetting.vue', content: settingsVue },
-    },
+  'notification-setting': {
+    react: { path: 'NotificationSetting.tsx', content: settingsReact },
+    vue: { path: 'NotificationSetting.vue', content: settingsVue },
   },
-  {
-    id: 'agent-workbench',
-    title: 'Agent workbench',
-    description:
-      'A support-agent thread with a plan, a tool call, a human approval, and citations.',
-    components: [
-      'agent-message',
-      'agent-plan',
-      'tool-call',
-      'approval-card',
-      'citation-list',
-      'agent-composer',
-    ],
-    frameworks: ['react'],
-    files: {
-      react: { path: 'AgentWorkbench.tsx', content: workbenchReact },
-    },
+  'agent-workbench': {
+    react: { path: 'AgentWorkbench.tsx', content: workbenchReact },
   },
-]
+}
 
-export const recipeFramework = (framework: FrameworkId): 'react' | 'vue' | undefined =>
-  framework === 'react' || framework === 'vue' ? framework : undefined
+export const getRecipeFile = (
+  id: string,
+  framework: 'react' | 'vue'
+): AgentRecipeFile | undefined => files[id]?.[framework]

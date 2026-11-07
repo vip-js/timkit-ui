@@ -22,6 +22,10 @@ export type ComboboxValueChangeEvent = TimEvent<{ value: string[] }>
 
 export type ComboboxProps = Omit<combobox.Props<ComboboxItem>, 'onValueChange'> & {
   /**
+   * Whether keyboard focus wraps from the last item to the first.
+   */
+  loop?: boolean
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: ComboboxValueChangeEvent) => void
@@ -81,6 +85,14 @@ export type ComboboxVueProps = {
    * Callback fired when the open state changes.
    */
   onOpenChange?: (open: boolean) => void
+  /**
+   * Placeholder text for the combobox input.
+   */
+  placeholder?: string
+  /**
+   * Whether keyboard navigation loops from the last item to the first.
+   */
+  loop?: boolean
 }
 
 export type ItemProps = combobox.ItemProps

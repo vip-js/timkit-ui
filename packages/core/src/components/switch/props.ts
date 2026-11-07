@@ -29,6 +29,10 @@ export type SwitchVueProps = {
    */
   disabled?: boolean
   /**
+   * When true, checked changes are ignored.
+   */
+  readOnly?: boolean
+  /**
    * When `true`, indicates that the user must specify a value for the input before the form can be submitted.
    */
   required?: boolean

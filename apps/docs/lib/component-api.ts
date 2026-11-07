@@ -151,6 +151,12 @@ const normalizeName = (name: string): string => name.trim().toLowerCase()
 
 const removeDemoSuffix = (name: string): string => name.replace(/-\d+$/, '')
 
+const schemaAliases: Record<string, string> = {
+  'date-field': 'datefield',
+  dropdown: 'dropdown-menu',
+  radio: 'radio-group',
+}
+
 const getSchemaCandidates = (
   slug: string,
   sectionComponents: ComponentData[],
@@ -168,6 +174,11 @@ const getSchemaCandidates = (
     const normalized = normalizeName(value)
     candidates.add(normalized)
     candidates.add(removeDemoSuffix(normalized))
+  })
+  Array.from(candidates).forEach((name) => {
+    const alias = schemaAliases[name]
+    if (alias) candidates.add(alias)
+    candidates.add(name.replace(/-/g, ''))
   })
 
   return Array.from(candidates)

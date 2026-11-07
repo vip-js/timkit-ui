@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Stepper } from '@timui/vue';
 import { StepperIndicator } from '@timui/vue';
 import { StepperItem } from '@timui/vue';
@@ -11,9 +12,14 @@ import { StepperTrigger } from '@timui/vue';
 
 const steps = [1, 2, 3, 4]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="mx-auto max-w-xl space-y-8 text-center"><Stepper :default-value="2"><StepperItem v-for="(step, index) in steps" :key="step" :step="step" class="not-last:flex-1"><StepperTrigger><StepperIndicator as-child>{{ step }}</StepperIndicator></StepperTrigger><StepperSeparator v-if="step < steps.length" /></StepperItem></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with numbers only
+  <div class="mx-auto max-w-xl space-y-8 text-center"><Stepper @click="onDemoClick" :default-value="2"><StepperItem v-for="(step, index) in steps" :key="step" :step="step" class="not-last:flex-1"><StepperTrigger><StepperIndicator as-child>{{ step }}</StepperIndicator></StepperTrigger><StepperSeparator v-if="step < steps.length" /></StepperItem></Stepper><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with numbers only
       </p></div>
 </template>

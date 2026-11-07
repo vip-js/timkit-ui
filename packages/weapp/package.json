@@ -8,6 +8,7 @@
     "check:ci": "node --import tsx ../../scripts/check-weapp-ci.ts",
     "release": "pnpm run build && pnpm publish --access public --no-git-checks",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist",
+    "test": "vitest run",
     "generate:utils": "tsx ../../scripts/build-weapp-utilities.ts"
   },
   "miniprogram": "dist",

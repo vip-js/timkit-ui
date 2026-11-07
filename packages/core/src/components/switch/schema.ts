@@ -29,6 +29,18 @@ const switchSchema = defineUCS({
       description: 'Whether the switch is disabled.',
       defaultValue: false,
     },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, checked changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      description: 'When true, the switch is announced as required.',
+      defaultValue: false,
+    },
   ],
   slots: [],
   supportedPlatforms: ['web', 'wechat'],

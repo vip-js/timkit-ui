@@ -29,6 +29,12 @@ const toggleGroupSchema = defineUCS({
       type: 'event',
       description: 'Event handler called when value changes.',
     },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, item changes are ignored.',
+      defaultValue: false,
+    },
   ],
   slots: [{ name: 'default', description: 'The toggle items' }],
   supportedPlatforms: ['web', 'wechat'],

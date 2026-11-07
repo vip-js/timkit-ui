@@ -1,7 +1,12 @@
-<view>
-  <view class="space-y-4"><h2 class="text-xl font-bold">W/ plus-minus</h2><accordion type="single" collapsible class="w-full" default-value="3"><accordionitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" value="{{item.id}}" key="{{item.id}}" class="py-2"><accordiontrigger class="py-2 text-[15px] leading-6 hover:no-underline [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0" icon="{{<PlusIcon
-                  size={16}
-                  className="pointer-events-none shrink-0 opacity-60 transition-transform duration-200"
-                  aria-hidden="true"
-                />}}">{{ item.title }}</accordiontrigger><accordioncontent class="text-muted-foreground pb-2">{{ item.content }}</accordioncontent></accordionitem></accordion></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-4">
+    <text class="text-xl font-bold">W/ plus-minus</text>
+    <view data-slot="accordion">
+      <view data-slot="accordion-item">
+        <view data-slot="accordion-trigger"
+          class="py-2 text-[15px] leading-6 hover:no-underline [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0">
+          <view>
+            <text aria-hidden="true" size="16"
+             
+              aria-hidden="true">
 </view>

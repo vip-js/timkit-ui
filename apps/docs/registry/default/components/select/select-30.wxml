@@ -1,3 +1,3 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Timezone select</label><select default-value="Europe/London"><selecttrigger id="{{id}}"><selectvalue placeholder="Select timezone" /></selecttrigger><selectcontent><selectitem wx:for="{{formattedTimezones}}" wx:for-item="{ value, label }" wx:for-index="index" wx:key="index" key="{{value}}" value="{{value}}">{{ label }}</selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label">Timezone select</text><select data-slot="select"><button type="button" data-slot="select-trigger"><text data-slot="select-value" placeholder="Select timezone"></text></button><view data-slot="select-content"><view data-slot="select-item">Example</view></view></select></view>
 </view>

@@ -18,7 +18,7 @@ export type ListBoxSelectionMode = 'single' | 'multiple'
 export type UseListBoxProps = {
   id?: string
   selectionMode?: ListBoxSelectionMode
-  selectedKeys?: Iterable<React.Key>
+  selectedKeys?: Iterable<React.Key> | null
   defaultSelectedKeys?: Iterable<React.Key>
   disabled?: boolean
   required?: boolean
@@ -33,8 +33,8 @@ type RegisteredItemsState = {
 
 const emptyItemsState: RegisteredItemsState = { order: [], byValue: {} }
 
-const toValueArray = (keys?: Iterable<React.Key>) => {
-  if (!keys) return undefined
+const toValueArray = (keys?: Iterable<React.Key> | null) => {
+  if (keys == null) return undefined
   return Array.from(keys, (key) => String(key))
 }
 
@@ -95,7 +95,8 @@ export function useListBox(props: UseListBoxProps): {
     [items]
   )
 
-  const controlledValue = toValueArray(props.selectedKeys)
+  const controlledValue =
+    props.selectedKeys === undefined ? undefined : (toValueArray(props.selectedKeys) ?? [])
   const defaultValue =
     props.selectedKeys === undefined ? toValueArray(props.defaultSelectedKeys) : undefined
 

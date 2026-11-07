@@ -1,3 +1,3 @@
-<view>
-  <view class="grid gap-3"><view class="flex items-center gap-2"><checkbox id="{{`${id}-1`}}" /><label htmlfor="{{`${id}-1`}}">React</label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-2`}}" /><label htmlfor="{{`${id}-2`}}">Next.js</label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-3`}}" /><label htmlfor="{{`${id}-3`}}">Astro</label></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="grid gap-3"><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-1"><text data-slot="label" for="Example-1">React</text></view><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-2"><text data-slot="label" for="Example-2">Next.js</text></view><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-3"><text data-slot="label" for="Example-3">Astro</text></view></view>
 </view>

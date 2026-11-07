@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import { cn } from '@timui/core'
 import { Label } from '@timui/react'
@@ -7,10 +9,11 @@ import { OTPInput, SlotProps } from 'input-otp'
 import { MinusIcon } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
-      <Label htmlFor={id}>OTP input double</Label>
+      <Label onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} htmlFor={id}>OTP input double</Label>
       <OTPInput
         id={id}
         containerClassName="flex items-center gap-3 has-disabled:opacity-50"

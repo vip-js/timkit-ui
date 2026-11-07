@@ -1,7 +1,7 @@
 import type { dialogConnect } from '@timui/core'
 import { inject, provide, type ComputedRef } from 'vue'
 
-export type AlertDialogContext = ComputedRef<ReturnType<typeof dialogConnect>>
+export type AlertDialogContext = ComputedRef<ReturnType<typeof dialogConnect> & { disabled?: boolean }>
 
 export const AlertDialogContextKey = Symbol('AlertDialogContext')
 

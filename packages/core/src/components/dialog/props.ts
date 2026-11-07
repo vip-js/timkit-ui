@@ -6,6 +6,10 @@ export type DialogOpenChangeEvent = TimEvent<{ open: boolean }>
 
 export type DialogProps = Omit<dialog.Props, 'onOpenChange'> & {
   /**
+   * When true, opening the dialog is ignored.
+   */
+  disabled?: boolean
+  /**
    * Callback fired when the open state changes.
    */
   onOpenChange?: (event: DialogOpenChangeEvent) => void
@@ -28,6 +32,10 @@ export type DialogVueProps = {
    * When `true`, renders the overlay as a modal, trapping focus and disabling interactions outside.
    */
   modal?: boolean
+  /**
+   * When true, opening the dialog is ignored.
+   */
+  disabled?: boolean
   /**
    * Callback fired when the open state changes.
    */

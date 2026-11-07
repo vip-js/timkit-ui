@@ -1,10 +1,18 @@
+<view>
+  <view wx:if="{{pressStatus}}" role="status">{{pressStatus}}</view>
 <view 
   class="{{className}}"
+  data-slot="toggle"
   bindtap="onTap"
-  data-pressed="{{api.pressed}}"
+  bindkeydown="onKey"
+  data-state="{{on ? 'on' : 'off'}}"
+  data-pressed="{{on}}"
   data-disabled="{{disabled}}"
   role="button"
-  aria-pressed="{{api.pressed}}"
+  tabindex="{{disabled ? -1 : 0}}"
+  aria-pressed="{{on ? 'true' : 'false'}}"
+  aria-disabled="{{disabled ? 'true' : 'false'}}"
 >
   <slot></slot>
+</view>
 </view>

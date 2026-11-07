@@ -7,6 +7,10 @@ export type MenuSelectEvent = TimEvent<{ value: string }>
 
 export type MenuProps = Omit<menu.Props, 'onOpenChange' | 'onSelect'> & {
   /**
+   * When true, opening and selection are ignored.
+   */
+  disabled?: boolean
+  /**
    * Callback fired when the open state changes.
    */
   onOpenChange?: (event: MenuOpenChangeEvent) => void

@@ -20,6 +20,14 @@ export type DateFieldVueProps = {
    */
   modelValue?: string
   /**
+   * The controlled date value.
+   */
+  value?: string
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: (value: string) => void
+  /**
    * The specific type or behavior subset of the component.
    */
   type?: 'date' | 'time' | 'datetime-local'
@@ -39,6 +47,10 @@ export type DateFieldVueProps = {
    * When `true`, indicates that the user input is invalid.
    */
   invalid?: boolean
+  /**
+   * When true, the field stays focusable and date changes are ignored.
+   */
+  readOnly?: boolean
 }
 
 /**

@@ -1,3 +1,42 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Status select</label><select default-value="1"><selecttrigger id="{{id}}" class="[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0"><selectvalue placeholder="Select status" /></selecttrigger><selectcontent class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0"><selectitem value="1"><text class="flex items-center gap-2"><statusdot class="text-emerald-600" /><text class="truncate">Completed</text></text></selectitem><selectitem value="2"><text class="flex items-center gap-2"><statusdot class="text-blue-500" /><text class="truncate">In Progress</text></text></selectitem><selectitem value="3"><text class="flex items-center gap-2"><statusdot class="text-amber-500" /><text class="truncate">Pending</text></text></selectitem><selectitem value="4"><text class="flex items-center gap-2"><statusdot class="text-gray-500" /><text class="truncate">Cancelled</text></text></selectitem><selectitem value="5"><text class="flex items-center gap-2"><statusdot class="text-red-500" /><text class="truncate">Failed</text></text></selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label" for="select-32">Status select</text>
+    <select data-slot="select">
+      <button type="button" data-slot="select-trigger" id="select-32" class="[&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0">
+        <text data-slot="select-value" placeholder="Select status"></text>
+      </button>
+      <view data-slot="select-content" class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0">
+        <view data-slot="select-item" value="1">
+          <text class="flex items-center gap-2">
+            
+            <text class="truncate">Completed</text>
+          </text>
+        </view>
+        <view data-slot="select-item" value="2">
+          <text class="flex items-center gap-2">
+            
+            <text class="truncate">In Progress</text>
+          </text>
+        </view>
+        <view data-slot="select-item" value="3">
+          <text class="flex items-center gap-2">
+            
+            <text class="truncate">Pending</text>
+          </text>
+        </view>
+        <view data-slot="select-item" value="4">
+          <text class="flex items-center gap-2">
+            
+            <text class="truncate">Cancelled</text>
+          </text>
+        </view>
+        <view data-slot="select-item" value="5">
+          <text class="flex items-center gap-2">
+            
+            <text class="truncate">Failed</text>
+          </text>
+        </view>
+      </view>
+    </select>
+  </view>
 </view>

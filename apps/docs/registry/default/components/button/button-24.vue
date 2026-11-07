@@ -18,10 +18,15 @@ function setBookmarked(next: typeof bookmarked.value | ((prev: typeof bookmarked
     : next;
 }
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <TooltipProvider><Tooltip><TooltipTrigger as-child><div><Toggle class="group size-9 p-0 hover:bg-indigo-50 hover:text-indigo-500 data-[state=on]:bg-indigo-50 data-[state=on]:text-indigo-500" aria-label="BookmarkIcon this" :pressed="bookmarked" :onPressedChange="setBookmarked"><BookmarkIcon :size="16" aria-hidden="true" /></Toggle></div></TooltipTrigger><TooltipContent class="px-2 py-1 text-xs"><p><template v-if="bookmarked">
+  <TooltipProvider @click="onDemoClick"><Tooltip><TooltipTrigger as-child><div><Toggle class="group size-9 p-0 hover:bg-indigo-50 hover:text-indigo-500 data-[state=on]:bg-indigo-50 data-[state=on]:text-indigo-500" aria-label="BookmarkIcon this" :pressed="bookmarked" :onPressedChange="setBookmarked"><BookmarkIcon :size="16" aria-hidden="true" /></Toggle></div></TooltipTrigger><TooltipContent class="px-2 py-1 text-xs"><p><template v-if="bookmarked">
 {{ 'Remove bookmark' }}
 </template>
 <template v-else>

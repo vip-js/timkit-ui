@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import type { BannerProps as CoreBannerProps } from '@timui/core'
 import {
   bannerActionsVariants,
   bannerContentVariants,
@@ -11,10 +12,52 @@ import {
   cn,
 } from '@timui/core'
 
-const Banner = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} data-slot="banner" className={cn(bannerVariants(), className)} {...props} />
-  )
+type BannerProps = CoreBannerProps & Omit<React.HTMLAttributes<HTMLDivElement>, 'onClose'>
+
+const Banner = React.forwardRef<HTMLDivElement, BannerProps>(
+  (
+    {
+      className,
+      variant = 'default',
+      dismissible = false,
+      open: openProp,
+      defaultOpen,
+      onOpenChange,
+      onClose,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const controlled = openProp != null
+    const [uncontrolled, setUncontrolled] = React.useState(defaultOpen !== false)
+    const open = controlled ? openProp === true : uncontrolled
+    const close = () => {
+      if (!dismissible || !open) return
+      if (!controlled) setUncontrolled(false)
+      onOpenChange?.(false)
+      onClose?.()
+    }
+    if (!open) return null
+    return (
+      <div
+        ref={ref}
+        data-slot="banner"
+        data-state="open"
+        data-variant={variant}
+        role="status"
+        className={cn(bannerVariants(), className)}
+        {...props}
+      >
+        {children}
+        {dismissible ? (
+          <button type="button" data-slot="banner-close" aria-label="Close" onClick={close}>
+            ×
+          </button>
+        ) : null}
+      </div>
+    )
+  }
 )
 Banner.displayName = 'Banner'
 
@@ -35,6 +78,7 @@ const BannerIcon = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
     <div
       ref={ref}
       data-slot="banner-icon"
+      aria-hidden="true"
       className={cn(bannerIconVariants(), className)}
       {...props}
     />

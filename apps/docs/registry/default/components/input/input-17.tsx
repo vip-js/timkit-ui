@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { Input, Label, SelectNative } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
@@ -15,7 +17,7 @@ export default function Component() {
           <option value="ws://">ws://</option>
           <option value="wss://">wss://</option>
         </SelectNative>
-        <Input
+        <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
           id={id}
           className="-ms-px rounded-s-none shadow-none focus-visible:z-10"
           placeholder="192.168.1.1"

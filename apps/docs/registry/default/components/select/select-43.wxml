@@ -1,16 +1,3 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Timezone select with search</label><popover open="{{open}}" bindchange="setOpen"><popovertrigger aschild><button id="{{id}}" variant="outline" role="combobox" aria-expanded="{{open}}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><text class="{{cn('truncate', !value && 'text-muted-foreground')}}"><block wx:if="{{value}}">
-{{ formattedTimezones.find((timezone) => timezone.value === value)?.label }}
-</block>
-<block wx:else>
-{{ 'Select timezone' }}
-</block></text><chevrondownicon size="{{16}}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></button></popovertrigger><popovercontent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><command filter="{{(value, search) => {
-              const normalizedValue = value.toLowerCase()
-              const normalizedSearch = search.toLowerCase().replace(/\s+/g, '')
-              return normalizedValue.includes(normalizedSearch) ? 1 : 0
-            }}}"><commandinput placeholder="Search timezone..." /><commandlist><commandempty>No timezone found.</commandempty><commandgroup><commanditem wx:for="{{formattedTimezones}}" wx:for-item="{ value: itemValue, label }" wx:for-index="index" wx:key="index" key="{{itemValue}}" value="{{itemValue}}" onselect="{{(currentValue) => {
-                      const val = currentValue as string
-                      setValue(val === value ? '' : val)
-                      setOpen(false)
-                    }}}">{{ label }}<checkicon wx:if="{{value === itemValue}}" size="{{16}}" class="ml-auto" /></commanditem></commandgroup></commandlist></command></popovercontent></popover></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label">Timezone select with search</text><view data-slot="popover"><button type="button" data-slot="popover-trigger"><button type="button" data-slot="button" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" role="combobox"><text><view>
 </view>

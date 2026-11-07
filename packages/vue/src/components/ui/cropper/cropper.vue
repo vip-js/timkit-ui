@@ -67,6 +67,10 @@ export const Cropper = defineComponent({
       type: Number,
       default: undefined,
     },
+    aspect: {
+      type: Number,
+      default: undefined,
+    },
     cropPadding: {
       type: Number,
       default: 16,
@@ -78,6 +82,10 @@ export const Cropper = defineComponent({
     onZoomChange: {
       type: Function as PropType<(zoom: number) => void>,
       default: undefined,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props, { attrs, slots, emit }) {
@@ -116,29 +124,36 @@ export const Cropper = defineComponent({
     });
 
     const cropPadding = computed(() => Math.max(props.cropPadding, 0));
+    const ratio = computed(() =>
+      typeof props.aspect === "number" && props.aspect > 0 ? props.aspect : props.aspectRatio
+    );
+    const ratioStatus = computed(() => {
+      const value = ratio.value;
+      return typeof value === "number" && Number.isFinite(value) && value > 0 ? `${value} to 1` : "";
+    });
 
     const cropAreaWidth = computed(() => {
       const availableWidth = Math.max(containerWidth.value - cropPadding.value * 2, 0);
       const availableHeight = Math.max(containerHeight.value - cropPadding.value * 2, 0);
-      const ratio = props.aspectRatio;
+      const ratioValue = ratio.value;
 
-      if (!ratio || ratio <= 0) return availableWidth;
+      if (!ratioValue || ratioValue <= 0) return availableWidth;
       if (availableHeight <= 0) return 0;
 
       const byWidth = availableWidth;
-      const byHeight = availableHeight * ratio;
+      const byHeight = availableHeight * ratioValue;
       return Math.min(byWidth, byHeight);
     });
 
     const cropAreaHeight = computed(() => {
       const availableWidth = Math.max(containerWidth.value - cropPadding.value * 2, 0);
       const availableHeight = Math.max(containerHeight.value - cropPadding.value * 2, 0);
-      const ratio = props.aspectRatio;
+      const ratioValue = ratio.value;
 
-      if (!ratio || ratio <= 0) return availableHeight;
+      if (!ratioValue || ratioValue <= 0) return availableHeight;
       if (availableWidth <= 0) return 0;
 
-      const byWidth = availableWidth / ratio;
+      const byWidth = availableWidth / ratioValue;
       const byHeight = availableHeight;
       return Math.min(byWidth, byHeight);
     });
@@ -171,11 +186,11 @@ export const Cropper = defineComponent({
     };
 
     const setZoom = (nextZoom: number) => {
+      if (props.disabled) return;
       const clampedZoom = clamp(nextZoom, normalizedMinZoom.value, normalizedMaxZoom.value);
       if (typeof props.zoom !== "number") {
         internalZoom.value = clampedZoom;
       }
-      props.onZoomChange?.(clampedZoom);
       emit("zoomChange", clampedZoom);
       clampOffsets();
     };
@@ -213,7 +228,6 @@ export const Cropper = defineComponent({
 
     const emitCropArea = () => {
       const area = getCropArea();
-      props.onCropChange?.(area);
       emit("cropChange", area);
     };
 
@@ -223,7 +237,6 @@ export const Cropper = defineComponent({
       containerWidth.value = node.clientWidth;
       containerHeight.value = node.clientHeight;
       clampOffsets();
-      emitCropArea();
     };
 
     const setNaturalSize = (width: number, height: number) => {
@@ -232,7 +245,6 @@ export const Cropper = defineComponent({
       offsetX.value = 0;
       offsetY.value = 0;
       clampOffsets();
-      emitCropArea();
     };
 
     const stopDragging = () => {
@@ -244,13 +256,12 @@ export const Cropper = defineComponent({
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (!dragging || activePointerId !== event.pointerId) return;
+      if (props.disabled || !dragging || activePointerId !== event.pointerId) return;
       event.preventDefault();
       const deltaX = event.clientX - dragStartX;
       const deltaY = event.clientY - dragStartY;
       offsetX.value = clamp(dragOriginX + deltaX, -maxOffsetX.value, maxOffsetX.value);
       offsetY.value = clamp(dragOriginY + deltaY, -maxOffsetY.value, maxOffsetY.value);
-      emitCropArea();
     };
 
     const handlePointerUp = (event: PointerEvent) => {
@@ -259,7 +270,7 @@ export const Cropper = defineComponent({
     };
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (event.button !== 0 || naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
+      if (props.disabled || event.button !== 0 || naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
       event.preventDefault();
       dragging = true;
       activePointerId = event.pointerId;
@@ -273,7 +284,7 @@ export const Cropper = defineComponent({
     };
 
     const handleWheel = (event: WheelEvent) => {
-      if (naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
+      if (props.disabled || naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
       event.preventDefault();
       const zoomRange = normalizedMaxZoom.value - normalizedMinZoom.value;
       const step = Math.max(zoomRange / 40, 0.05);
@@ -283,7 +294,7 @@ export const Cropper = defineComponent({
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
+      if (props.disabled || naturalWidth.value <= 0 || naturalHeight.value <= 0) return;
       const panStep = 12;
       let handled = true;
 
@@ -312,10 +323,7 @@ export const Cropper = defineComponent({
           handled = false;
       }
 
-      if (handled) {
-        event.preventDefault();
-        emitCropArea();
-      }
+      if (handled) event.preventDefault();
     };
 
     const imageStyle = computed<CSSProperties>(() => ({
@@ -355,22 +363,10 @@ export const Cropper = defineComponent({
       }
     );
 
-    watch(
-      [cropAreaWidth, cropAreaHeight, imageWidth, imageHeight],
-      () => {
-        clampOffsets();
-        emitCropArea();
-      },
-      { immediate: true }
-    );
-
-    watch(
-      [offsetX, offsetY, appliedScale],
-      () => {
-        emitCropArea();
-      },
-      { immediate: true }
-    );
+    watch([cropAreaWidth, cropAreaHeight, imageWidth, imageHeight, offsetX, offsetY, appliedScale], () => {
+      clampOffsets();
+      emitCropArea();
+    });
 
     watch(
       () => props.image,
@@ -402,13 +398,26 @@ export const Cropper = defineComponent({
         mergeProps(attrs, {
           ref: rootRef,
           "data-slot": "cropper",
+          role: attrs.role ?? "application",
+          "aria-label":
+            typeof attrs["aria-label"] === "string" && attrs["aria-label"]
+              ? attrs["aria-label"]
+              : "Interactive image cropper",
+          "aria-valuemin": normalizedMinZoom.value,
+          "aria-valuemax": normalizedMaxZoom.value,
+          "aria-valuenow": currentZoom.value,
+          "aria-valuetext": `Zoom: ${Math.round(currentZoom.value * 100)}%`,
+          "aria-disabled": props.disabled || undefined,
           class: cn(cropperRootVariants(), props.class),
           tabindex: attrs.tabindex ?? 0,
           onPointerdown: handlePointerDown,
           onWheel: handleWheel,
           onKeydown: handleKeyDown,
         }),
-        slots.default?.()
+        [
+          ratioStatus.value ? h("p", { role: "status" }, ratioStatus.value) : null,
+          slots.default?.(),
+        ]
       );
   },
 });

@@ -15,8 +15,10 @@ const props = defineProps<Props>()
   <div
     role="alert"
     data-slot="alert"
+    :data-variant="props.variant || 'default'"
     :class="cn(alertVariants({ variant: props.variant }), props.class)"
   >
+    <p v-if="props.variant === 'destructive'" role="status">Destructive</p>
     <slot />
   </div>
 </template>

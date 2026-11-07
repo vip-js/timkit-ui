@@ -1,10 +1,30 @@
-import ts from 'typescript'
-
 import type { FrameworkId } from './intent'
 import type { UsageIssue } from './usage'
 
-export const syntaxIssues = (code: string, framework: FrameworkId): UsageIssue[] => {
-  if (framework !== 'react' || !code.trim()) return []
+type TypeScriptModule = typeof import('typescript')
+
+let typescriptModule: TypeScriptModule | null = null
+
+const loadTypeScript = (): TypeScriptModule | null => {
+  if (typescriptModule) return typescriptModule
+  try {
+    // Lazy load keeps hot validation paths small when syntax checks are disabled.
+    typescriptModule = require('typescript') as TypeScriptModule
+    return typescriptModule
+  } catch {
+    return null
+  }
+}
+
+export const syntaxIssues = (
+  code: string,
+  framework: FrameworkId,
+  enabled = true
+): UsageIssue[] => {
+  if (!enabled || framework !== 'react' || !code.trim()) return []
+
+  const ts = loadTypeScript()
+  if (!ts) return []
 
   const result = ts.transpileModule(code, {
     compilerOptions: {

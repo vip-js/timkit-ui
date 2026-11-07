@@ -1,5 +1,5 @@
-<view>
-  <breadcrumb><breadcrumblist><breadcrumbitem><breadcrumblink href="#" class="inline-flex items-center gap-1.5"><svg width="{{16}}" height="{{16}}" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-7 9 7" /><path d="M5 10v10h5v-6h4v6h5V10" /></svg>Home
-          </breadcrumblink></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><breadcrumblink href="#" class="inline-flex items-center gap-1.5"><svg width="{{16}}" height="{{16}}" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></svg>Components
-          </breadcrumblink></breadcrumbitem><breadcrumbseparator /><breadcrumbitem><breadcrumbpage>Breadcrumb</breadcrumbpage></breadcrumbitem></breadcrumblist></breadcrumb>
+<view class="timui-html-demo space-y-4 p-4">
+<view aria-label="Breadcrumb"><view><view><navigator href="#" href="#">Home
+          </navigator></view><view aria-hidden="true"></view><view><navigator href="#" href="#">Components
+          </navigator></view><view aria-hidden="true"></view><view><text aria-current="page">Breadcrumb</text></view></view></view>
 </view>

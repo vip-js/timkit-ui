@@ -1,11 +1,11 @@
-<template>
-  <header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div><Select default-value="orion-alpha-45" aria-label="Select AI model"><SelectTrigger class="[&>svg]:text-muted-foreground/80 **:data-desc:hidden [&>svg]:shrink-0"><BotMessageSquareIcon size="${16}" aria-hidden="true" /><SelectValue placeholder="Choose an AI model" /></SelectTrigger><SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><SelectGroup><SelectLabel class="ps-2">Models</SelectLabel><SelectItem value="orion-alpha-45">Orion-Alpha 4.5
+<div class="timui-html-demo space-y-4 p-4">
+<header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div><select data-slot="select" aria-label="Select AI model"><button type="button" data-slot="select-trigger" class="[&>svg]:text-muted-foreground/80 **:data-desc:hidden [&>svg]:shrink-0"><span aria-hidden="true" size="16" aria-hidden="true"><span data-slot="select-value" placeholder="Choose an AI model"></span></button><div data-slot="select-content" class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><optgroup><label>Models</label><option data-slot="select-item" value="orion-alpha-45">Orion-Alpha 4.5
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Balanced performance and creativity
-                  </span></SelectItem><SelectItem value="orion-code-4">Orion-Code 4
+                  </span></option><option data-slot="select-item" value="orion-code-4">Orion-Code 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Optimized for code generation and understanding
-                  </span></SelectItem><SelectItem value="nova-chat-4">Nova-Chat 4
+                  </span></option><option data-slot="select-item" value="nova-chat-4">Nova-Chat 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Excels at natural, engaging conversations
-                  </span></SelectItem><SelectItem value="galaxy-max-4">Galaxy-Max 4
+                  </span></option><option data-slot="select-item" value="galaxy-max-4">Galaxy-Max 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Most powerful model for complex tasks
-                  </span></SelectItem></SelectGroup></SelectContent></Select></div><div class="flex items-center justify-end gap-2"><Button size="icon" variant="ghost" class="text-muted-foreground size-8 rounded-full shadow-none" aria-label="Temporary chat"><MessageCircleDashedIcon size="${16}" aria-hidden="true" /></Button><UserMenu /></div></div></header>
-</template>
+                  </span></option></optgroup></div></select></div><div class="flex items-center justify-end gap-2"><button type="button" data-slot="button" class="text-muted-foreground size-8 rounded-full shadow-none inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" size="icon" variant="ghost" aria-label="Temporary chat"><span aria-hidden="true" size="16" aria-hidden="true"></button><span aria-hidden="true"></div></div></header>
+</div>

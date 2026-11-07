@@ -1,5 +1,5 @@
-<view>
-  <alert class="rounded-md border px-4 py-3"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex text-amber-500" aria-hidden="true">!
-        </text><alertdescription class="text-sm text-current">Some information is missing!
-        </alertdescription></view></alert>
+<view class="timui-html-demo space-y-4 p-4">
+<view role="alert" data-slot="alert"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex text-amber-500" aria-hidden="true">!
+        </text><text data-slot="alert-description">Some information is missing!
+        </text></view></view>
 </view>

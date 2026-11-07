@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import React from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
@@ -44,6 +46,7 @@ const items: Record<string, Item> = {
 const indent = 20
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const tree = useTree<Item>({
     initialState: {
       expandedItems: ['engineering', 'frontend', 'design-system'],

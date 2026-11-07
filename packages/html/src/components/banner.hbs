@@ -1,6 +1,6 @@
-<div class="{{bannerVariants}}" data-slot="banner">
+<div class="{{bannerVariants}}" data-slot="banner" data-state="open" role="status">
   <div class="{{bannerContentVariants}}" data-slot="banner-content">
-    <div class="{{bannerIconVariants}}" data-slot="banner-icon">!</div>
+    <div class="{{bannerIconVariants}}" data-slot="banner-icon" aria-hidden="true">!</div>
     <div class="{{bannerContentVariants}}">
       <h5 class="{{bannerTitleVariants}}" data-slot="banner-title">Update available</h5>
       <div class="{{bannerDescriptionVariants}}" data-slot="banner-description">
@@ -8,9 +8,10 @@
       </div>
     </div>
     <div class="{{bannerActionsVariants}}" data-slot="banner-actions">
-      <button class="{{buttonVariants}}">
+      <button type="button" class="{{buttonVariants}}">
         Update
       </button>
     </div>
   </div>
+  <button type="button" data-slot="banner-close" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>

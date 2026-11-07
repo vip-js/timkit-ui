@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -13,6 +14,7 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -27,7 +29,7 @@ export default function Component() {
               <span className="sr-only">Toggle menu</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} asChild>
                 <a href="#">Documentation</a>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>

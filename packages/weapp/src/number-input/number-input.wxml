@@ -1,25 +1,60 @@
-<view class="{{className}}" data-disabled="{{disabled}}">
+<view class="{{className}}" role="group" data-disabled="{{disabled}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{valueStatus !== ''}}" role="status">{{valueStatus}}</view>
   <view
     class="number-input-decrement"
+    role="button"
+    aria-label="Decrease value"
+    tabindex="{{api.isAtMin || disabled || readOnly ? -1 : 0}}"
     bindtap="onDecrementTap"
-    data-disabled="{{api.isAtMin || disabled}}"
+    bindkeydown="onDecrementKey"
+    data-disabled="{{api.isAtMin || disabled || readOnly}}"
+    aria-disabled="{{api.isAtMin || disabled || readOnly ? 'true' : 'false'}}"
   >
-    <text>−</text>
+    <text aria-hidden="true">−</text>
   </view>
 
   <input
+    wx:if="{{current !== ''}}"
     class="number-input-input"
     type="digit"
-    value="{{api.value}}"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    aria-valuenow="{{current}}"
+    value="{{current}}"
     disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
     bindinput="onInput"
+    bindkeydown="onInputKey"
+  />
+  <input
+    wx:else
+    class="number-input-input"
+    type="digit"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    value="{{current}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
+    bindinput="onInput"
+    bindkeydown="onInputKey"
   />
 
   <view
     class="number-input-increment"
+    role="button"
+    aria-label="Increase value"
+    tabindex="{{api.isAtMax || disabled || readOnly ? -1 : 0}}"
     bindtap="onIncrementTap"
-    data-disabled="{{api.isAtMax || disabled}}"
+    bindkeydown="onIncrementKey"
+    data-disabled="{{api.isAtMax || disabled || readOnly}}"
+    aria-disabled="{{api.isAtMax || disabled || readOnly ? 'true' : 'false'}}"
   >
-    <text>+</text>
+    <text aria-hidden="true">+</text>
   </view>
 </view>

@@ -17,6 +17,7 @@ export const componentNames = [
   'date-picker',
   'datefield',
   'dialog',
+  'form',
   'dropdown-menu',
   'hover-card',
   'image-cropper',

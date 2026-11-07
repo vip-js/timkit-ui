@@ -9,3 +9,5 @@ export {
 } from './message'
 export { AgentPlan, type AgentPlanProps, type AgentPlanStatus, type AgentPlanStep } from './plan'
 export { ToolCall, type ToolCallProps, type ToolCallStatus } from './tool-call'
+export { AgentThreadView, type AgentThreadViewProps } from './thread-view'
+export { useAgentThreadController } from './use-thread-controller'

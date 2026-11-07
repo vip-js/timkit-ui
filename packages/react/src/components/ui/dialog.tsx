@@ -19,6 +19,15 @@ import { createPortal } from 'react-dom'
 import { useDialog, type UseDialogProps } from './dialog/use-dialog'
 import { DialogProvider, useDialogContext } from './dialog/use-dialog-context'
 import { Slot } from './slot'
+import { useReturnFocus } from './use-return-focus'
+
+const DialogFocusContext = React.createContext<(node: HTMLElement | null) => void>(() => undefined)
+const DialogDisabledContext = React.createContext(false)
+const DialogModalContext = React.createContext(true)
+const DialogHasTitleContext = React.createContext({
+  hasTitle: false,
+  setHasTitle: (_present: boolean) => {},
+})
 
 export interface DialogProps extends UseDialogProps {
   children?: React.ReactNode
@@ -27,8 +36,24 @@ export interface DialogProps extends UseDialogProps {
 const Dialog: React.FC<DialogProps> = (props) => {
   const { children, ...restProps } = props
   const api = useDialog(restProps)
+  const rememberTrigger = useReturnFocus(api.open)
+  const [hasTitle, setHasTitle] = React.useState(false)
+  const titlePresence = React.useMemo(() => ({ hasTitle, setHasTitle }), [hasTitle])
 
-  return <DialogProvider value={api}>{children}</DialogProvider>
+  return (
+    <DialogDisabledContext.Provider value={props.disabled === true}>
+      <DialogModalContext.Provider value={props.modal !== false}>
+        <DialogProvider value={api}>
+          <DialogHasTitleContext.Provider value={titlePresence}>
+          <DialogFocusContext.Provider value={rememberTrigger}>
+            {api.open ? <p role="status">Opened</p> : null}
+            {children}
+          </DialogFocusContext.Provider>
+          </DialogHasTitleContext.Provider>
+        </DialogProvider>
+      </DialogModalContext.Provider>
+    </DialogDisabledContext.Provider>
+  )
 }
 Dialog.displayName = 'Dialog'
 
@@ -37,8 +62,30 @@ const DialogTrigger = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
 >(({ asChild = false, ...props }, ref) => {
   const api = useDialogContext()
+  const rememberTrigger = React.useContext(DialogFocusContext)
+  const groupDisabled = React.useContext(DialogDisabledContext)
+  const locked = Boolean(props.disabled) || groupDisabled
+  const triggerProps = api.getTriggerProps()
   const Comp = asChild ? Slot : 'button'
-  return <Comp data-slot="dialog-trigger" {...api.getTriggerProps()} {...props} ref={ref} />
+  return (
+    <Comp
+      data-slot="dialog-trigger"
+      {...triggerProps}
+      {...props}
+      ref={ref}
+      disabled={locked || undefined}
+      aria-disabled={locked || undefined}
+      onClick={(event) => {
+        if (locked) {
+          event.preventDefault()
+          return
+        }
+        rememberTrigger(event.currentTarget)
+        triggerProps.onClick?.(event)
+        props.onClick?.(event)
+      }}
+    />
+  )
 })
 DialogTrigger.displayName = 'DialogTrigger'
 
@@ -70,18 +117,23 @@ const DialogOverlay = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
 DialogOverlay.displayName = 'DialogOverlay'
 
 const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  (props, ref) => {
+  ({ 'aria-label': ariaLabel, ...props }, ref) => {
     const api = useDialogContext()
+    const modal = React.useContext(DialogModalContext)
+    const { hasTitle } = React.useContext(DialogHasTitleContext)
+    const passedName = typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : undefined
 
     return (
       <DialogPortal>
-        <DialogOverlay />
+        {modal ? <DialogOverlay /> : null}
         <div {...api.getPositionerProps()}>
           <div
             data-slot="dialog-content"
             {...api.getContentProps()}
             {...props}
+            aria-label={hasTitle ? undefined : passedName ?? 'Dialog'}
             className={cn(dialogContentVariants(), props.className)}
+            aria-modal={modal}
             ref={ref}
           >
             {props.children}
@@ -126,6 +178,11 @@ DialogFooter.displayName = 'DialogFooter'
 const DialogTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => {
     const api = useDialogContext()
+    const { setHasTitle } = React.useContext(DialogHasTitleContext)
+    React.useLayoutEffect(() => {
+      setHasTitle(true)
+      return () => setHasTitle(false)
+    }, [setHasTitle])
     return (
       <h2
         ref={ref}

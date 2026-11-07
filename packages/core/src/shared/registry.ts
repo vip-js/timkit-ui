@@ -1,4 +1,4 @@
-import { accordionSchema } from '../components/accordion'
+import { accordionSchema } from '../components/accordion/schema'
 import { alertSchema } from '../components/alert'
 import { alertDialogSchema } from '../components/alert-dialog'
 import { avatarSchema } from '../components/avatar'
@@ -16,6 +16,7 @@ import { commandSchema } from '../components/command'
 import { datePickerSchema } from '../components/date-picker'
 import { datefieldSchema } from '../components/datefield'
 import { dialogSchema } from '../components/dialog'
+import { formSchema } from '../components/form/schema'
 import { dropdownMenuSchema } from '../components/dropdown-menu'
 import { hoverCardSchema } from '../components/hover-card'
 import { imageCropperSchema } from '../components/image-cropper'
@@ -51,58 +52,64 @@ import { tooltipSchema } from '../components/tooltip'
 import { treeSchema } from '../components/tree'
 import type { UCSRegistry } from './ucs'
 
-export const ucsRegistry: UCSRegistry = {
-  button: buttonSchema,
-  badge: badgeSchema,
-  toggle: toggleSchema,
-  toast: toastSchema,
-  'navigation-menu': navigationMenuSchema,
-  input: inputSchema,
-  textarea: textareaSchema,
-  checkbox: checkboxSchema,
-  'checkbox-tree': checkboxTreeSchema,
-  switch: switchSchema,
-  slider: sliderSchema,
-  'radio-group': radioGroupSchema,
-  accordion: accordionSchema,
-  tabs: tabsSchema,
-  collapsible: collapsibleSchema,
-  card: cardSchema,
-  breadcrumb: breadcrumbSchema,
-  pagination: paginationSchema,
-  separator: separatorSchema,
-  timeline: timelineSchema,
-  stepper: stepperSchema,
-  navbar: navbarSchema,
-  dialog: dialogSchema,
-  sheet: sheetSchema,
-  popover: popoverSchema,
-  tooltip: tooltipSchema,
-  'hover-card': hoverCardSchema,
-  alert: alertSchema,
-  banner: bannerSchema,
-  notification: notificationSchema,
-  'number-field': numberFieldSchema,
-  avatar: avatarSchema,
-  progress: progressSchema,
-  select: selectSchema,
-  'select-native': selectNativeSchema,
-  combobox: comboboxSchema,
-  multiselect: multiselectSchema,
-  'tags-input': tagsInputSchema,
-  calendar: calendarSchema,
-  'date-picker': datePickerSchema,
-  table: tableSchema,
-  tree: treeSchema,
-  'scroll-area': scrollAreaSchema,
-  resizable: resizableSchema,
-  'image-cropper': imageCropperSchema,
-  datefield: datefieldSchema,
-  'dropdown-menu': dropdownMenuSchema,
-  label: labelSchema,
-  'toggle-group': toggleGroupSchema,
-  'alert-dialog': alertDialogSchema,
-  command: commandSchema,
-}
+// Getters, not an object literal. esbuild's `export { default as schema }`
+// live bindings are assigned after this module's body, so a literal would
+// capture `undefined` for the last schema in the chunk.
+const schema = <T>(get: () => T) => ({ enumerable: true, get })
+
+export const ucsRegistry = Object.defineProperties({} as UCSRegistry, {
+  button: schema(() => buttonSchema),
+  badge: schema(() => badgeSchema),
+  toggle: schema(() => toggleSchema),
+  toast: schema(() => toastSchema),
+  'navigation-menu': schema(() => navigationMenuSchema),
+  input: schema(() => inputSchema),
+  textarea: schema(() => textareaSchema),
+  checkbox: schema(() => checkboxSchema),
+  'checkbox-tree': schema(() => checkboxTreeSchema),
+  switch: schema(() => switchSchema),
+  slider: schema(() => sliderSchema),
+  'radio-group': schema(() => radioGroupSchema),
+  accordion: schema(() => accordionSchema),
+  tabs: schema(() => tabsSchema),
+  collapsible: schema(() => collapsibleSchema),
+  card: schema(() => cardSchema),
+  breadcrumb: schema(() => breadcrumbSchema),
+  pagination: schema(() => paginationSchema),
+  separator: schema(() => separatorSchema),
+  timeline: schema(() => timelineSchema),
+  stepper: schema(() => stepperSchema),
+  navbar: schema(() => navbarSchema),
+  dialog: schema(() => dialogSchema),
+  form: schema(() => formSchema),
+  sheet: schema(() => sheetSchema),
+  popover: schema(() => popoverSchema),
+  tooltip: schema(() => tooltipSchema),
+  'hover-card': schema(() => hoverCardSchema),
+  alert: schema(() => alertSchema),
+  banner: schema(() => bannerSchema),
+  notification: schema(() => notificationSchema),
+  'number-field': schema(() => numberFieldSchema),
+  avatar: schema(() => avatarSchema),
+  progress: schema(() => progressSchema),
+  select: schema(() => selectSchema),
+  'select-native': schema(() => selectNativeSchema),
+  combobox: schema(() => comboboxSchema),
+  multiselect: schema(() => multiselectSchema),
+  'tags-input': schema(() => tagsInputSchema),
+  calendar: schema(() => calendarSchema),
+  'date-picker': schema(() => datePickerSchema),
+  table: schema(() => tableSchema),
+  tree: schema(() => treeSchema),
+  'scroll-area': schema(() => scrollAreaSchema),
+  resizable: schema(() => resizableSchema),
+  'image-cropper': schema(() => imageCropperSchema),
+  datefield: schema(() => datefieldSchema),
+  'dropdown-menu': schema(() => dropdownMenuSchema),
+  label: schema(() => labelSchema),
+  'toggle-group': schema(() => toggleGroupSchema),
+  'alert-dialog': schema(() => alertDialogSchema),
+  command: schema(() => commandSchema),
+})
 
 export type UcsRegistry = typeof ucsRegistry

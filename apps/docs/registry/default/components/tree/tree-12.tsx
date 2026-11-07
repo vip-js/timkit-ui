@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import React from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
@@ -70,6 +72,7 @@ const pathToCurrent = findPathToCurrent(items, 'main')
 const expandedItems = pathToCurrent.filter((id) => items[id].children?.length)
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const tree = useTree<Item>({
     initialState: {
       expandedItems,

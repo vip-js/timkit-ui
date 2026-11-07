@@ -16,7 +16,8 @@ const displayValue = computed(() => {
   const rawValue = api?.value?.value;
   const values = Array.isArray(rawValue) ? rawValue : rawValue ? [rawValue] : [];
 
-  if (!values || values.length === 0) return props.placeholder;
+  const placeholder = props.placeholder ?? itemsContext.placeholder?.value;
+  if (!values || values.length === 0) return placeholder;
 
   const fallback = values
     .map((value) => itemsContext.itemLabels.value[value] ?? value)
@@ -25,7 +26,7 @@ const displayValue = computed(() => {
   const valueAsString = api?.value?.valueAsString;
   const resolved = hasRegisteredLabel ? fallback : valueAsString || fallback;
 
-  return resolved || props.placeholder;
+  return resolved || placeholder;
 });
 </script>
 

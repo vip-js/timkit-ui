@@ -13,6 +13,10 @@ export type SelectNativeProps = {
    */
   multiple?: boolean
   /**
+   * When true, selection changes are ignored.
+   */
+  disabled?: boolean
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (value: string | string[]) => void
@@ -31,4 +35,8 @@ export type SelectNativeVueProps = {
    * When `true`, allows multiple items to be selected.
    */
   multiple?: boolean
+  /**
+   * When true, selection changes are ignored.
+   */
+  disabled?: boolean
 }

@@ -43,9 +43,13 @@ function TagsInput({
     ...props,
   })
 
+  const count = (api.value ?? []).filter(Boolean).length
+  const tagStatus = count === 0 ? '' : count === 1 ? '1 tag' : `${count} tags`
+
   return (
     <TagsInputProvider value={api}>
-      <div {...api.getRootProps()} className={cn(tagsInputRootVariants(), className)}>
+      {tagStatus ? <p role="status">{tagStatus}</p> : null}
+      <div {...api.getRootProps()} data-slot="tags-input" className={cn(tagsInputRootVariants(), className)}>
         {children}
       </div>
     </TagsInputProvider>
@@ -65,13 +69,34 @@ function TagsInputControl({ className, children, ...props }: React.ComponentProp
   )
 }
 
-function TagsInputInput({ className, ...props }: React.ComponentProps<'input'>) {
+function TagsInputInput({
+  className,
+  onKeyDown,
+  placeholder,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  ...props
+}: React.ComponentProps<'input'>) {
   const api = useTagsInputContext()
+  const inputProps = api.getInputProps()
+  const named = Boolean(
+    ariaLabel || ariaLabelledBy || inputProps['aria-label'] || inputProps['aria-labelledby']
+  )
   return (
     <input
-      {...api.getInputProps()}
+      {...inputProps}
       className={cn(tagsInputInputVariants(), className)}
       {...props}
+      placeholder={placeholder ?? inputProps.placeholder}
+      aria-label={named ? ariaLabel : placeholder || inputProps.placeholder || 'Add a tag'}
+      onKeyDown={(event) => {
+        if (api.disabled || inputProps.disabled) {
+          event.preventDefault()
+          return
+        }
+        inputProps.onKeyDown?.(event)
+        onKeyDown?.(event)
+      }}
     />
   )
 }
@@ -95,20 +120,23 @@ function TagsInputItem({
   return (
     <div
       {...api.getItemProps({ index, value })}
+      data-highlighted={itemState.highlighted ? '' : undefined}
       className={cn(
         tagsInputItemVariants(),
         isSelected ? tagsInputItemSelectedVariants() : '',
         className
       )}
     >
-      <span className="leading-none">{children ?? value}</span>
+      <span {...api.getItemPreviewProps({ index, value })} className="leading-none">
+        {children ?? value}
+      </span>
       <button
         {...api.getItemDeleteTriggerProps({ index, value })}
         className={tagsInputItemDeleteVariants()}
         type="button"
         aria-label="Remove tag"
       >
-        <XIcon className="h-3 w-3" />
+        <XIcon aria-hidden="true" className="h-3 w-3" />
       </button>
       <input {...api.getItemInputProps({ index, value })} />
     </div>

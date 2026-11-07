@@ -32,6 +32,25 @@ const radioGroupSchema = defineUCS({
       defaultValue: false,
     },
     {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, selection changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      description: 'When true, the group is announced as required.',
+      defaultValue: false,
+    },
+    {
+      name: 'orientation',
+      type: 'enum',
+      description: 'Vertical groups are vertical. Horizontal groups are horizontal.',
+      values: ['horizontal', 'vertical'],
+      defaultValue: 'vertical',
+    },
+    {
       name: 'name',
       type: 'string',
       description: 'The name of the radio group.',

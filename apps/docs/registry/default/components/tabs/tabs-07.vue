@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Tabs } from '@timui/vue';
 import { TabsContent } from '@timui/vue';
 import { TabsList } from '@timui/vue';
@@ -7,10 +8,15 @@ import { TabsTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1"><TabsList class="before:bg-border relative h-auto w-full gap-0.5 bg-transparent p-0 before:absolute before:inset-x-0 before:bottom-0 before:h-px"><TabsTrigger value="tab-1" class="bg-muted overflow-hidden rounded-b-none border-x border-t py-2 data-[state=active]:z-10 data-[state=active]:shadow-none">Tab 1
+  <Tabs default-value="tab-1"><TabsList class="before:bg-border relative h-auto w-full gap-0.5 bg-transparent p-0 before:absolute before:inset-x-0 before:bottom-0 before:h-px"><TabsTrigger @click="onDemoClick" value="tab-1" class="bg-muted overflow-hidden rounded-b-none border-x border-t py-2 data-[state=active]:z-10 data-[state=active]:shadow-none">Tab 1
         </TabsTrigger><TabsTrigger value="tab-2" class="bg-muted overflow-hidden rounded-b-none border-x border-t py-2 data-[state=active]:z-10 data-[state=active]:shadow-none">Tab 2
         </TabsTrigger><TabsTrigger value="tab-3" class="bg-muted overflow-hidden rounded-b-none border-x border-t py-2 data-[state=active]:z-10 data-[state=active]:shadow-none">Tab 3
         </TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>

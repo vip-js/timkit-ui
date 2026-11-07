@@ -3,7 +3,7 @@ import { tabsConnect, tabsMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UseTabsProps {
-  value?: string
+  value?: string | null
   defaultValue?: string
   onValueChange?: (value: string) => void
   onFocusChange?: (value: string) => void
@@ -17,19 +17,22 @@ export interface UseTabsProps {
 
 export function useTabs(props: UseTabsProps) {
   const generatedId = React.useId()
+  const [, setPhase] = React.useState(0)
   const service = useMachine(tabsMachine, {
     id: props.id ?? generatedId,
-    value: props.value,
-    defaultValue: props.defaultValue,
+    ...(props.value === undefined ? { defaultValue: props.defaultValue } : { value: props.value ?? '' }),
     orientation: props.orientation,
-    activationMode: props.activationMode,
+    activationMode: props.activationMode ?? 'automatic',
     loopFocus: props.loopFocus,
     composite: props.composite,
     deselectable: props.deselectable,
-    onValueChange: (details) => props.onValueChange?.(details.value),
+    onValueChange: (details) => {
+      setPhase((phase) => phase + 1)
+      props.onValueChange?.(details.value)
+    },
     onFocusChange: (details) => props.onFocusChange?.(details.focusedValue),
   })
-  const api = React.useMemo(() => tabsConnect(service, normalizeProps), [service])
+  void setPhase
 
-  return api
+  return tabsConnect(service, normalizeProps)
 }

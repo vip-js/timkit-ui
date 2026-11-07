@@ -1,3 +1,17 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with clear button</label><view class="relative"><input id="{{id}}" ref="{{inputRef}}" class="pe-9" placeholder="Type something..." type="text" value="{{inputValue}}" onchange="{{(e) => setInputValue(e.target.value)}}" /><button wx:if="{{inputValue}}" class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" aria-label="Clear input" bindtap="handleClearInput"><circlexicon size="{{16}}" aria-hidden="true" /></button></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label" for="input-24">Input with clear button</text>
+    <view class="relative">
+      <input data-slot="input" class="pe-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-24"
+       
+        placeholder="Type something..."
+        type="text">
+      <button
+       
+        class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+        aria-label="Clear input">
+        <text aria-hidden="true" size="16" aria-hidden="true">
+      </button>
+    </view>
+  </view>
 </view>

@@ -13,7 +13,7 @@ export const useDropdownMenuContext: (fallback?: ComputedRef<MenuApi>) => Comput
   context[1]
 
 export type DropdownMenuRadioGroupContextValue = {
-  value?: string
+  value?: string | null
   onValueChange?: (value: string) => void
 }
 

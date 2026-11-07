@@ -5,7 +5,8 @@ import type { NextConfig } from 'next'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  compress: true,
+  poweredByHeader: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -51,13 +52,27 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@timui/react': path.join(__dirname, '../../packages/react/src'),
+    }
     config.module.rules.push({
       test: /\.(html|vue|wxml|wxss)$/,
       type: 'asset/source',
     })
     return config
   },
-  transpilePackages: ['@timui/react', '@timui/core', '@timui/tokens', '@timui/vue', '@timui/weapp'],
+  transpilePackages: [
+    '@timui/react',
+    '@timui/core',
+    '@timui/agent',
+    '@timui/tokens',
+    '@timui/vue',
+    '@timui/weapp',
+  ],
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@timui/react', '@timui/core'],
+  },
   turbopack: {
     root: path.join(__dirname, '..', '..'),
     rules: {

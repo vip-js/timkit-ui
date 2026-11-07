@@ -1,9 +1,3 @@
-<view>
-  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="icon" class="disabled:opacity-100" bindtap="handleCopy" aria-label="{{copied ? 'Copied' : 'Copy to clipboard'}}" disabled="{{copied}}"><view class="{{cn(
-                'transition-all',
-                copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-              )}}"><checkicon class="stroke-emerald-500" size="{{16}}" aria-hidden="true" /></view><view class="{{cn(
-                'absolute transition-all',
-                copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
-              )}}"><copyicon size="{{16}}" aria-hidden="true" /></view></button></tooltiptrigger><tooltipcontent class="px-2 py-1 text-xs">Click to copy</tooltipcontent></tooltip></tooltipprovider>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="tooltip-provider" delayDuration="0"><text data-slot="tooltip"><button type="button" data-slot="tooltip-trigger"><button type="button" data-slot="button" class="disabled:opacity-100 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" size="icon"><view><text aria-hidden="true" size="16" aria-hidden="true"></view><view><text aria-hidden="true" size="16" aria-hidden="true"></view></button></button><text role="tooltip" data-slot="tooltip-content">Click to copy</text></text>
 </view>

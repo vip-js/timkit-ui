@@ -1,0 +1,113 @@
+<view>
+  <input aria-label="Filter rows" value="{{query}}" disabled="{{disabled}}" bindinput="onFilter" />
+  <view wx:if="{{sortStatus}}" role="status">{{sortStatus}}</view>
+<view role="table" aria-label="{{caption}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <text wx:if="{{caption}}" class="sr-only">{{caption}}</text>
+  <view role="row">
+    <view wx:if="{{expandable}}" role="columnheader">Details</view>
+    <view role="columnheader">
+      <view
+        role="checkbox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-label="Select all rows"
+        aria-checked="{{allSelected ? 'true' : 'false'}}"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onToggleAll"
+        bindkeydown="onToggleAllKey"
+      >Select all rows</view>
+    </view>
+    <view
+      wx:for="{{headers}}"
+      wx:key="id"
+      role="columnheader"
+      tabindex="{{disabled ? -1 : 0}}"
+      aria-sort="{{item.sort}}"
+      data-column="{{item.id}}"
+      mark:columnId="{{item.id}}"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      bindtap="onSort"
+      bindkeydown="onSortKey"
+    >{{item.header}}</view>
+  </view>
+  <view wx:if="{{empty}}" role="row">
+    <view role="cell">
+      <view role="status">{{emptyLabel}}</view>
+    </view>
+  </view>
+  <block wx:else>
+    <block wx:for="{{viewRows}}" wx:key="id">
+    <view
+      role="row"
+      tabindex="{{!disabled && index === activeIndex ? 0 : -1}}"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      aria-selected="{{selectedIds.indexOf(item.id) > -1 ? 'true' : 'false'}}"
+      bindkeydown="onKey"
+    >
+      <view wx:if="{{expandable}}" role="cell">
+        <view
+          wx:if="{{item.detail && item.expanded}}"
+          role="button"
+          aria-expanded="{{item.expanded ? 'true' : 'false'}}"
+          aria-controls="row-detail-{{item.id}}"
+          aria-disabled="{{disabled ? 'true' : 'false'}}"
+          tabindex="{{disabled ? -1 : 0}}"
+          data-id="{{item.id}}"
+          mark:id="{{item.id}}"
+          bindtap="onExpand"
+          bindkeydown="onExpandKey"
+        >{{item.expanded ? 'Collapse' : 'Expand'}} {{item.id}}</view>
+        <view
+          wx:elif="{{item.detail}}"
+          role="button"
+          aria-expanded="{{item.expanded ? 'true' : 'false'}}"
+          aria-disabled="{{disabled ? 'true' : 'false'}}"
+          tabindex="{{disabled ? -1 : 0}}"
+          data-id="{{item.id}}"
+          mark:id="{{item.id}}"
+          bindtap="onExpand"
+          bindkeydown="onExpandKey"
+        >{{item.expanded ? 'Collapse' : 'Expand'}} {{item.id}}</view>
+      </view>
+      <view role="cell">
+        <view
+          role="checkbox"
+          tabindex="{{disabled ? -1 : 0}}"
+          aria-label="Select {{item.id}}"
+          aria-checked="{{selectedIds.indexOf(item.id) > -1 ? 'true' : 'false'}}"
+          data-id="{{item.id}}"
+          mark:id="{{item.id}}"
+          aria-disabled="{{disabled ? 'true' : 'false'}}"
+          bindtap="onToggleRow"
+          bindkeydown="onToggleRowKey"
+        >Select {{item.id}}</view>
+      </view>
+      <view role="cell" wx:for="{{item.cells}}" wx:for-item="cell" wx:key="columnId">{{cell.text}}</view>
+    </view>
+    <view wx:if="{{item.expanded && item.detail}}" role="row">
+      <view id="row-detail-{{item.id}}" role="cell">{{item.detail}}</view>
+    </view>
+    </block>
+  </block>
+</view>
+  <view wx:if="{{pageSize > 0}}">
+    <view role="status">Page {{page + 1}} of {{pageCount}}</view>
+    <view
+      role="button"
+      aria-label="Previous page"
+      aria-disabled="{{disabled || page <= 0 ? 'true' : 'false'}}"
+      tabindex="{{disabled || page <= 0 ? -1 : 0}}"
+      bindtap="onPrevPage"
+      bindkeydown="onPrevPageKey"
+    >Previous page</view>
+    <view
+      role="button"
+      aria-label="Next page"
+      aria-disabled="{{disabled || page + 1 >= pageCount ? 'true' : 'false'}}"
+      tabindex="{{disabled || page + 1 >= pageCount ? -1 : 0}}"
+      bindtap="onNextPage"
+      bindkeydown="onNextPageKey"
+    >Next page</view>
+  </view>
+  <view wx:if="{{selectionStatus}}" role="status">{{selectionStatus}}</view>
+  <view wx:if="{{matchStatus}}" role="status">{{matchStatus}}</view>
+</view>

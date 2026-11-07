@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BoxIcon, ChartLine, HouseIcon, PanelsTopLeftIcon, SettingsIcon, UsersRoundIcon } from 'lucide-vue-next';
 import { Badge } from '@timui/vue';
 import { ScrollArea } from '@timui/vue';
@@ -11,10 +12,15 @@ import { TabsTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1"><ScrollArea><TabsList class="text-foreground mb-3 h-auto gap-2 rounded-none border-b bg-transparent px-0 py-1"><TabsTrigger value="tab-1" class="hover:bg-accent hover:text-foreground data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none"><HouseIcon class="-ms-0.5 me-1.5 opacity-60" :size="16" aria-hidden="true" />Overview
+  <Tabs default-value="tab-1"><ScrollArea><TabsList class="text-foreground mb-3 h-auto gap-2 rounded-none border-b bg-transparent px-0 py-1"><TabsTrigger @click="onDemoClick" value="tab-1" class="hover:bg-accent hover:text-foreground data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none"><HouseIcon class="-ms-0.5 me-1.5 opacity-60" :size="16" aria-hidden="true" />Overview
           </TabsTrigger><TabsTrigger value="tab-2" class="hover:bg-accent hover:text-foreground data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none"><PanelsTopLeftIcon class="-ms-0.5 me-1.5 opacity-60" :size="16" aria-hidden="true" />Projects
             <Badge class="bg-primary/15 ms-1.5 min-w-5 px-1" variant="secondary">3
             </Badge></TabsTrigger><TabsTrigger value="tab-3" class="hover:bg-accent hover:text-foreground data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none"><BoxIcon class="-ms-0.5 me-1.5 opacity-60" :size="16" aria-hidden="true" />Packages

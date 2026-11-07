@@ -76,6 +76,8 @@ const isSelected = computed(() => {
 <template>
   <div
     v-bind="itemProps"
+    data-slot="select-item"
+    :data-disabled="props.disabled || undefined"
     :class="
       cn(
         selectItemVariants(),
@@ -84,7 +86,7 @@ const isSelected = computed(() => {
     "
   >
     <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <CheckIcon v-if="isSelected" class="h-4 w-4" />
+      <CheckIcon v-if="isSelected" class="h-4 w-4" aria-hidden="true" />
     </span>
     <span class="truncate">
       <slot />

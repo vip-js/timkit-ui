@@ -1,13 +1,14 @@
 <view class="{{className}}">
+  <view wx:if="{{dayStatus}}" role="status">{{dayStatus}}</view>
   <picker 
     mode="date"
     value="{{pickerValue}}"
     start="{{min}}"
     end="{{max}}"
-    disabled="{{disabled}}"
+    disabled="{{disabled || readOnly}}"
     bindchange="onPickerChange"
   >
-    <view class="datefield-trigger" data-disabled="{{disabled}}">
+    <view class="datefield-trigger" data-disabled="{{disabled}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-readonly="{{readOnly ? 'true' : 'false'}}" aria-label="{{ariaLabel || pickerValue || placeholder || 'Date'}}">
       <text class="datefield-value">{{pickerValue || placeholder}}</text>
       <text class="datefield-icon">📅</text>
     </view>

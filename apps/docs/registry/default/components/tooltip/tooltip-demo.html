@@ -1,17 +1,9 @@
-<div data-slot="tooltip-root" data-state="closed" class="relative inline-flex">
-  <button
-    data-slot="tooltip-trigger"
-    type="button"
-    class="rounded-md border px-4 py-2 text-sm"
-  >
-    Hover for details
-  </button>
-  <div
-    data-slot="tooltip-content"
-    data-state="closed"
-    hidden
-    class="absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 rounded-md border bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md"
-  >
-    HTML adapter coverage is now explicit in CI reports.
-  </div>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="tooltip-provider">
+    <span data-slot="tooltip">
+      <button type="button" data-slot="tooltip-trigger">
+        <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Hover for details</button>
+      </button>
+      <span role="tooltip" data-slot="tooltip-content">HTML adapter coverage is now explicit in CI reports.</span>
+    </span>
 </div>

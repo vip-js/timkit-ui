@@ -5,7 +5,7 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 export interface UseToggleGroupProps {
   id?: string
   multiple?: boolean
-  value?: string | string[]
+  value?: string | string[] | null
   defaultValue?: string | string[]
   onValueChange?: (value: string | string[]) => void
   disabled?: boolean
@@ -15,8 +15,9 @@ export interface UseToggleGroupProps {
 export function useToggleGroup(props: UseToggleGroupProps) {
   const generatedId = React.useId()
   const toArray = (val?: string | string[] | null) => {
-    if (val == null) return undefined
-    return Array.isArray(val) ? val : val === '' ? [] : [val]
+    if (val === undefined) return undefined
+    if (val == null || val === '') return []
+    return Array.isArray(val) ? val : [val]
   }
 
   const resolvedValue = toArray(props.value)
@@ -28,7 +29,7 @@ export function useToggleGroup(props: UseToggleGroupProps) {
     value: resolvedValue,
     defaultValue: resolvedValue === undefined ? defaultValueArray : undefined,
     disabled: props.disabled,
-    loopFocus: props.loop,
+    ...(props.loop === undefined ? {} : { loopFocus: props.loop }),
     onValueChange: (details) => {
       const nextValue = props.multiple ? details.value : (details.value[0] ?? '')
       props.onValueChange?.(nextValue)

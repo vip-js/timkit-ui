@@ -1,13 +1,47 @@
 <view class="hover-card {{extClass}}">
-  <view class="hover-card-trigger" bindtouchstart="onTriggerEnter" bindtouchend="onTriggerLeave">
+  <view
+    wx:if="{{open}}"
+    class="hover-card-trigger"
+    id="{{id}}-trigger"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-expanded="{{open ? 'true' : 'false'}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-describedby="{{id}}-content"
+    bindtouchstart="onTriggerEnter"
+    bindtouchend="onTriggerLeave"
+    bindfocus="onTriggerFocus"
+    bindblur="onTriggerBlur"
+    bindkeydown="onKey"
+  >
+    <slot name="trigger" />
+  </view>
+  <view
+    wx:else
+    class="hover-card-trigger"
+    id="{{id}}-trigger"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-expanded="{{open ? 'true' : 'false'}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    bindtouchstart="onTriggerEnter"
+    bindtouchend="onTriggerLeave"
+    bindfocus="onTriggerFocus"
+    bindblur="onTriggerBlur"
+    bindkeydown="onKey"
+  >
     <slot name="trigger" />
   </view>
 
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
   <view
     wx:if="{{open}}"
+    id="{{id}}-content"
     class="hover-card-content"
+    tabindex="-1"
     bindtouchstart="onContentEnter"
     bindtouchend="onContentLeave"
+    bindkeydown="onKey"
   >
     <slot />
   </view>

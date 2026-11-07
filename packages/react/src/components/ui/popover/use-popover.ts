@@ -5,7 +5,7 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UsePopoverProps {
   id?: string
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
   modal?: boolean
@@ -16,10 +16,10 @@ export interface UsePopoverProps {
 
 export function usePopover(props: UsePopoverProps) {
   const generatedId = React.useId()
+  const controlled = props.open !== undefined
   const service = useMachine(popoverMachine, {
     id: props.id ?? generatedId,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen }),
     modal: props.modal,
     positioning: props.positioning,
     closeOnInteractOutside: props.closeOnInteractOutside,
@@ -27,7 +27,5 @@ export function usePopover(props: UsePopoverProps) {
     onOpenChange: (details) => props.onOpenChange?.(details.open),
   })
 
-  const api = React.useMemo(() => popoverConnect(service, normalizeProps), [service])
-
-  return api
+  return popoverConnect(service, normalizeProps)
 }

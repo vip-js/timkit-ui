@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { ClockIcon } from 'lucide-vue-next'
 import { DateInput } from '@timui/vue'
 import { Label } from '@timui/vue'
 import { TimeField } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <TimeField class="*:not-first:mt-2">
+  <TimeField @click="onDemoClick" class="*:not-first:mt-2">
     <Label class="text-foreground text-sm font-medium">Time input with end icon</Label>
     <div class="relative">
       <DateInput />

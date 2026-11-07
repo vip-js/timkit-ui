@@ -1,31 +1,67 @@
 import { toggleGroupConnect, toggleGroupMachine, type ToggleGroupApi } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, type ComputedRef, useId } from 'vue'
+import { computed, ref, useId, watchEffect } from 'vue'
+
+import { usePassedProp } from '../../../hooks/passed-prop'
 
 export type UseToggleGroupProps = {
   id?: string
-  value?: string[]
-  defaultValue?: string[]
+  type?: 'single' | 'multiple'
+  value?: string | string[] | null
+  modelValue?: string | string[] | null
+  defaultValue?: string | string[]
   disabled?: boolean
   multiple?: boolean
   loop?: boolean
   onValueChange?: (value: string[]) => void
 }
 
-export function useToggleGroup(props: UseToggleGroupProps) {
-  const generatedId = useId()
+type ToggleGroupEmit = {
+  (event: 'update:modelValue', value: string | string[]): void
+  (event: 'change', value: string | string[]): void
+}
 
-  const service = useMachine(toggleGroupMachine, {
-    id: props.id ?? generatedId,
-    value: props.value,
-    defaultValue: props.defaultValue,
-    disabled: props.disabled,
-    multiple: props.multiple,
-    loopFocus: props.loop,
-    onValueChange(details) {
-      props.onValueChange?.(details.value)
-    },
+const toArray = (value?: string | string[] | null) => {
+  if (value === undefined) return undefined
+  if (value == null || value === '') return []
+  return Array.isArray(value) ? value : [value]
+}
+
+export function useToggleGroup(props: UseToggleGroupProps, emit?: ToggleGroupEmit) {
+  const generatedId = useId()
+  const passed = usePassedProp()
+  const machineProps = computed(() => {
+    const multiple = props.type ? props.type === 'multiple' : !!props.multiple
+    const raw = props.value !== undefined ? props.value : props.modelValue
+    const value = toArray(raw)
+    const defaultValue = value === undefined ? toArray(props.defaultValue) : undefined
+    return {
+      id: props.id ?? generatedId,
+      multiple,
+      ...(value === undefined ? { defaultValue } : { value }),
+      disabled: props.disabled,
+      ...(passed<boolean | undefined>(props, 'loop') === undefined
+        ? {}
+        : { loopFocus: props.loop }),
+      onValueChange(details: { value: string[] }) {
+        props.onValueChange?.(details.value)
+        const nextValue = multiple ? details.value : details.value[0] || ''
+        emit?.('update:modelValue', nextValue)
+        emit?.('change', nextValue)
+      },
+    }
   })
 
-  return computed(() => toggleGroupConnect(service, normalizeProps))
+  const service = useMachine(toggleGroupMachine, machineProps)
+
+  const phase = ref('')
+  watchEffect(() => {
+    const value = service.context.get('value')
+    const focused = service.context.get('focusedId')
+    phase.value = `${Array.isArray(value) ? value.join('\0') : ''}|${focused ?? ''}`
+  })
+  return computed(() => {
+    phase.value
+    return toggleGroupConnect(service, normalizeProps)
+  })
 }

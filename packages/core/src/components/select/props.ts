@@ -22,6 +22,10 @@ export type SelectValueChangeEvent = TimEvent<{ value: string[] }>
 
 export type SelectProps = Omit<select.Props<SelectItem>, 'onValueChange'> & {
   /**
+   * Text shown before a value is selected.
+   */
+  placeholder?: string
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: SelectValueChangeEvent) => void
@@ -53,6 +57,10 @@ export type SelectVueProps = {
    */
   disabled?: boolean
   /**
+   * When true, opening and selection are ignored.
+   */
+  readOnly?: boolean
+  /**
    * When `true`, indicates that the user must specify a value for the input before the form can be submitted.
    */
   required?: boolean
@@ -76,6 +84,10 @@ export type SelectVueProps = {
    * Callback fired when the open state changes.
    */
   onOpenChange?: (open: boolean) => void
+  /**
+   * Placeholder text shown when no value is selected.
+   */
+  placeholder?: string
 }
 
 /**

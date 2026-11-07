@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -13,11 +14,12 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Sign in</Button>
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Sign in</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col items-center gap-2">

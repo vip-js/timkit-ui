@@ -1,7 +1,12 @@
 <div data-slot="date-picker" class="w-full">
-  <button
+  <button type="button"
     data-slot="date-picker-trigger"
     class="text-sm font-medium"
+    id="date-picker-trigger"
+    aria-label="Open calendar"
+    aria-expanded="false"
+    aria-haspopup="grid"
+    aria-controls="date-picker-content"
   >
     <svg
       width="16"
@@ -22,7 +27,7 @@
     </svg>
     <span class="font-medium">Date</span>
   </button>
-  <div data-slot="date-picker-content" class="w-auto p-2">
+  <div id="date-picker-content" role="application" tabindex="-1" data-slot="date-picker-content" hidden class="w-auto p-2">
     <div class="text-muted-foreground text-sm">Calendar</div>
   </div>
 </div>

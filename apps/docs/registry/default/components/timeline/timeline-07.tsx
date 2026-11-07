@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Timeline,
   TimelineContent,
@@ -46,8 +47,9 @@ const items = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Timeline>
+    <Timeline onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>
       {items.map((item) => (
         <TimelineItem
           key={item.id}

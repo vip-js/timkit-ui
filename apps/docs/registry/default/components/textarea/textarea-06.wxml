@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with error</label><textarea id="{{id}}" placeholder="Leave a comment" default-value="Hello!" aria-invalid /><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Message should be at least 10 characters
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="textarea-06">Textarea with error</text><textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="textarea-06" placeholder="Leave a comment" aria-invalid></textarea><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Message should be at least 10 characters
       </text></view>
 </view>

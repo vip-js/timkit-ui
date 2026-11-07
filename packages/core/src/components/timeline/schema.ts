@@ -34,6 +34,12 @@ const timelineSchema = defineUCS({
       description: 'Event handler called when active step changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, step changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'orientation',
       type: 'enum',
       description: 'The orientation of the timeline.',

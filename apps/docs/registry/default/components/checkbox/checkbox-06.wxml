@@ -1,6 +1,8 @@
-<view>
-  <view class="flex items-center gap-2"><checkbox style="{{{
-            '--primary': 'var(--color-emerald-500)',
-          } as React.CSSProperties}}" id="{{id}}" class="rounded-full" defaultchecked /><label htmlfor="{{id}}" class="peer-data-[state=checked]:line-throgh after:bg-muted-foreground peer-data-[state=checked]:text-muted-foreground relative after:absolute after:top-1/2 after:left-0 after:h-px after:w-full after:origin-bottom after:-translate-y-1/2 after:scale-x-0 after:transition-transform after:ease-in-out peer-data-[state=checked]:after:origin-bottom peer-data-[state=checked]:after:scale-x-100">Fancy todo item
-      </label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex items-center gap-2">
+    <input type="checkbox" data-slot="checkbox" style="[object Object]" id="checkbox-06" defaultChecked>
+    <text data-slot="label" for="checkbox-06">
+      Fancy todo item
+    </text>
+  </view>
 </view>

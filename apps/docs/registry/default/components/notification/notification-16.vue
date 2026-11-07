@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RefreshCwIcon, XIcon } from 'lucide-vue-next';
 import { Button } from '@timui/vue';
 
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg"><div class="flex gap-3"><div class="flex size-9 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><RefreshCwIcon class="opacity-60" :size="16" /></div><div class="flex grow flex-col gap-3"><div class="space-y-1"><p class="text-sm font-medium">Version 1.4 is now available!</p><p class="text-muted-foreground text-sm">This update contains several bug fixes and performance improvements.
-            </p></div><div class="flex gap-2"><Button size="sm">Install</Button><Button size="sm" variant="link">Later
+            </p></div><div class="flex gap-2"><Button @click="onDemoClick" :data-clicks="demoClicks" size="sm">Install</Button><Button size="sm" variant="link">Later
             </Button></div></div><Button variant="ghost" class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent" aria-label="Close notification"><XIcon :size="16" class="opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" /></Button></div></div>
 </template>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   NavigationMenu,
@@ -20,6 +21,7 @@ const navigationLinks = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -28,7 +30,7 @@ export default function Component() {
           {/* Mobile menu trigger */}
           <Popover>
             <PopoverTrigger asChild>
-              <Button className="group size-8 md:hidden" variant="ghost" size="icon">
+              <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="group size-8 md:hidden" variant="ghost" size="icon">
                 <svg
                   className="pointer-events-none"
                   width={16}

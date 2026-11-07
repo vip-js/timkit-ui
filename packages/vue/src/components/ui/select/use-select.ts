@@ -1,7 +1,9 @@
 import { selectCollection, selectConnect, selectMachine } from '@timui/core'
 import type { SelectItem, SelectVueProps } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId, watch } from 'vue'
+import { computed, ref, useId, watch, watchEffect, type ComputedRef } from 'vue'
+
+import { usePassedProp } from '../../../hooks/passed-prop'
 
 type SelectEmits = {
   (e: 'update:modelValue', value?: string): void
@@ -11,30 +13,33 @@ type SelectEmits = {
 export function useSelect(
   props: SelectVueProps,
   emit: SelectEmits,
-  fallbackCollection?: ReturnType<typeof selectCollection<SelectItem>>
+  fallbackCollection?: ComputedRef<ReturnType<typeof selectCollection<SelectItem>>>
 ) {
   const generatedId = useId()
-  const defaultCollection = fallbackCollection ?? selectCollection<SelectItem>({ items: [] })
-  const collection = computed(() => props.collection ?? defaultCollection)
+  const collection = computed(
+    () => props.collection ?? fallbackCollection?.value ?? selectCollection<SelectItem>({ items: [] })
+  )
   const currentValue = computed(() => {
     if (props.modelValue !== undefined) return props.modelValue
     if (props.value !== undefined) return props.value
     return undefined
   })
 
-  const machineProps = computed(() => ({
+  const passed = usePassedProp()
+  const machineProps = computed(() => {
+    const open = passed<boolean | null>(props, 'open')
+    const controlled = currentValue.value
+    return {
     id: props.id ?? generatedId,
     collection: collection.value,
-    value: currentValue.value !== undefined ? [currentValue.value] : undefined,
-    defaultValue:
-      currentValue.value === undefined && props.defaultValue !== undefined
-        ? [props.defaultValue]
-        : undefined,
+    ...(controlled === undefined
+      ? { defaultValue: props.defaultValue !== undefined ? [props.defaultValue] : undefined }
+      : { value: controlled == null || controlled === '' ? [] : [controlled] }),
     disabled: props.disabled,
+    readOnly: props.readOnly === true ? true : undefined,
     required: props.required,
     name: props.name,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
+    ...(open === undefined ? { defaultOpen: props.defaultOpen } : { open: open === true }),
     onValueChange(details: { value: string[] }) {
       const nextValue = details.value?.[0]
       props.onValueChange?.(nextValue)
@@ -44,17 +49,42 @@ export function useSelect(
     onOpenChange(details: { open: boolean }) {
       props.onOpenChange?.(details.open)
     },
-  }))
+    }
+  })
 
   const service = useMachine(selectMachine, machineProps)
-  const api = computed(() => selectConnect(service, normalizeProps))
+  const phase = ref('')
+  watchEffect(() => {
+    const value = service.context.get('value')
+    const highlighted = service.context.get('highlightedValue')
+    phase.value = `${Array.isArray(value) ? value.join(',') : ''}|${highlighted ?? ''}`
+  })
+  const api = computed(() => {
+    phase.value
+    return selectConnect(service, normalizeProps)
+  })
+
+  watch(
+    () => api.value.open,
+    (open, _previous, onCleanup) => {
+      if (!open) return
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Escape') return
+        event.preventDefault()
+        api.value.setOpen(false)
+      }
+      document.addEventListener('keydown', onKeyDown)
+      onCleanup(() => document.removeEventListener('keydown', onKeyDown))
+    }
+  )
 
   watch(
     () => currentValue.value,
     (val) => {
-      if (val !== undefined && val !== api.value?.value?.[0]) {
-        api.value?.setValue([val])
-      }
+      if (val === undefined) return
+      const next = val == null || val === '' ? [] : [val]
+      const current = api.value?.value ?? []
+      if (next.length !== current.length || next[0] !== current[0]) api.value?.setValue(next)
     }
   )
 

@@ -1,3 +1,3 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with left text</label><select default-value="1"><selecttrigger id="{{id}}"><text>Language: <selectvalue placeholder="Select a language" /></text></selecttrigger><selectcontent><selectitem value="1">Javascript</selectitem><selectitem value="2">Bash</selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-33">Select with left text</text><select data-slot="select"><button type="button" data-slot="select-trigger" id="select-33"><text>Language: <text data-slot="select-value" placeholder="Select a language"></text></text></button><view data-slot="select-content"><view data-slot="select-item" value="1">Javascript</view><view data-slot="select-item" value="2">Bash</view></view></select></view>
 </view>

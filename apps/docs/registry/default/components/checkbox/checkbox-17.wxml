@@ -1,3 +1,3 @@
-<view>
-  <view class="grid grid-cols-2 gap-3"><view wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{`${id}-${item.value}`}}" class="border-input has-data-[state=checked]:border-primary/50 relative flex cursor-pointer flex-col gap-4 rounded-md border p-4 shadow-xs outline-none"><view class="flex justify-between gap-2"><checkbox id="{{`${id}-${item.value}`}}" value="{{item.value}}" class="order-1 after:absolute after:inset-0" defaultchecked="{{item.defaultChecked}}" /><item.icon class="opacity-60" size="{{16}}" aria-hidden="true" /></view><label htmlfor="{{`${id}-${item.value}`}}">{{ item.label }}</label></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="grid grid-cols-2 gap-3"><view class="border-input has-data-[state=checked]:border-primary/50 relative flex cursor-pointer flex-col gap-4 rounded-md border p-4 shadow-xs outline-none"><view class="flex justify-between gap-2"><input type="checkbox" data-slot="checkbox" id="Example-Example"><item.Icon class="opacity-60" size="16" aria-hidden="true"></view><text data-slot="label" for="Example-Example">Example</text></view></view>
 </view>

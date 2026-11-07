@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   DropdownMenu,
@@ -16,10 +17,11 @@ import {
 } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
           size="icon"
           variant="ghost"
           className="rounded-full shadow-none"

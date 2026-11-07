@@ -1,4 +1,5 @@
-<view class="{{className}}" role="group">
+<view class="{{className}}" role="{{multiple ? 'group' : 'radiogroup'}}" aria-label="{{ariaLabel || 'Toggle group'}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{itemStatus}}" role="status">{{itemStatus}}</view>
   <slot></slot>
 </view>
 

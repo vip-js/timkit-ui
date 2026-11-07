@@ -1,9 +1,9 @@
 import { accordionConnect, accordionMachine } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId } from 'vue'
+import { computed, ref, useId, watchEffect } from 'vue'
 
 export interface UseAccordionProps {
-  modelValue?: string | string[]
+  modelValue?: string | string[] | null
   defaultValue?: string | string[]
   type?: 'single' | 'multiple'
   multiple?: boolean
@@ -23,8 +23,9 @@ export const useAccordion = (props: UseAccordionProps, emit?: AccordionEmits) =>
   const id = props.id ?? generatedId
 
   const toArray = (value?: string | string[] | null) => {
-    if (value == null) return undefined
-    return Array.isArray(value) ? value : value === '' ? [] : [value]
+    if (value === undefined) return undefined
+    if (value == null || value === '') return []
+    return Array.isArray(value) ? value : [value]
   }
 
   const toValue = (value: string[], multiple: boolean) => {
@@ -55,5 +56,13 @@ export const useAccordion = (props: UseAccordionProps, emit?: AccordionEmits) =>
   })
 
   const service = useMachine(accordionMachine, machineProps)
-  return computed(() => accordionConnect(service, normalizeProps))
+  const phase = ref('')
+  watchEffect(() => {
+    const value = service.context.get('value')
+    phase.value = Array.isArray(value) ? value.join('|') : ''
+  })
+  return computed(() => {
+    phase.value
+    return accordionConnect(service, normalizeProps)
+  })
 }

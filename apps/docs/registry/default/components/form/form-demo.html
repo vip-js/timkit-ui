@@ -1,0 +1,14 @@
+<form>
+  <label for="name">Name</label>
+  <input id="name" type="text" aria-label="Name" aria-invalid="true" aria-describedby="name-error" minlength="2" required />
+  <p id="name-error" role="alert">Use at least 2 characters</p>
+  <label for="email">Email</label>
+  <input id="email" type="email" aria-label="Email" aria-invalid="true" aria-describedby="email-error" required />
+  <p id="email-error" role="alert">Email is required</p>
+  <label>
+    <input id="terms" type="checkbox" aria-label="Accept terms" aria-invalid="true" aria-describedby="terms-error" />
+    Accept terms
+  </label>
+  <p id="terms-error" role="alert">Accept terms</p>
+  <button type="submit">Create account</button>
+</form>

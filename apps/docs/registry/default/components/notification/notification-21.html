@@ -1,12 +1,3 @@
-<template>
-  <Button variant="outline" on-click="${() => {
-        toast('Your request was completed!', {
-          description: 'It was a long journey, but we made it!',
-          action: {
-            label: 'Undo',
-            onClick: () => console.log('Undo'),
-          },
-        })
-      }}">Show sonner
-    </Button>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Show toast</button>
+</div>

@@ -24,21 +24,36 @@ import type { CollectionItem } from '@zag-js/collection'
 import { useCombobox, type ComboboxProps } from './combobox/use-combobox'
 import { ComboboxProvider, useComboboxContext } from './combobox/use-combobox-context'
 
+const ComboboxLabelPresence = React.createContext<{
+  labelled: boolean
+  setLabelled: (labelled: boolean) => void
+} | null>(null)
+
 function Combobox(props: ComboboxProps) {
   const { className, children } = props
   const api = useCombobox(props)
+  const [labelled, setLabelled] = React.useState(false)
+  const presence = React.useMemo(() => ({ labelled, setLabelled }), [labelled])
 
   return (
     <ComboboxProvider value={api}>
-      <div {...api.getRootProps()} className={cn(comboboxRootVariants(), className)}>
-        {children}
-      </div>
+      <ComboboxLabelPresence.Provider value={presence}>
+        <div {...api.getRootProps()} data-slot="combobox" className={cn(comboboxRootVariants(), className)}>
+          {children}
+        </div>
+      </ComboboxLabelPresence.Provider>
     </ComboboxProvider>
   )
 }
 
 function ComboboxLabel({ className, ...props }: React.ComponentProps<'label'>) {
   const api = useComboboxContext()
+  const presence = React.useContext(ComboboxLabelPresence)
+  const setLabelled = presence?.setLabelled
+  React.useLayoutEffect(() => {
+    setLabelled?.(true)
+    return () => setLabelled?.(false)
+  }, [setLabelled])
   return (
     <label {...api.getLabelProps()} className={cn(comboboxLabelVariants(), className)} {...props} />
   )
@@ -53,10 +68,27 @@ function ComboboxControl({ className, children, ...props }: React.ComponentProps
   )
 }
 
-function ComboboxInput({ className, ...props }: React.ComponentProps<'input'>) {
+function ComboboxInput({
+  className,
+  placeholder,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  ...props
+}: React.ComponentProps<'input'>) {
   const api = useComboboxContext()
+  const presence = React.useContext(ComboboxLabelPresence)
+  const inputProps = api.getInputProps()
+  const named =
+    Boolean(ariaLabel || ariaLabelledBy || inputProps['aria-label'] || inputProps['aria-labelledby']) ||
+    presence?.labelled === true
   return (
-    <input {...api.getInputProps()} className={cn(comboboxInputVariants(), className)} {...props} />
+    <input
+      {...inputProps}
+      className={cn(comboboxInputVariants(), className)}
+      {...props}
+      placeholder={placeholder}
+      aria-label={named ? ariaLabel : placeholder || inputProps.placeholder || 'Choose an item'}
+    />
   )
 }
 
@@ -92,6 +124,9 @@ function ComboboxItem({
 }: { item: CollectionItem } & React.ComponentProps<'div'>) {
   const api = useComboboxContext()
   const itemState = api.getItemState({ item } as ItemProps)
+  const query = api.inputValue.trim().toLowerCase()
+  const label = String((item as { label?: string }).label ?? item.value ?? '').toLowerCase()
+  if (query && !label.includes(query)) return null
 
   return (
     <div
@@ -144,8 +179,10 @@ function ComboboxGroupLabel({
 }
 
 function ComboboxEmpty({ className, children, ...props }: React.ComponentProps<'div'>) {
+  const api = useComboboxContext()
+  if (api.collection.size > 0 || api.inputValue.trim().length === 0) return null
   return (
-    <div className={cn(comboboxEmptyVariants(), className)} {...props}>
+    <div role="status" className={cn(comboboxEmptyVariants(), className)} {...props}>
       {children}
     </div>
   )

@@ -1,11 +1,13 @@
 import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline" size="sm">
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline" size="sm">
             W/ title
           </Button>
         </TooltipTrigger>

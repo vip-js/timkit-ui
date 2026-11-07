@@ -1,0 +1,4 @@
+<view class="timui-demo">
+  <checkbox>All</checkbox>
+  <view><checkbox>One</checkbox></view>
+</view>

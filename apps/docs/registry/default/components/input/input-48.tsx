@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import { Input, Label } from '@timui/react'
 import { CreditCardIcon } from 'lucide-react'
 import { usePaymentInputs } from 'react-payment-inputs'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   const { getCardNumberProps } = usePaymentInputs()
 
@@ -13,7 +16,7 @@ export default function Component() {
     <div className="*:not-first:mt-2">
       <Label htmlFor={`number-${id}`}>Card Number</Label>
       <div className="relative">
-        <Input
+        <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
           {...getCardNumberProps()}
           id={`number-${id}`}
           className="peer ps-9 [direction:inherit]"

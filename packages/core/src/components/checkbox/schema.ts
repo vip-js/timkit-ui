@@ -16,7 +16,7 @@ const checkboxSchema = defineUCS({
     {
       name: 'checked',
       type: 'boolean',
-      description: 'The controlled checked state.',
+      description: 'The controlled checked state. The value indeterminate is announced as mixed.',
     },
     {
       name: 'onCheckedChange',
@@ -27,6 +27,18 @@ const checkboxSchema = defineUCS({
       name: 'disabled',
       type: 'boolean',
       description: 'Whether the checkbox is disabled.',
+      defaultValue: false,
+    },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, checked changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'required',
+      type: 'boolean',
+      description: 'When true, the checkbox is announced as required.',
       defaultValue: false,
     },
   ],

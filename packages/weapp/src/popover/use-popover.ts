@@ -1,14 +1,15 @@
 import { popoverConnect, popoverMachine } from '@timui/core'
 
 import { emitTimEvent } from '../utils'
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
 type PopoverInstance = WechatMiniprogram.Component.TrivialInstance & {
   properties: {
     id?: string
-    open?: boolean
+    open?: boolean | null
+    defaultOpen?: boolean | null
     modal?: boolean
     portalled?: boolean
     closeOnInteractOutside?: boolean
@@ -17,9 +18,12 @@ type PopoverInstance = WechatMiniprogram.Component.TrivialInstance & {
 }
 
 export function setupPopoverMachine(instance: PopoverInstance) {
-  const machine = popoverMachine({
+  const machine = bindMachine(popoverMachine, {
     id: instance.properties.id || 'popover-1',
-    open: instance.properties.open,
+    ...((instance.properties.open == null ? instance.properties.defaultOpen : instance.properties.open) ===
+    true
+      ? { defaultOpen: true }
+      : {}),
     modal: instance.properties.modal,
     portalled: instance.properties.portalled,
     closeOnInteractOutside: instance.properties.closeOnInteractOutside,
@@ -39,6 +43,6 @@ export function setupPopoverMachine(instance: PopoverInstance) {
 
   return {
     controller,
-    connect: (state: object, send: MachineSend) => popoverConnect(state, send, normalizeProps),
+    connect: (state: object, send: MachineSend) => popoverConnect(state as never, normalizeProps),
   }
 }

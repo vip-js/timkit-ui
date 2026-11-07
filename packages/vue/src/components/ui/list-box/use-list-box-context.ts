@@ -1,10 +1,11 @@
 import type { ListBoxApi, ListBoxItem } from '@timui/core'
-import type { ComputedRef } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
 import { createContext } from '../../../hooks/create-context'
 
 export type ListBoxContextValue = {
   api: ComputedRef<ListBoxApi>
+  highlightedValue: Ref<string>
   registerItem: (item: ListBoxItem) => void
   unregisterItem: (value: string) => void
 }

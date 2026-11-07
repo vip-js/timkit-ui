@@ -13,8 +13,14 @@ import { mergeProps } from '@zag-js/react'
 
 import { useSlider } from './slider/use-slider'
 
-type SliderProps = CoreSliderProps &
-  Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreSliderProps>
+type SliderProps = Omit<CoreSliderProps, 'aria-label' | 'aria-labelledby'> &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof CoreSliderProps> & {
+    'aria-label'?: string | string[]
+    'aria-labelledby'?: string | string[]
+  }
+
+const asLabelList = (value?: string | string[]) =>
+  value === undefined ? undefined : Array.isArray(value) ? value : [value]
 
 const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   (
@@ -51,6 +57,18 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     },
     ref
   ) => {
+    const thumbCount = Math.max(
+      1,
+      Array.isArray(value) ? value.length : Array.isArray(defaultValue) ? defaultValue.length : 1
+    )
+    const labelList =
+      ariaLabel === undefined
+        ? ariaLabelledBy === undefined
+          ? Array.from({ length: thumbCount }, () => 'Value')
+          : undefined
+        : Array.isArray(ariaLabel)
+          ? ariaLabel
+          : Array.from({ length: thumbCount }, () => ariaLabel)
     const api = useSlider({
       id,
       value,
@@ -71,8 +89,8 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       invalid,
       getAriaValueText,
       onFocusChange,
-      'aria-label': ariaLabel,
-      'aria-labelledby': ariaLabelledBy,
+      'aria-label': labelList,
+      'aria-labelledby': asLabelList(ariaLabelledBy),
       ids,
       disabled,
       onValueChange,
@@ -97,6 +115,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         data-slot="slider"
         className={cn(sliderRootVariants(), rootClassName, className)}
       >
+        <p data-slot="slider-value" role="status">{api.value.join(' to ')}</p>
         <div
           {...controlProps}
           data-slot="slider-control"

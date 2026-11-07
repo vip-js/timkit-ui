@@ -1,28 +1,158 @@
-<view class="{{className}}" data-disabled="{{disabled}}">
+<view wx:if="{{labelledBy}}" class="{{className}}" data-slot="stepper" role="group" aria-readonly="{{readOnly ? 'true' : 'false'}}" aria-labelledby="{{labelledBy}}" data-disabled="{{disabled}}" data-current="{{current}}" data-orientation="{{orientation === 'vertical' ? 'vertical' : 'horizontal'}}">
+  <view wx:if="{{stepStatus}}" role="status">{{stepStatus}}</view>
+  <view
+    wx:if="{{rows.length}}"
+    wx:for="{{rows}}"
+    wx:key="step"
+    class="stepper-item"
+    data-slot="stepper-item"
+    data-state="{{item.state}}"
+    data-disabled="{{item.disabled || disabled}}"
+    data-index="{{index}}"
+    role="button"
+    aria-current="{{item.state === 'active' ? 'step' : 'false'}}"
+    tabindex="{{item.disabled || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{item.disabled || disabled || readOnly ? 'true' : 'false'}}"
+    bindtap="onStepTap"
+    bindkeydown="onStepKey"
+  >
+    <text>{{item.label || item.step}}</text>
+  </view>
   <!-- Decrement Button -->
   <view 
     class="stepper-decrement"
+    role="button"
+    aria-label="Decrease value"
+    tabindex="{{api.isAtMin || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{api.isAtMin || disabled || readOnly ? 'true' : 'false'}}"
     bindtap="onDecrementTap"
+    bindkeydown="onDecrementKey"
     data-disabled="{{api.isAtMin || disabled}}"
   >
-    <text>−</text>
+    <text aria-hidden="true">−</text>
   </view>
 
   <!-- Input -->
-  <input 
+  <input
+    wx:if="{{current !== ''}}"
     class="stepper-input"
     type="digit"
-    value="{{api.value}}"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    aria-valuenow="{{current}}"
+    value="{{current}}"
     disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
+    bindinput="onInput"
+  />
+  <input
+    wx:else
+    class="stepper-input"
+    type="digit"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    value="{{current}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
     bindinput="onInput"
   />
 
   <!-- Increment Button -->
   <view 
     class="stepper-increment"
+    role="button"
+    aria-label="Increase value"
+    tabindex="{{api.isAtMax || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{api.isAtMax || disabled || readOnly ? 'true' : 'false'}}"
     bindtap="onIncrementTap"
+    bindkeydown="onIncrementKey"
     data-disabled="{{api.isAtMax || disabled}}"
   >
-    <text>+</text>
+    <text aria-hidden="true">+</text>
+  </view>
+</view>
+<view wx:else class="{{className}}" data-slot="stepper" role="group" aria-readonly="{{readOnly ? 'true' : 'false'}}" aria-label="{{ariaLabel || 'Stepper'}}" data-disabled="{{disabled}}" data-current="{{current}}" data-orientation="{{orientation === 'vertical' ? 'vertical' : 'horizontal'}}">
+  <view wx:if="{{stepStatus}}" role="status">{{stepStatus}}</view>
+  <view
+    wx:if="{{rows.length}}"
+    wx:for="{{rows}}"
+    wx:key="step"
+    class="stepper-item"
+    data-slot="stepper-item"
+    data-state="{{item.state}}"
+    data-disabled="{{item.disabled || disabled}}"
+    data-index="{{index}}"
+    role="button"
+    aria-current="{{item.state === 'active' ? 'step' : 'false'}}"
+    tabindex="{{item.disabled || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{item.disabled || disabled || readOnly ? 'true' : 'false'}}"
+    bindtap="onStepTap"
+    bindkeydown="onStepKey"
+  >
+    <text>{{item.label || item.step}}</text>
+  </view>
+  <!-- Decrement Button -->
+  <view 
+    class="stepper-decrement"
+    role="button"
+    aria-label="Decrease value"
+    tabindex="{{api.isAtMin || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{api.isAtMin || disabled || readOnly ? 'true' : 'false'}}"
+    bindtap="onDecrementTap"
+    bindkeydown="onDecrementKey"
+    data-disabled="{{api.isAtMin || disabled}}"
+  >
+    <text aria-hidden="true">−</text>
+  </view>
+
+  <!-- Input -->
+  <input
+    wx:if="{{current !== ''}}"
+    class="stepper-input"
+    type="digit"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    aria-valuenow="{{current}}"
+    value="{{current}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
+    bindinput="onInput"
+  />
+  <input
+    wx:else
+    class="stepper-input"
+    type="digit"
+    role="spinbutton"
+    aria-roledescription="numberfield"
+    aria-valuemin="{{min}}"
+    aria-valuemax="{{max}}"
+    value="{{current}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-label="Number"
+    bindinput="onInput"
+  />
+
+  <!-- Increment Button -->
+  <view 
+    class="stepper-increment"
+    role="button"
+    aria-label="Increase value"
+    tabindex="{{api.isAtMax || disabled || readOnly ? -1 : 0}}"
+    aria-disabled="{{api.isAtMax || disabled || readOnly ? 'true' : 'false'}}"
+    bindtap="onIncrementTap"
+    bindkeydown="onIncrementKey"
+    data-disabled="{{api.isAtMax || disabled}}"
+  >
+    <text aria-hidden="true">+</text>
   </view>
 </view>

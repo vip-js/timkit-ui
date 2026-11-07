@@ -1,8 +1,4 @@
-<view>
-  <view class="inline-flex items-center gap-2"><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{setChecked}}" aria-label="Toggle switch" /><label htmlfor="{{id}}"><text class="sr-only">Toggle switch</text><block wx:if="{{checked}}">
-<sunicon size="{{16}}" aria-hidden="true" />
-</block>
-<block wx:else>
-<moonicon size="{{16}}" aria-hidden="true" />
-</block></label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="inline-flex items-center gap-2"><input type="checkbox" role="switch" data-slot="switch" aria-label="Toggle switch"><text data-slot="label"><text class="sr-only">Toggle switch</text><view>
+<text aria-hidden="true" size="16" aria-hidden="true">
 </view>

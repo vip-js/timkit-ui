@@ -1,5 +1,8 @@
-<template>
-  <Timeline default-value="${3}"><!-- Loop items -->
-<TimelineItem key="${item.id}" step="${item.id}" class="w-[calc(50%-1.5rem)] odd:ms-auto even:text-right even:group-data-[orientation=vertical]/timeline:ms-0 even:group-data-[orientation=vertical]/timeline:me-8 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:-right-6 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:left-auto even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:translate-x-1/2 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:-right-6 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:left-auto even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:translate-x-1/2"><TimelineHeader><TimelineSeparator /><TimelineDate>${item.date}</TimelineDate><TimelineTitle>${item.title}</TimelineTitle><TimelineIndicator /></TimelineHeader></TimelineItem>
-<!-- End Loop --></Timeline>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<ol><li step="1"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 15, 2024<h3>Project Kickoff</h3><span aria-hidden="true"></li>
+<li step="2"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 22, 2024<h3>Design Phase</h3><span aria-hidden="true"></li>
+<li step="3"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 5, 2024<h3>Development Sprint</h3><span aria-hidden="true"></li>
+<li step="4"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 19, 2024<h3>Testing &amp; Deployment</h3><span aria-hidden="true"></li>
+<li step="5"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">May 3, 2024<h3>User Training</h3><span aria-hidden="true"></li>
+<li step="6"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">May 17, 2024<h3>Project Handover</h3><span aria-hidden="true"></li></ol>
+</div>

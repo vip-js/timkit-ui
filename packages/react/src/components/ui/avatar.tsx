@@ -7,7 +7,7 @@ import { useAvatar } from './avatar/use-avatar'
 import { AvatarProvider, useAvatarContext } from './avatar/use-avatar-context'
 
 const Avatar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     const api = useAvatar({ id: React.useId() })
 
     return (
@@ -17,7 +17,10 @@ const Avatar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElem
           className={cn(avatarVariants(), className)}
           {...api.getRootProps()}
           {...props}
-        />
+        >
+          {api.status === 'error' ? <p role="status">Unavailable</p> : null}
+          {children}
+        </div>
       </AvatarProvider>
     )
   }
@@ -40,12 +43,13 @@ const AvatarImage = React.forwardRef<
     return (
       <img
         ref={ref}
-        src={src}
-        srcSet={srcSet}
-        alt={alt}
+        data-slot="avatar-image"
         className={cn(avatarImageVariants(), className)}
         {...api.getImageProps()}
+        src={src}
+        srcSet={srcSet}
         {...props}
+        alt={alt ?? 'Avatar'}
       />
     )
   }
@@ -59,6 +63,7 @@ const AvatarFallback = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HT
     return (
       <span
         ref={ref}
+        data-slot="avatar-fallback"
         className={cn(avatarFallbackVariants(), className)}
         {...api.getFallbackProps()}
         {...props}

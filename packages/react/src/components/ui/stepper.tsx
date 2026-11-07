@@ -29,9 +29,10 @@ import { Slot } from './slot'
 // Types
 type StepperContextValue = {
   api: ReturnType<typeof stepperConnect>
-  activeStep: number
+  activeStep: number | null
   setActiveStep: (step: number) => void
   orientation: 'horizontal' | 'vertical'
+  readOnly: boolean
 }
 
 type StepItemContextValue = {
@@ -77,19 +78,34 @@ function Stepper({
   value,
   onValueChange,
   orientation = 'horizontal',
+  readOnly = false,
+  min,
+  max,
+  step: stepSize,
   className,
+  children,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }: StepperProps) {
   const generatedId = React.useId()
   const stepperId = props.id ?? generatedId
-  const normalizedValue = typeof value === 'number' ? String(value) : value
-  const normalizedDefaultValue =
-    typeof defaultValue === 'number' ? String(defaultValue) : defaultValue
+  const controlled = value !== undefined
+  const normalizedValue = !controlled ? undefined : value == null ? '' : typeof value === 'number' ? String(value) : value
+  const normalizedDefaultValue = controlled
+    ? undefined
+    : typeof defaultValue === 'number'
+      ? String(defaultValue)
+      : defaultValue
 
   const service = useMachine<NumberInputSchema>(stepperMachine, {
     id: stepperId,
     value: normalizedValue,
     defaultValue: normalizedDefaultValue,
+    ...(typeof min === 'number' ? { min } : {}),
+    ...(typeof max === 'number' ? { max } : {}),
+    ...(typeof stepSize === 'number' ? { step: stepSize } : {}),
+    readOnly,
     onValueChange(details: { value: string; valueAsNumber: number }) {
       onValueChange?.(
         createTimEvent('change', stepperId, {
@@ -100,14 +116,40 @@ function Stepper({
     },
   })
 
-  const api = React.useMemo(() => stepperConnect(service, normalizeProps), [service])
+  const api = stepperConnect(service, normalizeProps)
 
-  const currentStep = Number.isFinite(api.valueAsNumber) ? api.valueAsNumber : 0
+  const currentStep = !controlled
+    ? Number.isFinite(api.valueAsNumber)
+      ? api.valueAsNumber
+      : 0
+    : value == null
+      ? null
+      : Number.isFinite(Number(value))
+        ? Number(value)
+        : null
+  const steps = React.Children.toArray(children).filter(React.isValidElement)
+  const stepIndex =
+    currentStep == null
+      ? -1
+      : steps.findIndex((child) => (child.props as { step?: number }).step === currentStep)
+  const stepStatus = stepIndex < 0 ? '' : `Step ${stepIndex + 1} of ${steps.length}`
   const setActiveStep = React.useCallback(
     (step: number) => {
+      if (readOnly) return
+      if (typeof min === 'number' && step < min) return
+      if (typeof max === 'number' && step > max) return
+      if (controlled) {
+        onValueChange?.(
+          createTimEvent('change', stepperId, {
+            value: String(step),
+            valueAsNumber: step,
+          }) as never as Parameters<NonNullable<CoreStepperProps['onValueChange']>>[0]
+        )
+        return
+      }
       api.setValue(step)
     },
-    [api]
+    [api, controlled, max, min, onValueChange, readOnly, stepperId]
   )
 
   return (
@@ -117,14 +159,24 @@ function Stepper({
         activeStep: currentStep,
         setActiveStep,
         orientation,
+        readOnly,
       }}
     >
       <div
         data-slot="stepper"
         className={cn(stepperVariants(), className)}
         data-orientation={orientation}
+        aria-readonly={readOnly || undefined}
         {...(mergeProps(api.getRootProps(), props) as React.HTMLAttributes<HTMLDivElement>)}
-      />
+        role="group"
+        aria-labelledby={ariaLabelledBy}
+        aria-label={
+          ariaLabelledBy ? undefined : typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Stepper'
+        }
+      >
+        {stepStatus ? <p role="status">{stepStatus}</p> : null}
+        {children}
+      </div>
     </StepperContext.Provider>
   )
 }
@@ -173,14 +225,26 @@ interface StepperTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
   asChild?: boolean
 }
 
-function StepperTrigger({ asChild = false, className, children, ...props }: StepperTriggerProps) {
-  const { setActiveStep } = useStepper()
-  const { step, isDisabled } = useStepItem()
+function StepperTrigger({
+  asChild = false,
+  className,
+  children,
+  disabled,
+  onClick,
+  ...props
+}: StepperTriggerProps) {
+  const { setActiveStep, readOnly, orientation } = useStepper()
+  const { step, state, isDisabled } = useStepItem()
+  const blocked = isDisabled || disabled || readOnly
 
   if (asChild) {
     const Comp = asChild ? Slot : 'span'
     return (
-      <Comp data-slot="stepper-trigger" className={className}>
+      <Comp
+        data-slot="stepper-trigger"
+        className={className}
+        aria-current={state === 'active' ? 'step' : undefined}
+      >
         {children}
       </Comp>
     )
@@ -189,10 +253,50 @@ function StepperTrigger({ asChild = false, className, children, ...props }: Step
   return (
     <button
       data-slot="stepper-trigger"
+      data-step={step}
       className={cn(stepperTriggerVariants(), className)}
-      onClick={() => setActiveStep(step)}
-      disabled={isDisabled}
       {...props}
+      aria-current={state === 'active' ? 'step' : undefined}
+      disabled={blocked}
+      onKeyDown={(event) => {
+        if (blocked) return
+        const root = event.currentTarget.closest('[data-slot="stepper"]')
+        if (!root) return
+        const horizontal = orientation === 'horizontal'
+        const triggers = [...root.querySelectorAll<HTMLButtonElement>('[data-slot="stepper-trigger"]')].filter(
+          (node) => !node.disabled
+        )
+        const current = triggers.indexOf(event.currentTarget)
+        if (current < 0) return
+        let next = current
+        if (event.key === 'Home') next = 0
+        else if (event.key === 'End') next = triggers.length - 1
+        else {
+          const delta = horizontal
+            ? event.key === 'ArrowRight'
+              ? 1
+              : event.key === 'ArrowLeft'
+                ? -1
+                : 0
+            : event.key === 'ArrowDown'
+              ? 1
+              : event.key === 'ArrowUp'
+                ? -1
+                : 0
+          if (!delta) return
+          next = current + delta
+          if (next < 0 || next >= triggers.length) return
+        }
+        const stepValue = Number(triggers[next]?.dataset.step)
+        if (!Number.isFinite(stepValue) || stepValue === step) return
+        event.preventDefault()
+        setActiveStep(stepValue)
+      }}
+      onClick={(event) => {
+        onClick?.(event)
+        if (blocked || event.defaultPrevented) return
+        setActiveStep(step)
+      }}
     >
       {children}
     </button>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   DropdownMenu,
@@ -18,10 +19,11 @@ import {
 } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">
           Labeled grouped items
           <ChevronDownIcon className="-me-1 opacity-60" size={16} aria-hidden="true" />
         </Button>

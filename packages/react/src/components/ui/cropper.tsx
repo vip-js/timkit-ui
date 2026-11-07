@@ -1,6 +1,6 @@
 'use client'
-'use client'
 
+import * as React from 'react'
 import { Cropper as CropperPrimitive } from '@origin-space/image-cropper'
 import {
   cn,
@@ -10,13 +10,38 @@ import {
   cropperRootVariants,
 } from '@timui/core'
 
-function Cropper({ className, ...props }: React.ComponentProps<typeof CropperPrimitive.Root>) {
+function blockCropEvent(event: React.SyntheticEvent) {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
+function Cropper({
+  className,
+  disabled = false,
+  aspect,
+  aspectRatio,
+  ...props
+}: React.ComponentProps<typeof CropperPrimitive.Root> & { disabled?: boolean; aspect?: number }) {
+  const raw = aspectRatio ?? aspect
+  const ratio = typeof raw === 'number' && Number.isFinite(raw) && raw > 0 ? raw : 0
   return (
-    <CropperPrimitive.Root
-      data-slot="cropper"
-      className={cn(cropperRootVariants(), className)}
-      {...props}
-    />
+    <div
+      data-slot="cropper-frame"
+      data-disabled={disabled ? '' : undefined}
+      aria-disabled={disabled || undefined}
+      onMouseDownCapture={disabled ? blockCropEvent : undefined}
+      onPointerDownCapture={disabled ? blockCropEvent : undefined}
+      onWheelCapture={disabled ? blockCropEvent : undefined}
+      onKeyDownCapture={disabled ? blockCropEvent : undefined}
+    >
+      {ratio ? <p role="status">{`${ratio} to 1`}</p> : null}
+      <CropperPrimitive.Root
+        data-slot="cropper"
+        className={cn(cropperRootVariants(), className)}
+        aspectRatio={aspectRatio ?? aspect}
+        {...props}
+      />
+    </div>
   )
 }
 

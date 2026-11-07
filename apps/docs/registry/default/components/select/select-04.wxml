@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with helper text (native)</label><selectnative id="{{id}}"><option value="1">React</option><option value="2">Next.js</option><option value="3">Astro</option><option value="4">Gatsby</option></selectnative><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Tell us what&lsquo;s your favorite Select framework
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-04">Select with helper text (native)</text><view data-slot="select-native" id="select-04"><view value="1">React</view><view value="2">Next.js</view><view value="3">Astro</view><view value="4">Gatsby</view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Tell us what&lsquo;s your favorite Select framework
       </text></view>
 </view>

@@ -1,4 +1,4 @@
-<view>
-  <view class="bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg"><view class="flex gap-2"><text class="grow text-sm"><circlecheckicon class="me-3 -mt-0.5 inline-flex text-emerald-500" size="{{16}}" aria-hidden="true" />Completed successfully!
-        </text><button variant="ghost" class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent" aria-label="Close notification"><xicon size="{{16}}" class="opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" /></button></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="bg-background z-50 max-w-[400px] rounded-md border px-4 py-3 shadow-lg"><view class="flex gap-2"><text class="grow text-sm"><text aria-hidden="true" size="16" aria-hidden="true">Completed successfully!
+        </text><button type="button" data-slot="button" class="group -my-1.5 -me-2 size-8 shrink-0 p-0 hover:bg-transparent inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="ghost" aria-label="Close notification"><text aria-hidden="true" size="16" aria-hidden="true"></button></view></view>
 </view>

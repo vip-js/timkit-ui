@@ -13,17 +13,17 @@ import { Slot } from './slot'
 const Collapsible = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
-    open?: boolean
+    open?: boolean | null
     defaultOpen?: boolean
     onOpenChange?: (open: boolean) => void
     disabled?: boolean
   }
->(({ className, ...props }, ref) => {
-  const api = useCollapsible(props)
+>(({ className, open, defaultOpen, onOpenChange, disabled, ...props }, ref) => {
+  const api = useCollapsible({ ...props, open, defaultOpen, onOpenChange, disabled })
 
   const rootProps = api.getRootProps()
   const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
-  const { className: mergedClassName, ...restProps } = mergedProps
+  const { className: mergedClassName, children, ...restProps } = mergedProps
 
   return (
     <CollapsibleProvider value={api}>
@@ -32,7 +32,10 @@ const Collapsible = React.forwardRef<
         data-slot="collapsible"
         className={cn(className, mergedClassName)}
         {...restProps}
-      />
+      >
+        {api.open ? <p role="status">Opened</p> : null}
+        {children}
+      </div>
     </CollapsibleProvider>
   )
 })
@@ -63,6 +66,7 @@ const CollapsibleContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     const contentProps = api.getContentProps()
     const mergedProps = mergeProps(contentProps, props)
     const { className: mergedClassName, ...restProps } = mergedProps
+    const triggerId = api.getTriggerProps().id
 
     return (
       <div
@@ -70,6 +74,8 @@ const CollapsibleContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
         data-slot="collapsible-content"
         className={cn('overflow-hidden', className, mergedClassName)}
         {...restProps}
+        role="region"
+        aria-labelledby={restProps['aria-labelledby'] || triggerId}
       >
         {children}
       </div>

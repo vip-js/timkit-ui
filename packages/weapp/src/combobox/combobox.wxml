@@ -1,12 +1,234 @@
 <!-- Trigger Area (Input-like) -->
 <view class="relative">
     <label class="block text-sm font-medium mb-1" wx:if="{{label}}">{{label}}</label>
-    <view 
+    <view
+        wx:if="{{api.open && highlight >= 0 && ariaLabel && labelledBy}}"
         class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-activedescendant="{{id}}-option-{{highlight}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-label="{{ariaLabel}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
         bindtap="onTriggerTap"
+        bindkeydown="onKey"
     >
-        <text class="{{api.valueValue ? 'text-foreground' : 'text-muted-foreground'}}">
-            {{api.valueValue || placeholder}} 
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && ariaLabel && labelledBy}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-label="{{ariaLabel}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{ariaLabel && labelledBy}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-label="{{ariaLabel}}"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && highlight >= 0 && ariaLabel}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-activedescendant="{{id}}-option-{{highlight}}"
+        aria-label="{{ariaLabel}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && ariaLabel}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-label="{{ariaLabel}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{ariaLabel}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-label="{{ariaLabel}}"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && highlight >= 0 && labelledBy}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-activedescendant="{{id}}-option-{{highlight}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && labelledBy}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{labelledBy}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-labelledby="{{labelledBy}}"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open && highlight >= 0}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-activedescendant="{{id}}-option-{{highlight}}"
+        aria-label="{{label || placeholder}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:elif="{{api.open}}"
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-label="{{label || placeholder}}"
+        aria-controls="{{id}}-listbox"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
+        </text>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
+    </view>
+    <view
+        wx:else
+        class="flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id="{{id}}-trigger"
+        role="combobox"
+        tabindex="{{disabled ? -1 : 0}}"
+        aria-haspopup="listbox"
+        aria-expanded="{{api.open ? 'true' : 'false'}}"
+        aria-label="{{label || placeholder}}"
+        aria-disabled="{{disabled ? 'true' : 'false'}}"
+        bindtap="onTriggerTap"
+        bindkeydown="onKey"
+    >
+        <text class="{{displayValue ? 'text-foreground' : 'text-muted-foreground'}}">
+            {{displayValue || placeholder}}
         </text>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 opacity-50"><path d="m6 9 6 6 6-6"/></svg>
     </view>
@@ -21,26 +243,152 @@
     <view class="fixed inset-x-0 bottom-0 z-50 rounded-t-xl bg-popover p-4 shadow-lg animate-in slide-in-from-bottom border-t border-border">
         <!-- Header -->
         <view class="flex items-center justify-between mb-4">
-             <text class="text-lg font-semibold">{{label || 'Select'}}</text>
-             <view class="p-2 -mr-2" bindtap="onBackdropTap">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             <text class="text-lg font-semibold">{{label || 'Choose an item'}}</text>
+             <view class="p-2 -mr-2" role="button" tabindex="0" aria-label="Close" bindtap="onBackdropTap" bindkeydown="onCloseKey">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
              </view>
         </view>
         
+        <input
+            wx:if="{{highlight >= 0 && ariaLabel && labelledBy}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-labelledby="{{labelledBy}}"
+            aria-label="{{ariaLabel}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            aria-activedescendant="{{id}}-option-{{highlight}}"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{ariaLabel && labelledBy}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-labelledby="{{labelledBy}}"
+            aria-label="{{ariaLabel}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{highlight >= 0 && ariaLabel}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-label="{{ariaLabel}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            aria-activedescendant="{{id}}-option-{{highlight}}"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{ariaLabel}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-label="{{ariaLabel}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{highlight >= 0 && labelledBy}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-labelledby="{{labelledBy}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            aria-activedescendant="{{id}}-option-{{highlight}}"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{labelledBy}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-labelledby="{{labelledBy}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:elif="{{highlight >= 0}}"
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-label="{{label || placeholder}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            aria-activedescendant="{{id}}-option-{{highlight}}"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <input
+            wx:else
+            value="{{query}}"
+            placeholder="{{placeholder}}"
+            aria-label="{{label || placeholder}}"
+            disabled="{{disabled}}"
+            aria-readonly="{{readOnly ? 'true' : 'false'}}"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="{{id}}-listbox"
+            bindinput="onQuery"
+            bindkeydown="onKey"
+        />
+        <view wx:if="{{empty}}" role="status">{{emptyLabel}}</view>
         <!-- List -->
-        <scroll-view scroll-y class="max-h-[60vh]">
+        <scroll-view scroll-y class="max-h-[60vh]" id="{{id}}-listbox" role="listbox" aria-labelledby="{{id}}-trigger" tabindex="-1">
             <view class="flex flex-col space-y-1">
-                <block wx:for="{{items}}" wx:key="value">
+                <block wx:for="{{visibleItems}}" wx:key="value">
                     <view 
+                        id="{{id}}-option-{{index}}"
                         class="flex cursor-default select-none items-center rounded-sm px-2 py-3 text-sm outline-none active:bg-accent active:text-accent-foreground data-[selected]:bg-accent data-[selected]:text-accent-foreground"
-                        data-state="{{api.value.includes(item.value) ? 'checked' : 'unchecked'}}" 
-                        data-selected="{{api.valueValue === item.value ? '' : undefined}}" 
+                        role="option"
+                        tabindex="-1"
+                        data-state="{{selected.includes(item.value) ? 'checked' : 'unchecked'}}"
+                        data-selected="{{selected.includes(item.value) ? '' : undefined}}"
+                        aria-selected="{{selected.includes(item.value) ? 'true' : 'false'}}"
+                        data-highlighted="{{highlighted === index ? 'true' : 'false'}}"
+                        aria-disabled="{{item.disabled ? 'true' : 'false'}}"
                         mark:value="{{item.value}}"
                         bindtap="onItemTap"
+                        bindkeydown="onItemKey"
                     >
                         <!-- Check icon -->
-                         <view class="mr-2 flex h-4 w-4 items-center justify-center opacity-{{api.valueValue === item.value ? 100 : 0}}">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                         <view class="mr-2 flex h-4 w-4 items-center justify-center opacity-{{selected.includes(item.value) ? 100 : 0}}">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                          </view>
                         
                         <text class="flex-1">{{item.label}}</text>

@@ -15,6 +15,7 @@ provideAvatarContext(api)
     v-bind="api.getRootProps()"
     :class="cn(avatarVariants(), props.class)"
   >
+    <p v-if="api.status === 'error'" role="status">Unavailable</p>
     <slot />
   </div>
 </template>

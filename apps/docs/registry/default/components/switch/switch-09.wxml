@@ -1,5 +1,5 @@
-<view>
-  <view class="group inline-flex items-center gap-2" data-state="{{checked ? 'checked' : 'unchecked'}}"><text id="{{`${id}-off`}}" class="group-data-[state=checked]:text-muted-foreground/70 flex-1 cursor-pointer text-right text-sm font-medium" aria-controls="{{id}}" bindtap="setChecked(false)">Off
-      </text><switch id="{{id}}" checked="{{checked}}" oncheckedchange="{{toggleSwitch}}" aria-labelledby="{{`${id}-off ${id}-on`}}" /><text id="{{`${id}-on`}}" class="group-data-[state=unchecked]:text-muted-foreground/70 flex-1 cursor-pointer text-left text-sm font-medium" aria-controls="{{id}}" bindtap="setChecked(true)">On
+<view class="timui-html-demo space-y-4 p-4">
+<view class="group inline-flex items-center gap-2"><text id="Example-off" class="group-data-[state=checked]:text-muted-foreground/70 flex-1 cursor-pointer text-right text-sm font-medium">Off
+      </text><input type="checkbox" role="switch" data-slot="switch" aria-labelledby="Example-off Example-on"><text id="Example-on" class="group-data-[state=unchecked]:text-muted-foreground/70 flex-1 cursor-pointer text-left text-sm font-medium">On
       </text></view>
 </view>

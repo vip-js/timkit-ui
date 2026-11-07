@@ -36,10 +36,15 @@ function setAstro(next: typeof astro.value | ((prev: typeof astro.value) => type
     : next;
 }
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <DropdownMenu><DropdownMenuTrigger as-child><Button variant="outline">Checkbox items
+  <DropdownMenu><DropdownMenuTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Checkbox items
           <ChevronDownIcon class="-me-1 opacity-60" :size="16" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuCheckboxItem :checked="nextjs" :onCheckedChange="setNextjs">Next.js
         </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem :checked="sveltekit" :onCheckedChange="setSveltekit">SvelteKit
         </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem :checked="remix" :onCheckedChange="setRemix" disabled>Remix

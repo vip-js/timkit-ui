@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import {
   Table,
   TableBody,
   TableCell,
+  TableCaption,
   TableFooter,
   TableHead,
   TableHeader,
@@ -52,11 +54,13 @@ const items = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div>
       <Table>
+        <TableCaption>People</TableCaption>
         <TableHeader>
-          <TableRow className="hover:bg-transparent">
+          <TableRow onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="hover:bg-transparent">
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Location</TableHead>

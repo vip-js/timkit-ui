@@ -5,7 +5,7 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UseHoverCardProps {
   id?: string
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   openDelay?: number
   closeDelay?: number
@@ -16,10 +16,10 @@ export interface UseHoverCardProps {
 
 export function useHoverCard(props: UseHoverCardProps) {
   const generatedId = React.useId()
+  const controlled = props.open !== undefined
   const service = useMachine(hoverCardMachine, {
     id: props.id ?? generatedId,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen }),
     openDelay: props.openDelay,
     closeDelay: props.closeDelay,
     positioning: props.positioning,

@@ -1,10 +1,10 @@
-<view>
-  <view class="flex flex-col gap-4"><popover><popovertrigger aschild><button variant="outline" size="sm" class="text-sm"><listfiltericon size="{{16}}" class="text-muted-foreground/80 -ms-1" aria-hidden="true" />Filters
-          </button></popovertrigger><popovercontent class="w-36 p-3"><view class="space-y-3"><view class="text-xs font-medium">Filters</view><form><view class="space-y-3"><view class="flex items-center gap-2"><checkbox id="{{`${id}-1`}}" /><label htmlfor="{{`${id}-1`}}" class="font-normal">Real Time
-                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-2`}}" /><label htmlfor="{{`${id}-2`}}" class="font-normal">Top Channels
-                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-3`}}" /><label htmlfor="{{`${id}-3`}}" class="font-normal">Last Orders
-                  </label></view><view class="flex items-center gap-2"><checkbox id="{{`${id}-4`}}" /><label htmlfor="{{`${id}-4`}}" class="font-normal">Total Spent
-                  </label></view></view><view role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></view><view class="flex justify-between gap-2"><button size="sm" variant="outline" class="h-7 px-2">Clear
-                </button><button size="sm" class="h-7 px-2">Apply
-                </button></view></form></view></popovercontent></popover></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex flex-col gap-4"><view data-slot="popover"><button type="button" data-slot="popover-trigger"><button type="button" data-slot="button" class="text-sm inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline" size="sm"><text aria-hidden="true" size="16" aria-hidden="true">Filters
+          </button></button><view data-slot="popover-content"><view class="space-y-3"><view class="text-xs font-medium">Filters</view><form><view class="space-y-3"><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-1"><text data-slot="label" for="Example-1">Real Time
+                  </text></view><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-2"><text data-slot="label" for="Example-2">Top Channels
+                  </text></view><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-3"><text data-slot="label" for="Example-3">Last Orders
+                  </text></view><view class="flex items-center gap-2"><input type="checkbox" data-slot="checkbox" id="Example-4"><text data-slot="label" for="Example-4">Total Spent
+                  </text></view></view><view role="separator" aria-orientation="horizontal" class="bg-border -mx-3 my-3 h-px"></view><view class="flex justify-between gap-2"><button type="button" data-slot="button" class="h-7 px-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">Clear
+                </button><button type="button" data-slot="button" class="h-7 px-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm">Apply
+                </button></view></form></view></view></view></view>
 </view>

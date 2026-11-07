@@ -8,7 +8,9 @@ type UseAvatarProps = {
   getRootNode?: (() => ShadowRoot | Document | Node) | undefined
 }
 
-export function useAvatar(props: UseAvatarProps = {}): AvatarApi {
+export function useAvatar(
+  props: UseAvatarProps = {}
+): AvatarApi & { status: 'loading' | 'loaded' | 'error' } {
   const generatedId = React.useId()
   const service = useMachine(avatarMachine, {
     id: props.id ?? generatedId,
@@ -16,5 +18,11 @@ export function useAvatar(props: UseAvatarProps = {}): AvatarApi {
     getRootNode: props.getRootNode,
   })
 
-  return React.useMemo(() => avatarConnect(service, normalizeProps), [service])
+  const api = avatarConnect(service, normalizeProps)
+  const status = service.state.matches('error')
+    ? 'error'
+    : service.state.matches('loaded')
+      ? 'loaded'
+      : 'loading'
+  return { ...api, status }
 }

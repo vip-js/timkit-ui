@@ -23,5 +23,6 @@ HoverCardProvider(api)
 </script>
 
 <template>
+  <p v-if="api.open" role="status">Opened</p>
   <slot />
 </template>

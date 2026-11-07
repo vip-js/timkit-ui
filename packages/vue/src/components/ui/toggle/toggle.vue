@@ -8,8 +8,8 @@ const props = withDefaults(
     class?: HTMLAttributes['class']
     variant?: ToggleVariants['variant']
     size?: ToggleVariants['size']
-    pressed?: boolean
-    modelValue?: boolean
+    pressed?: boolean | null
+    modelValue?: boolean | null
     defaultPressed?: boolean
     disabled?: boolean
     onPressedChange?: (pressed: boolean) => void
@@ -23,18 +23,7 @@ const props = withDefaults(
 
 const emit = defineEmits(['update:pressed', 'update:modelValue', 'pressedChange', 'change'])
 
-const api = useToggle({
-  pressed: props.pressed ?? props.modelValue,
-  defaultPressed: (props.pressed ?? props.modelValue) === undefined ? props.defaultPressed : undefined,
-  disabled: props.disabled,
-  onPressedChange: (next: boolean) => {
-    props.onPressedChange?.(next)
-    emit('update:pressed', next)
-    emit('update:modelValue', next)
-    emit('pressedChange', next)
-    emit('change', next)
-  },
-})
+const api = useToggle(props, emit)
 
 const computedClass = computed(() =>
   cn(toggleVariants({ variant: props.variant, size: props.size }), props.class),
@@ -42,6 +31,7 @@ const computedClass = computed(() =>
 </script>
 
 <template>
+  <p v-if="api.pressed" role="status">Pressed</p>
   <button
     v-bind="api.getRootProps()"
     type="button"

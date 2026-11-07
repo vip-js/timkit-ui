@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useComboboxContext } from "./use-combobox-context";
-import { computed, inject, type ComputedRef } from "vue";
+import { useComboboxContext, useComboboxLabelPresence } from "./use-combobox-context";
+import { computed, inject, onMounted, onUnmounted, type ComputedRef } from "vue";
 import { cn, comboboxLabelVariants } from "@timui/core";
 import type { HTMLAttributes } from "vue";
 
@@ -10,7 +10,15 @@ type ComboboxApi = {
   getLabelProps?: () => Record<string, BindValue>;
 };
 const api = useComboboxContext() as ComputedRef<ComboboxApi> | undefined;
+const labelled = useComboboxLabelPresence();
 const labelProps = computed(() => api?.value?.getLabelProps?.() ?? {});
+
+onMounted(() => {
+  if (labelled) labelled.value = true;
+});
+onUnmounted(() => {
+  if (labelled) labelled.value = false;
+});
 </script>
 
 <template>

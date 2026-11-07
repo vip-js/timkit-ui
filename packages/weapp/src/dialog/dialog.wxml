@@ -1,27 +1,63 @@
-<root-portal wx:if="{{api.open}}">
-  <view 
+<root-portal wx:if="{{opened}}">
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
+  <view
+    wx:if="{{modal}}"
     class="{{overlayClass}}" 
     data-slot="dialog-overlay" 
-    data-state="{{api.open ? 'open' : 'closed'}}" 
+    data-state="{{opened ? 'open' : 'closed'}}" 
     bindtap="onBackdropTap" 
     catchtouchmove="noop"
   ></view>
   <view 
+    wx:if="{{titleId}}"
     class="{{contentClass}}" 
     data-slot="dialog-content" 
-    data-state="{{api.open ? 'open' : 'closed'}}"
-    id="{{api.contentProps.id}}"
-    role="{{api.contentProps.role}}"
-    aria-modal="{{api.contentProps['aria-modal']}}"
-    aria-label="{{api.contentProps['aria-label']}}"
+    data-state="{{opened ? 'open' : 'closed'}}"
+    id="{{id}}-content"
+    role="dialog"
+    tabindex="-1"
+    aria-modal="{{modal ? 'true' : 'false'}}"
+    aria-labelledby="{{titleId}}"
+    bindkeydown="onKey"
   >
+    <text wx:if="{{title}}" id="{{titleId}}" role="heading" aria-level="2">{{title}}</text>
     <slot></slot>
     <view 
       class="{{closeClass}}" 
       data-slot="dialog-close" 
+      role="button"
+      tabindex="0"
+      aria-label="Close"
       bindtap="onCloseTap"
+      bindkeydown="onCloseKey"
     >
-      <text>✕</text>
+      <text aria-hidden="true">✕</text>
+    </view>
+  </view>
+  <view 
+    wx:else
+    class="{{contentClass}}" 
+    data-slot="dialog-content" 
+    data-state="{{opened ? 'open' : 'closed'}}"
+    id="{{id}}-content"
+    role="dialog"
+    tabindex="-1"
+    aria-modal="{{modal ? 'true' : 'false'}}"
+    aria-label="{{ariaLabel || 'Dialog'}}"
+    bindkeydown="onKey"
+  >
+    <text wx:if="{{title}}" id="{{titleId}}" role="heading" aria-level="2">{{title}}</text>
+    <slot></slot>
+    <view 
+      class="{{closeClass}}" 
+      data-slot="dialog-close" 
+      role="button"
+      tabindex="0"
+      aria-label="Close"
+      bindtap="onCloseTap"
+      bindkeydown="onCloseKey"
+    >
+      <text aria-hidden="true">✕</text>
     </view>
   </view>
 </root-portal>

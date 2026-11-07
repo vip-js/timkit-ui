@@ -1,27 +1,18 @@
-<template>
-  <div class="space-y-3"><div class="text-muted-foreground text-xs font-medium">Activity</div><Timeline>${items.map((item) => {
-          const ActionIcon = getActionIcon(item.action)
-          return (
-            <TimelineItem
-              key={item.id}
-              step={item.id}
-              className="m-0! flex-row items-center gap-3 py-2.5!"
-            >
-              <ActionIcon className="text-muted-foreground/80" size={16} />
-              <img src={item.image} alt={item.user} className="size-6 rounded-full" />
-              <TimelineContent className="text-foreground">
-                <a className="font-medium hover:underline" href="#">
-                  {item.user}
-                </a>
-                <span className="font-normal">
-                  {' '}
-                  {getActionText(item.action)}{' '}
-                  <a className="hover:underline" href="#">
-                    {getRelativeTimeString(item.date)}
-                  </a>
-                </span>
-              </TimelineContent>
-            </TimelineItem>
-          )
-        })}</Timeline></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-3">
+    <div class="text-muted-foreground text-xs font-medium">Activity</div>
+    <ol>
+      <li step="1">
+        <component class="text-muted-foreground/80" size="16" />
+        <img class="size-6 rounded-full" />
+        <div data-slot="timeline-content">
+          <a class="font-medium hover:underline" href="#"></a>
+          <span class="font-normal">
+              
+            <a class="hover:underline" href="#"></a>
+          </span>
+        
+      </li>
+    </ol>
+  </div>
+</div>

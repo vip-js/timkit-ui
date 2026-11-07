@@ -1,6 +1,6 @@
-<template>
-  <Banner class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg"><BannerContent class="flex-col justify-between gap-3 md:flex-row md:items-center"><BannerDescription class="text-sm text-foreground">We use cookies to improve your experience, analyze site usage, and show personalized
+<div class="timui-html-demo space-y-4 p-4">
+<div role="status"><div data-slot="banner-content"><p>We use cookies to improve your experience, analyze site usage, and show personalized
           content.
-        </BannerDescription><BannerActions class="flex gap-2 max-md:flex-wrap"><Button size="sm">Accept</Button><Button variant="outline" size="sm">Decline
-          </Button></BannerActions></BannerContent></Banner>
-</template>
+        </p><div data-slot="banner-actions"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" size="sm">Accept</button><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" size="sm">Decline
+          </button></div>
+</div>

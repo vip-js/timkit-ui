@@ -29,6 +29,10 @@ export type RadioGroupVueProps = {
    */
   disabled?: boolean
   /**
+   * When true, selection changes are ignored.
+   */
+  readOnly?: boolean
+  /**
    * When `true`, indicates that the user must specify a value for the input before the form can be submitted.
    */
   required?: boolean

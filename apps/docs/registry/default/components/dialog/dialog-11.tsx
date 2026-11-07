@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -12,10 +13,11 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Rating</Button>
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Rating</Button>
       </DialogTrigger>
       <DialogContent className="flex flex-col gap-0 p-0 [&>button:last-child]:top-3.5">
         <DialogHeader className="contents space-y-0 text-left">

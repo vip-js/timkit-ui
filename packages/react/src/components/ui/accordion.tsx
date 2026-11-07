@@ -45,6 +45,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       onValueChange,
       disabled,
       id,
+      children,
       ...props
     },
     ref
@@ -59,6 +60,18 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       id,
     })
     const contextValue = React.useMemo(() => ({ api, multiple }), [api, multiple])
+    const items = React.Children.toArray(children).filter(React.isValidElement)
+    const raw = (api as { value?: string | string[] }).value
+    const open = Array.isArray(raw) ? raw.filter(Boolean) : raw ? [raw] : []
+    const openStatus =
+      open.length === 0
+        ? ''
+        : open.length === 1
+          ? (() => {
+              const index = items.findIndex((child) => (child.props as { value?: string }).value === open[0])
+              return index < 0 ? '' : `Item ${index + 1} of ${items.length}`
+            })()
+          : `${open.length} items open`
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
     const { className: mergedClassName, ...restProps } = mergedProps
@@ -70,7 +83,10 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           data-slot="accordion"
           className={cn(className, mergedClassName)}
           {...restProps}
-        />
+        >
+          {openStatus ? <p role="status">{openStatus}</p> : null}
+          {children}
+        </div>
       </AccordionProvider>
     )
   }
@@ -162,6 +178,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
     const item = useAccordionItemContext()
     if (!item) throw new Error('Content must be within Item')
     const contentProps = api.getItemContentProps({ value: item.value, disabled: item.disabled })
+    const triggerProps = api.getItemTriggerProps({ value: item.value, disabled: item.disabled })
     const mergedProps = mergeProps(contentProps, props)
     const { className: mergedClassName, ...restProps } = mergedProps
 
@@ -169,10 +186,12 @@ const AccordionContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
       <div
         ref={ref}
         data-slot="accordion-content"
-        data-state={item.isOpen ? 'open' : 'closed'}
-        hidden={!item.isOpen}
         className={cn(accordionContentVariants(), className, mergedClassName)}
         {...restProps}
+        role="region"
+        aria-labelledby={restProps['aria-labelledby'] || triggerProps.id}
+        data-state={item.isOpen ? 'open' : 'closed'}
+        hidden={!item.isOpen}
       >
         <div className={cn(accordionContentInnerVariants())}>{children}</div>
       </div>

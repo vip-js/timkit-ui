@@ -1,4 +1,5 @@
 <nav aria-label="breadcrumb" data-slot="breadcrumb">
+  <p role="status">Crumb 2 of 2</p>
   <ol data-slot="breadcrumb-list" class="text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5">
     <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
       <a data-slot="breadcrumb-link" href="#" class="transition-colors hover:text-foreground">Home</a>
@@ -19,7 +20,7 @@
       </svg>
     </li>
     <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
-      <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" class="text-foreground font-normal">
+      <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" tabindex="-1" class="text-foreground font-normal">
         Breadcrumb
       </span>
     </li>

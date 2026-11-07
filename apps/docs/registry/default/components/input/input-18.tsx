@@ -1,13 +1,15 @@
 import { useId } from 'react'
 import { Input, Label, SelectNative } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>Input with end select</Label>
       <div className="flex rounded-md shadow-xs">
-        <Input
+        <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
           id={id}
           className="-me-px rounded-e-none shadow-none focus-visible:z-10"
           placeholder="google"

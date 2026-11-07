@@ -1,4 +1,37 @@
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2" dir="ltr">
+    <text data-slot="label" for="input-47">Phone number input</text>
+    <view class="flex rounded-md shadow-xs">
+      <view class="border-input bg-background text-muted-foreground focus-within:border-ring focus-within:ring-ring/50 hover:bg-accent hover:text-foreground relative inline-flex items-center self-stretch rounded-s-md border py-2 ps-3 pe-2 transition-[color,box-shadow] outline-none focus-within:z-10 focus-within:ring-[3px]">
+        <view class="inline-flex items-center gap-1" aria-hidden="true">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+          <text class="text-muted-foreground/80"><text aria-hidden="true" size="16" aria-hidden="true"></text>
+        </view>
+        <select class="absolute inset-0 text-sm opacity-0" aria-label="Select country">
+          <view>
+             +
+          </view>
 <view>
-  <view class="*:not-first:mt-2" dir="ltr"><label htmlfor="{{id}}">PhoneIcon number input</label><rpninput.default class="flex rounded-md shadow-xs" international flagcomponent="{{FlagComponent}}" countryselectcomponent="{{CountrySelect}}" inputcomponent="{{PhoneInput}}" id="{{id}}" placeholder="Enter phone number" value="{{value}}" onchange="{{(newValue) => setValue(newValue ?? '')}}" /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://gitlab.com/catamphetamine/react-phone-number-input" target="_blank" rel="noopener nofollow">react-phone-number-input
-        </a></text></view>
+             +
+          </view>
+<view>
+             +
+          </view>
+<view>
+             +
+          </view>
+        </select>
+      </view>
+
+      <input data-slot="input" class="-ms-px rounded-s-none shadow-none focus-visible:z-10 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-47"
+       
+        placeholder="Enter phone number"
+        type="tel"
+        inputMode="tel">
+    </view>
+
+    <text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with a Timkit Vue-compatible phone input layout.
+    </text>
+  </view>
 </view>

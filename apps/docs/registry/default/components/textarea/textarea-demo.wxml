@@ -1,4 +1,6 @@
+<view class="timui-html-demo space-y-4 p-4">
 <view class="space-y-2">
-  <label class="text-sm font-medium">Release notes</label>
-  <textarea placeholder="Summarize parity updates and adapter coverage..." class="min-h-32"></textarea>
+    <text class="text-sm font-medium">Release notes</text>
+    <textarea data-slot="textarea" class="min-h-32 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" placeholder="Summarize parity updates and adapter coverage..."></textarea>
+  </view>
 </view>

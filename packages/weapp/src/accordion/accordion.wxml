@@ -1,4 +1,44 @@
 <view class="{{className}} accordion">
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
+  <block wx:for="{{items}}" wx:key="value">
+    <view
+      wx:if="{{openMap[item.value]}}"
+      role="button"
+      tabindex="{{disabled || item.disabled || item.disable ? -1 : 0}}"
+      id="{{id}}-trigger-{{item.value}}"
+      aria-expanded="{{openMap[item.value] ? 'true' : 'false'}}"
+      aria-controls="{{id}}-panel-{{item.value}}"
+      aria-disabled="{{disabled || item.disabled || item.disable ? 'true' : 'false'}}"
+      bindtap="onItemTap"
+      bindkeydown="onKey"
+      data-value="{{item.value}}"
+      data-disabled="{{item.disabled || item.disable}}"
+      data-state="{{openMap[item.value] ? 'open' : 'closed'}}"
+    >
+      {{item.label}}
+    </view>
+    <view
+      wx:else
+      role="button"
+      tabindex="{{disabled || item.disabled || item.disable ? -1 : 0}}"
+      id="{{id}}-trigger-{{item.value}}"
+      aria-expanded="{{openMap[item.value] ? 'true' : 'false'}}"
+      aria-disabled="{{disabled || item.disabled || item.disable ? 'true' : 'false'}}"
+      bindtap="onItemTap"
+      bindkeydown="onKey"
+      data-value="{{item.value}}"
+      data-disabled="{{item.disabled || item.disable}}"
+      data-state="{{openMap[item.value] ? 'open' : 'closed'}}"
+    >
+      {{item.label}}
+    </view>
+    <view
+      wx:if="{{openMap[item.value]}}"
+      id="{{id}}-panel-{{item.value}}"
+      role="region"
+      aria-labelledby="{{id}}-trigger-{{item.value}}"
+    >{{item.content}}</view>
+  </block>
   <slot></slot>
 </view>
 

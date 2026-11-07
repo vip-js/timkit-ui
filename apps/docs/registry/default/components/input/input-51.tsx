@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import { Input } from '@timui/react'
 import { CreditCardIcon } from 'lucide-react'
@@ -7,6 +9,7 @@ import { usePaymentInputs } from 'react-payment-inputs'
 import images, { type CardImages } from 'react-payment-inputs/images'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps } =
     usePaymentInputs()
@@ -16,7 +19,7 @@ export default function Component() {
       <legend className="text-foreground text-sm font-medium">Card Details</legend>
       <div className="rounded-md shadow-xs">
         <div className="relative focus-within:z-10">
-          <Input
+          <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
             className="peer rounded-b-none pe-9 shadow-none [direction:inherit]"
             {...getCardNumberProps()}
             id={`number-${id}`}

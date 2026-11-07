@@ -1,15 +1,18 @@
 <div data-slot="calendar" class="{{calendarGridVariants}}">
+  <p role="status">2026-03-03</p>
   <div class="{{calendarDayButtonVariants}}">
-    <button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">&lt;</button>
-    <div class="{{calendarCaptionLabelVariants}}">March 2026</div>
-    <button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">&gt;</button>
+    <button type="button" aria-label="Switch to previous month" class="rounded-sm px-2 py-1 hover:bg-accent">&lt;</button>
+    <div id="calendar-caption" class="{{calendarCaptionLabelVariants}}">March 2026</div>
+    <button type="button" aria-label="Switch to next month" class="rounded-sm px-2 py-1 hover:bg-accent">&gt;</button>
   </div>
-  <div class="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground">
-    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+  <div role="grid" tabindex="-1" aria-labelledby="calendar-caption">
+  <div class="grid grid-cols-7 gap-1 text-center text-xs text-muted-foreground" role="row">
+    <span role="columnheader">Su</span><span role="columnheader">Mo</span><span role="columnheader">Tu</span><span role="columnheader">We</span><span role="columnheader">Th</span><span role="columnheader">Fr</span><span role="columnheader">Sa</span>
   </div>
-  <div class="mt-2 grid grid-cols-7 gap-1 text-center text-sm">
-    <button class="h-8 rounded-sm hover:bg-accent">1</button>
-    <button class="h-8 rounded-sm hover:bg-accent">2</button>
-    <button class="h-8 rounded-sm bg-primary text-primary-foreground">3</button>
+  <div class="mt-2 grid grid-cols-7 gap-1 text-center text-sm" role="row">
+    <button type="button" role="gridcell" aria-selected="false" tabindex="-1" aria-label="March 1, 2026" class="h-8 rounded-sm hover:bg-accent">1</button>
+    <button type="button" role="gridcell" aria-selected="false" tabindex="-1" aria-label="March 2, 2026" class="h-8 rounded-sm hover:bg-accent">2</button>
+    <button type="button" role="gridcell" aria-selected="true" tabindex="0" aria-label="March 3, 2026" class="h-8 rounded-sm bg-primary text-primary-foreground">3</button>
+  </div>
   </div>
 </div>

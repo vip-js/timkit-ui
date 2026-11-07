@@ -63,7 +63,8 @@
     "prepublishOnly": "pnpm run build",
     "build": "tsup",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "publishConfig": {
     "access": "public"

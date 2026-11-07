@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, mergeProps, ref, useAttrs, useId } from 'vue'
+import { computed, mergeProps, ref, useAttrs, useId, watchEffect } from 'vue'
 import type { HTMLAttributes } from 'vue'
 import {
   cn,
@@ -36,11 +36,16 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const listLabel = computed(() => {
+  const label = attrs['aria-label']
+  return typeof label === 'string' && label ? label : 'List'
+})
 const generatedId = useId()
 const registeredItems = ref<ListBoxItem[]>([])
 
-const normalizeValue = (value?: ListBoxValue) => {
-  if (value === undefined || value === null) return undefined
+const normalizeValue = (value?: ListBoxValue | null) => {
+  if (value === undefined) return undefined
+  if (value === null) return []
   if (Array.isArray(value)) return value.map((item) => String(item))
   return [String(value)]
 }
@@ -72,13 +77,16 @@ const collection = computed(() =>
 )
 
 const selectionMode = computed(() => props.selectionMode ?? 'single')
-const controlledValue = computed<ListBoxValue>(() => props.modelValue ?? props.value)
+const controlledValue = computed(() =>
+  props.modelValue !== undefined ? props.modelValue : props.value
+)
 
 const machineProps = computed(() => ({
   id: props.id ?? generatedId,
   collection: collection.value,
   multiple: selectionMode.value === 'multiple',
-  value: controlledValue.value !== undefined ? normalizeValue(controlledValue.value) : undefined,
+  value:
+    controlledValue.value !== undefined ? (normalizeValue(controlledValue.value) ?? []) : undefined,
   defaultValue:
     controlledValue.value === undefined ? normalizeValue(props.defaultValue) : undefined,
   disabled: props.disabled,
@@ -96,7 +104,61 @@ const machineProps = computed(() => ({
 }))
 
 const service = useMachine(listBoxMachine, machineProps)
-const api = computed(() => listBoxConnect(service, normalizeProps))
+const phase = ref('')
+watchEffect(() => {
+  const value = service.context.get('value')
+  const highlighted = service.context.get('highlightedValue')
+  phase.value = `${Array.isArray(value) ? value.join('|') : ''}:${highlighted ?? ''}`
+})
+const api = computed(() => {
+  phase.value
+  registeredItems.value
+  return listBoxConnect(service, normalizeProps)
+})
+const highlightedValue = ref('')
+const onListKey = (event: KeyboardEvent) => {
+  if (props.disabled || event.defaultPrevented) return
+  const items = (
+    (api.value.collection as { items?: Array<{ value?: string; label?: string; disabled?: boolean }> }).items ?? []
+  ).filter((item) => item.value && !item.disabled)
+  if (!items.length) return
+  const current = items.findIndex((item) => item.value === api.value.highlightedValue)
+  const highlight = (value?: string) => {
+    if (!value) return
+    event.preventDefault()
+    highlightedValue.value = value
+    api.value.setHighlightValue(value)
+  }
+  if (event.key === 'Home' || event.key === 'End') {
+    highlight(items[event.key === 'Home' ? 0 : items.length - 1]?.value)
+    return
+  }
+  if (/^[a-z]$/i.test(event.key)) {
+    const letter = event.key.toLowerCase()
+    for (let step = 1; step <= items.length; step += 1) {
+      const next = items[(current + step) % items.length]
+      const name = String(next?.label || next?.value || '').trim().toLowerCase()
+      if (!name.startsWith(letter)) continue
+      highlight(next?.value)
+      return
+    }
+    return
+  }
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    event.preventDefault()
+    const start = current < 0 ? (event.key === 'ArrowDown' ? -1 : 0) : current
+    const delta = event.key === 'ArrowDown' ? 1 : -1
+    const next = items[(start + delta + items.length) % items.length]
+    highlightedValue.value = next.value ?? ''
+    api.value.setHighlightValue(highlightedValue.value)
+    return
+  }
+  if (event.key !== 'Enter' && event.key !== ' ') return
+  const item = items[current]
+  if (!item?.value) return
+  event.preventDefault()
+  api.value.selectValue(item.value)
+}
 const rootProps = computed(() => api.value.getRootProps())
 type MergedProps = Record<string, unknown> & { class?: HTMLAttributes['class'] }
 const mergedList = computed(() => {
@@ -108,6 +170,7 @@ const mergedList = computed(() => {
 
 ListBoxProvider({
   api,
+  highlightedValue,
   registerItem,
   unregisterItem,
 })
@@ -118,6 +181,8 @@ ListBoxProvider({
     <div
       v-bind="mergedList.props"
       data-slot="list-box"
+      :aria-label="listLabel"
+      @keydown="onListKey"
       :class="cn(listBoxListVariants(), props.class, mergedList.class)"
     >
       <slot />

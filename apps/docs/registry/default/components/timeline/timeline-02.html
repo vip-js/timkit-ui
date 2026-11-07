@@ -1,5 +1,6 @@
-<template>
-  <Timeline default-value="${3}"><!-- Loop items -->
-<TimelineItem key="${item.id}" step="${item.id}" class="group-data-[orientation=vertical]/timeline:sm:ms-32"><TimelineHeader><TimelineSeparator /><TimelineDate class="group-data-[orientation=vertical]/timeline:sm:absolute group-data-[orientation=vertical]/timeline:sm:-left-32 group-data-[orientation=vertical]/timeline:sm:w-20 group-data-[orientation=vertical]/timeline:sm:text-right">${item.date}</TimelineDate><TimelineTitle class="sm:-mt-0.5">${item.title}</TimelineTitle><TimelineIndicator /></TimelineHeader><TimelineContent>${item.description}</TimelineContent></TimelineItem>
-<!-- End Loop --></Timeline>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<ol><li step="1"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 15, 2024<h3>Project Kickoff</h3><span aria-hidden="true"><div data-slot="timeline-content">Initial team meeting and project scope definition. Established key milestones and resource allocation.</li>
+<li step="2"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 22, 2024<h3>Design Phase</h3><span aria-hidden="true"><div data-slot="timeline-content">Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.</li>
+<li step="3"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 5, 2024<h3>Development Sprint</h3><span aria-hidden="true"><div data-slot="timeline-content">Backend API implementation and frontend component development in progress.</li>
+<li step="4"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 19, 2024<h3>Testing &amp; Deployment</h3><span aria-hidden="true"><div data-slot="timeline-content">Quality assurance testing, performance optimization, and production deployment preparation.</li></ol>
+</div>

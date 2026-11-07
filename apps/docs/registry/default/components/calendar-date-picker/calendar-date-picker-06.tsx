@@ -1,12 +1,14 @@
 import { Calendar } from '@timui/react'
 import { addDays } from 'date-fns'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const today = new Date()
 
   return (
     <div>
-      <Calendar
+      <Calendar onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
         mode="range"
         disabled={[
           { before: new Date() }, // Dates before today

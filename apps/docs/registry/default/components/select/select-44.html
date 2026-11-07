@@ -1,19 +1,14 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Options with flag and search</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><!-- if value -->
-<span class="flex min-w-0 items-center gap-2"><span class="text-lg leading-none">${countries
-                      .map((group) => group.items.find((item) => item.value === value))
-                      .filter(Boolean)[0]?.flag}</span><span class="truncate">${value}</span></span>
-<!-- else -->
-<span class="text-muted-foreground">Select country</span>
-<!-- endif --><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command><CommandInput placeholder="Search country..." /><CommandList><CommandEmpty>No country found.</CommandEmpty><!-- Loop countries -->
-<Fragment key="${group.continent}"><CommandGroup heading="${group.continent}"><!-- Loop group.items -->
-<CommandItem key="${country.value}" value="${country.value}" onselect="${(currentValue) => {
-                          const val = currentValue as string
-                          setValue(val === value ? '' : val)
-                          setOpen(false)
-                        }}"><span class="text-lg leading-none">${country.flag}</span>${country.value}<!-- if value === country.value -->
-<CheckIcon size="${16}" class="ml-auto" />
-<!-- endif --></CommandItem>
-<!-- End Loop --></CommandGroup></Fragment>
-<!-- End Loop --></CommandList></Command></PopoverContent></Popover></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label">Options with flag and search</label>
+    <div data-slot="popover">
+      <button type="button" data-slot="popover-trigger">
+        <button type="button" data-slot="button" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          variant="outline"
+          role="combobox">
+          <template>
+            <span class="flex min-w-0 items-center gap-2">
+              <span class="text-lg leading-none"></span>
+              <span class="truncate"></span>
+            </span>
+</div>

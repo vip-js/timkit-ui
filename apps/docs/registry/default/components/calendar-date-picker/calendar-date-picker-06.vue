@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Calendar } from '@timui/vue';
 import { addDays } from 'date-fns';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div><Calendar mode="range" :disabled="[
+  <div><Calendar @click="onDemoClick" mode="range" :disabled="[
           { before: new Date() }, // Dates before today
           new Date(), // Today
           { dayOfWeek: [0, 6] }, // Weekends

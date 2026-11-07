@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { useState } from 'react'
 import {
   Button,
   Input,
@@ -25,6 +26,7 @@ const navigationLinks = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
 
   return (
@@ -35,7 +37,7 @@ export default function Component() {
           {/* Mobile menu trigger */}
           <Popover>
             <PopoverTrigger asChild>
-              <Button className="group size-8 md:hidden" variant="ghost" size="icon">
+              <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="group size-8 md:hidden" variant="ghost" size="icon">
                 <svg
                   className="pointer-events-none"
                   width={16}

@@ -1,40 +1,26 @@
 <script setup lang="ts">
-import { computed, provide, watch } from "vue";
+import { computed, provide, ref } from "vue";
+import { returnFocusKey, useReturnFocus } from "../use-return-focus";
 import type { AssertNoExtraKeys, SheetProps as CoreSheetProps } from "@timui/core";
 import { useSheet } from "./use-sheet";
-import { provideSheetContext } from "./use-sheet-context";
+import { SheetSideKey, provideSheetContext } from "./use-sheet-context";
 
-type SheetProps = Omit<CoreSheetProps, "id"> & { id?: string };
-type _SheetPropsGuard = AssertNoExtraKeys<SheetProps, CoreSheetProps>;
+type SheetProps = Omit<CoreSheetProps, "id"> & { id?: string; disabled?: boolean };
+type _SheetPropsGuard = AssertNoExtraKeys<SheetProps, CoreSheetProps & { disabled?: boolean }>;
 
 const props = defineProps<SheetProps>();
-let sheetId = 0;
-const localId = `sheet-${++sheetId}`;
 
 const emit = defineEmits(["update:open", "openChange"]);
-const api = useSheet({
-  id: props.id ?? localId,
-  open: props.open,
-  defaultOpen: props.defaultOpen,
-  modal: true,
-  onOpenChange(open) {
-    emit("update:open", open);
-    emit("openChange", open);
-  },
-});
+const api = useSheet(props, emit);
 
 provideSheetContext(api);
-
-watch(
-  () => props.open,
-  (val?: boolean) => {
-    if (val !== undefined && val !== api.value?.open) {
-      api.value?.setOpen(val);
-    }
-  }
-);
+provide("sheet-disabled", computed(() => props.disabled === true));
+provide("sheet-has-title", ref(false));
+provide(SheetSideKey, computed(() => props.side));
+provide(returnFocusKey, useReturnFocus(computed(() => !!api.value?.open)));
 </script>
 
 <template>
+  <p v-if="api.open" role="status">Opened</p>
   <slot />
 </template>

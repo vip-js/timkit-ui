@@ -1,5 +1,6 @@
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@timui/react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { useState } from 'react'
 
 type PaginationProps = {
   currentPage: number
@@ -7,11 +8,12 @@ type PaginationProps = {
 }
 
 export default function Component({ currentPage, totalPages }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Pagination>
       <PaginationContent className="gap-3">
         <PaginationItem>
-          <PaginationLink
+          <PaginationLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
             className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
             href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}
             aria-label="Go to previous page"

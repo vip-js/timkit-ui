@@ -70,7 +70,7 @@ onMounted(() => {
               :id="id"
               type="date"
               :model-value="inputValue"
-              @update:modelValue="(value) => handleInputValueChange(String(value ?? ''))"
+              @update:modelValue="(value: string | number | undefined) => handleInputValueChange(String(value ?? ''))"
               class="peer appearance-none ps-9 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
               aria-label="Select date"
             />

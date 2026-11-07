@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with button</label><textarea id="{{id}}" placeholder="Leave a comment" /><button variant="outline" class="w-full">Send
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="textarea-12">Textarea with button</text><textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="textarea-12" placeholder="Leave a comment"></textarea><button type="button" data-slot="button" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Send
       </button></view>
 </view>

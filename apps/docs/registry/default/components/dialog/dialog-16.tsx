@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import {
   Button,
@@ -18,6 +20,7 @@ import { usePaymentInputs } from 'react-payment-inputs'
 import images, { type CardImages } from 'react-payment-inputs/images'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps } =
     usePaymentInputs()
@@ -25,7 +28,7 @@ export default function Component() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Card details</Button>
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Card details</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="flex flex-col gap-2">

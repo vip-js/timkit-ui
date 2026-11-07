@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,6 +14,7 @@ import DatePicker from '@/registry/default/components/navbar-components/date-pic
 import Filters from '@/registry/default/components/navbar-components/filters'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -38,7 +40,7 @@ export default function Component() {
           {/* Filters */}
           <Filters />
           {/* Saved button */}
-          <Button size="sm" variant="outline" className="aspect-square text-sm max-sm:p-0">
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} size="sm" variant="outline" className="aspect-square text-sm max-sm:p-0">
             <BookmarkIcon
               className="text-muted-foreground/80 sm:-ms-1"
               size={16}

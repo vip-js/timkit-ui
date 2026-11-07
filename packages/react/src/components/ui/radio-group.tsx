@@ -31,22 +31,79 @@ type _RadioGroupPropsGuard = AssertNoExtraKeys<
 
 const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   (
-    { className, value, defaultValue, onValueChange, disabled, required, name, id, ...props },
+    {
+      className,
+      value,
+      defaultValue,
+      onValueChange,
+      disabled,
+      readOnly,
+      required,
+      name,
+      id,
+      orientation,
+      'aria-label': ariaLabel,
+      children,
+      ...props
+    },
     ref
   ) => {
-    const api = useRadioGroup({ value, defaultValue, onValueChange, disabled, required, name, id })
+    const api = useRadioGroup({
+      value,
+      defaultValue,
+      onValueChange,
+      disabled,
+      readOnly,
+      required,
+      name,
+      id,
+      orientation,
+    })
+    const options = React.Children.toArray(children).filter(React.isValidElement)
+    const selected =
+      api.value == null || api.value === ''
+        ? -1
+        : options.findIndex((child) => (child.props as { value?: string }).value === api.value)
+    const optionStatus = selected < 0 ? '' : `Option ${selected + 1} of ${options.length}`
     const rootProps = api.getRootProps()
     const mergedRootProps = mergeProps(rootProps, props)
-    const { className: rootClassName, ...rootRest } = mergedRootProps
+    const { className: rootClassName, onKeyDown: rootKeyDown, ...rootRest } = mergedRootProps
+    const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      rootKeyDown?.(event)
+      if (event.defaultPrevented || disabled || readOnly) return
+      if (!/^[a-z]$/i.test(event.key)) return
+      const letter = event.key.toLowerCase()
+      const items = [...event.currentTarget.querySelectorAll<HTMLElement>('[data-slot="radio-group-item"]')].filter(
+        (item) => item.getAttribute('data-disabled') == null && item.getAttribute('aria-disabled') !== 'true'
+      )
+      const current = items.findIndex((item) => item.getAttribute('data-state') === 'checked')
+      for (let step = 1; step <= items.length; step += 1) {
+        const next = items[(current + step) % items.length]
+        const name = (next?.textContent ?? '').replace(/\s+/g, ' ').trim()
+        if (!name.toLowerCase().startsWith(letter)) continue
+        const nextValue = next.querySelector('input')?.getAttribute('value')
+        if (!nextValue) return
+        event.preventDefault()
+        api.setValue(nextValue)
+        return
+      }
+    }
 
     return (
       <RadioGroupProvider value={api}>
-        <div
-          {...rootRest}
-          ref={ref}
-          data-slot="radio-group"
-          className={cn(radioGroupVariants(), rootClassName, className)}
-        />
+        <>
+          {optionStatus ? <p role="status">{optionStatus}</p> : null}
+          <div
+            {...rootRest}
+            onKeyDown={onKeyDown}
+            ref={ref}
+            aria-label={typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Radio group'}
+            data-slot="radio-group"
+            className={cn(radioGroupVariants(), rootClassName, className)}
+          >
+            {children}
+          </div>
+        </>
       </RadioGroupProvider>
     )
   }
@@ -61,7 +118,7 @@ type _RadioGroupItemPropsGuard = AssertNoExtraKeys<
 >
 
 const RadioGroupItem = React.forwardRef<HTMLDivElement, RadioGroupItemProps>(
-  ({ className, value, disabled: itemDisabled, ...props }, ref) => {
+  ({ className, value, disabled: itemDisabled, children, ...props }, ref) => {
     const api = useRadioGroupContext()
     const itemProps = api.getItemProps({ value, disabled: itemDisabled })
     const controlProps = api.getItemControlProps({ value, disabled: itemDisabled })
@@ -80,11 +137,12 @@ const RadioGroupItem = React.forwardRef<HTMLDivElement, RadioGroupItemProps>(
         >
           <span data-slot="radio-indicator" className={radioGroupIndicatorVariants()}>
             {itemState.checked && (
-              <CircleIcon className={radioGroupIndicatorIconVariants()} strokeWidth={0} />
+              <CircleIcon aria-hidden="true" className={radioGroupIndicatorIconVariants()} strokeWidth={0} />
             )}
           </span>
         </div>
         <input {...hiddenInputProps} />
+        {children}
       </label>
     )
   }

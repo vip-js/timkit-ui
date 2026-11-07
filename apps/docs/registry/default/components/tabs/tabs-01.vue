@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Tabs } from '@timui/vue';
 import { TabsContent } from '@timui/vue';
 import { TabsList } from '@timui/vue';
@@ -7,8 +8,13 @@ import { TabsTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1" class="items-center"><TabsList><TabsTrigger value="tab-1">Tab 1</TabsTrigger><TabsTrigger value="tab-2">Tab 2</TabsTrigger><TabsTrigger value="tab-3">Tab 3</TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
+  <Tabs default-value="tab-1" class="items-center"><TabsList><TabsTrigger @click="onDemoClick" value="tab-1">Tab 1</TabsTrigger><TabsTrigger value="tab-2">Tab 2</TabsTrigger><TabsTrigger value="tab-3">Tab 3</TabsTrigger></TabsList><TabsContent value="tab-1"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
 </template>

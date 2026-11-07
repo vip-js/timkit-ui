@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Badge } from '@timui/vue';
 
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Badge>Badge</Badge>
+  <Badge @click="onDemoClick">Badge</Badge>
 </template>

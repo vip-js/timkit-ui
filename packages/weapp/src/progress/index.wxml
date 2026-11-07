@@ -1,14 +1,70 @@
-<view 
-  id="{{api.rootProps.id}}"
-  class="{{rootClass}}" 
-  role="progressbar" 
-  aria-valuemin="{{api.min}}"
-  aria-valuenow="{{api.value}}" 
-  aria-valuemax="{{api.max}}"
-  data-state="{{api.state}}"
+<view
+  wx:if="{{labelledBy && state === 'indeterminate'}}"
+  class="{{rootClass}}"
+  data-slot="progress"
+  role="progressbar"
+  aria-labelledby="{{labelledBy}}"
+  aria-valuemin="{{min}}"
+  aria-valuemax="{{max}}"
+  data-state="{{state}}"
+  data-value="{{current}}"
 >
-  <view 
-    class="{{indicatorClass}}" 
-    style="transform: translateX(-{{100 - api.percent}}%)"
+  <view
+    class="{{indicatorClass}}"
+    style="transform: translateX(-{{100 - percent}}%)"
   ></view>
+</view>
+<view
+  wx:elif="{{labelledBy}}"
+  class="{{rootClass}}"
+  data-slot="progress"
+  role="progressbar"
+  aria-labelledby="{{labelledBy}}"
+  aria-valuemin="{{min}}"
+  aria-valuenow="{{current}}"
+  aria-valuetext="{{valueText}}"
+  aria-valuemax="{{max}}"
+  data-state="{{state}}"
+  data-value="{{current}}"
+>
+  <view
+    class="{{indicatorClass}}"
+    style="transform: translateX(-{{100 - percent}}%)"
+  ></view>
+  <text data-slot="progress-value">{{valueText}}</text>
+</view>
+<view
+  wx:elif="{{state === 'indeterminate'}}"
+  class="{{rootClass}}"
+  data-slot="progress"
+  role="progressbar"
+  aria-label="{{ariaLabel || 'Progress'}}"
+  aria-valuemin="{{min}}"
+  aria-valuemax="{{max}}"
+  data-state="{{state}}"
+  data-value="{{current}}"
+>
+  <view
+    class="{{indicatorClass}}"
+    style="transform: translateX(-{{100 - percent}}%)"
+  ></view>
+</view>
+<view
+  wx:else
+  class="{{rootClass}}"
+  data-slot="progress"
+  role="progressbar"
+  aria-label="{{ariaLabel || 'Progress'}}"
+  aria-valuemin="{{min}}"
+  aria-valuenow="{{current}}"
+  aria-valuetext="{{valueText}}"
+  aria-valuemax="{{max}}"
+  data-state="{{state}}"
+  data-value="{{current}}"
+>
+  <view
+    class="{{indicatorClass}}"
+    style="transform: translateX(-{{100 - percent}}%)"
+  ></view>
+  <text data-slot="progress-value">{{valueText}}</text>
 </view>

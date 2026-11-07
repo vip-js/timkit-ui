@@ -6,18 +6,20 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 export interface UseAlertDialogProps extends Omit<CoreAlertDialogProps, 'id'> {
   id?: string
   defaultOpen?: boolean
+  disabled?: boolean
 }
 
 export function useAlertDialog(props: UseAlertDialogProps = {}) {
   const generatedId = React.useId()
   const dialogId = props.id ?? `alert-dialog-${generatedId}`
 
+  const controlled = props.open !== undefined
   const service = useMachine(dialogMachine, {
     id: dialogId,
-    open: props.open,
-    defaultOpen: props.defaultOpen ?? false,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen ?? false }),
     modal: true,
     role: 'alertdialog',
+    closeOnInteractOutside: false,
     onOpenChange: (details) => {
       props.onOpenChange?.(
         createTimEvent('alertDialog.openChange', dialogId, { open: details.open })
@@ -25,11 +27,12 @@ export function useAlertDialog(props: UseAlertDialogProps = {}) {
     },
   })
 
-  const api = React.useMemo(() => dialogConnect(service, normalizeProps), [service])
+  const disabled = props.disabled === true
+  const api = { ...dialogConnect(service, normalizeProps), disabled }
 
   React.useEffect(() => {
-    if (props.open !== undefined && props.open !== api.open) {
-      api.setOpen(props.open)
+    if (props.open !== undefined && (props.open === true) !== api.open) {
+      api.setOpen(props.open === true)
     }
   }, [props.open, api])
 

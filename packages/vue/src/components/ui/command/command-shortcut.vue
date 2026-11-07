@@ -9,6 +9,8 @@ const props = defineProps<{
 
 <template>
   <span
+    data-slot="command-shortcut"
+    aria-hidden="true"
     :class="
       cn(
         commandShortcutVariants(),

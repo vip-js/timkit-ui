@@ -1,3 +1,24 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with icon</label><select default-value="3"><selecttrigger id="{{id}}" class="[&>span_svg]:text-muted-foreground/80 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0"><selectitem value="1"><rireactjsline size="{{16}}" aria-hidden="true" /><text class="truncate">React</text></selectitem><selectitem value="2"><rinextjsline size="{{16}}" aria-hidden="true" /><text class="truncate">Next.js</text></selectitem><selectitem value="3"><rigatsbyline size="{{16}}" aria-hidden="true" /><text class="truncate">Gatsby</text></selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label" for="select-34">Options with icon</text>
+    <select data-slot="select">
+      <button type="button" data-slot="select-trigger" id="select-34" class="[&>span_svg]:text-muted-foreground/80 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0">
+        <text data-slot="select-value" placeholder="Select framework"></text>
+      </button>
+      <view data-slot="select-content" class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0">
+        <view data-slot="select-item" value="1">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+          <text class="truncate">React</text>
+        </view>
+        <view data-slot="select-item" value="2">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+          <text class="truncate">Next.js</text>
+        </view>
+        <view data-slot="select-item" value="3">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+          <text class="truncate">Gatsby</text>
+        </view>
+      </view>
+    </select>
+  </view>
 </view>

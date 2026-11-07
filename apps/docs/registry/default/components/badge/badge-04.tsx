@@ -1,5 +1,7 @@
 import { Badge } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
-  return <Badge className="min-w-5 px-1">6</Badge>
+  const [demoClicks, setDemoClicks] = useState(0)
+  return <Badge onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="min-w-5 px-1">6</Badge>
 }

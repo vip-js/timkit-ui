@@ -1,8 +1,10 @@
 import { Badge } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Badge>
+    <Badge onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>
       <svg
         className="-ms-0.5 opacity-60"
         width={12}

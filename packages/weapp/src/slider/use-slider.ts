@@ -1,7 +1,7 @@
 import { sliderConnect, sliderMachine } from '@timui/core'
 
 import { emitTimEvent } from '../utils'
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -20,7 +20,7 @@ type SliderInstance = WechatMiniprogram.Component.TrivialInstance & {
 }
 
 export function setupSliderMachine(instance: SliderInstance) {
-  const machine = sliderMachine({
+  const machine = bindMachine(sliderMachine, {
     id: instance.properties.id || 'slider',
     value: instance.properties.value,
     min: instance.properties.min,
@@ -40,6 +40,6 @@ export function setupSliderMachine(instance: SliderInstance) {
 
   return {
     controller,
-    connect: (state: object, send: MachineSend) => sliderConnect(state, send, normalizeProps),
+    connect: (state: object, send: MachineSend) => sliderConnect(state as never, normalizeProps),
   }
 }

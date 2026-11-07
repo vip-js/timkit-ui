@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Avatar, AvatarImage } from '@timui/vue'
 
 const avatars = [
@@ -7,11 +8,16 @@ const avatars = [
   { src: '/avatar-80-05.jpg', alt: 'Avatar 03' },
   { src: '/avatar-80-06.jpg', alt: 'Avatar 04' },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="flex -space-x-[0.9rem]">
-    <Avatar v-for="avatar in avatars" :key="avatar.src" :class="'size-12 ring-2 ring-background'">
+    <Avatar @click="onDemoClick" v-for="avatar in avatars" :key="avatar.src" :class="'size-12 ring-2 ring-background'">
       <AvatarImage :src="avatar.src" :alt="avatar.alt" />
     </Avatar>
   </div>

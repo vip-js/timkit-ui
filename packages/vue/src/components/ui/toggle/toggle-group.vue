@@ -4,7 +4,7 @@ import { type ToggleVariants } from '@timui/core'
 
 <script setup lang="ts">
 import { cn, toggleGroupVariants } from '@timui/core'
-import { computed, type HTMLAttributes } from 'vue'
+import { computed, ref, useAttrs, type HTMLAttributes } from 'vue'
 import { provideToggleGroupContext, type ToggleGroupContextValue } from './use-toggle-group-context'
 import { useToggleGroup } from './use-toggle-group'
 
@@ -15,8 +15,8 @@ const props = withDefaults(
     variant?: ToggleGroupContextValue['variant']
     size?: ToggleGroupContextValue['size']
     type?: 'single' | 'multiple'
-    modelValue?: string | string[]
-    value?: string | string[]
+    modelValue?: string | string[] | null
+    value?: string | string[] | null
     defaultValue?: string | string[]
     disabled?: boolean
     loop?: boolean
@@ -30,23 +30,29 @@ const props = withDefaults(
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const toArray = (value?: string | string[] | null) => {
-  if (value == null) return undefined
-  return Array.isArray(value) ? value : value === '' ? [] : [value]
+const attrs = useAttrs()
+const groupLabel = computed(() => {
+  const label = attrs['aria-label']
+  return typeof label === 'string' && label ? label : 'Toggle group'
+})
+const api = useToggleGroup(props, emit)
+const items = ref<string[]>([])
+const register = (value: string) => {
+  if (value) items.value = [...items.value, value]
+  return () => {
+    const index = items.value.indexOf(value)
+    if (index >= 0) items.value = items.value.filter((_, itemIndex) => itemIndex !== index)
+  }
 }
-
-const api = useToggleGroup({
-  id: props.id,
-  multiple: props.type === 'multiple',
-  disabled: props.disabled,
-  loop: props.loop,
-  value: toArray(props.value ?? props.modelValue),
-  defaultValue: toArray(props.value ?? props.modelValue) === undefined ? toArray(props.defaultValue) : undefined,
-  onValueChange(value: string[]) {
-    const nextValue = props.type === 'multiple' ? value : value[0] || ''
-    emit('update:modelValue', nextValue)
-    emit('change', nextValue)
-  },
+const itemStatus = computed(() => {
+  const raw = api.value.value as string | string[] | undefined
+  const selected = Array.isArray(raw) ? raw.filter(Boolean) : raw ? [String(raw)] : []
+  if (selected.length === 0) return ''
+  if (selected.length === 1) {
+    const index = items.value.indexOf(selected[0] ?? '')
+    return index < 0 ? '' : `Item ${index + 1} of ${items.value.length}`
+  }
+  return `${selected.length} items pressed`
 })
 
 provideToggleGroupContext({
@@ -55,15 +61,17 @@ provideToggleGroupContext({
   api,
   type: props.type,
   disabled: props.disabled,
+  register,
 })
 </script>
 
 <template>
+  <p v-if="itemStatus" role="status">{{ itemStatus }}</p>
   <div
     v-bind="api.getRootProps()"
     data-slot="toggle-group"
+    :aria-label="groupLabel"
     :class="cn(toggleGroupVariants(), props.class)"
-    role="group"
   >
     <slot />
   </div>

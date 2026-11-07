@@ -1,1 +1,10 @@
-<tree nodes="{{treeNodes}}" ext-class="max-w-sm rounded-lg border p-4" />
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="tree">
+    <view class="space-y-2 text-sm">
+      <view class="font-medium">packages</view>
+      <view class="pl-4 text-muted-foreground">react</view>
+      <view class="pl-4 text-muted-foreground">vue</view>
+      <view class="pl-4 text-muted-foreground">weapp</view>
+      <view class="pl-4 text-muted-foreground">html</view>
+    </view>
+</view>

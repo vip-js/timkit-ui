@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { computed, useAttrs, watch } from "vue";
 import { cn, popoverContentVariants } from "@timui/core";
 import { usePopoverContext } from "./use-popover-context";
 import Presence from "../presence/presence.vue";
@@ -26,6 +26,7 @@ const props = withDefaults(
 );
 
 const context = usePopoverContext();
+const attrs = useAttrs();
 const isOpen = computed(() => context.value.open ?? false);
 const positionerProps = computed(() => context.value.getPositionerProps?.() ?? {});
 const contentProps = computed(() => context.value.getContentProps?.() ?? {});
@@ -47,6 +48,7 @@ watch(
     <Presence :present="isOpen" :unmountOnExit="true" v-bind="positionerProps" style="z-index: 50">
       <div
         v-bind="contentProps"
+        :aria-label="attrs['aria-label'] || 'Popover'"
         data-slot="popover-content"
         data-state="open"
         :data-align="props.align"

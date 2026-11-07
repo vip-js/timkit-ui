@@ -1,91 +1,94 @@
-<template>
-  <div class="space-y-4"><div class="bg-background overflow-hidden rounded-md border"><Table class="table-fixed"><TableHeader><!-- Loop table.getHeaderGroups() -->
-<TableRow key="${headerGroup.id}" class="hover:bg-transparent">${headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      style={{ width: `${header.getSize()}px` }}
-                      className="h-11"
-                    >
-                      {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                        <div
-                          className={cn(
-                            header.column.getCanSort() &&
-                              'flex h-full cursor-pointer items-center justify-between gap-2 select-none'
-                          )}
-                          onClick={header.column.getToggleSortingHandler()}
-                          onKeyDown={(e) => {
-                            // Enhanced keyboard handling for sorting
-                            if (
-                              header.column.getCanSort() &&
-                              (e.key === 'Enter' || e.key === ' ')
-                            ) {
-                              e.preventDefault()
-                              header.column.getToggleSortingHandler()?.(e)
-                            }
-                          }}
-                          tabIndex={header.column.getCanSort() ? 0 : undefined}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {{
-                            asc: (
-                              <ChevronUpIcon
-                                className="shrink-0 opacity-60"
-                                size={16}
-                                aria-hidden="true"
-                              />
-                            ),
-                            desc: (
-                              <ChevronDownIcon
-                                className="shrink-0 opacity-60"
-                                size={16}
-                                aria-hidden="true"
-                              />
-                            ),
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
-                      ) : (
-                        flexRender(header.column.columnDef.header, header.getContext())
-                      )}
-                    </TableHead>
-                  )
-                })}</TableRow>
-<!-- End Loop --></TableHeader><TableBody><!-- if table.getRowModel().rows?.length -->
-${table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-<!-- else -->
-<TableRow><TableCell colspan="${columns.length}" class="h-24 text-center">No results.
-                </TableCell></TableRow>
-<!-- endif --></TableBody></Table></div><div class="flex items-center justify-between gap-3 max-sm:flex-col"><p class="text-muted-foreground flex-1 text-sm whitespace-nowrap" aria-live="polite">Page <span class="text-foreground">${table.getState().pagination.pageIndex + 1}</span>${' '}of <span class="text-foreground">${table.getPageCount()}</span></p><div class="grow"><Pagination><PaginationContent><PaginationItem><Button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" on-click="${() => table.previousPage()}" disabled="${!table.getCanPreviousPage()}" aria-label="Go to previous page"><ChevronLeftIcon size="${16}" aria-hidden="true" /></Button></PaginationItem><!-- if showLeftEllipsis -->
-<PaginationItem><PaginationEllipsis /></PaginationItem>
-<!-- endif -->${pages.map((page) => {
-                const isActive = page === table.getState().pagination.pageIndex + 1
-                return (
-                  <PaginationItem key={page}>
-                    <Button
-                      size="icon"
-                      variant={`${isActive ? 'outline' : 'ghost'}`}
-                      onClick={() => table.setPageIndex(page - 1)}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {page}
-                    </Button>
-                  </PaginationItem>
-                )
-              })}<!-- if showRightEllipsis -->
-<PaginationItem><PaginationEllipsis /></PaginationItem>
-<!-- endif --><PaginationItem><Button size="icon" variant="outline" class="disabled:pointer-events-none disabled:opacity-50" on-click="${() => table.nextPage()}" disabled="${!table.getCanNextPage()}" aria-label="Go to next page"><ChevronRightIcon size="${16}" aria-hidden="true" /></Button></PaginationItem></PaginationContent></Pagination></div><div class="flex flex-1 justify-end"><Select value="${table.getState().pagination.pageSize.toString()}" on-value-change="${(value: string) => {
-              table.setPageSize(Number(value))
-            }}" aria-label="Results per page"><SelectTrigger id="results-per-page" class="w-fit whitespace-nowrap"><SelectValue placeholder="Select number of results" /></SelectTrigger><SelectContent><!-- Loop [5, 10, 25, 50] -->
-<SelectItem key="${pageSize}" value="${pageSize.toString()}">${pageSize}/ page
-                </SelectItem>
-<!-- End Loop --></SelectContent></Select></div></div><p class="text-muted-foreground mt-4 text-center text-sm">Numeric pagination made with${' '}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-4">
+    <div class="bg-background overflow-hidden rounded-md border">
+      <table data-slot="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td> </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex items-center justify-between gap-3 max-sm:flex-col">
+      <p class="text-muted-foreground flex-1 text-sm whitespace-nowrap" aria-live="polite">
+        Page <span class="text-foreground"></span> of <span class="text-foreground"></span>
+      </p>
+
+      <div class="grow">
+        <nav aria-label="Pagination">
+          <ul>
+            <li>
+              <button type="button" data-slot="button" class="disabled:pointer-events-none disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+                size="icon"
+                variant="outline"
+               
+                aria-label="Go to previous page">
+                <span aria-hidden="true" size="16" aria-hidden="true">
+              </button>
+            </li>
+
+            <li>
+              <span aria-hidden="true">
+            </li>
+
+            <li>
+              <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+                size="icon">
+                
+              </button>
+            </li>
+
+            <li>
+              <span aria-hidden="true">
+            </li>
+
+            <li>
+              <button type="button" data-slot="button" class="disabled:pointer-events-none disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+                size="icon"
+                variant="outline"
+               
+                aria-label="Go to next page">
+                <span aria-hidden="true" size="16" aria-hidden="true">
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="flex flex-1 justify-end">
+        <select data-slot="select" aria-label="Results per page">
+          <button type="button" data-slot="select-trigger">
+            <span data-slot="select-value" placeholder="Select number of results"></span>
+          </button>
+          <div data-slot="select-content">
+            <option data-slot="select-item" value="5">5 / page</option>
+            <option data-slot="select-item" value="10">10 / page</option>
+            <option data-slot="select-item" value="25">25 / page</option>
+            <option data-slot="select-item" value="50">50 / page</option>
+          </div>
+        </select>
+      </div>
+    </div>
+
+    <p class="text-muted-foreground mt-4 text-center text-sm">
+      Numeric pagination made with
+      <a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">
+        TanStack Table
+      </a>
+    </p>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<view>
-  <alert class="rounded-md border border-blue-500/50 px-4 py-3 text-blue-600"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex opacity-60" aria-hidden="true">!
-        </text><alertdescription class="text-sm text-current">Just a quick note!</alertdescription></view></alert>
+<view class="timui-html-demo space-y-4 p-4">
+<view role="alert" data-slot="alert"><view class="flex gap-3"><text class="me-3 -mt-0.5 inline-flex opacity-60" aria-hidden="true">!
+        </text><text data-slot="alert-description">Just a quick note!</text></view></view>
 </view>

@@ -1,6 +1,4 @@
-import * as React from 'react'
-import { progressConnect, progressMachine } from '@timui/core'
-import { normalizeProps, useMachine } from '@zag-js/react'
+import { progressPercent } from '@timui/core'
 
 export type UseProgressProps = {
   value?: number | null
@@ -9,25 +7,8 @@ export type UseProgressProps = {
 
 export function useProgress(props: UseProgressProps) {
   const { value, max = 100 } = props
-  const generatedId = React.useId()
-
-  const service = useMachine(progressMachine, {
-    id: generatedId,
-    value: value ?? null,
-    max,
-  })
-
-  const api = React.useMemo(() => progressConnect(service, normalizeProps), [service])
-
-  // Sync controlled value changes into the machine
-  React.useEffect(() => {
-    if (value !== undefined) {
-      api.setValue(value)
-    }
-  }, [value, api])
-
   return {
-    progressValue: api.value,
-    percent: api.percent ?? 0,
+    progressValue: value ?? null,
+    percent: progressPercent(value, 0, max) ?? 0,
   }
 }

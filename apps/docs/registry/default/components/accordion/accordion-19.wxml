@@ -1,3 +1,79 @@
-<view>
-  <view class="space-y-4"><h2 class="text-xl font-bold">Multi-level</h2><accordion type="single" collapsible class="w-full -space-y-px" default-value="3"><accordionitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" value="{{item.id}}" key="{{item.id}}" class="bg-background has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative border outline-none first:rounded-t-md last:rounded-b-md last:border-b has-focus-visible:z-10 has-focus-visible:ring-[3px]"><accordiontrigger class="rounded-md px-4 py-3 text-[15px] leading-6 outline-none hover:no-underline focus-visible:ring-0">{{ item.title }}</accordiontrigger><accordioncontent class="p-0"><collapsibledemo wx:for="{{item.collapsibles}}" wx:for-item="collapsible" wx:for-index="index" wx:key="index" key="{{index}}" title="{{collapsible.title}}" content="{{collapsible.content}}" open="{{collapsible.open}}" /></accordioncontent></accordionitem></accordion></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-4">
+    <text class="text-xl font-bold">Multi-level</text>
+    <view data-slot="accordion">
+      <view data-slot="accordion-item" value="1">
+        <view data-slot="accordion-trigger">
+          What makes Timkit UI different?
+        </view>
+        <view data-slot="accordion-content">
+          <view data-slot="collapsible">
+            <view class="flex gap-2 text-[15px] leading-6 font-semibold [&[data-state=open]>svg]:rotate-180">
+              <text aria-hidden="true" size="16"
+               
+                aria-hidden="true">
+              
+            </view>
+            <view>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+<view data-slot="accordion-item" value="2">
+        <view data-slot="accordion-trigger">
+          How can I customize the components?
+        </view>
+        <view data-slot="accordion-content">
+          <view data-slot="collapsible">
+            <view class="flex gap-2 text-[15px] leading-6 font-semibold [&[data-state=open]>svg]:rotate-180">
+              <text aria-hidden="true" size="16"
+               
+                aria-hidden="true">
+              
+            </view>
+            <view>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+<view data-slot="accordion-item" value="3">
+        <view data-slot="accordion-trigger">
+          Is Timkit UI optimized for performance?
+        </view>
+        <view data-slot="accordion-content">
+          <view data-slot="collapsible">
+            <view class="flex gap-2 text-[15px] leading-6 font-semibold [&[data-state=open]>svg]:rotate-180">
+              <text aria-hidden="true" size="16"
+               
+                aria-hidden="true">
+              
+            </view>
+            <view>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+<view data-slot="accordion-item" value="4">
+        <view data-slot="accordion-trigger">
+          How accessible are the components?
+        </view>
+        <view data-slot="accordion-content">
+          <view data-slot="collapsible">
+            <view class="flex gap-2 text-[15px] leading-6 font-semibold [&[data-state=open]>svg]:rotate-180">
+              <text aria-hidden="true" size="16"
+               
+                aria-hidden="true">
+              
+            </view>
+            <view>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

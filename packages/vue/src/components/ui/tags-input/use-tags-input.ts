@@ -6,7 +6,7 @@ import {
   type TagsInputVueProps,
 } from '@timui/core'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId, watch } from 'vue'
+import { computed, ref, useId, watch, watchEffect } from 'vue'
 
 export type UseTagsInputProps = TagsInputVueProps
 
@@ -23,7 +23,10 @@ const isSameStringArray = (a: string[], b: string[]) => {
 
 export function useTagsInput(props: UseTagsInputProps, emit?: TagsInputEmits) {
   const generatedId = useId()
-  const currentValue = computed(() => props.modelValue ?? props.value)
+  const currentValue = computed(() => (props.modelValue !== undefined ? props.modelValue : props.value))
+  const machineValue = computed(() =>
+    currentValue.value === undefined ? undefined : (currentValue.value ?? [])
+  )
 
   const machineProps = computed(() => {
     const {
@@ -40,8 +43,7 @@ export function useTagsInput(props: UseTagsInputProps, emit?: TagsInputEmits) {
     return {
       ...rest,
       id: props.id ?? generatedId,
-      value: currentValue.value,
-      defaultValue: currentValue.value === undefined ? defaultValue : undefined,
+      ...(machineValue.value === undefined ? { defaultValue } : { value: machineValue.value }),
       inputValue,
       defaultInputValue: inputValue === undefined ? defaultInputValue : undefined,
       onValueChange(details: TagsInputValueChangeDetails) {
@@ -57,14 +59,24 @@ export function useTagsInput(props: UseTagsInputProps, emit?: TagsInputEmits) {
   })
 
   const service = useMachine(tagsInputMachine, machineProps)
-  const api = computed(() => tagsInputConnect(service, normalizeProps))
+  const phase = ref(0)
+  watchEffect(() => {
+    const value = service.context.get('value') as string[] | undefined
+    const highlighted = service.context.get('highlightedTagId')
+    phase.value = (value?.length ?? 0) + (highlighted ? 1 : 0)
+  })
+  const api = computed(() => {
+    phase.value
+    return tagsInputConnect(service, normalizeProps)
+  })
 
   watch(
     () => currentValue.value,
     (val) => {
-      if (!val) return
-      if (!isSameStringArray(val, api.value?.value ?? [])) {
-        api.value?.setValue(val)
+      const next = val == null ? [] : val
+      if (currentValue.value === undefined) return
+      if (!isSameStringArray(next, api.value?.value ?? [])) {
+        api.value?.setValue(next)
       }
     }
   )

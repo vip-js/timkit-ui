@@ -1,17 +1,54 @@
-<view class="tabs {{className}}">
-  <view class="tabs-list flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+<view class="tabs {{className}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{tabStatus}}" role="status">{{tabStatus}}</view>
+  <view class="tabs-list flex items-center justify-center rounded-md bg-muted p-1 text-muted-foreground" role="tablist" aria-label="{{ariaLabel || 'Tabs'}}" aria-orientation="{{orientation === 'vertical' ? 'vertical' : 'horizontal'}}" data-orientation="{{orientation === 'vertical' ? 'vertical' : 'horizontal'}}">
     <block wx:for="{{tabs}}" wx:key="value">
       <view
+        wx:if="{{activeValue === item.value}}"
         class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all disabled:pointer-events-none disabled:opacity-50 {{activeValue === item.value ? 'bg-background text-foreground shadow-sm' : ''}}"
         style="min-height: 88rpx;"
+        role="tab"
+        id="{{id}}-tab-{{item.value}}"
+        aria-selected="{{activeValue === item.value ? 'true' : 'false'}}"
+        tabindex="{{disabled || item.disabled || item.disable ? -1 : (activeValue === item.value ? 0 : -1)}}"
+        aria-controls="{{id}}-panel-{{item.value}}"
+        aria-disabled="{{disabled || item.disabled || item.disable ? 'true' : 'false'}}"
         bindtap="handleTabClick"
+        bindkeydown="onKey"
         data-value="{{item.value}}"
+        data-disabled="{{item.disabled || item.disable}}"
+        data-state="{{activeValue === item.value ? 'active' : 'inactive'}}"
+      >
+        {{item.label}}
+      </view>
+      <view
+        wx:else
+        class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all disabled:pointer-events-none disabled:opacity-50 {{activeValue === item.value ? 'bg-background text-foreground shadow-sm' : ''}}"
+        style="min-height: 88rpx;"
+        role="tab"
+        id="{{id}}-tab-{{item.value}}"
+        aria-selected="{{activeValue === item.value ? 'true' : 'false'}}"
+        tabindex="{{disabled || item.disabled || item.disable ? -1 : (activeValue === item.value ? 0 : -1)}}"
+        aria-disabled="{{disabled || item.disabled || item.disable ? 'true' : 'false'}}"
+        bindtap="handleTabClick"
+        bindkeydown="onKey"
+        data-value="{{item.value}}"
+        data-disabled="{{item.disabled || item.disable}}"
+        data-state="{{activeValue === item.value ? 'active' : 'inactive'}}"
       >
         {{item.label}}
       </view>
     </block>
   </view>
-  <view class="tabs-content mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+  <view
+    class="tabs-content mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    role="tabpanel"
+    tabindex="0"
+    id="{{id}}-panel-{{activeValue}}"
+    aria-labelledby="{{id}}-tab-{{activeValue}}"
+  >
+    <block wx:for="{{tabs}}" wx:key="value">
+      <view wx:if="{{activeValue === item.value}}">{{item.content}}</view>
+    </block>
     <slot></slot>
   </view>
 </view>

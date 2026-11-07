@@ -18,4 +18,8 @@ export type ImageCropperProps = {
    * Callback fired when the crop area or zoom changes.
    */
   onCropChange?: (crop: Crop) => void
+  /**
+   * When true, crop changes are ignored.
+   */
+  disabled?: boolean
 }

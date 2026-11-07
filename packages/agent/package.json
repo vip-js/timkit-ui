@@ -1,6 +1,7 @@
 {
   "name": "@timui/agent",
   "version": "0.0.1",
+  "sideEffects": false,
   "description": "Agent SDK for Timkit UI registry discovery, planning, generation, and validation",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -10,10 +11,15 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./thread-coach": {
+      "types": "./dist/thread-coach.d.ts",
+      "import": "./dist/thread-coach.mjs",
+      "require": "./dist/thread-coach.js"
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean --tsconfig tsconfig.json --external typescript",
+    "build": "tsup src/index.ts src/recipes-templates.ts src/thread-coach.ts --format cjs,esm --dts --clean --tsconfig tsconfig.json --external typescript",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"

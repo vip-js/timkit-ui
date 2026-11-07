@@ -1,6 +1,6 @@
 import { tagsInputConnect, tagsInputMachine, type TagsInputApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -20,17 +20,19 @@ export function setupTagsInputMachine(
   props: UseTagsInputProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => TagsInputApi
 } {
-  const machine = tagsInputMachine({
+  const current = props.value ?? []
+  const machine = bindMachine(tagsInputMachine, {
     id: props.id || 'tags-input',
-    value: props.value,
+    defaultValue: current,
     max: props.max,
-    disabled: props.disabled,
-    readOnly: props.readOnly,
+    disabled: props.disabled || undefined,
+    readOnly: props.readOnly || undefined,
     allowOverflow: props.allowOverflow,
+    validate: () => true,
     onValueChange: props.onValueChange,
   })
 
@@ -38,8 +40,8 @@ export function setupTagsInputMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
-    connect: (state: object, send: MachineSend) => tagsInputConnect(state, send) as TagsInputApi,
+    connect: (state: object, send: MachineSend) => tagsInputConnect(state as never, normalizeProps) as TagsInputApi,
   }
 }

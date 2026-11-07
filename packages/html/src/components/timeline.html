@@ -1,16 +1,17 @@
-<ol data-slot="timeline" class="space-y-4">
-  <li class="flex gap-3">
-    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary"></span>
-    <div>
-      <p class="text-sm font-medium">Design Contract</p>
+<div data-slot="timeline" aria-label="Timeline" class="space-y-4">
+  <p role="status">Step 1 of 2</p>
+  <div role="button" tabindex="0" data-slot="timeline-item" aria-current="step" class="flex gap-3">
+    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+    <span>
+      <h3 class="text-sm font-medium" data-slot="timeline-title">Design Contract</h3>
       <p class="text-xs text-muted-foreground">Define schema and variants.</p>
-    </div>
-  </li>
-  <li class="flex gap-3">
-    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary"></span>
-    <div>
-      <p class="text-sm font-medium">Multi-end Adapter</p>
+    </span>
+  </div>
+  <div role="button" tabindex="0" data-slot="timeline-item" class="flex gap-3">
+    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-primary" aria-hidden="true"></span>
+    <span>
+      <h3 class="text-sm font-medium" data-slot="timeline-title">Multi-end Adapter</h3>
       <p class="text-xs text-muted-foreground">Implement React/Vue/WeApp/HTML.</p>
-    </div>
-  </li>
-</ol>
+    </span>
+  </div>
+</div>

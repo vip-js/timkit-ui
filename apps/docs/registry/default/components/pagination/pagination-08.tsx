@@ -1,4 +1,5 @@
 import { cn } from '@timui/core'
+import { useState } from 'react'
 import {
   buttonVariants,
   Pagination,
@@ -22,6 +23,7 @@ export default function Component({
   totalPages,
   paginationItemsToDisplay = 5,
 }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
     currentPage,
     totalPages,
@@ -33,7 +35,7 @@ export default function Component({
       <PaginationContent className="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse">
         {/* Previous page button */}
         <PaginationItem className="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md">
-          <PaginationLink
+          <PaginationLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
             className={cn(
               buttonVariants({
                 variant: 'outline',

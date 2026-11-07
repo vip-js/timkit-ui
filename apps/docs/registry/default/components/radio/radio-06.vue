@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { StarIcon } from 'lucide-vue-next'
 import { Label } from '@timui/vue'
 import { RadioGroup } from '@timui/vue'
 import { RadioGroupItem } from '@timui/vue'
 
 const id = 'radio-06'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <RadioGroup default-value="all">
+  <RadioGroup @click="onDemoClick" default-value="all">
     <div class="flex items-center gap-2">
       <RadioGroupItem value="all" :id="`${id}-1`" />
       <Label :htmlFor="`${id}-1`">

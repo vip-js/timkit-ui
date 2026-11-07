@@ -1,4 +1,4 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with error</Label><Input id="${id}" class="peer" placeholder="Email" type="email" default-value="invalid@email.com" aria-invalid /><p class="peer-aria-invalid:text-destructive mt-2 text-xs" role="alert" aria-live="polite">Email is invalid
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2"><label data-slot="label" for="input-06">Input with error</label><input data-slot="input" class="peer flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-06" placeholder="Email" type="email" aria-invalid><p class="peer-aria-invalid:text-destructive mt-2 text-xs" role="alert" aria-live="polite">Email is invalid
       </p></div>
-</template>
+</div>

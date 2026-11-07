@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Input } from '@timui/vue';
 import { Label } from '@timui/vue';
 import { SelectNative } from '@timui/vue';
@@ -9,8 +10,13 @@ import { SelectNative } from '@timui/vue';
 
 const id = 'input-18';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with end select</Label><div class="flex rounded-md shadow-xs"><Input :id="id" class="-me-px rounded-e-none shadow-none focus-visible:z-10" placeholder="google" type="text" /><SelectNative class="text-muted-foreground hover:text-foreground w-fit rounded-s-none shadow-none"><option>.com</option><option>.org</option><option>.net</option></SelectNative></div></div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with end select</Label><div class="flex rounded-md shadow-xs"><Input @input="onDemoClick" @input="onDemoClick" :id="id" class="-me-px rounded-e-none shadow-none focus-visible:z-10" placeholder="google" type="text" /><SelectNative class="text-muted-foreground hover:text-foreground w-fit rounded-s-none shadow-none"><option>.com</option><option>.org</option><option>.net</option></SelectNative></div></div>
 </template>

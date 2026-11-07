@@ -20,6 +20,7 @@ type DatePickerProps = DatePickerVueProps & {
   triggerClass?: string
   contentClass?: string
   calendarProps?: Record<string, unknown>
+  readOnly?: boolean
 }
 
 type _DatePickerPropsGuard = AssertNoExtraKeys<
@@ -29,6 +30,7 @@ type _DatePickerPropsGuard = AssertNoExtraKeys<
     triggerClass?: string
     contentClass?: string
     calendarProps?: Record<string, unknown>
+    readOnly?: boolean
   }
 >
 
@@ -38,12 +40,27 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
   numberOfMonths: 1,
 })
 
+const calendarDisabled = computed(() => {
+  if (props.disabled === true) return true
+  const value = props.calendarProps?.disabled
+  if (typeof value === 'boolean' || value == null) return value ?? undefined
+  return value as boolean
+})
+
 const emit = defineEmits<{
   (e: 'update:modelValue', value?: Date | { from?: Date; to?: Date }): void
   (e: 'change', value?: Date | { from?: Date; to?: Date }): void
 }>()
 
 const { api } = useDatePicker(props, emit)
+
+const onContentKey = (event: KeyboardEvent) => {
+  if (event.key !== 'Escape') return
+  const triggerId = triggerProps.value.id
+  api.value?.setOpen?.(false)
+  const trigger = typeof triggerId === 'string' ? document.getElementById(triggerId) : null
+  if (trigger instanceof HTMLElement) trigger.focus()
+}
 
 const rootProps = computed(() => api.value?.getRootProps?.() ?? {})
 const triggerProps = computed(() => api.value?.getTriggerProps?.() ?? {})
@@ -61,6 +78,14 @@ const formatter = computed(
 
 const formatDate = (date: Date) => formatter.value.format(date)
 
+const dayStatus = computed(() =>
+  (api.value?.valueAsDate ?? [])
+    .map(
+      (date: Date) =>
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
+    )
+    .join(" to ")
+);
 const label = computed(() => {
   const values = api.value?.valueAsDate ?? []
   if (props.mode === 'range') {
@@ -98,8 +123,13 @@ const contentClassName = computed(() =>
     data-slot="date-picker"
     :class="cn(datePickerRootVariants(), rootProps.class, props.class)"
   >
+    <p v-if="dayStatus" role="status">{{ dayStatus }}</p>
     <Button as-child variant="outline" size="sm" :class="triggerClassName">
-      <button v-bind="triggerProps">
+      <button
+        v-bind="triggerProps"
+        :aria-expanded="api?.open ? 'true' : 'false'"
+        :aria-required="props.required ? 'true' : undefined"
+      >
         <svg
           width="16"
           height="16"
@@ -129,8 +159,15 @@ const contentClassName = computed(() =>
 
     <Teleport to="body">
       <div v-if="api?.open" v-bind="positionerProps" style="z-index: 50">
-        <div v-bind="contentProps" data-slot="date-picker-content" :class="contentClassName">
-          <Calendar v-bind="props.calendarProps" :mode="props.mode" :external-api="api" />
+        <div v-bind="contentProps" data-slot="date-picker-content" :class="contentClassName" @keydown="onContentKey">
+          <Calendar
+            v-bind="props.calendarProps"
+            :mode="props.mode"
+            :number-of-months="props.numberOfMonths"
+            :disabled="calendarDisabled"
+            :read-only="props.readOnly === true"
+            :external-api="api"
+          />
         </div>
       </div>
     </Teleport>

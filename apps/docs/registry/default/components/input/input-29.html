@@ -1,8 +1,29 @@
-<template>
-  <NumberField default-value="${99}" formatoptions="${{
-        style: 'currency',
-        currency: 'EUR',
-        currencySign: 'accounting',
-      }}"><div class="*:not-first:mt-2"><Label class="text-foreground text-sm font-medium">Number input with chevrons</Label><Group class="border-input doutline-none data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] data-disabled:opacity-50 data-focus-within:ring-[3px]"><Input class="bg-background text-foreground flex-1 px-3 py-2 tabular-nums" /><div class="flex h-[calc(100%+2px)] flex-col"><Button slot="increment" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px flex h-1/2 w-6 flex-1 items-center justify-center border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><ChevronUpIcon size="${12}" aria-hidden="true" /></Button><Button slot="decrement" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px -mt-px flex h-1/2 w-6 flex-1 items-center justify-center border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><ChevronDownIcon size="${12}" aria-hidden="true" /></Button></div></Group></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></p></NumberField>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label">Number input with chevrons</label>
+    <div class="border-input bg-background relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm shadow-xs">
+      <input data-slot="input" class="h-full rounded-none border-0 tabular-nums shadow-none flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" value="€NaN" readonly>
+      <div class="flex h-full flex-col border-l">
+        <button type="button" data-slot="button" class="h-1/2 w-8 rounded-none border-b inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          type="button"
+          size="icon"
+          variant="ghost"
+         
+          aria-label="Increase value">
+          <span aria-hidden="true" size="12" aria-hidden="true">
+        </button>
+        <button type="button" data-slot="button" class="h-1/2 w-8 rounded-none inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          type="button"
+          size="icon"
+          variant="ghost"
+         
+          aria-label="Decrease value">
+          <span aria-hidden="true" size="12" aria-hidden="true">
+        </button>
+      </div>
+    </div>
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with TimUI atomic components
+    </p>
+  </div>
+</div>

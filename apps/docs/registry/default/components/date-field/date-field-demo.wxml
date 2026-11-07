@@ -1,0 +1,6 @@
+<view>
+  <picker mode="date" value="2026-11-07">
+    <view aria-label="Date">2026-11-07</view>
+  </picker>
+  <button type="button">Clear</button>
+</view>

@@ -1,0 +1,28 @@
+<view
+  wx:if="{{itemRole === 'radio'}}"
+  class="{{className}}"
+  role="radio"
+  tabindex="{{disabled || groupDisabled || !tabbable ? -1 : 0}}"
+  aria-checked="{{pressed ? 'true' : 'false'}}"
+  aria-disabled="{{disabled || groupDisabled ? 'true' : 'false'}}"
+  data-value="{{value}}"
+  data-disabled="{{disabled || groupDisabled}}"
+  bindtap="onTap"
+  bindkeydown="onKey"
+>
+  <slot></slot>
+</view>
+<view
+  wx:else
+  class="{{className}}"
+  role="button"
+  tabindex="{{disabled || groupDisabled || !tabbable ? -1 : 0}}"
+  aria-pressed="{{pressed ? 'true' : 'false'}}"
+  aria-disabled="{{disabled || groupDisabled ? 'true' : 'false'}}"
+  data-value="{{value}}"
+  data-disabled="{{disabled || groupDisabled}}"
+  bindtap="onTap"
+  bindkeydown="onKey"
+>
+  <slot></slot>
+</view>

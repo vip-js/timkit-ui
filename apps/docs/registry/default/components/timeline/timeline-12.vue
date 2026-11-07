@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Timeline } from '@timui/vue';
 import { TimelineContent } from '@timui/vue';
 import { TimelineDate } from '@timui/vue';
@@ -39,8 +40,13 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Timeline :default-value="3" orientation="horizontal"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id" class="group-data-[orientation=horizontal]/timeline:mt-0"><TimelineHeader><TimelineSeparator class="group-data-[orientation=horizontal]/timeline:top-8" /><TimelineDate class="mb-10">{{ item.date }}</TimelineDate><TimelineTitle>{{ item.title }}</TimelineTitle><TimelineIndicator class="group-data-[orientation=horizontal]/timeline:top-8" /></TimelineHeader><TimelineContent>{{ item.description }}</TimelineContent></TimelineItem></Timeline>
+  <Timeline @click="onDemoClick" :default-value="3" orientation="horizontal"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id" class="group-data-[orientation=horizontal]/timeline:mt-0"><TimelineHeader><TimelineSeparator class="group-data-[orientation=horizontal]/timeline:top-8" /><TimelineDate class="mb-10">{{ item.date }}</TimelineDate><TimelineTitle>{{ item.title }}</TimelineTitle><TimelineIndicator class="group-data-[orientation=horizontal]/timeline:top-8" /></TimelineHeader><TimelineContent>{{ item.description }}</TimelineContent></TimelineItem></Timeline>
 </template>

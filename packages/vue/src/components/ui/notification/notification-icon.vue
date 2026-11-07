@@ -10,7 +10,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div data-slot="notification-icon" :class="cn(notificationIconVariants(), props.class)">
+  <div data-slot="notification-icon" aria-hidden="true" :class="cn(notificationIconVariants(), props.class)">
     <slot />
   </div>
 </template>

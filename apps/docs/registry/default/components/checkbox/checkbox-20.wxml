@@ -1,4 +1,15 @@
-<view>
-  <view class="space-y-4"><legend class="text-foreground text-sm leading-none font-medium">Dark mode toggle checkbox
-      </legend><view class="flex flex-col justify-center"><input type="checkbox" name="{{id}}" id="{{id}}" class="peer sr-only" checked="{{theme === 'dark'}}" onchange="{{() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}}" /><label class="group border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground peer-focus-visible:border-ring peer-focus-visible:ring-ring/50 relative inline-flex size-9 items-center justify-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none peer-focus-visible:ring-[3px]" htmlfor="{{id}}" aria-label="{{`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}}"><moonicon size="{{16}}" class="shrink-0 scale-0 opacity-0 transition-all group-peer-checked:scale-100 group-peer-checked:opacity-100" aria-hidden="true" /><sunicon size="{{16}}" class="absolute shrink-0 scale-100 opacity-100 transition-all group-peer-checked:scale-0 group-peer-checked:opacity-0" aria-hidden="true" /></label></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<fieldset class="space-y-4">
+    <legend class="text-foreground text-sm leading-none font-medium">Dark mode toggle checkbox</legend>
+    <view class="flex items-center gap-2">
+      <input type="checkbox" data-slot="checkbox">
+      <text data-slot="label">
+        <text class="border-input bg-background inline-flex size-9 items-center justify-center rounded-md border">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+          <text aria-hidden="true" size="16" aria-hidden="true">
+        </text>
+        <text class="text-sm"> mode</text>
+      </text>
+    </view>
+  </fieldset>
 </view>

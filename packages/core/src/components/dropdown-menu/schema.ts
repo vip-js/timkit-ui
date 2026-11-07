@@ -32,9 +32,20 @@ const dropdownMenuSchema = defineUCS({
       description: 'The controlled open state.',
     },
     {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the menu when uncontrolled.',
+    },
+    {
       name: 'onOpenChange',
       type: 'event',
       description: 'Event handler called when the open state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening and selection are ignored.',
+      defaultValue: false,
     },
   ],
   slots: [{ name: 'default', description: 'The dropdown segments' }],

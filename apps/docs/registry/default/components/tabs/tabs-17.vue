@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Tabs } from '@timui/vue';
 import { TabsContent } from '@timui/vue';
 import { TabsList } from '@timui/vue';
@@ -7,10 +8,15 @@ import { TabsTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1" orientation="vertical" class="w-full flex-row"><TabsList class="flex-col"><TabsTrigger value="tab-1" class="w-full">Overview
+  <Tabs default-value="tab-1" orientation="vertical" class="w-full flex-row"><TabsList class="flex-col"><TabsTrigger @click="onDemoClick" value="tab-1" class="w-full">Overview
         </TabsTrigger><TabsTrigger value="tab-2" class="w-full">Projects
         </TabsTrigger><TabsTrigger value="tab-3" class="w-full">Packages
         </TabsTrigger></TabsList><div class="grow rounded-md border text-start"><TabsContent value="tab-1"><p class="text-muted-foreground px-4 py-3 text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground px-4 py-3 text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground px-4 py-3 text-xs">Content for Tab 3</p></TabsContent></div></Tabs>

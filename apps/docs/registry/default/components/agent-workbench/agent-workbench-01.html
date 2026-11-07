@@ -1,0 +1,19 @@
+<div class="timui-html-demo space-y-3 p-4">
+  <p>Refund order 1842.</p>
+  <section aria-labelledby="refund-title">
+    <h2 id="refund-title">Refund 48 dollars</h2>
+    <p>Wait for a person before sending the refund.</p>
+    <button type="button" id="approve">Approve</button>
+    <button type="button" id="reject">Reject</button>
+    <p id="receipt" role="status"></p>
+  </section>
+  <script>
+    const receipt = document.getElementById('receipt')
+    document.getElementById('approve').addEventListener('click', () => {
+      receipt.textContent = 'Receipt: Approved'
+    })
+    document.getElementById('reject').addEventListener('click', () => {
+      receipt.textContent = 'Receipt: Rejected'
+    })
+  </script>
+</div>

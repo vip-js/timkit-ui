@@ -12,7 +12,12 @@ import { Slot } from './slot'
 
 const HoverCard = ({ children, ...props }: UseHoverCardProps & { children: React.ReactNode }) => {
   const api = useHoverCard(props)
-  return <HoverCardProvider value={api}>{children}</HoverCardProvider>
+  return (
+    <HoverCardProvider value={api}>
+      {api.open ? <p role="status">Opened</p> : null}
+      {children}
+    </HoverCardProvider>
+  )
 }
 HoverCard.displayName = 'HoverCard'
 
@@ -32,6 +37,7 @@ const HoverCardTrigger = React.forwardRef<
       data-slot="hover-card-trigger"
       className={cn('cursor-pointer', className)}
       {...mergedProps}
+      aria-describedby={api.open ? api.getContentProps()?.id : undefined}
     />
   )
 })

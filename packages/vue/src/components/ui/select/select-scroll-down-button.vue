@@ -9,7 +9,7 @@ const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 <template>
   <div :class="cn('flex cursor-default items-center justify-center py-1', props.class)">
     <slot>
-      <ChevronDownIcon class="h-4 w-4" />
+      <ChevronDownIcon aria-hidden="true" class="h-4 w-4" />
     </slot>
   </div>
 </template>

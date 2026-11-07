@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -20,6 +21,7 @@ export default function Component({
   totalPages,
   paginationItemsToDisplay = 5,
 }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
     currentPage,
     totalPages,
@@ -31,7 +33,7 @@ export default function Component({
       <PaginationContent>
         {/* First page button */}
         <PaginationItem>
-          <PaginationLink
+          <PaginationLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
             className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
             href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}
             aria-label="Go to first page"

@@ -1,12 +1,14 @@
 import { useId } from 'react'
 import { Checkbox, Label } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoChecked, setDemoChecked] = useState(false)
   const id = useId()
   return (
     <div className="flex gap-6">
       <div className="flex items-center gap-2">
-        <Checkbox id={`${id}-a`} />
+        <Checkbox checked={demoChecked} onCheckedChange={(checked) => setDemoChecked(checked === true)} id={`${id}-a`} />
         <Label htmlFor={`${id}-a`}>React</Label>
       </div>
       <div className="flex items-center gap-2">

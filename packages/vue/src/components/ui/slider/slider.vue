@@ -54,6 +54,7 @@ function getTooltipText(index: number) {
     data-slot="slider"
     :class="cn(sliderRootVariants(), props.class)"
   >
+    <p data-slot="slider-value" role="status">{{ (api.value ?? []).join(' to ') }}</p>
     <div
       v-bind="controlProps"
       data-slot="slider-control"

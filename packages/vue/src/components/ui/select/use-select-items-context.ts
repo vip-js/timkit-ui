@@ -5,6 +5,7 @@ type SelectItemsContext = {
   registerItem: (item: SelectItem) => void
   unregisterItem: (value: string) => void
   itemLabels: Ref<Record<string, string>>
+  placeholder?: Ref<string | undefined>
 }
 
 const SelectItemsContextKey = Symbol('selectItemsContext')

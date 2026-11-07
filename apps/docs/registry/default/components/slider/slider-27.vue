@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue';
 import { Slider } from '@timui/vue';
 
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="space-y-4"><legend class="text-foreground text-sm font-medium">Equalizer</legend><div class="flex h-48 justify-center gap-8"><div class="flex flex-col items-center gap-2"><Slider :default-value="[2]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="60 Hz" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">60</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[1]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="250 Hz" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">250</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[-1]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="1k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">1k</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[-3]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="4k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">4k</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[2]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="16k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">16K</Label></div></div></div>
+  <div class="space-y-4"><legend class="text-foreground text-sm font-medium">Equalizer</legend><div class="flex h-48 justify-center gap-8"><div class="flex flex-col items-center gap-2"><Slider @click="onDemoClick" :default-value="[2]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="60 Hz" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">60</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[1]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="250 Hz" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">250</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[-1]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="1k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">1k</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[-3]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="4k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">4k</Label></div><div class="flex flex-col items-center gap-2"><Slider :default-value="[2]" :min="-5" :max="5" orientation="vertical" class="[&>:last-child>span]:h-6 [&>:last-child>span]:w-4 [&>:last-child>span]:rounded" aria-label="16k" showTooltip /><Label class="text-muted-foreground flex w-0 justify-center text-xs">16K</Label></div></div></div>
 </template>

@@ -5,9 +5,10 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 
 export type DropdownMenuProps = {
   id?: string
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   closeOnSelect?: boolean
+  disabled?: boolean
   loopFocus?: boolean
   positioning?: PositioningOptions
   onOpenChange?: (open: boolean) => void
@@ -16,13 +17,14 @@ export type DropdownMenuProps = {
 }
 
 export function useDropdownMenu(props: DropdownMenuProps) {
-  const { onOpenChange, onSelect, ...menuProps } = props
+  const { onOpenChange, onSelect, open, defaultOpen, ...menuProps } = props
   const generatedId = React.useId()
+  const openControlled = open !== undefined
   const service = useMachine(menuMachine, {
     id: menuProps.id ?? generatedId,
-    open: menuProps.open,
-    defaultOpen: menuProps.defaultOpen,
+    ...(openControlled ? { open: open === true } : { defaultOpen }),
     closeOnSelect: menuProps.closeOnSelect,
+    disabled: menuProps.disabled,
     loopFocus: menuProps.loopFocus,
     positioning: menuProps.positioning,
     onOpenChange: (details: { open: boolean }) => onOpenChange?.(details.open),

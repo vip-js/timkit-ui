@@ -1,7 +1,12 @@
-<view>
-  <view class="space-y-4"><h2 class="text-xl font-bold">W/ icon, sub-header, and plus-minus</h2><accordion type="single" collapsible class="w-full" default-value="3"><accordionitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" value="{{item.id}}" key="{{item.id}}" class="py-2"><accordiontrigger class="focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between rounded-md py-2 text-left text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-[3px] [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&>svg]:rotate-0 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0" icon="{{<PlusIcon
-                  size={16}
-                  className="pointer-events-none shrink-0 opacity-60 transition-transform duration-200"
-                  aria-hidden="true"
-                />}}"><text class="flex items-center gap-3"><text class="flex size-10 shrink-0 items-center justify-center rounded-full border" aria-hidden="true"><item.icon size="{{16}}" class="opacity-60" /></text><text class="flex flex-col space-y-1"><text>{{ item.title }}</text><text wx:if="{{item.sub}}" class="text-sm font-normal">{{ item.sub }}</text></text></text></accordiontrigger><accordioncontent class="text-muted-foreground ms-3 ps-10 pb-2">{{ item.content }}</accordioncontent></accordionitem></accordion></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-4">
+    <text class="text-xl font-bold">W/ icon, sub-header, and plus-minus</text>
+    <view data-slot="accordion">
+      <view data-slot="accordion-item">
+        <view data-slot="accordion-trigger"
+          class="focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between rounded-md py-2 text-left text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-[3px] [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&>svg]:rotate-0 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0">
+          <view>
+            <text aria-hidden="true" size="16"
+             
+              aria-hidden="true">
 </view>

@@ -53,6 +53,7 @@ const ListBoxItem = React.forwardRef<HTMLDivElement, ListBoxItemProps>(
         ref={ref}
         data-slot="list-box-item"
         data-selected={itemState.selected ? 'true' : undefined}
+        data-highlighted={api.highlightedValue === resolvedValue ? '' : undefined}
         className={cn(listBoxItemVariants(), className, mergedClassName)}
         {...restItemProps}
       >

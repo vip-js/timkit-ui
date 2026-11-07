@@ -27,4 +27,12 @@ export type CommandProps = {
    * Event handler called when a key is pressed down.
    */
   onKeyDown?: (event: { key: string; target: { value: string } }) => void
+  /**
+   * Placeholder text for the command search input.
+   */
+  placeholder?: string
+  /**
+   * When true, filtering and selection are ignored.
+   */
+  disabled?: boolean
 }

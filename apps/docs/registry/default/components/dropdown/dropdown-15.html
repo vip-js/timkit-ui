@@ -1,7 +1,3 @@
-<template>
-  <div><DropdownMenu><DropdownMenuTrigger aschild><Button size="icon" variant="outline" aria-label="Select theme"><!-- if displayTheme === 'light' -->
-<SunIcon size="${16}" aria-hidden="true" />
-<!-- endif --><!-- if displayTheme === 'dark' -->
-<MoonIcon size="${16}" aria-hidden="true" />
-<!-- endif --></Button></DropdownMenuTrigger><DropdownMenuContent class="min-w-32"><DropdownMenuItem on-click="${() => setTheme('light')}"><SunIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>Light</span></DropdownMenuItem><DropdownMenuItem on-click="${() => setTheme('dark')}"><MoonIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>Dark</span></DropdownMenuItem><DropdownMenuItem on-click="${() => setTheme('system')}"><MonitorIcon size="${16}" class="opacity-60" aria-hidden="true" /><span>System</span></DropdownMenuItem></DropdownMenuContent></DropdownMenu></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div><div data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="icon" variant="outline" aria-label="Select theme"><span aria-hidden="true" size="16" aria-hidden="true"><span aria-hidden="true" size="16" aria-hidden="true"></button></button><div role="menu"><button type="button" role="menuitem"><span aria-hidden="true" size="16" aria-hidden="true"><span>Light</span></button><button type="button" role="menuitem"><span aria-hidden="true" size="16" aria-hidden="true"><span>Dark</span></button><button type="button" role="menuitem"><span aria-hidden="true" size="16" aria-hidden="true"><span>System</span></button></div></div></div>
+</div>

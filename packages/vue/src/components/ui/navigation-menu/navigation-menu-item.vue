@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { cn, navigationMenuItemVariants } from '@timui/core'
-import { computed, ref, useId, type HTMLAttributes } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useId, type HTMLAttributes } from 'vue'
 
 import {
   provideNavigationMenuItemContext,
   useNavigationMenuRootContext,
 } from './use-navigation-menu-context'
 
-const props = defineProps<{ class?: HTMLAttributes['class'] }>()
+const props = defineProps<{ class?: HTMLAttributes['class']; value?: string }>()
 const root = useNavigationMenuRootContext()
 const itemRef = ref<HTMLElement | null>(null)
-const value = ref(useId())
+const generated = useId()
+const value = computed(() => props.value || generated)
 const triggerId = ref(`nav-trigger-${useId()}`)
 const contentId = ref(`nav-content-${useId()}`)
 const open = computed(() => root?.openItem.value === value.value)
 
+let unregister: (() => void) | undefined
+onMounted(() => {
+  unregister = root?.register(value.value)
+})
+onBeforeUnmount(() => unregister?.())
 const setOpen = (nextOpen: boolean) => {
   root?.setOpenItem(nextOpen ? value.value : null)
 }

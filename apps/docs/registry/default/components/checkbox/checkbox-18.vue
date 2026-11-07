@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { h, type VNodeChild } from 'vue'
 import type { CheckboxTreeNode } from '@timui/core'
 import { Checkbox } from '@timui/vue'
@@ -48,10 +49,15 @@ function renderNode({
     children ? h('div', { class: 'ms-6 space-y-3' }, children as VNodeChild[]) : null,
   ])
 }
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="space-y-3">
-    <CheckboxTree :tree="initialTree" :renderNode="renderNode" />
+    <CheckboxTree @click="onDemoClick" :tree="initialTree" :renderNode="renderNode" />
   </div>
 </template>

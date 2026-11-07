@@ -1,7 +1,7 @@
-<view>
-  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">W/ title
-          </button></tooltiptrigger><tooltipcontent class="py-3"><view class="space-y-1"><text class="text-[13px] font-medium">Tooltip with title</text><text class="text-muted-foreground text-xs">Tooltips are made to be highly customizable, with features like dynamic placement,
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="tooltip-provider" delayDuration="0"><text data-slot="tooltip"><button type="button" data-slot="tooltip-trigger"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline" size="sm">W/ title
+          </button></button><text role="tooltip" data-slot="tooltip-content"><view class="space-y-1"><text class="text-[13px] font-medium">Tooltip with title</text><text class="text-muted-foreground text-xs">Tooltips are made to be highly customizable, with features like dynamic placement,
               rich content, and a robust API. You can even use them as a full-featured dropdown menu
               by setting the <code>trigger</code>prop to <code>click</code>.
-            </text></view></tooltipcontent></tooltip></tooltipprovider>
+            </text></view></text></text>
 </view>

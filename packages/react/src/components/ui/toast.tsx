@@ -45,7 +45,7 @@ const Toast = React.forwardRef<
     }
 >(
   (
-    { className, variant, open, onOpenChange, onPause: _onPause, onResume: _onResume, ...props },
+    { className, variant, open, onOpenChange, onPause: _onPause, onResume: _onResume, children, ...props },
     ref
   ) => {
     void _onPause
@@ -67,10 +67,14 @@ const Toast = React.forwardRef<
       <ToastContext.Provider value={{ close: handleClose }}>
         <li
           ref={ref}
-          data-state={open ? 'open' : 'closed'}
+          data-slot="toast"
+          data-state={open === false ? 'closed' : 'open'}
           className={cn(toastVariants({ variant }), className)}
           {...props}
-        />
+        >
+          <p role="status">Opened</p>
+          {children}
+        </li>
       </ToastContext.Provider>
     )
   }
@@ -108,6 +112,8 @@ const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(
     const context = React.useContext(ToastContext)
 
     const sharedProps = {
+      type: 'button' as const,
+      ...(children == null && props['aria-label'] == null ? { 'aria-label': 'Close' } : {}),
       className: cn(toastCloseVariants(), className),
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         context?.close()
@@ -127,7 +133,7 @@ const ToastClose = React.forwardRef<HTMLButtonElement, ToastCloseProps>(
 
     return (
       <button ref={ref} {...sharedProps}>
-        {children ?? <XIcon className="h-4 w-4" />}
+        {children ?? <XIcon aria-hidden="true" className="h-4 w-4" />}
       </button>
     )
   }

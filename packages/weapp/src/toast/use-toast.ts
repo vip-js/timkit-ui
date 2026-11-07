@@ -1,6 +1,6 @@
 import { toastConnect, toastMachine, type ToastApi } from '@timui/core'
 
-import { useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -19,11 +19,11 @@ export function setupToastMachine(
   props: UseToastProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => ToastApi
 } {
-  const machine = toastMachine({
+  const machine = bindMachine(toastMachine, {
     id: props.id || 'toast',
     type: props.type || 'info',
     duration: props.duration,
@@ -34,8 +34,8 @@ export function setupToastMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
-    connect: (state: object, send: MachineSend) => toastConnect(state, send) as ToastApi,
+    connect: (state: object, send: MachineSend) => toastConnect(state as never, normalizeProps) as ToastApi,
   }
 }

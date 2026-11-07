@@ -3,6 +3,8 @@ import { computed, useAttrs, type HTMLAttributes } from "vue";
 import { alertDialogCancelVariants, cn, buttonVariants } from "@timui/core";
 import { useAlertDialogContext } from "./use-alert-dialog-context";
 
+defineOptions({ inheritAttrs: false });
+
 const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 const attrs = useAttrs();
 const api = useAlertDialogContext();
@@ -13,6 +15,7 @@ const cancelAttrs = computed(() => {
 });
 
 const handleClick = (event: MouseEvent) => {
+  if (api.value.disabled) return;
   api.value.setOpen(false);
   const onClick = (attrs as Record<string, object>).onClick as
     | ((event: MouseEvent) => void)
@@ -25,6 +28,8 @@ const handleClick = (event: MouseEvent) => {
   <button
     v-bind="cancelAttrs"
     type="button"
+    data-slot="alert-dialog-cancel"
+    :disabled="api.disabled"
     :class="cn(buttonVariants({ variant: 'outline' }), alertDialogCancelVariants(), props.class)"
     @click="handleClick"
   >

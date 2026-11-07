@@ -1,4 +1,10 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Textarea with characters left</label><textarea id="{{id}}" value="{{value}}" maxlength="{{maxLength}}" onchange="{{handleChange}}" aria-describedby="{{`${id}-description`}}" /><text id="{{`${id}-description`}}" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite"><text class="tabular-nums">{{ limit - characterCount }}</text>characters left
-      </text></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label">Textarea with characters left</text>
+    <textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+      aria-describedby="Example-description"></textarea>
+    <text id="Example-description" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite">
+      <text class="tabular-nums"></text> characters left
+    </text>
+  </view>
 </view>

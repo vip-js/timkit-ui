@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { cn, comboboxRootVariants } from "@timui/core";
 import { useCombobox, type ComboboxProps } from "./use-combobox";
-import { provideComboboxContext } from "./use-combobox-context";
-
-
+import { provideComboboxContext, provideComboboxLabelPresence } from "./use-combobox-context";
 
 const props = defineProps<ComboboxProps>();
 
 const api = useCombobox(props);
+const labelled = ref(false);
 
 provideComboboxContext(api);
+provideComboboxLabelPresence(labelled);
 </script>
 
 <template>

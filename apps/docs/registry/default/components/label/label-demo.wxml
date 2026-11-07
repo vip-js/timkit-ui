@@ -1,3 +1,3 @@
-<view>
-  <view><view class="flex items-center space-x-2"><checkbox id="terms" /><label htmlfor="terms">Accept terms and conditions</label></view></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view><view class="flex items-center space-x-2"><input type="checkbox" data-slot="checkbox" id="terms"><text data-slot="label" for="terms">Accept terms and conditions</text></view></view>
 </view>

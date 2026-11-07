@@ -10,6 +10,7 @@ const props = defineProps<{
 <template>
   <span
     data-slot="dropdown-menu-shortcut"
+    aria-hidden="true"
     :class="cn(dropdownMenuShortcutVariants(), props.class)"
   >
     <slot />

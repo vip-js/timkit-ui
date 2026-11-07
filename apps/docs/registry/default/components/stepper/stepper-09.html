@@ -1,8 +1,6 @@
-<template>
-  <div class="mx-auto max-w-xl space-y-8 text-center"><div class="space-y-3"><Stepper value="${currentStep}" on-value-change="${setCurrentStep}"><!-- Loop steps -->
-<StepperItem key="${step}" step="${step}" class="flex-1"><StepperTrigger class="w-full flex-col items-start gap-2" aschild><StepperIndicator aschild class="bg-border h-2 w-full rounded-none"><span class="sr-only">${step}</span></StepperIndicator></StepperTrigger></StepperItem>
-<!-- End Loop --></Stepper><div class="text-muted-foreground text-sm font-medium tabular-nums">Step ${currentStep}of ${steps.length}</div></div><div class="flex justify-center space-x-4"><Button variant="outline" class="w-32" on-click="${() => setCurrentStep((prev) => prev - 1)}" disabled="${currentStep === 1}">Prev step
-        </Button><Button variant="outline" class="w-32" on-click="${() => setCurrentStep((prev) => prev + 1)}" disabled="${currentStep >= steps.length}">Next step
-        </Button></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Progress stepper
+<div class="timui-html-demo space-y-4 p-4">
+<div class="mx-auto max-w-xl space-y-8 text-center"><div class="space-y-3"><div role="group" aria-label="Stepper"><div data-slot="stepper-item"><div data-slot="stepper-trigger"><div data-slot="stepper-indicator"><span class="sr-only"></span></div><div class="text-muted-foreground text-sm font-medium tabular-nums">Step of </div></div><div class="flex justify-center space-x-4"><button type="button" data-slot="button" class="w-32 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"="setCurrentStep((prev) => prev - 1)">Prev step
+        </button><button type="button" data-slot="button" class="w-32 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"="setCurrentStep((prev) => prev + 1)">Next step
+        </button></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Progress stepper
       </p></div>
-</template>
+</div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, type Component, type HTMLAttributes } from "vue";
+import { computed, inject, type Component, type ComputedRef, type HTMLAttributes } from "vue";
 import { cn, tabsTriggerVariants } from "@timui/core";
 import { Primitive } from '../../primitive';
 import { useTabsContext } from "./use-tabs-context";
@@ -13,9 +13,19 @@ const props = defineProps<{
 }>();
 
 const api = useTabsContext();
-const triggerProps = computed(() =>
-  api.value.getTriggerProps?.({ value: props.value, disabled: props.disabled }) ?? {},
-);
+inject<((value: string) => void) | null>("tabs-register", null)?.(props.value);
+const groupDisabled = inject<ComputedRef<boolean>>("tabs-disabled", computed(() => false));
+const triggerProps = computed(() => {
+  const locked = groupDisabled.value || props.disabled === true;
+  const next = api.value.getTriggerProps?.({ value: props.value, disabled: locked }) ?? {};
+  if (!groupDisabled.value) return next;
+  return {
+    ...next,
+    disabled: true,
+    "aria-disabled": "true",
+    onClick: (event: Event) => event.preventDefault(),
+  };
+});
 const isSelected = computed(() => api.value.value === props.value);
 </script>
 

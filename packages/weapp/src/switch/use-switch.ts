@@ -1,7 +1,7 @@
 import { switchConnect, switchMachine } from '@timui/core'
 
 import { emitTimEvent } from '../utils'
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -22,7 +22,7 @@ type SwitchInstance = WechatMiniprogram.Component.TrivialInstance & {
 export function setupSwitchMachine(instance: SwitchInstance) {
   const { checked, disabled, required, readOnly, value, name, label, id } = instance.properties
 
-  const machine = switchMachine({
+  const machine = bindMachine(switchMachine, {
     id: id || 'switch',
     name,
     value,
@@ -43,6 +43,6 @@ export function setupSwitchMachine(instance: SwitchInstance) {
 
   return {
     controller,
-    connect: (state: object, send: MachineSend) => switchConnect(state, send, normalizeProps),
+    connect: (state: object, send: MachineSend) => switchConnect(state as never, normalizeProps),
   }
 }

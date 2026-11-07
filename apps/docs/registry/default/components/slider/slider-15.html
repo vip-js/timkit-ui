@@ -1,10 +1,36 @@
-<template>
-  <div class="space-y-3"><div class="flex items-center justify-between gap-2"><Label>Temperature</Label><div class="flex items-center gap-1"><TooltipProvider delayduration="${0}"><Tooltip><TooltipTrigger aschild><Button size="icon" variant="ghost" class="${cn(
-                    'size-7 transition-opacity',
-                    showReset ? 'opacity-100' : 'opacity-0'
-                  )}" aria-label="Reset" on-click="${resetToDefault}"><RotateCcwIcon size="${16}" aria-hidden="true" /></Button></TooltipTrigger><TooltipContent class="px-2 py-1 text-xs">Reset to default</TooltipContent></Tooltip></TooltipProvider><Input class="h-7 w-12 px-2 py-0" type="text" inputmode="decimal" value="${inputValues[0]}" onchange="${(e) => handleInputChange(e, 0)}" onblur="${() => validateAndUpdateValue(inputValues[0] ?? '', 0)}" onkeydown="${(e) => {
-              if (e.key === 'Enter') {
-                validateAndUpdateValue(inputValues[0] ?? '', 0)
-              }
-            }}" aria-label="Enter value" /></div></div><div class="flex items-center gap-4"><Slider class="grow" value="${sliderValue}" on-value-change="${handleSliderChange}" min="${minValue}" max="${maxValue}" step="${0.01}" aria-label="Temperature" /></div></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-3">
+    <div class="flex items-center justify-between gap-2">
+      <label data-slot="label">Temperature</label>
+      <div class="flex items-center gap-1">
+        <div data-slot="tooltip-provider" delayDuration="0">
+          <span data-slot="tooltip">
+            <button type="button" data-slot="tooltip-trigger">
+              <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+                size="icon"
+                variant="ghost"
+                aria-label="Reset">
+                <span aria-hidden="true" size="16" aria-hidden="true">
+              </button>
+            </button>
+            <span role="tooltip" data-slot="tooltip-content">Reset to default</span>
+          </span>
+        
+        <input data-slot="input" class="h-7 w-12 px-2 py-0 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+         
+          type="text"
+          inputMode="decimal"
+         ="(next) => handleInputChange(next, 0)"
+         
+         
+          aria-label="Enter value" />
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <input type="range" data-slot="slider"
+       
+        step="0.01"
+        aria-label="Temperature">
+    </div>
+  </div>
+</div>

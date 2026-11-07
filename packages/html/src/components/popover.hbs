@@ -1,8 +1,11 @@
 <div data-slot="popover" class="{{navigationMenuItemVariants}}">
-  <button data-slot="popover-trigger" aria-expanded="false" class="{{switchRootVariants}}">
+  <button id="popover-trigger" data-slot="popover-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-content" class="{{switchRootVariants}}">
     Open popover
   </button>
   <div
+    id="popover-content"
+    role="dialog" tabindex="-1"
+    aria-label="Popover"
     data-slot="popover-content"
     data-state="closed"
     hidden

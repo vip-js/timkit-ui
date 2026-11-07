@@ -6,6 +6,14 @@ import { useNavigationMenuItemContext } from './use-navigation-menu-context'
 
 const props = defineProps<{ class?: HTMLAttributes['class'] }>()
 const item = useNavigationMenuItemContext()
+
+const onKeyDown = (event: KeyboardEvent) => {
+  if (!item || event.key !== 'Escape') return
+  event.preventDefault()
+  item.setOpen(false)
+  const trigger = document.getElementById(item.triggerId.value)
+  if (trigger instanceof HTMLElement) trigger.focus()
+}
 </script>
 
 <template>
@@ -13,8 +21,10 @@ const item = useNavigationMenuItemContext()
     v-if="item?.open.value"
     :id="item?.contentId.value"
     :aria-labelledby="item?.triggerId.value"
+    role="region"
     data-slot="navigation-menu-content"
     data-state="open"
+    @keydown="onKeyDown"
     :class="
       cn(
         navigationMenuContentVariants(),

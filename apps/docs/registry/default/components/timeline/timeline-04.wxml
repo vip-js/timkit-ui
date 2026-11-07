@@ -1,3 +1,6 @@
-<view>
-  <timeline default-value="{{3}}"><timelineitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" step="{{item.id}}"><timelineheader><timelineseparator /><timelinetitle class="-mt-0.5">{{ item.title }}</timelinetitle><timelineindicator /></timelineheader><timelinecontent>{{ item.description }}<timelinedate class="mt-2 mb-0">{{ item.date }}</timelinedate></timelinecontent></timelineitem></timeline>
+<view class="timui-html-demo space-y-4 p-4">
+<view><view step="1"><view data-slot="timeline-header"><text aria-hidden="true"><text>Pull Request Submitted</text><text aria-hidden="true"><view data-slot="timeline-content">Submitted PR #342 with new feature implementation. Waiting for code review from team leads.<view data-slot="timeline-date">15 minutes ago</view>
+<view step="2"><view data-slot="timeline-header"><text aria-hidden="true"><text>CI Pipeline Started</text><text aria-hidden="true"><view data-slot="timeline-content">Automated tests and build process initiated. Running unit tests and code quality checks.<view data-slot="timeline-date">10 minutes ago</view>
+<view step="3"><view data-slot="timeline-header"><text aria-hidden="true"><text>Code Review Feedback</text><text aria-hidden="true"><view data-slot="timeline-content">Received comments on PR. Minor adjustments needed in error handling and documentation.<view data-slot="timeline-date">5 minutes ago</view>
+<view step="4"><view data-slot="timeline-header"><text aria-hidden="true"><text>Changes Pushed</text><text aria-hidden="true"><view data-slot="timeline-content">Implemented requested changes and pushed updates to feature branch. Awaiting final approval.<view data-slot="timeline-date"></view></view>
 </view>

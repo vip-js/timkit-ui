@@ -1,4 +1,5 @@
 import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@timui/react'
+import { useState } from 'react'
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -8,12 +9,13 @@ import {
 } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="inline-grid w-fit grid-cols-3 gap-1">
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button
+            <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
               className="col-start-2"
               variant="outline"
               size="icon"

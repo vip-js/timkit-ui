@@ -43,6 +43,18 @@ const numberFieldSchema = defineUCS({
       defaultValue: 1,
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, value changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, value changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'onValueChange',
       type: 'event',
       description: 'Event handler called when the value changes.',

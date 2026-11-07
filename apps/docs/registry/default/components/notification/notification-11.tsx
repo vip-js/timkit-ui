@@ -1,7 +1,9 @@
 import { Button } from '@timui/react'
 import { TriangleAlertIcon, XIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.
     <div className="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg">
@@ -20,7 +22,7 @@ export default function Component() {
               </p>
             </div>
             <div>
-              <Button size="sm">Learn more</Button>
+              <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} size="sm">Learn more</Button>
             </div>
           </div>
         </div>

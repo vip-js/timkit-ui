@@ -1,5 +1,5 @@
-<view>
-  <tooltipprovider delayduration="{{0}}"><tooltip><tooltiptrigger aschild><button variant="outline" size="sm">W/ arrow
-          </button></tooltiptrigger><tooltipcontent class="dark px-2 py-1 text-xs" showarrow="{{true}}">This tooltip has an arrow
-        </tooltipcontent></tooltip></tooltipprovider>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="tooltip-provider" delayDuration="0"><text data-slot="tooltip"><button type="button" data-slot="tooltip-trigger"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline" size="sm">W/ arrow
+          </button></button><text role="tooltip" data-slot="tooltip-content" showArrow>This tooltip has an arrow
+        </text></text>
 </view>

@@ -1,15 +1,20 @@
-<nav data-slot="navigation-menu" class="relative inline-flex items-center gap-2">
+<nav data-slot="navigation-menu" aria-label="Navigation" class="relative inline-flex items-center gap-2">
   <div data-slot="navigation-menu-item" data-state="closed" class="relative">
     <button
+      id="navigation-trigger-platform"
       data-slot="navigation-menu-trigger"
       type="button"
       data-state="closed"
       aria-expanded="false"
+      aria-controls="navigation-content-platform"
       class="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state&#x3D;open]:bg-accent/50"
     >
       Platform
     </button>
     <div
+      id="navigation-content-platform"
+      role="region"
+      aria-labelledby="navigation-trigger-platform"
       data-slot="navigation-menu-content"
       data-state="closed"
       hidden

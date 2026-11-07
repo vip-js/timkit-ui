@@ -62,6 +62,17 @@ export const agentUiCatalog: AgentUiComponent[] = [
     statuses: [],
     designNotes: ['Do not hide sources inside unmarked markdown when the answer depends on them.'],
   },
+  {
+    name: 'AgentThreadView',
+    importFrom: '@timui/react/agent',
+    summary:
+      'Renders an AgentThread. User actions go out as data; reduceAgentThread from @timui/core/agent-thread applies them.',
+    statuses: ['ready', 'running'],
+    designNotes: [
+      'Author the thread as data. Do not hand-build a new screen for each agent turn.',
+      'A tool with approvalId cannot finish until that approval is approved.',
+    ],
+  },
 ]
 
 export const listAgentUi = () => agentUiCatalog

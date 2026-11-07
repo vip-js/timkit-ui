@@ -41,6 +41,18 @@ export type MultiselectProps = {
    */
   disabled?: boolean
   /**
+   * The controlled open state of the list.
+   */
+  open?: boolean | null
+  /**
+   * The default open state of the list when uncontrolled.
+   */
+  defaultOpen?: boolean | null
+  /**
+   * Callback fired when the list open state changes.
+   */
+  onOpenChange?: (open: boolean) => void
+  /**
    * The maximum number of items that can be selected.
    */
   maxSelected?: number
@@ -111,6 +123,18 @@ export type MultiselectVueProps = {
    * When `true`, prevents the user from interacting with the component.
    */
   disabled?: boolean
+  /**
+   * The controlled open state of the list.
+   */
+  open?: boolean | null
+  /**
+   * The default open state of the list when uncontrolled.
+   */
+  defaultOpen?: boolean | null
+  /**
+   * Callback fired when the list open state changes.
+   */
+  onOpenChange?: (open: boolean) => void
   /**
    * The maximum number of items that can be selected.
    */

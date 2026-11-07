@@ -1,6 +1,6 @@
-<template>
-  <TooltipProvider delayduration="${0}"><Tooltip><TooltipTrigger aschild><Button variant="outline" size="sm">W/ icon
-          </Button></TooltipTrigger><TooltipContent class="dark py-3"><div class="flex gap-3"><GlobeIcon class="mt-0.5 shrink-0 opacity-60" size="${16}" aria-hidden="true" /><div class="space-y-1"><p class="text-[13px] font-medium">Tooltip with title and icon</p><p class="text-muted-foreground text-xs">Tooltips are made to be highly customizable, with features like dynamic placement,
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="tooltip-provider" delayDuration="0"><span data-slot="tooltip"><button type="button" data-slot="tooltip-trigger"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline" size="sm">W/ icon
+          </button></button><span role="tooltip" data-slot="tooltip-content"><div class="flex gap-3"><span aria-hidden="true" size="16" aria-hidden="true"><div class="space-y-1"><p class="text-[13px] font-medium">Tooltip with title and icon</p><p class="text-muted-foreground text-xs">Tooltips are made to be highly customizable, with features like dynamic placement,
                 rich content, and a robust API.
-              </p></div></div></TooltipContent></Tooltip></TooltipProvider>
-</template>
+              </p></div></div></span></span>
+</div>

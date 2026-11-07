@@ -1,8 +1,15 @@
-<template>
-  <div><div class="rounded-md border p-2"><Calendar mode="single" selected="${date}" onSelect="${setDate}" month="${month}" onmonthchange="${setMonth}" /><Button variant="outline" size="sm" class="mt-2 mb-1" on-click="${() => {
-            setDate(today)
-            setMonth(today)
-          }}">Today
-        </Button></div><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">With button -${' '}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div>
+    <div class="rounded-md border p-2">
+      <span aria-hidden="true"
+        mode="single">
+      <button type="button" data-slot="button" class="mt-2 mb-1 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" size="sm">Today</button>
+    </div>
+    <p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">
+      With button -
+      <a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">
+        React DayPicker
+      </a>
+    </p>
+  </div>
+</div>

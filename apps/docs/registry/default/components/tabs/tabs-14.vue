@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Badge } from '@timui/vue';
 import { Tabs } from '@timui/vue';
 import { TabsContent } from '@timui/vue';
@@ -8,10 +9,15 @@ import { TabsTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1"><TabsList class="mx-auto flex w-full max-w-xs bg-transparent"><TabsTrigger value="tab-1" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">3
+  <Tabs default-value="tab-1"><TabsList class="mx-auto flex w-full max-w-xs bg-transparent"><TabsTrigger @click="onDemoClick" value="tab-1" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">3
           </Badge>Overview
         </TabsTrigger><TabsTrigger value="tab-2" class="group data-[state=active]:bg-muted flex-1 flex-col p-3 text-xs data-[state=active]:shadow-none"><Badge class="mb-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50">0
           </Badge>Projects

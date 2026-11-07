@@ -37,6 +37,7 @@ type NavigationMenuRootContextValue = {
   userSelected: boolean
   setUserSelected: React.Dispatch<React.SetStateAction<boolean>>
   viewport: boolean
+  disabled: boolean
 }
 
 type NavigationMenuItemContextValue = {
@@ -85,9 +86,33 @@ const useNavigationMenuItemContext = () => {
   return context
 }
 
+function navigationValues(children: React.ReactNode): string[] {
+  return React.Children.toArray(children).flatMap((child) => {
+    if (!React.isValidElement(child)) return []
+    const props = child.props as { value?: unknown; children?: React.ReactNode }
+    const own = typeof props.value === 'string' && props.value ? [props.value] : []
+    return [...own, ...navigationValues(props.children)]
+  })
+}
+
 const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
-  ({ className, children, orientation = 'horizontal', viewport = true, ...props }, ref) => {
-    const [openItem, setOpenItem] = React.useState<string | null>(null)
+  ({ className, children, orientation = 'horizontal', viewport = true, value, disabled = false, onValueChange, ...props }, ref) => {
+    const { 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...restProps } = props
+    const [openState, setOpenState] = React.useState<string | null>(null)
+    const controlled = value !== undefined
+    const openItem = controlled ? value || null : openState
+    const setOpenItem = React.useCallback(
+      (next: React.SetStateAction<string | null>) => {
+        if (disabled) return
+        const resolved = typeof next === 'function' ? next(openItem) : next
+        if (!controlled) setOpenState(resolved)
+        onValueChange?.(resolved)
+      },
+      [controlled, disabled, onValueChange, openItem]
+    )
+    const itemValues = navigationValues(children)
+    const itemIndex = openItem ? itemValues.indexOf(openItem) : -1
+    const itemStatus = itemIndex < 0 ? '' : `Item ${itemIndex + 1} of ${itemValues.length}`
     const [activeItem, setActiveItem] = React.useState<string | null>(null)
     const [userSelected, setUserSelected] = React.useState(false)
     const localRef = React.useRef<HTMLElement | null>(null)
@@ -115,15 +140,23 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
           userSelected,
           setUserSelected,
           viewport,
+          disabled,
         }}
       >
         <nav
           ref={composeRefs(ref, localRef)}
           data-slot="navigation-menu"
           data-orientation={orientation}
+          aria-disabled={disabled || undefined}
+          data-disabled={disabled ? '' : undefined}
           className={cn(navigationMenuVariants(), className)}
-          {...props}
+          {...restProps}
+          aria-labelledby={ariaLabelledBy}
+          aria-label={
+            ariaLabelledBy ? undefined : typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Navigation'
+          }
         >
+          {itemStatus ? <p role="status">{itemStatus}</p> : null}
           {children}
         </nav>
       </NavigationMenuRootContext.Provider>
@@ -133,7 +166,7 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
 NavigationMenu.displayName = 'NavigationMenu'
 
 type NavigationMenuListProps = React.ComponentPropsWithoutRef<'ul'>
-type NavigationMenuItemProps = React.ComponentPropsWithoutRef<'li'>
+type NavigationMenuItemProps = React.ComponentPropsWithoutRef<'li'> & { value?: string }
 type NavigationMenuTriggerProps = React.ComponentPropsWithoutRef<'button'> & {
   asChild?: boolean
 }
@@ -158,9 +191,10 @@ const NavigationMenuList = React.forwardRef<HTMLUListElement, NavigationMenuList
 NavigationMenuList.displayName = 'NavigationMenuList'
 
 const NavigationMenuItem = React.forwardRef<HTMLLIElement, NavigationMenuItemProps>(
-  ({ className, onBlur, onMouseLeave, ...props }, ref) => {
+  ({ className, value: valueProp, onBlur, onMouseLeave, ...props }, ref) => {
     const root = useNavigationMenuRootContext()
-    const value = React.useId()
+    const generated = React.useId()
+    const value = valueProp ?? generated
     const triggerId = React.useId()
     const contentId = React.useId()
     const open = root?.openItem === value
@@ -199,16 +233,24 @@ const NavigationMenuItem = React.forwardRef<HTMLLIElement, NavigationMenuItemPro
 NavigationMenuItem.displayName = 'NavigationMenuItem'
 
 const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, NavigationMenuTriggerProps>(
-  ({ className, children, asChild = false, onClick, onKeyDown, onPointerEnter, ...props }, ref) => {
+  (
+    { className, children, asChild = false, disabled = false, onClick, onKeyDown, onPointerEnter, ...props },
+    ref
+  ) => {
     const item = useNavigationMenuItemContext()
+    const root = useNavigationMenuRootContext()
+    const locked = disabled || root?.disabled === true
     const Comp = asChild ? Slot : 'button'
     const handleClick = composeEventHandlers(onClick, () => {
+      if (locked) return
       item.setOpen(!item.open)
     })
     const handlePointerEnter = composeEventHandlers(onPointerEnter, () => {
+      if (locked) return
       item.setOpen(true)
     })
     const handleKeyDown = composeEventHandlers(onKeyDown, (event: React.KeyboardEvent) => {
+      if (locked) return
       if (event.key === 'Escape') {
         item.setOpen(false)
         return
@@ -229,6 +271,7 @@ const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, NavigationMenu
         data-slot="navigation-menu-trigger"
         data-state={item.open ? 'open' : 'closed'}
         className={cn(navigationMenuTriggerStyle(), 'group', className)}
+        disabled={locked}
         onClick={handleClick}
         onPointerEnter={handlePointerEnter}
         onKeyDown={handleKeyDown}
@@ -243,7 +286,7 @@ const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, NavigationMenu
 NavigationMenuTrigger.displayName = 'NavigationMenuTrigger'
 
 const NavigationMenuContent = React.forwardRef<HTMLDivElement, NavigationMenuContentProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, onKeyDown, ...props }, ref) => {
     const item = useNavigationMenuItemContext()
     if (!item.open) return null
 
@@ -260,6 +303,15 @@ const NavigationMenuContent = React.forwardRef<HTMLDivElement, NavigationMenuCon
           className
         )}
         {...props}
+        role="region"
+        onKeyDown={(event) => {
+          onKeyDown?.(event)
+          if (event.key !== 'Escape') return
+          event.preventDefault()
+          item.setOpen(false)
+          const trigger = event.currentTarget.ownerDocument.getElementById(item.triggerId)
+          if (trigger instanceof HTMLElement) trigger.focus()
+        }}
       />
     )
   }

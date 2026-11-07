@@ -10,6 +10,7 @@ const api = useAvatarContext();
 <template>
   <div
     v-bind="api.getFallbackProps()"
+    data-slot="avatar-fallback"
     :class="cn(avatarFallbackVariants(), props.class)"
   >
     <slot />

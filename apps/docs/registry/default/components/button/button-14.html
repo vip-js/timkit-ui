@@ -1,5 +1,3 @@
-<template>
-  <Button on-click="${handleClick}" disabled="${isLoading}" data-loading="${isLoading || undefined}" class="group relative disabled:opacity-100"><span class="group-data-loading:text-transparent">Click me</span><!-- if isLoading -->
-<div class="absolute inset-0 flex items-center justify-center"><LoaderCircleIcon class="animate-spin" size="${16}" aria-hidden="true" /></div>
-<!-- endif --></Button>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<button type="button" data-slot="button" class="group relative disabled:opacity-100 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><span class="group-data-loading:text-transparent">Click me</span><div class="absolute inset-0 flex items-center justify-center"><span aria-hidden="true" size="16" aria-hidden="true"></div></button>
+</div>

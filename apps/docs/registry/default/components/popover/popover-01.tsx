@@ -1,14 +1,16 @@
 import { useId } from 'react'
 import { Button, Checkbox, Label, Popover, PopoverContent, PopoverTrigger } from '@timui/react'
 import { ListFilterIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
     <div className="flex flex-col gap-4">
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="icon" aria-label="Filters">
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline" size="icon" aria-label="Filters">
             <ListFilterIcon size={16} aria-hidden="true" />
           </Button>
         </PopoverTrigger>

@@ -1,15 +1,30 @@
-<view>
-  <dialog bindchange="{
-        if (open) setStep(1)
-      }"><dialogtrigger aschild><button variant="outline">Onboarding</button></dialogtrigger><dialogcontent class="gap-0 p-0 [&>button:last-child]:text-white"><view class="p-2"><image class="w-full rounded-md" src="/dialog-content.png" width="{{382}}" height="{{216}}" alt="dialog" /></view><view class="space-y-6 px-6 pt-3 pb-6"><dialogheader><dialogtitle>{{ stepContent[step - 1].title }}</dialogtitle><dialogdescription>{{ stepContent[step - 1].description }}</dialogdescription></dialogheader><view class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center"><view class="flex justify-center space-x-1.5 max-sm:order-1"><div wx:for="{{[...Array(totalSteps)]}}" wx:for-item="_" wx:for-index="index" wx:key="index" key="{{index}}" class="{{cn(
-                    'bg-primary size-1.5 rounded-full',
-                    index + 1 === step ? 'bg-primary' : 'opacity-20'
-                  )}}" /></view><dialogfooter><dialogclose aschild><button type="button" variant="ghost">Skip
-                </button></dialogclose><block wx:if="{{step < totalSteps}}">
-<button class="group" type="button" bindtap="handleContinue">Next
-                  <arrowrighticon class="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5" size="{{16}}" aria-hidden="true" /></button>
-</block>
-<block wx:else>
-<dialogclose aschild><button type="button">Okay</button></dialogclose>
-</block></dialogfooter></view></view></dialogcontent></dialog>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dialog">
+    <button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Onboarding</button>
+    </button>
+    <view data-slot="dialog-content" class="gap-0 p-0 [&>button:last-child]:text-white">
+      <view class="p-2">
+        <img class="w-full rounded-md" src="/dialog-content.png" width="382" height="216" alt="dialog">
+      </view>
+      <view class="space-y-6 px-6 pt-3 pb-6">
+        <view data-slot="dialog-header">
+          <text data-slot="dialog-title"></text>
+          <text data-slot="dialog-description"></text>
+        </view>
+        <view class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <view class="flex justify-center space-x-1.5 max-sm:order-1">
+            <view>
+          </view>
+          <view data-slot="dialog-footer">
+            <view data-slot="dialog-close">
+              <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button" variant="ghost">Skip</button>
+            
+            <view>
+              <button type="button" data-slot="button" class="group inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">
+                Next
+                <text aria-hidden="true"
+                  size="16"
+                  aria-hidden="true">
+              </button>
 </view>

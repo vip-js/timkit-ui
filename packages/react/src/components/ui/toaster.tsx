@@ -1,5 +1,7 @@
 'use client'
 
+import { cn } from '@timui/core'
+
 import { useToast } from '../../hooks/use-toast'
 import {
   Toast,
@@ -10,7 +12,7 @@ import {
   ToastViewport,
 } from './toast'
 
-export function Toaster() {
+export function Toaster({ className }: { className?: string }) {
   const { toasts } = useToast()
 
   return (
@@ -33,7 +35,7 @@ export function Toaster() {
           </Toast>
         )
       })}
-      <ToastViewport />
+      <ToastViewport className={cn(className)} />
     </ToastProvider>
   )
 }

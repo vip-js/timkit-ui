@@ -234,7 +234,7 @@ export default function Component() {
       </div>
 
       {/* Cropper Dialog - Use isDialogOpen for open prop */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isDialogOpen} onOpenChange={(event) => setIsDialogOpen(event.detail.open)}>
         <DialogContent className="gap-0 p-0 sm:max-w-140 *:[button]:hidden">
           <DialogDescription className="sr-only">Crop image dialog</DialogDescription>
           <DialogHeader className="contents space-y-0 text-left">
@@ -274,12 +274,13 @@ export default function Component() {
             <div className="mx-auto flex w-full max-w-80 items-center gap-4">
               <ZoomOutIcon className="shrink-0 opacity-60" size={16} aria-hidden="true" />
               <Slider
+                id="zoom"
                 defaultValue={[1]}
                 value={[zoom]}
                 min={1}
                 max={3}
                 step={0.1}
-                onValueChange={(value) => setZoom(value[0])}
+                onValueChange={(event) => setZoom(event.detail.value[0] ?? 1)}
                 aria-label="Zoom slider"
               />
               <ZoomInIcon className="shrink-0 opacity-60" size={16} aria-hidden="true" />

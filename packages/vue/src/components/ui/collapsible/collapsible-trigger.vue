@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, type Component, type HTMLAttributes } from 'vue'
+import { computed, type Component, type HTMLAttributes } from 'vue'
 import { cn } from '@timui/core'
 import { Primitive } from '../../primitive'
+import { useCollapsibleContext } from './use-collapsible-context'
 
 const props = withDefaults(
   defineProps<{
@@ -14,12 +15,8 @@ const props = withDefaults(
   },
 )
 
-type BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void)
-type CollapsibleApi = {
-  getTriggerProps?: () => Record<string, BindValue>
-}
-const context = inject('collapsible') as { api: CollapsibleApi } | null
-const triggerProps = computed(() => context?.api.getTriggerProps?.() ?? {})
+const api = useCollapsibleContext()
+const triggerProps = computed(() => api.value.getTriggerProps())
 </script>
 
 <template>

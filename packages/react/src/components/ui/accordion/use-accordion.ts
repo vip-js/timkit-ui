@@ -11,7 +11,7 @@ type AccordionChangeEvent = {
 
 export interface UseAccordionProps {
   id?: string
-  value?: string | string[]
+  value?: string | string[] | null
   defaultValue?: string | string[]
   type?: 'single' | 'multiple'
   collapsible?: boolean
@@ -19,10 +19,11 @@ export interface UseAccordionProps {
   onValueChange?: (details: AccordionChangeEvent) => void
 }
 
-const toArray = (value?: string | string[] | null, multiple?: boolean) => {
-  if (value == null) return undefined
+const toArray = (value?: string | string[] | null) => {
+  if (value === undefined) return undefined
+  if (value == null || value === '') return []
   if (Array.isArray(value)) return value
-  return value === '' ? [] : [value]
+  return [value]
 }
 
 const toValue = (value: string[], multiple: boolean) => {
@@ -34,8 +35,8 @@ export function useAccordion(props: UseAccordionProps = {}) {
   const generatedId = React.useId()
   const accordionId = props.id ?? generatedId
   const multiple = props.type === 'multiple'
-  const value = toArray(props.value, multiple)
-  const defaultValueArray = toArray(props.defaultValue, multiple)
+  const value = toArray(props.value)
+  const defaultValueArray = toArray(props.defaultValue)
 
   const service = useMachine(accordionMachine, {
     id: accordionId,

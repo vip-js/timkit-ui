@@ -1,8 +1,15 @@
 <div class="{{sliderRootVariants}}">
+    <p role="status">50</p>
     <span class="{{progressRootVariants}}">
         <span class="absolute h-full bg-primary" style="left: 0%; width: 50%;"></span>
     </span>
     <span
+        role="slider"
+        aria-label="Value"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="50"
+        tabindex="0"
         class="{{tabsContentVariants}}"
         style="left: 50%; transform: translateX(-50%);"></span>
 </div>

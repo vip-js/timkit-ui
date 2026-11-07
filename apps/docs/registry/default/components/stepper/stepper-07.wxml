@@ -1,4 +1,7 @@
-<view>
-  <view class="mx-auto max-w-xl space-y-8 text-center"><stepper default-value="{{2}}" class="items-start gap-4"><stepperitem wx:for="{{steps}}" wx:for-item="{ step, title }" wx:for-index="index" wx:key="index" key="{{step}}" step="{{step}}" class="flex-1"><steppertrigger class="w-full flex-col items-start gap-2 rounded"><stepperindicator aschild class="bg-border h-1 w-full"><text class="sr-only">{{ step }}</text></stepperindicator><view class="space-y-0.5"><steppertitle>{{ title }}</steppertitle></view></steppertrigger></stepperitem></stepper><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with labels
+<view class="timui-html-demo space-y-4 p-4">
+<view class="mx-auto max-w-xl space-y-8 text-center"><view role="group" aria-label="Stepper"><view data-slot="stepper-item" step="1"><view data-slot="stepper-trigger"><view data-slot="stepper-indicator"><text class="sr-only">1</text><view class="space-y-0.5"><view data-slot="stepper-title">Step One</view>
+<view data-slot="stepper-item" step="2"><view data-slot="stepper-trigger"><view data-slot="stepper-indicator"><text class="sr-only">2</text><view class="space-y-0.5"><view data-slot="stepper-title">Step Two</view>
+<view data-slot="stepper-item" step="3"><view data-slot="stepper-trigger"><view data-slot="stepper-indicator"><text class="sr-only">3</text><view class="space-y-0.5"><view data-slot="stepper-title">Step Three</view>
+<view data-slot="stepper-item" step="4"><view data-slot="stepper-trigger"><view data-slot="stepper-indicator"><text class="sr-only">4</text><view class="space-y-0.5"><view data-slot="stepper-title">Step Four</view></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Stepper with labels
       </text></view>
 </view>

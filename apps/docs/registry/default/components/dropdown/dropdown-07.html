@@ -1,5 +1,5 @@
-<template>
-  <DropdownMenu><DropdownMenuTrigger aschild><Button variant="outline">Radio items
-          <ChevronDownIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuRadioGroup value="${framework}" on-value-change="${setFramework}"><DropdownMenuRadioItem value="nextjs">Next.js</DropdownMenuRadioItem><DropdownMenuRadioItem value="sveltekit" disabled>SvelteKit
-          </DropdownMenuRadioItem><DropdownMenuRadioItem value="remix">Remix</DropdownMenuRadioItem><DropdownMenuRadioItem value="astro">Astro</DropdownMenuRadioItem></DropdownMenuRadioGroup></DropdownMenuContent></DropdownMenu>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Radio items
+          <span aria-hidden="true" size="16" aria-hidden="true"></button></button><div role="menu"><div data-slot="dropdown-menu-radio-group"><div data-slot="dropdown-menu-radio-item" value="nextjs">Next.js<div data-slot="dropdown-menu-radio-item" value="sveltekit" disabled>SvelteKit
+          <div data-slot="dropdown-menu-radio-item" value="remix">Remix<div data-slot="dropdown-menu-radio-item" value="astro">Astro</div></div>
+</div>

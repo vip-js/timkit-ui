@@ -1,8 +1,8 @@
-<view>
-  <dropdownmenu><dropdownmenutrigger aschild><button variant="outline">Checkbox items
-          <chevrondownicon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent><dropdownmenucheckboxitem checked="{{nextjs}}" oncheckedchange="{{setNextjs}}">Next.js
-        </dropdownmenucheckboxitem><dropdownmenucheckboxitem checked="{{sveltekit}}" oncheckedchange="{{setSveltekit}}">SvelteKit
-        </dropdownmenucheckboxitem><dropdownmenucheckboxitem checked="{{remix}}" oncheckedchange="{{setRemix}}" disabled>Remix
-        </dropdownmenucheckboxitem><dropdownmenucheckboxitem checked="{{astro}}" oncheckedchange="{{setAstro}}">Astro
-        </dropdownmenucheckboxitem></dropdownmenucontent></dropdownmenu>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Checkbox items
+          <text aria-hidden="true" size="16" aria-hidden="true"></button></button><view role="menu"><view data-slot="dropdown-menu-checkbox-item">Next.js
+        <view data-slot="dropdown-menu-checkbox-item">SvelteKit
+        <view data-slot="dropdown-menu-checkbox-item" disabled>Remix
+        <view data-slot="dropdown-menu-checkbox-item">Astro
+        </view></view>
 </view>

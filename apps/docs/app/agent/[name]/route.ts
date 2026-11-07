@@ -20,7 +20,7 @@ export async function GET(_request: Request, context: RouteContext) {
 
   return NextResponse.json(buildAgentContract(item), {
     headers: {
-      'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600',
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
     },
   })
 }

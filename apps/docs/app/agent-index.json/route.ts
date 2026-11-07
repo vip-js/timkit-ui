@@ -37,6 +37,7 @@ export function GET() {
     registryAll: 'https://ui.timkit.cn/registry-all.json',
     itemUrlTemplate: 'https://ui.timkit.cn/r/{name}.json',
     contractUrlTemplate: 'https://ui.timkit.cn/agent/{name}.json',
+    threadProtocol: 'https://ui.timkit.cn/agent/thread.json',
     sdk: {
       package: '@timui/agent',
       import: "import { TimkitAgent } from '@timui/agent'",
@@ -50,7 +51,22 @@ export function GET() {
         'getProjectContext',
         'createSession',
         'buildAgentContract',
+        'validateThread',
+        'suggestThreadNext',
+        'seedThread',
+        'listRecipes',
+        'generateRecipe',
       ],
+      thread: {
+        sdk: "import { validateAgentThread, suggestAgentThreadNext } from '@timui/agent'",
+        view: "import { AgentThreadView, useAgentThreadController } from '@timui/react/agent'",
+        protocol: 'https://ui.timkit.cn/agent/thread.json',
+        core: '@timui/core/agent-thread',
+      },
+      performance: {
+        gate: 'pnpm goal:perf:agent',
+        validateFastPath: 'timkit agent validate <file> --no-syntax',
+      },
     },
     commands: {
       inspect: 'curl https://ui.timkit.cn/agent-index.json',

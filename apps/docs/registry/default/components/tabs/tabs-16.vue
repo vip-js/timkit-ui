@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BoxIcon, HouseIcon, PanelsTopLeftIcon } from 'lucide-vue-next';
 import { Badge } from '@timui/vue';
 import { Tabs } from '@timui/vue';
@@ -13,10 +14,15 @@ import { TooltipTrigger } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Tabs default-value="tab-1" orientation="vertical" class="w-full flex-row"><TabsList class="flex-col"><TooltipProvider :delayDuration="0"><Tooltip><TooltipTrigger as-child><span><TabsTrigger value="tab-1" class="py-3"><HouseIcon :size="16" aria-hidden="true" /></TabsTrigger></span></TooltipTrigger><TooltipContent side="right" class="px-2 py-1 text-xs">Overview
+  <Tabs default-value="tab-1" orientation="vertical" class="w-full flex-row"><TabsList class="flex-col"><TooltipProvider :delayDuration="0"><Tooltip><TooltipTrigger as-child><span><TabsTrigger @click="onDemoClick" value="tab-1" class="py-3"><HouseIcon :size="16" aria-hidden="true" /></TabsTrigger></span></TooltipTrigger><TooltipContent side="right" class="px-2 py-1 text-xs">Overview
             </TooltipContent></Tooltip></TooltipProvider><TooltipProvider :delayDuration="0"><Tooltip><TooltipTrigger as-child><span><TabsTrigger value="tab-2" class="group py-3"><span class="relative"><PanelsTopLeftIcon :size="16" aria-hidden="true" /><Badge class="border-background absolute -top-2.5 left-full min-w-4 -translate-x-1.5 px-0.5 text-[10px]/[.875rem] transition-opacity group-data-[state=inactive]:opacity-50">3
                     </Badge></span></TabsTrigger></span></TooltipTrigger><TooltipContent side="right" class="px-2 py-1 text-xs">Projects
             </TooltipContent></Tooltip></TooltipProvider><TooltipProvider :delayDuration="0"><Tooltip><TooltipTrigger as-child><span><TabsTrigger value="tab-3" class="py-3"><BoxIcon :size="16" aria-hidden="true" /></TabsTrigger></span></TooltipTrigger><TooltipContent side="right" class="px-2 py-1 text-xs">Packages

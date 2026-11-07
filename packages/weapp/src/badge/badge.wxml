@@ -1,3 +1,4 @@
-<view class="{{className}}">
+<view class="{{className}}" data-slot="badge" data-variant="{{variantName}}">
+  <view wx:if="{{toneStatus}}" role="status">{{toneStatus}}</view>
   <slot></slot>
 </view>

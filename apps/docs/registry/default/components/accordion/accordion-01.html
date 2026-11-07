@@ -1,5 +1,6 @@
-<template>
-  <div class="space-y-4"><h2 class="text-xl font-bold">W/ chevron</h2><Accordion type="single" collapsible class="w-full" default-value="3"><!-- Loop items -->
-<AccordionItem value="${item.id}" key="${item.id}" class="py-2"><AccordionTrigger class="py-2 text-[15px] leading-6 hover:no-underline">${item.title}</AccordionTrigger><AccordionContent class="text-muted-foreground pb-2">${item.content}</AccordionContent></AccordionItem>
-<!-- End Loop --></Accordion></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-4"><h2 class="text-xl font-bold">W/ chevron</h2><div data-slot="accordion"><details data-slot="accordion-item" open value="1"><summary data-slot="accordion-trigger">What makes Timkit UI different?</summary><div data-slot="accordion-content">Timkit UI focuses on developer experience and performance. Built with TypeScript, it offers excellent type safety, follows accessibility standards, and provides comprehensive documentation with regular updates.</div></details>
+<details data-slot="accordion-item" open value="2"><summary data-slot="accordion-trigger">How can I customize the components?</summary><div data-slot="accordion-content">Use our CSS variables for global styling, or className and style props for component-specific changes. We support CSS modules, Tailwind, and dark mode out of the box.</div></details>
+<details data-slot="accordion-item" open value="3"><summary data-slot="accordion-trigger">Is Timkit UI optimized for performance?</summary><div data-slot="accordion-content">Yes, with tree-shaking, code splitting, and minimal runtime overhead. Most components are under 5KB gzipped.</div></details>
+<details data-slot="accordion-item" open value="4"><summary data-slot="accordion-trigger">How accessible are the components?</summary><div data-slot="accordion-content">All components follow WAI-ARIA standards, featuring proper ARIA attributes, keyboard navigation, and screen reader support. Regular testing ensures compatibility with NVDA, VoiceOver, and JAWS.</div></details></div></div>
+</div>

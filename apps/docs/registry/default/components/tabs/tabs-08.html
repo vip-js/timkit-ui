@@ -1,8 +1,8 @@
-<template>
-  <Tabs default-value="tab-1"><ScrollArea><TabsList class="mb-3"><TabsTrigger value="tab-1"><HouseIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Overview
-          </TabsTrigger><TabsTrigger value="tab-2" class="group"><PanelsTopLeftIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Projects
-            <Badge class="bg-primary/15 ms-1.5 min-w-5 px-1 transition-opacity group-data-[state=inactive]:opacity-50" variant="secondary">3
-            </Badge></TabsTrigger><TabsTrigger value="tab-3" class="group"><BoxIcon class="-ms-0.5 me-1.5 opacity-60" size="${16}" aria-hidden="true" />Packages
-            <Badge class="ms-1.5 transition-opacity group-data-[state=inactive]:opacity-50">New
-            </Badge></TabsTrigger></TabsList><ScrollBar orientation="horizontal" /></ScrollArea><TabsContent value="tab-1"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 1</p></TabsContent><TabsContent value="tab-2"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 2</p></TabsContent><TabsContent value="tab-3"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 3</p></TabsContent></Tabs>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="tabs"><div><div role="tablist" data-slot="tabs-list"><button type="button" role="tab" data-slot="tabs-trigger" value="tab-1"><span aria-hidden="true" size="16" aria-hidden="true">Overview
+          </button><button type="button" role="tab" data-slot="tabs-trigger" value="tab-2"><span aria-hidden="true" size="16" aria-hidden="true">Projects
+            <span data-slot="badge" variant="secondary">3
+            </span></button><button type="button" role="tab" data-slot="tabs-trigger" value="tab-3"><span aria-hidden="true" size="16" aria-hidden="true">Packages
+            <span data-slot="badge">New
+            </span></button></div><span aria-hidden="true" orientation="horizontal"></div><div role="tabpanel" data-slot="tabs-content" value="tab-1"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 1</p></div><div role="tabpanel" data-slot="tabs-content" value="tab-2"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 2</p></div><div role="tabpanel" data-slot="tabs-content" value="tab-3"><p class="text-muted-foreground p-4 pt-1 text-center text-xs">Content for Tab 3</p></div></div>
+</div>

@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { Input } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="group relative">
@@ -11,7 +13,7 @@ export default function Component() {
       >
         Input with overlapping label
       </label>
-      <Input id={id} className="h-10" placeholder="Email" type="email" />
+      <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} className="h-10" placeholder="Email" type="email" />
     </div>
   )
 }

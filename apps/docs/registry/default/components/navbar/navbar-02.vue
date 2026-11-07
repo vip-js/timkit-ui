@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { cn } from '@timui/core'
 import { BookOpenIcon, InfoIcon, LifeBuoyIcon } from 'lucide-vue-next'
 import { Button } from '@timui/vue'
@@ -93,6 +94,11 @@ const needsSeparator = (index: number) => {
 }
 
 const listMinWidth = (type?: NavLink['type']) => (type === 'description' ? 'min-w-64' : 'min-w-48')
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
@@ -101,7 +107,7 @@ const listMinWidth = (type?: NavLink['type']) => (type === 'description' ? 'min-
       <div class="flex items-center gap-2">
         <Popover>
           <PopoverTrigger as-child>
-            <Button class="group size-8 md:hidden" variant="ghost" size="icon">
+            <Button @click="onDemoClick" :data-clicks="demoClicks" class="group size-8 md:hidden" variant="ghost" size="icon">
               <svg
                 class="pointer-events-none"
                 :width="16"

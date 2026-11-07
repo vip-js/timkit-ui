@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { cn } from '@timui/core'
 
+const { memo } = React
+
 export type ToolCallStatus = 'pending' | 'running' | 'succeeded' | 'failed'
 
 export type ToolCallProps = {
@@ -18,7 +20,13 @@ const statusLabel: Record<ToolCallStatus, string> = {
   failed: 'Failed',
 }
 
-export function ToolCall({ name, status = 'pending', input, className, children }: ToolCallProps) {
+export const ToolCall = memo(function ToolCall({
+  name,
+  status = 'pending',
+  input,
+  className,
+  children,
+}: ToolCallProps) {
   return (
     <section
       data-slot="tool-call"
@@ -41,4 +49,6 @@ export function ToolCall({ name, status = 'pending', input, className, children 
       {children ? <div className="leading-6">{children}</div> : null}
     </section>
   )
-}
+})
+
+ToolCall.displayName = 'ToolCall'

@@ -1,4 +1,4 @@
-<view>
-  <view class="inline-flex items-center gap-2"><switch id="{{id}}" class="[&_span]:border-input h-3 w-9 border-none outline-offset-[6px] [&_span]:border" /><label htmlfor="{{id}}" class="sr-only">M2-style switch
-      </label></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="inline-flex items-center gap-2"><input type="checkbox" role="switch" data-slot="switch" id="switch-06"><text data-slot="label" for="switch-06">M2-style switch
+      </text></view>
 </view>

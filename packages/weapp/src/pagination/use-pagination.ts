@@ -1,6 +1,6 @@
 import { paginationConnect, paginationMachine, type PaginationMachineOptions } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 export type WeappPaginationApi = ReturnType<typeof paginationConnect> & {
   goToPrevPage?: () => void
@@ -15,10 +15,10 @@ export function setupPaginationMachine(
   component: WechatMiniprogram.Component.TrivialInstance,
   options: PaginationMachineOptions
 ) {
-  const machine = paginationMachine(options)
+  const machine = bindMachine(paginationMachine, options)
   return useMachine(component, machine)
 }
 
 export function connectPaginationMachine(state: object, send: MachineSend): WeappPaginationApi {
-  return paginationConnect(state, send, normalizeProps)
+  return paginationConnect(state as never, normalizeProps)
 }

@@ -1,7 +1,8 @@
-<view>
-  <view class="flex flex-col gap-2"><button variant="outline"><rigooglefill class="me-1 text-[#DB4437] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with Google
-      </button><button variant="outline"><ritwitterxfill class="me-1 text-[#14171a] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with X
-      </button><button variant="outline"><rifacebookfill class="me-1 text-[#1877f2] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with Facebook
-      </button><button variant="outline"><rigithubfill class="me-1 text-[#333333] dark:text-white/60" size="{{16}}" aria-hidden="true" />Login with GitHub
-      </button></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex flex-col gap-2">
+    <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline"><text aria-hidden="true" size="16" aria-hidden="true">Login with Google</button>
+    <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"><text aria-hidden="true" size="16" aria-hidden="true">Login with X</button>
+    <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"><text aria-hidden="true" size="16" aria-hidden="true">Login with Facebook</button>
+    <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"><text aria-hidden="true" size="16" aria-hidden="true">Login with GitHub</button>
+  </view>
 </view>

@@ -11,14 +11,18 @@ type _AlertPropsGuard = AssertNoExtraKeys<
 >
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ className, variant, ...props }, ref) => (
+  ({ className, variant, children, ...props }, ref) => (
     <div
       ref={ref}
+      {...props}
       role="alert"
       data-slot="alert"
+      data-variant={variant || 'default'}
       className={cn(alertVariants({ variant }), className)}
-      {...props}
-    />
+    >
+      {variant === 'destructive' ? <p role="status">Destructive</p> : null}
+      {children}
+    </div>
   )
 )
 Alert.displayName = 'Alert'

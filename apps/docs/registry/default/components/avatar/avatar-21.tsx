@@ -1,6 +1,8 @@
 import { Button } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="bg-muted flex items-center rounded-full p-0.5">
       <div className="flex -space-x-3">
@@ -33,7 +35,7 @@ export default function Component() {
           alt="Avatar 04"
         />
       </div>
-      <Button
+      <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
         variant="secondary"
         className="text-muted-foreground hover:text-foreground flex items-center justify-center rounded-full bg-transparent px-3 text-xs shadow-none hover:bg-transparent"
       >

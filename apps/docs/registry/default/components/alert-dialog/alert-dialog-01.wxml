@@ -1,5 +1,5 @@
-<view>
-  <alertdialog><alertdialogtrigger aschild><button variant="outline">Show Dialog</button></alertdialogtrigger><alertdialogcontent><alertdialogheader><alertdialogtitle>Are you absolutely sure?</alertdialogtitle><alertdialogdescription>This action cannot be undone. This will permanently delete your account and remove your
+<view class="timui-html-demo space-y-4 p-4">
+<view role="alertdialog"><button type="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Show Dialog</button></button><view><view><text>Are you absolutely sure?</text><text>This action cannot be undone. This will permanently delete your account and remove your
             data from our servers.
-          </alertdialogdescription></alertdialogheader><alertdialogfooter><alertdialogcancel>Cancel</alertdialogcancel><alertdialogaction>Continue</alertdialogaction></alertdialogfooter></alertdialogcontent></alertdialog>
+          </text></view><view><button type="button">Cancel</button><button type="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Continue</button></view></view></view>
 </view>

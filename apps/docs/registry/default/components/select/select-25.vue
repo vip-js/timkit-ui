@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@timui/vue';
 
@@ -8,8 +9,13 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 
 const id = 'select-25';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with options groups</Label><Select default-value="1"><SelectTrigger :id="id"><SelectValue placeholder="Select framework" /></SelectTrigger><SelectContent><SelectGroup><SelectLabel>Frontend</SelectLabel><SelectItem value="1">React</SelectItem><SelectItem value="2">Vue</SelectItem><SelectItem value="3">Angular</SelectItem></SelectGroup><SelectGroup><SelectLabel>Backend</SelectLabel><SelectItem value="4">Node.js</SelectItem><SelectItem value="5">Python</SelectItem><SelectItem value="6">Java</SelectItem></SelectGroup></SelectContent></Select></div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with options groups</Label><Select default-value="1"><SelectTrigger @click="onDemoClick" :id="id"><SelectValue placeholder="Select framework" /></SelectTrigger><SelectContent><SelectGroup><SelectLabel>Frontend</SelectLabel><SelectItem value="1">React</SelectItem><SelectItem value="2">Vue</SelectItem><SelectItem value="3">Angular</SelectItem></SelectGroup><SelectGroup><SelectLabel>Backend</SelectLabel><SelectItem value="4">Node.js</SelectItem><SelectItem value="5">Python</SelectItem><SelectItem value="6">Java</SelectItem></SelectGroup></SelectContent></Select></div>
 </template>

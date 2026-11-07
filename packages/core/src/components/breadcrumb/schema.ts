@@ -16,7 +16,20 @@ const breadcrumbSchema = defineUCS({
   logic: {
     provider: 'none',
   },
-  props: [],
+  props: [
+    {
+      name: 'separator',
+      type: 'string',
+      description: 'The character used to separate multiple values or visual segments.',
+      defaultValue: '/',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, crumb navigation is ignored.',
+      defaultValue: false,
+    },
+  ],
   slots: [{ name: 'default', description: 'The breadcrumb items' }],
   supportedPlatforms: ['web', 'wechat'],
 })

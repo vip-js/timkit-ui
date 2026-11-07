@@ -1,4 +1,5 @@
 import { Label, MultipleSelector, Option } from '@timui/react'
+import { useState } from 'react'
 
 const frameworks: Option[] = [
   {
@@ -68,9 +69,10 @@ const frameworks: Option[] = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="*:not-first:mt-2">
-      <Label>Multiselect with placeholder and clear</Label>
+      <Label onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>Multiselect with placeholder and clear</Label>
       <MultipleSelector
         commandProps={{
           label: 'Select frameworks',

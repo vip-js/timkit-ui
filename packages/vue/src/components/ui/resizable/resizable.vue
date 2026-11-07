@@ -97,6 +97,10 @@ export const ResizableHandle = defineComponent({
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     class: {
       type: String,
       default: undefined,
@@ -159,6 +163,7 @@ export const ResizableHandle = defineComponent({
     };
 
     const onPointerDown = (event: PointerEvent) => {
+      if (props.disabled) return;
       const handle = handleRef.value;
       if (!handle) return;
       event.preventDefault();
@@ -218,7 +223,8 @@ export const ResizableHandle = defineComponent({
           "data-slot": "resizable-handle",
           "data-panel-group-direction": context.direction,
           role: "separator",
-          tabindex: 0,
+          tabindex: props.disabled ? -1 : 0,
+          "aria-disabled": props.disabled || undefined,
           "aria-orientation": context.direction === "vertical" ? "horizontal" : "vertical",
           class: cn(
             resizableHandleVariants(),
@@ -226,6 +232,7 @@ export const ResizableHandle = defineComponent({
           ),
           onPointerdown: onPointerDown,
           onKeydown: (event: KeyboardEvent) => {
+            if (props.disabled) return;
             const step = event.shiftKey ? 20 : 10;
             if (context.direction === "vertical") {
               if (event.key === "ArrowUp") resizeByDelta(-step);

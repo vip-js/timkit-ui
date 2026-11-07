@@ -11,20 +11,20 @@ export function useSwitch(props: UseSwitchProps) {
   const generatedId = React.useId()
   const switchId = props.id ?? generatedId
 
+  const [, setChecked] = React.useState(props.checked ?? props.defaultChecked ?? false)
   const service = useMachine(switchMachine, {
     id: switchId,
-    checked: props.checked,
-    defaultChecked: props.defaultChecked,
-    disabled: props.disabled,
+    ...(props.checked === undefined ? { defaultChecked: props.defaultChecked } : { checked: props.checked === true }),
+    disabled: props.disabled || undefined,
+    readOnly: props.readOnly || undefined,
     required: props.required,
     name: props.name,
     value: props.value ?? 'on',
     onCheckedChange(details) {
+      if (props.checked === undefined) setChecked(details.checked)
       props.onCheckedChange?.(createTimEvent('change', switchId, { checked: details.checked }))
     },
   })
 
-  const api = React.useMemo(() => switchConnect(service, normalizeProps), [service])
-
-  return api
+  return switchConnect(service, normalizeProps)
 }

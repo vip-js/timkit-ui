@@ -1,3 +1,29 @@
-<view class="{{className}}" data-slot="calendar">
+<view class="{{className}}" data-slot="calendar" data-months="{{monthCount}}" bindkeydown="onKey">
+  <view wx:if="{{dayStatus}}" role="status">{{dayStatus}}</view>
+  <view role="button" tabindex="{{!disabled && canPrev ? 0 : -1}}" aria-label="{{prevLabel}}" aria-disabled="{{!disabled && canPrev ? 'false' : 'true'}}" bindtap="onPrev" bindkeydown="onPrevKey">{{prevLabel}}</view>
+  <text>{{caption}}</text>
+  <view role="button" tabindex="{{!disabled && canNext ? 0 : -1}}" aria-label="{{nextLabel}}" aria-disabled="{{!disabled && canNext ? 'false' : 'true'}}" bindtap="onNext" bindkeydown="onNextKey">{{nextLabel}}</view>
+  <view role="grid" aria-label="{{caption}}" tabindex="-1" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-readonly="{{readOnly ? 'true' : 'false'}}" aria-roledescription="calendar month" aria-multiselectable="{{mode === 'range' ? 'true' : 'false'}}">
+    <view role="row" aria-disabled="{{disabled ? 'true' : 'false'}}">
+      <view wx:for="{{weekdays}}" wx:key="*this" role="columnheader">{{item}}</view>
+    </view>
+    <view wx:for="{{weeks}}" wx:for-item="week" wx:key="index" role="row" aria-disabled="{{disabled ? 'true' : 'false'}}">
+      <view
+        wx:for="{{week}}"
+        wx:for-item="item"
+        wx:key="key"
+        role="gridcell"
+        tabindex="{{!disabled && !item.disabled && item.focused ? 0 : -1}}"
+        aria-label="{{item.name}}"
+        aria-current="{{item.today ? 'date' : 'false'}}"
+        aria-selected="{{item.selected ? 'true' : 'false'}}"
+        aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+        data-value="{{item.value}}"
+        mark:value="{{item.value}}"
+        bindtap="onSelectDate"
+        bindkeydown="onKey"
+      >{{item.label}}</view>
+    </view>
+  </view>
   <slot></slot>
 </view>

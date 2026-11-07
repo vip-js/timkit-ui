@@ -1,7 +1,4 @@
-<template>
-  <TooltipProvider><Tooltip><TooltipTrigger aschild><div><Toggle class="group size-9 p-0 hover:bg-indigo-50 hover:text-indigo-500 data-[state=on]:bg-indigo-50 data-[state=on]:text-indigo-500" aria-label="BookmarkIcon this" pressed="${bookmarked}" onpressedchange="${setBookmarked}"><BookmarkIcon size="${16}" aria-hidden="true" /></Toggle></div></TooltipTrigger><TooltipContent class="px-2 py-1 text-xs"><p><!-- if bookmarked -->
-${'Remove bookmark'}
-<!-- else -->
-${'BookmarkIcon this'}
-<!-- endif --></p></TooltipContent></Tooltip></TooltipProvider>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="tooltip-provider"><span data-slot="tooltip"><button type="button" data-slot="tooltip-trigger"><div><button type="button" aria-pressed="false" class="group size-9 p-0 hover:bg-indigo-50 hover:text-indigo-500 data-[state=on]:bg-indigo-50 data-[state=on]:text-indigo-500 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" aria-label="BookmarkIcon this"><span aria-hidden="true" size="16" aria-hidden="true"></button></div></button><span role="tooltip" data-slot="tooltip-content"><p><template>
+Remove bookmark
+</div>

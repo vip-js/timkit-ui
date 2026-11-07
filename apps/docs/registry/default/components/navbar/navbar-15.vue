@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BotMessageSquareIcon, MessageCircleDashedIcon } from 'lucide-vue-next';
 import { Button } from '@timui/vue';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@timui/vue';
@@ -6,6 +7,11 @@ import UserMenu from '@/registry/default/components/navbar-components/user-menu.
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
@@ -17,5 +23,5 @@ import UserMenu from '@/registry/default/components/navbar-components/user-menu.
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Excels at natural, engaging conversations
                   </span></SelectItem><SelectItem value="galaxy-max-4">Galaxy-Max 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Most powerful model for complex tasks
-                  </span></SelectItem></SelectGroup></SelectContent></Select></div><div class="flex items-center justify-end gap-2"><Button size="icon" variant="ghost" class="text-muted-foreground size-8 rounded-full shadow-none" aria-label="Temporary chat"><MessageCircleDashedIcon :size="16" aria-hidden="true" /></Button><UserMenu /></div></div></header>
+                  </span></SelectItem></SelectGroup></SelectContent></Select></div><div class="flex items-center justify-end gap-2"><Button @click="onDemoClick" :data-clicks="demoClicks" size="icon" variant="ghost" class="text-muted-foreground size-8 rounded-full shadow-none" aria-label="Temporary chat"><MessageCircleDashedIcon :size="16" aria-hidden="true" /></Button><UserMenu /></div></div></header>
 </template>

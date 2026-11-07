@@ -1,14 +1,16 @@
 import { useId } from 'react'
 import { Label, SelectNative } from '@timui/react'
 import { ClockIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>Select with icon (native)</Label>
       <div className="group relative">
-        <SelectNative id={id} className="ps-9">
+        <SelectNative value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} className="ps-9">
           <option value="1">00:00 AM - 11:59 PM</option>
           <option value="2">01:00 AM - 12:59 PM</option>
           <option value="3">02:00 AM - 01:59 PM</option>

@@ -34,9 +34,15 @@ const commandSchema = defineUCS({
       type: 'string',
       description: 'The input placeholder.',
     },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, filtering and selection are ignored.',
+      defaultValue: false,
+    },
   ],
   slots: [{ name: 'default', description: 'The command segments' }],
-  supportedPlatforms: ['web'],
+  supportedPlatforms: ['web', 'wechat'],
 })
 
 export default commandSchema

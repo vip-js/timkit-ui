@@ -1,3 +1,25 @@
-<view>
-  
+<view class="timui-html-demo space-y-4 p-4">
+<view class="rounded-lg border">
+    <view class="border-b px-4 py-3">
+      <text class="text-sm font-semibold">Event Calendar</text>
+      <text class="text-muted-foreground text-xs">Simple Vue fallback implementation for docs preview.</text>
+    </view>
+
+    <view class="text-muted-foreground p-6 text-sm">
+      No events found.
+    </view>
+
+    <view class="space-y-2 p-3">
+      <view
+        class="rounded-md border px-3 py-2">
+        <view class="flex items-center justify-between gap-2">
+          <text class="text-sm font-medium"></text>
+          <text class="text-xs opacity-80"></text>
+        </view>
+        <text class="mt-0.5 text-xs opacity-80"> - </text>
+        <text class="mt-1 text-xs opacity-80"></text>
+        <text class="mt-1 text-xs opacity-80"></text>
+      </view>
+    </view>
+  </view>
 </view>

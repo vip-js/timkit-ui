@@ -9,10 +9,29 @@ import { createPortal } from 'react-dom'
 import { usePopover, type UsePopoverProps } from './popover/use-popover'
 import { PopoverProvider, usePopoverContext } from './popover/use-popover-context'
 import { Slot } from './slot'
+import { useReturnFocus } from './use-return-focus'
 
-const Popover = ({ children, ...props }: UsePopoverProps & { children: React.ReactNode }) => {
+const PopoverFocusContext = React.createContext<(node: HTMLElement | null) => void>(() => undefined)
+
+const PopoverDisabledContext = React.createContext(false)
+
+const Popover = ({
+  children,
+  disabled = false,
+  ...props
+}: UsePopoverProps & { children: React.ReactNode; disabled?: boolean }) => {
   const api = usePopover(props)
-  return <PopoverProvider value={api}>{children}</PopoverProvider>
+  const rememberTrigger = useReturnFocus(api.open)
+  return (
+    <PopoverDisabledContext.Provider value={disabled}>
+      <PopoverFocusContext.Provider value={rememberTrigger}>
+        <PopoverProvider value={api}>
+          {api.open ? <p role="status">Opened</p> : null}
+          {children}
+        </PopoverProvider>
+      </PopoverFocusContext.Provider>
+    </PopoverDisabledContext.Provider>
+  )
 }
 Popover.displayName = 'Popover'
 
@@ -21,10 +40,12 @@ const PopoverTrigger = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
 >(({ className, onClick, asChild = false, ...props }, ref) => {
   const api = usePopoverContext()
+  const disabled = React.useContext(PopoverDisabledContext)
+  const rememberTrigger = React.useContext(PopoverFocusContext)
 
   const Comp = asChild ? Slot : 'button'
   const triggerProps = api.getTriggerProps()
-  const mergedProps = mergeProps(triggerProps, props)
+  const mergedProps = mergeProps(triggerProps, props) as React.ButtonHTMLAttributes<HTMLButtonElement>
 
   return (
     <Comp
@@ -33,6 +54,17 @@ const PopoverTrigger = React.forwardRef<
       type="button"
       className={cn(className)}
       {...mergedProps}
+      disabled={disabled || undefined}
+      aria-disabled={disabled || undefined}
+      onClick={(event) => {
+        if (disabled) {
+          event.preventDefault()
+          return
+        }
+        rememberTrigger(event.currentTarget)
+        onClick?.(event)
+        mergedProps.onClick?.(event)
+      }}
     />
   )
 })
@@ -56,6 +88,7 @@ const PopoverContent = React.forwardRef<
       showArrow = false,
       style,
       children,
+      'aria-label': ariaLabel,
       ...props
     },
     ref
@@ -83,6 +116,7 @@ const PopoverContent = React.forwardRef<
           style={{ ...mergedProps.style, ...style }}
           className={cn(popoverContentVariants(), showArrow ? 'relative' : undefined, className)}
           {...mergedProps}
+          aria-label={typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Popover'}
         >
           {children}
           {showArrow ? (
@@ -99,4 +133,9 @@ const PopoverContent = React.forwardRef<
 )
 PopoverContent.displayName = 'PopoverContent'
 
-export { Popover, PopoverTrigger, PopoverContent }
+const PopoverAnchor = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  (props, ref) => <div ref={ref} {...props} />
+)
+PopoverAnchor.displayName = 'PopoverAnchor'
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }

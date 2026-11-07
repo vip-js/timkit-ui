@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import { Label, MultipleSelector, Option } from '@timui/react'
+import { useState } from 'react'
 
 const frameworks: Option[] = [
   {
@@ -71,10 +72,11 @@ const frameworks: Option[] = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
-      <Label>Multiselect</Label>
+      <Label onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>Multiselect</Label>
       <MultipleSelector
         commandProps={{
           label: 'Select frameworks',

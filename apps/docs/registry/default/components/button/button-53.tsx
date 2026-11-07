@@ -1,4 +1,5 @@
 import { Button } from '@timui/react'
+import { useState } from 'react'
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -8,9 +9,10 @@ import {
 } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="inline-grid w-fit grid-cols-3 gap-1">
-      <Button className="col-start-2" variant="outline" size="icon" aria-label="Pan camera up">
+      <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="col-start-2" variant="outline" size="icon" aria-label="Pan camera up">
         <ChevronUpIcon size={16} aria-hidden="true" />
       </Button>
       <Button className="col-start-1" variant="outline" size="icon" aria-label="Pan camera left">

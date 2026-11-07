@@ -22,6 +22,30 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const ROOT = path.resolve(__dirname, '..')
 
+const compatibilityAliases: Record<string, string> = {
+  datefield: 'date-field',
+  'datefield-rac': 'date-field',
+  'calendar-rac': 'calendar',
+  sonner: 'toast',
+  'multiple-selector': 'multiselect',
+  'image-cropper': 'cropper',
+}
+
+export const describeRegistryItem = (name: string, type?: string, group?: string) => {
+  const label = name.replace(/[-_]/g, ' ')
+  const alias = compatibilityAliases[name]
+  if (alias) {
+    return `${label} is a compatibility alias. Prefer ${alias}.`
+  }
+  if (type === 'registry:ui') {
+    return `${label} primitive with one recommended entry. Read /agent/${name}.json before writing code.`
+  }
+  if (type === 'registry:component' || type === 'registry:block' || type === 'registry:page') {
+    return `${label} demo for ${group || label}. Copy the composition, then wire state in the app.`
+  }
+  return `${label} registry item.`
+}
+
 const REGISTRY_PATH = path.join(ROOT, 'apps/docs/registry.json')
 const CLI_PACKAGE_JSON = path.join(ROOT, 'packages/cli/package.json')
 const CLI_VERSION = fs.existsSync(CLI_PACKAGE_JSON)
@@ -1018,6 +1042,13 @@ async function main() {
             (result.data.meta as object)?.clientOnly ||
             false,
         },
+      }
+      if (!enrichedItem.description) {
+        enrichedItem.description = describeRegistryItem(
+          item.name,
+          enrichedItem.type,
+          isDemoLikeName(item.name) ? getDemoComponentGroup(item.name) : undefined
+        )
       }
       registryMap.set(item.name, enrichedItem)
       uiNameSet.add(item.name)

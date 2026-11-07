@@ -1,6 +1,6 @@
 import { progressConnect, progressMachine, type ProgressMachineOptions } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 export type WeappProgressApi = ReturnType<typeof progressConnect> & Record<string, object>
 
@@ -11,10 +11,10 @@ export function setupProgressMachine(
   component: WechatMiniprogram.Component.TrivialInstance,
   options: ProgressMachineOptions
 ) {
-  const machine = progressMachine(options)
+  const machine = bindMachine(progressMachine, options)
   return useMachine(component, machine)
 }
 
 export function connectProgressMachine(state: object, send: MachineSend): WeappProgressApi {
-  return progressConnect(state, send, normalizeProps)
+  return progressConnect(state as never, normalizeProps)
 }

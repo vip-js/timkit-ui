@@ -5,10 +5,11 @@ import { normalizeProps, useMachine } from '@zag-js/react'
 
 export interface UseTooltipProps {
   id?: string
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
   openDelay?: number
+  delayDuration?: number
   closeDelay?: number
   closeOnPointerDown?: boolean
   closeOnEscape?: boolean
@@ -21,11 +22,11 @@ export interface UseTooltipProps {
 
 export function useTooltip(props: UseTooltipProps) {
   const generatedId = React.useId()
+  const controlled = props.open !== undefined
   const service = useMachine(tooltipMachine, {
     id: props.id ?? generatedId,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
-    openDelay: props.openDelay,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen }),
+    openDelay: props.delayDuration ?? props.openDelay,
     closeDelay: props.closeDelay,
     closeOnPointerDown: props.closeOnPointerDown,
     closeOnEscape: props.closeOnEscape,
@@ -37,7 +38,5 @@ export function useTooltip(props: UseTooltipProps) {
     onOpenChange: (details) => props.onOpenChange?.(details.open),
   })
 
-  const api = React.useMemo(() => tooltipConnect(service, normalizeProps), [service])
-
-  return api
+  return tooltipConnect(service, normalizeProps)
 }

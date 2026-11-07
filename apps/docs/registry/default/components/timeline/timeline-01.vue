@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Timeline } from '@timui/vue';
 import { TimelineHeader } from '@timui/vue';
 import { TimelineIndicator } from '@timui/vue';
@@ -40,8 +41,13 @@ const items = [
   },
 ]
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Timeline :default-value="3"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id"><TimelineHeader><TimelineSeparator /><TimelineTitle class="-mt-0.5">{{ item.title }}</TimelineTitle><TimelineIndicator /></TimelineHeader></TimelineItem></Timeline>
+  <Timeline @click="onDemoClick" :default-value="3"><TimelineItem v-for="(item, index) in items" :key="item.id" :step="item.id"><TimelineHeader><TimelineSeparator /><TimelineTitle class="-mt-0.5">{{ item.title }}</TimelineTitle><TimelineIndicator /></TimelineHeader></TimelineItem></Timeline>
 </template>

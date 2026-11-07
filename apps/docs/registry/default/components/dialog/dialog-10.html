@@ -1,7 +1,7 @@
-<template>
-  <Dialog><DialogTrigger aschild><Button variant="outline">Feedback</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Send us feedback</DialogTitle><DialogDescription>Watch${' '}<a class="text-foreground hover:underline" href="#">tutorials
-            </a>, read Timkit UI&lsquo;s${' '}<a class="text-foreground hover:underline" href="#">documentation
-            </a>, or join our${' '}<a class="text-foreground hover:underline" href="#">Discord
-            </a>${' '}for community help.
-          </DialogDescription></DialogHeader><form class="space-y-5"><Textarea id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback" /><div class="flex flex-col sm:flex-row sm:justify-end"><Button type="button">Send feedback</Button></div></form></DialogContent></Dialog>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<dialog open data-slot="dialog"><button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Feedback</button></button><div data-slot="dialog-content"><header data-slot="dialog-header"><h2 data-slot="dialog-title">Send us feedback</h2><p data-slot="dialog-description">Watch <a class="text-foreground hover:underline" href="#">tutorials
+            </a>, read Timkit UI&lsquo;s <a class="text-foreground hover:underline" href="#">documentation
+            </a>, or join our <a class="text-foreground hover:underline" href="#">Discord
+            </a> for community help.
+          </p></header><form class="space-y-5"><textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback"></textarea><div class="flex flex-col sm:flex-row sm:justify-end"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">Send feedback</button></div></form></div></dialog>
+</div>

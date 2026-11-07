@@ -18,10 +18,15 @@ function setChecked(next: typeof checked.value | ((prev: typeof checked.value) =
     : next;
 }
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="inline-flex items-center gap-2"><Switch :id="id" :checked="checked" :onCheckedChange="setChecked" aria-label="Toggle switch" /><Label :htmlFor="id"><span class="sr-only">Toggle switch</span><template v-if="checked">
+  <div class="inline-flex items-center gap-2"><Switch @click="onDemoClick" :id="id" :checked="checked" :onCheckedChange="setChecked" aria-label="Toggle switch" /><Label :htmlFor="id"><span class="sr-only">Toggle switch</span><template v-if="checked">
 <SunIcon :size="16" aria-hidden="true" />
 </template>
 <template v-else>

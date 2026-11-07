@@ -1,8 +1,8 @@
-<template>
-  <DropdownMenu><DropdownMenuTrigger aschild><Button variant="outline">Checkbox items
-          <ChevronDownIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuCheckboxItem checked="${nextjs}" oncheckedchange="${setNextjs}">Next.js
-        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${sveltekit}" oncheckedchange="${setSveltekit}">SvelteKit
-        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${remix}" oncheckedchange="${setRemix}" disabled>Remix
-        </DropdownMenuCheckboxItem><DropdownMenuCheckboxItem checked="${astro}" oncheckedchange="${setAstro}">Astro
-        </DropdownMenuCheckboxItem></DropdownMenuContent></DropdownMenu>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Checkbox items
+          <span aria-hidden="true" size="16" aria-hidden="true"></button></button><div role="menu"><div data-slot="dropdown-menu-checkbox-item">Next.js
+        <div data-slot="dropdown-menu-checkbox-item">SvelteKit
+        <div data-slot="dropdown-menu-checkbox-item" disabled>Remix
+        <div data-slot="dropdown-menu-checkbox-item">Astro
+        </div></div>
+</div>

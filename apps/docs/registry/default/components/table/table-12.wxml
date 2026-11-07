@@ -1,29 +1,47 @@
+<view class="timui-html-demo space-y-4 p-4">
 <view>
-  <view><table><tableheader><tablerow wx:for="{{table.getHeaderGroups()}}" wx:for-item="headerGroup" wx:for-index="index" wx:key="index" key="{{headerGroup.id}}" class="hover:bg-transparent">{{ headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                )
-              }) }}</tablerow></tableheader><tablebody><block wx:if="{{table.getRowModel().rows?.length}}">
-{{ table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            )) }}
-</block>
-<block wx:else>
-<tablerow><tablecell colspan="{{columns.length}}" class="h-24 text-center">No results.
-              </tablecell></tablerow>
-</block></tablebody><tablefooter class="bg-transparent"><tablerow class="hover:bg-transparent"><tablecell colspan="{{5}}">Total</tablecell><tablecell class="text-right">{{ new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              }).format(data.reduce((total, item) => total + item.balance, 0)) }}</tablecell></tablerow></tablefooter></table><text class="text-muted-foreground mt-4 text-center text-sm">Basic data table made with{{ ' ' }}<a class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">TanStack Table
-        </a></text></view>
+    <view data-slot="table">
+      <view>
+        <view>
+          <text>
+            <input type="checkbox" data-slot="checkbox"
+              aria-label="Select all">
+          </text>
+          <text>Name</text>
+          <text>Email</text>
+          <text>Location</text>
+          <text>Status</text>
+          <text>Balance</text>
+        </view>
+      </view>
+      <view>
+        <view>
+          <text>
+            <input type="checkbox" data-slot="checkbox" aria-label="Select Example">
+          </text>
+          <text></text>
+          <text></text>
+          <text> </text>
+          <text>
+            <text data-slot="badge">
+              
+            </text>
+          </text>
+          <text></text>
+        </view>
+      </view>
+      <view>
+        <view>
+          <text colSpan="5">Total</text>
+          <text></text>
+        </view>
+      </view>
+    </view>
+    <text class="text-muted-foreground mt-4 text-center text-sm">
+      Basic data table made with
+      <navigator class="hover:text-foreground underline" href="https://tanstack.com/table" target="_blank" rel="noopener noreferrer">
+        TanStack Table
+      </navigator>
+    </text>
+  </view>
 </view>

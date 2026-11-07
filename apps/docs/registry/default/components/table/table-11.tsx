@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@timui/react'
 import { CheckIcon, MonitorIcon, SmartphoneIcon, XIcon } from 'lucide-react'
+import { useState } from 'react'
 
 const items = [
   {
@@ -56,10 +57,11 @@ const items = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Table>
       <TableHeader>
-        <TableRow className="*:border-border border-y-0 hover:bg-transparent [&>:not(:last-child)]:border-r">
+        <TableRow onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="*:border-border border-y-0 hover:bg-transparent [&>:not(:last-child)]:border-r">
           <TableCell></TableCell>
           <TableHead className="border-b text-center" colSpan={5}>
             <MonitorIcon className="inline-flex" size={16} aria-hidden="true" />

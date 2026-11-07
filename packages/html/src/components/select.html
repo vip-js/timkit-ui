@@ -1,15 +1,19 @@
 <div data-slot="select" class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 ps-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-  <button data-slot="select-trigger" class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 ps-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+  <button id="select-trigger" data-slot="select-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="select-list" class="focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center rounded-sm py-1.5 pr-8 ps-2 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
     <span data-slot="select-value" class="line-clamp-1">Select option</span>
   </button>
   <div
+    id="select-list"
     data-slot="select-content"
+    role="listbox" tabindex="0"
+    aria-labelledby="select-trigger"
+    hidden
     class="bg-popover text-popover-foreground data-[state&#x3D;open]:animate-in data-[state&#x3D;closed]:animate-out data-[state&#x3D;closed]:fade-out-0 data-[state&#x3D;open]:fade-in-0 data-[state&#x3D;closed]:zoom-out-95 data-[state&#x3D;open]:zoom-in-95 data-[side&#x3D;bottom]:slide-in-from-top-2 data-[side&#x3D;left]:slide-in-from-right-2 data-[side&#x3D;right]:slide-in-from-left-2 data-[side&#x3D;top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md"
   >
-    <div data-slot="select-item" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
+    <div data-slot="select-item" role="option" aria-selected="false" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
       Option one
     </div>
-    <div data-slot="select-item" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
+    <div data-slot="select-item" role="option" aria-selected="false" class="py-1.5 pl-8 pr-2 text-sm font-semibold">
       Option two
     </div>
   </div>

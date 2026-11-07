@@ -1,16 +1,56 @@
-<view>
-  <view class="*:not-first:mt-4"><label>Price slider</label><view><view class="flex h-12 w-full items-end px-3" aria-hidden="true"><view wx:for="{{itemCounts}}" wx:for-item="count" wx:for-index="i" wx:key="i" key="{{i}}" class="flex flex-1 justify-center" style="{{{
-                height: `${(count / maxCount) * 100}%`,
-              }}}"><text data-selected="{{isBarInSelectedRange(i, minValue, priceStep, sliderValue)}}" class="bg-primary/20 size-full"></text></view></view><slider value="{{sliderValue}}" bindchange="handleSliderValueChange" min="{{minValue}}" max="{{maxValue}}" aria-label="Price range" /></view><view class="flex items-center justify-between gap-4"><view class="*:not-first:mt-1"><label htmlfor="{{`${id}-min`}}">Min price</label><view class="relative"><input id="{{`${id}-min`}}" class="peer w-full ps-6" type="text" inputmode="decimal" value="{{inputValues[0]}}" onchange="{{(e) => handleInputChange(e, 0)}}" onblur="{{() => validateAndUpdateValue(inputValues[0], 0)}}" onkeydown="{{(e) => {
-                if (e.key === 'Enter') {
-                  validateAndUpdateValue(inputValues[0], 0)
-                }
-              }}}" aria-label="Enter minimum price" /><text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
-            </text></view></view><view class="*:not-first:mt-1"><label htmlfor="{{`${id}-max`}}">Max price</label><view class="relative"><input id="{{`${id}-max`}}" class="peer w-full ps-6" type="text" inputmode="decimal" value="{{inputValues[1]}}" onchange="{{(e) => handleInputChange(e, 1)}}" onblur="{{() => validateAndUpdateValue(inputValues[1], 1)}}" onkeydown="{{(e) => {
-                if (e.key === 'Enter') {
-                  validateAndUpdateValue(inputValues[1], 1)
-                }
-              }}}" aria-label="Enter maximum price" /><text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
-            </text></view></view></view><button class="w-full" variant="outline">Show {{ countItemsInRange(sliderValue[0], sliderValue[1]) }}items
-      </button></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-4">
+    <text data-slot="label">Price slider</text>
+
+    <view>
+      <view class="flex h-12 w-full items-end px-3" aria-hidden="true">
+        <view
+          class="flex flex-1 justify-center">
+          <text class="bg-primary/20 size-full"></text>
+        </view>
+      </view>
+
+      <input type="range" data-slot="slider"
+       
+        aria-label="Price range">
+    </view>
+
+    <view class="flex items-center justify-between gap-4">
+      <view class="*:not-first:mt-1">
+        <text data-slot="label" for="Example-min">Min price</text>
+        <view class="relative">
+          <input data-slot="input" class="peer w-full ps-6 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-min"
+           
+            type="text"
+            inputMode="decimal"
+           ="(next) => handleInputChange(next, 0)"
+           
+           
+            aria-label="Enter minimum price" />
+          <text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+          </text>
+        </view>
+      </view>
+
+      <view class="*:not-first:mt-1">
+        <text data-slot="label" for="Example-max">Max price</text>
+        <view class="relative">
+          <input data-slot="input" class="peer w-full ps-6 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-max"
+           
+            type="text"
+            inputMode="decimal"
+           ="(next) => handleInputChange(next, 1)"
+           
+           
+            aria-label="Enter maximum price" />
+          <text class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">$
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <button type="button" data-slot="button" class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">
+      Show  items
+    </button>
+  </view>
 </view>

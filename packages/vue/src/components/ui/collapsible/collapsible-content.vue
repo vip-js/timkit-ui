@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { computed, inject, type HTMLAttributes } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 import { cn } from '@timui/core'
+import { useCollapsibleContext } from './use-collapsible-context'
 
 const props = defineProps<{ class?: HTMLAttributes['class'] }>()
-type BindValue = string | number | boolean | null | undefined | ((...args: never[]) => void)
-type CollapsibleApi = {
-  open?: boolean
-  getContentProps?: () => Record<string, BindValue>
-}
-const context = inject('collapsible') as { api: CollapsibleApi } | null
-const isOpen = computed(() => context?.api.open ?? false)
-const contentProps = computed(() => context?.api.getContentProps?.() ?? {})
+const api = useCollapsibleContext()
+const contentProps = computed(() => api.value.getContentProps())
+const labelledBy = computed(
+  () => contentProps.value['aria-labelledby'] || api.value.getTriggerProps().id
+)
 </script>
 
 <template>
   <div
     v-bind="contentProps"
     data-slot="collapsible-content"
-    :data-state="isOpen ? 'open' : 'closed'"
+    role="region"
+    :aria-labelledby="labelledBy"
     :class="cn('overflow-hidden', props.class)"
   >
-    <slot v-if="isOpen" />
+    <slot v-if="api.visible" />
   </div>
 </template>

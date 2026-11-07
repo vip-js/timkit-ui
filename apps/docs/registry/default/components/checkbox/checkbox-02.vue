@@ -17,8 +17,13 @@ function setChecked(next: typeof checked.value | ((prev: typeof checked.value) =
     : next;
 }
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="flex items-center gap-2"><Checkbox :id="id" :checked="checked" :onCheckedChange="setChecked" /><Label :htmlFor="id">Indeterminate checkbox</Label></div>
+  <div class="flex items-center gap-2"><Checkbox @click="onDemoClick" :id="id" :checked="checked" :onCheckedChange="setChecked" /><Label :htmlFor="id">Indeterminate checkbox</Label></div>
 </template>

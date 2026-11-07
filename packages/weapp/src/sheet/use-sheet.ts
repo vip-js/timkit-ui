@@ -1,6 +1,6 @@
 import { dialogConnect, dialogMachine, type DialogApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -16,13 +16,13 @@ export function setupSheetMachine(
   props: UseSheetProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => DialogApi
 } {
-  const machine = dialogMachine({
+  const machine = bindMachine(dialogMachine, {
     id: props.id || 'sheet',
-    open: props.open,
+    defaultOpen: props.open === true ? true : undefined,
     onOpenChange: props.onOpenChange,
   })
 
@@ -30,8 +30,8 @@ export function setupSheetMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
-    connect: (state: object, send: MachineSend) => dialogConnect(state, send) as DialogApi,
+    connect: (state: object, send: MachineSend) => dialogConnect(state as never, normalizeProps) as DialogApi,
   }
 }

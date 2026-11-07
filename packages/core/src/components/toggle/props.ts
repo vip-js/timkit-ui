@@ -4,6 +4,14 @@ export type TogglePressedChangeEvent = TimEvent<{ pressed: boolean }>
 
 export type ToggleProps = {
   /**
+   * The visual style of the toggle.
+   */
+  variant?: 'default' | 'outline'
+  /**
+   * The size of the toggle.
+   */
+  size?: 'default' | 'sm' | 'lg'
+  /**
    * The controlled pressed state of the component.
    */
   pressed?: boolean

@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { progressPercent } from '@timui/core'
+
 import { progressIndicatorVariants, progressRootVariants, resolveClasses } from '../utils'
 import {
   connectProgressMachine,
@@ -33,8 +35,8 @@ Component({
 
   properties: {
     value: {
-      type: Number,
-      value: 0,
+      type: null,
+      value: null,
     },
     max: {
       type: Number,
@@ -52,12 +54,25 @@ Component({
       type: String,
       value: '',
     },
+    'aria-label': {
+      type: String,
+      value: '',
+    },
+    'aria-labelledby': {
+      type: String,
+      value: '',
+    },
   },
 
   data: {
     api: {} as WeappProgressApi,
     rootClass: '',
     indicatorClass: '',
+    current: null as number | null,
+    percent: 0,
+    state: 'indeterminate',
+    ariaLabel: '',
+    labelledBy: '',
   },
 
   lifetimes: {
@@ -71,8 +86,14 @@ Component({
       })
 
       self._service = controller.service as WeappProgressService
-      self._cleanup = controller.start()
       self._send = controller.send as (event: object) => void
+      self._cleanup = controller.start()
+      this.sync()
+      const ariaLabel = String(this.properties['aria-label'] || '')
+      const labelledBy = String(this.properties['aria-labelledby'] || '')
+      if (this.data.ariaLabel !== ariaLabel || this.data.labelledBy !== labelledBy) {
+        this.setData({ ariaLabel, labelledBy })
+      }
     },
     detached() {
       const self = this as WeappProgressInternal
@@ -84,36 +105,53 @@ Component({
     state: function (state) {
       const self = this as WeappProgressInternal
       if (!state || !self._send) return
-      const api = connectProgressMachine(state, self._send) as WeappProgressApi
-
-      const { baseClass: rootClass } = resolveClasses(
-        progressRootVariants(),
-        self.properties.extClass
-      )
-      const { baseClass: indicatorClass } = resolveClasses(progressIndicatorVariants())
-
-      this.setData({ api, rootClass, indicatorClass })
-    },
-
-    value: function (val) {
-      const self = this as WeappProgressInternal
-      if (self._service) {
-        self._service.setContext({ value: val })
+      try {
+        const api = connectProgressMachine(state, self._send) as WeappProgressApi
+        this.setData({ api })
+      } catch {
+        // The visible percent comes from sync().
       }
     },
 
-    max: function (val) {
-      const self = this as WeappProgressInternal
-      if (self._service) {
-        self._service.setContext({ max: val })
-      }
+    value: function () {
+      this.sync()
     },
 
-    min: function (val) {
-      const self = this as WeappProgressInternal
-      if (self._service) {
-        self._service.setContext({ min: val })
-      }
+    max: function () {
+      this.sync()
+    },
+
+    min: function () {
+      this.sync()
+    },
+
+    'aria-label': function (value: string) {
+      const ariaLabel = String(value || '')
+      if (this.data.ariaLabel === ariaLabel) return
+      this.setData({ ariaLabel })
+    },
+    'aria-labelledby': function (value: string) {
+      const labelledBy = String(value || '')
+      if (this.data.labelledBy === labelledBy) return
+      this.setData({ labelledBy })
+    },
+  },
+
+  methods: {
+    sync() {
+      const min = Number(this.properties.min ?? 0)
+      const max = Number(this.properties.max ?? 100)
+      const raw = this.properties.value
+      const indeterminate = raw === null || raw === undefined || raw === ''
+      const current = indeterminate ? null : Number(raw)
+      this.setData({
+        current,
+        percent: indeterminate ? 0 : (progressPercent(current, min, max) ?? 0),
+        valueText: indeterminate ? '' : `${Math.round(progressPercent(current, min, max) ?? 0)}%`,
+        state: indeterminate ? 'indeterminate' : 'loading',
+        rootClass: resolveClasses(progressRootVariants(), this.properties.extClass).baseClass,
+        indicatorClass: resolveClasses(progressIndicatorVariants()).baseClass,
+      })
     },
   },
 })

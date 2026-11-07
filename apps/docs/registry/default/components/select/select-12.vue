@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue';
 import { SelectNative } from '@timui/vue';
 
@@ -22,8 +23,13 @@ const formattedTimezones = timezones
   })
   .sort((a, b) => a.numericOffset - b.numericOffset);
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Timezone select (native)</Label><SelectNative :id="id" default-value="Europe/London"><option v-for="({ value, label }, index) in formattedTimezones" :key="value" :value="value">{{ label }}</option></SelectNative></div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Timezone select (native)</Label><SelectNative @input="onDemoClick" @input="onDemoClick" :id="id" default-value="Europe/London"><option v-for="({ value, label }, index) in formattedTimezones" :key="value" :value="value">{{ label }}</option></SelectNative></div>
 </template>

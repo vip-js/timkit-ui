@@ -1,0 +1,38 @@
+<view wx:if="{{highlight >= 0}}" class="list-box {{extClass}}" id="{{id}}" role="listbox" aria-label="{{ariaLabel || 'List'}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-activedescendant="{{id}}-option-{{highlight}}" bindkeydown="onKey">
+  <view
+    wx:for="{{items}}"
+    wx:key="value"
+    id="{{id}}-option-{{index}}"
+    class="list-box-item {{item.disabled ? 'is-disabled' : ''}}"
+    role="option"
+    tabindex="-1"
+    data-value="{{item.value}}"
+    data-selected="{{selected.indexOf(item.value) > -1}}"
+    data-highlighted="{{highlight === index}}"
+    aria-selected="{{selected.indexOf(item.value) > -1 ? 'true' : 'false'}}"
+    aria-disabled="{{item.disabled ? 'true' : 'false'}}"
+    bindtap="onSelect"
+    bindkeydown="onOptionKey"
+  >
+    <text>{{item.label}}</text>
+  </view>
+</view>
+<view wx:else class="list-box {{extClass}}" id="{{id}}" role="listbox" aria-label="{{ariaLabel || 'List'}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" bindkeydown="onKey">
+  <view
+    wx:for="{{items}}"
+    wx:key="value"
+    id="{{id}}-option-{{index}}"
+    class="list-box-item {{item.disabled ? 'is-disabled' : ''}}"
+    role="option"
+    tabindex="-1"
+    data-value="{{item.value}}"
+    data-selected="{{selected.indexOf(item.value) > -1}}"
+    data-highlighted="{{highlight === index}}"
+    aria-selected="{{selected.indexOf(item.value) > -1 ? 'true' : 'false'}}"
+    aria-disabled="{{item.disabled ? 'true' : 'false'}}"
+    bindtap="onSelect"
+    bindkeydown="onOptionKey"
+  >
+    <text>{{item.label}}</text>
+  </view>
+</view>

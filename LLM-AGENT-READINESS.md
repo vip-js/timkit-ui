@@ -25,6 +25,7 @@ Agent 可以在不读源码的情况下完成「理解需求 → 选组件 → �
 | 安全修复，重复执行不再改动                          | `timkit agent validate <file> --fix`  |
 | 登录、确认框、通知开关、客服 Agent 工作台          | `timkit agent recipe <id> --json`     |
 | Agent 业务组件：消息、输入、计划、工具、审批、引用 | `import { ToolCall } from '@timui/react/agent'` |
+| 线程数据与审批门闩                                  | `reduceAgentThread` from `@timui/core/agent-thread` |
 | 直接依赖、传递依赖、反向依赖                        | `timkit agent deps <name> --json`     |
 | 扫描当前项目已安装的 Timkit 组件                    | `timkit agent context --json`         |
 | 多轮补充，后一句没点名组件时沿用上一轮              | `createSession().ask()` / `reply()`   |

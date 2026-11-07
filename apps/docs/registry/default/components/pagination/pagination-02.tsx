@@ -1,5 +1,6 @@
 import { Button, Pagination, PaginationContent, PaginationItem } from '@timui/react'
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
+import { useState } from 'react'
 
 type PaginationProps = {
   currentPage: number
@@ -7,11 +8,12 @@ type PaginationProps = {
 }
 
 export default function Component({ currentPage, totalPages }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Pagination>
       <PaginationContent className="w-full justify-between gap-3">
         <PaginationItem>
-          <Button
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
             variant="ghost"
             className="group aria-disabled:pointer-events-none aria-disabled:opacity-50"
             aria-disabled={currentPage === 1 ? true : undefined}

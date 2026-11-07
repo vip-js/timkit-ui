@@ -6,6 +6,10 @@ export type ToggleGroupValueChangeEvent = TimEvent<{ value: string[] }>
 
 export type ToggleGroupProps = Omit<toggleGroup.Props, 'onValueChange'> & {
   /**
+   * Whether one item or several items can be pressed.
+   */
+  type?: 'single' | 'multiple'
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: ToggleGroupValueChangeEvent) => void

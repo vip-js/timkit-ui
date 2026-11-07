@@ -1,3 +1,6 @@
-<view class="{{className}}" data-slot="alert">
+<view class="{{className}}" data-slot="alert" role="alert" data-variant="{{variantName}}">
+  <view wx:if="{{toneStatus}}" role="status">{{toneStatus}}</view>
+  <view wx:if="{{title}}" data-slot="alert-title" role="heading" aria-level="5">{{title}}</view>
+  <view wx:if="{{description}}" data-slot="alert-description">{{description}}</view>
   <slot></slot>
 </view>

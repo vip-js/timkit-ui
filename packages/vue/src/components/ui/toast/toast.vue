@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { cn, toastVariants, type ToastVariants } from "@timui/core";
-import { computed, provide, type HTMLAttributes } from "vue";
+import { computed, provide, ref, type HTMLAttributes } from "vue";
+
+import { usePassedProp } from "../../../hooks/passed-prop";
 
 const props = withDefaults(
   defineProps<{
@@ -18,21 +20,25 @@ const props = withDefaults(
 
 const emit = defineEmits(["update:open", "openChange", "pause", "resume"]);
 
+const passed = usePassedProp();
+const dismissed = ref(false);
+const visible = computed(() => {
+  const open = passed<boolean>(props, "open");
+  return open === undefined ? !dismissed.value : open;
+});
 const computedClass = computed(() => cn(toastVariants({ variant: props.variant }), props.class));
 
 const close = () => {
-  props.onOpenChange?.(false);
+  dismissed.value = true;
   emit("update:open", false);
   emit("openChange", false);
 };
 
 const handlePause = () => {
-  props.onPause?.();
   emit("pause");
 };
 
 const handleResume = () => {
-  props.onResume?.();
   emit("resume");
 };
 
@@ -41,14 +47,16 @@ provide("toast", { close });
 
 <template>
   <li
-    v-if="props.open !== false"
-    :data-state="props.open ? 'open' : 'closed'"
+    v-if="visible"
+    data-slot="toast"
+    :data-state="visible ? 'open' : 'closed'"
     :class="computedClass"
     @mouseenter="handlePause"
     @mouseleave="handleResume"
     @focusin="handlePause"
     @focusout="handleResume"
   >
+    <p role="status">Opened</p>
     <slot />
   </li>
 </template>

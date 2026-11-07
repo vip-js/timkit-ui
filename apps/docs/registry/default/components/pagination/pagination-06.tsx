@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -21,6 +22,7 @@ export default function Component({
   totalPages,
   paginationItemsToDisplay = 5,
 }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
     currentPage,
     totalPages,
@@ -50,7 +52,7 @@ export default function Component({
         {/* Page number links */}
         {pages.map((page) => (
           <PaginationItem key={page}>
-            <PaginationLink href={`#/page/${page}`} isActive={page === currentPage}>
+            <PaginationLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} href={`#/page/${page}`} isActive={page === currentPage}>
               {page}
             </PaginationLink>
           </PaginationItem>

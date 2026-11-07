@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue'
 import { ListBox } from '@timui/vue'
 import { ListBoxItem } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2">
-    <Label>Listbox with single option</Label>
+    <Label @click="onDemoClick">Listbox with single option</Label>
     <div class="border-input overflow-hidden rounded-md border">
       <ListBox
         class="bg-background space-y-1 p-1 text-sm shadow-xs transition-[color,box-shadow]"

@@ -1,4 +1,5 @@
 import { Timeline, TimelineContent, TimelineDate, TimelineItem } from '@timui/react'
+import { useState } from 'react'
 
 const items = [
   {
@@ -24,8 +25,9 @@ const items = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Timeline className="divide-y rounded-lg border">
+    <Timeline onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="divide-y rounded-lg border">
       {items.map((item) => (
         <TimelineItem key={item.id} step={item.id} className="m-0! px-4! py-3!">
           <TimelineContent className="text-foreground">

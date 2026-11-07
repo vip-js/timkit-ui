@@ -1,11 +1,13 @@
 import { useId } from 'react'
 import { Button, Input } from '@timui/react'
 import { MicIcon, SearchIcon } from 'lucide-react'
+import { useState } from 'react'
 
 import Logo from '@/registry/default/components/navbar-components/logo'
 import ThemeToggle from '@/registry/default/components/navbar-components/theme-toggle'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
 
   return (
@@ -21,7 +23,7 @@ export default function Component() {
         <div className="grow max-sm:hidden">
           {/* Search form */}
           <div className="relative mx-auto w-full max-w-xs">
-            <Input id={id} className="peer h-8 px-8" placeholder="Search..." type="search" />
+            <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} className="peer h-8 px-8" placeholder="Search..." type="search" />
             <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2 peer-disabled:opacity-50">
               <SearchIcon size={16} />
             </div>

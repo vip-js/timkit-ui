@@ -1,14 +1,16 @@
 import { useId } from 'react'
 import { Input, Label } from '@timui/react'
 import { ArrowRightIcon, SearchIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>Search input with icon and button</Label>
       <div className="relative">
-        <Input id={id} className="peer ps-9 pe-9" placeholder="Search..." type="search" />
+        <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} className="peer ps-9 pe-9" placeholder="Search..." type="search" />
         <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
           <SearchIcon size={16} />
         </div>

@@ -1,13 +1,13 @@
 import { toggleConnect, toggleMachine, type ToggleApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
 
 export type UseToggleProps = {
   id?: string
-  pressed?: boolean
+  pressed?: boolean | null
   disabled?: boolean
   onPressedChange?: (details: { pressed: boolean }) => void
 }
@@ -17,14 +17,14 @@ export function setupToggleMachine(
   props: UseToggleProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => ToggleApi
 } {
-  const machine = toggleMachine({
+  const machine = bindMachine(toggleMachine, {
     id: props.id || 'toggle',
-    pressed: props.pressed,
-    disabled: props.disabled,
+    ...(props.pressed === true ? { defaultPressed: true } : {}),
+    disabled: props.disabled || undefined,
     onPressedChange: props.onPressedChange,
   })
 
@@ -32,8 +32,8 @@ export function setupToggleMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
-    connect: (state: object, send: MachineSend) => toggleConnect(state, send) as ToggleApi,
+    connect: (state: object, send: MachineSend) => toggleConnect(state as never, normalizeProps) as ToggleApi,
   }
 }

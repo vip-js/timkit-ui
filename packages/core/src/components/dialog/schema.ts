@@ -38,6 +38,12 @@ const dialogSchema = defineUCS({
       description: 'Event handler called when the open state changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the dialog is ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'modal',
       type: 'boolean',
       description: 'Whether the dialog is modal.',

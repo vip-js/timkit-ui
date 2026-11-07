@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Avatar,
   AvatarFallback,
@@ -22,10 +23,11 @@ import {
 } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
             <AvatarImage src="./avatar.jpg" alt="Profile image" />
             <AvatarFallback>KK</AvatarFallback>

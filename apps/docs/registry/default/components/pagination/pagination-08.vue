@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { cn } from '@timui/core';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next';
 import { buttonVariants } from '@timui/vue';
@@ -13,10 +14,15 @@ const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
   totalPages,
   paginationItemsToDisplay,
 });
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Pagination><PaginationContent class="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse"><PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationLink :class="cn(
+  <Pagination @click="onDemoClick"><PaginationContent class="inline-flex gap-0 -space-x-px rounded-md shadow-xs rtl:space-x-reverse"><PaginationItem class="[&:first-child>a]:rounded-s-md [&:last-child>a]:rounded-e-md"><PaginationLink :class="cn(
               buttonVariants({
                 variant: 'outline',
               }),

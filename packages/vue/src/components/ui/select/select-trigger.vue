@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useSelectContext } from "./use-select-context";
-import { computed, inject, type Component, type HTMLAttributes, type Ref } from "vue";
+import { returnFocusKey } from "../use-return-focus";
+import { computed, inject, useAttrs, type Component, type HTMLAttributes, type Ref } from "vue";
 import { ChevronDownIcon } from "lucide-vue-next";
 import { cn, selectTriggerIconVariants, selectTriggerVariants } from "@timui/core";
 import { Primitive } from '../../primitive';
@@ -22,7 +23,25 @@ type SelectApi = {
 };
 
 const api = useSelectContext() as Ref<SelectApi | undefined> | undefined;
-const triggerProps = computed(() => api?.value?.getTriggerProps?.() || {});
+const attrs = useAttrs();
+const rememberTrigger = inject(returnFocusKey, () => {});
+const triggerProps = computed(() => {
+  const machineProps = api?.value?.getTriggerProps?.() || {};
+  const onKeyDown = machineProps.onKeyDown as ((event: KeyboardEvent) => void) | undefined;
+  const onClick = machineProps.onClick as ((event: MouseEvent) => void) | undefined;
+  return {
+    ...machineProps,
+    "data-slot": "select-trigger",
+    onKeyDown(event: KeyboardEvent) {
+      rememberTrigger(event.currentTarget as HTMLElement | null);
+      onKeyDown?.(event);
+    },
+    onClick(event: MouseEvent) {
+      rememberTrigger(event.currentTarget as HTMLElement | null);
+      onClick?.(event);
+    },
+  };
+});
 </script>
 
 <template>
@@ -30,6 +49,7 @@ const triggerProps = computed(() => api?.value?.getTriggerProps?.() || {});
     :as="props.as"
     :as-child="props.asChild"
     v-bind="triggerProps"
+    :aria-label="attrs['aria-label']"
     :class="
       cn(
         !props.asChild && selectTriggerVariants(),
@@ -38,6 +58,6 @@ const triggerProps = computed(() => api?.value?.getTriggerProps?.() || {});
     "
   >
     <slot />
-    <ChevronDownIcon v-if="!props.asChild" :class="selectTriggerIconVariants()" />
+    <ChevronDownIcon v-if="!props.asChild" aria-hidden="true" :class="selectTriggerIconVariants()" />
   </Primitive>
 </template>

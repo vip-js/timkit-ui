@@ -9,6 +9,14 @@ export type DatePickerValueChangeEvent = TimEvent<{
 
 export type DatePickerProps = Omit<datePicker.Props, 'onValueChange'> & {
   /**
+   * The selection mode.
+   */
+  mode?: 'single' | 'range'
+  /**
+   * The number of months to display at once.
+   */
+  numberOfMonths?: number
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: DatePickerValueChangeEvent) => void
@@ -66,6 +74,10 @@ export type DatePickerVueProps = {
    * When `true`, prevents the user from interacting with the component.
    */
   disabled?: boolean
+  /**
+   * When true, the calendar can be opened and days can be focused, but selection does not change.
+   */
+  readOnly?: boolean
   /**
    * When `true`, indicates that the user must provide a value before form submission.
    */

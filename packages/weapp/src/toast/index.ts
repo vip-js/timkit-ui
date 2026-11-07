@@ -20,7 +20,7 @@ type MachineEvent =
       [key: string]: string | number | boolean | string[] | number[] | null | undefined
     }
 
-type ToastVariant = 'info' | 'success' | 'warning' | 'error'
+type ToastVariant = 'default' | 'destructive'
 type ToastStatus = 'visible' | 'dismissing' | 'unmounted'
 
 type WeappToastApi = {
@@ -45,19 +45,22 @@ type WeappToastInternal =
       api: WeappToastApi
     }
     properties: {
+      variant: string
       type: string
       duration: number
       title: string
       description: string
       showClose: boolean
+      open: boolean
       id: string
       extClass: string
     }
   }
 
-function toToastVariant(value: string): ToastVariant {
-  if (value === 'success' || value === 'warning' || value === 'error') return value
-  return 'info'
+function toToastVariant(variant: string, type: string): ToastVariant {
+  if (variant === 'destructive' || variant === 'default') return variant
+  if (type === 'error' || type === 'destructive') return 'destructive'
+  return 'default'
 }
 
 Component({
@@ -66,17 +69,20 @@ Component({
   externalClasses: WEAPP_EXTERNAL_CLASSES,
 
   properties: {
-    type: { type: String, value: 'info' },
+    variant: { type: String, value: '' },
+    type: { type: String, value: '' },
     duration: { type: Number, value: 3000 },
     title: { type: String, value: '' },
     description: { type: String, value: '' },
     showClose: { type: Boolean, value: true },
+    open: { type: null, value: null },
     ...createWeappBaseProps('toast'),
   },
 
   data: {
     api: {} as WeappToastApi,
     toastClass: '',
+    open: true,
     titleClass: '',
     descriptionClass: '',
     closeClass: '',
@@ -85,10 +91,10 @@ Component({
   lifetimes: {
     attached() {
       const self = this as WeappToastInternal
-      const variant = toToastVariant(this.properties.type)
-      const { service, cleanup, send, connect } = setupToastMachine(this, {
+      const variant = toToastVariant(this.properties.variant, this.properties.type)
+      const { service, start, send, connect } = setupToastMachine(this, {
         id: this.properties.id,
-        type: variant,
+        type: variant === 'destructive' ? 'error' : 'info',
         duration: this.properties.duration,
         onStatusChange: (details: ToastStatusDetails) => {
           if (details.status === 'unmounted') {
@@ -105,9 +111,9 @@ Component({
       })
 
       self._service = service as WeappService
-      self._cleanup = cleanup
       self._send = send as (event: MachineEvent) => void
       self._connect = connect
+      self._cleanup = start()
     },
     detached() {
       const self = this as WeappToastInternal
@@ -116,26 +122,52 @@ Component({
   },
 
   observers: {
+    open(next: boolean) {
+      const open = next !== false
+      if (open === (this.data.open !== false)) return
+      this.setData({ open })
+    },
     state: function (state) {
       const self = this as WeappToastInternal
       if (!state || !self._send || !self._connect) return
-      const api = self._connect(state, self._send) as WeappToastApi
+      let api: WeappToastApi = {}
+      try {
+        api = self._connect(state, self._send) as WeappToastApi
+      } catch {
+        api = {}
+      }
 
       const toastClass = resolveClasses(
-        toastVariants({ variant: toToastVariant(this.properties.type) }),
+        toastVariants({
+          variant: toToastVariant(this.properties.variant, this.properties.type),
+        }),
         self.properties.extClass
       )
       const titleClass = resolveClasses(toastTitleVariants())
       const descriptionClass = resolveClasses(toastDescriptionVariants())
       const closeClass = resolveClasses(toastCloseVariants())
 
-      this.setData({ api, toastClass, titleClass, descriptionClass, closeClass })
+      this.setData({
+        api,
+        toastClass,
+        titleClass,
+        descriptionClass,
+        closeClass,
+        open: this.properties.open !== false && this.data.open !== false,
+      })
     },
   },
 
   methods: {
+    onCloseKey(event?: { detail?: { key?: string } }) {
+      const key = String(event?.detail?.key || '')
+      if (key === 'Enter' || key === ' ') this.onCloseTap()
+    },
     onCloseTap() {
       const self = this as WeappToastInternal
+      const controlled = this.properties.open !== null && this.properties.open !== undefined
+      if (!controlled) this.setData({ open: false })
+      this.triggerEvent('openchange', { open: false })
       self.data.api.dismiss?.()
     },
   },

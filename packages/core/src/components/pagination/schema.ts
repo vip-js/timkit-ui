@@ -42,6 +42,12 @@ const paginationSchema = defineUCS({
       defaultValue: 10,
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, page changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'siblingCount',
       type: 'number',
       description: 'Number of sibling pages shown around the active page.',

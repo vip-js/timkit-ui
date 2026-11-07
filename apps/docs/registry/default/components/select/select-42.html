@@ -1,16 +1,3 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Select with search and button</Label><Popover open="${open}" on-open-change="${setOpen}"><PopoverTrigger aschild><Button id="${id}" variant="outline" role="combobox" aria-expanded="${open}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><span class="${cn('truncate', !value && 'text-muted-foreground')}"><!-- if value -->
-${organizations.find((organization) => organization.value === value)?.label}
-<!-- else -->
-${'Select organization'}
-<!-- endif --></span><ChevronDownIcon size="${16}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></Button></PopoverTrigger><PopoverContent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><Command><CommandInput placeholder="Find organization" /><CommandList><CommandEmpty>No organization found.</CommandEmpty><CommandGroup><!-- Loop organizations -->
-<CommandItem key="${organization.value}" value="${organization.value}" onselect="${(currentValue) => {
-                      const val = currentValue as string
-                      setValue(val === value ? '' : val)
-                      setOpen(false)
-                    }}">${organization.label}<!-- if value === organization.value -->
-<CheckIcon size="${16}" class="ml-auto" />
-<!-- endif --></CommandItem>
-<!-- End Loop --></CommandGroup><CommandSeparator /><CommandGroup><Button variant="ghost" class="w-full justify-start font-normal"><PlusIcon size="${16}" class="-ms-2 opacity-60" aria-hidden="true" />New organization
-                </Button></CommandGroup></CommandList></Command></PopoverContent></Popover></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2"><label data-slot="label">Select with search and button</label><div data-slot="popover"><button type="button" data-slot="popover-trigger"><button type="button" data-slot="button" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" role="combobox"><span><template>
+</div>

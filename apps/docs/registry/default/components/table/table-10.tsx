@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -132,12 +133,13 @@ const items = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div>
       <div className="[&>div]:max-h-96">
         <Table className="[&_td]:border-border [&_th]:border-border border-separate border-spacing-0 [&_tfoot_td]:border-t [&_th]:border-b [&_tr]:border-none [&_tr:not(:last-child)_td]:border-b">
           <TableHeader className="bg-background/90 sticky top-0 z-10 backdrop-blur-xs">
-            <TableRow className="hover:bg-transparent">
+            <TableRow onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="hover:bg-transparent">
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Location</TableHead>

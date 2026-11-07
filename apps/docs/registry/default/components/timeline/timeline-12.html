@@ -1,5 +1,6 @@
-<template>
-  <Timeline default-value="${3}" orientation="horizontal"><!-- Loop items -->
-<TimelineItem key="${item.id}" step="${item.id}" class="group-data-[orientation=horizontal]/timeline:mt-0"><TimelineHeader><TimelineSeparator class="group-data-[orientation=horizontal]/timeline:top-8" /><TimelineDate class="mb-10">${item.date}</TimelineDate><TimelineTitle>${item.title}</TimelineTitle><TimelineIndicator class="group-data-[orientation=horizontal]/timeline:top-8" /></TimelineHeader><TimelineContent>${item.description}</TimelineContent></TimelineItem>
-<!-- End Loop --></Timeline>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<ol orientation="horizontal"><li step="1"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 15, 2024<h3>Project Kickoff</h3><span aria-hidden="true"><div data-slot="timeline-content">Initial team meeting.</li>
+<li step="2"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Mar 22, 2024<h3>Design Phase</h3><span aria-hidden="true"><div data-slot="timeline-content">Completed wireframes.</li>
+<li step="3"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 5, 2024<h3>Development Sprint</h3><span aria-hidden="true"><div data-slot="timeline-content">Backend development.</li>
+<li step="4"><div data-slot="timeline-header"><span aria-hidden="true"><div data-slot="timeline-date">Apr 19, 2024<h3>Testing &amp; Deployment</h3><span aria-hidden="true"><div data-slot="timeline-content">Performance optimization.</li></ol>
+</div>

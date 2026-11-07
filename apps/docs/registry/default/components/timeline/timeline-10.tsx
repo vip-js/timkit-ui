@@ -1,5 +1,6 @@
 import { Timeline, TimelineContent, TimelineItem } from '@timui/react'
 import { BookOpenIcon, LucideIcon, MessageCircleIcon, PencilIcon, PlusIcon } from 'lucide-react'
+import { useState } from 'react'
 
 const items: {
   id: number
@@ -79,6 +80,7 @@ function getRelativeTimeString(date: Date): string {
 }
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="space-y-3">
       <div className="text-muted-foreground text-xs font-medium">Activity</div>

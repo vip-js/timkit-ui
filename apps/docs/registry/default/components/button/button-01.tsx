@@ -1,5 +1,7 @@
 import { Button } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
-  return <Button>Button</Button>
+  const [demoClicks, setDemoClicks] = useState(0)
+  return <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>Button</Button>
 }

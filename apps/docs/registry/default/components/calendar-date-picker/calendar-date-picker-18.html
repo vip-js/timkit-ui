@@ -1,31 +1,32 @@
-<template>
-  <div><Calendar mode="single" selected="${date}" onSelect="${setDate}" month="${month}" onmonthchange="${setMonth}" defaultmonth="${new Date()}" startmonth="${startDate}" endmonth="${endDate}" class="overflow-hidden rounded-md border p-2" classnames="${{
-          month_caption: 'ms-2.5 me-20 justify-start',
-          nav: 'justify-end',
-        }}" components="${{
-          CaptionLabel: (props: CaptionLabelProps) => (
-            <CaptionLabel isYearView={isYearView} setIsYearView={setIsYearView} {...props} />
-          ),
-          MonthGrid: (props: MonthGridProps) => {
-            return (
-              <MonthGrid
-                className={props.className}
-                isYearView={isYearView}
-                setIsYearView={setIsYearView}
-                startDate={startDate}
-                endDate={endDate}
-                years={years}
-                currentYear={month.getFullYear()}
-                currentMonth={month.getMonth()}
-                onMonthSelect={(selectedMonth: Date) => {
-                  setMonth(selectedMonth)
-                  setIsYearView(false)
-                }}
-              >
-                {props.children}
-              </MonthGrid>
-            )
-          },
-        }}" /><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Advanced selection -${' '}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-3">
+    <div class="flex items-center gap-2">
+      <select
+        class="border-input bg-background h-8 rounded-md border px-2 text-sm">
+        <option>
+          
+        </option>
+      </select>
+      <select
+        class="border-input bg-background h-8 rounded-md border px-2 text-sm">
+        <option>
+          
+        </option>
+      </select>
+    </div>
+
+    <span aria-hidden="true"
+      mode="single">
+
+    <p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">
+      Advanced selection -
+      <a
+        class="hover:text-foreground underline"
+        href="https://daypicker.dev/"
+        target="_blank"
+        rel="noopener nofollow">
+        React DayPicker
+      </a>
+    </p>
+  </div>
+</div>

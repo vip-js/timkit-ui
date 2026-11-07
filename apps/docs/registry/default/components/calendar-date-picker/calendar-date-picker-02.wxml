@@ -1,4 +1,9 @@
+<view class="timui-html-demo space-y-4 p-4">
 <view>
-  <view><rangecalendar class="rounded-md border p-2" value="{{date}}" onchange="{{setDate}}" /><text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Range calendar -{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></text></view>
+    <text aria-hidden="true">
+    <text class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">
+      Range calendar -
+      <navigator class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateRangePicker.html" target="_blank" rel="noopener nofollow">React Aria</navigator>
+    </text>
+  </view>
 </view>

@@ -1,16 +1,74 @@
-<view>
-  <view class="*:not-first:mt-2"><label>Listbox with option groups</label><view class="border-input overflow-hidden rounded-md border"><listbox class="bg-background max-h-72 min-h-20 space-y-2 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]" aria-label="Select some foods" selectionmode="multiple" defaultselectedkeys="{{['lettuce', 'tuna']}}"><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Veggies
-            </header><listboxitem id="lettuce" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Lettuce
-            </listboxitem><listboxitem id="tomato" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tomato
-            </listboxitem><listboxitem id="onion" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Onion
-            </listboxitem></listboxsection><separator class="bg-border -mx-1 my-2 h-px" /><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Protein
-            </header><listboxitem id="ham" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Ham
-            </listboxitem><listboxitem id="tuna" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tuna
-            </listboxitem><listboxitem id="tofu" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Tofu
-            </listboxitem></listboxsection><separator class="bg-border -mx-1 my-2 h-px" /><listboxsection class="space-y-1"><header class="text-muted-foreground px-2 py-1.5 text-xs font-medium">Condiments
-            </header><listboxitem id="mayo" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Mayonaise
-            </listboxitem><listboxitem id="mustard" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Mustard
-            </listboxitem><listboxitem id="ranch" class="data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-focus-visible:border-ring data-focus-visible:ring-ring/50 relative rounded px-2 py-1.5 outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-focus-visible:ring-[3px]">Ranch
-            </listboxitem></listboxsection></listbox></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/ListBox.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></text></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label">Listbox with option groups</text>
+    <view class="border-input overflow-hidden rounded-md border">
+      <view data-slot="list-box"
+       
+        aria-label="Select some foods"
+        selectionMode="multiple">
+        <view data-slot="list-box-section">
+          <view data-slot="header">Veggies
+          <view data-slot="list-box-item"
+            id="lettuce">
+            Lettuce
+          
+          <view data-slot="list-box-item"
+            id="tomato">
+            Tomato
+          
+          <view data-slot="list-box-item"
+            id="onion">
+            Onion
+          
+        
+
+        <view data-slot="separator">
+
+        <view data-slot="list-box-section">
+          <view data-slot="header">Protein
+          <view data-slot="list-box-item"
+            id="ham">
+            Ham
+          
+          <view data-slot="list-box-item"
+            id="tuna">
+            Tuna
+          
+          <view data-slot="list-box-item"
+            id="tofu">
+            Tofu
+          
+        
+
+        <view data-slot="separator">
+
+        <view data-slot="list-box-section">
+          <view data-slot="header">Condiments
+          <view data-slot="list-box-item"
+            id="mayo">
+            Mayonaise
+          
+          <view data-slot="list-box-item"
+            id="mustard">
+            Mustard
+          
+          <view data-slot="list-box-item"
+            id="ranch">
+            Ranch
+          
+        
+      
+    </view>
+
+    <text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <navigator
+        class="hover:text-foreground underline"
+        href="https://zagjs.com/"
+        target="_blank"
+        rel="noopener nofollow">
+        Zag.js
+      </navigator>
+    </text>
+  </view>
 </view>

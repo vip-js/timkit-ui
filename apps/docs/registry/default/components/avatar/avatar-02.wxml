@@ -1,3 +1,3 @@
-<view>
-  <avatar><avatarfallback>KK</avatarfallback></avatar>
+<view class="timui-html-demo space-y-4 p-4">
+<text data-slot="avatar"><text data-slot="avatar-fallback">KK</text></text>
 </view>

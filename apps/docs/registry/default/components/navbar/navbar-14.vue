@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { CompassIcon, FeatherIcon, HouseIcon, PlusIcon, SearchIcon } from 'lucide-vue-next'
 import { Button } from '@timui/vue'
 import {
@@ -20,6 +21,11 @@ const navigationLinks = [
   { href: '#', label: 'Write', icon: FeatherIcon },
   { href: '#', label: 'Search', icon: SearchIcon },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
@@ -28,7 +34,7 @@ const navigationLinks = [
       <div class="flex flex-1 items-center gap-2">
         <Popover>
           <PopoverTrigger as-child>
-            <Button class="group size-8 md:hidden" variant="ghost" size="icon">
+            <Button @click="onDemoClick" :data-clicks="demoClicks" class="group size-8 md:hidden" variant="ghost" size="icon">
               <svg
                 class="pointer-events-none"
                 :width="16"

@@ -12,6 +12,7 @@ import { useRadioGroupContext } from "./use-radio-group-context";
 
 const props = defineProps<{ value: string; class?: string; disabled?: boolean }>();
 const api = useRadioGroupContext();
+inject<((value: string) => void) | null>("radio-register", null)?.(props.value);
 
 const itemState = computed(() =>
   api?.value?.getItemState?.({ value: props.value, disabled: props.disabled })
@@ -37,10 +38,12 @@ const hiddenInputProps = computed(() =>
       <span data-slot="radio-indicator" :class="radioGroupIndicatorVariants()">
         <Circle
           v-if="itemState?.checked"
+          aria-hidden="true"
           :class="radioGroupIndicatorIconVariants()"
         />
       </span>
     </div>
     <input v-bind="hiddenInputProps" />
+    <slot />
   </label>
 </template>

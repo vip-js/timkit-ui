@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><view class="flex items-center justify-between gap-1"><label htmlfor="{{id}}" class="leading-6">Input with hint
-        </label><text class="text-muted-foreground text-sm">Optional</text></view><input id="{{id}}" placeholder="Email" type="email" /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><view class="flex items-center justify-between gap-1"><text data-slot="label" for="input-04">Input with hint
+        </text><text class="text-muted-foreground text-sm">Optional</text></view><input data-slot="input" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-04" placeholder="Email" type="email"></view>
 </view>

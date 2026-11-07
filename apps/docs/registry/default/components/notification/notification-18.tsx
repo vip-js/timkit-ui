@@ -1,7 +1,9 @@
 import { Button } from '@timui/react'
 import { RadioIcon, XIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     // To make the notification fixed, add classes like `fixed bottom-4 right-4` to the container element.
     <div className="bg-background z-50 max-w-[400px] rounded-md border p-4 shadow-lg">
@@ -17,7 +19,7 @@ export default function Component() {
             <p className="text-sm font-medium">Live in 27 hours</p>
             <p className="text-muted-foreground text-xs">November 20 at 8:00 PM.</p>
           </div>
-          <Button size="sm">Notify me</Button>
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} size="sm">Notify me</Button>
         </div>
         <Button
           variant="ghost"

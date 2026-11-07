@@ -18,6 +18,8 @@ Component({
 
   data: {
     className: '',
+    variantName: 'default',
+    toneStatus: '',
   },
 
   lifetimes: {
@@ -35,10 +37,11 @@ Component({
   methods: {
     updateClassName() {
       // Use core package's badgeVariants for consistent styling
-      const { baseClass } = badgeVariants({
+      const resolved = badgeVariants({
         variant: this.properties.variant || 'default',
         className: this.properties.extClass,
       })
+      const baseClass = typeof resolved === 'string' ? resolved : resolved?.baseClass || ''
 
       const classes = [baseClass]
 
@@ -46,7 +49,12 @@ Component({
         classes.push(`badge-${this.properties.size}`)
       }
 
-      this.setData({ className: classes.join(' ') })
+      const variantName = this.properties.variant || 'default'
+      this.setData({
+        className: classes.join(' '),
+        variantName,
+        toneStatus: variantName === 'destructive' ? 'Destructive' : '',
+      })
     },
   },
 })

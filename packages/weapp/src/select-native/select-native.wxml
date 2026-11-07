@@ -1,5 +1,43 @@
-<picker range="{{options}}" value="{{value}}" bindchange="handleChange">
-  <view class="{{className}}" data-slot="select-native">
+<view>
+  <view wx:if="{{optionStatus}}" role="status">{{optionStatus}}</view>
+<view wx:if="{{multiple}}" data-slot="select-native" aria-multiselectable="true" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view
+    wx:for="{{optionRows}}"
+    wx:key="value"
+    role="checkbox"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-checked="{{item.checked ? 'true' : 'false'}}"
+    data-value="{{item.value}}"
+    bindtap="onOptionTap"
+    bindkeydown="onOptionKey"
+  >{{item.label}}</view>
+</view>
+<picker wx:else range="{{labels}}" value="{{index}}" disabled="{{disabled}}" bindchange="handleChange">
+  <view
+    wx:if="{{describedBy}}"
+    id="{{id}}"
+    class="{{className}}"
+    data-slot="select-native"
+    data-value="{{selected}}"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-invalid="{{invalid === true || invalid === 'true' ? 'true' : 'false'}}"
+    aria-describedby="{{describedBy}}"
+  >
+    {{displayText}}
+  </view>
+  <view
+    wx:else
+    id="{{id}}"
+    class="{{className}}"
+    data-slot="select-native"
+    data-value="{{selected}}"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-invalid="{{invalid === true || invalid === 'true' ? 'true' : 'false'}}"
+  >
     {{displayText}}
   </view>
 </picker>
+</view>

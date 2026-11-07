@@ -1,9 +1,33 @@
 <view class="{{className}}">
+  <view wx:if="{{checkStatus}}" role="status">{{checkStatus}}</view>
   <switch
+    wx:if="{{describedBy}}"
+    id="{{id}}"
+    bindkeydown="onKey"
+    aria-invalid="{{invalid === true || invalid === 'true' ? 'true' : 'false'}}"
+    aria-describedby="{{describedBy}}"
     checked="{{checked}}"
-    disabled="{{disabled}}"
+    disabled="{{disabled || readOnly}}"
     color="{{color}}"
     name="{{name}}"
+    aria-label="{{ariaLabel || 'Switch'}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-required="{{required ? 'true' : 'false'}}"
+    type="switch"
+    bindchange="onSwitchChange"
+  />
+  <switch
+    wx:else
+    id="{{id}}"
+    bindkeydown="onKey"
+    aria-invalid="{{invalid === true || invalid === 'true' ? 'true' : 'false'}}"
+    checked="{{checked}}"
+    disabled="{{disabled || readOnly}}"
+    color="{{color}}"
+    name="{{name}}"
+    aria-label="{{ariaLabel || 'Switch'}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    aria-required="{{required ? 'true' : 'false'}}"
     type="switch"
     bindchange="onSwitchChange"
   />

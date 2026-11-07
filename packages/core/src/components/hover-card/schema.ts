@@ -20,6 +20,17 @@ const hoverCardSchema = defineUCS({
       description: 'The controlled open state.',
     },
     {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the card when uncontrolled.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the card is ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'onOpenChange',
       type: 'event',
       description: 'Event handler called when the open state changes.',

@@ -1,9 +1,44 @@
-<view>
-  <view class="*:not-first:mt-2"><legend class="text-foreground text-sm font-medium">Card Details</legend><view class="rounded-md shadow-xs"><view class="relative focus-within:z-10"><input class="peer rounded-b-none pe-9 shadow-none [direction:inherit]" id="{{`number-${id}`}}" /><view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50"><block wx:if="{{meta.cardType}}">
-<svg class="overflow-hidden rounded-sm" width="{{20}}" />
-</block>
-<block wx:else>
-<creditcardicon size="{{16}}" aria-hidden="true" />
-</block></view></view><view class="-mt-px flex"><view class="min-w-0 flex-1 focus-within:z-10"><input class="rounded-e-none rounded-t-none shadow-none [direction:inherit]" id="{{`expiry-${id}`}}" /></view><view class="-ms-px min-w-0 flex-1 focus-within:z-10"><input class="rounded-s-none rounded-t-none shadow-none [direction:inherit]" id="{{`cvc-${id}`}}" /></view></view></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://github.com/medipass/react-payment-inputs" target="_blank" rel="noopener nofollow">React Payment Inputs
-        </a></text></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <legend class="text-foreground text-sm font-medium">Card Details</legend>
+    <view class="rounded-md shadow-xs">
+      <view class="relative focus-within:z-10">
+        <input data-slot="input" class="peer rounded-b-none pe-9 shadow-none [direction:inherit] flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+          id="number-Example"
+          inputmode="numeric"
+          autocomplete="cc-number">
+        <view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
+          <text class="text-[10px] font-medium tracking-wide"></text>
+          <text aria-hidden="true" size="16" aria-hidden="true">
+        </view>
+      </view>
+
+      <view class="-mt-px flex">
+        <view class="min-w-0 flex-1 focus-within:z-10">
+          <input data-slot="input" class="rounded-e-none rounded-t-none shadow-none [direction:inherit] flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+            id="expiry-Example"
+            inputmode="numeric"
+            autocomplete="cc-exp"
+            placeholder="MM/YY">
+        </view>
+        <view class="-ms-px min-w-0 flex-1 focus-within:z-10">
+          <input data-slot="input" class="rounded-s-none rounded-t-none shadow-none [direction:inherit] flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+            id="cvc-Example"
+            inputmode="numeric"
+            autocomplete="cc-csc">
+        </view>
+      </view>
+    </view>
+
+    <text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <navigator
+        class="hover:text-foreground underline"
+        href="https://github.com/medipass/react-payment-inputs"
+        target="_blank"
+        rel="noopener nofollow">
+        React Payment Inputs
+      </navigator>
+    </text>
+  </view>
 </view>

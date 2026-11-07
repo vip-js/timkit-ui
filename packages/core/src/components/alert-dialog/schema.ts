@@ -29,13 +29,24 @@ const alertDialogSchema = defineUCS({
       description: 'The controlled open state.',
     },
     {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state.',
+    },
+    {
       name: 'onOpenChange',
       type: 'event',
       description: 'Event handler called when open state changes.',
     },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the dialog is ignored.',
+      defaultValue: false,
+    },
   ],
   slots: [{ name: 'default', description: 'The dialog content segments' }],
-  supportedPlatforms: ['web'],
+  supportedPlatforms: ['web', 'wechat'],
 })
 
 export default alertDialogSchema

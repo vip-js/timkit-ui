@@ -8,18 +8,31 @@ export interface UseSheetProps extends SheetProps {
 
 export function useSheet(props: UseSheetProps) {
   const generatedId = React.useId()
+  const controlled = props.open !== undefined
   const service = useMachine(dialogMachine, {
     id: props.id ?? generatedId,
-    open: props.open,
-    defaultOpen: props.defaultOpen,
+    ...(controlled ? { open: props.open === true } : { defaultOpen: props.defaultOpen }),
     modal: props.modal,
     onOpenChange(details) {
       props.onOpenChange?.(details.open)
     },
   })
 
-  return React.useMemo(
+  const api = React.useMemo(
     () => dialogConnect(service as Parameters<typeof dialogConnect>[0], normalizeProps),
     [service]
   )
+
+  React.useEffect(() => {
+    if (!api.open) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      api.setOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [api])
+
+  return api
 }

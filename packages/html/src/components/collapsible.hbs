@@ -1,6 +1,10 @@
-<details data-slot="collapsible" class="{{calendarVariants}}">
-  <summary class="{{datePickerTriggerLabelEmptyVariants}}">Project Details</summary>
-  <p class="{{stepperDescriptionVariants}}">
-    This section can be expanded and collapsed.
-  </p>
-</details>
+<div data-slot="collapsible" data-state="closed" class="{{calendarVariants}}">
+  <button id="collapsible-trigger" type="button" data-slot="collapsible-trigger" aria-expanded="false" aria-controls="collapsible-content" class="{{datePickerTriggerLabelEmptyVariants}}">
+    Project Details
+  </button>
+  <div id="collapsible-content" data-slot="collapsible-content" role="region" aria-labelledby="collapsible-trigger" hidden>
+    <p class="{{stepperDescriptionVariants}}">
+      This section can be expanded and collapsed.
+    </p>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<view>
-  <banner class="border-b px-4 py-3"><bannercontent class="justify-center"><bannericon class="mr-1 text-base leading-none">📫</bannericon><bannerdescription class="text-sm text-foreground text-center">Subscribe to our newsletter and get 10% off your first order!{{ ' ' }}<text class="text-muted-foreground mx-1">·</text>{{ ' ' }}<a href="#" class="font-medium underline hover:no-underline">Subscribe
-          </a></bannerdescription></bannercontent></banner>
+<view class="timui-html-demo space-y-4 p-4">
+<view role="status"><view data-slot="banner-content"><text aria-hidden="true">📫<text>Subscribe to our newsletter and get 10% off your first order! <text class="text-muted-foreground mx-1">·</text> <navigator href="#" class="font-medium underline hover:no-underline">Subscribe
+          </navigator></text></view>
 </view>

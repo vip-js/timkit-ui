@@ -1,10 +1,13 @@
 'use client'
 
+import { useState } from 'react'
+
 import { DateField, DateInput, Label } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <DateField className="*:not-first:mt-2" granularity="minute" hourCycle={24}>
+    <DateField onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="*:not-first:mt-2" granularity="minute" hourCycle={24}>
       <Label className="text-foreground text-sm font-medium">Date and time input</Label>
       <DateInput />
       <p className="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">

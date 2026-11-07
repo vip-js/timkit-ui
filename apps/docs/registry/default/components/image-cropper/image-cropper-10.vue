@@ -4,7 +4,7 @@ import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@tim
 
 
 
-const cropData = ref<Area | null>(null);
+const cropData = ref<Area @click="onDemoClick" | null>(null);
 
 
 function setCropData(next: typeof cropData.value | ((prev: typeof cropData.value) => typeof cropData.value)) {
@@ -13,6 +13,11 @@ function setCropData(next: typeof cropData.value | ((prev: typeof cropData.value
     : next;
 }
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>

@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue'
 import { ListBox } from '@timui/vue'
 import { ListBoxItem } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2">
-    <Label>Listbox with multiple options</Label>
+    <Label @click="onDemoClick">Listbox with multiple options</Label>
     <div class="border-input overflow-hidden rounded-md border">
       <ListBox
         class="bg-background max-h-72 min-h-20 space-y-1 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]"

@@ -15,7 +15,7 @@ export type AgentComposerProps = {
   className?: string
 }
 
-export function AgentComposer({
+export const AgentComposer = React.memo(function AgentComposer({
   value,
   onValueChange,
   onSubmit,
@@ -69,4 +69,6 @@ export function AgentComposer({
       </button>
     </form>
   )
-}
+})
+
+AgentComposer.displayName = 'AgentComposer'

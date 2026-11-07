@@ -12,6 +12,18 @@ export interface ToastAction {
 
 export type ToastProps = toast.Options & {
   /**
+   * The visual style of the toast.
+   */
+  variant?: 'default' | 'destructive'
+  /**
+   * Whether the toast is open.
+   */
+  open?: boolean
+  /**
+   * Callback fired when the open state changes.
+   */
+  onOpenChange?: (open: boolean) => void
+  /**
    * The primary title string or content.
    */
   title?: string

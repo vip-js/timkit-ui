@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDropdownMenuContext } from "./use-dropdown-menu-context";
-import { computed, useId, type Component, type HTMLAttributes, type ComputedRef } from "vue";
+import { computed, inject, useId, type Component, type HTMLAttributes, type ComputedRef } from "vue";
 import { cn, dropdownMenuItemVariants } from "@timui/core";
 import { Primitive } from '../../primitive';
 
@@ -29,15 +29,20 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as ComputedRef<DropdownMenuApi> | undefined;
+if (props.value) inject<((value: string) => void) | null>("menu-register", null)?.(props.value);
+const groupDisabled = inject<ComputedRef<boolean>>("dropdown-menu-disabled", computed(() => false));
 const generatedId = useId();
 const itemValue = computed(() => props.value ?? generatedId);
 const itemProps = computed(() => {
   if (!api?.value) return {};
-  return api.value.getItemProps?.({
+  const locked = props.disabled === true || groupDisabled.value;
+  const next = api.value.getItemProps?.({
     value: itemValue.value,
-    disabled: props.disabled,
+    disabled: locked,
     closeOnSelect: props.closeOnSelect,
   }) ?? {};
+  if (!locked) return next;
+  return { ...next, onClick: (event: Event) => event.preventDefault(), "aria-disabled": "true" };
 });
 </script>
 

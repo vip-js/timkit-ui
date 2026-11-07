@@ -19,15 +19,17 @@ const props = withDefaults(
   }
 )
 
-const { activeStep } = useStepper()
+const { activeStep, registerStep } = useStepper()
+registerStep(props.step)
 
 const state = computed(() => {
-  if (props.completed || props.step < activeStep.value) return 'completed'
-  if (activeStep.value === props.step) return 'active'
+  const current = activeStep.value
+  if (props.completed || (current != null && props.step < current)) return 'completed'
+  if (current != null && current === props.step) return 'active'
   return 'inactive'
 })
 
-const isLoading = computed(() => props.loading && props.step === activeStep.value)
+const isLoading = computed(() => props.loading && activeStep.value != null && props.step === activeStep.value)
 
 provide(StepItemContextKey, {
   step: props.step,

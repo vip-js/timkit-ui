@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { commandMatches } from "./use-command";
 import { cn, commandVariants } from "@timui/core";
 import { useCommand, type UseCommandProps } from "./use-command";
 import { provideCommandContext } from "./use-command-context";
@@ -11,8 +12,14 @@ const emit = defineEmits<{
   (e: "change", value?: string): void;
 }>();
 
-const { api, registerItem, unregisterItem } = useCommand(props, emit);
-provideCommandContext({ api, registerItem, unregisterItem });
+const { api, disabled, query, options, selected, choose, registerItem, unregisterItem } = useCommand(props, emit);
+const itemStatus = computed(() => {
+  const visible = options.value.filter((item) => commandMatches(item, query.value));
+  if (!selected.value) return "";
+  const index = visible.findIndex((item) => item.value === selected.value);
+  return index < 0 ? "" : `Item ${index + 1} of ${visible.length}`;
+});
+provideCommandContext({ api, disabled, query, options, selected, choose, registerItem, unregisterItem });
 
 const rootEl = ref<HTMLElement | null>(null);
 
@@ -23,6 +30,7 @@ defineExpose({
 </script>
 
 <template>
+  <p v-if="itemStatus" role="status">{{ itemStatus }}</p>
   <div
     :class="
       cn(

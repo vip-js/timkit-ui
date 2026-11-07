@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,11 +9,12 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Breadcrumb>
       <BreadcrumbList className="bg-background rounded-md border px-3 py-2 shadow-xs">
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">
+          <BreadcrumbLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} href="#">
             <svg
               width={16}
               height={16}

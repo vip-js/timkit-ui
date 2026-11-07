@@ -1,4 +1,5 @@
 <nav aria-label="breadcrumb" data-slot="breadcrumb">
+  <p role="status">Crumb 2 of 2</p>
   <ol data-slot="breadcrumb-list" class="{{breadcrumbListVariants}}">
     <li data-slot="breadcrumb-item" class="{{breadcrumbItemVariants}}">
       <a data-slot="breadcrumb-link" href="#" class="{{breadcrumbLinkVariants}}">Home</a>
@@ -19,7 +20,7 @@
       </svg>
     </li>
     <li data-slot="breadcrumb-item" class="{{breadcrumbItemVariants}}">
-      <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" class="{{breadcrumbPageVariants}}">
+      <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" tabindex="-1" class="{{breadcrumbPageVariants}}">
         Breadcrumb
       </span>
     </li>

@@ -18,6 +18,7 @@ type DateRangePickerValue =
       from?: Date
       to?: Date
     }
+  | null
   | undefined
 
 type DateRangePickerProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -25,7 +26,7 @@ type DateRangePickerProps = React.HTMLAttributes<HTMLDivElement> & {
   value?: DateRangePickerValue
   defaultValue?: DateRangePickerValue
   onValueChange?: (value: DateRangePickerValue) => void
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
   disabled?: boolean
@@ -76,7 +77,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
     const timeZone = getLocalTimeZone()
 
     const controlledValue = React.useMemo(
-      () => (value !== undefined ? toDateValueArray(value) : undefined),
+      () => (value !== undefined ? (toDateValueArray(value) ?? []) : undefined),
       [value]
     )
 
@@ -93,8 +94,7 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
       timeZone,
       value: controlledValue,
       defaultValue: defaultMachineValue,
-      open,
-      defaultOpen,
+      ...(open === undefined ? { defaultOpen } : { open: open === true }),
       disabled,
       required,
       name,
@@ -134,9 +134,20 @@ type DateRangePickerTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>
   asChild?: boolean
 }
 
+const formatRange = (dates?: Date[]) => {
+  if (!dates?.length) return ''
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })
+  return dates.map((date) => formatter.format(date)).join(' – ')
+}
+
 const DateRangePickerTrigger = React.forwardRef<HTMLButtonElement, DateRangePickerTriggerProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({ className, asChild = false, children, ...props }, ref) => {
     const api = useDateRangePickerContext()
+    const label = formatRange(api.valueAsDate)
     const triggerProps = api.getTriggerProps() as React.ButtonHTMLAttributes<HTMLButtonElement>
 
     if (asChild) {
@@ -148,7 +159,9 @@ const DateRangePickerTrigger = React.forwardRef<HTMLButtonElement, DateRangePick
           className={cn(className)}
           {...triggerProps}
           {...props}
-        />
+        >
+          {children}
+        </Comp>
       )
     }
 
@@ -165,7 +178,9 @@ const DateRangePickerTrigger = React.forwardRef<HTMLButtonElement, DateRangePick
         data-slot="date-range-picker-trigger"
         className={cn(className, mergedClassName)}
         {...restProps}
-      />
+      >
+        {children ?? (label || 'Date')}
+      </button>
     )
   }
 )
@@ -200,6 +215,17 @@ const DateRangePickerContent = React.forwardRef<HTMLDivElement, React.HTMLAttrib
             data-state="open"
             className={cn(mergedClassName, className)}
             {...restProps}
+            onKeyDown={(event) => {
+              restProps.onKeyDown?.(event)
+              if (event.key !== 'Escape') return
+              api.setOpen(false)
+              const triggerId = api.getTriggerProps().id
+              const trigger =
+                typeof triggerId === 'string'
+                  ? event.currentTarget.ownerDocument.getElementById(triggerId)
+                  : null
+              if (trigger instanceof HTMLElement) trigger.focus()
+            }}
           >
             {children}
           </div>

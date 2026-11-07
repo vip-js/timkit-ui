@@ -1,6 +1,6 @@
 import { accordionConnect, accordionMachine, type AccordionApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type AccordionEventPayload = string | number | boolean | string[] | number[] | null | undefined
 type MachineEvent = string | { type: string; [key: string]: AccordionEventPayload }
@@ -44,14 +44,14 @@ export function setupAccordionMachine(
   props: UseAccordionProps = {}
 ): {
   service: AccordionService
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: { value?: string[] }, send: MachineSend) => AccordionApi
   setProps: (patch: AccordionContextPatch) => void
 } {
-  const machine = accordionMachine({
+  const machine = bindMachine(accordionMachine, {
     id: props.id || 'accordion',
-    value: props.value,
+    defaultValue: props.value ?? [],
     multiple: props.multiple,
     collapsible: props.collapsible,
     disabled: props.disabled,
@@ -73,10 +73,10 @@ export function setupAccordionMachine(
 
   return {
     service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send,
-    connect: (state: { value?: string[] }, machineSend: MachineSend) =>
-      accordionConnect(state, machineSend, normalizeProps) as AccordionApi,
+    connect: (state: { value?: string[] }, _machineSend: MachineSend) =>
+      accordionConnect(state as never, normalizeProps) as AccordionApi,
     setProps,
   }
 }

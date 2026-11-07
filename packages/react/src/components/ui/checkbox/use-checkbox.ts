@@ -11,20 +11,23 @@ export function useCheckbox(props: UseCheckboxProps) {
   const generatedId = React.useId()
   const checkboxId = props.id ?? generatedId
 
+  const [, setPhase] = React.useState(0)
   const service = useMachine(checkboxMachine, {
     id: checkboxId,
-    checked: props.checked,
-    defaultChecked: props.defaultChecked,
-    disabled: props.disabled,
+    ...(props.checked === undefined
+      ? { defaultChecked: props.defaultChecked }
+      : { checked: props.checked === 'indeterminate' ? 'indeterminate' : props.checked === true }),
+    disabled: props.disabled || undefined,
+    readOnly: props.readOnly || undefined,
     required: props.required,
     name: props.name,
     value: props.value ?? 'on',
     onCheckedChange(details) {
+      setPhase((phase) => phase + 1)
       props.onCheckedChange?.(createTimEvent('change', checkboxId, { checked: !!details.checked }))
     },
   })
+  void setPhase
 
-  const api = React.useMemo(() => checkboxConnect(service, normalizeProps), [service])
-
-  return api
+  return checkboxConnect(service, normalizeProps)
 }

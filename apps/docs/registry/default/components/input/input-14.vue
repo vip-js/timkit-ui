@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Input } from '@timui/vue';
 import { Label } from '@timui/vue';
 
@@ -8,9 +9,14 @@ import { Label } from '@timui/vue';
 
 const id = 'input-14';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with start add-on</Label><div class="flex rounded-md shadow-xs"><span class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-s-md border px-3 text-sm">https://
-        </span><Input :id="id" class="-ms-px rounded-s-none shadow-none" placeholder="google.com" type="text" /></div></div>
+        </span><Input @input="onDemoClick" @input="onDemoClick" :id="id" class="-ms-px rounded-s-none shadow-none" placeholder="google.com" type="text" /></div></div>
 </template>

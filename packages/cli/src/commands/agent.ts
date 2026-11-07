@@ -188,6 +188,7 @@ agent
   .option('--framework <framework>', 'target framework (react|vue|html|weapp)', 'react')
   .option('--component <name>', 'component schema to check against')
   .option('--fix', 'rewrite safe convention issues in the file')
+  .option('--no-syntax', 'skip TypeScript syntax checks for faster validation')
   .option('--json', 'print machine-readable JSON')
   .description('Validate an agent-written snippet against Timkit conventions')
   .action(async (file, opts) => {
@@ -201,16 +202,14 @@ agent
     })
     const source = fs.readFileSync(sourcePath, 'utf8')
     const framework = parseFramework(opts.framework)
-    const fixed = opts.fix
-      ? agentSdk.fixComponent(source, { framework, component: opts.component })
-      : undefined
+    const validateOptions = {
+      framework,
+      component: opts.component,
+      checkSyntax: !opts.noSyntax,
+    }
+    const fixed = opts.fix ? agentSdk.fixComponent(source, validateOptions) : undefined
     if (fixed && fixed.changed) fs.writeFileSync(sourcePath, fixed.code)
-    const result = fixed
-      ? fixed.validation
-      : agentSdk.validateComponent(source, {
-          framework,
-          component: opts.component,
-        })
+    const result = fixed ? fixed.validation : agentSdk.validateComponent(source, validateOptions)
 
     if (opts.json) {
       printJson(fixed ? { ...fixed, path: sourcePath } : result)
@@ -293,6 +292,87 @@ agent
       console.log(file.content)
     })
     console.log(`Install: ${payload.installCommand}`)
+  })
+
+const thread = agent.command('thread').description('Validate, seed, and coach AgentThread JSON')
+
+thread
+  .command('validate')
+  .argument('<file>', 'AgentThread JSON file')
+  .option('--json', 'print machine-readable JSON')
+  .description('Validate thread structure and gate consistency')
+  .action((file, opts) => {
+    const sourcePath = path.resolve(file)
+    if (!fs.existsSync(sourcePath)) {
+      console.error(`File not found: ${sourcePath}`)
+      process.exit(1)
+    }
+    const payload = JSON.parse(fs.readFileSync(sourcePath, 'utf8'))
+    const agentSdk = new TimkitAgent()
+    const result = agentSdk.validateThread(payload)
+    if (opts.json) {
+      printJson(result)
+    } else {
+      console.log(result.valid ? 'Valid' : 'Invalid')
+      console.log(result.summary)
+      result.issues.forEach((issue) => console.log(`- [${issue.type}] ${issue.message}`))
+    }
+    if (!result.valid) process.exit(1)
+  })
+
+thread
+  .command('next')
+  .argument('<file>', 'AgentThread JSON file')
+  .option('--json', 'print machine-readable JSON')
+  .description('Suggest the next safe action for an agent or backend')
+  .action((file, opts) => {
+    const sourcePath = path.resolve(file)
+    if (!fs.existsSync(sourcePath)) {
+      console.error(`File not found: ${sourcePath}`)
+      process.exit(1)
+    }
+    const payload = JSON.parse(fs.readFileSync(sourcePath, 'utf8'))
+    const suggestions = new TimkitAgent().suggestThreadNext(payload)
+    if (opts.json) {
+      printJson(suggestions)
+      return
+    }
+    suggestions.forEach((item) => {
+      console.log(`[${item.priority}] ${item.reason}`)
+      console.log(`  ${item.hint}`)
+    })
+  })
+
+thread
+  .command('seed')
+  .argument('[id]', 'empty or refund-support', 'refund-support')
+  .option('--json', 'print machine-readable JSON')
+  .description('Print a starter AgentThread JSON')
+  .action((id, opts) => {
+    const seed = id === 'empty' || !id ? 'empty' : id
+    if (seed !== 'empty' && seed !== 'refund-support') {
+      console.error('Unknown seed. Use empty or refund-support.')
+      process.exit(1)
+    }
+    const payload = new TimkitAgent().seedThread(seed)
+    if (opts.json) {
+      printJson(payload)
+      return
+    }
+    console.log(JSON.stringify(payload, null, 2))
+  })
+
+thread
+  .command('protocol')
+  .option('--json', 'print machine-readable JSON')
+  .description('Print the public AgentThread protocol')
+  .action((opts) => {
+    const payload = new TimkitAgent().getThreadProtocol()
+    if (opts.json) {
+      printJson(payload)
+      return
+    }
+    console.log(JSON.stringify(payload, null, 2))
   })
 
 agent

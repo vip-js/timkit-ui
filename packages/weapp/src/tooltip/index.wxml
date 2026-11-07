@@ -1,8 +1,33 @@
 <view class="relative inline-block">
-  <view bindlongtap="onTriggerLongPress" bindtouchend="onTriggerTouchEnd">
+  <view
+    wx:if="{{opened}}"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    bindlongtap="onTriggerLongPress"
+    bindtouchend="onTriggerTouchEnd"
+    bindfocus="onTriggerFocus"
+    bindblur="onTriggerTouchEnd"
+    bindkeydown="onTriggerKey"
+    aria-describedby="{{id}}-content"
+  >
     <slot name="trigger"></slot>
   </view>
-  <view wx:if="{{open}}" class="{{contentClass}} absolute z-50">
+  <view
+    wx:else
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    bindlongtap="onTriggerLongPress"
+    bindtouchend="onTriggerTouchEnd"
+    bindfocus="onTriggerFocus"
+    bindblur="onTriggerTouchEnd"
+    bindkeydown="onTriggerKey"
+  >
+    <slot name="trigger"></slot>
+  </view>
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
+  <view wx:if="{{opened}}" id="{{id}}-content" role="tooltip" class="{{contentClass}} absolute z-50">
     <slot name="content"></slot>
   </view>
 </view>

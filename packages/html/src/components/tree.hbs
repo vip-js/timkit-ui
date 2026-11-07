@@ -1,11 +1,11 @@
-<ul data-slot="tree" class="space-y-1 text-sm">
-  <li>
-    <button type="button" class="{{switchRootVariants}}">
-      <span>▾</span><span>src</span>
+<ul data-slot="tree" role="tree" aria-label="Tree" class="space-y-1 text-sm">
+  <li role="none">
+    <button type="button" role="treeitem" aria-level="1" aria-expanded="true" aria-selected="false" tabindex="0" class="{{switchRootVariants}}">
+      <span aria-hidden="true">▾</span><span>src</span>
     </button>
-    <ul class="ml-5 mt-1 space-y-1">
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">components</button></li>
-      <li><button type="button" class="rounded-sm px-2 py-1 hover:bg-accent">hooks</button></li>
+    <ul role="group" class="ml-5 mt-1 space-y-1">
+      <li role="none"><button type="button" role="treeitem" aria-level="2" aria-selected="false" tabindex="-1" class="rounded-sm px-2 py-1 hover:bg-accent">components</button></li>
+      <li role="none"><button type="button" role="treeitem" aria-level="2" aria-selected="false" tabindex="-1" class="rounded-sm px-2 py-1 hover:bg-accent">hooks</button></li>
     </ul>
   </li>
 </ul>

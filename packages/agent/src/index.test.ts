@@ -1,7 +1,11 @@
 import type { RegistryItem } from '@timui/core'
-import { describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 
+import { componentDocsPath } from './docs-map'
 import { buildAgentContract, TimkitAgent } from './index'
+import { guidanceFor } from './usage'
+import { __setRecipeTemplatesForTests } from './lazy-recipes'
+import * as recipeTemplates from './recipes-templates'
 
 const button: RegistryItem = {
   name: 'button',
@@ -208,6 +212,12 @@ export function Example() {
     expect(result.issues.some((issue) => issue.type === 'syntax')).toBe(true)
   })
 
+  it('tells every component how to restyle it and where the docs live', () => {
+    expect(guidanceFor(undefined, 'card').pitfalls.join(' ')).toContain('className')
+    expect(componentDocsPath('dropdown-menu')).toBe('dropdown')
+    expect(componentDocsPath('button')).toBe('button')
+  })
+
   it('lists the agent business components', () => {
     expect(agent.listAgentUi().map((item) => item.name)).toEqual([
       'AgentMessage',
@@ -216,7 +226,12 @@ export function Example() {
       'ToolCall',
       'ApprovalCard',
       'CitationList',
+      'AgentThreadView',
     ])
+  })
+
+  beforeAll(() => {
+    __setRecipeTemplatesForTests(recipeTemplates)
   })
 
   it('validates composed recipes for react and vue', () => {
@@ -265,5 +280,100 @@ export function Example() {
     })
     expect(depAgent.checkDependencies('dialog', ['button', 'label']).missing).toEqual([])
     expect(depAgent.checkDependencies('button').dependents).toEqual(['dialog'])
+  })
+
+  it('validates vue and weapp snippets and rejects unnamed icon buttons', () => {
+    for (const name of ['button', 'input', 'dialog']) {
+      for (const framework of ['vue', 'weapp'] as const) {
+        const generated = agent.generateComponent({ name, framework })
+        const validation = agent.validateComponent(generated.files[0]?.content || '', {
+          framework,
+          component: name,
+          checkSyntax: true,
+        })
+        expect(validation.valid, `${framework} ${name} ${validation.issues.map((issue) => issue.message).join('; ')}`).toBe(true)
+      }
+    }
+
+    const unnamed = agent.validateComponent(
+      `export function Example(){ return <Button size="icon" /> }`,
+      { framework: 'react', component: 'button', checkSyntax: false }
+    )
+    expect(unnamed.valid).toBe(false)
+    expect(unnamed.issues.some((issue) => issue.message.includes('aria-label'))).toBe(true)
+
+    const unnamedWeapp = agent.validateComponent(
+      `<t-button size="icon" bind:press="onPress"></t-button>`,
+      { framework: 'weapp', component: 'button', checkSyntax: false }
+    )
+    expect(unnamedWeapp.valid).toBe(false)
+    expect(unnamedWeapp.issues.some((issue) => issue.message.includes('aria-label'))).toBe(true)
+
+    const namedWeapp = agent.validateComponent(
+      `<t-button size="icon" aria-label="Close" bind:press="onPress"></t-button>`,
+      { framework: 'weapp', component: 'button', checkSyntax: false }
+    )
+    expect(namedWeapp.valid).toBe(true)
+
+    for (const framework of ['react', 'vue', 'html', 'weapp'] as const) {
+      const generated = agent.generateComponent({ name: 'dialog', framework })
+      const source = generated.files[0]?.content || ''
+      const validation = agent.validateComponent(source, {
+        framework,
+        component: 'dialog',
+        checkSyntax: framework === 'react',
+      })
+      expect(validation.valid, `${framework} ${validation.issues.map((issue) => issue.message).join('; ')}`).toBe(true)
+      expect(source.includes('DialogTitle') || /title=|aria-labelledby=/.test(source)).toBe(true)
+    }
+
+    const unnamedHtml = agent.validateComponent(`<button type="button" data-slot="button"></button>`, {
+      framework: 'html',
+      component: 'button',
+      checkSyntax: false,
+    })
+    expect(unnamedHtml.valid).toBe(false)
+
+    const namedHtml = agent.validateComponent(`<button type="button" data-slot="button">Save</button>`, {
+      framework: 'html',
+      component: 'button',
+      checkSyntax: false,
+    })
+    expect(namedHtml.valid).toBe(true)
+
+    const unlabeled = agent.validateComponent(`<input data-slot="input" type="text" />`, {
+      framework: 'html',
+      component: 'input',
+      checkSyntax: false,
+    })
+    expect(unlabeled.valid).toBe(false)
+    expect(unlabeled.issues.some((issue) => issue.message.includes('aria-label'))).toBe(true)
+
+    const labeled = agent.validateComponent(
+      `<label for="email">Email</label><input id="email" data-slot="input" type="text" />`,
+      { framework: 'html', component: 'input', checkSyntax: false }
+    )
+    expect(labeled.valid).toBe(true)
+
+    const untitled = agent.validateComponent(`<Dialog><DialogContent>Continue</DialogContent></Dialog>`, {
+      framework: 'react',
+      component: 'dialog',
+      checkSyntax: false,
+    })
+    expect(untitled.valid).toBe(false)
+    expect(untitled.issues.some((issue) => issue.message.includes('accessible name'))).toBe(true)
+  })
+
+  it('resolves sonner and date aliases onto one contract', () => {
+    const toast = buildAgentContract(
+      { name: 'sonner', type: 'registry:ui', description: 'Toast alias' },
+      { registryBaseUrl: 'https://ui.timkit.cn' }
+    )
+    const dateField = buildAgentContract(
+      { name: 'date-field', type: 'registry:ui', description: 'Date field alias' },
+      { registryBaseUrl: 'https://ui.timkit.cn' }
+    )
+    expect(toast.props.length).toBeGreaterThan(0)
+    expect(dateField.props.map((prop) => prop.name)).toContain('value')
   })
 })

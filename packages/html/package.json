@@ -24,6 +24,7 @@
     "prepublishOnly": "pnpm run build",
     "check:capabilities": "node --import tsx ../../scripts/check-html-capabilities.ts",
     "check:runtime": "pnpm run build && node --import tsx ../../scripts/goal-smoke-html-runtime.ts",
+    "test": "vitest run",
     "build": "node --import tsx ../../scripts/build-html-package.ts",
     "release": "pnpm run build && pnpm publish --access public --no-git-checks"
   },

@@ -1,1 +1,22 @@
-<stepper value="2" min="1" max="5" />
+<view class="timui-html-demo space-y-4 p-4">
+<view role="group" aria-label="Stepper">
+    <view data-slot="stepper-item">
+      <view data-slot="stepper-trigger">
+        <view data-slot="stepper-indicator">
+      
+      <text aria-hidden="true">
+    
+<view data-slot="stepper-item">
+      <view data-slot="stepper-trigger">
+        <view data-slot="stepper-indicator">
+      
+      <text aria-hidden="true">
+    
+<view data-slot="stepper-item">
+      <view data-slot="stepper-trigger">
+        <view data-slot="stepper-indicator">
+      
+      <text aria-hidden="true">
+    
+  </view>
+</view>

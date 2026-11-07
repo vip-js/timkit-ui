@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, type Component, type HTMLAttributes } from "vue";
+import { computed, inject, type Component, type HTMLAttributes } from "vue";
 import { cn } from "@timui/core";
 import { Primitive } from '../../primitive';
-import { usePopoverContext } from "./use-popover-context";
+import { PopoverDisabledKey, usePopoverContext } from "./use-popover-context";
+import { returnFocusKey } from "../use-return-focus";
 
 const props = withDefaults(
   defineProps<{
@@ -16,11 +17,23 @@ const props = withDefaults(
 );
 
 const context = usePopoverContext();
-const triggerProps = computed(() => ({
-  ...(context.value.getTriggerProps?.() ?? {}),
-  type: props.asChild ? undefined : "button",
-  "data-slot": "popover-trigger",
-}));
+const disabled = inject(PopoverDisabledKey, computed(() => false));
+const rememberTrigger = inject(returnFocusKey, () => {});
+const triggerProps = computed(() => {
+  const raw = context.value.getTriggerProps?.() ?? {};
+  return {
+    ...raw,
+    type: props.asChild ? undefined : "button",
+    "data-slot": "popover-trigger",
+    disabled: disabled.value || undefined,
+    "aria-disabled": disabled.value || undefined,
+    onClick(event: Event) {
+      if (disabled.value) return;
+      rememberTrigger((event.currentTarget as HTMLElement | null) ?? (event.target as HTMLElement | null));
+      raw.onClick?.(event as PointerEvent);
+    },
+  };
+});
 </script>
 
 <template>

@@ -46,6 +46,7 @@ onBeforeUnmount(() => {
 })
 
 const itemState = computed(() => context.api.value.getItemState({ item: item.value }))
+const highlighted = computed(() => context.highlightedValue.value === item.value.value)
 type MergedProps = Record<string, unknown> & { class?: HTMLAttributes['class'] }
 const mergedItem = computed(() => {
   const merged = mergeProps(
@@ -63,6 +64,7 @@ const mergedItem = computed(() => {
     v-bind="mergedItem.props"
     data-slot="list-box-item"
     :data-selected="itemState.selected ? 'true' : undefined"
+    :data-highlighted="highlighted ? '' : undefined"
     :class="cn(listBoxItemVariants(), props.class, mergedItem.class)"
   >
     <slot />

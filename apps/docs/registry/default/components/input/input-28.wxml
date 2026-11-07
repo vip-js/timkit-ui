@@ -1,5 +1,29 @@
-<view>
-  <numberfield default-value="{{2048}}" minvalue="{{0}}"><view class="*:not-first:mt-2"><label class="text-foreground text-sm font-medium">Number input with plus/minus buttons
-        </label><group class="border-input data-focus-within:border-ring data-focus-within:ring-ring/50 data-focus-within:has-aria-invalid:ring-destructive/20 dark:data-focus-within:has-aria-invalid:ring-destructive/40 data-focus-within:has-aria-invalid:border-destructive relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none data-disabled:opacity-50 data-focus-within:ring-[3px]"><button slot="decrement" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -ms-px flex aspect-square h-[inherit] items-center justify-center rounded-s-md border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><minusicon size="{{16}}" aria-hidden="true" /></button><input class="bg-background text-foreground w-full grow px-3 py-2 text-center tabular-nums" /><button slot="increment" class="border-input bg-background text-muted-foreground/80 hover:bg-accent hover:text-foreground -me-px flex aspect-square h-[inherit] items-center justify-center rounded-e-md border text-sm transition-[color,box-shadow] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"><plusicon size="{{16}}" aria-hidden="true" /></button></group></view><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></text></numberfield>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label">Number input with plus/minus buttons</text>
+    <view class="border-input bg-background relative inline-flex h-9 w-full items-center overflow-hidden rounded-md border text-sm shadow-xs">
+      <button type="button" data-slot="button" class="h-full rounded-none border-r inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        type="button"
+        size="icon"
+        variant="ghost"
+       
+        aria-label="Decrease value">
+        <text aria-hidden="true" size="16" aria-hidden="true">
+      </button>
+      <input data-slot="input" class="h-full rounded-none border-0 text-center tabular-nums shadow-none flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+        type="number"
+        min="0">
+      <button type="button" data-slot="button" class="h-full rounded-none border-l inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        type="button"
+        size="icon"
+        variant="ghost"
+       
+        aria-label="Increase value">
+        <text aria-hidden="true" size="16" aria-hidden="true">
+      </button>
+    </view>
+    <text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with TimUI atomic components
+    </text>
+  </view>
 </view>

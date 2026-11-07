@@ -1,8 +1,10 @@
 import { Alert, AlertDescription, AlertTitle } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Alert className="rounded-md border px-4 py-3">
+    <Alert onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="rounded-md border px-4 py-3">
       <div className="flex gap-3">
         <span className="mt-0.5 shrink-0 text-red-500 opacity-60" aria-hidden="true">
           !

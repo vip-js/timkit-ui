@@ -1,5 +1,5 @@
 <label data-slot="checkbox-root" class="{{checkboxRootVariants}}">
-    <button type="button" role="checkbox" data-slot="checkbox" data-state="unchecked" class="{{checkboxVariants}}">
+    <button type="button" role="checkbox" aria-hidden="true" tabindex="-1" data-slot="checkbox" data-state="unchecked" class="{{checkboxVariants}}">
         <span data-slot="checkbox-indicator"
             class="{{checkboxIndicatorVariants}} {{#if checked}}opacity-100{{else}}opacity-0{{/if}}">
             {{#if indeterminate}}
@@ -12,6 +12,6 @@
             {{/if}}
         </span>
     </button>
-    <input type="checkbox"
+    <input type="checkbox" aria-label="Checkbox"
         style="border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; word-wrap: normal;" />
 </label>

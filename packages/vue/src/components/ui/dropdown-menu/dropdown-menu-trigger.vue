@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDropdownMenuContext } from "./use-dropdown-menu-context";
+import { returnFocusKey } from "../use-return-focus";
 import { computed, inject, type Component, type HTMLAttributes, type ComputedRef } from "vue";
 import { cn } from "@timui/core";
 import { Primitive } from '../../primitive';
@@ -9,6 +10,7 @@ const props = withDefaults(
     as?: string | Component;
     asChild?: boolean;
     class?: HTMLAttributes["class"];
+    disabled?: boolean;
   }>(),
   {
     as: "button",
@@ -21,11 +23,34 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as ComputedRef<DropdownMenuApi> | undefined;
-const triggerProps = computed(() => ({
-  type: props.asChild ? undefined : "button",
-  "data-slot": "dropdown-menu-trigger",
-  ...(api?.value?.getTriggerProps?.() ?? {}),
-}));
+const rememberTrigger = inject(returnFocusKey, () => {});
+const groupDisabled = inject<ComputedRef<boolean>>("dropdown-menu-disabled", computed(() => false));
+const triggerProps = computed(() => {
+  const locked = props.disabled === true || groupDisabled.value;
+  const machineProps = api?.value?.getTriggerProps?.() ?? {};
+  const onKeyDown = machineProps.onKeyDown as ((event: KeyboardEvent) => void) | undefined;
+  const onClick = machineProps.onClick as ((event: MouseEvent) => void) | undefined;
+  return {
+    type: props.asChild ? undefined : "button",
+    ...machineProps,
+    "data-slot": "dropdown-menu-trigger",
+    onKeyDown(event: KeyboardEvent) {
+      if (locked) {
+        event.preventDefault();
+        return;
+      }
+      rememberTrigger(event.currentTarget as HTMLElement | null);
+      onKeyDown?.(event);
+    },
+    disabled: locked || undefined,
+    "aria-disabled": locked || undefined,
+    onClick(event: MouseEvent) {
+      if (locked) return;
+      rememberTrigger(event.currentTarget as HTMLElement | null);
+      onClick?.(event);
+    },
+  };
+});
 </script>
 
 <template>

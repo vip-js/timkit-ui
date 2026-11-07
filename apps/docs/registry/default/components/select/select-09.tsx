@@ -1,14 +1,16 @@
 import { useId } from 'react'
 import { Label, SelectNative } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>
         Required select (native) <span className="text-destructive">*</span>
       </Label>
-      <SelectNative id={id}>
+      <SelectNative value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id}>
         <option value="1">React</option>
         <option value="2">Next.js</option>
         <option value="3">Astro</option>

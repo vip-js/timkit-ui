@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with error</label><select default-value="1"><selecttrigger id="{{id}}" aria-invalid><selectvalue /></selecttrigger><selectcontent><selectitem value="1">React</selectitem><selectitem value="2">Next.js</selectitem><selectitem value="3">Astro</selectitem><selectitem value="4">Gatsby</selectitem></selectcontent></select><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Selected option is invalid
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-20">Select with error</text><select data-slot="select"><button type="button" data-slot="select-trigger" id="select-20" aria-invalid><text data-slot="select-value"></text></button><view data-slot="select-content"><view data-slot="select-item" value="1">React</view><view data-slot="select-item" value="2">Next.js</view><view data-slot="select-item" value="3">Astro</view><view data-slot="select-item" value="4">Gatsby</view></view></select><text class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Selected option is invalid
       </text></view>
 </view>

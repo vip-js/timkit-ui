@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 import {
   Button,
   Card,
@@ -17,6 +18,7 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -28,7 +30,7 @@ export default function Component() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Name of your project" />
+              <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id="name" placeholder="Name of your project" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Framework</Label>

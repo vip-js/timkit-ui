@@ -1,13 +1,3 @@
-<view>
-  <pagination><paginationcontent class="w-full justify-between"><paginationitem><paginationlink class="{{cn(
-              'aria-disabled:pointer-events-none aria-disabled:opacity-50',
-              buttonVariants({
-                variant: 'outline',
-              })
-            )}}" href="{{currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}}" aria-label="Go to previous page" aria-disabled="{{currentPage === 1 ? true : undefined}}" role="{{currentPage === 1 ? 'link' : undefined}}"><chevronlefticon size="{{16}}" aria-hidden="true" /></paginationlink></paginationitem><paginationitem><text class="text-muted-foreground text-sm" aria-live="polite">Page <text class="text-foreground">{{ currentPage }}</text>of{{ ' ' }}<text class="text-foreground">{{ totalPages }}</text></text></paginationitem><paginationitem><paginationlink class="{{cn(
-              'aria-disabled:pointer-events-none aria-disabled:opacity-50',
-              buttonVariants({
-                variant: 'outline',
-              })
-            )}}" href="{{currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}}" aria-label="Go to next page" aria-disabled="{{currentPage === totalPages ? true : undefined}}" role="{{currentPage === totalPages ? 'link' : undefined}}"><chevronrighticon size="{{16}}" aria-hidden="true" /></paginationlink></paginationitem></paginationcontent></pagination>
+<view class="timui-html-demo space-y-4 p-4">
+<view aria-label="Pagination"><view><view><navigator href="#" aria-label="Go to previous page"><text aria-hidden="true" size="16" aria-hidden="true"></navigator></view><view><text class="text-muted-foreground text-sm" aria-live="polite">Page <text class="text-foreground"></text>of <text class="text-foreground"></text></text></view><view><navigator href="#" aria-label="Go to next page"><text aria-hidden="true" size="16" aria-hidden="true"></navigator></view></view></view>
 </view>

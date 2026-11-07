@@ -1,6 +1,6 @@
 import { collapsibleConnect, collapsibleMachine, type CollapsibleApi } from '@timui/core'
 
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type MachineEvent = string | { type: string; [key: string]: object }
 type MachineSend = (event: MachineEvent) => void
@@ -17,14 +17,14 @@ export function setupCollapsibleMachine(
   props: UseCollapsibleProps
 ): {
   service: object
-  cleanup: () => void
+  start: () => () => void
   send: MachineSend
   connect: (state: object, send: MachineSend) => CollapsibleApi
 } {
-  const machine = collapsibleMachine({
+  const machine = bindMachine(collapsibleMachine, {
     id: props.id || 'collapsible',
-    open: props.open,
-    disabled: props.disabled,
+    ...(props.open ? { defaultOpen: true } : {}),
+    disabled: props.disabled || undefined,
     onOpenChange: props.onOpenChange,
   })
 
@@ -32,9 +32,9 @@ export function setupCollapsibleMachine(
 
   return {
     service: controller.service,
-    cleanup: controller.start(),
+    start: () => controller.start(),
     send: controller.send as MachineSend,
     connect: (state: object, send: MachineSend) =>
-      collapsibleConnect(state, send) as CollapsibleApi,
+      collapsibleConnect(state as never, normalizeProps) as CollapsibleApi,
   }
 }

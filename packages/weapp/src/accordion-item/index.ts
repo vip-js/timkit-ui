@@ -4,7 +4,7 @@ type AccordionParent = {
 
 type AccordionItemInstance = WechatMiniprogram.Component.InstanceMethods<{}, {}, {}> & {
   parent?: AccordionParent | null
-  data: {
+  properties: {
     disabled: boolean
     value: string
   }
@@ -58,10 +58,16 @@ Component({
   },
 
   methods: {
+    onKey(event?: { detail?: { key?: string } }) {
+      const key = String(event?.detail?.key || '')
+      if (key === 'Enter' || key === ' ') this.onTap()
+    },
     onTap() {
       const self = this as AccordionItemInstance
-      if (self.data.disabled) return
-      self.parent?.handleItemTap(self.data.value)
+      if (self.properties.disabled) return
+      const value = String(self.properties.value || '')
+      if (!value) return
+      self.parent?.handleItemTap(value)
     },
   },
 })

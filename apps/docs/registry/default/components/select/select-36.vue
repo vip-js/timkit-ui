@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/vue';
 
@@ -8,10 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const id = 'select-36';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with description and right indicator</Label><Select default-value="2"><SelectTrigger :id="id" class="**:data-desc:hidden"><SelectValue placeholder="Choose a plan" /></SelectTrigger><SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><SelectItem value="1">Standard Plan
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with description and right indicator</Label><Select default-value="2"><SelectTrigger @click="onDemoClick" :id="id" class="**:data-desc:hidden"><SelectValue placeholder="Choose a plan" /></SelectTrigger><SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><SelectItem value="1">Standard Plan
             <span class="text-muted-foreground mt-1 block text-xs" data-desc>Ideal for individuals
             </span></SelectItem><SelectItem value="2">Pro Plan
             <span class="text-muted-foreground mt-1 block text-xs" data-desc>For professional users

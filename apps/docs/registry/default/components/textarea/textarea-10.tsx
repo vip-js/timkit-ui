@@ -1,12 +1,14 @@
 import { useId } from 'react'
 import { Button, Label, Textarea } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>Textarea with left button</Label>
-      <Textarea id={id} placeholder="Leave a comment" />
+      <Textarea value={demoValue} onChange={(event) => setDemoValue(event.target.value)} id={id} placeholder="Leave a comment" />
       <Button variant="outline">Send</Button>
     </div>
   )

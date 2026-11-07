@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { ArrowLeftIcon } from 'lucide-vue-next';
 import { Button } from '@timui/vue';
 
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Button class="group" variant="ghost"><ArrowLeftIcon class="-ms-1 opacity-60 transition-transform group-hover:-translate-x-0.5" :size="16" aria-hidden="true" />Button
+  <Button @click="onDemoClick" :data-clicks="demoClicks" class="group" variant="ghost"><ArrowLeftIcon class="-ms-1 opacity-60 transition-transform group-hover:-translate-x-0.5" :size="16" aria-hidden="true" />Button
     </Button>
 </template>

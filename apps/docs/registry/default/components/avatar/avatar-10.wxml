@@ -1,4 +1,4 @@
-<view>
-  <view class="relative"><avatar class="rounded-md"><avatarimage src="./avatar-80-07.jpg" alt="Kelly King" /><avatarfallback>KK</avatarfallback></avatar><badge class="border-background absolute -top-2 left-full min-w-5 -translate-x-3 px-1">6
-      </badge></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="relative"><text data-slot="avatar"><img alt="" data-slot="avatar-image" src="./avatar-80-07.jpg" alt="Kelly King"><text data-slot="avatar-fallback">KK</text></text><text data-slot="badge">6
+      </text></view>
 </view>

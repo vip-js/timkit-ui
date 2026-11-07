@@ -1,18 +1,45 @@
-<view class="{{className}} breadcrumb">
+<view class="{{className}} breadcrumb" role="navigation" aria-label="{{ariaLabel || 'breadcrumb'}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{crumbStatus}}" role="status">{{crumbStatus}}</view>
+  <view role="list">
   <block wx:for="{{items}}" wx:key="index">
-    <view 
-      class="breadcrumb-item"
-      data-index="{{index}}"
-      bindtap="onItemTap"
-      data-current="{{index === items.length - 1}}"
-    >
-      <text class="breadcrumb-link">{{item.label || item}}</text>
+    <view wx:if="{{index === items.length - 1 || item.current}}" role="listitem">
+      <view
+        class="breadcrumb-item"
+        role="link"
+        data-index="{{index}}"
+        bindtap="onItemTap"
+        bindkeydown="onItemKey"
+        data-current="{{true}}"
+        data-disabled="{{disabled || item.disabled || index === items.length - 1}}"
+        aria-current="page"
+        tabindex="-1"
+        aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      >
+        <text class="breadcrumb-link">{{item.label || item}}</text>
+      </view>
     </view>
-    <text 
-      wx:if="{{index < items.length - 1}}" 
-      class="breadcrumb-separator"
+    <view wx:else role="listitem">
+      <view
+        class="breadcrumb-item"
+        role="link"
+        data-index="{{index}}"
+        bindtap="onItemTap"
+        bindkeydown="onItemKey"
+        data-current="{{false}}"
+        data-disabled="{{disabled || item.disabled}}"
+        tabindex="{{disabled || item.disabled ? -1 : 0}}"
+        aria-disabled="{{disabled || item.disabled ? 'true' : 'false'}}"
+      >
+        <text class="breadcrumb-link">{{item.label || item}}</text>
+      </view>
+    </view>
+    <view
+      wx:if="{{index < items.length - 1}}"
+      role="presentation"
+      aria-hidden="true"
     >
-      {{separator}}
-    </text>
+      <text class="breadcrumb-separator">{{separator}}</text>
+    </view>
   </block>
+  </view>
 </view>

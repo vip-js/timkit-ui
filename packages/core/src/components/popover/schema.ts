@@ -31,6 +31,12 @@ const popoverSchema = defineUCS({
       description: 'Event handler called when the open state changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the popover is ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'modal',
       type: 'boolean',
       description: 'Whether the popover is modal.',

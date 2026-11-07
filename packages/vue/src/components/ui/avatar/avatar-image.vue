@@ -14,10 +14,11 @@ const api = useAvatarContext();
 
 <template>
   <img
+    v-bind="api.getImageProps()"
+    data-slot="avatar-image"
     :src="props.src"
     :srcset="props.srcset"
-    :alt="props.alt"
-    v-bind="api.getImageProps()"
+    :alt="props.alt ?? 'Avatar'"
     :class="cn(avatarImageVariants(), props.class)"
   />
 </template>

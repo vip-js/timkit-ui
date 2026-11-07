@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react'
+
 import { Label, ListBox, ListBoxItem } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="*:not-first:mt-2">
-      <Label>Listbox with multiple options</Label>
+      <Label onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}>Listbox with multiple options</Label>
       <div className="border-input overflow-hidden rounded-md border">
         <ListBox
           className="bg-background max-h-72 min-h-20 space-y-1 overflow-auto p-1 text-sm shadow-xs transition-[color,box-shadow]"

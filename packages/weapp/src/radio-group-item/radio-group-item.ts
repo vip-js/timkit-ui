@@ -9,10 +9,13 @@ type RadioGroupItemProperty = {
 
 type RadioGroupParent = {
   handleChildChange: (value: string) => void
+  onItemKey?: (value: string, key: string) => void
+  properties?: { disabled?: boolean }
 }
 
 const radioGroupItemProps = {
   value: { type: String, value: '' },
+  label: { type: String, value: '' },
   disabled: { type: Boolean, value: false },
   invalid: { type: Boolean, value: false },
   extClass: { type: String, value: '' },
@@ -32,6 +35,8 @@ Component({
   },
   data: {
     checked: false,
+    tabIndex: -1,
+    groupDisabled: false,
     className: '',
   },
   observers: {
@@ -49,14 +54,23 @@ Component({
     },
   },
   methods: {
+    onKey(event?: { detail?: { key?: string } }) {
+      const key = String(event?.detail?.key || '')
+      if (!key || this.properties.disabled) return
+      const parent = this.getRelationNodes('../radio-group/radio-group')[0] as RadioGroupParent | undefined
+      if (parent?.onItemKey) {
+        parent.onItemKey(this.properties.value, key)
+        return
+      }
+      if (key === 'Enter' || key === ' ') this.handleTap()
+    },
     handleTap() {
       if (this.properties.disabled) return
       const parent = this.getRelationNodes('../radio-group/radio-group')[0] as
-        | RadioGroupParent
+        | (RadioGroupParent & { properties?: { disabled?: boolean } })
         | undefined
-      if (parent) {
-        parent.handleChildChange(this.properties.value)
-      }
+      if (!parent || parent.properties?.disabled) return
+      parent.handleChildChange(this.properties.value)
     },
   },
 })

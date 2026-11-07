@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { cn } from '@timui/core'
 import {
   NavigationMenu,
@@ -46,10 +47,15 @@ const components: { title: string; href: string; description: string }[] = [
       'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
   },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <NavigationMenu>
+  <NavigationMenu @click="onDemoClick">
     <NavigationMenuList>
       <NavigationMenuItem>
         <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>

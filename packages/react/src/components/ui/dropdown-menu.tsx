@@ -24,6 +24,10 @@ import {
   useDropdownMenuRadioGroupContext,
 } from './dropdown-menu/use-dropdown-menu-context'
 import { Slot } from './slot'
+import { useReturnFocus } from './use-return-focus'
+
+const MenuFocusContext = React.createContext<(node: HTMLElement | null) => void>(() => {})
+const DropdownMenuDisabledContext = React.createContext(false)
 
 const composeEventHandlers = <E,>(
   original?: ((event: E) => void) | undefined,
@@ -79,7 +83,19 @@ const useDropdownMenuSubContext = () => {
 const DropdownMenu = (props: DropdownMenuProps) => {
   const { children } = props
   const api = useDropdownMenu(props)
+  const rememberTrigger = useReturnFocus(api.open)
   const [openSubId, setOpenSubId] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    if (!api.open) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      api.setOpen(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [api])
 
   React.useEffect(() => {
     if (!api.open) {
@@ -88,9 +104,13 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   }, [api.open])
 
   return (
-    <DropdownMenuSubRootContext.Provider value={{ openSubId, setOpenSubId }}>
-      <DropdownMenuProvider value={api}>{children}</DropdownMenuProvider>
-    </DropdownMenuSubRootContext.Provider>
+    <DropdownMenuDisabledContext.Provider value={props.disabled === true}>
+      <DropdownMenuSubRootContext.Provider value={{ openSubId, setOpenSubId }}>
+        <DropdownMenuProvider value={api}>
+          <MenuFocusContext.Provider value={rememberTrigger}>{children}</MenuFocusContext.Provider>
+        </DropdownMenuProvider>
+      </DropdownMenuSubRootContext.Provider>
+    </DropdownMenuDisabledContext.Provider>
   )
 }
 
@@ -104,13 +124,42 @@ type DropdownMenuTriggerProps = BaseButtonProps & {
 const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
   (props, ref) => {
     const api = useDropdownMenuContext()
+    const rememberTrigger = React.useContext(MenuFocusContext)
+    const groupDisabled = React.useContext(DropdownMenuDisabledContext)
     const { asChild, className, ...otherProps } = props
+    const locked = Boolean(otherProps.disabled) || groupDisabled
     const Comp = asChild ? Slot : 'button'
     const triggerProps = api?.getTriggerProps?.() ?? {}
     const mergedProps = mergeProps(triggerProps, otherProps)
+    const onClick = mergedProps.onClick as React.MouseEventHandler | undefined
 
     return (
-      <Comp ref={ref} data-slot="dropdown-menu-trigger" className={cn(className)} {...mergedProps}>
+      <Comp
+        ref={(node) => {
+          rememberTrigger(node)
+          if (typeof ref === 'function') ref(node)
+          else if (ref) ref.current = node
+        }}
+        data-slot="dropdown-menu-trigger"
+        className={cn(className)}
+        {...mergedProps}
+        disabled={locked || undefined}
+        aria-disabled={locked || undefined}
+        onKeyDown={(event) => {
+          if (locked) {
+            event.preventDefault()
+            return
+          }
+          mergedProps.onKeyDown?.(event)
+        }}
+        onClick={(event) => {
+          if (locked) {
+            event.preventDefault()
+            return
+          }
+          onClick?.(event)
+        }}
+      >
         {props.children}
       </Comp>
     )
@@ -125,7 +174,7 @@ type DropdownMenuContentProps = BaseDivProps & {
 }
 
 const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContentProps>(
-  ({ className, side = 'bottom', align = 'center', sideOffset = 4, ...props }, ref) => {
+  ({ className, side = 'bottom', align = 'center', sideOffset = 4, onKeyDown, children, ...props }, ref) => {
     const api = useDropdownMenuContext()
     const placement = (align === 'center' ? side : `${side}-${align}`) as NonNullable<
       PositioningOptions['placement']
@@ -139,6 +188,14 @@ const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContent
 
     if (!api?.open) return null
 
+    const items = React.Children.toArray(children).filter(
+      (child) => React.isValidElement(child) && typeof (child.props as { value?: string }).value === 'string'
+    )
+    const highlighted = (api as { highlightedValue?: string }).highlightedValue
+    const highlightedIndex = highlighted
+      ? items.findIndex((child) => React.isValidElement(child) && (child.props as { value?: string }).value === highlighted)
+      : -1
+    const itemStatus = highlightedIndex < 0 ? '' : `Item ${highlightedIndex + 1} of ${items.length}`
     const positionerProps = api.getPositionerProps()
     const contentProps = api.getContentProps()
 
@@ -151,7 +208,37 @@ const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContent
             data-slot="dropdown-menu-content"
             className={cn(dropdownMenuContentVariants(), className)}
             {...props}
-          />
+            onKeyDown={(event) => {
+              const zag = contentProps.onKeyDown as ((event: React.KeyboardEvent<HTMLDivElement>) => void) | undefined
+              const letter = /^[a-z]$/i.test(event.key)
+              if (!letter) zag?.(event)
+              const items = [
+                ...event.currentTarget.querySelectorAll<HTMLElement>('[role^="menuitem"]:not([data-disabled])'),
+              ]
+              if (event.key === 'Home' || event.key === 'End') {
+                const item = items[event.key === 'Home' ? 0 : items.length - 1]
+                const value = item?.dataset.value
+                if (value) api.setHighlightedValue(value)
+              }
+              if (letter) {
+                const current = items.findIndex((item) => item.hasAttribute('data-highlighted'))
+                const start = current < 0 ? 0 : current + 1
+                for (let offset = 0; offset < items.length; offset += 1) {
+                  const index = (start + offset) % items.length
+                  if (current >= 0 && index === current) continue
+                  const label = items[index]?.textContent?.trim() ?? ''
+                  if (!label.toLowerCase().startsWith(event.key.toLowerCase())) continue
+                  const value = items[index]?.dataset.value
+                  if (value) api.setHighlightedValue(value)
+                  break
+                }
+              }
+              onKeyDown?.(event)
+            }}
+          >
+            {itemStatus ? <p role="status">{itemStatus}</p> : null}
+            {children}
+          </div>
         </div>
       </Portal>
     )
@@ -171,14 +258,19 @@ type DropdownMenuItemProps = Omit<BaseDivProps, 'onSelect'> & {
 const DropdownMenuItem = React.forwardRef<HTMLElement, DropdownMenuItemProps>(
   ({ className, inset, value, disabled, closeOnSelect, asChild = false, onSelect, ...props }, ref) => {
     const api = useDropdownMenuContext()
+    const groupDisabled = React.useContext(DropdownMenuDisabledContext)
     const Comp = asChild ? Slot : 'div'
     const generatedId = React.useId()
     const itemValue = value ?? generatedId
-    const itemProps = api.getItemProps({ value: itemValue, disabled, closeOnSelect })
+    const itemDisabled = Boolean(disabled) || groupDisabled
+    const itemProps = api.getItemProps({ value: itemValue, disabled: itemDisabled, closeOnSelect })
     const mergedProps = mergeProps(itemProps, props)
     const onClick = composeEventHandlers(
       (mergedProps as React.HTMLAttributes<HTMLElement>).onClick,
-      () => onSelect?.()
+      () => {
+        if (itemDisabled) return
+        onSelect?.()
+      }
     )
     const { className: mergedClassName, ...restProps } = mergedProps as React.HTMLAttributes<HTMLElement>
 
@@ -241,15 +333,23 @@ type DropdownMenuCheckboxItemProps = BaseDivProps & {
 const DropdownMenuCheckboxItem = React.forwardRef<HTMLDivElement, DropdownMenuCheckboxItemProps>(
   ({ className, children, checked, ...props }, ref) => {
     const api = useDropdownMenuContext()
+    const groupDisabled = React.useContext(DropdownMenuDisabledContext)
     const generatedId = React.useId()
+    const [uncontrolled, setUncontrolled] = React.useState(false)
+    const isControlled = checked !== undefined
+    const current = isControlled ? !!checked : uncontrolled
     const { value: providedValue, disabled, onCheckedChange, ...domProps } = props
     const value = providedValue ?? generatedId
     const optionProps = api.getOptionItemProps({
       type: 'checkbox',
-      checked: !!checked,
+      checked: current,
       value,
-      disabled,
-      onCheckedChange: (next: boolean) => onCheckedChange?.(next),
+      disabled: disabled || groupDisabled,
+      onCheckedChange: (next: boolean) => {
+        if (disabled || groupDisabled) return
+        if (!isControlled) setUncontrolled(next)
+        onCheckedChange?.(next)
+      },
     })
 
     return (
@@ -257,10 +357,11 @@ const DropdownMenuCheckboxItem = React.forwardRef<HTMLDivElement, DropdownMenuCh
         {...mergeProps(optionProps, domProps)}
         ref={ref}
         data-slot="dropdown-menu-checkbox-item"
+        data-state={current ? 'checked' : 'unchecked'}
         className={cn(dropdownMenuCheckboxItemVariants(), className)}
       >
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-          {checked && (
+          {current && (
             <svg
               aria-hidden="true"
               viewBox="0 0 16 16"
@@ -437,15 +538,29 @@ DropdownMenuSubContent.displayName = 'DropdownMenuSubContent'
 
 type DropdownMenuRadioGroupProps = BaseDivProps & {
   value?: string
+  defaultValue?: string
   onValueChange?: (value: string) => void
 }
 
 const DropdownMenuRadioGroup = ({
   value,
+  defaultValue,
   onValueChange,
   ...props
 }: DropdownMenuRadioGroupProps) => {
-  const groupContextValue = React.useMemo(() => ({ value, onValueChange }), [onValueChange, value])
+  const [uncontrolled, setUncontrolled] = React.useState(defaultValue)
+  const current = value !== undefined ? value : uncontrolled
+  const select = React.useCallback(
+    (next: string) => {
+      if (value === undefined) setUncontrolled(next)
+      onValueChange?.(next)
+    },
+    [onValueChange, value]
+  )
+  const groupContextValue = React.useMemo(
+    () => ({ value: current, onValueChange: select }),
+    [current, select]
+  )
   return (
     <DropdownMenuRadioGroupProvider value={groupContextValue}>
       <div data-slot="dropdown-menu-radio-group" {...props} />
@@ -462,6 +577,7 @@ type DropdownMenuRadioItemProps = BaseDivProps & {
 const DropdownMenuRadioItem = React.forwardRef<HTMLDivElement, DropdownMenuRadioItemProps>(
   ({ className, children, value, ...props }, ref) => {
     const api = useDropdownMenuContext()
+    const groupDisabled = React.useContext(DropdownMenuDisabledContext)
     const group = useDropdownMenuRadioGroupContext()
     const checked = group?.value === value
     const { disabled, onCheckedChange, ...domProps } = props
@@ -469,8 +585,9 @@ const DropdownMenuRadioItem = React.forwardRef<HTMLDivElement, DropdownMenuRadio
       type: 'radio',
       checked,
       value,
-      disabled,
+      disabled: disabled || groupDisabled,
       onCheckedChange: (next: boolean) => {
+        if (disabled || groupDisabled) return
         if (next) group?.onValueChange?.(value)
         onCheckedChange?.(next)
       },
@@ -506,6 +623,7 @@ const DropdownMenuShortcut = (props: DropdownMenuShortcutProps) => {
       data-slot="dropdown-menu-shortcut"
       {...restProps}
       className={cn(dropdownMenuShortcutVariants(), className)}
+      aria-hidden="true"
     />
   )
 }

@@ -2,6 +2,7 @@
   "name": "@timui/vue",
   "version": "0.0.1",
   "private": false,
+  "sideEffects": false,
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -73,7 +74,8 @@
     "postbuild": "node fix-ext.js && find dist -name '*.vue' -type f -delete",
     "release": "pnpm run build && pnpm publish --access public --no-git-checks",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "@internationalized/date": "^3.7.0",

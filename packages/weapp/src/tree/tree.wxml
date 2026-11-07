@@ -1,16 +1,118 @@
-<view class="tree {{extClass}}">
+<view wx:if="{{labelledBy}}" class="tree {{extClass}}" role="tree" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-labelledby="{{labelledBy}}">
+  <view wx:if="{{nodeStatus}}" role="status">{{nodeStatus}}</view>
   <block wx:for="{{flatNodes}}" wx:key="id">
-    <view class="tree-row" style="padding-left: {{item.level * 24}}rpx;">
+    <view
+      wx:if="{{item.children && item.children.length}}"
+      class="tree-row"
+      role="treeitem"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      aria-label="{{item.label}}"
+      aria-level="{{item.level + 1}}"
+      aria-selected="{{selected === item.id ? 'true' : 'false'}}"
+      aria-expanded="{{expandedMap[item.id] ? 'true' : 'false'}}"
+      style="padding-left: {{item.pad}}px;"
+    >
       <view
-        wx:if="{{item.children && item.children.length}}"
         class="tree-toggle"
+        role="button"
+        aria-label="{{expandedMap[item.id] ? 'Collapse' : 'Expand'}}"
+        tabindex="-1"
         data-id="{{item.id}}"
         bindtap="onToggle"
+        bindkeydown="onToggleKey"
       >
-        <text>{{expandedMap[item.id] ? '▾' : '▸'}}</text>
+        <text aria-hidden="true">{{expandedMap[item.id] ? '▾' : '▸'}}</text>
       </view>
-      <view wx:else class="tree-toggle tree-toggle-empty"></view>
-      <view class="tree-label" data-id="{{item.id}}" bindtap="onSelect">
+      <view
+        class="tree-label"
+        data-id="{{item.id}}"
+        data-selected="{{selected === item.id}}"
+        bindtap="onSelect"
+        bindkeydown="onSelectKey"
+        tabindex="{{disabled || item.id !== focusId ? -1 : 0}}"
+      >
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+    <view
+      wx:else
+      class="tree-row"
+      role="treeitem"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      aria-label="{{item.label}}"
+      aria-level="{{item.level + 1}}"
+      aria-selected="{{selected === item.id ? 'true' : 'false'}}"
+      style="padding-left: {{item.pad}}px;"
+    >
+      <view class="tree-toggle tree-toggle-empty"></view>
+      <view
+        class="tree-label"
+        data-id="{{item.id}}"
+        data-selected="{{selected === item.id}}"
+        bindtap="onSelect"
+        bindkeydown="onSelectKey"
+        tabindex="{{disabled || item.id !== focusId ? -1 : 0}}"
+      >
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else class="tree {{extClass}}" role="tree" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{ariaLabel || 'Tree'}}">
+  <view wx:if="{{nodeStatus}}" role="status">{{nodeStatus}}</view>
+  <block wx:for="{{flatNodes}}" wx:key="id">
+    <view
+      wx:if="{{item.children && item.children.length}}"
+      class="tree-row"
+      role="treeitem"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      aria-label="{{item.label}}"
+      aria-level="{{item.level + 1}}"
+      aria-selected="{{selected === item.id ? 'true' : 'false'}}"
+      aria-expanded="{{expandedMap[item.id] ? 'true' : 'false'}}"
+      style="padding-left: {{item.pad}}px;"
+    >
+      <view
+        class="tree-toggle"
+        role="button"
+        aria-label="{{expandedMap[item.id] ? 'Collapse' : 'Expand'}}"
+        tabindex="-1"
+        data-id="{{item.id}}"
+        bindtap="onToggle"
+        bindkeydown="onToggleKey"
+      >
+        <text aria-hidden="true">{{expandedMap[item.id] ? '▾' : '▸'}}</text>
+      </view>
+      <view
+        class="tree-label"
+        data-id="{{item.id}}"
+        data-selected="{{selected === item.id}}"
+        bindtap="onSelect"
+        bindkeydown="onSelectKey"
+        tabindex="{{disabled || item.id !== focusId ? -1 : 0}}"
+      >
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+    <view
+      wx:else
+      class="tree-row"
+      role="treeitem"
+      aria-disabled="{{disabled ? 'true' : 'false'}}"
+      aria-label="{{item.label}}"
+      aria-level="{{item.level + 1}}"
+      aria-selected="{{selected === item.id ? 'true' : 'false'}}"
+      style="padding-left: {{item.pad}}px;"
+    >
+      <view class="tree-toggle tree-toggle-empty"></view>
+      <view
+        class="tree-label"
+        data-id="{{item.id}}"
+        data-selected="{{selected === item.id}}"
+        bindtap="onSelect"
+        bindkeydown="onSelectKey"
+        tabindex="{{disabled || item.id !== focusId ? -1 : 0}}"
+      >
         <text>{{item.label}}</text>
       </view>
     </view>

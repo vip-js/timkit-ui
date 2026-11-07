@@ -1,5 +1,18 @@
-<tabs tabs="{{tabItems}}" value="overview">
-  <view class="text-muted-foreground mt-4 text-sm">
-    Shared core props keep React and Vue behavior aligned.
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="tabs">
+    <view role="tablist" data-slot="tabs-list">
+      <button type="button" role="tab" data-slot="tabs-trigger" value="overview">Overview</button>
+      <button type="button" role="tab" data-slot="tabs-trigger" value="docs">Docs</button>
+      <button type="button" role="tab" data-slot="tabs-trigger" value="qa">QA</button>
+    </view>
+    <view role="tabpanel" data-slot="tabs-content" value="overview">
+      Shared core props keep React and Vue behavior aligned.
+    </view>
+    <view role="tabpanel" data-slot="tabs-content" value="docs">
+      P2 adds multi-framework docs samples for every component family.
+    </view>
+    <view role="tabpanel" data-slot="tabs-content" value="qa">
+      CI reports now show demo gaps separately from implementation gaps.
+    </view>
   </view>
-</tabs>
+</view>

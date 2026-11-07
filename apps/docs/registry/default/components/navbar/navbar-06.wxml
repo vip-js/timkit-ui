@@ -1,17 +1,75 @@
-<view>
-  <header class="border-b px-4 md:px-6"><view class="flex h-16 items-center justify-between gap-4"><view class="flex flex-1 items-center gap-2"><popover><popovertrigger aschild><button class="group size-8 md:hidden" variant="ghost" size="icon"><svg class="pointer-events-none" width="{{16}}" height="{{16}}" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 12L20 12" class="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]" /><path d="M4 12H20" class="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45" /><path d="M4 12H20" class="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]" /></svg></button></popovertrigger><popovercontent align="start" class="w-36 p-1 md:hidden"><navigationmenu class="max-w-none *:w-full"><navigationmenulist class="flex-col items-start gap-0 md:gap-2">{{ navigationLinks.map((link, index) => {
-                    const Icon = link.icon
-                    return (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          href={link.href}
-                          className="flex-row items-center gap-2 py-1.5"
-                          active={link.active}
-                        >
-                          <Icon size={16} className="text-muted-foreground" aria-hidden="true" />
-                          <span>{link.label}</span>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    )
-                  }) }}</navigationmenulist></navigationmenu></popovercontent></popover><view class="flex items-center gap-6"><a href="#" class="text-primary hover:text-primary/90"><logo /></a><navigationmenu class="hidden md:flex"><navigationmenulist class="gap-2"><tooltipprovider><navigationmenuitem wx:for="{{navigationLinks}}" wx:for-item="link" wx:for-index="index" wx:key="index" key="{{link.label}}"><tooltip><tooltiptrigger aschild><navigationmenulink href="{{link.href}}" class="flex size-8 items-center justify-center p-1.5"><link.icon size="{{20}}" aria-hidden="true" /><text class="sr-only">{{ link.label }}</text></navigationmenulink></tooltiptrigger><tooltipcontent side="bottom" class="px-2 py-1 text-xs"><text>{{ link.label }}</text></tooltipcontent></tooltip></navigationmenuitem></tooltipprovider></navigationmenulist></navigationmenu></view></view><view class="flex items-center gap-2"><themetoggle /><select default-value="en"><selecttrigger id="{{`language-${id}`}}" class="[&>svg]:text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground h-8 border-none px-2 shadow-none [&>svg]:shrink-0" aria-label="Select language"><globeicon size="{{16}}" aria-hidden="true" /><selectvalue class="hidden sm:inline-flex" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2"><selectitem wx:for="{{languages}}" wx:for-item="lang" wx:for-index="index" wx:key="index" key="{{lang.value}}" value="{{lang.value}}"><text class="flex items-center gap-2"><text class="truncate">{{ lang.label }}</text></text></selectitem></selectcontent></select><usermenu /></view></view></header>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="border-b px-4 md:px-6">
+    <view class="flex h-16 items-center justify-between gap-4">
+      <view class="flex flex-1 items-center gap-2">
+        <view data-slot="popover">
+          <button type="button" data-slot="popover-trigger">
+            <button type="button" data-slot="button" class="group size-8 md:hidden inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="ghost" size="icon">
+              
+            </button>
+          </button>
+          <view data-slot="popover-content" align="start">
+            <view aria-label="Main">
+              <view>
+                <view>
+                  <navigator href="#">
+                    <component size="16" class="text-muted-foreground" aria-hidden="true">
+                    <text></text>
+                  </navigator>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="flex items-center gap-6">
+          <navigator href="#" class="text-primary hover:text-primary/90">
+            <text aria-hidden="true">
+          </navigator>
+
+          <view aria-label="Main">
+            <view>
+              <view data-slot="tooltip-provider">
+                <view>
+                  <text data-slot="tooltip">
+                    <button type="button" data-slot="tooltip-trigger">
+                      <navigator href="#">
+                        <component size="20" aria-hidden="true">
+                        <text class="sr-only"></text>
+                      </navigator>
+                    </button>
+                    <text role="tooltip" data-slot="tooltip-content" side="bottom">
+                      <text></text>
+                    </text>
+                  </text>
+                </view>
+              
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="flex items-center gap-2">
+        <text aria-hidden="true">
+
+        <select data-slot="select">
+          <button type="button" data-slot="select-trigger" id="language-Example"
+            class="[&>svg]:text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground h-8 border-none px-2 shadow-none [&>svg]:shrink-0"
+            aria-label="Select language">
+            <text aria-hidden="true" size="16" aria-hidden="true">
+            <text data-slot="select-value"></text>
+          </button>
+          <view data-slot="select-content" class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2 [&_*[role=option]>span]:flex [&_*[role=option]>span]:items-center [&_*[role=option]>span]:gap-2">
+            <view data-slot="select-item">
+              <text class="flex items-center gap-2">
+                <text class="truncate"></text>
+              </text>
+            </view>
+          </view>
+        </select>
+
+        <text aria-hidden="true">
+      </view>
+    </view>
+  </view>
 </view>

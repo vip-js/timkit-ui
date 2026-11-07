@@ -1,18 +1,19 @@
-<view class="image-cropper {{extClass}}">
+<view class="image-cropper {{extClass}}" role="group" aria-label="{{ariaLabel || 'Interactive image cropper'}}" aria-disabled="{{disabled ? 'true' : 'false'}}">
+  <view wx:if="{{ratioStatus}}" role="status">{{ratioStatus}}</view>
   <view class="preview-wrap">
-    <image wx:if="{{src}}" src="{{src}}" mode="aspectFit" class="preview-image" />
+    <image wx:if="{{src}}" src="{{src}}" mode="aspectFit" class="preview-image" alt="Crop preview" aria-label="Crop preview" />
     <view wx:else class="preview-empty">No image selected</view>
   </view>
 
   <view class="sliders">
     <text class="slider-label">X: {{cropX}}</text>
-    <slider min="0" max="100" value="{{cropX}}" bindchange="onXChange" disabled="{{disabled}}" />
+    <slider min="0" max="100" value="{{cropX}}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{cropX}}" aria-label="Crop X" bindchange="onXChange" disabled="{{disabled}}" />
     <text class="slider-label">Y: {{cropY}}</text>
-    <slider min="0" max="100" value="{{cropY}}" bindchange="onYChange" disabled="{{disabled}}" />
+    <slider min="0" max="100" value="{{cropY}}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{cropY}}" aria-label="Crop Y" bindchange="onYChange" disabled="{{disabled}}" />
     <text class="slider-label">Width: {{cropWidth}}</text>
-    <slider min="10" max="100" value="{{cropWidth}}" bindchange="onWidthChange" disabled="{{disabled}}" />
+    <slider min="10" max="100" value="{{cropWidth}}" aria-valuemin="10" aria-valuemax="100" aria-valuenow="{{cropWidth}}" aria-label="Crop width" bindchange="onWidthChange" disabled="{{disabled}}" />
     <text class="slider-label">Height: {{cropHeight}}</text>
-    <slider min="10" max="100" value="{{cropHeight}}" bindchange="onHeightChange" disabled="{{disabled}}" />
+    <slider min="10" max="100" value="{{cropHeight}}" aria-valuemin="10" aria-valuemax="100" aria-valuenow="{{cropHeight}}" aria-label="Crop height" bindchange="onHeightChange" disabled="{{disabled}}" />
   </view>
 
   <button class="apply-button" type="primary" bindtap="onApplyCrop" disabled="{{disabled}}">

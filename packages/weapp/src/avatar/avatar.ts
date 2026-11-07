@@ -60,6 +60,8 @@ Component({
     api: {} as WeappAvatarApi,
     className: '',
     imageLoaded: false,
+    status: 'loading',
+    imageStatus: '',
   },
 
   lifetimes: {
@@ -69,14 +71,15 @@ Component({
         id: this.properties.id,
         onStatusChange: (details: AvatarStatusDetails) => {
           if (details.status === 'loaded') {
-            this.setData({ imageLoaded: true })
+            this.setData({ imageLoaded: true, imageStatus: '' })
           }
         },
       })
 
       self._service = controller.service as WeappAvatarService
-      self._cleanup = controller.start()
       self._send = controller.send as (event: MachineEvent) => void
+      self._cleanup = controller.start()
+      this.sync()
     },
     detached() {
       const self = this as WeappAvatarInternal
@@ -88,17 +91,33 @@ Component({
     state: function (state) {
       const self = this as WeappAvatarInternal
       if (!state || !self._send) return
-      const api = connectAvatarMachine(state, self._send) as WeappAvatarApi
-      this.setData({ api, className: this.properties.extClass })
+      try {
+        const api = connectAvatarMachine(state, self._send) as WeappAvatarApi
+        this.setData({ api, className: this.properties.extClass })
+      } catch {
+        // The visible status comes from the image events.
+      }
+    },
+    src: function () {
+      this.sync()
     },
   },
 
   methods: {
+    sync() {
+      const status = this.properties.src ? 'loading' : 'error'
+      this.setData({
+        status,
+        imageLoaded: false,
+        imageStatus: status === 'error' ? 'Unavailable' : '',
+        className: this.properties.extClass,
+      })
+    },
     onImageLoad() {
-      this.setData({ imageLoaded: true })
+      this.setData({ imageLoaded: true, status: 'loaded', imageStatus: '' })
     },
     onImageError() {
-      this.setData({ imageLoaded: false })
+      this.setData({ imageLoaded: false, status: 'error', imageStatus: 'Unavailable' })
     },
   },
 })

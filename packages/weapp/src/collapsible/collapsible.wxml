@@ -1,22 +1,33 @@
-<view class="{{className}}" data-state="{{api.open ? 'open' : 'closed'}}">
+<view class="{{className}}" data-slot="collapsible" data-state="{{opened ? 'open' : 'closed'}}">
+  <view wx:if="{{openStatus}}" role="status">{{openStatus}}</view>
   <!-- Trigger -->
   <view 
-    id="{{api.triggerProps.id}}"
+    id="{{id}}-trigger"
     class="collapsible-trigger"
+    data-slot="collapsible-trigger"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-expanded="{{opened ? 'true' : 'false'}}"
+    aria-controls="{{id}}-content"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
     bindtap="onTriggerTap"
-    data-state="{{api.open ? 'open' : 'closed'}}"
+    bindkeydown="onTriggerKey"
+    data-state="{{opened ? 'open' : 'closed'}}"
     data-disabled="{{disabled}}"
   >
     <slot name="trigger"></slot>
-    <text class="collapsible-icon">{{api.open ? '▼' : '▶'}}</text>
+    <text class="collapsible-icon" aria-hidden="true">{{opened ? '▼' : '▶'}}</text>
   </view>
 
   <!-- Content -->
   <view 
-    id="{{api.contentProps.id}}"
+    id="{{id}}-content"
     class="collapsible-content"
-    data-state="{{api.open ? 'open' : 'closed'}}"
-    hidden="{{!api.open}}"
+    data-slot="collapsible-content"
+    role="region"
+    aria-labelledby="{{id}}-trigger"
+    data-state="{{opened ? 'open' : 'closed'}}"
+    hidden="{{!opened}}"
   >
     <slot name="content"></slot>
   </view>

@@ -21,9 +21,20 @@ const tooltipSchema = defineUCS({
       description: 'The controlled open state.',
     },
     {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the tooltip when uncontrolled.',
+    },
+    {
       name: 'onOpenChange',
       type: 'event',
       description: 'Event handler called when the open state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the tooltip is ignored.',
+      defaultValue: false,
     },
     {
       name: 'delayDuration',

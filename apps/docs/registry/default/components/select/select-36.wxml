@@ -1,9 +1,9 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with description and right indicator</label><select default-value="2"><selecttrigger id="{{id}}" class="**:data-desc:hidden"><selectvalue placeholder="Choose a plan" /></selecttrigger><selectcontent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><selectitem value="1">Standard Plan
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-36">Select with description and right indicator</text><select data-slot="select"><button type="button" data-slot="select-trigger" id="select-36"><text data-slot="select-value" placeholder="Choose a plan"></text></button><view data-slot="select-content" class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><view data-slot="select-item" value="1">Standard Plan
             <text class="text-muted-foreground mt-1 block text-xs" data-desc>Ideal for individuals
-            </text></selectitem><selectitem value="2">Pro Plan
+            </text></view><view data-slot="select-item" value="2">Pro Plan
             <text class="text-muted-foreground mt-1 block text-xs" data-desc>For professional users
-            </text></selectitem><selectitem value="3">Enterprise Plan
+            </text></view><view data-slot="select-item" value="3">Enterprise Plan
             <text class="text-muted-foreground mt-1 block text-xs" data-desc>Built for large teams
-            </text></selectitem></selectcontent></select></view>
+            </text></view></view></select></view>
 </view>

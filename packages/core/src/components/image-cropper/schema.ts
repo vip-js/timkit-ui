@@ -13,9 +13,31 @@ const cropperSchema = defineUCS({
   logic: {
     provider: 'none',
   },
-  props: [],
+  props: [
+    {
+      name: 'image',
+      type: 'string',
+      description: 'The source URL of the image.',
+    },
+    {
+      name: 'aspect',
+      type: 'number',
+      description: 'Aspect ratio of the crop area.',
+    },
+    {
+      name: 'onCropChange',
+      type: 'event',
+      description: 'Called when the crop area changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, crop changes are ignored.',
+      defaultValue: false,
+    },
+  ],
   slots: [{ name: 'default', description: 'The cropper core components' }],
-  supportedPlatforms: ['web'],
+  supportedPlatforms: ['web', 'wechat'],
 })
 
 export default cropperSchema

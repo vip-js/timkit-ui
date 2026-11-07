@@ -1,9 +1,11 @@
 import { Button } from '@timui/react'
 import { PlusIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Button className="rounded-full" variant="outline" size="icon" aria-label="Add new item">
+    <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="rounded-full" variant="outline" size="icon" aria-label="Add new item">
       <PlusIcon size={16} aria-hidden="true" />
     </Button>
   )

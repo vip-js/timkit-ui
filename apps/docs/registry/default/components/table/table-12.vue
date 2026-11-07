@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { computed, reactive } from 'vue'
 import { cn } from '@timui/core'
 import { Badge } from '@timui/vue'
@@ -40,6 +41,11 @@ function toggleRow(id: string, next: boolean) {
     selectedIds.delete(id)
   }
 }
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
@@ -48,7 +54,7 @@ function toggleRow(id: string, next: boolean) {
       <TableHeader>
         <TableRow class="hover:bg-transparent">
           <TableHead>
-            <Checkbox
+            <Checkbox @click="onDemoClick"
               :checked="allSelected || (someSelected && 'indeterminate')"
               :onCheckedChange="(value: unknown) => toggleAll(toChecked(value))"
               aria-label="Select all"

@@ -2,6 +2,9 @@ import type { JsonValue, RegistryItem } from '@timui/core'
 
 export type FrameworkId = 'react' | 'vue' | 'html' | 'weapp'
 
+export const recipeFramework = (framework: FrameworkId): 'react' | 'vue' | undefined =>
+  framework === 'react' || framework === 'vue' ? framework : undefined
+
 export interface ScoreResult {
   score: number
   reasons: string[]
@@ -21,7 +24,8 @@ const expansions: Array<[RegExp, string]> = [
   [/手风琴/, ' accordion '],
   [/折叠面板|折叠/, ' collapsible accordion '],
   [/卡片/, ' card '],
-  [/表格/, ' table '],
+  [/表格|数据表/, ' table '],
+  [/表单/, ' form '],
   [/气泡|工具提示/, ' tooltip '],
   [/吐司|轻提示/, ' toast '],
   [/通知/, ' notification toast '],
@@ -175,10 +179,24 @@ export const scoreItem = (
 
   if (item.type === 'registry:page') score += 3
   if (item.type === 'registry:block') score += 2
+  if (item.type === 'registry:ui' && includesPhrase(expanded, name)) {
+    score += 18
+    reasons.push('primitive')
+  }
 
   if (options.framework && getFrameworks(item).includes(options.framework)) {
     score += 4
     reasons.push(`framework:${options.framework}`)
+  }
+
+  if (
+    item.type === 'registry:component' &&
+    /-\d{1,3}$/.test(item.name) &&
+    !includesPhrase(expanded, 'demo') &&
+    !includesPhrase(expanded, 'example')
+  ) {
+    score -= 6
+    reasons.push('numbered-demo')
   }
 
   return { score, reasons }

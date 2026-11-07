@@ -1,15 +1,20 @@
-<nav data-slot="navigation-menu" class="relative inline-flex items-center gap-2">
+<nav data-slot="navigation-menu" aria-label="Navigation" class="relative inline-flex items-center gap-2">
   <div data-slot="navigation-menu-item" data-state="closed" class="relative">
     <button
+      id="navigation-trigger-platform"
       data-slot="navigation-menu-trigger"
       type="button"
       data-state="closed"
       aria-expanded="false"
+      aria-controls="navigation-content-platform"
       class="{{navigationMenuTriggerVariants}}"
     >
       Platform
     </button>
     <div
+      id="navigation-content-platform"
+      role="region"
+      aria-labelledby="navigation-trigger-platform"
       data-slot="navigation-menu-content"
       data-state="closed"
       hidden

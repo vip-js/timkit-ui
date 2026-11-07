@@ -1,7 +1,121 @@
-<view>
-  <dialog><dialogtrigger aschild><button variant="outline">Edit profile</button></dialogtrigger><dialogcontent class="flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-lg [&>button:last-child]:top-3.5"><dialogheader class="contents space-y-0 text-left"><dialogtitle class="border-b px-6 py-4 text-base">Edit profile</dialogtitle></dialogheader><dialogdescription class="sr-only">Make changes to your profile here. You can change your photo and set a username.
-        </dialogdescription><view class="overflow-y-auto"><profilebg /><avatar /><view class="px-6 pt-4 pb-6"><form class="space-y-4"><view class="flex flex-col gap-4 sm:flex-row"><view class="flex-1 space-y-2"><label htmlfor="{{`${id}-first-name`}}">First name</label><input id="{{`${id}-first-name`}}" placeholder="Matt" default-value="Margaret" type="text" required /></view><view class="flex-1 space-y-2"><label htmlfor="{{`${id}-last-name`}}">Last name</label><input id="{{`${id}-last-name`}}" placeholder="Welsh" default-value="Villard" type="text" required /></view></view><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-username`}}">Username</label><view class="relative"><input id="{{`${id}-username`}}" class="peer pe-9" placeholder="Username" default-value="margaret-villard-69" type="text" required /><view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50"><checkicon size="{{16}}" class="text-emerald-500" aria-hidden="true" /></view></view></view><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-website`}}">Website</label><view class="flex rounded-md shadow-xs"><text class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-s-md border px-3 text-sm">https://
-                  </text><input id="{{`${id}-website`}}" class="-ms-px rounded-s-none shadow-none" placeholder="yourwebsite.com" default-value="www.margaret.com" type="text" /></view></view><view class="*:not-first:mt-2"><label htmlfor="{{`${id}-bio`}}">Biography</label><textarea id="{{`${id}-bio`}}" placeholder="Write a few sentences about yourself" default-value="{{value}}" maxlength="{{maxLength}}" onchange="{{handleChange}}" aria-describedby="{{`${id}-description`}}" /><text id="{{`${id}-description`}}" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite"><text class="tabular-nums">{{ limit - characterCount }}</text>characters left
-                </text></view></form></view></view><dialogfooter class="border-t px-6 py-4"><dialogclose aschild><button type="button" variant="outline">Cancel
-            </button></dialogclose><dialogclose aschild><button type="button">Save changes</button></dialogclose></dialogfooter></dialogcontent></dialog>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dialog">
+    <button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline">Edit profile</button>
+    </button>
+    <view data-slot="dialog-content" class="flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-lg [&>button:last-child]:top-3.5">
+      <view data-slot="dialog-header">
+        <text data-slot="dialog-title">Edit profile</text>
+      </view>
+      <text data-slot="dialog-description">
+        Make changes to your profile here. You can change your photo and set a username.
+      </text>
+
+      <view class="overflow-y-auto">
+        <view class="h-32">
+          <view class="bg-muted relative flex size-full items-center justify-center overflow-hidden">
+            <img
+             
+              class="size-full object-cover" width="512" height="96">
+            <view class="absolute inset-0 flex items-center justify-center gap-2">
+              <button
+                type="button"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]">
+                <text aria-hidden="true" size="16" aria-hidden="true">
+              </button>
+              <button
+               
+                type="button"
+                class="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]"
+               
+                aria-label="Remove image">
+                <text aria-hidden="true" size="16" aria-hidden="true">
+              </button>
+            </view>
+          </view>
+          <input class="sr-only" aria-label="Upload image file">
+        </view>
+
+        <view class="-mt-10 px-6">
+          <view class="border-background bg-muted relative flex size-20 items-center justify-center overflow-hidden rounded-full border-4 shadow-xs shadow-black/10">
+            <img
+             
+              class="size-full object-cover" width="80" height="80"
+              alt="Profile image">
+            <button
+              type="button"
+              class="focus-visible:border-ring focus-visible:ring-ring/50 absolute flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]"
+             
+              aria-label="Change profile picture">
+              <text aria-hidden="true" size="16" aria-hidden="true">
+            </button>
+            <input class="sr-only" aria-label="Upload profile picture">
+          </view>
+        </view>
+
+        <view class="px-6 pt-4 pb-6">
+          <form class="space-y-4">
+            <view class="flex flex-col gap-4 sm:flex-row">
+              <view class="flex-1 space-y-2">
+                <text data-slot="label" for="Example-first-name">First name</text>
+                <input data-slot="input" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-first-name" placeholder="Matt" type="text" required>
+              </view>
+              <view class="flex-1 space-y-2">
+                <text data-slot="label" for="Example-last-name">Last name</text>
+                <input data-slot="input" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-last-name" placeholder="Welsh" type="text" required>
+              </view>
+            </view>
+
+            <view class="*:not-first:mt-2">
+              <text data-slot="label" for="Example-username">Username</text>
+              <view class="relative">
+                <input data-slot="input" class="peer pe-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-username"
+                 
+                 
+                  placeholder="Username"
+                  type="text"
+                  required>
+                <view class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">
+                  <text aria-hidden="true" size="16" aria-hidden="true">
+                </view>
+              </view>
+            </view>
+
+            <view class="*:not-first:mt-2">
+              <text data-slot="label" for="Example-website">Website</text>
+              <view class="flex rounded-md shadow-xs">
+                <text class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-s-md border px-3 text-sm">
+                  https://
+                </text>
+                <input data-slot="input" class="-ms-px rounded-s-none shadow-none flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-website"
+                 
+                 
+                  placeholder="yourwebsite.com"
+                  type="text">
+              </view>
+            </view>
+
+            <view class="*:not-first:mt-2">
+              <text data-slot="label" for="Example-bio">Biography</text>
+              <textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="Example-bio"
+               
+                placeholder="Write a few sentences about yourself" aria-describedby="Example-description"></textarea>
+              <text id="Example-description" class="text-muted-foreground mt-2 text-right text-xs" role="status" aria-live="polite">
+                <text class="tabular-nums"></text> characters left
+              </text>
+            </view>
+          </form>
+        </view>
+      </view>
+
+      <view data-slot="dialog-footer">
+        <view data-slot="dialog-close">
+          <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button" variant="outline">Cancel</button>
+        
+        <view data-slot="dialog-close">
+          <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">Save changes</button>
+        
+      </view>
+    </view>
+  </view>
 </view>

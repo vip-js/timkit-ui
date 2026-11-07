@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '@timui/vue';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@timui/vue';
 import { ScrollArea } from '@timui/vue';
@@ -6,10 +7,15 @@ import { ScrollArea } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Dialog><DialogTrigger as-child><Button variant="outline">Scrollable (custom scrollbar)</Button></DialogTrigger><DialogContent class="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-lg [&>button:last-child]:hidden"><ScrollArea class="flex max-h-full flex-col overflow-hidden"><DialogHeader class="contents space-y-0 text-left"><DialogTitle class="px-6 pt-6">Frequently Asked Questions (FAQ)</DialogTitle><DialogDescription as-child><div class="p-6"><div class="[&_strong]:text-foreground space-y-4 [&_strong]:font-semibold"><div class="space-y-1"><p><strong>Account Management</strong></p><p>Navigate to the registration page, provide required information, and verify
+  <Dialog><DialogTrigger as-child><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Scrollable (custom scrollbar)</Button></DialogTrigger><DialogContent class="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-lg [&>button:last-child]:hidden"><ScrollArea class="flex max-h-full flex-col overflow-hidden"><DialogHeader class="contents space-y-0 text-left"><DialogTitle class="px-6 pt-6">Frequently Asked Questions (FAQ)</DialogTitle><DialogDescription as-child><div class="p-6"><div class="[&_strong]:text-foreground space-y-4 [&_strong]:font-semibold"><div class="space-y-1"><p><strong>Account Management</strong></p><p>Navigate to the registration page, provide required information, and verify
                       your email address. You can sign up using your email or through social media
                       platforms.
                     </p></div><div class="space-y-1"><p><strong>Password Reset Process</strong></p><p>Users can reset their password through the account settings page. Click

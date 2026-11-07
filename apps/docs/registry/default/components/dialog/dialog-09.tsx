@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -11,10 +12,11 @@ import {
 import { MailIcon } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Newsletter</Button>
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Newsletter</Button>
       </DialogTrigger>
       <DialogContent>
         <div className="mb-2 flex flex-col items-center gap-2">

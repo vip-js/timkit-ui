@@ -1,15 +1,5 @@
-<view>
-  <view class="space-y-3"><checkboxtree tree="{{initialTree}}" rendernode="{{({ node, isChecked, onCheckedChange, children }) => (
-          <Fragment key={`${id}-${node.id}`}>
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id={`${id}-${node.id}`}
-                checked={isChecked}
-                onCheckedChange={onCheckedChange}
-              />
-              <Label htmlFor={`${id}-${node.id}`}>{node.label}</Label>
-            </div>
-            {children && <div className="ms-6 space-y-3">{children}</div>}
-          </Fragment>
-        )}}" /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-3">
+    <text aria-hidden="true">
+  </view>
 </view>

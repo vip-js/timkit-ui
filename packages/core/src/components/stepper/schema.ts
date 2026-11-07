@@ -35,6 +35,34 @@ const stepperSchema = defineUCS({
       description: 'Event handler called when active step changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, step changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'readOnly',
+      type: 'boolean',
+      description: 'When true, step changes are ignored.',
+      defaultValue: false,
+    },
+    {
+      name: 'min',
+      type: 'number',
+      description: 'The minimum value.',
+    },
+    {
+      name: 'max',
+      type: 'number',
+      description: 'The maximum value.',
+    },
+    {
+      name: 'step',
+      type: 'number',
+      description: 'The amount added or removed on each step.',
+      defaultValue: 1,
+    },
+    {
       name: 'orientation',
       type: 'enum',
       description: 'The orientation of the stepper.',

@@ -1,3 +1,3 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Required textarea <text class="text-destructive">*</text></label><textarea id="{{id}}" placeholder="Leave a message" required /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="textarea-02">Required textarea <text class="text-destructive">*</text></text><textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="textarea-02" placeholder="Leave a message" required></textarea></view>
 </view>

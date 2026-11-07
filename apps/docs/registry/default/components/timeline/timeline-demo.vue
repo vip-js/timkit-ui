@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
   Timeline,
   TimelineContent,
@@ -9,10 +10,15 @@ import {
   TimelineSeparator,
   TimelineTitle,
 } from '@timui/vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Timeline class="max-w-md">
+  <Timeline @click="onDemoClick" class="max-w-md">
     <TimelineItem :step="1">
       <TimelineHeader>
         <TimelineIndicator />

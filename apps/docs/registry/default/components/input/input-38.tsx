@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react'
+
 import { DateInput, Label, TimeField } from '@timui/react'
 import { ClockIcon } from 'lucide-react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <TimeField className="*:not-first:mt-2">
+    <TimeField onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="*:not-first:mt-2">
       <Label className="text-foreground text-sm font-medium">Time input with start icon</Label>
       <div className="relative">
         <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 z-10 flex items-center justify-center ps-3">

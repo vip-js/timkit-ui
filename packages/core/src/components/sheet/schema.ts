@@ -32,6 +32,12 @@ const sheetSchema = defineUCS({
       description: 'Event handler called when the open state changes.',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening the sheet is ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'side',
       type: 'enum',
       description: 'The side from which the sheet appears.',

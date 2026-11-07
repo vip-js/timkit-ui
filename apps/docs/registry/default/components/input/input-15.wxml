@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Input with end add-on</label><view class="flex rounded-md shadow-xs"><input id="{{id}}" class="-me-px rounded-e-none shadow-none" placeholder="google" type="text" /><text class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-e-md border px-3 text-sm">.com
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="input-15">Input with end add-on</text><view class="flex rounded-md shadow-xs"><input data-slot="input" class="-me-px rounded-e-none shadow-none flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-15" placeholder="google" type="text"><text class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-e-md border px-3 text-sm">.com
         </text></view></view>
 </view>

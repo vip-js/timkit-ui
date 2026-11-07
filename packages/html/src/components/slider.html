@@ -1,8 +1,15 @@
 <div class="relative flex w-full touch-none items-center select-none data-[disabled]:opacity-50 data-[orientation&#x3D;vertical]:h-full data-[orientation&#x3D;vertical]:min-h-44 data-[orientation&#x3D;vertical]:w-auto data-[orientation&#x3D;vertical]:flex-col">
+    <p role="status">50</p>
     <span class="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
         <span class="absolute h-full bg-primary" style="left: 0%; width: 50%;"></span>
     </span>
     <span
+        role="slider"
+        aria-label="Value"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="50"
+        tabindex="0"
         class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         style="left: 50%; transform: translateX(-50%);"></span>
 </div>

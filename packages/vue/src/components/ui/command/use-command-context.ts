@@ -1,11 +1,16 @@
 import type { ComboboxApi } from '@timui/core'
 import { type PropTypes } from '@zag-js/vue'
-import { inject, provide, type ComputedRef } from 'vue'
+import { inject, provide, type ComputedRef, type Ref } from 'vue'
 
 import type { CommandItem } from './use-command'
 
 export interface CommandContext {
   api: ComputedRef<ComboboxApi<PropTypes>>
+  disabled: ComputedRef<boolean>
+  query: Ref<string>
+  options: Ref<CommandItem[]>
+  selected: Ref<string>
+  choose: (value: string) => void
   registerItem: (item: CommandItem) => void
   unregisterItem: (value: string) => void
 }

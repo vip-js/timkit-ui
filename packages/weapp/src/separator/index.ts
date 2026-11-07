@@ -20,7 +20,7 @@ Component({
     },
     decorative: {
       type: Boolean,
-      value: false,
+      value: true,
     },
     extClass: {
       type: String,
@@ -29,25 +29,30 @@ Component({
   },
   data: {
     className: '',
+    role: 'none',
+    ariaOrientation: '',
   },
   lifetimes: {
     attached() {
-      this._updateClass()
+      this.sync()
     },
   },
   observers: {
-    'orientation, extClass': function () {
-      this._updateClass()
+    'orientation, decorative, extClass': function () {
+      this.sync()
     },
   },
   methods: {
-    _updateClass() {
-      const { orientation, extClass } = this.properties
+    sync() {
+      const orientation = toOrientation(this.properties.orientation)
+      const decorative = this.properties.decorative !== false
       this.setData({
         className: separatorVariants({
-          orientation: toOrientation(orientation),
-          className: extClass,
+          orientation,
+          className: this.properties.extClass,
         }),
+        role: decorative ? 'none' : 'separator',
+        ariaOrientation: decorative ? '' : orientation,
       })
     },
   },

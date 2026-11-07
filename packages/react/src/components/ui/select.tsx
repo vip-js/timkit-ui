@@ -19,18 +19,40 @@ import { CheckIcon, ChevronDownIcon } from 'lucide-react'
 import { useSelect, type SelectItemData, type SelectProps } from './select/use-select'
 import { SelectProvider, useSelectContext } from './select/use-select-context'
 import { Slot } from './slot'
+import { useReturnFocus } from './use-return-focus'
 
 const Select = (props: SelectProps) => {
   const { children, collection: externalCollection } = props
-  const internalCollectionRef = React.useRef(selectCollection<SelectItemData>({ items: [] }))
+  const [items, setItems] = React.useState<SelectItemData[]>([])
   const [itemLabels, setItemLabels] = React.useState<Record<string, string>>({})
-  const collection = externalCollection ?? internalCollectionRef.current
+  const collection = React.useMemo(
+    () => externalCollection ?? selectCollection<SelectItemData>({ items }),
+    [externalCollection, items]
+  )
   const api = useSelect({ ...props, collection })
+  const raw = (api as { value?: string | string[] }).value
+  const selected = Array.isArray(raw) ? raw.filter(Boolean) : raw ? [String(raw)] : []
+  const optionStatus =
+    selected.length === 0
+      ? ''
+      : selected.length === 1
+        ? (() => {
+            const index = items.findIndex((item) => item.value === selected[0])
+            return index < 0 ? '' : `Option ${index + 1} of ${items.length}`
+          })()
+        : `${selected.length} options selected`
 
   const registerItem = React.useCallback(
     (item: SelectItemData) => {
       if (!externalCollection) {
-        internalCollectionRef.current.upsert(item.value, item)
+        setItems((prev) => {
+          const index = prev.findIndex((entry) => entry.value === item.value)
+          if (index === -1) return [...prev, item]
+          if (prev[index] === item) return prev
+          const next = [...prev]
+          next[index] = item
+          return next
+        })
       }
       setItemLabels((prev) => {
         if (prev[item.value] === item.label) return prev
@@ -43,7 +65,7 @@ const Select = (props: SelectProps) => {
   const unregisterItem = React.useCallback(
     (value: string) => {
       if (!externalCollection) {
-        internalCollectionRef.current.remove(value)
+        setItems((prev) => prev.filter((entry) => entry.value !== value))
       }
       setItemLabels((prev) => {
         if (!(value in prev)) return prev
@@ -64,11 +86,16 @@ const Select = (props: SelectProps) => {
   )
 
   const contextValue = React.useMemo(
-    () => ({ ...api, registerItem, unregisterItem, getItemLabel }),
-    [api, getItemLabel, registerItem, unregisterItem]
+    () => ({ ...api, registerItem, unregisterItem, getItemLabel, placeholder: props.placeholder }),
+    [api, getItemLabel, props.placeholder, registerItem, unregisterItem]
   )
 
-  return <SelectProvider value={contextValue}>{children}</SelectProvider>
+  return (
+    <SelectProvider value={contextValue}>
+      {optionStatus ? <p role="status">{optionStatus}</p> : null}
+      {children}
+    </SelectProvider>
+  )
 }
 
 type SelectTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -78,22 +105,28 @@ type SelectTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className, children, asChild = false, ...props }, ref) => {
     const api = useSelectContext()
+    const rememberTrigger = useReturnFocus(!!api.open)
     const Comp = asChild ? Slot : 'button'
     const triggerProps = api.getTriggerProps?.() ?? {}
     const mergedProps = mergeProps(triggerProps, props)
+    const triggerRef = (node: HTMLButtonElement | null) => {
+      rememberTrigger(node)
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    }
 
     if (asChild) {
       return (
-        <Comp ref={ref} className={cn(className)} {...mergedProps}>
+        <Comp ref={triggerRef} className={cn(className)} {...mergedProps}>
           {children}
         </Comp>
       )
     }
 
     return (
-      <Comp ref={ref} className={cn(selectTriggerVariants(), className)} {...mergedProps}>
+      <Comp ref={triggerRef} className={cn(selectTriggerVariants(), className)} {...mergedProps} data-slot="select-trigger">
         {children}
-        <ChevronDownIcon className={selectTriggerIconVariants()} />
+        <ChevronDownIcon aria-hidden="true" className={selectTriggerIconVariants()} />
       </Comp>
     )
   }
@@ -173,9 +206,11 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
         ref={ref}
         className={cn(selectItemVariants(), className)}
         {...mergedProps}
+        data-slot="select-item"
+        data-disabled={disabled || undefined}
       >
         <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-          {isSelected(api?.value, value) ? <CheckIcon className="h-4 w-4" /> : null}
+          {isSelected(api?.value, value) ? <CheckIcon aria-hidden="true" className="h-4 w-4" /> : null}
         </span>
         <span className="truncate">{children}</span>
       </div>
@@ -208,7 +243,9 @@ const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(
     const values = api?.value ?? []
     const fallbackValue = values.map((value) => api.getItemLabel?.(value) ?? value).join(', ')
     const hasRegisteredLabel = values.some((value) => api.getItemLabel?.(value) !== undefined)
-    const displayValue = (hasRegisteredLabel ? fallbackValue : api?.valueAsString || fallbackValue) || placeholder
+    const resolvedPlaceholder = placeholder ?? api.placeholder
+    const displayValue =
+      (hasRegisteredLabel ? fallbackValue : api?.valueAsString || fallbackValue) || resolvedPlaceholder
     return (
       <span ref={ref} className={cn(selectValueVariants(), className)} {...props}>
         {displayValue}

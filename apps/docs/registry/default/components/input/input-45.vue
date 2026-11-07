@@ -5,7 +5,7 @@ import { Label } from '@timui/vue'
 
 const id = 'input-45'
 const digits = ref(['', '', '', '', '', ''])
-const inputRefs = ref<Array<HTMLInputElement | null>>([])
+const inputRefs = ref<Array @click="onDemoClick"<HTMLInputElement | null>>([])
 
 function setInputRef(index: number, el: HTMLInputElement | null) {
   inputRefs.value[index] = el
@@ -25,6 +25,11 @@ function handleKeydown(index: number, event: KeyboardEvent) {
   if (event.key === 'Backspace' && !digits.value[index] && index > 0) {
     inputRefs.value[index - 1]?.focus()
   }
+}
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
 }
 </script>
 

@@ -1,9 +1,4 @@
-<template>
-  <Button variant="outline" size="icon" class="relative" on-click="${handleClick}" aria-label="Notifications"><BellIcon size="${16}" aria-hidden="true" /><!-- if count > 0 -->
-<Badge class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><!-- if count > 99 -->
-${'99+'}
-<!-- else -->
-${count}
-<!-- endif --></Badge>
-<!-- endif --></Button>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<button type="button" data-slot="button" class="relative inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline" size="icon" aria-label="Notifications"><span aria-hidden="true" size="16" aria-hidden="true"><span data-slot="badge"="count> 0" class="absolute -top-2 left-full min-w-5 -translate-x-1/2 px-1"><template>
+99+
+</div>

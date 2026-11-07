@@ -78,6 +78,16 @@ const alternateEnum = (prop: ComponentProp | undefined) => {
 const childText = (scenario: string | undefined, title: string) =>
   escapeText(scenario || title || 'Continue') || 'Continue'
 
+const titledOverlays = new Set(['dialog', 'sheet', 'alert-dialog'])
+
+const isTitledOverlay = (name: string) => titledOverlays.has(name)
+
+const overlayParts = (symbol: string) =>
+  `${symbol}, ${symbol}Trigger, ${symbol}Content, ${symbol}Title`
+
+const overlayMarkup = (symbol: string, text: string) =>
+  `<${symbol}><${symbol}Trigger>Open</${symbol}Trigger><${symbol}Content><${symbol}Title>${text}</${symbol}Title></${symbol}Content></${symbol}>`
+
 const reactAttrs = (attrs: Array<[string, string]>) =>
   attrs.map(([key, value]) => `${key}="${value}"`).join(' ')
 
@@ -135,6 +145,12 @@ export const createSnippet = (input: {
   if (attrs.some(([key, value]) => key === 'size' && value === 'icon')) {
     attrs.push(['aria-label', text])
   }
+  if (
+    (input.name === 'input' || input.name === 'textarea') &&
+    !attrs.some(([key]) => key === 'aria-label')
+  ) {
+    attrs.push(['aria-label', text])
+  }
 
   const packagePrimitive = isPackagePrimitive(input.name, input.type, input.knownPrimitive)
   const importSource = packagePrimitive
@@ -152,6 +168,15 @@ export const createSnippet = (input: {
 
   if (input.framework === 'vue') {
     const attrText = vueAttrs(attrs)
+    const overlay = packagePrimitive && isTitledOverlay(input.name)
+    const vueImports = overlay
+      ? `{ ${overlayParts(symbol)} }`
+      : packagePrimitive
+        ? `{ ${symbol} }`
+        : symbol
+    const vueBody = overlay
+      ? overlayMarkup(symbol, text)
+      : `<${symbol}${attrText ? ` ${attrText}` : ''}>${attrs.some(([key]) => key === 'aria-label') ? '' : text}</${symbol}>`
     return {
       symbol,
       importSource: packagePrimitive ? '@timui/vue' : importSource,
@@ -161,11 +186,11 @@ export const createSnippet = (input: {
         {
           path: `${wrapper}.vue`,
           content: `<script setup lang="ts">
-import ${packagePrimitive ? `{ ${symbol} }` : symbol} from '${packagePrimitive ? '@timui/vue' : importSource}'
+import ${vueImports} from '${packagePrimitive ? '@timui/vue' : importSource}'
 </script>
 
 <template>
-  <${symbol}${attrText ? ` ${attrText}` : ''}>${attrs.some(([key]) => key === 'aria-label') ? '' : text}</${symbol}>
+  ${vueBody}
 </template>
 `,
         },
@@ -181,7 +206,9 @@ import ${packagePrimitive ? `{ ${symbol} }` : symbol} from '${packagePrimitive ?
         ? `<input data-slot="${input.name}" type="text" aria-label="${text}"${dataVariant} />\n`
         : input.name === 'button'
           ? `<button type="button" data-slot="button"${dataVariant}>${text}</button>\n`
-          : `<div data-slot="${input.name}"${dataVariant}>${text}</div>\n`
+          : isTitledOverlay(input.name)
+            ? `<div data-slot="${input.name}" role="dialog" aria-labelledby="${input.name}-title"${dataVariant}><h2 id="${input.name}-title">${text}</h2></div>\n`
+            : `<div data-slot="${input.name}"${dataVariant}>${text}</div>\n`
     return {
       symbol,
       importSource: '@timui/html',
@@ -201,10 +228,12 @@ import ${packagePrimitive ? `{ ${symbol} }` : symbol} from '${packagePrimitive ?
 
   if (input.framework === 'weapp') {
     const tag = `t-${input.name}`
+    const overlay = isTitledOverlay(input.name)
     const attrText = attrs
-      .filter(([key]) => key !== 'aria-label')
+      .filter(([key]) => key !== 'aria-label' || input.name === 'input' || input.name === 'textarea')
       .map(([key, value]) => `${key}="${value}"`)
       .join(' ')
+    const weappAttrs = overlay ? ` title="${text}"${attrText ? ` ${attrText}` : ''}` : attrText ? ` ${attrText}` : ''
     return {
       symbol,
       importSource: '@timui/weapp',
@@ -212,23 +241,30 @@ import ${packagePrimitive ? `{ ${symbol} }` : symbol} from '${packagePrimitive ?
       notes: [
         ...notes,
         `Register the component before use: { "usingComponents": { "${tag}": "/components/${input.name}/${input.name}" } }`,
-        'Listen with bind:press so the TimEvent protocol fires alongside the native tap.',
+        overlay
+          ? 'Set title so the surface has a name.'
+          : 'Listen with bind:press so the TimEvent protocol fires alongside the native tap.',
       ],
       files: [
         {
           path: `${input.name}.wxml`,
-          content: `<${tag}${attrText ? ` ${attrText}` : ''} bind:press="onPress">${text}</${tag}>
-`,
+          content: overlay
+            ? `<${tag}${weappAttrs}></${tag}>\n`
+            : `<${tag}${weappAttrs} bind:press="onPress">${text}</${tag}>\n`,
         },
       ],
     }
   }
 
   const attrText = reactAttrs(attrs)
+  const overlay = packagePrimitive && isTitledOverlay(input.name)
   const children = attrs.some(([key]) => key === 'aria-label') ? '' : text
-  const importLine = packagePrimitive
-    ? `import { ${symbol} } from '@timui/react'`
-    : `import ${symbol} from '${importSource}'`
+  const importLine = overlay
+    ? `import { ${overlayParts(symbol)} } from '@timui/react'`
+    : packagePrimitive
+      ? `import { ${symbol} } from '@timui/react'`
+      : `import ${symbol} from '${importSource}'`
+  const reactBody = overlay ? overlayMarkup(symbol, text) : `<${symbol}${attrText ? ` ${attrText}` : ''}>${children}</${symbol}>`
 
   return {
     symbol,
@@ -242,7 +278,7 @@ import ${packagePrimitive ? `{ ${symbol} }` : symbol} from '${packagePrimitive ?
 
 export function ${wrapper}() {
   return (
-    <${symbol}${attrText ? ` ${attrText}` : ''}>${children}</${symbol}>
+    ${reactBody}
   )
 }
 `,
@@ -294,7 +330,11 @@ export const guidanceFor = (schema: UCS | undefined, name: string) => {
     'Give every control visible text or an aria-label.',
     'Keep touch targets at least 44px. Do not remove min-h-touch-target or safe-area padding.',
   ]
-  const pitfalls = [...(pitfallsByName[name] || [])]
+  const pitfalls = [
+    ...(pitfallsByName[name] || []),
+    `Restyle ${name} with className. It merges with the variant classes.`,
+    `Use only props from the ${name} contract. Do not invent enum values.`,
+  ]
 
   if (schema?.logic.provider === 'zag') {
     pitfalls.push(
@@ -314,6 +354,14 @@ export const guidanceFor = (schema: UCS | undefined, name: string) => {
 }
 
 const lineOf = (code: string, index: number) => code.slice(0, index).split('\n').length
+
+const fieldHasName = (attrs: string, code: string) => {
+  if (/aria-label\s*=/.test(attrs) || /aria-labelledby\s*=/.test(attrs)) {
+    return true
+  }
+  const id = attrs.match(/\bid="([^"]+)"/)?.[1]
+  return Boolean(id && new RegExp(`\\bfor=["']${id}["']`).test(code))
+}
 
 const symbolToName = (symbol: string, names: string[]) =>
   names.find((name) => toSymbol(name) === symbol)
@@ -382,6 +430,17 @@ export const validateUsage = (
       message: 'Vue snippets should include a <template> block.',
     })
   }
+  if (
+    (options.framework === 'react' || options.framework === 'vue') &&
+    /size\s*=\s*["']icon["']/.test(code) &&
+    !/aria-label\s*=/.test(code)
+  ) {
+    issues.push({
+      type: 'accessibility',
+      message: 'Icon buttons need an aria-label.',
+      fix: 'Add aria-label with the action name.',
+    })
+  }
   if (options.framework === 'react' && code.includes('&quot;')) {
     issues.push({
       type: 'syntax',
@@ -427,9 +486,32 @@ export const validateUsage = (
     })
   }
 
-  const tags = code.matchAll(/<([A-Z][A-Za-z0-9]*)\b([^>]*)(?:\/>|>([\s\S]*?)<\/\1>)/g)
+  if (options.component && isTitledOverlay(options.component)) {
+    const symbol = toSymbol(options.component)
+    const titled =
+      code.includes(`${symbol}Title`) ||
+      /\btitle\s*=\s*["'][^"']+["']/.test(code) ||
+      /aria-label\s*=\s*["'][^"']+["']/.test(code) ||
+      /aria-labelledby\s*=/.test(code)
+    if (!titled) {
+      issues.push({
+        type: 'accessibility',
+        message: `${symbol} needs a title so it has an accessible name.`,
+        fix: `Render <${symbol}Title>, or set title, aria-label, or aria-labelledby.`,
+      })
+    }
+  }
+
+  const tags = code.matchAll(
+    /<((?:[A-Z][A-Za-z0-9]*)|t-[a-z0-9-]+|button|input|textarea)\b([^>]*)(?:\/>|>([\s\S]*?)<\/\1>)/g
+  )
   for (const match of tags) {
-    const symbol = match[1] || ''
+    const raw = match[1] || ''
+    const symbol = raw.startsWith('t-')
+      ? toSymbol(raw.slice(2))
+      : raw === 'button' || raw === 'input' || raw === 'textarea'
+        ? toSymbol(raw)
+        : raw
     const attrs = match[2] || ''
     const body = match[3] || ''
     const name = symbolToName(symbol, options.names)
@@ -452,8 +534,9 @@ export const validateUsage = (
 
     if (name === 'button') {
       const iconOnly = /size="icon"/.test(attrs)
-      const hasName = /aria-label=/.test(attrs) || /\blabel=/.test(attrs) || body.trim().length > 0
-      if ((iconOnly || !hasName) && !/aria-label=/.test(attrs) && !/\blabel=/.test(attrs)) {
+      const hasName =
+        /aria-label=/.test(attrs) || /ariaLabel=/.test(attrs) || /\blabel=/.test(attrs) || body.trim().length > 0
+      if ((iconOnly || !hasName) && !/aria-label=/.test(attrs) && !/ariaLabel=/.test(attrs) && !/\blabel=/.test(attrs)) {
         issues.push({
           type: 'accessibility',
           message: iconOnly
@@ -463,6 +546,15 @@ export const validateUsage = (
           fix: `Add aria-label="${childText(undefined, 'Continue')}".`,
         })
       }
+    }
+
+    if ((name === 'input' || name === 'textarea') && !fieldHasName(attrs, code)) {
+      issues.push({
+        type: 'accessibility',
+          message: `${symbol} needs an aria-label or a label.`,
+          line: lineOf(code, match.index || 0),
+          fix: 'Add aria-label or a label for the id.',
+      })
     }
   }
 

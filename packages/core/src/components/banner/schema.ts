@@ -30,6 +30,22 @@ const bannerSchema = defineUCS({
       defaultValue: false,
     },
     {
+      name: 'open',
+      type: 'boolean',
+      description: 'The controlled open state of the banner.',
+    },
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the banner when uncontrolled.',
+      defaultValue: true,
+    },
+    {
+      name: 'onOpenChange',
+      type: 'event',
+      description: 'Event handler called when the banner open state changes.',
+    },
+    {
       name: 'onClose',
       type: 'event',
       description: 'Callback fired when the banner is dismissed.',

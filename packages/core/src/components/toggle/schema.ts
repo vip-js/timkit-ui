@@ -24,6 +24,12 @@ const toggleSchema = defineUCS({
       defaultValue: 'default',
     },
     {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, pressed changes are ignored.',
+      defaultValue: false,
+    },
+    {
       name: 'pressed',
       type: 'boolean',
       description: 'The controlled pressed state of the toggle.',

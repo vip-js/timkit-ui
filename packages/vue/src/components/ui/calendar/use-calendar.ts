@@ -10,7 +10,7 @@ import type {
 import { parse as parseDateValue } from '@zag-js/date-picker'
 import type { DateValue } from '@zag-js/date-picker'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId } from 'vue'
+import { computed, ref, useId, watchEffect } from 'vue'
 
 export type UseCalendarProps = CalendarVueProps & {
   id?: string
@@ -187,7 +187,7 @@ export function useCalendar(props: UseCalendarProps, emit: UseCalendarEmits) {
     const mode = props.mode || 'single'
     const externalValue = props.modelValue !== undefined ? props.modelValue : props.selected
     const controlledValue =
-      externalValue !== undefined ? toDateValueArray(externalValue, mode) : undefined
+      externalValue !== undefined ? (toDateValueArray(externalValue, mode) ?? []) : undefined
 
     const defaultValue =
       externalValue === undefined
@@ -238,6 +238,7 @@ export function useCalendar(props: UseCalendarProps, emit: UseCalendarEmits) {
       focusedValue: focusedBase ? toCalendarDate(focusedBase) : undefined,
       defaultFocusedValue: defaultFocusedBase ? toCalendarDate(defaultFocusedBase) : undefined,
       disabled: typeof props.disabled === 'boolean' ? props.disabled : undefined,
+      readOnly: props.readOnly === true ? true : undefined,
       timeZone: localTimeZone,
       value: controlledValue,
       defaultValue,
@@ -256,10 +257,19 @@ export function useCalendar(props: UseCalendarProps, emit: UseCalendarEmits) {
   })
 
   const service = useMachine(calendarMachine, machineProps)
-  const api = computed(() => calendarConnect(service, normalizeProps))
+  const phase = ref('')
+  watchEffect(() => {
+    const value = service.context.get('value')
+    phase.value = Array.isArray(value) ? value.map((item) => String(item)).join('|') : ''
+  })
+  const api = computed(() => {
+    phase.value
+    return calendarConnect(service, normalizeProps)
+  })
 
   return {
     api,
     localTimeZone,
+    matchesUnavailable,
   }
 }

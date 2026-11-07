@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import TreeDemoBase from './tree-demo-base.vue'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <TreeDemoBase variant="search" description="Tree with search highlight" />
+  <TreeDemoBase @click="onDemoClick" variant="search" description="Tree with search highlight" />
 </template>

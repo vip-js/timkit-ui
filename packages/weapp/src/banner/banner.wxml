@@ -1,3 +1,4 @@
-<view class="{{className}}" data-slot="banner">
+<view wx:if="{{open}}" class="{{className}}" data-slot="banner" data-state="open" data-variant="{{variant}}" role="status">
   <slot></slot>
+  <view wx:if="{{dismissible}}" data-slot="banner-close" role="button" tabindex="0" aria-label="Close" bindtap="onCloseTap" bindkeydown="onCloseKey"><text aria-hidden="true">×</text></view>
 </view>

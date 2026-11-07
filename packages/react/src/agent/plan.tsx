@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { cn } from '@timui/core'
 
 export type AgentPlanStatus = 'pending' | 'running' | 'done' | 'failed'
@@ -22,7 +23,11 @@ const statusLabel: Record<AgentPlanStatus, string> = {
   failed: 'Failed',
 }
 
-export function AgentPlan({ steps, title = 'Plan', className }: AgentPlanProps) {
+export const AgentPlan = memo(function AgentPlan({
+  steps,
+  title = 'Plan',
+  className,
+}: AgentPlanProps) {
   return (
     <section data-slot="agent-plan" className={cn('grid gap-2 text-sm', className)}>
       <h3 className="text-xs font-medium text-muted-foreground">{title}</h3>
@@ -47,4 +52,6 @@ export function AgentPlan({ steps, title = 'Plan', className }: AgentPlanProps) 
       </ol>
     </section>
   )
-}
+})
+
+AgentPlan.displayName = 'AgentPlan'

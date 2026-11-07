@@ -1,7 +1,9 @@
 import { useId } from 'react'
 import { RadioGroup, RadioGroupItem } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
     <>
@@ -9,7 +11,7 @@ export default function Component() {
         <legend className="text-foreground text-sm leading-none font-medium">
           How likely are you to recommend us?
         </legend>
-        <RadioGroup className="flex gap-0 -space-x-px rounded-md shadow-xs">
+        <RadioGroup onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="flex gap-0 -space-x-px rounded-md shadow-xs">
           {['0', '1', '2', '3', '4', '5'].map((value) => (
             <label
               key={value}

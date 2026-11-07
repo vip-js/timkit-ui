@@ -1,10 +1,12 @@
 import { useId } from 'react'
 import { Badge, Checkbox } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   const id = useId()
   return (
-    <Badge className="has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]">
+    <Badge onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative outline-none has-focus-visible:ring-[3px]">
       <Checkbox id={id} className="peer sr-only after:absolute after:inset-0" defaultChecked />
       <svg
         className="hidden peer-data-[state=checked]:block"

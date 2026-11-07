@@ -1,13 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage, Button } from '@timui/react'
 import { ChevronLeftIcon, HistoryIcon, MessageSquareText, UserRoundPlus } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
-          <Button className="size-8" variant="ghost" size="icon" aria-label="Go back" asChild>
+          <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="size-8" variant="ghost" size="icon" aria-label="Go back" asChild>
             <a href="#">
               <ChevronLeftIcon />
             </a>

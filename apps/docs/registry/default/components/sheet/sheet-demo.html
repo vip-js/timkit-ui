@@ -1,8 +1,6 @@
-<template>
-  <div class="grid grid-cols-2 gap-2"><!-- Loop SHEET_SIDES -->
-<Sheet key="${side}"><SheetTrigger aschild><Button variant="outline">${side}</Button></SheetTrigger><SheetContent side="${side}"><SheetHeader><SheetTitle>Edit profile</SheetTitle><SheetDescription>Make changes to your profile here. Click save when you're done.
-              </SheetDescription></SheetHeader><div class="grid gap-4 py-4"><div class="grid grid-cols-4 items-center gap-4"><Label htmlfor="name" class="text-right">Name
-                </Label><Input id="name" value="Pedro Duarte" class="col-span-3" /></div><div class="grid grid-cols-4 items-center gap-4"><Label htmlfor="username" class="text-right">Username
-                </Label><Input id="username" value="@peduarte" class="col-span-3" /></div></div><SheetFooter><SheetClose aschild><Button type="submit">Save changes</Button></SheetClose></SheetFooter></SheetContent></Sheet>
-<!-- End Loop --></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="grid grid-cols-2 gap-2"><dialog open data-slot="sheet"><button type="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"></button></dialog><div data-slot="sheet-content"><header><h2>Edit profile</h2><p>Make changes to your profile here. Click save when you're done.
+              </p></header><div class="grid gap-4 py-4"><div class="grid grid-cols-4 items-center gap-4"><label data-slot="label" for="name">Name
+                </label><input data-slot="input" class="col-span-3 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="name" value="Pedro Duarte"></div><div class="grid grid-cols-4 items-center gap-4"><label data-slot="label" for="username">Username
+                </label><input data-slot="input" class="col-span-3 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="username" value="@peduarte"></div></div><footer><button type="button"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="submit">Save changes</button></button></footer></div></dialog></div>
+</div>

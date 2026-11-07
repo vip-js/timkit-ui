@@ -12,6 +12,8 @@ import type { Placement } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed, useId } from 'vue'
 
+import { usePassedProp } from '../../../hooks/passed-prop'
+
 export type UseDatePickerProps = DatePickerVueProps & {
   numberOfMonths?: number
 }
@@ -32,6 +34,7 @@ export type UseDatePickerEmits = {
 export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmits) {
   const localTimeZone = getLocalTimeZone()
   const generatedId = useId()
+  const passed = usePassedProp()
   const toPickerDate = (input: string | Date) =>
     parseDateValue(
       input instanceof Date
@@ -69,14 +72,15 @@ export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmit
 
   const machineProps = computed(() => {
     const mode = props.mode || 'single'
-    const currentValue = props.modelValue ?? props.value
+    const currentValue = props.modelValue !== undefined ? props.modelValue : props.value
     const controlledValue =
-      currentValue !== undefined ? toDateValueArray(currentValue, mode) : undefined
+      currentValue !== undefined ? (toDateValueArray(currentValue, mode) ?? []) : undefined
 
     const defaultValue =
       currentValue === undefined ? toDateValueArray(props.defaultValue, mode) : undefined
     const min = props.minDate ? toPickerDate(props.minDate) : undefined
     const max = props.maxDate ? toPickerDate(props.maxDate) : undefined
+    const open = passed<boolean | null>(props, 'open')
 
     return {
       id: props.id ?? generatedId,
@@ -88,9 +92,11 @@ export function useDatePicker(props: UseDatePickerProps, emit: UseDatePickerEmit
       max,
       value: controlledValue,
       defaultValue,
-      open: props.open,
-      defaultOpen: props.defaultOpen,
+      ...(open === undefined
+        ? { defaultOpen: passed<boolean>(props, 'defaultOpen') }
+        : { open: open === true }),
       disabled: props.disabled,
+      closeOnSelect: false,
       required: props.required,
       name: props.name,
       locale: props.locale,

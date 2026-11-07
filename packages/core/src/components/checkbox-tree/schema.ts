@@ -25,6 +25,17 @@ const checkboxTreeSchema = defineUCS({
       description: 'Function to render each node.',
       required: true,
     },
+    {
+      name: 'checkedKeys',
+      type: 'array',
+      description: 'The controlled ids of the checked nodes.',
+    },
+    {
+      name: 'onCheckedKeysChange',
+      type: 'event',
+      description:
+        'Event handler called with the next checked ids. A controlled value stays until the parent applies it. Disabled nodes are ignored.',
+    },
   ],
   slots: [],
   supportedPlatforms: ['web'],

@@ -1,19 +1,39 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Options with icon and number</label><popover open="{{open}}" bindchange="setOpen"><popovertrigger aschild><button id="{{id}}" variant="outline" role="combobox" aria-expanded="{{open}}" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"><block wx:if="{{value}}">
-<text class="flex min-w-0 items-center gap-2">{{ (() => {
-                  const selectedItem = items.find((item) => item.value === value)
-                  if (selectedItem) {
-                    const Icon = selectedItem.icon
-                    return <Icon className="text-muted-foreground size-4" />
-                  }
-                  return null
-                })() }}<text class="truncate">{{ items.find((item) => item.value === value)?.label }}</text></text>
-</block>
-<block wx:else>
-<text class="text-muted-foreground">Select service category</text>
-</block><chevrondownicon size="{{16}}" class="text-muted-foreground/80 shrink-0" aria-hidden="true" /></button></popovertrigger><popovercontent class="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start"><command><commandinput placeholder="Search services..." /><commandlist><commandempty>No service found.</commandempty><commandgroup><commanditem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.value}}" value="{{item.value}}" onselect="{{(currentValue) => {
-                      const val = currentValue as string
-                      setValue(val === value ? '' : val)
-                      setOpen(false)
-                    }}}" class="flex items-center justify-between"><view class="flex items-center gap-2"><item.icon class="text-muted-foreground size-4" />{{ item.label }}</view><text class="text-muted-foreground text-xs">{{ item.number.toLocaleString() }}</text></commanditem></commandgroup></commandlist></command></popovercontent></popover></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2">
+    <text data-slot="label">Options with icon and number</text>
+
+    <view data-slot="popover">
+      <button type="button" data-slot="popover-trigger">
+        <button type="button" data-slot="button" class="bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          variant="outline"
+          role="combobox">
+          <text class="flex min-w-0 items-center gap-2">
+            <component class="text-muted-foreground size-4">
+            <text class="truncate"></text>
+          </text>
+          <text class="text-muted-foreground">Select service category</text>
+
+          <text aria-hidden="true" size="16" aria-hidden="true">
+        </button>
+      </button>
+
+      <view data-slot="popover-content" align="start">
+        <view role="listbox">
+          <input type="search" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" placeholder="Search services...">
+          <view>
+            <text>No service found.</text>
+            <view>
+              <button type="button" role="option">
+                <view class="flex items-center gap-2">
+                  <component class="text-muted-foreground size-4">
+                  Example
+                </view>
+                <text class="text-muted-foreground text-xs"></text>
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

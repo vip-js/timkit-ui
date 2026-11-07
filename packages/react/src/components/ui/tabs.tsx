@@ -6,17 +6,18 @@ import { mergeProps } from '@zag-js/react'
 
 import { Slot } from './slot'
 import { useTabs, type UseTabsProps } from './tabs/use-tabs'
-import { TabsProvider, useTabsContext } from './tabs/use-tabs-context'
+import { TabsDisabledProvider, TabsProvider, useTabsContext, useTabsDisabled } from './tabs/use-tabs-context'
 
 const Tabs = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
-    value?: string
+    value?: string | null
     defaultValue?: string
     onValueChange?: (value: string) => void
     onFocusChange?: (value: string) => void
     orientation?: 'horizontal' | 'vertical'
     activationMode?: 'manual' | 'automatic'
+    disabled?: boolean
     loopFocus?: boolean
     composite?: boolean
     deselectable?: boolean
@@ -32,6 +33,7 @@ const Tabs = React.forwardRef<
       onFocusChange,
       orientation,
       activationMode,
+      disabled = false,
       loopFocus,
       composite,
       deselectable,
@@ -57,27 +59,73 @@ const Tabs = React.forwardRef<
     const { className: mergedClassName, ...restProps } = mergedProps
 
     return (
-      <TabsProvider value={api}>
-        <div ref={ref} data-slot="tabs" className={cn(className, mergedClassName)} {...restProps} />
-      </TabsProvider>
+      <TabsDisabledProvider value={disabled}>
+        <TabsProvider value={api}>
+          <div
+            ref={ref}
+            data-slot="tabs"
+            aria-disabled={disabled || undefined}
+            data-disabled={disabled ? '' : undefined}
+            className={cn(className, mergedClassName)}
+            {...restProps}
+          />
+        </TabsProvider>
+      </TabsDisabledProvider>
     )
   }
 )
 Tabs.displayName = 'Tabs'
 
 const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  ({ className, children, 'aria-label': ariaLabel, ...props }, ref) => {
     const api = useTabsContext()
+    const groupDisabled = useTabsDisabled()
     const listProps = api.getListProps()
     const mergedProps = mergeProps(listProps, props) as React.HTMLAttributes<HTMLDivElement>
-    const { className: mergedClassName, ...restProps } = mergedProps
+    const { className: mergedClassName, onKeyDown: listOnKeyDown, ...restProps } = mergedProps
+    const triggers = React.Children.toArray(children).filter(React.isValidElement)
+    const selected = api.value == null || api.value === '' ? -1 : triggers.findIndex((child) => (child.props as { value?: string }).value === api.value)
+    const tabStatus = selected < 0 ? '' : `Tab ${selected + 1} of ${triggers.length}`
     return (
+      <>
+      {tabStatus ? <p role="status">{tabStatus}</p> : null}
       <div
         ref={ref}
         data-slot="tabs-list"
         className={cn(tabsListVariants(), className, mergedClassName)}
         {...restProps}
-      />
+        aria-label={typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Tabs'}
+        onKeyDown={(event) => {
+          if (groupDisabled) {
+            event.preventDefault()
+            return
+          }
+          listOnKeyDown?.(event)
+          const horizontal = event.currentTarget.getAttribute('data-orientation') !== 'vertical'
+          const nextKey = horizontal ? 'ArrowRight' : 'ArrowDown'
+          const prevKey = horizontal ? 'ArrowLeft' : 'ArrowUp'
+          const triggers = [...event.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]:not([disabled])')]
+          if (event.key === 'Home' || event.key === 'End') {
+            const edge = event.key === 'Home' ? triggers[0] : triggers[triggers.length - 1]
+            const value = edge?.dataset.value
+            if (value) api.setValue(value)
+            return
+          }
+          if (event.key !== nextKey && event.key !== prevKey) return
+          const selected = event.currentTarget.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]')
+          if (!selected || triggers.length === 0) return
+          const index = triggers.indexOf(selected)
+          if (index < 0) return
+          const delta = event.key === nextKey ? 1 : -1
+          const next = triggers[(index + delta + triggers.length) % triggers.length]
+          const value = next?.dataset.value
+          if (!value || value === selected.dataset.value) return
+          api.setValue(value)
+        }}
+      >
+        {children}
+      </div>
+      </>
     )
   }
 )
@@ -88,11 +136,21 @@ const TabsTrigger = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & { value: string; asChild?: boolean }
 >(({ className, value, asChild = false, ...props }, ref) => {
   const api = useTabsContext()
+  const groupDisabled = useTabsDisabled()
   const Comp = asChild ? Slot : 'button'
-  const triggerProps = api.getTriggerProps({ value, disabled: props.disabled })
+  const itemDisabled = groupDisabled || Boolean(props.disabled)
+  const triggerProps = api.getTriggerProps({ value, disabled: itemDisabled })
   const mergedProps = mergeProps(
     triggerProps,
-    props
+    props,
+    itemDisabled
+      ? {
+          disabled: true,
+          onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+          },
+        }
+      : {}
   ) as React.ButtonHTMLAttributes<HTMLButtonElement>
   const { className: mergedClassName, type: mergedType, ...restProps } = mergedProps
   const finalType = asChild ? mergedType : (mergedType ?? 'button')

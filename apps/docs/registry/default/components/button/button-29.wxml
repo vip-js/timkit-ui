@@ -1,4 +1,23 @@
-<view>
-  <view class="inline-flex items-center" role="group" aria-labelledby="volume-control"><text id="volume-control" class="sr-only">Volume Control
-      </text><button class="rounded-full" variant="outline" size="icon" aria-label="Decrease volume" bindtap="decreaseVolume" disabled="{{volume === 0}}"><minusicon size="{{16}}" aria-hidden="true" /></button><view class="flex items-center px-3 text-sm font-medium tabular-nums" aria-live="polite"><icon class="opacity-60" size="{{16}}" aria-hidden="true" /><text class="ms-2" aria-label="{{`Current volume is ${volume}`}}">{{ volume }}</text></view><button class="rounded-full" variant="outline" size="icon" aria-label="Increase volume" bindtap="increaseVolume" disabled="{{volume === 6}}"><plusicon size="{{16}}" aria-hidden="true" /></button></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="inline-flex items-center" role="group" aria-labelledby="volume-control">
+    <text id="volume-control" class="sr-only">Volume Control</text>
+    <button type="button" data-slot="button" class="rounded-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+     
+      variant="outline"
+      size="icon"
+      aria-label="Decrease volume">
+      <text aria-hidden="true" size="16" aria-hidden="true">
+    </button>
+    <view class="flex items-center px-3 text-sm font-medium tabular-nums" aria-live="polite">
+      <component class="opacity-60" size="16" aria-hidden="true">
+      <text class="ms-2" aria-label="Current volume is Example"></text>
+    </view>
+    <button type="button" data-slot="button" class="rounded-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+     
+      variant="outline"
+      size="icon"
+      aria-label="Increase volume">
+      <text aria-hidden="true" size="16" aria-hidden="true">
+    </button>
+  </view>
 </view>

@@ -1,0 +1,4 @@
+<view class="timui-demo">
+  <text>Skills</text>
+  <picker mode="selector" range="{{options}}"><view>Choose</view></picker>
+</view>

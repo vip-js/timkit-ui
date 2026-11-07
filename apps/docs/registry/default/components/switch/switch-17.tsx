@@ -1,11 +1,13 @@
 import { useId } from 'react'
 import { Label, Switch } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoChecked, setDemoChecked] = useState(false)
   const id = useId()
   return (
     <div className="border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none">
-      <Switch
+      <Switch checked={demoChecked} onCheckedChange={(checked) => setDemoChecked(checked === true)}
         id={id}
         className="order-1 h-4 w-6 after:absolute after:inset-0 [&_span]:size-3 data-[state=checked]:[&_span]:translate-x-2 data-[state=checked]:[&_span]:rtl:-translate-x-2"
         aria-describedby={`${id}-description`}

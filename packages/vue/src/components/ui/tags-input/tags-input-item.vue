@@ -13,6 +13,7 @@ const props = defineProps<{ class?: HTMLAttributes["class"]; value: string; inde
 
 const api = useTagsInputContext();
 const itemProps = computed(() => api.value.getItemProps?.({ value: props.value, index: props.index, disabled: false }) ?? {});
+const previewProps = computed(() => api.value.getItemPreviewProps?.({ value: props.value, index: props.index, disabled: false }) ?? {});
 const itemState = computed(() => api.value.getItemState?.({ value: props.value, index: props.index }));
 const itemInputProps = computed(() => api.value.getItemInputProps?.({ value: props.value, index: props.index, disabled: false }) ?? {});
 const deleteProps = computed(() => api.value.getItemDeleteTriggerProps?.({ value: props.value, index: props.index, disabled: false }) ?? {});
@@ -37,8 +38,9 @@ provide("tags-input-item", itemContext);
       )
     "
     :data-disabled="itemState?.disabled ? '' : undefined"
+    :data-highlighted="itemState?.highlighted ? '' : undefined"
   >
-    <span class="leading-none">
+    <span v-bind="previewProps" class="leading-none">
       <slot>{{ props.value }}</slot>
     </span>
     <button
@@ -48,7 +50,7 @@ provide("tags-input-item", itemContext);
       :class="tagsInputItemDeleteVariants()"
       aria-label="Remove tag"
     >
-      <XIcon class="w-4 h-4" />
+      <XIcon aria-hidden="true" class="w-4 h-4" />
     </button>
     <input v-bind="itemInputProps" />
   </div>

@@ -1,3 +1,24 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Options with icon</Label><Select default-value="3"><SelectTrigger id="${id}" class="[&>span_svg]:text-muted-foreground/80 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0"><SelectValue placeholder="Select framework" /></SelectTrigger><SelectContent class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0"><SelectItem value="1"><RiReactjsLine size="${16}" aria-hidden="true" /><span class="truncate">React</span></SelectItem><SelectItem value="2"><RiNextjsLine size="${16}" aria-hidden="true" /><span class="truncate">Next.js</span></SelectItem><SelectItem value="3"><RiGatsbyLine size="${16}" aria-hidden="true" /><span class="truncate">Gatsby</span></SelectItem></SelectContent></Select></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label" for="select-34">Options with icon</label>
+    <select data-slot="select">
+      <button type="button" data-slot="select-trigger" id="select-34" class="[&>span_svg]:text-muted-foreground/80 [&>span]:flex [&>span]:items-center [&>span]:gap-2 [&>span_svg]:shrink-0">
+        <span data-slot="select-value" placeholder="Select framework"></span>
+      </button>
+      <div data-slot="select-content" class="[&_*[role=option]>span>svg]:text-muted-foreground/80 [&_*[role=option]>span]:flex [&_*[role=option]>span]:gap-2 [&_*[role=option]>span>svg]:shrink-0">
+        <option data-slot="select-item" value="1">
+          <span aria-hidden="true" size="16" aria-hidden="true">
+          <span class="truncate">React</span>
+        </option>
+        <option data-slot="select-item" value="2">
+          <span aria-hidden="true" size="16" aria-hidden="true">
+          <span class="truncate">Next.js</span>
+        </option>
+        <option data-slot="select-item" value="3">
+          <span aria-hidden="true" size="16" aria-hidden="true">
+          <span class="truncate">Gatsby</span>
+        </option>
+      </div>
+    </select>
+  </div>
+</div>

@@ -10,6 +10,7 @@ Primary URLs:
 - Full registry: https://ui.timkit.cn/registry-all.json
 - Item source: https://ui.timkit.cn/r/{name}.json
 - Component contract: https://ui.timkit.cn/agent/{name}.json
+- Thread protocol: https://ui.timkit.cn/agent/thread.json
 - Agent index: https://ui.timkit.cn/agent-index.json
 
 CLI:
@@ -34,6 +35,10 @@ Agent rules:
 - Primitives import from @timui/react or @timui/vue.
 - Agent business UI imports from @timui/react/agent: AgentMessage, AgentComposer, AgentPlan, ToolCall, ApprovalCard, CitationList.
 - Keep model transport outside those components. Pass status in props. Wait for ApprovalCard before a destructive tool continues.
+- Prefer an AgentThread from @timui/core/agent-thread. Render it with AgentThreadView. Apply user actions with reduceAgentThread. A tool that names an approvalId cannot finish until that approval is approved.
+- Validate thread JSON: npx timkit agent thread validate ./thread.json --json
+- Ask what to do next: npx timkit agent thread next ./thread.json --json
+- Start from a seed: npx timkit agent thread seed refund-support --json
 - Copy a full thread with: npx timkit agent recipe agent-workbench --framework react --json
 - Blocks and pages are copied source. Import their default export from the installed path, not from @timui/react.
 - size="icon" requires aria-label.
@@ -44,7 +49,7 @@ Agent rules:
 export function GET() {
   return new Response(body, {
     headers: {
-      'Cache-Control': 'public, max-age=300, stale-while-revalidate=3600',
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
       'Content-Type': 'text/plain; charset=utf-8',
     },
   })

@@ -1,5 +1,5 @@
-<template>
-  <Pagination><PaginationContent class="w-full justify-between gap-3"><PaginationItem><Button variant="outline" class="aria-disabled:pointer-events-none aria-disabled:opacity-50" aria-disabled="${currentPage === 1 ? true : undefined}" role="${currentPage === 1 ? 'link' : undefined}" aschild><a href="${currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}"><ChevronLeftIcon class="-ms-1 opacity-60" size="${16}" aria-hidden="true" />Previous
-            </a></Button></PaginationItem><PaginationItem><Button variant="outline" class="aria-disabled:pointer-events-none aria-disabled:opacity-50" aria-disabled="${currentPage === totalPages ? true : undefined}" role="${currentPage === totalPages ? 'link' : undefined}" aschild><a href="${currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}">Next
-              <ChevronRightIcon class="-me-1 opacity-60" size="${16}" aria-hidden="true" /></a></Button></PaginationItem></PaginationContent></Pagination>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<nav aria-label="Pagination"><ul><li><button type="button" data-slot="button" class="aria-disabled:pointer-events-none aria-disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline"><a><span aria-hidden="true" size="16" aria-hidden="true">Previous
+            </a></button></li><li><button type="button" data-slot="button" class="aria-disabled:pointer-events-none aria-disabled:opacity-50 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" variant="outline"><a>Next
+              <span aria-hidden="true" size="16" aria-hidden="true"></a></button></li></ul></nav>
+</div>

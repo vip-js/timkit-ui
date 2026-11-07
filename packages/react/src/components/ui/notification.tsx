@@ -18,14 +18,58 @@ type _NotificationPropsGuard = AssertNoExtraKeys<
 >
 
 const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="notification"
-      className={cn(notificationVariants(), className)}
-      {...props}
-    />
-  )
+  (
+    {
+      className,
+      variant = 'default',
+      duration = 5000,
+      closable = true,
+      open: openProp,
+      defaultOpen,
+      onOpenChange,
+      onClose,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const controlled = openProp != null
+    const [uncontrolled, setUncontrolled] = React.useState(defaultOpen !== false)
+    const open = controlled ? openProp === true : uncontrolled
+    const close = React.useCallback(() => {
+      if (!open) return
+      if (!controlled) setUncontrolled(false)
+      onOpenChange?.(false)
+      onClose?.()
+    }, [controlled, onClose, onOpenChange, open])
+
+    React.useEffect(() => {
+      if (!open || !duration || duration <= 0) return
+      const timer = window.setTimeout(close, duration)
+      return () => window.clearTimeout(timer)
+    }, [open, duration, close])
+
+    if (!open) return null
+
+    return (
+      <div
+        ref={ref}
+        data-slot="notification"
+        data-state="open"
+        data-variant={variant}
+        role="status"
+        className={cn(notificationVariants(), className)}
+        {...props}
+      >
+        {children}
+        {closable ? (
+          <button type="button" data-slot="notification-close" aria-label="Close" onClick={close}>
+            ×
+          </button>
+        ) : null}
+      </div>
+    )
+  }
 )
 Notification.displayName = 'Notification'
 
@@ -74,6 +118,7 @@ const NotificationIcon = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
       data-slot="notification-icon"
       className={cn(notificationIconVariants(), className)}
       {...props}
+      aria-hidden="true"
     />
   )
 )

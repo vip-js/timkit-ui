@@ -10,7 +10,7 @@ const contentProps = computed(() => context?.api.value?.getContentProps?.() || {
 </script>
 
 <template>
-  <div v-bind="contentProps" :class="cn(commandListVariants(), props.class)">
+  <div v-bind="contentProps" data-slot="command-list" aria-label="Suggestions" :class="cn(commandListVariants(), props.class)">
     <div role="presentation">
       <slot />
     </div>

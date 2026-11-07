@@ -1,4 +1,4 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with placeholder (native)</label><selectnative id="{{id}}" default-value=""><option value="" disabled>Please select a value
-        </option><option value="1">1 to 5</option><option value="2">5 to 10</option><option value="3">More than 10</option></selectnative></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-02">Select with placeholder (native)</text><view data-slot="select-native" id="select-02"><view value="" disabled>Please select a value
+        </view><view value="1">1 to 5</view><view value="2">5 to 10</view><view value="3">More than 10</view></view>
 </view>

@@ -1,3 +1,11 @@
-<template>
-  <EventCalendar events="${events}" oneventadd="${handleEventAdd}" oneventupdate="${handleEventUpdate}" oneventdelete="${handleEventDelete}" />
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-3">
+    <div class="flex items-center gap-2">
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">Add event</button>
+      <button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm" variant="outline">
+        Remove last
+      </button>
+    </div>
+    <span aria-hidden="true">
+  </div>
+</div>

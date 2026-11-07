@@ -1,5 +1,5 @@
-<view>
-  <view class="*:not-first:mt-2"><label htmlfor="{{id}}">Select with disabled options</label><select default-value="2"><selecttrigger id="{{id}}"><selectvalue placeholder="Select framework" /></selecttrigger><selectcontent><selectitem value="1" disabled>React
-          </selectitem><selectitem value="2">Next.js</selectitem><selectitem value="3" disabled>Astro
-          </selectitem><selectitem value="4">Gatsby</selectitem></selectcontent></select></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="*:not-first:mt-2"><text data-slot="label" for="select-27">Select with disabled options</text><select data-slot="select"><button type="button" data-slot="select-trigger" id="select-27"><text data-slot="select-value" placeholder="Select framework"></text></button><view data-slot="select-content"><view data-slot="select-item" value="1" disabled>React
+          </view><view data-slot="select-item" value="2">Next.js</view><view data-slot="select-item" value="3" disabled>Astro
+          </view><view data-slot="select-item" value="4">Gatsby</view></view></select></view>
 </view>

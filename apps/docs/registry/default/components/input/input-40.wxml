@@ -1,4 +1,15 @@
-<view>
-  <datefield class="*:not-first:mt-2" granularity="minute" hourcycle="{{24}}"><label class="text-foreground text-sm font-medium">Date and time input</label><dateinput /><text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with{{ ' ' }}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></text></datefield>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="date-field" granularity="minute" hourCycle="24">
+    <text data-slot="label">Date and time input</text>
+    <text aria-hidden="true">
+    <text class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <navigator
+        class="hover:text-foreground underline"
+        href="https://react-spectrum.adobe.com/react-aria/DateField.html"
+        target="_blank"
+        rel="noopener nofollow">
+        React Aria
+      </navigator>
+    </text>
 </view>

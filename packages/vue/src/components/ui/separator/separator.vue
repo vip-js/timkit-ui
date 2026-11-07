@@ -17,6 +17,8 @@ const props = withDefaults(
 
 <template>
   <div
+    data-slot="separator"
+    :data-orientation="props.orientation"
     :role="props.decorative ? 'none' : 'separator'"
     :aria-orientation="props.decorative ? undefined : props.orientation"
     :class="cn(separatorVariants({ orientation: props.orientation }), props.class)"

@@ -11,11 +11,15 @@ export function useRadioGroup(props: UseRadioGroupProps) {
   const generatedId = React.useId()
   const radioGroupId = props.id ?? generatedId
 
+  const controlled = props.value !== undefined
   const service = useMachine(radioGroupMachine, {
     id: radioGroupId,
-    value: props.value,
-    defaultValue: props.defaultValue,
+    ...(controlled ? { value: props.value ?? '' } : { defaultValue: props.defaultValue }),
     disabled: props.disabled,
+    readOnly: props.readOnly,
+    ...(props.orientation === 'horizontal' || props.orientation === 'vertical'
+      ? { orientation: props.orientation }
+      : {}),
     required: props.required,
     name: props.name,
     onValueChange(details) {

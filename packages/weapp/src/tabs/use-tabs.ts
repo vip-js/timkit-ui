@@ -1,7 +1,7 @@
 import { tabsConnect, tabsMachine } from '@timui/core'
 
 import { emitTimEvent } from '../utils'
-import { normalizeProps, useMachine } from '../utils/machine'
+import { normalizeProps, useMachine, bindMachine } from '../utils/machine'
 
 type TabsOrientation = 'horizontal' | 'vertical'
 type TabsActivationMode = 'manual' | 'automatic'
@@ -9,7 +9,8 @@ type MachineSend = (event: string | { type: string; [key: string]: object }) => 
 type TabsMachineInstance = WechatMiniprogram.Component.TrivialInstance & {
   properties: {
     id?: string
-    value?: string
+    value?: string | null
+    defaultValue?: string | null
     orientation?: string
     activationMode?: string
   }
@@ -25,9 +26,11 @@ function toActivationMode(value: string): TabsActivationMode {
 }
 
 export function setupTabsMachine(instance: TabsMachineInstance) {
-  const machine = tabsMachine({
+  const machine = bindMachine(tabsMachine, {
     id: instance.properties.id || 'tabs',
-    value: instance.properties.value,
+    defaultValue: (instance.properties.value == null
+      ? instance.properties.defaultValue
+      : instance.properties.value) || null,
     orientation: toOrientation(instance.properties.orientation),
     activationMode: toActivationMode(instance.properties.activationMode),
     onValueChange: (details: { value: string }) => {
@@ -41,6 +44,6 @@ export function setupTabsMachine(instance: TabsMachineInstance) {
 
   return {
     controller,
-    connect: (state: object, send: MachineSend) => tabsConnect(state, send, normalizeProps),
+    connect: (state: object, send: MachineSend) => tabsConnect(state as never, normalizeProps),
   }
 }

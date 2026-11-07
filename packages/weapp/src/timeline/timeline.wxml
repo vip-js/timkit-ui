@@ -1,28 +1,104 @@
-<view class="{{className}} timeline">
-  <view 
-    wx:for="{{items}}" 
-    wx:key="index"
-    class="timeline-item"
-    data-last="{{index === items.length - 1}}"
-  >
-    <!-- Dot -->
-    <view class="timeline-dot" data-type="{{item.type || 'default'}}"></view>
-    
-    <!-- Line -->
-    <view 
-      wx:if="{{index < items.length - 1}}"
-      class="timeline-line"
-    ></view>
-
-    <!-- Content -->
-    <view class="timeline-content">
-      <view class="timeline-title">{{item.title}}</view>
-      <view wx:if="{{item.description}}" class="timeline-description">
-        {{item.description}}
-      </view>
-      <view wx:if="{{item.time}}" class="timeline-time">
-        {{item.time}}
+<view wx:if="{{labelledBy}}" class="{{className}} timeline" data-slot="timeline" data-current="{{current}}" data-orientation="{{orientation === 'horizontal' ? 'horizontal' : 'vertical'}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-labelledby="{{labelledBy}}">
+  <view wx:if="{{stepStatus}}" role="status">{{stepStatus}}</view>
+  <block wx:for="{{rows}}" wx:key="index">
+    <view
+      wx:if="{{item.state === 'active'}}"
+      class="timeline-item"
+      role="button"
+      tabindex="{{item.disabled || disabled ? -1 : 0}}"
+      aria-current="step"
+      aria-disabled="{{item.disabled || disabled ? 'true' : 'false'}}"
+      data-slot="timeline-item"
+      data-step="{{item.step}}"
+      data-state="{{item.state}}"
+      data-disabled="{{item.disabled || disabled}}"
+      data-index="{{index}}"
+      data-last="{{index === rows.length - 1}}"
+      bindtap="onItemTap"
+      bindkeydown="onItemKey"
+    >
+      <view class="timeline-dot" data-type="{{item.type || 'default'}}" aria-hidden="true"></view>
+      <view wx:if="{{index < rows.length - 1}}" class="timeline-line" aria-hidden="true"></view>
+      <view class="timeline-content">
+        <view class="timeline-title" role="heading" aria-level="3">{{item.title}}</view>
+        <view wx:if="{{item.description}}" class="timeline-description">{{item.description}}</view>
+        <view wx:if="{{item.time}}" class="timeline-time">{{item.time}}</view>
       </view>
     </view>
-  </view>
+    <view
+      wx:else
+      class="timeline-item"
+      role="button"
+      tabindex="{{item.disabled || disabled ? -1 : 0}}"
+      aria-disabled="{{item.disabled || disabled ? 'true' : 'false'}}"
+      data-slot="timeline-item"
+      data-step="{{item.step}}"
+      data-state="{{item.state}}"
+      data-disabled="{{item.disabled || disabled}}"
+      data-index="{{index}}"
+      data-last="{{index === rows.length - 1}}"
+      bindtap="onItemTap"
+      bindkeydown="onItemKey"
+    >
+      <view class="timeline-dot" data-type="{{item.type || 'default'}}" aria-hidden="true"></view>
+      <view wx:if="{{index < rows.length - 1}}" class="timeline-line" aria-hidden="true"></view>
+      <view class="timeline-content">
+        <view class="timeline-title" role="heading" aria-level="3">{{item.title}}</view>
+        <view wx:if="{{item.description}}" class="timeline-description">{{item.description}}</view>
+        <view wx:if="{{item.time}}" class="timeline-time">{{item.time}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+<view wx:else class="{{className}} timeline" data-slot="timeline" data-current="{{current}}" data-orientation="{{orientation === 'horizontal' ? 'horizontal' : 'vertical'}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{ariaLabel || 'Timeline'}}">
+  <view wx:if="{{stepStatus}}" role="status">{{stepStatus}}</view>
+  <block wx:for="{{rows}}" wx:key="index">
+    <view
+      wx:if="{{item.state === 'active'}}"
+      class="timeline-item"
+      role="button"
+      tabindex="{{item.disabled || disabled ? -1 : 0}}"
+      aria-current="step"
+      aria-disabled="{{item.disabled || disabled ? 'true' : 'false'}}"
+      data-slot="timeline-item"
+      data-step="{{item.step}}"
+      data-state="{{item.state}}"
+      data-disabled="{{item.disabled || disabled}}"
+      data-index="{{index}}"
+      data-last="{{index === rows.length - 1}}"
+      bindtap="onItemTap"
+      bindkeydown="onItemKey"
+    >
+      <view class="timeline-dot" data-type="{{item.type || 'default'}}" aria-hidden="true"></view>
+      <view wx:if="{{index < rows.length - 1}}" class="timeline-line" aria-hidden="true"></view>
+      <view class="timeline-content">
+        <view class="timeline-title" role="heading" aria-level="3">{{item.title}}</view>
+        <view wx:if="{{item.description}}" class="timeline-description">{{item.description}}</view>
+        <view wx:if="{{item.time}}" class="timeline-time">{{item.time}}</view>
+      </view>
+    </view>
+    <view
+      wx:else
+      class="timeline-item"
+      role="button"
+      tabindex="{{item.disabled || disabled ? -1 : 0}}"
+      aria-disabled="{{item.disabled || disabled ? 'true' : 'false'}}"
+      data-slot="timeline-item"
+      data-step="{{item.step}}"
+      data-state="{{item.state}}"
+      data-disabled="{{item.disabled || disabled}}"
+      data-index="{{index}}"
+      data-last="{{index === rows.length - 1}}"
+      bindtap="onItemTap"
+      bindkeydown="onItemKey"
+    >
+      <view class="timeline-dot" data-type="{{item.type || 'default'}}" aria-hidden="true"></view>
+      <view wx:if="{{index < rows.length - 1}}" class="timeline-line" aria-hidden="true"></view>
+      <view class="timeline-content">
+        <view class="timeline-title" role="heading" aria-level="3">{{item.title}}</view>
+        <view wx:if="{{item.description}}" class="timeline-description">{{item.description}}</view>
+        <view wx:if="{{item.time}}" class="timeline-time">{{item.time}}</view>
+      </view>
+    </view>
+  </block>
 </view>

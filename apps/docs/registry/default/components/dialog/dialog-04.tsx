@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Button,
   Dialog,
@@ -12,10 +13,11 @@ import {
 } from '@timui/react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Scrollable (custom scrollbar)</Button>
+        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Scrollable (custom scrollbar)</Button>
       </DialogTrigger>
       <DialogContent className="flex flex-col gap-0 p-0 sm:max-h-[min(640px,80vh)] sm:max-w-lg [&>button:last-child]:hidden">
         <ScrollArea className="flex max-h-full flex-col overflow-hidden">

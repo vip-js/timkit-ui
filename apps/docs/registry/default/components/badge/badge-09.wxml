@@ -1,4 +1,4 @@
-<view>
-  <badge variant="outline" class="gap-1.5"><text class="size-1.5 rounded-full bg-amber-500" aria-hidden="true"></text>Badge
-    </badge>
+<view class="timui-html-demo space-y-4 p-4">
+<text data-slot="badge" variant="outline"><text class="size-1.5 rounded-full bg-amber-500" aria-hidden="true"></text>Badge
+    </text>
 </view>

@@ -1,15 +1,11 @@
-<template>
-  <div><Calendar mode="single" selected="${date}" onSelect="${setDate}" numberofmonths="${2}" pagednavigation showoutsidedays="${false}" class="rounded-md border p-2" classnames="${{
-          months: 'sm:flex-col md:flex-row gap-8',
-          month:
-            'relative first-of-type:before:hidden before:absolute max-md:before:inset-x-2 max-md:before:h-px max-md:before:-top-4 md:before:inset-y-2 md:before:w-px before:bg-border md:before:-left-4',
-          weekday: 'w-12',
-          day_button: 'size-12',
-          today: '*:after:hidden',
-        }}" components="${{
-          DayButton: (props: CalendarDayButtonProps) => (
-            <DayButton {...props} prices={mockPriceData} />
-          ),
-        }}" disabled="${isDateDisabled}" /><p class="text-muted-foreground mt-4 text-center text-xs" role="region" aria-live="polite">Pricing calendar -${' '}<a class="hover:text-foreground underline" href="https://daypicker.dev/" target="_blank" rel="noopener nofollow">React DayPicker
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div>
+    <span aria-hidden="true"
+      mode="single"
+      numberOfMonths="2"
+      pagedNavigation>
+
+    <p class="text-foreground mt-3 text-center text-sm" role="status" aria-live="polite">
+      <template>
+         · $
+</div>

@@ -1,3 +1,3 @@
-<template>
-  <div class="space-y-3"><div class="flex items-center justify-between gap-2"><Label class="leading-6">Rate your experience</Label><span class="text-sm font-medium">${labels[value[0] - 1]}</span></div><div class="flex items-center gap-2"><span class="text-2xl">😡</span><Slider value="${value}" on-value-change="${setValue}" min="${1}" max="${5}" aria-label="Rate your experience" /><span class="text-2xl">😍</span></div></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="space-y-3"><div class="flex items-center justify-between gap-2"><label data-slot="label">Rate your experience</label><span class="text-sm font-medium"></span></div><div class="flex items-center gap-2"><span class="text-2xl">😡</span><input type="range" data-slot="slider" min="1" max="5" aria-label="Rate your experience"><span class="text-2xl">😍</span></div></div>
+</div>

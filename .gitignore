@@ -8,6 +8,7 @@ node_modules
 
 # testing
 /coverage
+apps/docs/.typecheck/
 
 # next.js
 /.next/

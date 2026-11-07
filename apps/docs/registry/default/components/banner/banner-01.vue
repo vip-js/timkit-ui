@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Banner } from '@timui/vue';
 import { BannerActions } from '@timui/vue';
 import { BannerContent } from '@timui/vue';
@@ -8,11 +9,16 @@ import { Button } from '@timui/vue';
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <Banner class="bg-background z-50 rounded-md border px-4 py-3 shadow-lg"><BannerContent class="flex-col justify-between gap-3 md:flex-row md:items-center"><BannerDescription class="text-sm text-foreground">We use cookies to improve your experience, analyze site usage, and show personalized
           content.
-        </BannerDescription><BannerActions class="flex gap-2 max-md:flex-wrap"><Button size="sm">Accept</Button><Button variant="outline" size="sm">Decline
+        </BannerDescription><BannerActions class="flex gap-2 max-md:flex-wrap"><Button @click="onDemoClick" :data-clicks="demoClicks" size="sm">Accept</Button><Button variant="outline" size="sm">Decline
           </Button></BannerActions></BannerContent></Banner>
 </template>

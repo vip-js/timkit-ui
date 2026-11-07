@@ -1,4 +1,5 @@
 import { Avatar, AvatarImage } from '@timui/react'
+import { useState } from 'react'
 
 const avatars = [
   { src: '/avatar-80-03.jpg', alt: 'Avatar 01' },
@@ -8,10 +9,11 @@ const avatars = [
 ]
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="flex -space-x-1.5">
       {avatars.map((avatar) => (
-        <Avatar key={avatar.src} className="size-5 ring-1 ring-background">
+        <Avatar onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} key={avatar.src} className="size-5 ring-1 ring-background">
           <AvatarImage src={avatar.src} alt={avatar.alt} />
         </Avatar>
       ))}

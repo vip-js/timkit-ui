@@ -1,9 +1,11 @@
 import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="flex flex-col items-center gap-2">
-      <Cropper
+      <Cropper onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
         className="h-80"
         image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-06_dduwky.jpg"
       >

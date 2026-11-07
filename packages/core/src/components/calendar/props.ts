@@ -9,6 +9,10 @@ export type CalendarValueChangeEvent = TimEvent<{
 
 export type CalendarProps = Omit<calendar.Props, 'onValueChange'> & {
   /**
+   * The selection mode.
+   */
+  mode?: CalendarMode
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: CalendarValueChangeEvent) => void
@@ -101,6 +105,10 @@ export type CalendarVueProps = {
    * When boolean, disables the entire component. Otherwise, marks matching dates as unavailable.
    */
   disabled?: boolean | CalendarDisabledMatcher | CalendarDisabledMatcher[]
+  /**
+   * When true, days can be focused but not selected.
+   */
+  readOnly?: boolean
   /**
    * When `true`, range selection excludes spans that include unavailable dates.
    */

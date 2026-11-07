@@ -1,12 +1,18 @@
 <view
   data-slot="dropdown-menu-radio-item"
   class="{{className}}"
-  data-state="{{checked ? 'checked' : 'unchecked'}}"
+  role="menuitemradio"
+  tabindex="{{active && !disabled ? 0 : -1}}"
+  aria-checked="{{on ? 'true' : 'false'}}"
+  aria-disabled="{{disabled ? 'true' : 'false'}}"
+  data-state="{{on ? 'checked' : 'unchecked'}}"
+  data-highlighted="{{active}}"
   data-disabled="{{disabled}}"
   bindtap="onSelect"
+  bindkeydown="onKey"
 >
-  <view class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-    <view wx:if="{{checked}}" class="h-2 w-2 rounded-full bg-current"></view>
+  <view class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" aria-hidden="true">
+    <view wx:if="{{on}}" class="h-2 w-2 rounded-full bg-current"></view>
   </view>
   <slot></slot>
 </view>

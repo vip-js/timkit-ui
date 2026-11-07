@@ -46,7 +46,7 @@ const contentProps = computed(() => api?.value?.getContentProps?.() || {});
         "
       >
         <div class="flex cursor-default items-center justify-center py-1">
-          <ChevronUpIcon class="h-4 w-4" />
+          <ChevronUpIcon aria-hidden="true" class="h-4 w-4" />
         </div>
 
         <div
@@ -62,7 +62,7 @@ const contentProps = computed(() => api?.value?.getContentProps?.() || {});
         </div>
 
         <div class="flex cursor-default items-center justify-center py-1">
-          <ChevronDownIcon class="h-4 w-4" />
+          <ChevronDownIcon aria-hidden="true" class="h-4 w-4" />
         </div>
       </div>
     </Presence>

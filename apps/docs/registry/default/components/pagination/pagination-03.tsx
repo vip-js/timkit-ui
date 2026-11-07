@@ -1,4 +1,5 @@
 import { cn } from '@timui/core'
+import { useState } from 'react'
 import {
   buttonVariants,
   Pagination,
@@ -14,11 +15,12 @@ type PaginationProps = {
 }
 
 export default function Component({ currentPage, totalPages }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <Pagination>
       <PaginationContent className="w-full justify-between">
         <PaginationItem>
-          <PaginationLink
+          <PaginationLink onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
             className={cn(
               'aria-disabled:pointer-events-none aria-disabled:opacity-50',
               buttonVariants({

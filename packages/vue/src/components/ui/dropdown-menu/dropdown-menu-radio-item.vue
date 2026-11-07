@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useDropdownMenuContext, useDropdownMenuRadioGroupContext } from "./use-dropdown-menu-context";
-import { computed, useId, type HTMLAttributes, type Ref } from "vue";
+import { computed, inject, useId, type ComputedRef, type HTMLAttributes, type Ref } from "vue";
 import { cn, dropdownMenuRadioItemVariants } from "@timui/core";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
   checked?: boolean;
   value?: string;
+  disabled?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }>();
 
@@ -24,6 +25,7 @@ type DropdownMenuApi = {
 };
 
 const api = useDropdownMenuContext() as Ref<DropdownMenuApi | undefined> | undefined;
+const groupDisabled = inject<ComputedRef<boolean>>("dropdown-menu-disabled", computed(() => false));
 const group = useDropdownMenuRadioGroupContext();
 const generatedId = useId();
 const optionValue = computed(() => props.value ?? generatedId);
@@ -31,21 +33,35 @@ const isChecked = computed(() =>
   group ? group.value.value === optionValue.value : !!props.checked
 );
 
+const choose = () => {
+  if (props.disabled || groupDisabled.value) return;
+  group?.value.onValueChange?.(optionValue.value);
+};
+
 const optionProps = computed(() => {
   if (!api?.value) return {};
-  return api.value.getOptionItemProps({
+  const machine = api.value.getOptionItemProps({
     type: "radio",
     checked: isChecked.value,
     value: optionValue.value,
     onCheckedChange: (details: DropdownCheckedDetails) => {
+      if (props.disabled || groupDisabled.value) return;
       if (details.checked) {
         group?.value.onValueChange?.(optionValue.value);
       }
-      props.onCheckedChange?.(details.checked);
       emit("update:checked", details.checked);
       emit("checkedChange", details.checked);
     },
   });
+  const machineClick = machine.onClick as ((event: MouseEvent) => void) | undefined;
+  return {
+    ...machine,
+    "data-state": isChecked.value ? "checked" : "unchecked",
+    onClick: (event: MouseEvent) => {
+      if (props.disabled || groupDisabled.value) return;
+      machineClick?.(event);
+    },
+  };
 });
 </script>
 
@@ -53,6 +69,8 @@ const optionProps = computed(() => {
   <div
     v-bind="optionProps"
     data-slot="dropdown-menu-radio-item"
+    :data-state="isChecked ? 'checked' : 'unchecked'"
+    @click="choose"
     :class="
       cn(
         dropdownMenuRadioItemVariants(),

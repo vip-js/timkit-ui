@@ -1,0 +1,239 @@
+<view>
+  <view wx:if="{{errorSummary}}" role="alert">{{errorSummary}}</view>
+  <block wx:for="{{rows}}" wx:key="name">
+    <view wx:if="{{item.control === 'check'}}">
+      <checkbox
+        wx:if="{{item.describedBy}}"
+        id="{{item.name}}"
+        value="true"
+        checked="{{item.checked}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        aria-describedby="{{item.describedBy}}"
+        bindchange="onFieldInput"
+      /><checkbox
+        wx:else
+        id="{{item.name}}"
+        value="true"
+        checked="{{item.checked}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        bindchange="onFieldInput"
+      />
+      <label for="{{item.name}}">{{item.label}}</label>
+    </view>
+    <view wx:elif="{{item.control === 'switch'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <switch
+        wx:if="{{item.describedBy}}"
+        id="{{item.name}}"
+        checked="{{item.checked}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        aria-describedby="{{item.describedBy}}"
+        bindchange="onFieldInput"
+      /><switch
+        wx:else
+        id="{{item.name}}"
+        checked="{{item.checked}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        bindchange="onFieldInput"
+      />
+    </view>
+    <view wx:elif="{{item.control === 'textarea'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <textarea
+        wx:if="{{item.describedBy}}"
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        aria-describedby="{{item.describedBy}}"
+        focus="{{focusName === item.name}}"
+        maxlength="{{item.textLimit}}"
+        bindinput="onFieldInput"
+      /><textarea
+        wx:else
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        focus="{{focusName === item.name}}"
+        maxlength="{{item.textLimit}}"
+        bindinput="onFieldInput"
+      />
+      <view wx:if="{{item.textLimit >= 0}}" id="{{item.name}}-count" role="status">{{item.textCount}} of {{item.textLimit}}</view>
+    </view>
+    <view wx:elif="{{item.control === 'select'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <picker
+        id="{{item.name}}"
+        mode="selector"
+        range="{{item.optionLabels}}"
+        value="{{item.optionIndex}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        bindchange="onSelectChange"
+      >
+        <view
+        wx:if="{{item.describedBy}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || item.display || 'Choose'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}" aria-describedby="{{item.describedBy}}">{{item.display || 'Choose'}}</view><view
+        wx:else tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || item.display || 'Choose'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}">{{item.display || 'Choose'}}</view>
+      </picker>
+    </view>
+    <view wx:elif="{{item.control === 'radio'}}">
+    <view id="{{item.name}}-label">{{item.label}}</view>
+    <radio-group
+        wx:if="{{item.describedBy}}"
+      id="{{item.name}}"
+      role="radiogroup"
+      aria-labelledby="{{item.name}}-label"
+      aria-invalid="{{item.invalid}}"
+      aria-required="{{item.required}}"
+      aria-describedby="{{item.describedBy}}"
+      data-name="{{item.name}}"
+      mark:name="{{item.name}}"
+      bindchange="onFieldInput"
+    >
+      <label wx:for="{{item.options}}" wx:for-item="option" wx:key="value">
+        <radio value="{{option.value}}" checked="{{item.value === option.value}}" disabled="{{disabled}}" />
+        <text>{{option.label || option.value}}</text>
+      </label>
+    </radio-group><radio-group
+        wx:else
+      id="{{item.name}}"
+      role="radiogroup"
+      aria-labelledby="{{item.name}}-label"
+      aria-invalid="{{item.invalid}}"
+      aria-required="{{item.required}}"
+      data-name="{{item.name}}"
+      mark:name="{{item.name}}"
+      bindchange="onFieldInput"
+    >
+      <label wx:for="{{item.options}}" wx:for-item="option" wx:key="value">
+        <radio value="{{option.value}}" checked="{{item.value === option.value}}" disabled="{{disabled}}" />
+        <text>{{option.label || option.value}}</text>
+      </label>
+    </radio-group>
+    </view>
+    <view wx:elif="{{item.control === 'date'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <picker
+        id="{{item.name}}"
+        mode="date"
+        value="{{item.value}}"
+        start="{{item.dateStart}}"
+        end="{{item.dateEnd}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        bindchange="onFieldInput"
+      >
+        <view
+        wx:if="{{item.describedBy}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || 'Date'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}" aria-describedby="{{item.describedBy}}">{{item.value || 'Date'}}</view><view
+        wx:else tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || 'Date'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}">{{item.value || 'Date'}}</view>
+      </picker>
+    </view>
+    <view wx:elif="{{item.control === 'time'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <picker
+        id="{{item.name}}"
+        mode="time"
+        value="{{item.value}}"
+        start="{{item.timeStart}}"
+        end="{{item.timeEnd}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        bindchange="onFieldInput"
+      >
+        <view
+        wx:if="{{item.describedBy}}" tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || 'Time'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}" aria-describedby="{{item.describedBy}}">{{item.value || 'Time'}}</view><view
+        wx:else tabindex="{{disabled ? -1 : 0}}" aria-disabled="{{disabled ? 'true' : 'false'}}" aria-label="{{item.label || 'Time'}}" aria-invalid="{{item.invalid}}" aria-required="{{item.required}}">{{item.value || 'Time'}}</view>
+      </picker>
+    </view>
+    <view wx:elif="{{item.control === 'number'}}">
+      <label for="{{item.name}}">{{item.label}}</label>
+      <input
+        wx:if="{{item.describedBy}}"
+        type="number"
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        aria-describedby="{{item.describedBy}}"
+        focus="{{focusName === item.name}}"
+        bindinput="onFieldInput"
+      /><input
+        wx:else
+        type="number"
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        focus="{{focusName === item.name}}"
+        bindinput="onFieldInput"
+      />
+    </view>
+    <view wx:else>
+      <label for="{{item.name}}">{{item.label}}</label>
+      <input
+        wx:if="{{item.describedBy}}"
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        aria-describedby="{{item.describedBy}}"
+        focus="{{focusName === item.name}}"
+        password="{{item.control === 'password' && !item.revealed}}"
+        maxlength="{{item.textLimit}}"
+        bindinput="onFieldInput"
+      /><input
+        wx:else
+        id="{{item.name}}"
+        value="{{item.value}}"
+        disabled="{{disabled}}"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        aria-invalid="{{item.invalid}}" aria-required="{{item.required}}"
+        focus="{{focusName === item.name}}"
+        password="{{item.control === 'password' && !item.revealed}}"
+        maxlength="{{item.textLimit}}"
+        bindinput="onFieldInput"
+      />
+      <view
+        wx:if="{{item.control === 'password' && !disabled}}"
+        role="button"
+        aria-label="{{item.revealed ? 'Hide password' : 'Show password'}}"
+        tabindex="0"
+        data-name="{{item.name}}"
+        mark:name="{{item.name}}"
+        bindtap="onReveal"
+        bindkeydown="onRevealKey"
+      >{{item.revealed ? 'Hide password' : 'Show password'}}</view>
+      <view wx:if="{{item.textLimit >= 0}}" id="{{item.name}}-count" role="status">{{item.textCount}} of {{item.textLimit}}</view>
+    </view>
+    <view wx:if="{{item.hint}}" id="{{item.name}}-hint">{{item.hint}}</view>
+    <view wx:if="{{item.error}}" id="{{item.name}}-error" role="alert">{{item.error}}</view>
+  </block>
+  <button type="button" disabled="{{disabled}}" bindtap="onSubmit">Submit</button>
+</view>

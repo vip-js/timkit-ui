@@ -10,7 +10,7 @@ const Toggle = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> &
     ToggleVariants & {
-      pressed?: boolean
+      pressed?: boolean | null
       defaultPressed?: boolean
       onPressedChange?: (pressed: boolean) => void
     }
@@ -26,6 +26,8 @@ const Toggle = React.forwardRef<
   const { className: mergedClassName, ...restProps } = mergedProps
 
   return (
+    <>
+    {api.pressed ? <p role="status">Pressed</p> : null}
     <button
       ref={ref}
       data-slot="toggle"
@@ -35,6 +37,7 @@ const Toggle = React.forwardRef<
       className={cn(toggleVariants({ variant, size, className }), mergedClassName)}
       {...restProps}
     />
+    </>
   )
 })
 Toggle.displayName = 'Toggle'

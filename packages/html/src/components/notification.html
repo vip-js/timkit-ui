@@ -1,6 +1,6 @@
-<div data-slot="notification" class="bg-background border-border relative flex w-full flex-col gap-1 rounded-lg border p-4 shadow-lg">
+<div data-slot="notification" data-state="open" role="status" class="bg-background border-border relative flex w-full flex-col gap-1 rounded-lg border p-4 shadow-lg">
   <div class="flex gap-3">
-    <div data-slot="notification-icon" class="shrink-0">
+    <div data-slot="notification-icon" aria-hidden="true" class="shrink-0">
       <svg
         width="16"
         height="16"
@@ -21,9 +21,10 @@
         This is a notification description.
       </p>
       <div data-slot="notification-actions" class="flex items-center gap-2">
-        <button class="text-sm font-medium">Action</button>
-        <button class="text-sm font-medium">Dismiss</button>
+        <button type="button" class="text-sm font-medium">Action</button>
+        <button type="button" class="text-sm font-medium">Dismiss</button>
       </div>
     </div>
   </div>
+  <button type="button" data-slot="notification-close" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>

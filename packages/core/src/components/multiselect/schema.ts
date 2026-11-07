@@ -32,9 +32,30 @@ const multiselectSchema = defineUCS({
       type: 'string',
       description: 'The input placeholder.',
     },
+    {
+      name: 'open',
+      type: 'boolean',
+      description: 'The controlled open state of the list.',
+    },
+    {
+      name: 'defaultOpen',
+      type: 'boolean',
+      description: 'The default open state of the list when uncontrolled.',
+    },
+    {
+      name: 'onOpenChange',
+      type: 'event',
+      description: 'Event handler called when the list open state changes.',
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      description: 'When true, opening and selection are ignored.',
+      defaultValue: false,
+    },
   ],
   slots: [{ name: 'default', description: 'The multiselect core components' }],
-  supportedPlatforms: ['web'],
+  supportedPlatforms: ['web', 'wechat'],
 })
 
 export default multiselectSchema

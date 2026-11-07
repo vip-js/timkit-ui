@@ -117,9 +117,9 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
     const generatedId = React.useId()
     const resolvedMin = min ?? toNumber(minValue)
     const resolvedMax = max ?? toNumber(maxValue)
-    const controlledValue = toStringValue(value)
-    const uncontrolledDefaultValue =
-      value === undefined ? toStringValue(defaultValue) : undefined
+    const controlled = value !== undefined
+    const controlledValue = !controlled ? undefined : value == null || value === '' ? '' : String(value)
+    const uncontrolledDefaultValue = controlled ? undefined : toStringValue(defaultValue)
 
     const service = useMachine<NumberFieldSchema>(numberFieldMachine, {
       id: id ?? generatedId,
@@ -154,10 +154,32 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
       },
     })
 
-    const api = React.useMemo(() => numberFieldConnect(service, normalizeProps), [service])
+    const api = numberFieldConnect(service, normalizeProps)
+    const emitted = React.useRef('')
+    React.useLayoutEffect(() => {
+      const raw = api.value
+      const current = Number(raw)
+      if (raw === '' || raw == null || !Number.isFinite(current)) return
+      let next = current
+      if (resolvedMin != null) next = Math.max(resolvedMin, next)
+      if (resolvedMax != null) next = Math.min(resolvedMax, next)
+      if (next === current) return
+      if (controlled) {
+        const signature = String(next)
+        if (emitted.current === signature) return
+        emitted.current = signature
+        onValueChange?.(next)
+        onChange?.(next)
+        return
+      }
+      api.setValue(String(next))
+    })
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
-    const { className: mergedClassName, ...restProps } = mergedProps
+    const { className: mergedClassName, children, ...restProps } = mergedProps
+    const raw = api.value
+    const numeric = Number(raw)
+    const valueStatus = raw === '' || raw == null || !Number.isFinite(numeric) ? '' : String(numeric)
 
     return (
       <NumberFieldContext.Provider value={api}>
@@ -166,7 +188,10 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
           data-slot="number-field"
           className={cn(className, mergedClassName)}
           {...restProps}
-        />
+        >
+          {valueStatus ? <p role="status">{valueStatus}</p> : null}
+          {children}
+        </div>
       </NumberFieldContext.Provider>
     )
   }
@@ -202,12 +227,36 @@ type NumberFieldInputProps = React.ComponentPropsWithoutRef<'input'> & {
 }
 
 const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProps>(
-  ({ asChild = false, className, ...props }, ref) => {
+  ({ asChild = false, className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props }, ref) => {
     const api = useNumberFieldContext()
     const Comp = asChild ? Slot : 'input'
     const inputProps = api.getInputProps()
-    const mergedProps = mergeProps(inputProps, props) as React.InputHTMLAttributes<HTMLInputElement>
-    const { className: mergedClassName, ...restProps } = mergedProps
+    const named = Boolean(
+      ariaLabel || ariaLabelledBy || inputProps['aria-label'] || inputProps['aria-labelledby']
+    )
+    const mergedProps = mergeProps(
+      inputProps,
+      props,
+      ariaLabel ? { 'aria-label': ariaLabel } : {},
+      ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : {},
+      named ? {} : { 'aria-label': 'Number' }
+    ) as React.InputHTMLAttributes<HTMLInputElement>
+    const { className: mergedClassName, onKeyDown: inputKeyDown, ...restProps } = mergedProps
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      inputKeyDown?.(event)
+      if (event.defaultPrevented || event.currentTarget.disabled || event.currentTarget.readOnly) return
+      if (event.key !== 'PageUp' && event.key !== 'PageDown') return
+      const current = api.valueAsNumber
+      if (!Number.isFinite(current)) return
+      const step = Number(event.currentTarget.step) || 1
+      let next = current + (event.key === 'PageUp' ? 10 : -10) * step
+      const min = event.currentTarget.min === '' ? undefined : Number(event.currentTarget.min)
+      const max = event.currentTarget.max === '' ? undefined : Number(event.currentTarget.max)
+      if (min != null && Number.isFinite(min)) next = Math.max(min, next)
+      if (max != null && Number.isFinite(max)) next = Math.min(max, next)
+      event.preventDefault()
+      api.setValue(String(next))
+    }
 
     return (
       <Comp
@@ -215,6 +264,7 @@ const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProp
         data-slot="number-field-input"
         className={cn(className, mergedClassName)}
         {...restProps}
+        onKeyDown={onKeyDown}
       />
     )
   }

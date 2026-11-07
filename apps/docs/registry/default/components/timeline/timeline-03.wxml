@@ -1,3 +1,6 @@
-<view>
-  <timeline default-value="{{3}}"><timelineitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" key="{{item.id}}" step="{{item.id}}"><timelineheader><timelineseparator /><timelinedate>{{ item.date }}</timelinedate><timelinetitle>{{ item.title }}</timelinetitle><timelineindicator /></timelineheader><timelinecontent>{{ item.description }}</timelinecontent></timelineitem></timeline>
+<view class="timui-html-demo space-y-4 p-4">
+<view><view step="1"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Mar 15, 2024<text>Project Kickoff</text><text aria-hidden="true"><view data-slot="timeline-content">Initial team meeting and project scope definition. Established key milestones and resource allocation.</view>
+<view step="2"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Mar 22, 2024<text>Design Phase</text><text aria-hidden="true"><view data-slot="timeline-content">Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.</view>
+<view step="3"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Apr 5, 2024<text>Development Sprint</text><text aria-hidden="true"><view data-slot="timeline-content">Backend API implementation and frontend component development in progress.</view>
+<view step="4"><view data-slot="timeline-header"><text aria-hidden="true"><view data-slot="timeline-date">Apr 19, 2024<text>Testing &amp; Deployment</text><text aria-hidden="true"><view data-slot="timeline-content">Quality assurance testing, performance optimization, and production deployment preparation.</view></view>
 </view>

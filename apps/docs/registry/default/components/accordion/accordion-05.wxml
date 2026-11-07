@@ -1,3 +1,3 @@
-<view>
-  <view class="space-y-4"><h2 class="text-xl font-bold">W/ icon and chevron</h2><accordion type="single" collapsible class="w-full" default-value="3"><accordionitem wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="index" value="{{item.id}}" key="{{item.id}}" class="py-2"><accordiontrigger class="py-2 text-[15px] leading-6 hover:no-underline"><text class="flex items-center gap-3"><item.icon size="{{16}}" class="shrink-0 opacity-60" aria-hidden="true" /><text>{{ item.title }}</text></text></accordiontrigger><accordioncontent class="text-muted-foreground ps-7 pb-2">{{ item.content }}</accordioncontent></accordionitem></accordion></view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="space-y-4"><text class="text-xl font-bold">W/ icon and chevron</text><view data-slot="accordion"><view data-slot="accordion-item" value="1"><view data-slot="accordion-trigger"><text class="flex items-center gap-3"><item.icon size="16" class="shrink-0 opacity-60" aria-hidden="true"><text>Example</text></text></view><view data-slot="accordion-content">Example content</view></view></view></view>
 </view>

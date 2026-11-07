@@ -1,11 +1,12 @@
-<ol data-slot="stepper" class="{{bannerContentVariants}}">
-  <li class="{{notificationActionsVariants}}">
+<div data-slot="stepper" role="group" aria-label="Stepper" class="{{bannerContentVariants}}">
+  <p role="status">Step 1 of 2</p>
+  <button type="button" data-slot="stepper-item" aria-current="step" class="{{notificationActionsVariants}}">
     <span class="{{stepperTriggerVariants}}">1</span>
     <span class="text-sm">Start</span>
-  </li>
-  <li class="h-px w-8 bg-border"></li>
-  <li class="{{notificationActionsVariants}}">
+  </button>
+  <span class="h-px w-8 bg-border" aria-hidden="true"></span>
+  <button type="button" data-slot="stepper-item" class="{{notificationActionsVariants}}">
     <span class="{{stepperTriggerVariants}}">2</span>
     <span class="{{stepperDescriptionVariants}}">Review</span>
-  </li>
-</ol>
+  </button>
+</div>

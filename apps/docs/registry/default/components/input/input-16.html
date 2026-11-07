@@ -1,5 +1,5 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with inline start and end add-on</Label><div class="relative flex rounded-md shadow-xs"><span class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm">€
-        </span><Input id="${id}" class="-me-px rounded-e-none ps-6 shadow-none" placeholder="0.00" type="text" /><span class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-e-md border px-3 text-sm">EUR
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2"><label data-slot="label" for="input-16">Input with inline start and end add-on</label><div class="relative flex rounded-md shadow-xs"><span class="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm">€
+        </span><input data-slot="input" class="-me-px rounded-e-none ps-6 shadow-none flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="input-16" placeholder="0.00" type="text"><span class="border-input bg-background text-muted-foreground -z-10 inline-flex items-center rounded-e-md border px-3 text-sm">EUR
         </span></div></div>
-</template>
+</div>

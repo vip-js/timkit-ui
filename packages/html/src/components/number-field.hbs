@@ -1,4 +1,5 @@
 <div data-slot="number-field" class="{{numberFieldVariants}}">
+  <p role="status">{{#if value}}{{value}}{{else}}0{{/if}}</p>
   <div data-slot="number-field-control" class="{{numberFieldControlVariants}}">
     <button
       data-slot="number-field-decrement"
@@ -11,6 +12,9 @@
     <input
       data-slot="number-field-input"
       type="number"
+      role="spinbutton"
+      aria-label="Number"
+      aria-valuenow="{{#if value}}{{value}}{{else}}0{{/if}}"
       class="{{numberFieldInputVariants}}"
       value="{{#if value}}{{value}}{{else}}0{{/if}}"
     />

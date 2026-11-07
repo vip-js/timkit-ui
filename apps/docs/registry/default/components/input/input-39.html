@@ -1,4 +1,20 @@
-<template>
-  <TimeField class="*:not-first:mt-2"><Label class="text-foreground text-sm font-medium">Time input with end icon</Label><div class="relative"><DateInput /><div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 z-10 flex items-center justify-center pe-3"><ClockIcon size="${16}" aria-hidden="true" /></div></div><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://react-spectrum.adobe.com/react-aria/DateField.html" target="_blank" rel="noopener nofollow">React Aria
-        </a></p></TimeField>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div data-slot="time-field">
+    <label data-slot="label">Time input with end icon</label>
+    <div class="relative">
+      <span aria-hidden="true">
+      <div class="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 z-10 flex items-center justify-center pe-3">
+        <span aria-hidden="true" size="16" aria-hidden="true">
+      </div>
+    </div>
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with
+      <a
+        class="hover:text-foreground underline"
+        href="https://react-spectrum.adobe.com/react-aria/DateField.html"
+        target="_blank"
+        rel="noopener nofollow">
+        React Aria
+      </a>
+    </p>
+</div>

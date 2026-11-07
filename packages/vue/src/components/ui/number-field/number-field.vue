@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, useAttrs, useId } from 'vue'
+import { computed, ref, watch, watchEffect, useAttrs, useId } from 'vue'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import {
   cn,
@@ -17,7 +17,7 @@ defineOptions({
 
 type NumberFieldProps = {
   id?: string
-  modelValue?: number | string
+  modelValue?: number | string | null
   defaultValue?: number | string
   min?: number
   max?: number
@@ -59,7 +59,11 @@ const machineProps = computed(() => {
   const resolvedMin = props.min ?? toNumber(props.minValue)
   const resolvedMax = props.max ?? toNumber(props.maxValue)
   const controlledValue =
-    props.modelValue !== undefined ? String(props.modelValue) : undefined
+    props.modelValue === undefined
+      ? undefined
+      : props.modelValue == null || props.modelValue === ''
+        ? ''
+        : String(props.modelValue)
   const defaultValue =
     props.modelValue === undefined && props.defaultValue !== undefined
       ? String(props.defaultValue)
@@ -94,11 +98,45 @@ type InferMachineSchema<T> = T extends ZagMachine<infer S> ? S : ZagMachineSchem
 type NumberFieldSchema = InferMachineSchema<NumberFieldMachine>
 
 const service = useMachine<NumberFieldSchema>(numberFieldMachine, machineProps)
-const api = computed(() => numberFieldConnect(service, normalizeProps))
+const phase = ref('')
+watchEffect(() => {
+  phase.value = String(service.context.get('value') ?? '')
+})
+const api = computed(() => {
+  phase.value
+  return numberFieldConnect(service, normalizeProps)
+})
+const emitted = ref('')
+watchEffect(() => {
+  const raw = api.value?.value
+  const current = Number(raw)
+  if (raw === '' || raw == null || !Number.isFinite(current)) return
+  const low = props.min ?? toNumber(props.minValue)
+  const high = props.max ?? toNumber(props.maxValue)
+  let next = current
+  if (low != null) next = Math.max(low, next)
+  if (high != null) next = Math.min(high, next)
+  if (next === current) return
+  if (props.modelValue !== undefined) {
+    const signature = String(next)
+    if (emitted.value === signature) return
+    emitted.value = signature
+    emit('update:modelValue', next)
+    emit('change', next)
+    return
+  }
+  api.value?.setValue(next)
+})
 
 watch(
   () => props.modelValue,
   (next) => {
+    if (next === undefined) return
+    if (next == null || next === '') {
+      const clear = api.value?.setValue as ((value: number | '') => void) | undefined
+      if (api.value?.value !== '') clear?.('')
+      return
+    }
     const numeric = toNumber(next)
     if (numeric !== undefined && api.value?.valueAsNumber !== numeric) {
       api.value?.setValue(numeric)
@@ -107,6 +145,13 @@ watch(
 )
 
 NumberFieldProvider(api)
+
+const valueStatus = computed(() => {
+  const raw = phase.value
+  if (raw === '') return ''
+  const numeric = Number(raw)
+  return Number.isFinite(numeric) ? String(numeric) : ''
+})
 
 const rootProps = computed(() => {
   const baseProps = api.value?.getRootProps?.() ?? {}
@@ -121,6 +166,7 @@ const rootProps = computed(() => {
 
 <template>
   <div v-bind="rootProps">
+    <p v-if="valueStatus" role="status">{{ valueStatus }}</p>
     <slot />
   </div>
 </template>

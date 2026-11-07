@@ -1,13 +1,16 @@
 import { menuConnect, menuMachine } from '@timui/core'
 import type { PositioningOptions } from '@zag-js/popper'
 import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed, useId } from 'vue'
+import { computed, ref, useId, watchEffect } from 'vue'
+
+import { usePassedProp } from '../../../hooks/passed-prop'
 
 type UseDropdownMenuProps = {
   id?: string
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   closeOnSelect?: boolean
+  disabled?: boolean
   loopFocus?: boolean
   positioning?: PositioningOptions
   onOpenChange?: (open: boolean) => void
@@ -18,12 +21,15 @@ export function useDropdownMenu(
   emit: (event: 'update:open' | 'change', value: boolean) => void
 ) {
   const generatedId = useId()
+  const passed = usePassedProp()
 
-  const machineProps = computed(() => ({
+  const machineProps = computed(() => {
+    const open = passed<boolean | null>(props, 'open')
+    return {
     id: props.id ?? generatedId,
-    open: props.open,
-    defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
+    ...(open === undefined ? { defaultOpen: props.defaultOpen } : { open: open === true }),
     closeOnSelect: props.closeOnSelect,
+    disabled: props.disabled,
     loopFocus: props.loopFocus,
     positioning: props.positioning,
     onOpenChange(details: { open: boolean }) {
@@ -31,10 +37,18 @@ export function useDropdownMenu(
       emit('update:open', details.open)
       emit('change', details.open)
     },
-  }))
+    }
+  })
 
   const service = useMachine(menuMachine, machineProps)
-  const api = computed(() => menuConnect(service, normalizeProps))
+  const phase = ref('')
+  watchEffect(() => {
+    phase.value = String(service.context.get('highlightedValue') ?? '')
+  })
+  const api = computed(() => {
+    phase.value
+    return menuConnect(service, normalizeProps)
+  })
 
   return api
 }

@@ -1,8 +1,130 @@
+<view class="timui-html-demo space-y-4 p-4">
+<view aria-label="Main">
+    <view>
+      <view>
+        <button type="button">Getting started</button>
+        <view>
+          <view class="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+            <view class="row-span-3">
+              <navigator href="#">
+                <navigator
+                  class="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                  href="/">
+                  <view class="mb-2 mt-4 text-lg font-medium">shadcn/ui</view>
+                  <text class="text-sm leading-tight text-muted-foreground">
+                    Beautifully designed components built with Radix UI and Tailwind CSS.
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+            <view>
+              <navigator href="#">
+                <navigator
+                  href="/docs">
+                  <view class="text-sm font-medium leading-none">Introduction</view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    Re-usable components built using Radix UI and Tailwind CSS.
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+            <view>
+              <navigator href="#">
+                <navigator
+                  href="/docs/installation">
+                  <view class="text-sm font-medium leading-none">Installation</view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    How to install dependencies and structure your app.
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+            <view>
+              <navigator href="#">
+                <navigator
+                  href="/docs/primitives/typography">
+                  <view class="text-sm font-medium leading-none">Typography</view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    Styles for headings, paragraphs, lists...etc
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <button type="button">Components</button>
+        <view>
+          <view class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+            <view>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
 <view>
-  <navigationmenu><navigationmenulist><navigationmenuitem><navigationmenutrigger>Getting started</navigationmenutrigger><navigationmenucontent><ul class="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"><li class="row-span-3"><navigationmenulink aschild><a class="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md" href="/"><view class="mb-2 mt-4 text-lg font-medium">shadcn/ui</view><text class="text-sm leading-tight text-muted-foreground">Beautifully designed components built with Radix UI and Tailwind CSS.
-                    </text></a></navigationmenulink></li><listitem href="/docs" title="Introduction">Re-usable components built using Radix UI and Tailwind CSS.
-              </listitem><listitem href="/docs/installation" title="Installation">How to install dependencies and structure your app.
-              </listitem><listitem href="/docs/primitives/typography" title="Typography">Styles for headings, paragraphs, lists...etc
-              </listitem></ul></navigationmenucontent></navigationmenuitem><navigationmenuitem><navigationmenutrigger>Components</navigationmenutrigger><navigationmenucontent><ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] "><listitem wx:for="{{components}}" wx:for-item="component" wx:for-index="index" wx:key="index" key="{{component.title}}" title="{{component.title}}" href="{{component.href}}">{{ component.description }}</listitem></ul></navigationmenucontent></navigationmenuitem><navigationmenuitem><link href="/docs" legacybehavior passhref><navigationmenulink class="{{navigationMenuTriggerStyle()}}">Documentation
-            </navigationmenulink></link></navigationmenuitem></navigationmenulist></navigationmenu>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+<view>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+<view>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+<view>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+<view>
+              <navigator href="#">
+                <navigator>
+                  <view class="text-sm font-medium leading-none"></view>
+                  <text class="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    
+                  </text>
+                </navigator>
+              </navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <navigator href="#" href="/docs">
+          Documentation
+        </navigator>
+      </view>
+    </view>
+  </view>
 </view>

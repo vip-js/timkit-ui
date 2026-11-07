@@ -1,35 +1,165 @@
-<view class="{{className}}" data-disabled="{{disabled}}">
-  <!-- Tags List -->
-  <view class="tags-list">
-    <view 
-      wx:for="{{api.value}}" 
+<view wx:if="{{ariaLabel && labelledBy}}" class="{{className}}" role="group" aria-label="{{ariaLabel}}" data-disabled="{{disabled}}">
+  <view wx:if="{{tagStatus}}" role="status">{{tagStatus}}</view>
+  <view class="tags-list" role="list">
+    <view
+      wx:for="{{tags}}"
       wx:key="index"
       class="tag-item"
+      role="listitem"
       data-index="{{index}}"
+      data-highlighted="{{highlightedIndex === index}}"
+      aria-selected="{{highlightedIndex === index ? 'true' : 'false'}}"
     >
       <text class="tag-text">{{item}}</text>
-      <view 
-        class="tag-delete" 
+      <view
+        class="tag-delete"
+        data-slot="tags-input-item-delete"
         data-index="{{index}}"
+        role="button"
+        tabindex="{{disabled || readOnly ? -1 : 0}}"
+        aria-disabled="{{disabled || readOnly ? 'true' : 'false'}}"
+        aria-label="Remove tag"
         bindtap="onDeleteTag"
-      >×</view>
+        bindkeydown="onDeleteKey"
+      ><text aria-hidden="true">×</text></view>
     </view>
-
-    <!-- Input -->
-    <input 
-      wx:if="{{!api.isAtMax}}"
-      class="tags-input"
-      type="text"
-      value="{{inputValue}}"
-      placeholder="{{placeholder}}"
-      disabled="{{disabled || readOnly}}"
-      bindinput="onInput"
-      bindconfirm="onConfirm"
-    />
   </view>
-
-  <!-- Max Indicator -->
-  <text wx:if="{{max < 999}}" class="tags-count">
-    {{api.value.length}} / {{max}}
-  </text>
+  <input
+    wx:if="{{!api.isAtMax}}"
+    class="tags-input"
+    type="text"
+    aria-labelledby="{{labelledBy}}"
+    aria-label="{{ariaLabel}}"
+    value="{{inputValue}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    bindinput="onInput"
+    bindconfirm="onConfirm"
+    bindkeydown="onInputKey"
+  />
+  <text wx:if="{{max < 999}}" class="tags-count">{{tags.length}} / {{max}}</text>
+</view>
+<view wx:elif="{{ariaLabel}}" class="{{className}}" role="group" aria-label="{{ariaLabel}}" data-disabled="{{disabled}}">
+  <view wx:if="{{tagStatus}}" role="status">{{tagStatus}}</view>
+  <view class="tags-list" role="list">
+    <view
+      wx:for="{{tags}}"
+      wx:key="index"
+      class="tag-item"
+      role="listitem"
+      data-index="{{index}}"
+      data-highlighted="{{highlightedIndex === index}}"
+      aria-selected="{{highlightedIndex === index ? 'true' : 'false'}}"
+    >
+      <text class="tag-text">{{item}}</text>
+      <view
+        class="tag-delete"
+        data-slot="tags-input-item-delete"
+        data-index="{{index}}"
+        role="button"
+        tabindex="{{disabled || readOnly ? -1 : 0}}"
+        aria-disabled="{{disabled || readOnly ? 'true' : 'false'}}"
+        aria-label="Remove tag"
+        bindtap="onDeleteTag"
+        bindkeydown="onDeleteKey"
+      ><text aria-hidden="true">×</text></view>
+    </view>
+  </view>
+  <input
+    wx:if="{{!api.isAtMax}}"
+    class="tags-input"
+    type="text"
+    aria-label="{{ariaLabel}}"
+    value="{{inputValue}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    bindinput="onInput"
+    bindconfirm="onConfirm"
+    bindkeydown="onInputKey"
+  />
+  <text wx:if="{{max < 999}}" class="tags-count">{{tags.length}} / {{max}}</text>
+</view>
+<view wx:elif="{{labelledBy}}" class="{{className}}" role="group" aria-labelledby="{{labelledBy}}" data-disabled="{{disabled}}">
+  <view wx:if="{{tagStatus}}" role="status">{{tagStatus}}</view>
+  <view class="tags-list" role="list">
+    <view
+      wx:for="{{tags}}"
+      wx:key="index"
+      class="tag-item"
+      role="listitem"
+      data-index="{{index}}"
+      data-highlighted="{{highlightedIndex === index}}"
+      aria-selected="{{highlightedIndex === index ? 'true' : 'false'}}"
+    >
+      <text class="tag-text">{{item}}</text>
+      <view
+        class="tag-delete"
+        data-slot="tags-input-item-delete"
+        data-index="{{index}}"
+        role="button"
+        tabindex="{{disabled || readOnly ? -1 : 0}}"
+        aria-disabled="{{disabled || readOnly ? 'true' : 'false'}}"
+        aria-label="Remove tag"
+        bindtap="onDeleteTag"
+        bindkeydown="onDeleteKey"
+      ><text aria-hidden="true">×</text></view>
+    </view>
+  </view>
+  <input
+    wx:if="{{!api.isAtMax}}"
+    class="tags-input"
+    type="text"
+    aria-labelledby="{{labelledBy}}"
+    value="{{inputValue}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    bindinput="onInput"
+    bindconfirm="onConfirm"
+    bindkeydown="onInputKey"
+  />
+  <text wx:if="{{max < 999}}" class="tags-count">{{tags.length}} / {{max}}</text>
+</view>
+<view wx:else class="{{className}}" role="group" aria-label="{{placeholder || 'Add a tag'}}" data-disabled="{{disabled}}">
+  <view wx:if="{{tagStatus}}" role="status">{{tagStatus}}</view>
+  <view class="tags-list" role="list">
+    <view
+      wx:for="{{tags}}"
+      wx:key="index"
+      class="tag-item"
+      role="listitem"
+      data-index="{{index}}"
+      data-highlighted="{{highlightedIndex === index}}"
+      aria-selected="{{highlightedIndex === index ? 'true' : 'false'}}"
+    >
+      <text class="tag-text">{{item}}</text>
+      <view
+        class="tag-delete"
+        data-slot="tags-input-item-delete"
+        data-index="{{index}}"
+        role="button"
+        tabindex="{{disabled || readOnly ? -1 : 0}}"
+        aria-disabled="{{disabled || readOnly ? 'true' : 'false'}}"
+        aria-label="Remove tag"
+        bindtap="onDeleteTag"
+        bindkeydown="onDeleteKey"
+      ><text aria-hidden="true">×</text></view>
+    </view>
+  </view>
+  <input
+    wx:if="{{!api.isAtMax}}"
+    class="tags-input"
+    type="text"
+    aria-label="{{placeholder || 'Add a tag'}}"
+    value="{{inputValue}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled || readOnly}}"
+    aria-readonly="{{readOnly ? 'true' : 'false'}}"
+    bindinput="onInput"
+    bindconfirm="onConfirm"
+    bindkeydown="onInputKey"
+  />
+  <text wx:if="{{max < 999}}" class="tags-count">{{tags.length}} / {{max}}</text>
 </view>

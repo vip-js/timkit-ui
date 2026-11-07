@@ -17,6 +17,17 @@ const props = withDefaults(
 
 const context = useDateRangePickerContext()
 
+const label = computed(() => {
+  const dates = context?.value?.valueAsDate ?? []
+  if (!dates.length) return ''
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })
+  return dates.map((date) => formatter.format(date)).join(' – ')
+})
+
 const triggerProps = computed(() => ({
   ...(context?.value?.getTriggerProps?.() ?? {}),
   type: props.asChild ? undefined : 'button',
@@ -31,6 +42,6 @@ const triggerProps = computed(() => ({
     :class="cn(props.class)"
     v-bind="triggerProps"
   >
-    <slot />
+    <slot>{{ label || 'Date' }}</slot>
   </Primitive>
 </template>

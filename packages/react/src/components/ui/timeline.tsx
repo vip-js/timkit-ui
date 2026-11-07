@@ -19,7 +19,9 @@ import { Slot } from './slot'
 
 // Types
 type TimelineContextValue = {
-  activeStep: number
+  activeStep: number | null
+  setActiveStep: (step: number) => void
+  disabled: boolean
 }
 
 // Context
@@ -43,20 +45,46 @@ type _TimelinePropsGuard = AssertNoExtraKeys<
 function Timeline({
   defaultValue = 1,
   value,
+  onValueChange,
   orientation = 'vertical',
+  disabled = false,
   className,
+  children,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }: TimelineProps) {
-  const currentStep = value ?? defaultValue
+  const [uncontrolled, setUncontrolled] = React.useState(defaultValue)
+  const currentStep = value === undefined ? uncontrolled : value
+  const steps = React.Children.toArray(children).filter(React.isValidElement)
+  const stepIndex =
+    currentStep == null
+      ? -1
+      : steps.findIndex((child) => (child.props as { step?: number }).step === currentStep)
+  const stepStatus = stepIndex < 0 ? '' : `Step ${stepIndex + 1} of ${steps.length}`
+  const setActiveStep = (step: number) => {
+    if (disabled) return
+    if (value === undefined) setUncontrolled(step)
+    onValueChange?.(step)
+  }
 
   return (
-    <TimelineContext.Provider value={{ activeStep: currentStep }}>
+    <TimelineContext.Provider value={{ activeStep: currentStep, setActiveStep, disabled }}>
       <div
         data-slot="timeline"
         className={cn(timelineVariants(), className)}
         data-orientation={orientation}
+        aria-disabled={disabled || undefined}
+        data-disabled={disabled ? '' : undefined}
         {...props}
-      />
+        aria-labelledby={ariaLabelledBy}
+        aria-label={
+          ariaLabelledBy ? undefined : typeof ariaLabel === 'string' && ariaLabel ? ariaLabel : 'Timeline'
+        }
+      >
+        {stepStatus ? <p role="status">{stepStatus}</p> : null}
+        {children}
+      </div>
     </TimelineContext.Provider>
   )
 }
@@ -122,17 +150,72 @@ function TimelineIndicator({
 // TimelineItem
 interface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {
   step: number
+  disabled?: boolean
 }
 
-function TimelineItem({ step, className, ...props }: TimelineItemProps) {
-  const { activeStep } = useTimeline()
+function TimelineItem({ step, disabled = false, className, onClick, onKeyDown, ...props }: TimelineItemProps) {
+  const { activeStep, setActiveStep, disabled: groupDisabled } = useTimeline()
+  const locked = disabled || groupDisabled
+  const active = activeStep == null ? Number.NaN : activeStep
+  const state = step === active ? 'active' : step < active ? 'completed' : 'inactive'
 
   return (
     <div
       data-slot="timeline-item"
       className={cn(timelineItemVariants(), className)}
-      data-completed={step <= activeStep || undefined}
+      data-state={state}
+      data-completed={(Number.isFinite(active) && step <= active) || undefined}
+      data-step={step}
+      aria-current={state === 'active' ? 'step' : undefined}
+      aria-disabled={locked || undefined}
+      role="button"
+      tabIndex={locked ? -1 : 0}
       {...props}
+      onKeyDown={(event) => {
+        onKeyDown?.(event)
+        if (event.defaultPrevented || locked) return
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          setActiveStep(step)
+          return
+        }
+        const root = event.currentTarget.closest('[data-slot="timeline"]')
+        if (!root) return
+        const horizontal = root.getAttribute('data-orientation') === 'horizontal'
+        const items = [...root.querySelectorAll<HTMLElement>('[data-slot="timeline-item"]')].filter(
+          (node) => node.getAttribute('aria-disabled') !== 'true'
+        )
+        const current = items.indexOf(event.currentTarget)
+        if (current < 0) return
+        let next = current
+        if (event.key === 'Home') next = 0
+        else if (event.key === 'End') next = items.length - 1
+        else {
+          const delta = horizontal
+            ? event.key === 'ArrowRight'
+              ? 1
+              : event.key === 'ArrowLeft'
+                ? -1
+                : 0
+            : event.key === 'ArrowDown'
+              ? 1
+              : event.key === 'ArrowUp'
+                ? -1
+                : 0
+          if (!delta) return
+          next = current + delta
+          if (next < 0 || next >= items.length) return
+        }
+        const stepValue = Number(items[next]?.dataset.step)
+        if (!Number.isFinite(stepValue) || stepValue === step) return
+        event.preventDefault()
+        setActiveStep(stepValue)
+      }}
+      onClick={(event) => {
+        onClick?.(event)
+        if (locked || event.defaultPrevented) return
+        setActiveStep(step)
+      }}
     />
   )
 }

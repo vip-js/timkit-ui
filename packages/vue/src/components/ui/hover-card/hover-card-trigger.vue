@@ -19,6 +19,7 @@ const context = useHoverCardContext()
 const triggerProps = computed(() => ({
   ...(context.value.getTriggerProps?.() ?? {}),
   'data-slot': 'hover-card-trigger',
+  'aria-describedby': context.value.open ? context.value.getContentProps?.()?.id : undefined,
 }))
 </script>
 

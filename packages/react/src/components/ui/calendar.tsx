@@ -75,6 +75,7 @@ function Calendar({
   fixedWeeks = false,
   showWeekNumber = false,
   disabled,
+  readOnly,
   excludeDisabled = false,
   ...props
 }: CalendarProps) {
@@ -139,7 +140,8 @@ function Calendar({
     focusedValue,
     defaultFocusedValue,
     timeZone,
-    value: selected === undefined ? undefined : selectedValues,
+    readOnly: readOnly || undefined,
+    value: selected === undefined ? undefined : (selectedValues ?? []),
     isDateUnavailable: disabledMatchers.length > 0 ? handleUnavailable : undefined,
     onValueChange(details) {
       const rawNext = valuesToSelected(details.value, mode, timeZone)
@@ -358,6 +360,9 @@ function Calendar({
     return <div className={mergedClassNames.caption_label}>{currentMonthLabel}</div>
   }
 
+  const selectedKey = (api.value ?? []).map((item) => item.toString()).join('|')
+  const dayStatus = (api.value ?? []).map((item) => item.toString()).join(' to ')
+
   const monthData = React.useMemo(() => {
     const count = Math.max(1, numberOfMonths)
     const start = api.visibleRange?.start
@@ -374,10 +379,16 @@ function Calendar({
       const weeks = api.getMonthWeeks(monthStart).map((week) => {
         const weekNumber = getIsoWeekNumber(week[0].toDate(timeZone))
         const days = week.map((dayValue) => {
-          const state = api.getDayTableCellState({ value: dayValue, visibleRange })
-          const cellProps = api.getDayTableCellProps({ value: dayValue, visibleRange })
-          const triggerProps = api.getDayTableCellTriggerProps({ value: dayValue, visibleRange })
           const dayDate = dayValue.toDate(timeZone)
+          const unavailable = disabledMatchers.some((matcher) => matchDisabled(dayDate, matcher))
+          const dayProps = {
+            value: dayValue,
+            visibleRange,
+            disabled: disabled === true || unavailable,
+          }
+          const state = api.getDayTableCellState(dayProps)
+          const cellProps = api.getDayTableCellProps(dayProps)
+          const triggerProps = api.getDayTableCellTriggerProps(dayProps)
           const rangeMiddle = state.inRange && !state.firstInRange && !state.lastInRange
           const hidden = !showOutsideDays && state.outsideRange
 
@@ -399,7 +410,7 @@ function Calendar({
             ),
             modifiers: {
               selected: state.selected,
-              disabled: !state.selectable || state.unavailable,
+              disabled: disabled === true || unavailable || !state.selectable || state.unavailable,
               outside: state.outsideRange,
               today: state.today,
               range_start: state.firstInRange,
@@ -423,7 +434,7 @@ function Calendar({
         weeks,
       }
     })
-  }, [api, numberOfMonths, mergedClassNames, showOutsideDays, timeZone])
+  }, [api, selectedKey, disabled, numberOfMonths, mergedClassNames, showOutsideDays, timeZone])
 
   const defaultComponents = {
     DayButton: (buttonProps: CalendarDayButtonProps) => <button {...buttonProps} />,
@@ -446,6 +457,7 @@ function Calendar({
       data-slot="calendar"
       className={cn(calendarRootVariants(), rootClassName, className)}
     >
+      {dayStatus ? <p role="status">{dayStatus}</p> : null}
       <div className={mergedClassNames.months}>
         {monthData.map((monthItem, monthIndex) => {
           const MonthGrid = mergedComponents.MonthGrid
@@ -475,9 +487,18 @@ function Calendar({
                     ) : null}
                     {week.days.map((dayCell) => {
                       const triggerClassName = (dayCell.triggerProps as { className?: string }).className
+                      const triggerButton = dayCell.triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>
                       const buttonProps = {
-                        ...(dayCell.triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>),
+                        ...triggerButton,
+                        'aria-current': dayCell.state.today ? 'date' : undefined,
                         className: cn(mergedClassNames.day_button, triggerClassName),
+                        onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+                          if (readOnly) {
+                            event.preventDefault()
+                            return
+                          }
+                          triggerButton.onClick?.(event)
+                        },
                       }
 
                       return (
@@ -491,6 +512,7 @@ function Calendar({
                         >
                           <DayButton
                             {...buttonProps}
+                            disabled={dayCell.modifiers.disabled || undefined}
                             day={{ date: dayCell.dayDate }}
                             modifiers={dayCell.modifiers}
                           >
@@ -544,10 +566,24 @@ function Calendar({
               </div>
               <MonthGrid
                 {...(monthItem.tableProps as React.TableHTMLAttributes<HTMLTableElement>)}
+                aria-label={
+                  (monthItem.tableProps as { 'aria-label'?: string })['aria-label'] || monthItem.label
+                }
                 className={cn(
                   calendarGridVariants(),
                   (monthItem.tableProps as { className?: string }).className
                 )}
+                onKeyDown={(event) => {
+                  if (disabled === true) {
+                    event.preventDefault()
+                    return
+                  }
+                  if (readOnly && (event.key === 'Enter' || event.key === ' ')) {
+                    event.preventDefault()
+                    return
+                  }
+                  ;(monthItem.tableProps as React.TableHTMLAttributes<HTMLTableElement>).onKeyDown?.(event)
+                }}
               >
                 {renderTable}
               </MonthGrid>

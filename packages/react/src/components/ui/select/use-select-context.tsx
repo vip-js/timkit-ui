@@ -13,6 +13,7 @@ export type SelectApiLike = {
   registerItem?: (item: SelectItemData) => void
   unregisterItem?: (value: string) => void
   getItemLabel?: (value: string) => string | undefined
+  placeholder?: string
 }
 
 export const SelectContext = React.createContext<SelectApiLike | null>(null)

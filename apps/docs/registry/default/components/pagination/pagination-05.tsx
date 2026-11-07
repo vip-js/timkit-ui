@@ -1,4 +1,5 @@
 import { Button, Pagination, PaginationContent, PaginationItem } from '@timui/react'
+import { useState } from 'react'
 
 type PaginationProps = {
   currentPage: number
@@ -6,6 +7,7 @@ type PaginationProps = {
 }
 
 export default function Component({ currentPage, totalPages }: PaginationProps) {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
     <div className="flex items-center justify-between gap-3">
       <p className="text-muted-foreground grow text-sm" aria-live="polite">
@@ -15,7 +17,7 @@ export default function Component({ currentPage, totalPages }: PaginationProps) 
       <Pagination className="w-auto">
         <PaginationContent className="gap-3">
           <PaginationItem>
-            <Button
+            <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks}
               variant="outline"
               className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
               aria-disabled={currentPage === 1 ? true : undefined}

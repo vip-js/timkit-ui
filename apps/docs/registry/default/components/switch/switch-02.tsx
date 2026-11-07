@@ -1,11 +1,13 @@
 import { useId } from 'react'
 import { Label, Switch } from '@timui/react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoChecked, setDemoChecked] = useState(false)
   const id = useId()
   return (
     <div className="inline-flex items-center gap-2">
-      <Switch
+      <Switch checked={demoChecked} onCheckedChange={(checked) => setDemoChecked(checked === true)}
         id={id}
         className="h-5 w-8 [&_span]:size-4 data-[state=checked]:[&_span]:translate-x-3 data-[state=checked]:[&_span]:rtl:-translate-x-3"
       />

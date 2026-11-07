@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@timui/vue';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@timui/vue';
 
 
 
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><DropdownMenu><DropdownMenuTrigger class="hover:text-foreground"><span role="presentation" aria-hidden="true" class="flex size-5 items-center justify-center"><svg :width="16" :height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span><span class="sr-only">Toggle menu</span></DropdownMenuTrigger><DropdownMenuContent align="start"><DropdownMenuItem as-child><a href="#">Documentation</a></DropdownMenuItem><DropdownMenuItem as-child><a href="#">Themes</a></DropdownMenuItem><DropdownMenuItem as-child><a href="#">GitHub</a></DropdownMenuItem></DropdownMenuContent></DropdownMenu></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+  <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><DropdownMenu><DropdownMenuTrigger class="hover:text-foreground"><span role="presentation" aria-hidden="true" class="flex size-5 items-center justify-center"><svg :width="16" :height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span><span class="sr-only">Toggle menu</span></DropdownMenuTrigger><DropdownMenuContent align="start"><DropdownMenuItem @click="onDemoClick" as-child><a href="#">Documentation</a></DropdownMenuItem><DropdownMenuItem as-child><a href="#">Themes</a></DropdownMenuItem><DropdownMenuItem as-child><a href="#">GitHub</a></DropdownMenuItem></DropdownMenuContent></DropdownMenu></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
 </template>

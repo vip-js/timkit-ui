@@ -1,9 +1,11 @@
 import { Button } from '@timui/react'
 import { ArrowRightIcon } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Component() {
+  const [demoClicks, setDemoClicks] = useState(0)
   return (
-    <Button className="group">
+    <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} className="group">
       Button
       <ArrowRightIcon
         className="-me-1 opacity-60 transition-transform group-hover:translate-x-0.5"

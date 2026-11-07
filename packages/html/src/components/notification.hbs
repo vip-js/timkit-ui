@@ -1,6 +1,6 @@
-<div data-slot="notification" class="{{notificationVariants}}">
+<div data-slot="notification" data-state="open" role="status" class="{{notificationVariants}}">
   <div class="flex gap-3">
-    <div data-slot="notification-icon" class="{{notificationIconVariants}}">
+    <div data-slot="notification-icon" aria-hidden="true" class="{{notificationIconVariants}}">
       <svg
         width="16"
         height="16"
@@ -21,9 +21,10 @@
         This is a notification description.
       </p>
       <div data-slot="notification-actions" class="{{notificationActionsVariants}}">
-        <button class="{{stepperTitleVariants}}">Action</button>
-        <button class="{{stepperTitleVariants}}">Dismiss</button>
+        <button type="button" class="{{stepperTitleVariants}}">Action</button>
+        <button type="button" class="{{stepperTitleVariants}}">Dismiss</button>
       </div>
     </div>
   </div>
+  <button type="button" data-slot="notification-close" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>

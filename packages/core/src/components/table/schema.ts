@@ -17,7 +17,40 @@ const tableSchema = defineUCS({
   logic: {
     provider: 'none',
   },
-  props: [],
+  props: [
+    {
+      name: 'sortColumn',
+      type: 'string',
+      description: 'Column id currently used for sorting.',
+    },
+    {
+      name: 'sortDirection',
+      type: 'enum',
+      description: 'Sort direction for sortColumn.',
+      values: ['asc', 'desc'],
+    },
+    {
+      name: 'selectedIds',
+      type: 'array',
+      description: 'Selected row ids.',
+    },
+    {
+      name: 'emptyLabel',
+      type: 'string',
+      description: 'Text shown when the table has no rows.',
+      defaultValue: 'No results',
+    },
+    {
+      name: 'onSortChange',
+      type: 'event',
+      description: 'Called when a column sort changes.',
+    },
+    {
+      name: 'onSelectionChange',
+      type: 'event',
+      description: 'Called when row selection changes.',
+    },
+  ],
   slots: [{ name: 'default', description: 'The table segments' }],
   supportedPlatforms: ['web', 'wechat'],
 })

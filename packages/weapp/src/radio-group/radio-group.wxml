@@ -2,8 +2,15 @@
   id="{{api.rootProps.id}}"
   class="{{className}}" 
   role="radiogroup"
-  data-orientation="{{api.orientation}}"
+  data-orientation="{{orientation}}"
+  aria-orientation="{{orientation}}"
+  aria-required="{{required ? 'true' : 'false'}}"
+  aria-readonly="{{readOnly ? 'true' : 'false'}}"
+  aria-disabled="{{api.disabled ? 'true' : 'false'}}"
+  aria-label="{{ariaLabel || 'Radio group'}}"
   data-disabled="{{api.disabled}}"
+  data-value="{{selected}}"
 >
+  <view wx:if="{{optionStatus}}" role="status">{{optionStatus}}</view>
   <slot></slot>
 </view>

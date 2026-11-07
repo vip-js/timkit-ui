@@ -1,6 +1,8 @@
 <label 
   class="{{className}}"
-  for="{{for}}"
+  data-slot="label"
+  for="{{target}}"
+  data-for="{{target}}"
   bindtap="onTap"
 >
   <slot></slot>

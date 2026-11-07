@@ -1,8 +1,31 @@
 <view class="{{className}}">
   <!-- Trigger -->
-  <view 
+  <view
+    wx:if="{{api.open}}"
+    id="{{id}}-trigger"
     class="dropdown-trigger"
     bindtap="onTriggerTap"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-haspopup="menu"
+    aria-expanded="{{api.open ? 'true' : 'false'}}"
+    aria-controls="{{id}}-menu"
+    bindkeydown="onKey"
+  >
+    <slot name="trigger"></slot>
+  </view>
+  <view
+    wx:else
+    id="{{id}}-trigger"
+    class="dropdown-trigger"
+    bindtap="onTriggerTap"
+    role="button"
+    tabindex="{{disabled ? -1 : 0}}"
+    aria-disabled="{{disabled ? 'true' : 'false'}}"
+    aria-haspopup="menu"
+    aria-expanded="{{api.open ? 'true' : 'false'}}"
+    bindkeydown="onKey"
   >
     <slot name="trigger"></slot>
   </view>
@@ -17,9 +40,14 @@
   <!-- Menu Content -->
   <view 
     wx:if="{{api.open}}"
+    id="{{id}}-menu"
     class="dropdown-content"
+    role="menu"
+    tabindex="0"
+    aria-labelledby="{{id}}-trigger"
     data-state="{{api.open ? 'open' : 'closed'}}"
   >
+    <view wx:if="{{itemStatus}}" role="status">{{itemStatus}}</view>
     <slot name="content"></slot>
   </view>
 </view>

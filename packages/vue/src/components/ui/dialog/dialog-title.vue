@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { type HTMLAttributes } from "vue";
+import { inject, onBeforeUnmount, onMounted, type HTMLAttributes, type Ref } from "vue";
 import { cn } from "@timui/core";
 import { useDialogContext } from "./use-dialog-context";
 
 const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 const api = useDialogContext();
+const hasTitle = inject<Ref<boolean>>("dialog-has-title");
+onMounted(() => {
+  if (hasTitle) hasTitle.value = true;
+});
+onBeforeUnmount(() => {
+  if (hasTitle) hasTitle.value = false;
+});
 </script>
 
 <template>

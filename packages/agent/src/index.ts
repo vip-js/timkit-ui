@@ -1,4 +1,5 @@
 import {
+  canonicalContract,
   componentNames,
   ucsRegistry,
   type ComponentName,
@@ -9,10 +10,26 @@ import {
 } from '@timui/core'
 
 import { listAgentUi as readAgentUi, type AgentUiComponent } from './agent-ui'
+import { componentDocsPath } from './docs-map'
 import { fixUsage } from './fix'
-import { getFrameworks, getMetaString, getTags, scoreItem, type FrameworkId } from './intent'
-import { agentRecipes, recipeFramework, type AgentRecipe } from './recipes'
+import {
+  getFrameworks,
+  getMetaString,
+  getTags,
+  recipeFramework,
+  scoreItem,
+  type FrameworkId,
+} from './intent'
+import { resolveRecipeFile } from './lazy-recipes'
+import { loadThreadCoach } from './lazy-thread-coach'
+import { agentRecipeManifest } from './recipes-manifest'
+import type { AgentRecipe } from './recipes-types'
 import { syntaxIssues } from './syntax'
+import type {
+  AgentThreadSeedId,
+  AgentThreadSuggestion,
+  AgentThreadValidation,
+} from './thread-coach'
 import {
   createSnippet,
   examplesFor,
@@ -199,6 +216,11 @@ const confidenceFor = (score: number): PlanConfidence => {
 const knownName = (name: string): name is ComponentName =>
   (componentNames as readonly string[]).includes(name)
 
+const schemaForName = (name: string) => {
+  const key = canonicalContract(name)
+  return knownName(key) ? ucsRegistry[key] : undefined
+}
+
 export class TimkitAgent {
   private registryItems: RegistryItem[]
   private registryBaseUrl: string
@@ -231,11 +253,8 @@ export class TimkitAgent {
     const item = this.registryItems.find((entry) => entry.name === name)
     if (item) return this.toMetadata(item, { examples: 'all' })
 
-    if (knownName(name)) {
-      const schema = ucsRegistry[name]
-      if (!schema) return undefined
-      return this.toSchemaMetadata(schema, { examples: 'all' })
-    }
+    const schema = schemaForName(name)
+    if (schema) return this.toSchemaMetadata(schema, { examples: 'all' })
 
     return undefined
   }
@@ -249,7 +268,10 @@ export class TimkitAgent {
         ...scoreItem(item, intent.prompt, { framework, mobile: intent.mobile }),
       }))
       .filter(({ item, score }) => score > 0 && this.matchesFilter(item, { framework }))
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => {
+        const typeRank = (type: string) => (type === 'registry:ui' ? 0 : type === 'registry:block' ? 1 : 2)
+        return b.score - a.score || typeRank(a.item.type) - typeRank(b.item.type) || a.item.name.localeCompare(b.item.name)
+      })
       .slice(0, 6)
 
     const confidence = confidenceFor(ranked[0]?.score || 0)
@@ -323,7 +345,7 @@ export class TimkitAgent {
     const framework = options.framework || this.defaultFramework
     const metadata = this.getComponentMetadata(options.name)
     const item = this.registryItems.find((entry) => entry.name === options.name)
-    const schema = knownName(options.name) ? ucsRegistry[options.name] : undefined
+    const schema = schemaForName(options.name)
     const snippet = createSnippet({
       name: metadata?.name || options.name,
       title: metadata?.title || options.name,
@@ -347,20 +369,20 @@ export class TimkitAgent {
 
   validateComponent(
     code: string,
-    options: { framework?: TimkitFramework; component?: string } = {}
+    options: { framework?: TimkitFramework; component?: string; checkSyntax?: boolean } = {}
   ): ValidationResult {
     const framework = options.framework || this.defaultFramework
     const names = Array.from(
       new Set([...componentNames, ...this.registryItems.map((item) => item.name)])
     )
-    const schemaFor = (name: string) => (knownName(name) ? ucsRegistry[name] : undefined)
+    const schemaFor = (name: string) => schemaForName(name)
     const result = validateUsage(code, {
       framework,
       component: options.component,
       names,
       schemaFor,
     })
-    const syntax = syntaxIssues(code, framework)
+    const syntax = syntaxIssues(code, framework, options.checkSyntax !== false)
 
     return {
       valid: result.issues.length === 0 && syntax.length === 0,
@@ -371,7 +393,7 @@ export class TimkitAgent {
 
   fixComponent(
     code: string,
-    options: { framework?: TimkitFramework; component?: string } = {}
+    options: { framework?: TimkitFramework; component?: string; checkSyntax?: boolean } = {}
   ): FixResult {
     const framework = options.framework || this.defaultFramework
     const names = Array.from(
@@ -380,7 +402,7 @@ export class TimkitAgent {
     const fixed = fixUsage(code, {
       framework,
       names,
-      schemaFor: (name) => (knownName(name) ? ucsRegistry[name] : undefined),
+      schemaFor: (name) => schemaForName(name),
     })
     const validation = this.validateComponent(fixed.code, { ...options, framework })
     return {
@@ -399,10 +421,28 @@ export class TimkitAgent {
     return readAgentUi()
   }
 
+  validateThread(thread: import('@timui/core/agent-thread').AgentThread): AgentThreadValidation {
+    return loadThreadCoach().validateAgentThread(thread)
+  }
+
+  suggestThreadNext(
+    thread: import('@timui/core/agent-thread').AgentThread
+  ): AgentThreadSuggestion[] {
+    return loadThreadCoach().suggestAgentThreadNext(thread)
+  }
+
+  seedThread(seed: AgentThreadSeedId = 'empty') {
+    return loadThreadCoach().seedAgentThread(seed)
+  }
+
+  getThreadProtocol() {
+    return loadThreadCoach().agentThreadProtocol
+  }
+
   listRecipes(): Array<
     Pick<AgentRecipe, 'id' | 'title' | 'description' | 'components' | 'frameworks'>
   > {
-    return agentRecipes.map(({ id, title, description, components, frameworks }) => ({
+    return agentRecipeManifest.map(({ id, title, description, components, frameworks }) => ({
       id,
       title,
       description,
@@ -413,7 +453,7 @@ export class TimkitAgent {
 
   generateRecipe(id: string, framework?: TimkitFramework): GeneratedCode {
     const target = framework || this.defaultFramework
-    const recipe = agentRecipes.find((item) => item.id === id)
+    const recipe = agentRecipeManifest.find((item) => item.id === id)
     const supported = recipeFramework(target)
     if (!recipe || !supported) {
       return {
@@ -424,11 +464,11 @@ export class TimkitAgent {
         notes: [
           recipe
             ? `Recipe "${id}" is available for react and vue.`
-            : `Unknown recipe "${id}". Known recipes: ${agentRecipes.map((item) => item.id).join(', ')}.`,
+            : `Unknown recipe "${id}". Known recipes: ${agentRecipeManifest.map((item) => item.id).join(', ')}.`,
         ],
       }
     }
-    const file = recipe.files[supported]
+    const file = resolveRecipeFile(id, supported)
     if (!file) {
       return {
         name: id,
@@ -589,7 +629,7 @@ export class TimkitAgent {
       examples: 'none',
     }
   ): ComponentMetadata {
-    const schema = knownName(item.name) ? ucsRegistry[item.name] : undefined
+    const schema = schemaForName(item.name)
     const guidance = guidanceFor(schema, item.name)
     const tags = getTags(item)
     const frameworks = getFrameworks(item)
@@ -621,9 +661,9 @@ export class TimkitAgent {
       dependencies: item.dependencies || [],
       registryDependencies: item.registryDependencies || [],
       url: `${this.registryBaseUrl}/r/${item.name}.json`,
-      props: schema?.props || [],
-      variants: schema?.variants || [],
-      parts: item.parts || schema?.parts || [],
+      props: schema?.props?.length ? schema.props : [],
+      variants: schema?.variants?.length ? schema.variants : [],
+      parts: item.parts?.length ? item.parts : schema?.parts || [],
       logic: item.logic || schema?.logic || { provider: 'none' },
       complexity,
       fitFor: [
@@ -760,6 +800,7 @@ export interface AgentContract {
   examples: UsageExample[]
   files: AgentContractFile[]
   rules: string[]
+  documentation: string
 }
 
 export const buildAgentContract = (
@@ -810,7 +851,40 @@ export const buildAgentContract = (
       type: file.type,
     })),
     rules,
+    documentation: `https://ui.timkit.cn/components/${componentDocsPath(metadata.name)}`,
   }
 }
+
+export type {
+  AgentThreadSeedId,
+  AgentThreadSuggestion,
+  AgentThreadValidation,
+} from './thread-coach'
+
+type AgentThreadCoach = ReturnType<typeof loadThreadCoach>
+
+export const validateAgentThread = (
+  thread: import('@timui/core/agent-thread').AgentThread
+): AgentThreadValidation => loadThreadCoach().validateAgentThread(thread)
+
+export const suggestAgentThreadNext = (
+  thread: import('@timui/core/agent-thread').AgentThread
+): AgentThreadSuggestion[] => loadThreadCoach().suggestAgentThreadNext(thread)
+
+export const seedAgentThread = (seed: AgentThreadSeedId = 'empty') =>
+  loadThreadCoach().seedAgentThread(seed)
+
+/** Lazy proxy so docs and agents can import from `@timui/agent` without bloating the main chunk. */
+export const agentThreadProtocol = new Proxy({} as AgentThreadCoach['agentThreadProtocol'], {
+  get(_target, prop, receiver) {
+    return Reflect.get(loadThreadCoach().agentThreadProtocol, prop, receiver)
+  },
+  ownKeys() {
+    return Reflect.ownKeys(loadThreadCoach().agentThreadProtocol)
+  },
+  getOwnPropertyDescriptor(_target, prop) {
+    return Reflect.getOwnPropertyDescriptor(loadThreadCoach().agentThreadProtocol, prop)
+  },
+})
 
 export const createTimkitAgent = (options?: TimkitAgentOptions) => new TimkitAgent(options)

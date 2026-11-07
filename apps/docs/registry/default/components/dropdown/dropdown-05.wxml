@@ -1,9 +1,9 @@
-<view>
-  <dropdownmenu><dropdownmenutrigger aschild><button variant="outline">Labeled grouped items
-          <chevrondownicon class="-me-1 opacity-60" size="{{16}}" aria-hidden="true" /></button></dropdownmenutrigger><dropdownmenucontent><dropdownmenulabel>Label</dropdownmenulabel><dropdownmenugroup><dropdownmenuitem><copyplusicon size="{{16}}" class="opacity-60" aria-hidden="true" />Copy
-          </dropdownmenuitem><dropdownmenuitem><bolticon size="{{16}}" class="opacity-60" aria-hidden="true" />Edit
-          </dropdownmenuitem></dropdownmenugroup><dropdownmenuseparator /><dropdownmenulabel>Label</dropdownmenulabel><dropdownmenugroup><dropdownmenuitem><layers2icon size="{{16}}" class="opacity-60" aria-hidden="true" />Group
-          </dropdownmenuitem><dropdownmenuitem><filesicon size="{{16}}" class="opacity-60" aria-hidden="true" />Clone
-          </dropdownmenuitem><dropdownmenuitem variant="destructive"><trashicon size="{{16}}" aria-hidden="true" />Delete
-          </dropdownmenuitem></dropdownmenugroup></dropdownmenucontent></dropdownmenu>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dropdown-menu"><button type="button" aria-haspopup="menu"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Labeled grouped items
+          <text aria-hidden="true" size="16" aria-hidden="true"></button></button><view role="menu"><view>Label</view><view role="group"><button type="button" role="menuitem"><text aria-hidden="true" size="16" aria-hidden="true">Copy
+          </button><button type="button" role="menuitem"><text aria-hidden="true" size="16" aria-hidden="true">Edit
+          </button></view><view><view>Label</view><view role="group"><button type="button" role="menuitem"><text aria-hidden="true" size="16" aria-hidden="true">Group
+          </button><button type="button" role="menuitem"><text aria-hidden="true" size="16" aria-hidden="true">Clone
+          </button><button type="button" role="menuitem" variant="destructive"><text aria-hidden="true" size="16" aria-hidden="true">Delete
+          </button></view></view></view>
 </view>

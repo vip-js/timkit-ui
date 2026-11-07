@@ -1,7 +1,12 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Input with mask</Label><Input id="${id}" placeholder="AB12 CDE" type="text" ref="${withMask('AA99 AAA', {
-          placeholder: '',
-          showMaskOnHover: false,
-        })}" /><p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">Built with${' '}<a class="hover:text-foreground underline" href="https://github.com/eduardoborges/use-mask-input" target="_blank" rel="noopener nofollow">use-mask-input
-        </a></p></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2">
+    <label data-slot="label">Input with mask</label>
+    <input data-slot="input" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm"
+     
+      placeholder="AB12 CDE"
+      type="text">
+    <p class="text-muted-foreground mt-2 text-xs" role="region" aria-live="polite">
+      Built with native mask formatting
+    </p>
+  </div>
+</div>

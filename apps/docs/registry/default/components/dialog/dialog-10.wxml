@@ -1,7 +1,7 @@
-<view>
-  <dialog><dialogtrigger aschild><button variant="outline">Feedback</button></dialogtrigger><dialogcontent><dialogheader><dialogtitle>Send us feedback</dialogtitle><dialogdescription>Watch{{ ' ' }}<a class="text-foreground hover:underline" href="#">tutorials
-            </a>, read Timkit UI&lsquo;s{{ ' ' }}<a class="text-foreground hover:underline" href="#">documentation
-            </a>, or join our{{ ' ' }}<a class="text-foreground hover:underline" href="#">Discord
-            </a>{{ ' ' }}for community help.
-          </dialogdescription></dialogheader><form class="space-y-5"><textarea id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback" /><view class="flex flex-col sm:flex-row sm:justify-end"><button type="button">Send feedback</button></view></form></dialogcontent></dialog>
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="dialog"><button type="button" data-slot="dialog-trigger" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Feedback</button></button><view data-slot="dialog-content"><view data-slot="dialog-header"><text data-slot="dialog-title">Send us feedback</text><text data-slot="dialog-description">Watch <navigator class="text-foreground hover:underline" href="#">tutorials
+            </navigator>, read Timkit UI&lsquo;s <navigator class="text-foreground hover:underline" href="#">documentation
+            </navigator>, or join our <navigator class="text-foreground hover:underline" href="#">Discord
+            </navigator> for community help.
+          </text></view><form class="space-y-5"><textarea data-slot="textarea" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" id="feedback" placeholder="How can we improve Timkit UI?" aria-label="Send feedback"></textarea><view class="flex flex-col sm:flex-row sm:justify-end"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" type="button">Send feedback</button></view></form></view></view>
 </view>

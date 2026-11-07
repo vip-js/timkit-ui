@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@timui/vue';
 
@@ -8,9 +9,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const id = 'select-20';
 
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with error</Label><Select default-value="1"><SelectTrigger :id="id" aria-invalid><SelectValue /></SelectTrigger><SelectContent><SelectItem value="1">React</SelectItem><SelectItem value="2">Next.js</SelectItem><SelectItem value="3">Astro</SelectItem><SelectItem value="4">Gatsby</SelectItem></SelectContent></Select><p class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Selected option is invalid
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Select with error</Label><Select default-value="1"><SelectTrigger @click="onDemoClick" :id="id" aria-invalid><SelectValue /></SelectTrigger><SelectContent><SelectItem value="1">React</SelectItem><SelectItem value="2">Next.js</SelectItem><SelectItem value="3">Astro</SelectItem><SelectItem value="4">Gatsby</SelectItem></SelectContent></Select><p class="text-destructive mt-2 text-xs" role="alert" aria-live="polite">Selected option is invalid
       </p></div>
 </template>

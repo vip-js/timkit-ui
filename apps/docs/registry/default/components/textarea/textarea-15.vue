@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Label } from '@timui/vue'
 import { Textarea } from '@timui/vue'
 
 const id = 'textarea-15'
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
@@ -10,6 +16,6 @@ const id = 'textarea-15'
     <Label :htmlFor="id" class="text-foreground block px-3 pt-2 text-xs font-medium">
       Textarea with inset label
     </Label>
-    <Textarea :id="id" class="min-h-[70px] rounded-none border-0 px-3 pb-2 shadow-none" />
+    <Textarea @input="onDemoClick" @input="onDemoClick" :id="id" class="min-h-[70px] rounded-none border-0 px-3 pb-2 shadow-none" />
   </div>
 </template>

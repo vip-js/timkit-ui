@@ -12,6 +12,7 @@ import { adaptRegistryItemToComponentData } from '@/lib/registry-adapter'
 import { getRegistryIndexItems, loadRegistryItemFromData } from '@/lib/registry-index'
 import { extractSectionCode } from '@/lib/sections'
 import { ComponentApiReference } from '@/components/component-api-reference'
+import { ContractNote, KeyboardNote, contractNote, keyboardNote } from '@/components/keyboard-note'
 import { ComponentPageHeader } from '@/components/component-page-header'
 import ComponentPreviewLazy from '@/components/component-preview-lazy'
 // ...
@@ -237,6 +238,8 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         })),
       },
       { title: 'API Reference', url: '#api-reference' },
+      ...(keyboardNote(slug) ? [{ title: 'Keyboard', url: '#keyboard' }] : []),
+      ...(contractNote(slug) ? [{ title: 'Contract', url: '#contract' }] : []),
     ]
 
     const pageTitle = pageDetails.section_name || pageDetails.name || slug
@@ -287,6 +290,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
               })}
             </div>
           </div>
+
+          <KeyboardNote slug={slug} />
+          <ContractNote slug={slug} />
 
           {/* 3. Bottom Section: API Reference */}
           <div id="api-reference" className="mt-12 border-t border-border/20 pt-8">

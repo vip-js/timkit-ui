@@ -1,7 +1,4 @@
-<template>
-  <div class="*:not-first:mt-2"><Label htmlfor="${id}">Show/hide password input</Label><div class="relative"><Input id="${id}" class="pe-9" placeholder="Password" type="${isVisible ? 'text' : 'password'}" /><button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" type="button" on-click="${toggleVisibility}" aria-label="${isVisible ? 'Hide password' : 'Show password'}" aria-pressed="${isVisible}" aria-controls="password"><!-- if isVisible -->
-<EyeOffIcon size="${16}" aria-hidden="true" />
-<!-- else -->
-<EyeIcon size="${16}" aria-hidden="true" />
-<!-- endif --></button></div></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="*:not-first:mt-2"><label data-slot="label">Show/hide password input</label><div class="relative"><input data-slot="input" class="pe-9 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm" placeholder="Password"><button class="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50" type="button" aria-controls="password"><template>
+<span aria-hidden="true" size="16" aria-hidden="true">
+</div>

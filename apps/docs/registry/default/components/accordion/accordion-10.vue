@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { BellIcon, LifeBuoyIcon, Link2Icon, PlusIcon, ShieldCheckIcon } from 'lucide-vue-next'
 import { Accordion } from '@timui/vue'
 import { AccordionContent } from '@timui/vue'
@@ -39,12 +40,17 @@ const items = [
       'Our support team is available around the clock to assist you. For billing inquiries, technical issues, or general questions, you can reach us through live chat, email, or schedule a call with our technical team.',
   },
 ]
+
+const demoClicks = ref(0)
+function onDemoClick() {
+  demoClicks.value += 1
+}
 </script>
 
 <template>
   <div class="space-y-4">
     <h2 class="text-xl font-bold">W/ icon, sub-header, and plus-minus</h2>
-    <Accordion type="single" collapsible class="w-full" default-value="3">
+    <Accordion @click="onDemoClick" type="single" collapsible class="w-full" default-value="3">
       <AccordionItem v-for="item in items" :key="item.id" :value="item.id" class="py-2">
         <AccordionTrigger
           class="focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-center justify-between rounded-md py-2 text-left text-[15px] leading-6 font-semibold transition-all outline-none focus-visible:ring-[3px] [&>svg>path:last-child]:origin-center [&>svg>path:last-child]:transition-all [&>svg>path:last-child]:duration-200 [&>svg]:rotate-0 [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg>path:last-child]:rotate-90 [&[data-state=open]>svg>path:last-child]:opacity-0"

@@ -1,15 +1,15 @@
 <nav role="navigation" aria-label="pagination" data-slot="pagination" class="mx-auto flex w-full justify-center">
   <ul data-slot="pagination-content" class="flex flex-row items-center gap-1">
     <li data-slot="pagination-item">
-      <a data-slot="pagination-link" href="#" class="inline-flex items-center">
+      <a data-slot="pagination-link" aria-disabled="true" tabindex="-1" class="inline-flex items-center">
         <span>Previous</span>
       </a>
     </li>
     <li data-slot="pagination-item">
-      <a data-slot="pagination-link" href="#" class="inline-flex items-center">1</a>
+      <a data-slot="pagination-link" href="#" aria-current="page" class="inline-flex items-center">1</a>
     </li>
     <li data-slot="pagination-item">
-      <span data-slot="pagination-ellipsis" class="flex size-9 items-center justify-center">…</span>
+      <span data-slot="pagination-ellipsis" aria-hidden="true" class="flex size-9 items-center justify-center">…</span>
     </li>
     <li data-slot="pagination-item">
       <a data-slot="pagination-link" href="#" class="inline-flex items-center">

@@ -1,5 +1,5 @@
-<view>
-  <view class="flex items-start gap-2"><checkbox id="{{id}}" class="order-1" aria-describedby="{{`${id}-description`}}" /><view class="grid grow gap-2"><label htmlfor="{{id}}">Label{{ ' ' }}<text class="text-muted-foreground text-xs leading-[inherit] font-normal">(Sublabel)
-          </text></label><text id="{{`${id}-description`}}" class="text-muted-foreground text-xs">You can use this checkbox with a label and a description.
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex items-start gap-2"><input type="checkbox" data-slot="checkbox" id="checkbox-13" aria-describedby="Example-description"><view class="grid grow gap-2"><text data-slot="label" for="checkbox-13">Label <text class="text-muted-foreground text-xs leading-[inherit] font-normal">(Sublabel)
+          </text></text><text id="Example-description" class="text-muted-foreground text-xs">You can use this checkbox with a label and a description.
         </text></view></view>
 </view>

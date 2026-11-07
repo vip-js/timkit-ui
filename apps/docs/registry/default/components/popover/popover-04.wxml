@@ -1,6 +1,6 @@
-<view>
-  <popover><popovertrigger aschild><button variant="outline">Tooltip-like popover</button></popovertrigger><popovercontent class="max-w-[280px] py-3 shadow-none" side="top"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">Popover with button</text><text class="text-muted-foreground text-xs">I am a popover that would like to look like a tooltip. I can&lsquo;t be a tooltip
+<view class="timui-html-demo space-y-4 p-4">
+<view data-slot="popover"><button type="button" data-slot="popover-trigger"><button type="button" data-slot="button" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" data-clicks="0" variant="outline">Tooltip-like popover</button></button><view data-slot="popover-content" side="top"><view class="space-y-3"><view class="space-y-1"><text class="text-[13px] font-medium">Popover with button</text><text class="text-muted-foreground text-xs">I am a popover that would like to look like a tooltip. I can&lsquo;t be a tooltip
               because of the interactive element inside me.
-            </text></view><button size="sm" class="h-7 px-2">Know more
-          </button></view></popovercontent></popover>
+            </text></view><button type="button" data-slot="button" class="h-7 px-2 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground" size="sm">Know more
+          </button></view></view></view>
 </view>

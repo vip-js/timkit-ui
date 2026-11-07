@@ -1,15 +1,18 @@
 'use client'
 
+import { useState } from 'react'
+
 import { useId } from 'react'
 import { Input, Label } from '@timui/react'
 import { withMask } from 'use-mask-input'
 
 export default function Component() {
+  const [demoValue, setDemoValue] = useState("")
   const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label htmlFor={id}>Input with mask</Label>
-      <Input
+      <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
         id={id}
         placeholder="AB12 CDE"
         type="text"

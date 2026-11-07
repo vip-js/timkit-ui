@@ -1,1 +1,21 @@
-<timeline items="{{timelineItems}}" orientation="vertical" />
+<view class="timui-html-demo space-y-4 p-4">
+<view>
+    <view step="1">
+      <view data-slot="timeline-header">
+        <text aria-hidden="true">
+        <view data-slot="timeline-date">Week 1
+        <text>Audit</text>
+      
+      <view data-slot="timeline-content">Compare manifests, registry exports, and docs coverage.
+      <text aria-hidden="true">
+    </view>
+    <view step="2">
+      <view data-slot="timeline-header">
+        <text aria-hidden="true">
+        <view data-slot="timeline-date">Week 2
+        <text>Adapters</text>
+      
+      <view data-slot="timeline-content">Add HTML adapter coverage and tighten capability truth.
+    </view>
+  </view>
+</view>

@@ -4,7 +4,7 @@ import { useCollapsible } from './use-collapsible'
 import { provideCollapsibleContext } from './use-collapsible-context'
 
 const props = defineProps<{
-  open?: boolean
+  open?: boolean | null
   defaultOpen?: boolean
   disabled?: boolean
   id?: string
@@ -14,17 +14,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:open', 'change'])
 
-const api = useCollapsible({
-  id: props.id,
-  open: props.open,
-  defaultOpen: props.open === undefined ? props.defaultOpen : undefined,
-  disabled: props.disabled,
-  onOpenChange(open: boolean) {
-    props.onOpenChange?.(open)
-    emit('update:open', open)
-    emit('change', open)
-  },
-})
+const api = useCollapsible(props, emit)
 
 provideCollapsibleContext(api)
 </script>
@@ -34,6 +24,7 @@ provideCollapsibleContext(api)
     v-bind="api.getRootProps()"
     :class="props.class"
   >
+    <p v-if="api.open" role="status">Opened</p>
     <slot />
   </div>
 </template>

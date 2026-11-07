@@ -6,6 +6,10 @@ export type TabsValueChangeEvent = TimEvent<{ value: string }>
 
 export type TabsProps = Omit<tabs.Props, 'onValueChange'> & {
   /**
+   * When true, tab changes are ignored.
+   */
+  disabled?: boolean
+  /**
    * Callback fired when the value changes.
    */
   onValueChange?: (event: TabsValueChangeEvent) => void

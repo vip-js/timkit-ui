@@ -2,6 +2,15 @@
 
 This file contains guidelines and commands for agentic coding agents working in the Timkit UI monorepo.
 
+## Non-negotiable: performance and usability
+
+Do not trade one for the other. Split code (lazy chunks, memo boundaries, subpath exports) instead of removing APIs or shipping a bloated main bundle.
+
+- **Performance**: pass `pnpm goal:perf:agent`; stream updates touch only the last assistant part; use `validate --no-syntax` only on hot loops, not as the default for human `validate`.
+- **Usability**: import SDK and thread helpers from `@timui/agent`; read `/agent/{name}.json` before coding; when `plan.confidence` is `none`, ask—do not install a guess.
+
+See `PERFORMANCE.md` and `.cursor/rules/performance-usability.mdc`.
+
 ## Generating UI
 
 Read a component contract before writing code:
@@ -13,7 +22,7 @@ Read a component contract before writing code:
 
 If `plan.confidence` is `none`, ask which component to use and do not install a fallback. Use only enum values from the contract. Primitives are named exports from `@timui/react` or `@timui/vue`. Blocks and pages are default exports from the installed file. `size="icon"` requires `aria-label`.
 
-For a whole screen, start from a recipe instead of inventing the composition: `timkit agent recipe login-form`, `confirm-dialog`, `notification-setting`, or `agent-workbench`. Agent threads import `AgentMessage`, `AgentComposer`, `AgentPlan`, `ToolCall`, `ApprovalCard`, and `CitationList` from `@timui/react/agent`. Leave streaming transport in the app. A pending approval blocks the destructive action, and the chosen result stays visible as a receipt. After editing, run `timkit agent validate <file> --fix`. `--fix` rewrites enum values, the framework import, unnamed buttons, and a missing React export. It does not repair broken syntax. `timkit agent deps <name>` lists registry dependencies.
+For a whole screen, start from a recipe instead of inventing the composition: `timkit agent recipe login-form`, `confirm-dialog`, `notification-setting`, or `agent-workbench`. Agent threads import `AgentMessage`, `AgentComposer`, `AgentPlan`, `ToolCall`, `ApprovalCard`, and `CitationList` from `@timui/react/agent`. Leave streaming transport in the app. For a live thread, store an `AgentThread` from `@timui/core/agent-thread`, render `AgentThreadView`, and apply every user action with `reduceAgentThread`. A tool that sets `approvalId` cannot finish until that approval is approved. A second decision does not overwrite the receipt. After editing, run `timkit agent validate <file> --fix`. `--fix` rewrites enum values, the framework import, unnamed buttons, and a missing React export. It does not repair broken syntax. `timkit agent deps <name>` lists registry dependencies.
 
 ## Build Commands
 

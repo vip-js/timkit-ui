@@ -11,7 +11,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div data-slot="banner-icon" :class="cn(bannerIconVariants(), props.class)">
+  <div data-slot="banner-icon" aria-hidden="true" :class="cn(bannerIconVariants(), props.class)">
     <slot />
   </div>
 </template>

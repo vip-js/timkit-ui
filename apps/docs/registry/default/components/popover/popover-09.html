@@ -1,11 +1,16 @@
-<template>
-  <div class="flex flex-col gap-4"><Popover on-open-change="${(open) => {
-          if (open) setCurrentTip(0)
-        }}"><div class="grid grid-cols-2 place-items-center gap-4"><!-- Loop tourSteps -->
-<Card key="${step.title}" number="${index}" isactive="${currentTip === index}" />
-<!-- End Loop --></div><PopoverTrigger aschild><Button variant="outline">Start tour</Button></PopoverTrigger><PopoverContent class="max-w-[280px] py-3 shadow-none" side="${currentTip % 2 === 0 ? 'left' : 'right'}" showarrow="${true}"><div class="space-y-3"><div class="space-y-1"><p class="text-[13px] font-medium">${tourSteps[currentTip].title}</p><p class="text-muted-foreground text-xs">${tourSteps[currentTip].description}</p></div><div class="flex items-center justify-between gap-2"><span class="text-muted-foreground text-xs">${currentTip + 1}/${tourSteps.length}</span><button class="text-xs font-medium hover:underline" on-click="${handleNavigation}"><!-- if currentTip === tourSteps.length - 1 -->
-${'Start over'}
-<!-- else -->
-${'Next'}
-<!-- endif --></button></div></div></PopoverContent></Popover></div>
-</template>
+<div class="timui-html-demo space-y-4 p-4">
+<div class="flex flex-col gap-4">
+    <div data-slot="popover">
+      <div class="grid grid-cols-2 place-items-center gap-4">
+        <template>
+          <div data-slot="popover-anchor">
+            <div class="bg-secondary text-muted-foreground flex size-10 items-center justify-center rounded-md text-sm font-medium">
+              
+            </div>
+          
+          <div
+           
+            class="bg-secondary text-muted-foreground flex size-10 items-center justify-center rounded-md text-sm font-medium">
+            
+          </div>
+</div>
