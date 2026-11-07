@@ -11,7 +11,7 @@ export default function Component() {
       <Calendar
         mode="single"
         selected={date}
-        onSelect={setDate}
+        onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
         className="rounded-md border p-2"
       />
       <p

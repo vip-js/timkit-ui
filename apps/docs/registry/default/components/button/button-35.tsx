@@ -12,7 +12,7 @@ export default function Component() {
       variant="outline"
       value={value}
       onValueChange={(value) => {
-        if (value) setValue(value)
+        if (typeof value === 'string' && value) setValue(value)
       }}
     >
       <ToggleGroupItem className="flex-1" value="left">

@@ -5,7 +5,7 @@ import { Calendar } from '@timui/react'
 import { addDays } from 'date-fns'
 
 type CalendarRangeValue = { from: Date | undefined; to?: Date }
-type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
+type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined | null
 
 export default function Component() {
   const today = new Date()

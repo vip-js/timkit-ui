@@ -15,7 +15,7 @@ export default function Component() {
   return (
     <fieldset className="space-y-4">
       <legend className="text-foreground text-sm leading-none font-medium">How did it go?</legend>
-      <RadioGroup className="flex gap-1.5" defaultValue="3">
+      <RadioGroup id={id} className="flex gap-1.5" defaultValue="3">
         {items.map((item) => (
           <label
             key={`${id}-${item.value}`}

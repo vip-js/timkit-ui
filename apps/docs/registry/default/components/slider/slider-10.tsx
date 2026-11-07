@@ -13,6 +13,7 @@ export default function Component() {
           <span>High</span>
         </span>
         <Slider
+          id="slider-10"
           defaultValue={[50]}
           step={10}
           showTooltip={true}

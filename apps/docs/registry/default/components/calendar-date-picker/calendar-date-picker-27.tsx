@@ -14,7 +14,7 @@ export default function Component() {
     <div>
       <div className="*:not-first:mt-2">
         <Label htmlFor={id}>Date picker</Label>
-        <Popover ids={{ trigger: id }}>
+        <Popover>
           <PopoverTrigger asChild>
             <Button
               id={id}
@@ -32,7 +32,11 @@ export default function Component() {
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-2" align="start">
-            <Calendar mode="single" selected={date} onSelect={setDate} />
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
+            />
           </PopoverContent>
         </Popover>
       </div>

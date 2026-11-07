@@ -38,7 +38,7 @@ export default function Component() {
       <Calendar
         mode="single"
         selected={date}
-        onSelect={setDate}
+        onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
         className="rounded-md border p-2"
         captionLayout="dropdown-years"
         defaultMonth={new Date()}
@@ -55,8 +55,9 @@ export default function Component() {
             return (
               <Select
                 value={String(props.value)}
-                onValueChange={(value: string) => {
-                  if (props.onChange) {
+                onValueChange={(event) => {
+                  const value = event.detail.value[0]
+                  if (value && props.onChange) {
                     handleCalendarChange(value, props.onChange)
                   }
                 }}

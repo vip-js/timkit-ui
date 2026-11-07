@@ -68,6 +68,7 @@ export default function Component() {
             <TableRow className="hover:bg-transparent">
               <TableHead className="h-11">
                 <Checkbox
+                  id="table-08-select-all"
                   checked={allSelected || (someSelected && 'indeterminate')}
                   onCheckedChange={(value) => {
                     const checked = toChecked(value)

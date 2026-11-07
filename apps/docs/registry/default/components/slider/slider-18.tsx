@@ -14,8 +14,9 @@ export default function Component() {
       <Label>Rate your experience</Label>
       <div className="flex items-center gap-2">
         <Slider
+          id="slider-18"
           value={value}
-          onValueChange={setValue}
+          onValueChange={(event) => setValue(event.detail.value)}
           min={1}
           max={5}
           showTooltip

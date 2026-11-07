@@ -57,7 +57,7 @@ export default function Component() {
 
         <form className="space-y-5">
           <div className="space-y-4">
-            <RadioGroup className="grid-cols-2" defaultValue="yearly">
+            <RadioGroup id="billing-cycle" className="grid-cols-2" defaultValue="yearly">
               {/* Monthly */}
               <label className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col gap-1 rounded-md border px-4 py-3 shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
                 <RadioGroupItem

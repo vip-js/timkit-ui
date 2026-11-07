@@ -201,7 +201,11 @@ function StepperItem({
   const { activeStep } = useStepper()
 
   const state: StepState =
-    completed || step < activeStep ? 'completed' : activeStep === step ? 'active' : 'inactive'
+    completed || (activeStep !== null && step < activeStep)
+      ? 'completed'
+      : activeStep === step
+        ? 'active'
+        : 'inactive'
 
   const isLoading = loading && step === activeStep
 

@@ -24,7 +24,6 @@ export function useDropdownMenu(props: DropdownMenuProps) {
     id: menuProps.id ?? generatedId,
     ...(openControlled ? { open: open === true } : { defaultOpen }),
     closeOnSelect: menuProps.closeOnSelect,
-    disabled: menuProps.disabled,
     loopFocus: menuProps.loopFocus,
     positioning: menuProps.positioning,
     onOpenChange: (details: { open: boolean }) => onOpenChange?.(details.open),

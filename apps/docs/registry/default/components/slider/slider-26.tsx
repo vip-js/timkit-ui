@@ -206,8 +206,9 @@ export default function Component() {
           ))}
         </div>
         <Slider
+          id="slider-26"
           value={sliderValue}
-          onValueChange={handleSliderValueChange}
+          onValueChange={(event) => handleSliderValueChange(event.detail.value)}
           min={minValue}
           max={maxValue}
           aria-label="Price range"

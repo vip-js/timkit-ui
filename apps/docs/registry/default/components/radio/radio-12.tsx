@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from '@timui/react'
 export default function Component() {
   const id = useId()
   return (
-    <RadioGroup className="grid-cols-3" defaultValue="1">
+    <RadioGroup id={id} className="grid-cols-3" defaultValue="1">
       {/* Credit card */}
       <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
         <RadioGroupItem id={`${id}-1`} value="1" className="sr-only" />

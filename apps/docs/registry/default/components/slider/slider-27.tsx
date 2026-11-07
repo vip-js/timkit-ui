@@ -7,6 +7,7 @@ export default function Component() {
       <div className="flex h-48 justify-center gap-8">
         <div className="flex flex-col items-center gap-2">
           <Slider
+            id="slider-27-60hz"
             defaultValue={[2]}
             min={-5}
             max={5}
@@ -19,6 +20,7 @@ export default function Component() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Slider
+            id="slider-27-250hz"
             defaultValue={[1]}
             min={-5}
             max={5}
@@ -31,6 +33,7 @@ export default function Component() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Slider
+            id="slider-27-1khz"
             defaultValue={[-1]}
             min={-5}
             max={5}
@@ -43,6 +46,7 @@ export default function Component() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Slider
+            id="slider-27-4khz"
             defaultValue={[-3]}
             min={-5}
             max={5}
@@ -55,6 +59,7 @@ export default function Component() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Slider
+            id="slider-27-16khz"
             defaultValue={[2]}
             min={-5}
             max={5}

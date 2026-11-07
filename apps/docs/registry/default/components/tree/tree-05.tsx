@@ -87,7 +87,7 @@ export default function Component() {
 
   return (
     <div className="flex h-full flex-col gap-2 *:first:grow">
-      <Tree indent={indent} tree={tree}>
+      <Tree indent={indent} tree={tree as never}>
         <AssistiveTreeDescription tree={tree} />
         {tree.getItems().map((item) => {
           return (

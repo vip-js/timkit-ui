@@ -15,7 +15,12 @@ export default function Component() {
       </div>
       <div className="flex items-center gap-2">
         <VolumeXIcon className="shrink-0 opacity-60" size={16} aria-hidden="true" />
-        <Slider value={value} onValueChange={setValue} aria-label="Volume slider" />
+        <Slider
+          id="slider-13"
+          value={value}
+          onValueChange={(event) => setValue(event.detail.value)}
+          aria-label="Volume slider"
+        />
         <Volume2Icon className="shrink-0 opacity-60" size={16} aria-hidden="true" />
       </div>
     </div>

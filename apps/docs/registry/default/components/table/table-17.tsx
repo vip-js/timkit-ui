@@ -65,6 +65,7 @@ const columns: ColumnDef<Item>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
+        id="table-17-select-all"
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
@@ -77,6 +78,7 @@ const columns: ColumnDef<Item>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
+        id={`table-17-row-${row.id}`}
         checked={row.getIsSelected()}
         onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
         onClick={() => row.toggleSelected(!row.getIsSelected())}

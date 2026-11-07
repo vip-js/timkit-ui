@@ -5,6 +5,7 @@ export default function Component() {
     <div className="*:not-first:mt-4">
       <Label>Slider with square thumb</Label>
       <Slider
+        id="slider-03"
         defaultValue={[25]}
         max={100}
         step={10}

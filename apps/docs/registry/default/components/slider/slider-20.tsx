@@ -30,9 +30,10 @@ export default function Component() {
           </Button>
         </div>
         <Slider
+          id="slider-20"
           className="grow"
           value={value}
-          onValueChange={setValue}
+          onValueChange={(event) => setValue(event.detail.value)}
           min={minValue}
           max={maxValue}
           step={steps}

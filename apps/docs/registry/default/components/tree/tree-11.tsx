@@ -168,7 +168,7 @@ export default function Component() {
         <Tree
           className="relative before:absolute before:inset-0 before:-ms-1 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
           indent={indent}
-          tree={tree}
+          tree={tree as never}
         >
           <AssistiveTreeDescription tree={tree} />
           {tree.getItems().map((item) => {

@@ -22,6 +22,7 @@ export default function Component() {
       <Label>Slider with input</Label>
       <div className="flex items-center gap-4">
         <Slider
+          id="slider-16"
           className="grow"
           value={sliderValue}
           onValueChange={handleSliderChange}

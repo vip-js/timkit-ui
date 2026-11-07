@@ -16,7 +16,7 @@ export default function Component() {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
           month={month}
           onMonthChange={setMonth}
         />

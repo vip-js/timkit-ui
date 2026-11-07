@@ -7,7 +7,7 @@ export default function Component() {
   const id = useId()
   return (
     <div className="inline-flex items-center gap-2">
-      <Switch checked={demoChecked} onCheckedChange={(checked) => setDemoChecked(checked === true)}
+      <Switch checked={demoChecked} onCheckedChange={(event) => setDemoChecked(event.detail.checked === true)}
         id={id}
         className="h-5 w-8 [&_span]:size-4 data-[state=checked]:[&_span]:translate-x-3 data-[state=checked]:[&_span]:rtl:-translate-x-3"
       />

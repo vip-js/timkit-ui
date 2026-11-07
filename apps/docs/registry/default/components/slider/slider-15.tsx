@@ -73,6 +73,7 @@ export default function Component() {
       </div>
       <div className="flex items-center gap-4">
         <Slider
+          id="slider-15"
           className="grow"
           value={sliderValue}
           onValueChange={handleSliderChange}

@@ -36,6 +36,7 @@ export default function Component() {
           aria-label="Enter minimum value"
         />
         <Slider
+          id="slider-19"
           className="grow"
           value={sliderValue}
           onValueChange={handleSliderChange}

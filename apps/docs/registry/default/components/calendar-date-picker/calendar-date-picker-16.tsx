@@ -12,7 +12,8 @@ export default function Component() {
   const [date, setDate] = useState<Date | undefined>(today)
   const [inputValue, setInputValue] = useState('')
 
-  const handleDayPickerSelect = (date: Date | undefined) => {
+  const handleDayPickerSelect = (value: unknown) => {
+    const date = value instanceof Date ? value : undefined
     if (!date) {
       setInputValue('')
       setDate(undefined)

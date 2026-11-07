@@ -280,7 +280,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
                     selected={startDate}
                     defaultMonth={startDate}
                     onSelect={(date) => {
-                      if (date) {
+                      if (date instanceof Date) {
                         setStartDate(date)
                         // If end date is before the new start date, update it to match the start date
                         if (isBefore(endDate, date)) {
@@ -298,7 +298,10 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             {!allDay && (
               <div className="min-w-28 *:not-first:mt-1.5">
                 <Label htmlFor="start-time">Start Time</Label>
-                <Select value={startTime} onValueChange={setStartTime}>
+                <Select
+                  value={startTime}
+                  onValueChange={(event) => setStartTime(event.detail.value[0] ?? '')}
+                >
                   <SelectTrigger id="start-time">
                     <SelectValue placeholder="Select time" />
                   </SelectTrigger>
@@ -344,7 +347,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
                     defaultMonth={endDate}
                     disabled={{ before: startDate }}
                     onSelect={(date) => {
-                      if (date) {
+                      if (date instanceof Date) {
                         setEndDate(date)
                         setError(null)
                         setEndDateOpen(false)
@@ -358,7 +361,10 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             {!allDay && (
               <div className="min-w-28 *:not-first:mt-1.5">
                 <Label htmlFor="end-time">End Time</Label>
-                <Select value={endTime} onValueChange={setEndTime}>
+                <Select
+                  value={endTime}
+                  onValueChange={(event) => setEndTime(event.detail.value[0] ?? '')}
+                >
                   <SelectTrigger id="end-time">
                     <SelectValue placeholder="Select time" />
                   </SelectTrigger>
@@ -378,7 +384,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             <Checkbox
               id="all-day"
               checked={allDay}
-              onCheckedChange={(checked) => setAllDay(checked === true)}
+              onCheckedChange={(event) => setAllDay(event.detail.checked === true)}
             />
             <Label htmlFor="all-day">All day</Label>
           </div>
@@ -390,11 +396,13 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
           <fieldset className="space-y-4">
             <legend className="text-foreground text-sm leading-none font-medium">Etiquette</legend>
             <RadioGroup
+              id="event-color"
               className="flex gap-1.5"
               defaultValue={colorOptions[0]?.value}
               value={color}
-              onValueChange={(value: string) => {
-                if (isEventColor(value)) {
+              onValueChange={(event) => {
+                const value = event.detail.value
+                if (value && isEventColor(value)) {
                   setColor(value)
                 }
               }}

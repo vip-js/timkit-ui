@@ -22,6 +22,7 @@ export default function Component() {
       <Label>Vertical slider with input</Label>
       <div className="flex h-40 flex-col items-center justify-center gap-4">
         <Slider
+          id="slider-23"
           className="data-[orientation=vertical]:min-h-0"
           value={sliderValue}
           onValueChange={handleSliderChange}

@@ -9,7 +9,7 @@ export default function Component() {
 
   return (
     <div className="inline-flex items-center gap-2">
-      <Switch id={id} checked={checked} onCheckedChange={setChecked} aria-label="Toggle switch" />
+      <Switch id={id} checked={checked} onCheckedChange={(event) => setChecked(event.detail.checked === true)} aria-label="Toggle switch" />
       <Label htmlFor={id} className="text-sm font-medium">
         {checked ? 'On' : 'Off'}
       </Label>

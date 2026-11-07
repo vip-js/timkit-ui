@@ -17,7 +17,13 @@ export default function Component() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">Rating</Button>
+        <Button
+          onClick={() => setDemoClicks((count) => count + 1)}
+          data-clicks={demoClicks}
+          variant="outline"
+        >
+          Rating
+        </Button>
       </DialogTrigger>
       <DialogContent className="flex flex-col gap-0 p-0 [&>button:last-child]:top-3.5">
         <DialogHeader className="contents space-y-0 text-left">
@@ -31,7 +37,10 @@ export default function Component() {
                   <legend className="text-foreground text-lg leading-none font-semibold">
                     How hard was it to set up your account?
                   </legend>
-                  <RadioGroup className="flex gap-0 -space-x-px rounded-md shadow-xs">
+                  <RadioGroup
+                    id="radio-17"
+                    className="flex gap-0 -space-x-px rounded-md shadow-xs"
+                  >
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
                       <label
                         key={number}

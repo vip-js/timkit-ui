@@ -68,7 +68,7 @@ const Toast = React.forwardRef<
         <li
           ref={ref}
           data-slot="toast"
-          data-state={open === false ? 'closed' : 'open'}
+          data-state={open ? 'open' : 'closed'}
           className={cn(toastVariants({ variant }), className)}
           {...props}
         >

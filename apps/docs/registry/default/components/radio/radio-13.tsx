@@ -16,7 +16,7 @@ export default function Component() {
   return (
     <fieldset className="space-y-4">
       <legend className="text-foreground text-sm leading-none font-medium">CPU Cores</legend>
-      <RadioGroup className="grid grid-cols-3 gap-2" defaultValue="1">
+      <RadioGroup id={id} className="grid grid-cols-3 gap-2" defaultValue="1">
         {items.map((item) => (
           <label
             key={`${id}-${item.value}`}

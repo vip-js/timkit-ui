@@ -37,7 +37,7 @@ export default function Component() {
             <Switch
               id={`switch-${id}`}
               checked={checked}
-              onCheckedChange={setChecked}
+              onCheckedChange={(event) => setChecked(event.detail.checked === true)}
               className="h-5 w-8 [&_span]:size-4 data-[state=checked]:[&_span]:translate-x-3 data-[state=checked]:[&_span]:rtl:-translate-x-3"
               aria-label="Toggle switch"
             />

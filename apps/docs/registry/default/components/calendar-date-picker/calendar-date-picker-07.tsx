@@ -18,7 +18,7 @@ export default function Component() {
       <Calendar
         mode="multiple"
         selected={date}
-        onSelect={setDate}
+        onSelect={(value) => setDate(Array.isArray(value) ? value : undefined)}
         className="rounded-md border p-2"
       />
       <p

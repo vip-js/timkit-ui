@@ -22,7 +22,12 @@ export default function Component() {
         >
           <ChevronLeftIcon size={16} aria-hidden="true" />
         </Button>
-        <Stepper value={currentStep} onValueChange={setCurrentStep} className="gap-1">
+        <Stepper
+          id="stepper-08"
+          value={String(currentStep)}
+          onValueChange={(event) => setCurrentStep(event.detail.valueAsNumber)}
+          className="gap-1"
+        >
           {steps.map((step) => (
             <StepperItem key={step} step={step} className="flex-1">
               <StepperTrigger className="w-full flex-col items-start gap-2" asChild>

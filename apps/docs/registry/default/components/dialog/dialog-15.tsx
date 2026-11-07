@@ -24,7 +24,6 @@ export default function Component() {
   const [emails, setEmails] = useState(['mark@yourcompany.com', 'jane@yourcompany.com', ''])
   const [copied, setCopied] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const lastInputRef = useRef<HTMLInputElement>(null)
 
   const addEmail = () => {
     setEmails([...emails, ''])
@@ -49,12 +48,7 @@ export default function Component() {
       <DialogTrigger asChild>
         <Button variant="outline">Invite members</Button>
       </DialogTrigger>
-      <DialogContent
-        onOpenAutoFocus={(e) => {
-          e.preventDefault()
-          lastInputRef.current?.focus()
-        }}
-      >
+      <DialogContent>
         <div className="flex flex-col gap-2">
           <div
             className="flex size-11 shrink-0 items-center justify-center rounded-full border"
@@ -83,7 +77,6 @@ export default function Component() {
                     type="email"
                     value={email}
                     onChange={(e) => handleEmailChange(index, e.target.value)}
-                    ref={index === emails.length - 1 ? lastInputRef : undefined}
                   />
                 ))}
               </div>

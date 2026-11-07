@@ -117,7 +117,7 @@ export default function Component() {
         </div>
       </div>
 
-      <Tree indent={indent} tree={tree}>
+      <Tree indent={indent} tree={tree as never}>
         {tree.getItems().map((item) => {
           return (
             <TreeItem key={item.getId()} item={item}>

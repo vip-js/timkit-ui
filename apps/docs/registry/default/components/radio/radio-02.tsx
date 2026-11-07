@@ -5,6 +5,7 @@ export default function Component() {
   const id = useId()
   return (
     <RadioGroup
+      id={id}
       defaultValue="1"
       className="[--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]"
     >

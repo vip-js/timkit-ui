@@ -5,7 +5,7 @@ import { Label, RadioGroup, RadioGroupItem } from '@timui/react'
 export default function Component() {
   const id = useId()
   return (
-    <RadioGroup defaultValue="all">
+    <RadioGroup id={id} defaultValue="all">
       <div className="flex items-center gap-2">
         <RadioGroupItem value="all" id={`${id}-1`} />
         <Label htmlFor={`${id}-1`}>

@@ -19,8 +19,9 @@ export default function Component() {
       </Label>
       <div className="flex items-center gap-4">
         <Slider
+          id="slider-21"
           value={value}
-          onValueChange={setValue}
+          onValueChange={(event) => setValue(event.detail.value)}
           min={min_price}
           max={max_price}
           aria-label="Price range slider"

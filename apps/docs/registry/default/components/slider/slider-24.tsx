@@ -6,6 +6,7 @@ export default function Component() {
       <Label>Vertical dual range slider and tooltip</Label>
       <div className="flex h-40 justify-center">
         <Slider
+          id="slider-24"
           defaultValue={[2, 7]}
           max={10}
           orientation="vertical"

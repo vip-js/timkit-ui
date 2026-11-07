@@ -16,7 +16,12 @@ export default function Component() {
   const [currentStep, setCurrentStep] = useState(1)
   return (
     <div className="space-y-8 text-center">
-      <Stepper value={currentStep} onValueChange={setCurrentStep} orientation="vertical">
+      <Stepper
+        id="stepper-15"
+        value={String(currentStep)}
+        onValueChange={(event) => setCurrentStep(event.detail.valueAsNumber)}
+        orientation="vertical"
+      >
         {steps.map((step) => (
           <StepperItem key={step} step={step} className="not-last:flex-1">
             <StepperTrigger asChild>

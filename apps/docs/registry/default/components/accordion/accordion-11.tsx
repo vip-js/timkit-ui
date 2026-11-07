@@ -31,7 +31,7 @@ export default function Component() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">Tabs w/ chevron</h2>
-      <Accordion type="single" collapsible className="w-full space-y-2" defaultValue="3">
+      <Accordion id="accordion-11" type="single" collapsible className="w-full space-y-2" defaultValue={['3']}>
         {items.map((item) => (
           <AccordionItem
             value={item.id}

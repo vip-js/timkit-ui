@@ -10,7 +10,7 @@ export default function Component() {
   return (
     <div className="flex flex-col gap-2">
       <Label htmlFor={id}>Input with inner tags</Label>
-      <TagsInput value={value} onValueChange={(details) => setValue(details.value)}>
+      <TagsInput id={id} value={value} onValueChange={(event) => setValue(event.detail.value)}>
         <TagsInputControl>
           {value.map((tag, index) => (
             <TagsInputItem key={index} index={index} value={tag} />

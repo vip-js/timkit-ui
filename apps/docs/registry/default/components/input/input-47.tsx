@@ -40,7 +40,10 @@ export default function Component() {
   )
 }
 
-const PhoneInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
+const PhoneInput = ({ className, ...props }: Omit<React.ComponentProps<'input'>, 'value' | 'defaultValue'> & {
+  value?: string
+  defaultValue?: string
+}) => {
   return (
     <Input
       data-slot="phone-input"

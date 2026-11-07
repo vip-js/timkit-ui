@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import type { SliderValueChangeEvent } from '@timui/core'
 import {
   Input,
   Label,
@@ -270,12 +271,12 @@ export default function Easings({ easings }: EasingsProps) {
   const [animationType, setAnimationType] = useState<AnimationType>('translate')
   const [easingFilter, setEasingFilter] = useState<EasingFilter>('all')
 
-  const handleSliderChangeEnd = (value: number[]) => {
-    setDuration(value[0])
+  const handleSliderChangeEnd = (details: { value: number[] }) => {
+    setDuration(details.value[0])
   }
 
-  const handleSliderChange = (value: number[]) => {
-    setTempDuration(value[0])
+  const handleSliderChange = (event: SliderValueChangeEvent) => {
+    setTempDuration(event.detail.value[0])
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -319,18 +320,20 @@ export default function Easings({ easings }: EasingsProps) {
             <Label>Duration</Label>
             <div className="flex items-center gap-4">
               <Slider
+                id="easing-duration"
+                aria-label="Animation duration"
                 value={[tempDuration]}
                 min={0}
                 max={5000}
                 step={1}
                 onValueChange={handleSliderChange}
-                onValueCommit={handleSliderChangeEnd}
+                onValueChangeEnd={handleSliderChangeEnd}
                 className="w-[180px]"
                 defaultValue={[0]}
               />
               <Input
                 type="number"
-                value={tempDuration}
+                value={String(tempDuration)}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
                 className="w-[90px]"
@@ -346,7 +349,9 @@ export default function Easings({ easings }: EasingsProps) {
               <Label>Filter</Label>
               <Select
                 value={easingFilter}
-                onValueChange={(value: EasingFilter) => setEasingFilter(value)}
+                onValueChange={(event) =>
+                  setEasingFilter((event.detail.value[0] ?? 'all') as EasingFilter)
+                }
               >
                 <SelectTrigger className="h-9 w-[100px]">
                   <SelectValue placeholder="Select animation type" />
@@ -371,7 +376,9 @@ export default function Easings({ easings }: EasingsProps) {
               <Label>Animation type</Label>
               <Select
                 value={animationType}
-                onValueChange={(value: AnimationType) => setAnimationType(value)}
+                onValueChange={(event) =>
+                  setAnimationType((event.detail.value[0] ?? 'translate') as AnimationType)
+                }
               >
                 <SelectTrigger className="h-9 w-[180px]">
                   <SelectValue placeholder="Select animation type" />

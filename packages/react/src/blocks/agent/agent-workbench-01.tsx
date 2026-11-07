@@ -2,7 +2,7 @@
 
 import type { AgentThread } from '@timui/core/agent-thread'
 
-import { AgentThreadView, useAgentThreadController } from '../../agent'
+import { AgentThreadView, useAgentThreadController } from '@timui/react/agent'
 
 const initialThread: AgentThread = {
   id: 'refund-1842',

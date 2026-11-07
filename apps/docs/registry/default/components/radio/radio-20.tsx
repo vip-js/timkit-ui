@@ -10,8 +10,9 @@ export default function Component() {
   return (
     <div className="bg-input/50 inline-flex h-9 rounded-md p-0.5">
       <RadioGroup
+        id={id}
         value={selectedValue}
-        onValueChange={setSelectedValue}
+        onValueChange={(event) => setSelectedValue(event.detail.value ?? '')}
         className="group after:bg-background has-focus-visible:after:border-ring has-focus-visible:after:ring-ring/50 relative inline-grid grid-cols-[1fr_1fr] items-center gap-0 text-sm font-medium after:absolute after:inset-y-0 after:w-1/2 after:rounded-sm after:shadow-xs after:transition-[translate,box-shadow] after:duration-300 after:ease-[cubic-bezier(0.16,1,0.3,1)] has-focus-visible:after:ring-[3px] data-[state=off]:after:translate-x-0 data-[state=on]:after:translate-x-full"
         data-state={selectedValue}
       >

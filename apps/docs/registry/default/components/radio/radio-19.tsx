@@ -13,7 +13,7 @@ export default function Component() {
   return (
     <fieldset className="space-y-4">
       <legend className="text-foreground text-sm leading-none font-medium">Choose a theme</legend>
-      <RadioGroup className="flex gap-3" defaultValue="1">
+      <RadioGroup id={id} className="flex gap-3" defaultValue="1">
         {items.map((item) => (
           <label key={`${id}-${item.value}`}>
             <RadioGroupItem

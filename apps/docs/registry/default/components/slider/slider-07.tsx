@@ -10,7 +10,7 @@ export default function Component() {
     <div className="*:not-first:mt-4">
       <Label>Slider with ticks</Label>
       <div>
-        <Slider defaultValue={[5]} max={max} aria-label="Slider with ticks" />
+        <Slider id="slider-07" defaultValue={[5]} max={max} aria-label="Slider with ticks" />
         <span
           className="text-muted-foreground mt-3 flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium"
           aria-hidden="true"

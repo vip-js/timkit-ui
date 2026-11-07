@@ -21,12 +21,13 @@ export default function Component() {
         </Cropper>
         <div className="mx-auto flex w-full max-w-80 items-center gap-1">
           <Slider
+            id="cropper-zoom"
             defaultValue={[1]}
             value={[zoom]}
             min={1}
             max={3}
             step={0.1}
-            onValueChange={(value) => setZoom(value[0])}
+            onValueChange={(event) => setZoom(event.detail.value[0] ?? 1)}
             aria-label="Zoom slider"
           />
           <output className="block w-10 shrink-0 text-right text-sm font-medium tabular-nums">

@@ -90,7 +90,7 @@ function TagsInputInput({
       placeholder={placeholder ?? inputProps.placeholder}
       aria-label={named ? ariaLabel : placeholder || inputProps.placeholder || 'Add a tag'}
       onKeyDown={(event) => {
-        if (api.disabled || inputProps.disabled) {
+        if (inputProps.disabled) {
           event.preventDefault()
           return
         }

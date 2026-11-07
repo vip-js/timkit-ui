@@ -251,7 +251,7 @@ export default function Component() {
         )}
       </div>
 
-      <Tree indent={indent} tree={tree}>
+      <Tree indent={indent} tree={tree as never}>
         {searchValue && filteredItems.length === 0 ? (
           <p className="px-3 py-4 text-center text-sm">No items found for "{searchValue}"</p>
         ) : (

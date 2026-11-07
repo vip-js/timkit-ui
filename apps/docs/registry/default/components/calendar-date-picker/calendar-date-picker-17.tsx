@@ -11,7 +11,12 @@ export default function Component() {
   return (
     <div>
       <div className="rounded-md border">
-        <Calendar mode="single" className="p-2" selected={date} onSelect={setDate} />
+        <Calendar
+          mode="single"
+          className="p-2"
+          selected={date}
+          onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
+        />
         <div className="border-t p-3">
           <div className="flex items-center gap-3">
             <Label htmlFor={id} className="text-xs">

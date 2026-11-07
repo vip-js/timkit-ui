@@ -57,6 +57,7 @@ const columns: ColumnDef<Item>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
+        id="table-18-select-all"
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
@@ -69,6 +70,7 @@ const columns: ColumnDef<Item>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
+        id={`table-18-row-${row.id}`}
         checked={row.getIsSelected()}
         onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
         onClick={() => row.toggleSelected(!row.getIsSelected())}
@@ -265,8 +267,8 @@ export default function Component() {
           </Label>
           <Select
             value={table.getState().pagination.pageSize.toString()}
-            onValueChange={(value: string) => {
-              table.setPageSize(Number(value))
+            onValueChange={(event) => {
+              table.setPageSize(Number(event.detail.value[0] ?? 10))
             }}
           >
             <SelectTrigger id={id} className="w-fit whitespace-nowrap">

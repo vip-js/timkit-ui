@@ -23,7 +23,11 @@ export default function Component() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">
+        <Button
+          onClick={() => setDemoClicks((count) => count + 1)}
+          data-clicks={demoClicks}
+          variant="outline"
+        >
           Labeled grouped items
           <ChevronDownIcon className="-me-1 opacity-60" size={16} aria-hidden="true" />
         </Button>
@@ -51,7 +55,7 @@ export default function Component() {
             <FilesIcon size={16} className="opacity-60" aria-hidden="true" />
             Clone
           </DropdownMenuItem>
-          <DropdownMenuItem variant="destructive">
+          <DropdownMenuItem>
             <TrashIcon size={16} aria-hidden="true" />
             Delete
           </DropdownMenuItem>

@@ -52,6 +52,7 @@ const columns: ColumnDef<Item>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
+        id="table-19-select-all"
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
@@ -64,6 +65,7 @@ const columns: ColumnDef<Item>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
+        id={`table-19-row-${row.id}`}
         checked={row.getIsSelected()}
         onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
         onClick={() => row.toggleSelected(!row.getIsSelected())}
@@ -336,8 +338,8 @@ export default function Component() {
         <div className="flex flex-1 justify-end">
           <Select
             value={table.getState().pagination.pageSize.toString()}
-            onValueChange={(value: string) => {
-              table.setPageSize(Number(value))
+            onValueChange={(event) => {
+              table.setPageSize(Number(event.detail.value[0] ?? 10))
             }}
             aria-label="Results per page"
           >

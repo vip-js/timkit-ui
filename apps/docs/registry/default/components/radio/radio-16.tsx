@@ -14,7 +14,11 @@ export default function Component() {
       <legend className="text-foreground text-sm leading-none font-medium">
         Rate your experience
       </legend>
-      <RadioGroup className="inline-flex gap-0" onValueChange={setCurrentRating}>
+      <RadioGroup
+        id={id}
+        className="inline-flex gap-0"
+        onValueChange={(event) => setCurrentRating(event.detail.value ?? '')}
+      >
         {['1', '2', '3', '4', '5'].map((value) => (
           <label
             key={value}

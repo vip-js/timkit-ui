@@ -26,7 +26,11 @@ export default function Component() {
 
   return (
     <div className="mx-auto max-w-xl space-y-8 text-center">
-      <Stepper value={currentStep} onValueChange={setCurrentStep}>
+      <Stepper
+        id="stepper-05"
+        value={String(currentStep)}
+        onValueChange={(event) => setCurrentStep(event.detail.valueAsNumber)}
+      >
         {steps.map((step) => (
           <StepperItem key={step} step={step} className="not-last:flex-1" loading={isLoading}>
             <StepperTrigger asChild>

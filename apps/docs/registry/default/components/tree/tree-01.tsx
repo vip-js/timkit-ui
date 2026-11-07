@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-
-import React from 'react'
+import React, { useState } from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
+import type { TreeContainerApi } from '@timui/core'
 import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
 
 interface Item {
@@ -63,7 +62,7 @@ export default function Component() {
 
   return (
     <div className="flex h-full flex-col gap-2 *:first:grow">
-      <Tree indent={indent} tree={tree}>
+      <Tree indent={indent} tree={tree as unknown as TreeContainerApi}>
         {tree.getItems().map((item) => {
           return (
             <TreeItem key={item.getId()} item={item}>

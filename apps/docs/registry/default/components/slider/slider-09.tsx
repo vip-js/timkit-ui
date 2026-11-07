@@ -12,7 +12,7 @@ export default function Component() {
           <span>Low</span>
           <span>High</span>
         </span>
-        <Slider defaultValue={[50]} step={10} aria-label="Slider with labels" />
+        <Slider id="slider-09" defaultValue={[50]} step={10} aria-label="Slider with labels" />
       </div>
     </div>
   )

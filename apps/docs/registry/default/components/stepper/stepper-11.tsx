@@ -25,7 +25,7 @@ const steps = [
 export default function Component() {
   return (
     <div className="space-y-8 text-center">
-      <Stepper defaultValue={2}>
+      <Stepper id="stepper-11" defaultValue="2">
         {steps.map(({ step, title }) => (
           <StepperItem key={step} step={step} className="not-last:flex-1 max-md:items-start">
             <StepperTrigger className="rounded max-md:flex-col">

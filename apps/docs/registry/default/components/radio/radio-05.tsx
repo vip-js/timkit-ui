@@ -16,7 +16,12 @@ export default function Component() {
   }, [selectedValue])
 
   return (
-    <RadioGroup className="gap-6" value={selectedValue} onValueChange={setSelectedValue}>
+    <RadioGroup
+      id={radioId}
+      className="gap-6"
+      value={selectedValue}
+      onValueChange={(event) => setSelectedValue(event.detail.value ?? '')}
+    >
       <div>
         <div className="flex items-start gap-2">
           <RadioGroupItem

@@ -19,9 +19,11 @@ export default function Component() {
       <legend className="text-foreground text-sm font-medium">Card Details</legend>
       <div className="rounded-md shadow-xs">
         <div className="relative focus-within:z-10">
-          <Input value={demoValue} onChange={(event) => setDemoValue(event.target.value)}
+          <Input
+            value={demoValue}
             className="peer rounded-b-none pe-9 shadow-none [direction:inherit]"
             {...getCardNumberProps()}
+            onChange={(event) => setDemoValue(event.target.value)}
             id={`number-${id}`}
           />
           <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 peer-disabled:opacity-50">

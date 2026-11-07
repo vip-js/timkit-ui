@@ -5,7 +5,7 @@ export default function Component() {
     <div className="*:not-first:mt-4">
       <Label>Slider with reference labels</Label>
       <div>
-        <Slider defaultValue={[15]} min={5} max={35} aria-label="Slider with reference labels" />
+        <Slider id="slider-06" defaultValue={[15]} min={5} max={35} aria-label="Slider with reference labels" />
         <span
           className="text-muted-foreground mt-4 flex w-full items-center justify-between gap-1 text-xs font-medium"
           aria-hidden="true"

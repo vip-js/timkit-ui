@@ -4,7 +4,7 @@ import { Label, RadioGroup, RadioGroupItem } from '@timui/react'
 export default function Component() {
   const id = useId()
   return (
-    <RadioGroup className="gap-2" defaultValue="1">
+    <RadioGroup id={id} className="gap-2" defaultValue="1">
       {/* Radio card #1 */}
       <div className="border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none">
         <RadioGroupItem

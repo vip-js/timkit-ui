@@ -17,7 +17,7 @@ export default function Component() {
         <Checkbox
           id={id}
           checked={isDark}
-          onCheckedChange={(checked) => setIsDark(checked === true)}
+          onCheckedChange={(event) => setIsDark(event.detail.checked === true)}
         />
         <Label htmlFor={id} className="inline-flex items-center gap-2">
           <span className="border-input bg-background inline-flex size-9 items-center justify-center rounded-md border">

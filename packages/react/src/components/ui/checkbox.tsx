@@ -49,7 +49,7 @@ const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
       name,
       value: value ?? 'on',
       onCheckedChange(event) {
-        if (checked === undefined) setOn(event.detail.checked)
+        if (checked === undefined) setOn(event.detail.checked === true)
         onCheckedChange?.(event)
       },
     })

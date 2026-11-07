@@ -351,7 +351,6 @@ const MultipleSelector = ({
           e.preventDefault()
           e.stopPropagation()
         }}
-        // @ts-expect-error cmdk type compatibility issue
         onSelect={(value: string) => {
           if (selected.length >= maxSelected) {
             onMaxSelected?.(selected.length)
@@ -388,7 +387,6 @@ const MultipleSelector = ({
     // For async search that showing emptyIndicator
     if (onSearch && !creatable && Object.keys(options).length === 0) {
       return (
-        // @ts-expect-error cmdk type compatibility issue
         <CommandItem value="-" disabled className="cursor-default">
           {emptyIndicator}
         </CommandItem>
@@ -574,7 +572,6 @@ const MultipleSelector = ({
                             <CommandItem
                               key={option.value}
                               value={option.value}
-                              // @ts-expect-error cmdk type compatibility issue
                               disabled={option.disable}
                               onMouseDown={(e: React.MouseEvent) => {
                                 e.preventDefault()

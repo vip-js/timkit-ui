@@ -4,7 +4,7 @@ import { Label, RadioGroup, RadioGroupItem } from '@timui/react'
 export default function Component() {
   const id = useId()
   return (
-    <RadioGroup className="gap-6" defaultValue="1">
+    <RadioGroup id={id} className="gap-6" defaultValue="1">
       <div className="flex items-start gap-2">
         <RadioGroupItem value="1" id={`${id}-1`} aria-describedby={`${id}-1-description`} />
         <div className="grid grow gap-2">

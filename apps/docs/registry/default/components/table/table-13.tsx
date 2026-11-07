@@ -58,6 +58,7 @@ const columns: ColumnDef<Item>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
+        id="table-13-select-all"
         checked={
           table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
@@ -70,6 +71,7 @@ const columns: ColumnDef<Item>[] = [
     ),
     cell: ({ row }) => (
       <Checkbox
+        id={`table-13-row-${row.id}`}
         checked={row.getIsSelected()}
         onCheckedChange={(value: any) => row.toggleSelected(!!(value?.detail?.checked ?? value))}
         onClick={() => row.toggleSelected(!row.getIsSelected())}
@@ -430,7 +432,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
           <Input
             id={`${id}-range-1`}
             className="flex-1 rounded-e-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-            value={(columnFilterValue as [number, number])?.[0] ?? ''}
+            value={String((columnFilterValue as [number, number])?.[0] ?? '')}
             onChange={(e) =>
               column.setFilterValue((old: [number, number]) => [
                 e.target.value ? Number(e.target.value) : undefined,
@@ -444,7 +446,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
           <Input
             id={`${id}-range-2`}
             className="-ms-px flex-1 rounded-s-none [-moz-appearance:_textfield] focus:z-10 [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-            value={(columnFilterValue as [number, number])?.[1] ?? ''}
+            value={String((columnFilterValue as [number, number])?.[1] ?? '')}
             onChange={(e) =>
               column.setFilterValue((old: [number, number]) => [
                 old?.[0],
@@ -466,7 +468,8 @@ function Filter({ column }: { column: Column<any, unknown> }) {
         <Label htmlFor={`${id}-select`}>{columnHeader}</Label>
         <Select
           value={columnFilterValue?.toString() ?? 'all'}
-          onValueChange={(value: string) => {
+          onValueChange={(event) => {
+            const value = event.detail.value[0] ?? 'all'
             column.setFilterValue(value === 'all' ? undefined : value)
           }}
         >

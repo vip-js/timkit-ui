@@ -64,7 +64,10 @@ export default function Component() {
               </BreadcrumbItem>
               <BreadcrumbSeparator> / </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <Select value={projectValue} onValueChange={(value) => setProjectValue(value)}>
+                <Select
+                  value={projectValue}
+                  onValueChange={(event) => setProjectValue(event.detail.value[0] ?? '')}
+                >
                   <SelectTrigger aria-label="Select project" asChild>
                     <Button
                       variant="ghost"

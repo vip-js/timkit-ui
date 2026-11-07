@@ -88,7 +88,10 @@ export default function Component() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <Select value={accountType} onValueChange={(value) => setAccountType(value)}>
+                <Select
+                  value={accountType}
+                  onValueChange={(event) => setAccountType(event.detail.value[0] ?? '')}
+                >
                   <SelectTrigger aria-label="Select account type" asChild>
                     <Button
                       variant="ghost"
@@ -107,7 +110,10 @@ export default function Component() {
               </BreadcrumbItem>
               <BreadcrumbSeparator> / </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <Select value={projectValue} onValueChange={(value) => setProjectValue(value)}>
+                <Select
+                  value={projectValue}
+                  onValueChange={(event) => setProjectValue(event.detail.value[0] ?? '')}
+                >
                   <SelectTrigger aria-label="Select project" asChild>
                     <Button
                       variant="ghost"

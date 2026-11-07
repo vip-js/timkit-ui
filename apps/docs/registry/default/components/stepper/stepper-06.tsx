@@ -10,7 +10,7 @@ import { Shuffle } from 'lucide-react'
 export default function Component() {
   return (
     <div className="mx-auto max-w-xl space-y-8 text-center">
-      <Stepper defaultValue={2}>
+      <Stepper id="stepper-06" defaultValue="2">
         <StepperItem step={1} className="not-last:flex-1">
           <StepperTrigger>
             <StepperIndicator asChild>

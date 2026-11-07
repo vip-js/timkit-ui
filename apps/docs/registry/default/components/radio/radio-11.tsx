@@ -13,7 +13,7 @@ export default function Component() {
   ]
 
   return (
-    <RadioGroup className="grid-cols-2" defaultValue="1">
+    <RadioGroup id={id} className="grid-cols-2" defaultValue="1">
       {items.map((item) => (
         <div
           key={`${id}-${item.value}`}

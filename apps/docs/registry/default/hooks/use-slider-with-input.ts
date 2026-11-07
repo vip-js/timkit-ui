@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import type { SliderValueChangeEvent } from '@timui/core'
 
 type UseSliderWithInputProps = {
   minValue?: number
@@ -77,7 +78,8 @@ export function useSliderWithInput({
     [inputValues]
   )
 
-  const handleSliderChange = useCallback((newValue: number[]) => {
+  const handleSliderChange = useCallback((value: number[] | SliderValueChangeEvent) => {
+    const newValue = Array.isArray(value) ? value : value.detail.value
     setSliderValue(newValue)
     setInputValues(newValue.map((v) => v.toString()))
   }, [])

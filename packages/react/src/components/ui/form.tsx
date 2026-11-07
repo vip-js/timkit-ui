@@ -152,7 +152,7 @@ function Form({
               name: text.name,
               disabled,
               required: required || undefined,
-              'aria-required': required ? 'true' : undefined,
+              'aria-required': required || undefined,
               'aria-invalid': text['aria-invalid'],
               'aria-describedby': describedBy || undefined,
             }

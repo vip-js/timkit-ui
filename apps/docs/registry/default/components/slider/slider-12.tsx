@@ -14,7 +14,12 @@ export default function Component() {
           {value[0]} - {value[1]}
         </output>
       </div>
-      <Slider value={value} onValueChange={setValue} aria-label="Dual range slider with output" />
+      <Slider
+        id="slider-12"
+        value={value}
+        onValueChange={(event) => setValue(event.detail.value)}
+        aria-label="Dual range slider with output"
+      />
     </div>
   )
 }

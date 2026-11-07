@@ -17,8 +17,9 @@ export default function Component() {
       <div className="flex items-center gap-2">
         <span className="text-2xl">😡</span>
         <Slider
+          id="slider-17"
           value={value}
-          onValueChange={setValue}
+          onValueChange={(event) => setValue(event.detail.value)}
           min={1}
           max={5}
           aria-label="Rate your experience"

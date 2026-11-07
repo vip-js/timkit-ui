@@ -43,7 +43,7 @@ export default function Component() {
       <Calendar
         mode="single"
         selected={date}
-        onSelect={setDate}
+        onSelect={(value) => setDate(value instanceof Date ? value : undefined)}
         numberOfMonths={2}
         pagedNavigation
         showOutsideDays={false}

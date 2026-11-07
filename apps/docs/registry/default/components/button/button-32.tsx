@@ -13,7 +13,7 @@ export default function Component() {
       type="single"
       value={value}
       onValueChange={(value) => {
-        if (value) setValue(value)
+        if (typeof value === 'string' && value) setValue(value)
       }}
     >
       <ToggleGroupItem

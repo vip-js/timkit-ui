@@ -77,7 +77,7 @@ export default function Component() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">Multi-level</h2>
-      <Accordion type="single" collapsible className="w-full -space-y-px" defaultValue="3">
+      <Accordion id="accordion-19" type="single" collapsible className="w-full -space-y-px" defaultValue={['3']}>
         {items.map((item) => (
           <AccordionItem
             value={item.id}

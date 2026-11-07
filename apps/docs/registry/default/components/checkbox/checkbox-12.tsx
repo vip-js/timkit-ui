@@ -21,7 +21,7 @@ export default function Component() {
         <Checkbox
           id={checkboxId}
           checked={checked}
-          onCheckedChange={setChecked}
+          onCheckedChange={(event) => setChecked(event.detail.checked)}
           aria-describedby={`${checkboxId}-description`}
           aria-controls={inputId}
         />

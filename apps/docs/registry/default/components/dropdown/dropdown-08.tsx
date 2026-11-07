@@ -20,7 +20,11 @@ export default function Component() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button onClick={() => setDemoClicks((count) => count + 1)} data-clicks={demoClicks} variant="outline">
+        <Button
+          onClick={() => setDemoClicks((count) => count + 1)}
+          data-clicks={demoClicks}
+          variant="outline"
+        >
           Rich menu
           <ChevronDownIcon className="-me-1 opacity-60" size={16} aria-hidden="true" />
         </Button>
@@ -60,7 +64,7 @@ export default function Component() {
           <DropdownMenuItem>Add to favorites</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem>
           <span>Delete</span>
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

@@ -4,7 +4,7 @@ export default function Component() {
   return (
     <fieldset className="space-y-4">
       <legend className="text-foreground text-sm leading-none font-medium">Choose a color</legend>
-      <RadioGroup className="flex gap-1.5" defaultValue="blue">
+      <RadioGroup id="radio-07" className="flex gap-1.5" defaultValue="blue">
         <RadioGroupItem
           value="blue"
           aria-label="Blue"

@@ -44,7 +44,7 @@ function Pagination({
   onPageChange?: (details: PaginationChange) => void
 }) {
   const generatedId = React.useId()
-  const service = useMachine(paginationMachine, {
+  const service = useMachine(paginationMachine as never, {
     id: generatedId,
     count: count ?? 0,
     pageSize,
@@ -55,7 +55,7 @@ function Pagination({
       onPageChange?.(details)
     },
   })
-  const api = count == null ? null : paginationConnect(service, normalizeProps)
+  const api = count == null ? null : paginationConnect(service as never, normalizeProps)
   const shown = page === undefined ? api?.page : page == null ? undefined : page
   const pages = count == null ? 0 : pageCount(count, pageSize)
 
@@ -175,22 +175,24 @@ function PaginationPrevious({
 }: React.ComponentProps<typeof PaginationLink>) {
   const api = React.useContext(PaginationContext)
   const groupDisabled = React.useContext(PaginationDisabledContext)
+  const { ref: _propsRef, type: _propsType, ...restProps } = props
   if (api) {
     const trigger = api.getPrevTriggerProps()
+    const { ref: _triggerRef, type: _triggerType, ...triggerProps } = trigger
     return (
       <button
         data-slot="pagination-link"
         className={cn(paginationPreviousVariants(), className)}
-        {...props}
-        {...trigger}
-        disabled={groupDisabled || trigger.disabled || undefined}
-        aria-disabled={groupDisabled || trigger.disabled || undefined}
+        {...(restProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        disabled={groupDisabled || triggerProps.disabled || undefined}
+        aria-disabled={groupDisabled || triggerProps.disabled || undefined}
         onClick={(event) => {
-          if (groupDisabled || trigger.disabled) {
+          if (groupDisabled || triggerProps.disabled) {
             event.preventDefault()
             return
           }
-          trigger.onClick?.(event)
+          triggerProps.onClick?.(event)
         }}
       >
         {children ?? (
@@ -222,22 +224,24 @@ function PaginationPrevious({
 function PaginationNext({ className, children, ...props }: React.ComponentProps<typeof PaginationLink>) {
   const api = React.useContext(PaginationContext)
   const groupDisabled = React.useContext(PaginationDisabledContext)
+  const { ref: _propsRef, type: _propsType, ...restProps } = props
   if (api) {
     const trigger = api.getNextTriggerProps()
+    const { ref: _triggerRef, type: _triggerType, ...triggerProps } = trigger
     return (
       <button
         data-slot="pagination-link"
         className={cn(paginationNextVariants(), className)}
-        {...props}
-        {...trigger}
-        disabled={groupDisabled || trigger.disabled || undefined}
-        aria-disabled={groupDisabled || trigger.disabled || undefined}
+        {...(restProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        {...(triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        disabled={groupDisabled || triggerProps.disabled || undefined}
+        aria-disabled={groupDisabled || triggerProps.disabled || undefined}
         onClick={(event) => {
-          if (groupDisabled || trigger.disabled) {
+          if (groupDisabled || triggerProps.disabled) {
             event.preventDefault()
             return
           }
-          trigger.onClick?.(event)
+          triggerProps.onClick?.(event)
         }}
       >
         {children ?? (

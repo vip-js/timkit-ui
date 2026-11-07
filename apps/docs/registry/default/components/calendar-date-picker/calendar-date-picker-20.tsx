@@ -82,7 +82,7 @@ export default function Component() {
             mode="single"
             selected={date}
             onSelect={(newDate) => {
-              if (newDate) {
+              if (newDate instanceof Date) {
                 setDate(newDate)
               }
             }}

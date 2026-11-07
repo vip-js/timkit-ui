@@ -90,6 +90,7 @@ function SliderWithInput({
     <div className="flex items-center gap-2">
       <Label className="text-muted-foreground text-xs">{label}</Label>
       <Slider
+        id={`slider-${label.toLowerCase()}`}
         className="grow [&>:last-child>span]:rounded"
         value={sliderValue}
         onValueChange={handleSliderChange}

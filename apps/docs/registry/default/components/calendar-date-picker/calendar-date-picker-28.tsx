@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 
 type CalendarRangeValue = { from: Date | undefined; to?: Date }
-type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined
+type CalendarSelectedValue = Date | Date[] | CalendarRangeValue | undefined | null
 
 export default function Component() {
   const id = useId()
@@ -17,7 +17,7 @@ export default function Component() {
     <div>
       <div className="*:not-first:mt-2">
         <Label htmlFor={id}>Date range picker</Label>
-        <Popover ids={{ trigger: id }}>
+        <Popover>
           <PopoverTrigger asChild>
             <Button
               id={id}

@@ -172,7 +172,7 @@ const NumberField = React.forwardRef<HTMLDivElement, NumberFieldProps>(
         onChange?.(next)
         return
       }
-      api.setValue(String(next))
+      api.setValue(next)
     })
     const rootProps = api.getRootProps()
     const mergedProps = mergeProps(rootProps, props) as React.HTMLAttributes<HTMLDivElement>
@@ -255,7 +255,7 @@ const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProp
       if (min != null && Number.isFinite(min)) next = Math.max(min, next)
       if (max != null && Number.isFinite(max)) next = Math.min(max, next)
       event.preventDefault()
-      api.setValue(String(next))
+      api.setValue(next)
     }
 
     return (

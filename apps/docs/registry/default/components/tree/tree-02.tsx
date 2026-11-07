@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-
-import React from 'react'
+import React, { useState } from 'react'
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core'
 import { useTree } from '@headless-tree/react'
 import { Tree, TreeItem, TreeItemLabel } from '@timui/react'
@@ -67,7 +65,7 @@ export default function Component() {
         <Tree
           className="relative before:absolute before:inset-0 before:-ms-1 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
           indent={indent}
-          tree={tree}
+          tree={tree as never}
         >
           {tree.getItems().map((item) => {
             return (

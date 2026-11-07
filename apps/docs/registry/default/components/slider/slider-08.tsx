@@ -12,7 +12,12 @@ export default function Component() {
         <Label className="leading-6">Slider with output</Label>
         <output className="text-sm font-medium tabular-nums">{value[0]}</output>
       </div>
-      <Slider value={value} onValueChange={setValue} aria-label="Slider with output" />
+      <Slider
+        id="slider-08"
+        value={value}
+        onValueChange={(event) => setValue(event.detail.value)}
+        aria-label="Slider with output"
+      />
     </div>
   )
 }

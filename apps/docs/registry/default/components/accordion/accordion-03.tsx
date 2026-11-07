@@ -31,7 +31,7 @@ export default function Component() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">W/ left chevron</h2>
-      <Accordion type="single" collapsible className="w-full" defaultValue="3">
+      <Accordion id="accordion-03" type="single" collapsible className="w-full" defaultValue={['3']}>
         {items.map((item) => (
           <AccordionItem value={item.id} key={item.id} className="py-2">
             <AccordionTrigger className="justify-start gap-3 py-2 text-[15px] leading-6 hover:no-underline [&>svg]:-order-1">

@@ -384,7 +384,7 @@ function Calendar({
           const dayProps = {
             value: dayValue,
             visibleRange,
-            disabled: disabled === true || unavailable,
+            disabled: unavailable,
           }
           const state = api.getDayTableCellState(dayProps)
           const cellProps = api.getDayTableCellProps(dayProps)
@@ -410,7 +410,7 @@ function Calendar({
             ),
             modifiers: {
               selected: state.selected,
-              disabled: disabled === true || unavailable || !state.selectable || state.unavailable,
+              disabled: unavailable || !state.selectable || state.unavailable,
               outside: state.outsideRange,
               today: state.today,
               range_start: state.firstInRange,
@@ -490,7 +490,7 @@ function Calendar({
                       const triggerButton = dayCell.triggerProps as React.ButtonHTMLAttributes<HTMLButtonElement>
                       const buttonProps = {
                         ...triggerButton,
-                        'aria-current': dayCell.state.today ? 'date' : undefined,
+                        'aria-current': dayCell.state.today ? ('date' as const) : undefined,
                         className: cn(mergedClassNames.day_button, triggerClassName),
                         onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
                           if (readOnly) {
@@ -574,10 +574,6 @@ function Calendar({
                   (monthItem.tableProps as { className?: string }).className
                 )}
                 onKeyDown={(event) => {
-                  if (disabled === true) {
-                    event.preventDefault()
-                    return
-                  }
                   if (readOnly && (event.key === 'Enter' || event.key === ' ')) {
                     event.preventDefault()
                     return

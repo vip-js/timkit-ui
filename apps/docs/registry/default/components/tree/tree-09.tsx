@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-
-import React from 'react'
+import React, { useState } from 'react'
 import {
   FeatureImplementation,
   hotkeysCoreFeature,
@@ -107,7 +105,7 @@ export default function Component() {
 
   return (
     <div className="flex h-full flex-col gap-2 *:first:grow">
-      <Tree indent={indent} tree={tree}>
+      <Tree indent={indent} tree={tree as never}>
         {tree.getItems().map((item) => {
           return (
             <TreeItem key={item.getId()} item={item}>
