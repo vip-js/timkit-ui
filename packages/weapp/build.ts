@@ -28,7 +28,10 @@ async function build() {
 
   // 2. Compile TypeScript/JavaScript
   // Preserve module boundaries; consumers handle tree-shaking and bundling.
-  const scriptFiles = glob.sync('**/*.{ts,js}', { cwd: SRC_DIR, ignore: ['**/*.d.ts'] })
+  const scriptFiles = glob.sync('**/*.{ts,js}', {
+    cwd: SRC_DIR,
+    ignore: ['**/*.d.ts', '**/*.test.ts', '**/*.spec.ts', '**/*.test.js', '**/*.spec.js'],
+  })
   const entryByStem = new Map<string, string>()
 
   for (const file of scriptFiles) {

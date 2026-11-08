@@ -29,7 +29,9 @@ export default defineConfig({
   outDir: 'dist',
   splitting: true,
   treeshake: true,
-  sourcemap: true,
+  // Source maps are opt-in for release/debug builds; omitting them keeps the
+  // install and deploy artifact small without changing runtime modules.
+  sourcemap: process.env.TIMKIT_SOURCEMAP === 'true',
   // esnext avoids downleveling (no async→generator transforms) since all
   // consumers (Next.js, Vite, Nuxt) handle modern syntax natively.
   target: 'esnext',

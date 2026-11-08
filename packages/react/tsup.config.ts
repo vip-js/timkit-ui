@@ -7,6 +7,7 @@ export default defineConfig({
     'src/components/index.ts',
     'src/components/ui/index.ts',
     'src/components/ui/*.tsx',
+    '!src/components/ui/*.test.tsx',
     'src/hooks/*.ts',
     'src/agent/index.ts',
     'src/agent/*.tsx',
@@ -17,4 +18,5 @@ export default defineConfig({
   bundle: false,
   splitting: false,
   treeshake: false,
+  sourcemap: false,
 })

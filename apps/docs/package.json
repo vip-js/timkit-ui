@@ -6,7 +6,8 @@
   "scripts": {
     "predev": "rimraf .next ../../.next ../../.turbo && pnpm registry:build:all && pnpm registry:manifest && pnpm previews:manifest",
     "dev": "next dev --turbopack -p 3001",
-    "build": "pnpm registry:build:all && pnpm registry:manifest && pnpm previews:manifest && pnpm format:write && pnpm verify:data && next build",
+    "build": "pnpm registry:build:all && pnpm registry:manifest && pnpm previews:manifest && pnpm verify:data && TIMKIT_FAST_BUILD=1 next build",
+    "build:strict": "pnpm registry:build:all && pnpm registry:manifest && pnpm previews:manifest && pnpm verify:data && next build",
     "registry:build": "shadcn build",
     "registry:build:all": "node --import tsx ../../scripts/build-registry-all.ts",
     "registry:manifest": "node ../../scripts/generate-docs-registry-manifest.cjs",
