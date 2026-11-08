@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { semantic } from './src/theme'
+import { semantic, tokens } from './src/theme'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const DIST_DIR = path.join(__dirname, 'dist')
@@ -65,7 +65,21 @@ function build() {
   fs.writeFileSync(path.join(DIST_DIR, 'tailwind.css'), tailwindContent)
 
   // 4. JSON
-  fs.writeFileSync(path.join(DIST_DIR, 'tokens.json'), JSON.stringify(semantic, null, 2))
+  const serializedTokens = JSON.stringify(tokens, null, 2)
+  fs.writeFileSync(path.join(DIST_DIR, 'tokens.json'), serializedTokens)
+
+  // Runtime JS keeps Node CJS/ESM consumers independent from JSON import
+  // assertion syntax, which differs across supported Node versions.
+  fs.writeFileSync(
+    path.join(DIST_DIR, 'tokens.mjs'),
+    `const tokens = ${serializedTokens}\n\nexport default tokens\n`
+  )
+  fs.writeFileSync(path.join(DIST_DIR, 'tokens.js'), `module.exports = ${serializedTokens}\n`)
+  fs.writeFileSync(
+    path.join(DIST_DIR, 'tokens.d.ts'),
+    `type TokenTree = { [key: string]: string | TokenTree }\n\n` +
+      `declare const tokens: { palette: TokenTree; semantic: TokenTree }\nexport default tokens\n`
+  )
 
   console.log('Tokens built successfully (css, wxss, tailwind, json)!')
 }

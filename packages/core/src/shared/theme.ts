@@ -5,7 +5,7 @@
  * 建议直接使用 @timui/tokens 的 theme.css / theme.wxss / tokens.json。
  */
 
-import tokens from '@timui/tokens/tokens.json' with { type: 'json' }
+import tokens from '@timui/tokens/tokens'
 
 export type TokenTree = {
   [key: string]: string | TokenTree

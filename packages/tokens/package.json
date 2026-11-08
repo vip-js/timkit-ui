@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "exports": {
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.mjs",
+      "require": "./dist/tokens.js"
+    },
     "./tokens.json": "./dist/tokens.json",
     "./theme.css": "./dist/theme.css",
     "./theme.wxss": "./dist/theme.wxss",

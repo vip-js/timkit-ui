@@ -185,8 +185,10 @@ if (!docsSource.includes('../../packages/react/src/index.ts') || !docsSource.inc
   console.error('docs tsconfig does not point @timui/react at packages/react/src')
   process.exit(1)
 }
-if (!nextConfig.includes("path.join(__dirname, '../../packages/react/src')")) {
-  console.error('docs next config does not alias @timui/react to packages/react/src')
+const hasDevReactAlias = nextConfig.includes("path.join(reactRoot, 'src/index.ts')")
+const hasProductionReactAlias = nextConfig.includes("path.join(reactRoot, 'dist/index.mjs')")
+if (!hasDevReactAlias || !hasProductionReactAlias) {
+  console.error('docs next config does not provide both source and production dist aliases for @timui/react')
   process.exit(1)
 }
 const read = ts.readConfigFile(docsConfigPath, ts.sys.readFile)
