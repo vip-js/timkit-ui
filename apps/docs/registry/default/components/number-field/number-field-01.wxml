@@ -1,0 +1,5 @@
+<view class="number-field" role="group" aria-label="Quantity">
+  <view role="button" aria-label="Decrease quantity" bindtap="onDecrementTap">−</view>
+  <input type="digit" role="spinbutton" aria-label="Quantity" aria-valuemin="0" aria-valuemax="100" value="20" bindinput="onInput" />
+  <view role="button" aria-label="Increase quantity" bindtap="onIncrementTap">+</view>
+</view>
