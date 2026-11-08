@@ -13,9 +13,9 @@
       "require": "./dist/index.js"
     },
     "./agent-thread": {
-      "types": "./src/shared/agent-thread.ts",
-      "import": "./src/shared/agent-thread.ts",
-      "require": "./src/shared/agent-thread.ts"
+      "types": "./dist/shared/agent-thread.d.ts",
+      "import": "./dist/shared/agent-thread.mjs",
+      "require": "./dist/shared/agent-thread.js"
     },
     "./tailwind-preset": {
       "types": "./src/shared/tailwind.ts",

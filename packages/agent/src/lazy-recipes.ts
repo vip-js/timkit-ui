@@ -6,7 +6,23 @@ import type { AgentRecipeFile } from './recipes-types'
 
 type TemplatesModule = typeof import('./recipes-templates')
 
-const moduleUrl = typeof __filename !== 'undefined' ? __filename : fileURLToPath(import.meta.url)
+const resolvePackageModule = (): string | undefined => {
+  for (const packageJson of [
+    join(process.cwd(), 'apps/docs/package.json'),
+    join(process.cwd(), 'package.json'),
+  ]) {
+    try {
+      return createRequire(packageJson).resolve('@timui/agent')
+    } catch {
+      // try the next workspace boundary
+    }
+  }
+  return undefined
+}
+
+const moduleUrl =
+  resolvePackageModule() ??
+  (typeof __filename !== 'undefined' ? __filename : fileURLToPath(import.meta.url))
 const require = createRequire(moduleUrl)
 
 let cache: TemplatesModule | undefined

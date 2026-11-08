@@ -6,6 +6,7 @@ export default defineConfig({
     'src/index.ts',
     'src/shared/utils.ts',
     'src/shared/preview-protocol.ts',
+    'src/shared/agent-thread.ts',
 
     // ─── Tier 1: Semantic slices ───────────────────────────────────────────
     // Consumers that only need one dimension (e.g. WeApp needs variants only,
