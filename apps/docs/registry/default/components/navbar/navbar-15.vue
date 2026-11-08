@@ -8,6 +8,8 @@ import UserMenu from '@/registry/default/components/navbar-components/user-menu.
 
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -15,7 +17,7 @@ function onDemoClick() {
 </script>
 
 <template>
-  <header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div><Select default-value="orion-alpha-45" aria-label="Select AI model"><SelectTrigger class="[&>svg]:text-muted-foreground/80 **:data-desc:hidden [&>svg]:shrink-0"><BotMessageSquareIcon :size="16" aria-hidden="true" /><SelectValue placeholder="Choose an AI model" /></SelectTrigger><SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><SelectGroup><SelectLabel class="ps-2">Models</SelectLabel><SelectItem value="orion-alpha-45">Orion-Alpha 4.5
+  <header class="border-b px-4 md:px-6"><div class="flex h-16 items-center justify-between gap-4"><div><Select default-value="orion-alpha-45" aria-label="Select AI model"><SelectTrigger @click="onDemoClick" class="[&>svg]:text-muted-foreground/80 **:data-desc:hidden [&>svg]:shrink-0"><BotMessageSquareIcon :size="16" aria-hidden="true" /><SelectValue placeholder="Choose an AI model" /></SelectTrigger><SelectContent class="[&_*[role=option]]:ps-2 [&_*[role=option]]:pe-8 [&_*[role=option]>span]:start-auto [&_*[role=option]>span]:end-2"><SelectGroup><SelectLabel class="ps-2">Models</SelectLabel><SelectItem value="orion-alpha-45">Orion-Alpha 4.5
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Balanced performance and creativity
                   </span></SelectItem><SelectItem value="orion-code-4">Orion-Code 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Optimized for code generation and understanding
@@ -23,5 +25,5 @@ function onDemoClick() {
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Excels at natural, engaging conversations
                   </span></SelectItem><SelectItem value="galaxy-max-4">Galaxy-Max 4
                   <span class="text-muted-foreground mt-1 block text-xs" data-desc>Most powerful model for complex tasks
-                  </span></SelectItem></SelectGroup></SelectContent></Select></div><div class="flex items-center justify-end gap-2"><Button @click="onDemoClick" :data-clicks="demoClicks" size="icon" variant="ghost" class="text-muted-foreground size-8 rounded-full shadow-none" aria-label="Temporary chat"><MessageCircleDashedIcon :size="16" aria-hidden="true" /></Button><UserMenu /></div></div></header>
+                  </span></SelectItem></SelectGroup></SelectContent></Select></div><div class="flex items-center justify-end gap-2"><Button :data-clicks="demoClicks" size="icon" variant="ghost" class="text-muted-foreground size-8 rounded-full shadow-none" aria-label="Temporary chat"><MessageCircleDashedIcon :size="16" aria-hidden="true" /></Button><UserMenu /></div></div></header>
 </template>

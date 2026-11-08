@@ -17,12 +17,12 @@
 2. **校验要分层**：热路径用 `validateComponent(..., { checkSyntax: false })`；CLI `--fix` 再开 TypeScript。
 3. **UI 要少重渲染**：`AgentThreadView` 按 message/part memo；`useAgentThreadController` 提供稳定 `dispatch`。
 4. **线上要可缓存**：`/agent/*`、`/llms.txt`、`/r/*` 走 CDN，文档 Route Handler 使用长 `stale-while-revalidate`。
-5. **体积有预算**：CI 跑 `pnpm goal:perf:agent`，超预算即失败。
+5. **体积有预算**：CI 跑 `pnpm goal:perf` 与 `pnpm goal:perf:agent`，超预算即失败。
 
 ## 本地门禁
 
 ```bash
-pnpm goal:perf          # 四端组件源码体积
+pnpm goal:perf          # 四端组件 gzip payload 估算
 pnpm goal:perf:agent    # @timui/agent 包 + React Agent UI 源码
 pnpm --filter @timui/docs build
 ```

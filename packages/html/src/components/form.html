@@ -1,0 +1,11 @@
+<form data-slot="form" class="flex flex-col gap-4" novalidate>
+    <label for="form-name">Name</label>
+    <input id="form-name" data-slot="input" name="name" type="text" required />
+    <label for="form-email">Email</label>
+    <input id="form-email" data-slot="input" name="email" type="email" required />
+    <label>
+        <input data-slot="checkbox" name="terms" type="checkbox" required />
+        Accept terms
+    </label>
+    <button type="submit" data-slot="button"></button>
+</form>

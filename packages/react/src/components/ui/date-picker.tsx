@@ -295,7 +295,7 @@ function DatePicker({
                 {...calendarProps}
                 mode={mode}
                 numberOfMonths={months}
-                disabled={disabled === true ? () => true : calendarProps?.disabled}
+                disabled={disabled === true ? true : calendarProps?.disabled}
                 readOnly={readOnly || calendarProps?.readOnly}
                 selected={calendarSelected}
                 onSelect={handleCalendarSelect}

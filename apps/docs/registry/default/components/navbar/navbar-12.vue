@@ -18,6 +18,8 @@ const navigationLinks = [
   { href: '#', label: 'Insights', icon: ZapIcon },
 ]
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

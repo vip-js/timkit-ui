@@ -488,10 +488,9 @@ const injectReactInteraction = (source: string) => {
     const index = source.search(new RegExp(`<${candidate.tag}\\b`))
     if (index >= 0 && (!chosen || index < chosen.index)) chosen = { ...candidate, index }
   }
-  const fallback = source.match(/<([A-Z][A-Za-z0-9]*)\b/)
-  const tag = chosen?.tag || fallback?.[1]
-  if (!tag) return source
-  const kind = chosen?.kind || 'click'
+  if (!chosen) return source
+  const tag = chosen.tag
+  const kind = chosen.kind
   let next = ensureImport(source, "import { useState } from 'react'")
   const state =
     kind === 'text'
@@ -514,11 +513,21 @@ const injectReactInteraction = (source: string) => {
 }
 
 const injectVueInteraction = (source: string) => {
-  if (/@click|v-model|@change|@update:/.test(source)) return source
-  const tag = source.match(
+  const normalized = source
+    .replace(/\s+@(click|input)="onDemoClick"/g, '')
+    .replace(
+      /\nconst demoClicks = ref\(0\)\nfunction onDemoClick\(\) \{\n  demoClicks\.value \+= 1\n\}\n?/g,
+      '\n'
+    )
+  source = normalized
+  if (/@click|@input|v-model|@change|@update:/.test(source)) return source
+  const templateMatch = source.match(/<template\b[^>]*>([\s\S]*?)<\/template>/)
+  if (!templateMatch) return source
+  const template = templateMatch[1]
+  const tag = template.match(
     /<(Button|Input|Textarea|Checkbox|Switch|Alert|Avatar|Badge|SelectNative|TabsTrigger|DropdownMenuItem|Banner|SelectTrigger)\b/
   )?.[1]
-  const fallback = source.match(/<([A-Z][A-Za-z0-9]*)\b/)?.[1]
+  const fallback = template.match(/<([A-Z][A-Za-z0-9]*)\b/)?.[1]
   const target = tag || fallback
   if (!target) return source
   let next = source
@@ -538,10 +547,16 @@ const injectVueInteraction = (source: string) => {
       )
     }
   }
-  if (target === 'Input' || target === 'Textarea' || target === 'SelectNative') {
-    return next.replace(`<${target}`, `<${target} @input="onDemoClick"`)
+  const replaceInTemplate = (content: string, attribute: string) => {
+    const match = content.match(/<template\b[^>]*>([\s\S]*?)<\/template>/)
+    if (!match) return content
+    const updatedTemplate = match[1].replace(`<${target}`, `<${target} ${attribute}`)
+    return content.replace(match[1], updatedTemplate)
   }
-  return next.replace(`<${target}`, `<${target} @click="onDemoClick"`)
+  if (target === 'Input' || target === 'Textarea' || target === 'SelectNative') {
+    return replaceInTemplate(next, '@input="onDemoClick"')
+  }
+  return replaceInTemplate(next, '@click="onDemoClick"')
 }
 
 const writeAgentDemos = () => {
@@ -575,20 +590,26 @@ export default function Component() {
     path.join(dir, 'agent-workbench-01.vue'),
     `<script setup lang="ts">
 import { ref } from 'vue'
-import { AgentMessage, ApprovalCard } from '@timui/vue'
 const status = ref<'pending' | 'approved' | 'rejected'>('pending')
 </script>
 
 <template>
   <div class="space-y-3">
-    <AgentMessage role="user">Refund order 1842.</AgentMessage>
-    <ApprovalCard
-      title="Refund 48 dollars"
-      description="Wait for a person before sending the refund."
-      :status="status"
-      @approve="status = 'approved'"
-      @reject="status = 'rejected'"
-    />
+    <article data-slot="agent-message" data-role="user" class="rounded-lg border px-3 py-2 text-sm">
+      <p class="text-xs font-medium">You</p>
+      <p>Refund order 1842.</p>
+    </article>
+    <section data-slot="approval-card" :data-status="status" class="grid gap-3 rounded-lg border p-3 text-sm">
+      <div class="grid gap-1">
+        <h3 class="font-medium leading-6">Refund 48 dollars</h3>
+        <p class="leading-6 text-muted-foreground">Wait for a person before sending the refund.</p>
+      </div>
+      <div v-if="status === 'pending'" class="flex flex-wrap gap-2" role="group" aria-label="Approval actions">
+        <button type="button" class="min-h-11 rounded-lg border px-4 font-medium" @click="status = 'rejected'">Reject</button>
+        <button type="button" class="min-h-11 rounded-lg bg-primary px-4 font-medium text-primary-foreground" @click="status = 'approved'">Approve</button>
+      </div>
+      <p v-else aria-live="polite" class="text-xs font-medium">Receipt: {{ status === 'approved' ? 'Approved' : 'Rejected' }}</p>
+    </section>
   </div>
 </template>
 `

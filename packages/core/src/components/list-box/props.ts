@@ -18,7 +18,7 @@ export interface ListBoxItem {
   disabled?: boolean
 }
 
-export type ListBoxValue = string | string[] | undefined
+export type ListBoxValue = string | string[] | null | undefined
 export type ListBoxValueChangeEvent = TimEvent<{ value: string[] }>
 
 export type ListBoxProps = Omit<select.Props<ListBoxItem>, 'onValueChange'> & {
@@ -44,7 +44,7 @@ export type ListBoxVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: ListBoxValue
+  modelValue?: ListBoxValue | null
   /**
    * The default value of the component when uncontrolled.
    */

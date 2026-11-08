@@ -4,7 +4,7 @@ import { Cropper, CropperCropArea, CropperDescription, CropperImage } from '@tim
 
 
 
-const cropData = ref<Area @click="onDemoClick" | null>(null);
+const cropData = ref<Area | null>(null);
 
 
 function setCropData(next: typeof cropData.value | ((prev: typeof cropData.value) => typeof cropData.value)) {
@@ -14,6 +14,8 @@ function setCropData(next: typeof cropData.value | ((prev: typeof cropData.value
 }
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -21,6 +23,6 @@ function onDemoClick() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-2"><div class="flex w-full flex-col gap-4"><Cropper class="h-80" :cropPadding="20" image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-09_qskkln.jpg" :onCropChange="setCropData"><CropperDescription /><CropperImage /><CropperCropArea /></Cropper><pre v-if="cropData" class="bg-muted text-foreground/80 overflow-auto rounded-md border px-4 py-3 font-mono text-xs"><code>{{ JSON.stringify(cropData, null, 2) }}</code></pre></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Cropper with crop data output ∙{{ ' ' }}<a href="https://github.com/origin-space/image-cropper" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
+  <div class="flex flex-col items-center gap-2"><div class="flex w-full flex-col gap-4"><Cropper @click="onDemoClick" class="h-80" :cropPadding="20" image="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/cropper-09_qskkln.jpg" :onCropChange="setCropData"><CropperDescription /><CropperImage /><CropperCropArea /></Cropper><pre v-if="cropData" class="bg-muted text-foreground/80 overflow-auto rounded-md border px-4 py-3 font-mono text-xs"><code>{{ JSON.stringify(cropData, null, 2) }}</code></pre></div><p aria-live="polite" role="region" class="text-muted-foreground mt-2 text-xs">Cropper with crop data output ∙{{ ' ' }}<a href="https://github.com/origin-space/image-cropper" class="hover:text-foreground underline" target="_blank" rel="noopener noreferrer">API
         </a></p></div>
 </template>

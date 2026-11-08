@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type SwitchCheckedChangeEvent = TimEvent<{ checked: boolean }>
 
-export type SwitchProps = Omit<switch_.Props, 'onCheckedChange'> & {
+export type SwitchProps = Omit<switch_.Props, 'id' | 'onCheckedChange'> & {
+  id?: string
   /**
    * Callback fired when the state of the checked property changes.
    */
@@ -19,7 +20,7 @@ export type SwitchVueProps = {
   /**
    * The controlled checked state of the component.
    */
-  checked?: boolean
+  checked?: boolean | null
   /**
    * The default checked state of the component when initially rendered.
    */
@@ -47,7 +48,7 @@ export type SwitchVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: boolean
+  modelValue?: boolean | null
   /**
    * Callback fired when the state of the checked property changes.
    */

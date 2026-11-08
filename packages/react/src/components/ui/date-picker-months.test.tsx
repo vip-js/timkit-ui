@@ -52,7 +52,7 @@ const days = () =>
 
 const pressDay = async (index: number) => {
   await act(async () => {
-    days()[index]?.click()
+    ;(days()[index] as HTMLButtonElement | undefined)?.click()
   })
 }
 

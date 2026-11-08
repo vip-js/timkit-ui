@@ -123,7 +123,7 @@ describe('vue command selection', () => {
       render: () =>
         h(
           Command,
-          { modelValue: null, defaultValue: 'open', onChange: (value?: string) => seen.push(value) },
+          { modelValue: null, defaultValue: 'open', onChange: (value?: string | null) => seen.push(value ?? undefined) },
           () =>
             h(CommandList, () => [
               h(CommandItem, { value: 'open', label: 'Open' }, () => 'Open'),

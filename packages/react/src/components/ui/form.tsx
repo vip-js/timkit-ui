@@ -28,12 +28,27 @@ type BoundField = {
   'aria-describedby'?: string
 }
 
+type FormInputEvent =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | string[]
+  | number[]
+  | {
+      type?: string
+      timestamp?: number
+      detail?: { value?: string | number | boolean | null | string[] | number[]; checked?: boolean | 'indeterminate' }
+      target?: { id?: string; value?: string | number; checked?: boolean; type?: string }
+    }
+
 type FormApi = {
   values: FormValues
   errors: FormValues
-  text: (name: string) => BoundField & { value: string; onValueChange: (event: unknown) => void }
-  checked: (name: string) => BoundField & { checked: boolean; onCheckedChange: (event: unknown) => void }
-  number: (name: string) => BoundField & { value?: number; onValueChange: (event: unknown) => void }
+  text: (name: string) => BoundField & { value: string; onValueChange: (event: FormInputEvent) => void }
+  checked: (name: string) => BoundField & { checked: boolean; onCheckedChange: (event: FormInputEvent) => void }
+  number: (name: string) => BoundField & { value?: number; onValueChange: (event: FormInputEvent) => void }
   error: (name: string) => string | undefined
 }
 
@@ -49,7 +64,7 @@ const controlOf = (field: RichField) => {
 }
 
 type FormProps = {
-  fields: FieldSpec[]
+  fields: RichField[]
   onSubmit: (values: FormValues) => void
   className?: string
   submitLabel?: string
@@ -68,9 +83,11 @@ function Form({
   const [snapshot, setSnapshot] = React.useState<FormSnapshot>(() => createForm(fields))
   const [shownSecrets, setShownSecrets] = React.useState<Record<string, boolean>>({})
 
-  const write = (name: string, event: unknown) => {
+  const write = (name: string, event: FormInputEvent) => {
     if (disabled) return
-    setSnapshot((current) => setFieldValue(current, name, readFieldValue(event), fields))
+    setSnapshot((current) =>
+      setFieldValue(current, name, readFieldValue(event as Parameters<typeof readFieldValue>[0]), fields)
+    )
   }
 
   const api: FormApi = {

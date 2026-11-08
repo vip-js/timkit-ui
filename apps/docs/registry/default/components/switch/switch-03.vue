@@ -10,6 +10,8 @@ import { Switch } from '@timui/vue';
 const id = 'switch-03';
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

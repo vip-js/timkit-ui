@@ -20,7 +20,8 @@ export interface ComboboxItem {
 
 export type ComboboxValueChangeEvent = TimEvent<{ value: string[] }>
 
-export type ComboboxProps = Omit<combobox.Props<ComboboxItem>, 'onValueChange'> & {
+export type ComboboxProps = Omit<combobox.Props<ComboboxItem>, 'id' | 'onValueChange'> & {
+  id?: string
   /**
    * Whether keyboard focus wraps from the last item to the first.
    */
@@ -43,7 +44,7 @@ export type ComboboxVueProps = {
   /**
    * The controlled value of the component.
    */
-  value?: string[]
+  value?: string[] | null
   /**
    * The default value of the component when uncontrolled.
    */
@@ -59,7 +60,7 @@ export type ComboboxVueProps = {
   /**
    * The controlled open state of the component.
    */
-  open?: boolean
+  open?: boolean | null
   /**
    * The default open state of the component when initially rendered.
    */

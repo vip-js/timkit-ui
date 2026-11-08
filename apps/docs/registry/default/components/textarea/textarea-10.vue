@@ -11,6 +11,8 @@ import { Textarea } from '@timui/vue';
 const id = 'textarea-10';
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -18,5 +20,5 @@ function onDemoClick() {
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Textarea with left button</Label><Textarea :id="id" placeholder="Leave a comment" /><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Send</Button></div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Textarea with left button</Label><Textarea @input="onDemoClick" :id="id" placeholder="Leave a comment" /><Button :data-clicks="demoClicks" variant="outline">Send</Button></div>
 </template>

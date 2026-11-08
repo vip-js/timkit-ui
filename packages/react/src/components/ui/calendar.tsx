@@ -574,6 +574,10 @@ function Calendar({
                   (monthItem.tableProps as { className?: string }).className
                 )}
                 onKeyDown={(event) => {
+                  if (disabled === true) {
+                    event.preventDefault()
+                    return
+                  }
                   if (readOnly && (event.key === 'Enter' || event.key === ' ')) {
                     event.preventDefault()
                     return

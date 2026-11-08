@@ -95,6 +95,8 @@ const needsSeparator = (index: number) => {
 
 const listMinWidth = (type?: NavLink['type']) => (type === 'description' ? 'min-w-64' : 'min-w-48')
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

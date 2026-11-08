@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type NumberFieldValueChangeEvent = TimEvent<{ value: string; valueAsNumber: number }>
 
-export type NumberFieldProps = Omit<numberInput.Props, 'onValueChange'> & {
+export type NumberFieldProps = Omit<numberInput.Props, 'id' | 'onValueChange'> & {
+  id?: string
   /**
    * Callback fired when the value changes.
    */

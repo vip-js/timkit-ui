@@ -5,6 +5,7 @@ import {
   setFieldValue,
   submitForm,
   type FieldSpec,
+  type FormEvent,
   type FormSnapshot,
 } from '@timui/core'
 import { ref } from 'vue'
@@ -18,7 +19,7 @@ export function useForm(fields: FieldSpec[], options?: { disabled?: boolean }) {
     snapshot.value = setFieldValue(snapshot.value, name, value, fields)
   }
 
-  const assign = (name: string, event: unknown) => {
+  const assign = (name: string, event: FormEvent) => {
     update(name, readFieldValue(event))
   }
 

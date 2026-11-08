@@ -25,6 +25,13 @@ const rowsOf = (host: { properties?: { rows?: TableRowData[] } }) =>
   (host.properties?.rows ?? []) as TableRowData[]
 
 Component({
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
+
+  externalClasses: ['ext-class'],
+
   properties: {
     columns: { type: Array, value: [] as TableColumn[] },
     rows: { type: Array, value: [] as TableRowData[] },
@@ -36,6 +43,7 @@ Component({
     selectedIds: { type: null, value: null },
     pageSize: { type: Number, value: 0 },
     expandedIds: { type: null, value: null },
+    extClass: { type: String, value: '' },
   },
 
   data: {

@@ -26,13 +26,14 @@ const CommandDisabledContext = React.createContext(false)
 function commandValues(children: React.ReactNode): string[] {
   return React.Children.toArray(children).flatMap((child) => {
     if (!React.isValidElement(child)) return []
-    const props = child.props as { value?: unknown; children?: React.ReactNode }
+    const props = child.props as { value?: string | number | boolean | null; children?: React.ReactNode }
     const own = typeof props.value === 'string' && props.value ? [props.value] : []
     return [...own, ...commandValues(props.children)]
   })
 }
 
-function CommandSelectionStatus({ items }: { items: string[] }) {
+function CommandSelectionStatus({ items, enabled }: { items: string[]; enabled: boolean }) {
+  if (!enabled) return null
   const value = useCommandState((state) => state.value)
   const index = items.indexOf(value)
   if (!value || index < 0) return null
@@ -43,6 +44,7 @@ function Command({
   className,
   disabled = false,
   children,
+  value,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive> & { disabled?: boolean }) {
   return (
@@ -52,9 +54,10 @@ function Command({
         className={cn(commandVariants(), className)}
         aria-disabled={disabled || undefined}
         data-disabled={disabled ? '' : undefined}
+        value={value}
         {...props}
       >
-        <CommandSelectionStatus items={commandValues(children)} />
+        <CommandSelectionStatus items={commandValues(children)} enabled={value !== undefined} />
         {children}
       </CommandPrimitive>
     </CommandDisabledContext.Provider>

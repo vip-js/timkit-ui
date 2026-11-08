@@ -11,6 +11,8 @@ import { Slider } from '@timui/vue';
 const ticks = [...Array(max + 1)].map((_, i) => i)
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

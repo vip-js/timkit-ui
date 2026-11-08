@@ -89,7 +89,7 @@ const useNavigationMenuItemContext = () => {
 function navigationValues(children: React.ReactNode): string[] {
   return React.Children.toArray(children).flatMap((child) => {
     if (!React.isValidElement(child)) return []
-    const props = child.props as { value?: unknown; children?: React.ReactNode }
+    const props = child.props as { value?: string | number | boolean | null; children?: React.ReactNode }
     const own = typeof props.value === 'string' && props.value ? [props.value] : []
     return [...own, ...navigationValues(props.children)]
   })

@@ -7,9 +7,9 @@ import { provideCommandContext } from "./use-command-context";
 
 const props = defineProps<UseCommandProps>();
 const emit = defineEmits<{
-  (e: "update:value", value?: string): void;
-  (e: "update:modelValue", value?: string): void;
-  (e: "change", value?: string): void;
+  (e: "update:value", value?: string | null): void;
+  (e: "update:modelValue", value?: string | null): void;
+  (e: "change", value?: string | null): void;
 }>();
 
 const { api, disabled, query, options, selected, choose, registerItem, unregisterItem } = useCommand(props, emit);

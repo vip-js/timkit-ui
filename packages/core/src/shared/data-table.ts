@@ -65,7 +65,7 @@ export const pageRows = <T,>(rows: readonly T[], page: number, pageSize: number)
   return rows.slice(start, start + pageSize)
 }
 
-export const isTableEmpty = (rows: readonly unknown[]) => rows.length === 0
+export const isTableEmpty = (rows: readonly TableRowData[]) => rows.length === 0
 
 export const reduceTableKey = (
   key: string,

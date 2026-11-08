@@ -22,6 +22,8 @@ const navigationLinks = [
   { href: '#', label: 'Search', icon: SearchIcon },
 ]
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

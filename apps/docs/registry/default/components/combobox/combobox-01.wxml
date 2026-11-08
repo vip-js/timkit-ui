@@ -1,4 +1,5 @@
-<view class="timui-demo">
-  <text>Fruit</text>
-  <input bindinput="onInput" placeholder="Pick a fruit" />
+<view class="timui-html-demo space-y-4 p-4">
+<text class="text-sm">Fruit
+    <input class="mt-1 flex h-9 w-full rounded-md border px-3" value="">
+  </text>
 </view>

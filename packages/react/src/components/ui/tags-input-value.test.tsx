@@ -118,7 +118,7 @@ describe('tags input value', () => {
     await act(async () => {
       clear?.click()
     })
-    expect(document.body.textContent).not.toContain('pear')
+    expect([...document.querySelectorAll('[data-slot="tags-input"] [data-part="item-preview"]')].map((node) => node.textContent)).not.toContain('pear')
     expect(document.querySelector('[role="status"]')).toBeNull()
     const input = document.querySelector('[data-slot="tags-input"] [data-part="input"]') as HTMLInputElement
     await commit(input, 'plum')

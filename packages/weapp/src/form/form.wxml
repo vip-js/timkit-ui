@@ -1,4 +1,4 @@
-<view>
+<view class="{{extClass}}">
   <view wx:if="{{errorSummary}}" role="alert">{{errorSummary}}</view>
   <block wx:for="{{rows}}" wx:key="name">
     <view wx:if="{{item.control === 'check'}}">

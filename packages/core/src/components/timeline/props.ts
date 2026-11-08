@@ -7,7 +7,7 @@ export type TimelineProps = {
   /**
    * The controlled value of the component.
    */
-  value?: number
+  value?: number | null
   /**
    * Callback fired when the value changes.
    */

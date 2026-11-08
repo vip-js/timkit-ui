@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { gzipSync } from 'zlib'
 
 import { componentDocsPath } from '../packages/agent/src/docs-map'
 import { guidanceFor } from '../packages/agent/src/usage'
@@ -107,7 +108,7 @@ const scoreVolume = () => {
   const names = coreNames()
   const reactBytes = names.reduce((sum, name) => {
     const file = path.join(uiDir, `${name}.tsx`)
-    return sum + (exists(file) ? fs.statSync(file).size : 0)
+    return sum + (exists(file) ? gzipSync(fs.readFileSync(file)).byteLength : 0)
   }, 0)
   const agent = path.join(ROOT, 'packages/agent/dist/index.mjs')
   const recipes = path.join(ROOT, 'packages/agent/dist/recipes-templates.mjs')

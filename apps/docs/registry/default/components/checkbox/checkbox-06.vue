@@ -8,6 +8,8 @@ const checkboxStyle: Record<string, string> = {
   '--primary': 'var(--color-emerald-500)',
 };
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

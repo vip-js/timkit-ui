@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type RadioGroupValueChangeEvent = TimEvent<{ value: string | null }>
 
-export type RadioGroupProps = Omit<radioGroup.Props, 'onValueChange'> & {
+export type RadioGroupProps = Omit<radioGroup.Props, 'id' | 'onValueChange'> & {
+  id?: string
   /**
    * Callback fired when the value changes.
    */

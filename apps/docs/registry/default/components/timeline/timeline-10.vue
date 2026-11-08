@@ -53,7 +53,7 @@ const iconMap = {
   create: PlusIcon,
 } as const
 
-const textMap: Record<ActionType @click="onDemoClick", string> = {
+const textMap: Record<ActionType, string> = {
   post: 'wrote a new post',
   reply: 'replied to a comment',
   edit: 'edited a post',
@@ -82,6 +82,8 @@ const getRelativeTimeString = (date: Date): string => {
   return `${days} ${days === 1 ? 'day' : 'days'} ago`
 }
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -91,7 +93,7 @@ function onDemoClick() {
 <template>
   <div class="space-y-3">
     <div class="text-muted-foreground text-xs font-medium">Activity</div>
-    <Timeline>
+    <Timeline @click="onDemoClick">
       <TimelineItem
         v-for="item in items"
         :key="item.id"

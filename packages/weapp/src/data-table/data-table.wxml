@@ -1,4 +1,4 @@
-<view>
+<view class="{{extClass}}">
   <input aria-label="Filter rows" value="{{query}}" disabled="{{disabled}}" bindinput="onFilter" />
   <view wx:if="{{sortStatus}}" role="status">{{sortStatus}}</view>
 <view role="table" aria-label="{{caption}}" aria-disabled="{{disabled ? 'true' : 'false'}}">

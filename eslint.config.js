@@ -76,6 +76,18 @@ module.exports = [
       'no-restricted-syntax': 'off',
     },
   },
+  {
+    files: ['**/*.{test,spec}.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': 'off',
+    },
+  },
+  {
+    files: ['packages/weapp/src/**/*.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-restricted-syntax': 'off',
+    },
+  },
   prettierConfig,
   {
     files: ['apps/docs/**/*.{js,jsx,ts,tsx}'],

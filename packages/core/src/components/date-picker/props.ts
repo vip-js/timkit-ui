@@ -24,7 +24,7 @@ export type DatePickerProps = Omit<datePicker.Props, 'onValueChange'> & {
 
 export type DatePickerMode = 'single' | 'range'
 export type DatePickerRangeValue = { from?: Date; to?: Date } | undefined
-export type DatePickerVueValue = Date | DatePickerRangeValue | undefined
+export type DatePickerVueValue = Date | DatePickerRangeValue | null | undefined
 export type DatePickerVueProps = {
   /**
    * A unique identifier for the component.
@@ -33,11 +33,11 @@ export type DatePickerVueProps = {
   /**
    * The controlled value of the component.
    */
-  value?: DatePickerVueValue
+  value?: DatePickerVueValue | null
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: DatePickerVueValue
+  modelValue?: DatePickerVueValue | null
   /**
    * The default value of the component when uncontrolled.
    */
@@ -89,7 +89,7 @@ export type DatePickerVueProps = {
   /**
    * The controlled open state of the popover.
    */
-  open?: boolean
+  open?: boolean | null
   /**
    * The default open state of the popover when uncontrolled.
    */

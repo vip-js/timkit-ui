@@ -26,7 +26,8 @@ const files = fs
       !entry.split(path.sep).includes('utils') &&
       !entry.endsWith('.test.ts') &&
       !entry.endsWith('manifest.ts') &&
-      !entry.endsWith('utils.ts')
+      !entry.endsWith('utils.ts') &&
+      !entry.endsWith(`${path.sep}days.ts`)
   )
   .sort()
 

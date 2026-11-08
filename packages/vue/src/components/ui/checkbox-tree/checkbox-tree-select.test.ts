@@ -1,4 +1,4 @@
-import { createApp, defineComponent, h, nextTick, ref } from 'vue'
+import { createApp, defineComponent, h, nextTick, ref, type VNodeChild } from 'vue'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { CheckboxTreeNode } from '@timui/core'
 
@@ -40,7 +40,7 @@ const show = async () => {
           node: CheckboxTreeNode
           isChecked: boolean | 'indeterminate'
           onCheckedChange: () => void
-          children?: unknown
+          children?: VNodeChild
         }) =>
           h('div', {}, [
             h(
@@ -88,7 +88,7 @@ describe('vue checkbox tree selection', () => {
                   node: CheckboxTreeNode
                   isChecked: boolean | 'indeterminate'
                   onCheckedChange: () => void
-                  children?: unknown
+                  children?: VNodeChild
                 }) =>
                   h('div', {}, [
                     h(
@@ -159,7 +159,7 @@ describe('vue checkbox tree selection', () => {
             node: CheckboxTreeNode
             isChecked: boolean | 'indeterminate'
             onCheckedChange: () => void
-            children?: unknown
+            children?: VNodeChild
           }) =>
             h('div', {}, [
               h(
@@ -198,7 +198,7 @@ describe('vue checkbox tree selection', () => {
             node: CheckboxTreeNode
             isChecked: boolean | 'indeterminate'
             onCheckedChange: () => void
-            children?: unknown
+            children?: VNodeChild
           }) =>
             h('div', {}, [
               h(

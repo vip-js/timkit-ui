@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type TagsInputValueChangeEvent = TimEvent<{ value: string[] }>
 
-export type TagsInputProps = Omit<tagsInput.Props, 'onValueChange'> & {
+export type TagsInputProps = Omit<tagsInput.Props, 'id' | 'onValueChange'> & {
+  id?: string
   /**
    * Callback fired when the value changes.
    */

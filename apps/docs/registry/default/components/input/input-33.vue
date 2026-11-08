@@ -5,6 +5,8 @@ import { Label } from '@timui/vue'
 
 const id = 'input-33'
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -16,7 +18,7 @@ function onDemoClick() {
     <Label :htmlFor="id" class="text-foreground block px-3 pt-2 text-xs font-medium">
       Input with inset label
     </Label>
-    <Input @input="onDemoClick" @input="onDemoClick"
+    <Input @input="onDemoClick"
       :id="id"
       class="h-10 rounded-none border-0 px-3 pb-2 shadow-none"
       placeholder="Email"

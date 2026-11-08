@@ -16,7 +16,7 @@ export type TableProps = {
   /** Text shown when the table has no rows. */
   emptyLabel?: string
   /** Called when the sort column or direction changes. */
-  onSortChange?: (event: unknown) => void
+  onSortChange?: (event: { columnId?: string; direction?: 'asc' | 'desc' } | null) => void
   /** Called when the selected row ids change. */
-  onSelectionChange?: (event: unknown) => void
+  onSelectionChange?: (event: string[]) => void
 }

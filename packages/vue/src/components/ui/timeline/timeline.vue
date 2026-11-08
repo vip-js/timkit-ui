@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed, ref, toRef, useAttrs } from "vue";
 import { cn, timelineVariants } from '@timui/core';
+import { usePassedProp } from '../../../hooks/passed-prop';
 import { provideTimelineContext } from "./timeline-context";
 
 defineOptions({ inheritAttrs: false });
@@ -9,7 +10,7 @@ const props = withDefaults(
   defineProps<{
     class?: HTMLAttributes["class"];
     defaultValue?: number;
-    modelValue?: number;
+    modelValue?: number | null;
     orientation?: "horizontal" | "vertical";
     disabled?: boolean;
   }>(),
@@ -25,6 +26,7 @@ const emits = defineEmits<{
 }>();
 
 const attrs = useAttrs();
+const passed = usePassedProp();
 const passthrough = computed(() => {
   const { "aria-label": _label, "aria-labelledby": _by, ...rest } = attrs;
   return rest;
@@ -49,10 +51,12 @@ const stepStatus = computed(() => {
   const index = active == null ? -1 : registered.value.indexOf(active);
   return index < 0 ? "" : `Step ${index + 1} of ${registered.value.length}`;
 });
-const step = computed({
-  get: () => (props.modelValue === undefined ? internalStep.value : props.modelValue),
-  set: (v) => {
-    if (props.modelValue === undefined) internalStep.value = v;
+const readModelValue = () => passed<number | null>(props, "modelValue");
+const step = computed<number | null>({
+  get: () => (readModelValue() === undefined ? internalStep.value : props.modelValue ?? null),
+  set: (v: number | null) => {
+    if (v == null) return;
+    if (readModelValue() === undefined) internalStep.value = v;
     emits("update:modelValue", v);
     emits("valueChange", v);
   },

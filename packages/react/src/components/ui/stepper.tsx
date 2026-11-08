@@ -67,7 +67,11 @@ const useStepItem = () => {
 }
 
 // Components
-type StepperProps = CoreStepperProps & React.HTMLAttributes<HTMLDivElement>
+type StepperProps = Omit<CoreStepperProps, 'id' | 'value' | 'defaultValue'> & {
+  id?: string
+  value?: string | number | null
+  defaultValue?: string | number
+} & React.HTMLAttributes<HTMLDivElement>
 type _StepperPropsGuard = AssertNoExtraKeys<
   StepperProps,
   CoreStepperProps & React.HTMLAttributes<HTMLDivElement>

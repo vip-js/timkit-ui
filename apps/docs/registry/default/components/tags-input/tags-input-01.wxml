@@ -1,1 +1,5 @@
-<view class="timui-demo"><text>Tags</text><input value="design" /></view>
+<view class="timui-html-demo space-y-4 p-4">
+<text class="text-sm">Tags
+    <input class="mt-1 h-9 rounded-md border px-3" value="design">
+  </text>
+</view>

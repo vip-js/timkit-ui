@@ -16,7 +16,7 @@ type ColumnConfig = {
   label: string
 }
 
-const columns = ref<ColumnConfig @click="onDemoClick"[]>([
+const columns = ref<ColumnConfig[]>([
   { key: 'name', label: 'Name' },
   { key: 'email', label: 'Email' },
   { key: 'location', label: 'Location' },
@@ -71,6 +71,8 @@ function valueFor(row: (typeof rows)[number], key: ColumnKey) {
   return row[key]
 }
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -79,7 +81,7 @@ function onDemoClick() {
 
 <template>
   <div>
-    <Table>
+    <Table @click="onDemoClick">
       <TableHeader>
         <TableRow class="bg-muted/50">
           <TableHead

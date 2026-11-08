@@ -8,6 +8,8 @@ import TeamSwitcher from '@/registry/default/components/navbar-components/team-s
 
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

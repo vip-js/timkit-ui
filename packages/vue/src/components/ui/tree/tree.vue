@@ -146,6 +146,10 @@ provideTreeContext({
 });
 
 const attrs = useAttrs();
+const ariaLabel = computed(() => {
+  if (typeof attrs['aria-labelledby'] === 'string' && attrs['aria-labelledby']) return undefined
+  return typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Tree'
+});
 const containerProps = computed<TreeContainerProps>(() => {
   return props.tree && typeof props.tree.getContainerProps === "function"
     ? (props.tree.getContainerProps() as TreeContainerProps)
@@ -169,7 +173,7 @@ const mergedStyle = computed(() => {
     v-bind="containerProps"
     role="tree"
     :aria-disabled="props.disabled || undefined"
-    :aria-label="attrs['aria-labelledby'] ? undefined : attrs['aria-label'] || 'Tree'"
+    :aria-label="ariaLabel"
   >
     <p v-if="nodeStatus" role="status">{{ nodeStatus }}</p>
     <button
@@ -182,7 +186,7 @@ const mergedStyle = computed(() => {
       :data-selected="selected === row.id ? '' : undefined"
       :aria-level="row.level + 1"
       :aria-selected="selected === row.id"
-      :aria-expanded="row.folder ? String(!!expanded[row.id]) : undefined"
+      :aria-expanded="row.folder ? (expanded[row.id] ? 'true' : 'false') : undefined"
       :tabindex="props.disabled || row.id !== activeId ? -1 : 0"
       :disabled="props.disabled || undefined"
       :style="{ paddingLeft: `${row.level * props.indent}px` }"

@@ -14,6 +14,10 @@ defineOptions({ inheritAttrs: false })
 
 const props = defineProps<SwitchProps>()
 const attrs = useAttrs()
+const attrValue = (name: string) => {
+  const value = attrs[name]
+  return typeof value === 'string' ? value : undefined
+}
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
@@ -44,8 +48,8 @@ const onPress = (event?: Event) => {
       type="button"
       data-slot="switch"
       :aria-label="undefined"
-      :aria-invalid="attrs['aria-invalid']"
-      :aria-describedby="attrs['aria-describedby']"
+      :aria-invalid="attrValue('aria-invalid') === 'true' ? 'true' : undefined"
+      :aria-describedby="attrValue('aria-describedby')"
       :class="cn(switchVariants(), controlProps.class, props.class)"
       @click="onPress"
     >
@@ -57,7 +61,7 @@ const onPress = (event?: Event) => {
     </button>
     <input
       v-bind="hiddenInputProps"
-      :aria-label="attrs['aria-label'] || 'Switch'"
+      :aria-label="attrValue('aria-label') || 'Switch'"
       :aria-labelledby="undefined"
       @keydown.space.prevent
       @keyup.space.prevent="onPress"

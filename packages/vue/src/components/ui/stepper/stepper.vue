@@ -68,6 +68,10 @@ const props = withDefaults(
 )
 
 const attrs = useAttrs()
+const ariaLabel = computed(() => {
+  if (typeof attrs['aria-labelledby'] === 'string' && attrs['aria-labelledby']) return undefined
+  return typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Stepper'
+})
 
 const emits = defineEmits<{
   (e: 'update:modelValue', value: number): void
@@ -172,7 +176,7 @@ provide(StepperContextKey, {
     :aria-readonly="props.readOnly || undefined"
     v-bind="api?.getRootProps?.()"
     role="group"
-    :aria-label="attrs['aria-labelledby'] ? undefined : attrs['aria-label'] || 'Stepper'"
+    :aria-label="ariaLabel"
   >
     <p v-if="stepStatus" role="status">{{ stepStatus }}</p>
     <slot />

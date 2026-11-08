@@ -18,11 +18,11 @@ export type DateFieldVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: string
+  modelValue?: string | null
   /**
    * The controlled date value.
    */
-  value?: string
+  value?: string | null
   /**
    * Callback fired when the value changes.
    */

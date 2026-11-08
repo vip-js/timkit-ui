@@ -132,8 +132,10 @@ const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
             if (event.key !== ' ' || api.disabled || readOnly) return
             event.preventDefault()
             const input = event.currentTarget
-            input.checked = !api.checked
-            hiddenInputProps.onClick?.(event as unknown as React.MouseEvent<HTMLInputElement>)
+            const next = !api.checked
+            input.checked = next
+            if (checked === undefined) setOn(next)
+            onCheckedChange?.(createTimEvent('change', id ?? 'checkbox', { checked: next }))
           }}
         />
       </label>

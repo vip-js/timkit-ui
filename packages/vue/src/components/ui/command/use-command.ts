@@ -14,8 +14,8 @@ export const commandMatches = (item: CommandItem, query: string) => {
 
 export interface UseCommandProps {
   class?: HTMLAttributes['class']
-  value?: string
-  modelValue?: string
+  value?: string | null
+  modelValue?: string | null
   defaultValue?: string
   disabled?: boolean
   id?: string

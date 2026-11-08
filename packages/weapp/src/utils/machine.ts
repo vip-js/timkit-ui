@@ -37,8 +37,10 @@ type MachineService = {
 }
 
 if (typeof globalThis.requestAnimationFrame !== 'function') {
-  globalThis.requestAnimationFrame = ((callback: FrameRequestCallback) =>
-    setTimeout(() => callback(Date.now()), 16)) as typeof requestAnimationFrame
+  globalThis.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+    if (typeof document === 'undefined') return 0
+    return setTimeout(() => callback(Date.now()), 16) as unknown as number
+  }) as typeof requestAnimationFrame
   globalThis.cancelAnimationFrame = ((id: number) => clearTimeout(id)) as typeof cancelAnimationFrame
 }
 

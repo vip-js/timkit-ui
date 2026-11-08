@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, reactive, watchEffect } from 'vue'
+import type { PropType } from 'vue'
 import type { AssertNoExtraKeys, DateFieldVueProps } from '@timui/core'
 import { cn, dateFieldInputVariants, dateFieldSegmentVariants } from '@timui/core'
 import { DateFieldProvider, useDateFieldContext } from './use-date-field-context'
@@ -144,7 +145,7 @@ export const DateInput = defineComponent({
   name: 'DateInput',
   inheritAttrs: false,
   props: {
-    modelValue: { type: String, default: undefined },
+    modelValue: { type: String as PropType<string | null>, default: undefined },
     type: { type: String as () => 'date' | 'time' | 'datetime-local', default: undefined },
     unstyled: { type: Boolean, default: false },
     invalid: { type: Boolean, default: false },

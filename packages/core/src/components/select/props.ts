@@ -43,7 +43,7 @@ export type SelectVueProps = {
   /**
    * The controlled value of the component.
    */
-  value?: string
+  value?: string | null
   /**
    * The default value of the component when uncontrolled.
    */
@@ -51,7 +51,7 @@ export type SelectVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: string
+  modelValue?: string | null
   /**
    * When `true`, prevents the user from interacting with the component.
    */
@@ -71,7 +71,7 @@ export type SelectVueProps = {
   /**
    * The controlled open state of the component.
    */
-  open?: boolean
+  open?: boolean | null
   /**
    * The default open state of the component when initially rendered.
    */

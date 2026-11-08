@@ -20,6 +20,9 @@ type _CheckboxPropsGuard = AssertNoExtraKeys<CheckboxProps, CheckboxProps>;
 
 const props = defineProps<CheckboxProps>();
 const attrs = useAttrs();
+const ariaLabel = computed(() =>
+  typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Checkbox'
+);
 
 const emit = defineEmits(["update:modelValue", "update:checked", "change"]);
 type CheckedChangeDetails = Parameters<NonNullable<CheckboxVueProps["onCheckedChange"]>>[0];
@@ -92,7 +95,7 @@ const onPress = (event?: Event) => {
     <input
       v-bind="hiddenInputProps"
       :aria-checked="api?.indeterminate ? 'mixed' : undefined"
-      :aria-label="attrs['aria-label'] || 'Checkbox'"
+      :aria-label="ariaLabel"
       :aria-labelledby="undefined"
       @keydown.space.prevent
       @keyup.space.prevent="onPress"

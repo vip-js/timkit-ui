@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { gzipSync } from 'zlib'
 
 type Platform = 'react' | 'vue' | 'weapp' | 'html'
 
@@ -27,7 +28,11 @@ const WEAPP_UI_DIR = path.join(ROOT, 'packages/weapp/src')
 const HTML_UI_DIR = path.join(ROOT, 'packages/html/src/components')
 
 const fileExists = (target: string) => fs.existsSync(target)
-const fileSize = (target: string) => (fileExists(target) ? fs.statSync(target).size : 0)
+const payloadSize = (targets: string[]) => {
+  const files = targets.filter(fileExists)
+  if (!files.length) return 0
+  return gzipSync(Buffer.concat(files.map((file) => fs.readFileSync(file)))).byteLength
+}
 
 const parseCoreComponentNames = (): string[] => {
   const content = fs.readFileSync(CORE_BASE_PATH, 'utf-8')
@@ -61,13 +66,13 @@ const collectPlatformSizes = (componentNames: string[]): Record<Platform, Compon
 
   componentNames.forEach((name) => {
     const reactFile = path.join(REACT_UI_DIR, `${name}.tsx`)
-    if (fileExists(reactFile)) react.push({ name, bytes: fileSize(reactFile) })
+    if (fileExists(reactFile)) react.push({ name, bytes: payloadSize([reactFile]) })
 
     const vueFile = resolveVueImpl(name)
-    if (vueFile) vue.push({ name, bytes: fileSize(vueFile) })
+    if (vueFile) vue.push({ name, bytes: payloadSize([vueFile]) })
 
     const htmlFile = path.join(HTML_UI_DIR, `${name}.html`)
-    if (fileExists(htmlFile)) html.push({ name, bytes: fileSize(htmlFile) })
+    if (fileExists(htmlFile)) html.push({ name, bytes: payloadSize([htmlFile]) })
 
     const weappFiles = [
       resolveWeappComponentPath(name, 'wxml'),
@@ -76,7 +81,7 @@ const collectPlatformSizes = (componentNames: string[]): Record<Platform, Compon
       resolveWeappComponentPath(name, 'ts') || resolveWeappComponentPath(name, 'js'),
     ].filter(Boolean)
     if (weappFiles.length) {
-      const bytes = weappFiles.reduce((sum, p) => sum + fileSize(p), 0)
+      const bytes = payloadSize(weappFiles)
       weapp.push({ name, bytes })
     }
   })

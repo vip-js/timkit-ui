@@ -93,7 +93,7 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   hideNavigation?: boolean
   fixedWeeks?: boolean
   showWeekNumber?: boolean
-  disabled?: DisabledMatcher | DisabledMatcher[]
+  disabled?: boolean | DisabledMatcher | DisabledMatcher[]
   /**
    * When true, days can be focused but not selected.
    */

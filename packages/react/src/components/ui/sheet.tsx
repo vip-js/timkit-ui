@@ -64,7 +64,7 @@ const Sheet = (props: SheetProps) => {
 const SheetTrigger = ({
   children,
 }: {
-  children: React.ReactElement<Record<string, unknown>>
+  children: React.ReactElement<React.HTMLAttributes<HTMLElement> & { disabled?: boolean }>
 }) => {
   const api = useSheetContext()
   const rememberTrigger = React.useContext(SheetFocusContext)

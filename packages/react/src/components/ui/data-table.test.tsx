@@ -96,7 +96,7 @@ describe('data table', () => {
     act(() => {
       row(1, 0).dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }))
     })
-    expect(row(1, 0).tabIndex).toBe(0)
+    expect(row(1, 0).tabIndex).toBe(-1)
     expect(row(1, 2).tabIndex).toBe(-1)
     expect(row(1, 2).getAttribute('aria-selected')).toBe('false')
   })

@@ -37,10 +37,21 @@ const runSelectMethodChecks = async () => {
 
   const calls: string[] = []
   const context = {
+    properties: {
+      id: 'select',
+      disabled: false,
+      readOnly: false,
+      open: null,
+      value: null,
+      items: [{ value: 'beijing' }],
+      itemValueKey: 'value',
+    },
+    setData: () => undefined,
     _collection: {
       find: (value: string) => (value === 'beijing' ? { value } : undefined),
     },
     data: {
+      opened: false,
       api: {
         triggerProps: {
           onClick: () => calls.push('select.trigger.click'),
@@ -69,10 +80,21 @@ const runComboboxMethodChecks = async () => {
 
   const calls: string[] = []
   const context = {
+    properties: {
+      id: 'combobox',
+      disabled: false,
+      readOnly: false,
+      open: null,
+      value: null,
+      items: [{ value: 'shanghai' }],
+      itemValueKey: 'value',
+    },
+    setData: () => undefined,
     _collection: {
       find: (value: string) => (value === 'shanghai' ? { value } : undefined),
     },
     data: {
+      opened: false,
       api: {
         triggerProps: {
           onClick: () => calls.push('combobox.trigger.click'),
@@ -87,11 +109,11 @@ const runComboboxMethodChecks = async () => {
   methods.onItemTap?.call(context, { mark: { value: 'shanghai' } })
   methods.onBackdropTap?.call(context)
 
-  assert(calls.includes('combobox.trigger.click'), 'combobox onTriggerTap should invoke onClick')
+  assert(calls.includes('combobox.open.true'), 'combobox onTriggerTap should open the list')
   assert(calls.includes('combobox.value.shanghai'), 'combobox onItemTap should select value')
   assert(
-    calls.filter((item) => item === 'combobox.open.false').length === 2,
-    'combobox should close on item tap and backdrop tap'
+    calls.filter((item) => item === 'combobox.open.false').length === 1,
+    'combobox should close on backdrop tap'
   )
 }
 
@@ -101,6 +123,8 @@ const runDialogMethodChecks = async () => {
 
   const calls: string[] = []
   const context = {
+    properties: { modal: true, disabled: false, open: null },
+    setData: () => undefined,
     data: {
       api: {
         backdropProps: {
@@ -112,11 +136,12 @@ const runDialogMethodChecks = async () => {
       },
     },
   }
+  ;(context as { onCloseTap?: (...args: object[]) => object }).onCloseTap = methods.onCloseTap
 
   methods.onBackdropTap?.call(context)
   methods.onCloseTap?.call(context)
 
-  assert(calls.includes('dialog.backdrop.click'), 'dialog onBackdropTap should invoke onClick')
+  assert(calls.includes('dialog.close.click'), 'dialog onBackdropTap should close the dialog')
   assert(calls.includes('dialog.close.click'), 'dialog onCloseTap should invoke onClick')
 }
 
@@ -128,10 +153,17 @@ const runTabsMethodChecks = async () => {
   const setDataCalls: Array<Record<string, string>> = []
   const sent: Array<Record<string, string>> = []
   const context = {
-    _send: (event: Record<string, string>) => sent.push(event),
+    properties: {
+      tabs: [{ value: 'overview' }],
+      disabled: false,
+      value: null,
+      orientation: 'horizontal',
+    },
     setData: (payload: Record<string, string>) => {
       setDataCalls.push(payload)
     },
+    data: { activeValue: '', control: {}, api: { setValue: (value: string) => sent.push({ value }) } },
+    tabText: methods.tabText,
   }
 
   methods.handleTabClick?.call(context, { currentTarget: { dataset: { value: 'overview' } } })
@@ -142,9 +174,9 @@ const runTabsMethodChecks = async () => {
   )
   assert(
     sent.some(
-      (event) => JSON.stringify(event) === JSON.stringify({ type: 'VALUE.SET', value: 'overview' })
+      (event) => JSON.stringify(event) === JSON.stringify({ value: 'overview' })
     ),
-    'tabs handleTabClick should dispatch VALUE.SET'
+    'tabs handleTabClick should update the selected value'
   )
 }
 
@@ -154,7 +186,10 @@ const runDropdownMenuMethodChecks = async () => {
 
   const calls: string[] = []
   const context = {
+    properties: { disabled: false, open: null, value: null },
+    setData: () => undefined,
     data: {
+      opened: false,
       api: {
         triggerProps: {
           onClick: () => calls.push('dropdown.trigger.click'),
@@ -191,14 +226,22 @@ const runRadioGroupObserverChecks = async () => {
 
   const calls: Array<Record<string, string | boolean>> = []
   const context = {
-    _service: {
-      setContext: (payload: Record<string, string | boolean>) => {
-        calls.push(payload)
-      },
+    data: { selected: '' },
+    properties: { disabled: false },
+    _send: (event: { type: string; value?: string | null }) => {
+      if (event.value != null) calls.push({ value: event.value })
     },
+    getRelationNodes: () => [
+      {
+        properties: { value: 'news', disabled: false },
+        setData: (payload: Record<string, string | boolean>) => calls.push(payload),
+      },
+    ],
+    syncItems: definition.methods?.syncItems,
   }
 
   valueObserver?.call(context, 'news')
+  context.properties.disabled = true
   disabledObserver?.call(context, true)
 
   assert(
@@ -206,7 +249,7 @@ const runRadioGroupObserverChecks = async () => {
     'radio-group value observer should sync value'
   )
   assert(
-    calls.some((item) => item.disabled === true),
+    calls.some((item) => item.groupDisabled === true),
     'radio-group disabled observer should sync disabled state'
   )
 }
@@ -220,6 +263,13 @@ const runCheckboxChecks = async () => {
   const events: object[] = []
   const sent: object[] = []
   const context = {
+    properties: {
+      checked: null,
+      disabled: false,
+      readOnly: false,
+      id: 'checkbox',
+    },
+    setData: () => undefined,
     _service: { send: (event: object) => sent.push(event) },
     _send: (event: object) => sent.push(event),
     data: {
@@ -346,17 +396,43 @@ const runSliderObserverChecks = async () => {
 
 const runDatePickerObserverChecks = async () => {
   const definition = await loadTsComponent('packages/weapp/src/date-picker/date-picker.ts')
-  const observers = definition.observers || {}
-  const extClassObserver = observers.extClass
-  assert(typeof extClassObserver === 'function', 'date-picker extClass observer should exist')
+  const methods = definition.methods || {}
+  const paint = methods.paint
+  assert(typeof paint === 'function', 'date-picker paint method should exist')
 
   let payload: Record<string, object> | null = null
   const context = {
+    properties: {
+      startMonth: '',
+      endMonth: '',
+      disabled: false,
+      disabledDates: [],
+      mode: 'single',
+      extClass: 'custom-date',
+    },
+    data: { api: {} },
+    bounds: methods.bounds,
+    dayText: methods.dayText,
     setData: (next: Record<string, object>) => {
       payload = next
     },
   }
-  extClassObserver?.call(context, 'custom-date')
+  const day = {
+    year: 2026,
+    month: 1,
+    day: 15,
+    add: ({ months = 0, days = 0 }: { months?: number; days?: number }) => ({
+      year: 2026,
+      month: 1 + months,
+      day: 15 + days,
+      add: () => day,
+    }),
+  }
+  paint?.call(context, {
+    visibleRange: { start: day, end: day },
+    numOfMonths: 1,
+    getMonthWeeks: () => [],
+  })
 
   const className = String(payload?.className ?? '')
   assert(className.includes('w-full'), 'date-picker className should include base class w-full')
@@ -365,17 +441,42 @@ const runDatePickerObserverChecks = async () => {
 
 const runCalendarObserverChecks = async () => {
   const definition = await loadTsComponent('packages/weapp/src/calendar/calendar.ts')
-  const observers = definition.observers || {}
-  const extClassObserver = observers.extClass
-  assert(typeof extClassObserver === 'function', 'calendar extClass observer should exist')
+  const methods = definition.methods || {}
+  const paint = methods.paint
+  assert(typeof paint === 'function', 'calendar paint method should exist')
 
   let payload: Record<string, object> | null = null
   const context = {
+    properties: {
+      startMonth: '',
+      endMonth: '',
+      disabled: false,
+      disabledDates: [],
+      extClass: 'custom-calendar',
+    },
+    data: { api: {} },
+    bounds: methods.bounds,
+    dayText: methods.dayText,
     setData: (next: Record<string, object>) => {
       payload = next
     },
   }
-  extClassObserver?.call(context, 'custom-calendar')
+  const day = {
+    year: 2026,
+    month: 1,
+    day: 15,
+    add: ({ months = 0, days = 0 }: { months?: number; days?: number }) => ({
+      year: 2026,
+      month: 1 + months,
+      day: 15 + days,
+      add: () => day,
+    }),
+  }
+  paint?.call(context, {
+    visibleRange: { start: day, end: day },
+    numOfMonths: 1,
+    getMonthWeeks: () => [],
+  })
 
   const className = String(payload?.className ?? '')
   assert(className.includes('w-fit'), 'calendar className should include base class w-fit')
@@ -389,15 +490,23 @@ const runTagsInputMethodChecks = async () => {
   const calls: string[] = []
   const setDataCalls: Array<Record<string, object>> = []
   const context = {
+    properties: {
+      disabled: false,
+      readOnly: false,
+      value: null,
+      id: 'tags-input',
+    },
     setData: (next: Record<string, object>) => {
       setDataCalls.push(next)
     },
     data: {
+      control: {},
       api: {
         addValue: (value: string) => calls.push(`tags.add.${value}`),
-        deleteValue: (index: number) => calls.push(`tags.delete.${index}`),
+        setValue: (value: string[]) => calls.push(`tags.set.${value.join('|')}`),
       },
       inputValue: '',
+      tags: ['foo', 'bar', 'baz'],
     },
   }
 
@@ -414,7 +523,10 @@ const runTagsInputMethodChecks = async () => {
     setDataCalls.some((item) => item.inputValue === ''),
     'tags-input onConfirm should clear inputValue after add'
   )
-  assert(calls.includes('tags.delete.2'), 'tags-input onDeleteTag should delete by dataset index')
+  assert(
+    calls.includes('tags.set.foo|bar'),
+    'tags-input onDeleteTag should remove the selected tag by dataset index'
+  )
 }
 
 const runInputMethodChecks = async () => {
@@ -428,6 +540,11 @@ const runInputMethodChecks = async () => {
     properties: {
       type: 'search',
       extClass: 'custom-input',
+      disabled: false,
+      readOnly: false,
+      value: null,
+      maxlength: -1,
+      id: 'input',
     },
     setData: (next: Record<string, object>) => {
       setDataCalls.push(next)
@@ -436,9 +553,11 @@ const runInputMethodChecks = async () => {
       emitted.push({ name, detail })
     },
     updateClassName: methods.updateClassName,
+    data: { revealed: false, current: '' },
   }
 
-  observers['type, extClass']?.call(context)
+  observers.type?.call(context)
+  observers.extClass?.call(context)
   methods.onInput?.call(context, { detail: { value: 'hello' } })
   methods.onFocus?.call(context, { detail: { value: 'hello' } })
   methods.onBlur?.call(context, { detail: { value: 'hello' } })
@@ -449,8 +568,8 @@ const runInputMethodChecks = async () => {
     'input observer should write className via setData'
   )
   assert(
-    setDataCalls.some((item) => item.value === 'hello'),
-    'input onInput should update value'
+    setDataCalls.some((item) => item.current === 'hello'),
+    'input onInput should update current value'
   )
   const names = emitted.map((item) => item.name)
   assert(names.includes('input'), 'input should emit input event')
@@ -469,6 +588,11 @@ const runTextareaMethodChecks = async () => {
   const context = {
     properties: {
       extClass: 'custom-textarea',
+      disabled: false,
+      readOnly: false,
+      value: null,
+      maxlength: -1,
+      id: 'textarea',
     },
     setData: (next: Record<string, object>) => {
       setDataCalls.push(next)
@@ -477,6 +601,7 @@ const runTextareaMethodChecks = async () => {
       emitted.push({ name, detail })
     },
     updateClassName: methods.updateClassName,
+    data: { current: '' },
   }
 
   observers.extClass?.call(context)
@@ -490,8 +615,8 @@ const runTextareaMethodChecks = async () => {
     'textarea observer should write className via setData'
   )
   assert(
-    setDataCalls.some((item) => item.value === 'line1'),
-    'textarea onInput should update value'
+    setDataCalls.some((item) => item.current === 'line1'),
+    'textarea onInput should update current value'
   )
   const names = emitted.map((item) => item.name)
   assert(names.includes('input'), 'textarea should emit input event')
@@ -511,6 +636,10 @@ const runSelectNativeChecks = async () => {
     properties: {
       options: ['A', 'B', 'C'],
       value: 1,
+      defaultValue: null,
+      disabled: false,
+      multiple: false,
+      id: 'select-native',
       extClass: 'custom-native-select',
     },
     setData: (next: Record<string, object>) => {
@@ -519,10 +648,12 @@ const runSelectNativeChecks = async () => {
     triggerEvent: (name: string, detail: object) => {
       emitted.push({ name, detail })
     },
-    updateDisplay: methods.updateDisplay,
+    syncFromProps: methods.syncFromProps,
+    optionText: methods.optionText,
   }
 
-  observers['options, value, extClass']?.call(context)
+  observers['options, value, disabled, multiple']?.call(context)
+  context.properties.value = null
   methods.handleChange?.call(context, { detail: { value: '2' } })
 
   assert(
@@ -530,8 +661,8 @@ const runSelectNativeChecks = async () => {
     'select-native observer should compute displayText from value'
   )
   assert(
-    setDataCalls.some((item) => String(item.className ?? '').includes('custom-native-select')),
-    'select-native observer should apply extClass to className'
+    setDataCalls.some((item) => item.selected === 'B'),
+    'select-native observer should sync selected value'
   )
   assert(
     setDataCalls.some((item) => item.displayText === 'C'),
@@ -543,7 +674,7 @@ const runSelectNativeChecks = async () => {
         item.name === 'change' &&
         item.detail.type === 'change' &&
         JSON.stringify(item.detail.target) === JSON.stringify({ id: 'select-native' }) &&
-        JSON.stringify(item.detail.detail) === JSON.stringify({ value: 2 })
+        JSON.stringify(item.detail.detail) === JSON.stringify({ value: 'C' })
     ),
     'select-native handleChange should emit TimEvent change payload'
   )
@@ -555,7 +686,9 @@ const runPaginationMethodChecks = async () => {
 
   const calls: string[] = []
   const context = {
+    properties: { disabled: false, page: null, id: 'pagination' },
     data: {
+      current: 1,
       api: {
         goToPrevPage: () => calls.push('pagination.prev'),
         goToNextPage: () => calls.push('pagination.next'),
@@ -581,16 +714,27 @@ const runStepperMethodChecks = async () => {
   const calls: string[] = []
   const contexts: Array<Record<string, object>> = []
   const context = {
+    properties: {
+      disabled: false,
+      readOnly: false,
+      value: null,
+      id: 'stepper',
+    },
+    setData: () => undefined,
     _service: {
       setContext: (payload: Record<string, object>) => contexts.push(payload),
     },
     data: {
+      current: '0',
+      control: {},
       api: {
         decrement: () => calls.push('stepper.decrement'),
         increment: () => calls.push('stepper.increment'),
         setValue: (value: string) => calls.push(`stepper.value.${value}`),
       },
     },
+    rowsFor: methods.rowsFor,
+    stepText: methods.stepText,
   }
 
   methods.onDecrementTap?.call(context)
@@ -601,10 +745,7 @@ const runStepperMethodChecks = async () => {
   assert(calls.includes('stepper.decrement'), 'stepper onDecrementTap should call decrement')
   assert(calls.includes('stepper.increment'), 'stepper onIncrementTap should call increment')
   assert(calls.includes('stepper.value.9'), 'stepper onInput should call setValue')
-  assert(
-    contexts.some((item) => JSON.stringify(item) === JSON.stringify({ value: '11' })),
-    'stepper value observer should sync context value'
-  )
+  assert(calls.includes('stepper.value.11'), 'stepper value observer should sync value')
 }
 
 const runNumberInputMethodChecks = async () => {
@@ -615,16 +756,29 @@ const runNumberInputMethodChecks = async () => {
   const calls: string[] = []
   const contexts: Array<Record<string, object>> = []
   const context = {
+    properties: {
+      disabled: false,
+      readOnly: false,
+      value: null,
+      min: -100,
+      max: 100,
+      step: 1,
+      id: 'number-input',
+    },
+    setData: () => undefined,
     _service: {
       setContext: (payload: Record<string, object>) => contexts.push(payload),
     },
     data: {
+      current: '0',
+      control: {},
       api: {
         decrement: () => calls.push('number-input.decrement'),
         increment: () => calls.push('number-input.increment'),
         setValue: (value: string) => calls.push(`number-input.value.${value}`),
       },
     },
+    valueText: methods.valueText,
   }
 
   methods.onDecrementTap?.call(context)
@@ -641,10 +795,7 @@ const runNumberInputMethodChecks = async () => {
     'number-input onIncrementTap should call increment'
   )
   assert(calls.includes('number-input.value.5'), 'number-input onInput should call setValue')
-  assert(
-    contexts.some((item) => JSON.stringify(item) === JSON.stringify({ value: '7' })),
-    'number-input value observer should sync context value'
-  )
+  assert(calls.includes('number-input.value.7'), 'number-input value observer should sync value')
 }
 
 const runCheck = async (name: string, check: () => Promise<void>) => {

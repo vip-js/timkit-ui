@@ -35,7 +35,7 @@ describe('checkbox checked', () => {
     const seen: boolean[] = []
     show(
       <>
-        <Checkbox onCheckedChange={(event) => seen.push(event.detail.checked)} />
+        <Checkbox onCheckedChange={(event) => seen.push(event.detail.checked === true)} />
         <Checkbox disabled />
       </>
     )
@@ -62,7 +62,7 @@ describe('checkbox checked', () => {
   it('stays clear while read-only', async () => {
     const seen: boolean[] = []
     show(
-      <Checkbox readOnly checked={false} onCheckedChange={(event) => seen.push(event.detail.checked)} />
+      <Checkbox readOnly checked={false} onCheckedChange={(event) => seen.push(event.detail.checked === true)} />
     )
     const box = document.querySelector('[data-slot="checkbox"]') as HTMLButtonElement
     await act(async () => {
@@ -78,7 +78,7 @@ describe('checkbox checked', () => {
       <Checkbox
         checked={null as unknown as boolean}
         defaultChecked
-        onCheckedChange={(event) => seen.push(event.detail.checked)}
+        onCheckedChange={(event) => seen.push(event.detail.checked === true)}
       />
     )
     const box = document.querySelector('[data-slot="checkbox"]') as HTMLButtonElement

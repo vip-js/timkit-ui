@@ -41,6 +41,8 @@ const languages = [
 
 const id = 'navbar-06'
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

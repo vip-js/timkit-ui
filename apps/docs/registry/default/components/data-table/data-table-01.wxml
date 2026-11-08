@@ -1,12 +1,6 @@
-<view aria-label="People">
-  <view>People</view>
-  <view aria-label="Select all rows">Select all</view>
-  <view aria-sort="none">Name</view>
-  <view tabindex="0" aria-selected="false">
-    <view aria-label="Select 2">Grace</view>
-  </view>
-  <view tabindex="-1" aria-selected="false">
-    <view aria-label="Select 1">Ada</view>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="grid gap-8">
+    <text aria-hidden="true" caption="People" columns="[object Object]" rows="[object Object],[object Object]">
+    <text aria-hidden="true" caption="Empty" columns="[object Object]" empty-label="Nothing here">
   </view>
 </view>
-<view aria-label="Empty" role="status">Nothing here</view>

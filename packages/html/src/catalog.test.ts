@@ -196,5 +196,8 @@ describe('html components', () => {
     expect(read('navigation-menu.html')).toContain('aria-controls="navigation-content-platform"')
     expect(read('navigation-menu.html')).toContain('role="region"')
     expect(read('navigation-menu.html')).toContain('aria-labelledby="navigation-trigger-platform"')
+    expect(read('form.html')).toContain('data-slot="form"')
+    expect(read('form.html')).toContain('type="email"')
+    expect(read('form.html')).toContain('type="submit"')
   })
 })

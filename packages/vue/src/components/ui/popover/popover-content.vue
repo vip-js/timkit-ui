@@ -27,6 +27,9 @@ const props = withDefaults(
 
 const context = usePopoverContext();
 const attrs = useAttrs();
+const ariaLabel = computed(() =>
+  typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Popover'
+);
 const isOpen = computed(() => context.value.open ?? false);
 const positionerProps = computed(() => context.value.getPositionerProps?.() ?? {});
 const contentProps = computed(() => context.value.getContentProps?.() ?? {});
@@ -48,7 +51,7 @@ watch(
     <Presence :present="isOpen" :unmountOnExit="true" v-bind="positionerProps" style="z-index: 50">
       <div
         v-bind="contentProps"
-        :aria-label="attrs['aria-label'] || 'Popover'"
+        :aria-label="ariaLabel"
         data-slot="popover-content"
         data-state="open"
         :data-align="props.align"

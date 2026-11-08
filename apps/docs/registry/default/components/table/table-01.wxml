@@ -1,5 +1,5 @@
 <view class="timui-html-demo space-y-4 p-4">
-<view><view data-slot="table" aria-label="People"><text>People</text><view><view><text>Name</text><text>Email</text><text>Location</text><text>Status</text><text>Balance</text></view></view><view><view><text>Alex Thompson</text><text>alex.t@company.com</text><text>San Francisco, US</text><text>Active</text><text>$1,250.00</text></view>
+<view><view data-slot="table"><text>People</text><view><view><text>Name</text><text>Email</text><text>Location</text><text>Status</text><text>Balance</text></view></view><view><view><text>Alex Thompson</text><text>alex.t@company.com</text><text>San Francisco, US</text><text>Active</text><text>$1,250.00</text></view>
 <view><text>Sarah Chen</text><text>sarah.c@company.com</text><text>Singapore</text><text>Active</text><text>$600.00</text></view>
 <view><text>James Wilson</text><text>j.wilson@company.com</text><text>London, UK</text><text>Inactive</text><text>$650.00</text></view>
 <view><text>Maria Garcia</text><text>m.garcia@company.com</text><text>Madrid, Spain</text><text>Active</text><text>$0.00</text></view>

@@ -60,7 +60,8 @@ const Toast = React.forwardRef<
     // 'use-toast' handles removing from array after delay.
     // So we just render 'open' style or 'closed' style.
 
-    if (open === false) return null // Or animate out?
+    const isOpen = open !== false
+    if (!isOpen) return null // Or animate out?
     // Radix stays mounted for animation.
 
     return (
@@ -68,7 +69,7 @@ const Toast = React.forwardRef<
         <li
           ref={ref}
           data-slot="toast"
-          data-state={open ? 'open' : 'closed'}
+          data-state={isOpen ? 'open' : 'closed'}
           className={cn(toastVariants({ variant }), className)}
           {...props}
         >

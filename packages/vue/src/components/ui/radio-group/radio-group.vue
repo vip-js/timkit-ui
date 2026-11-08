@@ -19,6 +19,9 @@ type _RadioGroupPropsGuard = AssertNoExtraKeys<RadioGroupProps, RadioGroupProps>
 
 const props = defineProps<RadioGroupProps>();
 const attrs = useAttrs();
+const ariaLabel = computed(() =>
+  typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Radio group'
+);
 
 const emit = defineEmits(["update:modelValue", "change"]);
 
@@ -75,7 +78,7 @@ const rootProps = computed(() => {
   <p v-if="optionStatus" role="status">{{ optionStatus }}</p>
   <div
     v-bind="rootProps"
-    :aria-label="attrs['aria-label'] || 'Radio group'"
+    :aria-label="ariaLabel"
     data-slot="radio-group"
     :class="cn(radioGroupVariants(), props.class)"
   >

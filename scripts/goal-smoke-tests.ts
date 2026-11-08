@@ -6,6 +6,7 @@ type SmokeTask = {
 }
 
 const tasks: SmokeTask[] = [
+  { name: 'component-matrix', script: 'scripts/goal-component-matrix.ts' },
   { name: 'core-behavior', script: 'scripts/goal-smoke-core.ts' },
   { name: 'registry-consistency', script: 'scripts/goal-smoke-registry.ts' },
   { name: 'preview-protocol', script: 'scripts/goal-smoke-preview-protocol.ts' },

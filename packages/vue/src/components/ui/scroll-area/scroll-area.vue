@@ -31,7 +31,7 @@ const rootProps = computed(() => {
   return { ...rest, ...passthrough.value }
 })
 
-const viewportStyle = computed(() =>
+const viewportStyle = computed<{ overflowX: 'auto' | 'hidden'; overflowY: 'auto' | 'hidden' }>(() =>
   props.orientation === 'horizontal'
     ? { overflowX: 'auto', overflowY: 'hidden' }
     : props.orientation === 'both'

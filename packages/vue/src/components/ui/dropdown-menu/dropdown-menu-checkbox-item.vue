@@ -6,7 +6,7 @@ import { cn, dropdownMenuCheckboxItemVariants } from "@timui/core";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
-  checked?: boolean;
+  checked?: boolean | null;
   value?: string;
   disabled?: boolean;
   onCheckedChange?: (checked: boolean) => void;

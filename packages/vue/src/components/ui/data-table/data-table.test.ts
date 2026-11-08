@@ -14,7 +14,7 @@ afterEach(() => {
 const show = (props: Record<string, unknown>) => {
   const el = document.createElement('div')
   document.body.append(el)
-  const app = createApp({ render: () => h(DataTable, props) })
+  const app = createApp({ render: () => h(DataTable, props as never) })
   app.mount(el)
   mounted.push(() => app.unmount())
 }
@@ -92,7 +92,7 @@ describe('vue data table', () => {
     expect(row(0, 0).getAttribute('aria-selected')).toBe('false')
     row(1, 0).dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }))
     await nextTick()
-    expect(row(1, 0).tabIndex).toBe(0)
+    expect(row(1, 0).tabIndex).toBe(-1)
     expect(row(1, 2).tabIndex).toBe(-1)
     expect(row(1, 2).getAttribute('aria-selected')).toBe('false')
   })

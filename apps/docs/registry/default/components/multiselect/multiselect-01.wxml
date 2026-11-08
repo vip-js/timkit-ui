@@ -1,4 +1,8 @@
-<view class="timui-demo">
-  <text>Skills</text>
-  <picker mode="selector" range="{{options}}"><view>Choose</view></picker>
+<view class="timui-html-demo space-y-4 p-4">
+<text class="text-sm">Skills
+    <select class="mt-1 h-9 w-full rounded-md border px-3" multiple>
+      <view value="design">Design</view>
+      <view value="code">Code</view>
+    </select>
+  </text>
 </view>

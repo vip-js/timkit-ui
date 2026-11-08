@@ -50,7 +50,7 @@ const ToggleGroup = React.forwardRef<
     })
     const itemValues = React.Children.toArray(children).flatMap((child) => {
       if (!React.isValidElement(child)) return []
-      const itemValue = (child.props as { value?: unknown }).value
+      const itemValue = (child.props as { value?: string | number | boolean | null }).value
       return typeof itemValue === 'string' && itemValue ? [itemValue] : []
     })
     const raw = (api as { value?: string | string[] }).value

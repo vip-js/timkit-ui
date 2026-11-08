@@ -20,6 +20,8 @@ const navigationLinks = [
 
 const id = 'navbar-11-search'
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

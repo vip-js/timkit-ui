@@ -18,7 +18,7 @@ export type CommandProps = {
   /**
    * The controlled value of the component.
    */
-  value?: string
+  value?: string | null
   /**
    * Callback fired when the value changes.
    */

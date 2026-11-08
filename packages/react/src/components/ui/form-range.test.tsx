@@ -103,7 +103,7 @@ describe('form number range', () => {
       },
       { name: 'alerts', label: 'Alerts', control: 'switch', rules: [{ kind: 'checked', message: 'Enable alerts' }] },
       { name: 'count', label: 'Count', control: 'number', rules: [{ kind: 'required', message: 'Count is required' }] },
-    ] as FieldSpec[]
+    ] as unknown as FieldSpec[]
     act(() => {
       root.render(<Form fields={fields} onSubmit={(values) => seen.push(values)} />)
     })

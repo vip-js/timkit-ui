@@ -11,6 +11,8 @@ import { Label } from '@timui/vue';
 const id = 'input-22';
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1
@@ -18,5 +20,5 @@ function onDemoClick() {
 </script>
 
 <template>
-  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with button</Label><div class="flex gap-2"><Input :id="id" class="flex-1" placeholder="Email" type="email" /><Button @click="onDemoClick" :data-clicks="demoClicks" variant="outline">Send</Button></div></div>
+  <div class="*:not-first:mt-2"><Label :htmlFor="id">Input with button</Label><div class="flex gap-2"><Input @input="onDemoClick" :id="id" class="flex-1" placeholder="Email" type="email" /><Button :data-clicks="demoClicks" variant="outline">Send</Button></div></div>
 </template>

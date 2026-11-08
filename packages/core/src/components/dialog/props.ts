@@ -23,7 +23,7 @@ export type DialogVueProps = {
   /**
    * The controlled open state of the component.
    */
-  open?: boolean
+  open?: boolean | null
   /**
    * The default open state of the component when initially rendered.
    */

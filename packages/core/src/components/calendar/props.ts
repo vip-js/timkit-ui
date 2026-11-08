@@ -31,7 +31,7 @@ export type CalendarDisabledMatcher =
     }
   | ((date: Date) => boolean)
 
-export type CalendarVueValue = Date | Date[] | CalendarRangeValue | undefined
+export type CalendarVueValue = Date | Date[] | CalendarRangeValue | null | undefined
 export type CalendarVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).

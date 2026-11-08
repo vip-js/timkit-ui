@@ -37,7 +37,7 @@ const propsFor = (name: ComponentName): Record<string, unknown> => {
     return {
       tree: { id: 'root', label: 'Root', children: [{ id: 'leaf', label: 'Leaf' }] },
       renderNode: (node: { node: { label: string }; children?: unknown }) =>
-        h('div', null, String(node.node.label)),
+        h('div', null, [String(node.node.label), ...(Array.isArray(node.children) ? node.children : [])]),
     }
   }
   if (name === 'image-cropper') {

@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type SliderValueChangeEvent = TimEvent<{ value: number[] }>
 
-export type SliderProps = Omit<slider.Props, 'onValueChange'> & {
+export type SliderProps = Omit<slider.Props, 'id' | 'onValueChange'> & {
+  id?: string
   /**
    * Callback fired when the value changes.
    */
@@ -27,7 +28,7 @@ export type SliderVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: number[]
+  modelValue?: number[] | null
   /**
    * The controlled value of the component.
    */

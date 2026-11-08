@@ -5,7 +5,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 export type MenuOpenChangeEvent = TimEvent<{ open: boolean }>
 export type MenuSelectEvent = TimEvent<{ value: string }>
 
-export type MenuProps = Omit<menu.Props, 'onOpenChange' | 'onSelect'> & {
+export type MenuProps = Omit<menu.Props, 'id' | 'onOpenChange' | 'onSelect'> & {
+  id?: string
   /**
    * When true, opening and selection are ignored.
    */

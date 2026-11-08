@@ -17,6 +17,8 @@ export type FieldSpec = {
   name: string
   label: string
   hint?: string
+  control?: 'text' | 'textarea' | 'select' | 'switch' | 'number' | 'check' | 'radio' | 'password' | 'date' | 'time'
+  options?: Array<{ label?: string; value: string }>
   rules?: FieldRule[]
 }
 
@@ -106,18 +108,27 @@ export const fieldError = (value: string, rules: FieldRule[] = [], values: FormV
   return ''
 }
 
-export const readFieldValue = (event: unknown) => {
+type FormEventValue = string | number | boolean | null | Array<string | number | boolean | null>
+type FormEventRecord = {
+  detail?: { value?: FormEventValue; checked?: boolean }
+  target?: { value?: string; checked?: boolean; type?: string } | EventTarget | null
+}
+export type FormEvent =
+  | string
+  | number
+  | boolean
+  | FormEventRecord
+  | Event
+
+export const readFieldValue = (event: FormEvent) => {
   if (typeof event === 'string') return event
   if (typeof event === 'number' && Number.isFinite(event)) return String(event)
   if (typeof event === 'boolean') return event ? 'true' : ''
   if (!event || typeof event !== 'object') return ''
-  const record = event as {
-    detail?: unknown
-    target?: { value?: unknown; checked?: unknown; type?: string }
-  }
-  const detail = record.detail
+  const record = event
+  const detail = 'detail' in record ? record.detail : undefined
   if (detail && typeof detail === 'object') {
-    const payload = detail as { value?: unknown; checked?: unknown }
+    const payload = detail
     if ('value' in payload) {
       if (Array.isArray(payload.value)) return String(payload.value[0] ?? '')
       if (payload.value == null) return ''
@@ -126,14 +137,17 @@ export const readFieldValue = (event: unknown) => {
     }
     if (typeof payload.checked === 'boolean') return payload.checked ? 'true' : ''
   }
-  if (record.target?.type === 'radio') {
-    if (record.target.checked === false) return ''
-    return typeof record.target.value === 'string' ? record.target.value : ''
+  const target = 'target' in record ? record.target : undefined
+  if (!target || typeof target !== 'object') return ''
+  const targetRecord = target as { value?: string; checked?: boolean; type?: string }
+  if (targetRecord.type === 'radio') {
+    if (targetRecord.checked === false) return ''
+    return typeof targetRecord.value === 'string' ? targetRecord.value : ''
   }
-  if (record.target?.type === 'checkbox' && typeof record.target.checked === 'boolean') {
-    return record.target.checked ? 'true' : ''
+  if (targetRecord.type === 'checkbox' && typeof targetRecord.checked === 'boolean') {
+    return targetRecord.checked ? 'true' : ''
   }
-  if (typeof record.target?.value === 'string') return record.target.value
+  if (typeof targetRecord.value === 'string') return targetRecord.value
   return ''
 }
 

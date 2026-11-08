@@ -19,7 +19,7 @@ export type MultiselectProps = {
   /**
    * The controlled value of the component.
    */
-  value?: MultiselectOption[]
+  value?: MultiselectOption[] | null
   /**
    * The initial list of given options.
    */
@@ -102,7 +102,7 @@ export type MultiselectVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: MultiselectOption[]
+  modelValue?: MultiselectOption[] | null
   /**
    * The initial list of given options.
    */

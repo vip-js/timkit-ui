@@ -217,7 +217,7 @@ describe('vue text input value', () => {
     app.mount(host)
     mounted.push({ unmount: () => app.unmount(), host })
     await nextTick()
-    const fields = host.querySelectorAll('input, textarea')
+    const fields = host.querySelectorAll('input, textarea') as NodeListOf<HTMLInputElement | HTMLTextAreaElement>
     expect(fields[0]?.required).toBe(true)
     expect(fields[0]?.getAttribute('aria-required')).toBe('true')
     expect(fields[1]?.required).toBe(false)

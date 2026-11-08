@@ -108,7 +108,8 @@ const isMatchObject = (
   return false
 }
 
-export const matchDisabled = (date: Date, matcher: DisabledMatcher) => {
+export const matchDisabled = (date: Date, matcher: DisabledMatcher | boolean) => {
+  if (typeof matcher === 'boolean') return matcher
   if (matcher instanceof Date) return isSameDay(date, matcher)
   if (typeof matcher === 'function') return matcher(date)
   return isMatchObject(date, matcher)

@@ -29,7 +29,7 @@ export type CheckboxTreeProps<T> = {
   /**
    * The controlled ids of the checked nodes.
    */
-  checkedKeys?: string[]
+  checkedKeys?: string[] | null
   /**
    * Called with the next checked ids. A controlled value stays until the parent applies it.
    */

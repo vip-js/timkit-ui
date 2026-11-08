@@ -1,5 +1,7 @@
-<view class="timui-demo">
-  <text>Left</text>
-  <view></view>
-  <text>Right</text>
+<view class="timui-html-demo space-y-4 p-4">
+<view class="flex min-h-40 max-w-lg rounded-lg border">
+    <view class="flex-1 p-3">Left</view>
+    <view class="w-px bg-border" role="separator"></view>
+    <view class="flex-1 p-3">Right</view>
+  </view>
 </view>

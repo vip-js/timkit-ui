@@ -49,9 +49,17 @@ const controlOf = (field: WeappField) => {
 }
 
 Component({
+  options: {
+    styleIsolation: 'apply-shared',
+    pureDataPattern: /^_/,
+  },
+
+  externalClasses: ['ext-class'],
+
   properties: {
     fields: { type: Array, value: [] },
     disabled: { type: Boolean, value: false },
+    extClass: { type: String, value: '' },
   },
 
   data: {

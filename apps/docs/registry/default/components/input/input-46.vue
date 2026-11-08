@@ -4,7 +4,7 @@ import { Label } from '@timui/vue'
 
 const id = 'input-46'
 const digits = ref(['', '', '', ''])
-const inputRefs = ref<Array @click="onDemoClick"<HTMLInputElement | null>>([])
+const inputRefs = ref<Array<HTMLInputElement | null>>([])
 
 function setInputRef(index: number, el: HTMLInputElement | null) {
   inputRefs.value[index] = el
@@ -26,10 +26,6 @@ function handleKeydown(index: number, event: KeyboardEvent) {
   }
 }
 
-const demoClicks = ref(0)
-function onDemoClick() {
-  demoClicks.value += 1
-}
 </script>
 
 <template>

@@ -128,7 +128,7 @@ Component({
       const named = self.properties.delayDuration
       const delay = named == null || named === '' ? Number(self.properties.openDelay) : Number(named)
       const wait = Number.isFinite(delay) ? delay : 700
-      self._openTimer = setTimeout(() => {
+      const open = () => {
         if (self.properties.disabled) return
         if (self.properties.open != null) {
           self.triggerEvent('change', { open: true })
@@ -136,7 +136,9 @@ Component({
         }
         self.data.api.setOpen?.(true)
         if (!self.data.opened) this.setData({ opened: true, openStatus: 'Opened' })
-      }, wait)
+      }
+      if (wait <= 0) open()
+      else self._openTimer = setTimeout(open, wait)
     },
     onTriggerLongPress() {
       this.scheduleOpen()

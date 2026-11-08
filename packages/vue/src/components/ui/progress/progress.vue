@@ -12,6 +12,10 @@ const props = defineProps<{
 
 const api = useProgress(props)
 const attrs = useAttrs()
+const ariaLabel = computed(() => {
+  if (typeof attrs['aria-labelledby'] === 'string' && attrs['aria-labelledby']) return undefined
+  return typeof attrs['aria-label'] === 'string' && attrs['aria-label'] ? attrs['aria-label'] : 'Progress'
+})
 
 const percent = computed(() => {
   return api.value.percent
@@ -29,7 +33,7 @@ const percent = computed(() => {
     :data-max="props.max ?? 100"
     :data-value="props.modelValue ?? undefined"
     :data-state="props.modelValue == null ? 'indeterminate' : 'loading'"
-    :aria-label="attrs['aria-labelledby'] ? undefined : attrs['aria-label'] || 'Progress'"
+    :aria-label="ariaLabel"
     :class="cn(progressRootVariants(), props.class)"
   >
     <div

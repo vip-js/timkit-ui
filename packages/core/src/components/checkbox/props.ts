@@ -4,7 +4,8 @@ import type { LogicDefinition, TimEvent } from '../../shared'
 
 export type CheckboxCheckedChangeEvent = TimEvent<{ checked: checkbox.CheckedState }>
 
-export type CheckboxProps = Omit<checkbox.Props, 'onCheckedChange'> & {
+export type CheckboxProps = Omit<checkbox.Props, 'id' | 'onCheckedChange'> & {
+  id?: string
   /**
    * Callback fired when the state of the checked property changes.
    */
@@ -21,7 +22,7 @@ export type CheckboxVueProps = {
   /**
    * The controlled checked state of the component.
    */
-  checked?: CheckboxCheckedState
+  checked?: CheckboxCheckedState | null
   /**
    * The default checked state of the component when initially rendered.
    */
@@ -49,7 +50,7 @@ export type CheckboxVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: CheckboxCheckedState
+  modelValue?: CheckboxCheckedState | null
   /**
    * Callback fired when the state of the checked property changes.
    */

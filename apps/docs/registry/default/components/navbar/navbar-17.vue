@@ -9,6 +9,8 @@ import Filters from '@/registry/default/components/navbar-components/filters.vue
 
 
 
+
+
 const demoClicks = ref(0)
 function onDemoClick() {
   demoClicks.value += 1

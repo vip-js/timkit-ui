@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { gzipSync } from 'zlib'
 
 type Severity = 'critical' | 'major' | 'minor'
 
@@ -39,20 +40,20 @@ const HTML_UI_DIR = path.join(ROOT, 'packages/html/src/components')
 
 const DEFAULT_BUDGETS: Record<Platform, Budget> = {
   react: {
-    perComponentMaxBytes: 22000,
-    totalMaxBytes: 220000,
+    perComponentMaxBytes: 6500,
+    totalMaxBytes: 90000,
   },
   vue: {
-    perComponentMaxBytes: 18000,
-    totalMaxBytes: 130000,
+    perComponentMaxBytes: 5500,
+    totalMaxBytes: 55000,
   },
   weapp: {
-    perComponentMaxBytes: 12000,
-    totalMaxBytes: 190000,
+    perComponentMaxBytes: 6000,
+    totalMaxBytes: 125000,
   },
   html: {
-    perComponentMaxBytes: 6000,
-    totalMaxBytes: 50000,
+    perComponentMaxBytes: 1800,
+    totalMaxBytes: 24000,
   },
 }
 
@@ -67,7 +68,11 @@ const parseCoreComponentNames = (): string[] => {
 }
 
 const fileExists = (target: string) => fs.existsSync(target)
-const fileSize = (target: string) => (fileExists(target) ? fs.statSync(target).size : 0)
+const payloadSize = (targets: string[]) => {
+  const files = targets.filter(fileExists)
+  if (!files.length) return 0
+  return gzipSync(Buffer.concat(files.map((file) => fs.readFileSync(file)))).byteLength
+}
 
 const resolveVueImpl = (name: string) => {
   const dirBased = path.join(VUE_UI_DIR, name, `${name}.vue`)
@@ -157,17 +162,17 @@ const collectPlatformSizes = (componentNames: string[]): Record<Platform, Compon
   componentNames.forEach((name) => {
     const reactFile = path.join(REACT_UI_DIR, `${name}.tsx`)
     if (fileExists(reactFile)) {
-      reactSizes.push({ name, bytes: fileSize(reactFile) })
+      reactSizes.push({ name, bytes: payloadSize([reactFile]) })
     }
 
     const vueFile = resolveVueImpl(name)
     if (vueFile) {
-      vueSizes.push({ name, bytes: fileSize(vueFile) })
+      vueSizes.push({ name, bytes: payloadSize([vueFile]) })
     }
 
     const htmlFile = path.join(HTML_UI_DIR, `${name}.html`)
     if (fileExists(htmlFile)) {
-      htmlSizes.push({ name, bytes: fileSize(htmlFile) })
+      htmlSizes.push({ name, bytes: payloadSize([htmlFile]) })
     }
 
     const weappFiles = [
@@ -177,7 +182,7 @@ const collectPlatformSizes = (componentNames: string[]): Record<Platform, Compon
       resolveWeappComponentPath(name, 'ts') || resolveWeappComponentPath(name, 'js'),
     ].filter(Boolean)
     if (weappFiles.length) {
-      const bytes = weappFiles.reduce((sum, filePath) => sum + fileSize(filePath), 0)
+      const bytes = payloadSize(weappFiles)
       weappSizes.push({ name, bytes })
     }
   })
@@ -270,6 +275,7 @@ const main = () => {
   console.log('Timkit Goal Performance Report')
   console.log('==============================')
   console.log(`Core components: ${componentNames.length}`)
+  console.log('Measurement: gzip-compressed component payload estimate')
   ;(['react', 'vue', 'weapp', 'html'] as Platform[]).forEach((platform) => {
     const items = sizes[platform]
     const total = totalBytes(items)

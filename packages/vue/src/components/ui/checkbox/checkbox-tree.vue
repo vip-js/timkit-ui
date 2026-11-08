@@ -34,7 +34,7 @@ export default defineComponent({
       required: true,
     },
     checkedKeys: {
-      type: Array as PropType<string[] | undefined>,
+      type: Array as PropType<string[] | null | undefined>,
       default: undefined,
     },
   },

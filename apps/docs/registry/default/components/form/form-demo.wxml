@@ -1,12 +1,23 @@
+<view class="timui-html-demo space-y-4 p-4">
 <form>
-  <label>Name</label>
-  <input type="text" aria-label="Name" aria-invalid="true" aria-describedby="name-error" />
-  <view id="name-error">Use at least 2 characters</view>
-  <label>Email</label>
-  <input type="text" aria-label="Email" aria-invalid="true" aria-describedby="email-error" />
-  <view id="email-error">Email is required</view>
-  <label>Accept terms</label>
-  <checkbox aria-label="Accept terms" aria-invalid="true" aria-describedby="terms-error" />
-  <view id="terms-error">Accept terms</view>
-  <button type="submit">Create account</button>
-</form>
+    <text for="name">Name</text>
+    <input
+      type="text"
+      aria-label="Name">
+    <text id="name-error" role="alert"></text>
+    <text for="email">Email</text>
+    <input
+      type="email"
+      aria-label="Email">
+    <text id="email-error" role="alert"></text>
+    <text>
+      <input
+        type="checkbox"
+        aria-label="Accept terms">
+      Accept terms
+    </text>
+    <text id="terms-error" role="alert"></text>
+    <button type="submit">Create account</button>
+    <text></text>
+  </form>
+</view>

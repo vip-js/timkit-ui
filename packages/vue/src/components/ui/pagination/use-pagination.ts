@@ -66,7 +66,7 @@ export function usePagination(props: UsePaginationProps, emit: UsePaginationEmit
   watchEffect(() => {
     const controlled = readPage()
     if (controlled === undefined) {
-      const page = (service.context as { get: (key: string) => unknown }).get('page')
+      const page = (service.context as { get: (key: string) => number | undefined }).get('page')
       if (typeof page === 'number') current.value = page
       return
     }

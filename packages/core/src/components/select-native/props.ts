@@ -3,7 +3,7 @@ export type SelectNativeProps = {
   /**
    * The controlled value of the component.
    */
-  value?: string | string[]
+  value?: string | string[] | null
   /**
    * The default value of the component when uncontrolled.
    */
@@ -26,7 +26,7 @@ export type SelectNativeVueProps = {
   /**
    * The controlled value bound via `v-model` (Vue specific).
    */
-  modelValue?: string | string[]
+  modelValue?: string | string[] | null
   /**
    * The default value of the component when uncontrolled.
    */
