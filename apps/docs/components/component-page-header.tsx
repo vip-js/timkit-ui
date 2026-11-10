@@ -16,19 +16,17 @@ export function ComponentPageHeader({ title, description, slug }: ComponentPageH
 
   return (
     <>
-      <PageHeader title={title}>{description}</PageHeader>
+      <PageHeader title={title} size="compact" eyebrow="Component">
+        {description}
+      </PageHeader>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
+      <div className="mt-2 grid gap-4 md:grid-cols-2">
         {/* Installation */}
-        <div id="installation" className="scroll-m-20 group min-w-0">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[12px] font-medium text-muted-foreground/80 tracking-tight group-hover:text-foreground transition-colors">
-              Installation
-            </h2>
-          </div>
-          <div className="relative overflow-hidden rounded-xl border border-border/20 bg-background/90 backdrop-blur-sm transition-all duration-300 group-hover:border-border/30 group-hover:bg-background/95">
+        <div id="installation" className="scroll-m-20 min-w-0">
+          <p className="mb-2 text-[11px] font-medium text-muted-foreground">安装 Installation</p>
+          <div className="relative overflow-hidden rounded-xl border border-border/50 bg-card/50 shadow-sm">
             <div className="relative p-3">
-              <div className="rounded-lg border border-border/15 bg-slate-950/98 px-3 py-2.5 text-[12px] font-mono text-slate-100 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.25)] dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] whitespace-pre overflow-x-auto backdrop-blur-sm">
+              <div className="overflow-x-auto rounded-lg border border-border/20 bg-slate-950/98 px-3 py-2.5 text-[12px] font-mono leading-relaxed text-slate-100 whitespace-pre-wrap">
                 {framework === 'react'
                   ? `npx shadcn@latest add https://ui.timkit.cn/r/${slug}.json`
                   : framework === 'vue'
@@ -42,15 +40,11 @@ export function ComponentPageHeader({ title, description, slug }: ComponentPageH
         </div>
 
         {/* Usage */}
-        <div id="usage" className="scroll-m-20 group min-w-0">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[12px] font-medium text-muted-foreground/80 tracking-tight group-hover:text-foreground transition-colors">
-              Usage
-            </h2>
-          </div>
-          <div className="relative overflow-hidden rounded-xl border border-border/20 bg-background/90 backdrop-blur-sm transition-all duration-300 group-hover:border-border/30 group-hover:bg-background/95">
+        <div id="usage" className="scroll-m-20 min-w-0">
+          <p className="mb-2 text-[11px] font-medium text-muted-foreground">用法 Usage</p>
+          <div className="relative overflow-hidden rounded-xl border border-border/50 bg-card/50 shadow-sm">
             <div className="relative p-3">
-              <div className="rounded-lg border border-border/15 bg-slate-950/98 px-3 py-2.5 text-[12px] font-mono text-slate-100 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.25)] dark:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] whitespace-pre overflow-x-auto backdrop-blur-sm">
+              <div className="overflow-x-auto rounded-lg border border-border/20 bg-slate-950/98 px-3 py-2.5 text-[12px] font-mono leading-relaxed text-slate-100 whitespace-pre-wrap">
                 {framework === 'react'
                   ? `import { ${title.replace(/\s+/g, '')} } from "@/components/ui/${slug}"`
                   : framework === 'vue'

@@ -4,6 +4,7 @@ import * as React from 'react'
 import type { RegistryItem } from '@timui/core'
 import { Monitor, Terminal } from 'lucide-react'
 
+import { demoCanvasClass, demoKindFromName, demoStageClass } from '@/lib/demo-layout'
 import type { FrameworkPreviewHints, PreviewFrameworkKey } from '@/lib/framework-preview'
 import { resolveFrameworkPreviewTargets } from '@/lib/framework-preview'
 import { getAvailablePreviewFrameworkTabs, getFrameworkCodePanes } from '@/lib/framework-utils'
@@ -58,6 +59,7 @@ export default function ComponentPreview({
     effectiveFramework === 'weapp' ? undefined : previewTargets[effectiveFramework]
   const currentPane = frameworkPanes.find((p) => p.value === effectiveFramework)
   const hasCode = frameworkTabs.length > 0
+  const demoKind = demoKindFromName(component.name)
 
   React.useEffect(() => {
     if (!frameworkTabs.some((item) => item.value === activeFramework) && frameworkTabs[0]) {
@@ -66,8 +68,8 @@ export default function ComponentPreview({
   }, [activeFramework, frameworkTabs])
 
   return (
-    <div className={cn('group relative my-6 flex flex-col gap-4', className)}>
-      <div className="flex items-center justify-between">
+    <div className={cn('group relative flex flex-col gap-3', className)}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           {/* Framework Switcher - Minimal Pill */}
           {frameworkTabs.length > 1 && (
@@ -127,27 +129,35 @@ export default function ComponentPreview({
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-xl border border-border shadow-xs dark:border-border/60">
+      <div
+        className={cn(
+          'relative rounded-xl border border-border/55 bg-muted/20 shadow-none dark:border-border/50',
+          demoKind === 'overlay' ? 'overflow-visible' : 'overflow-hidden'
+        )}
+      >
         {tab === 'preview' ? (
-          <div className="relative min-h-[400px] w-full bg-background">
-            {/* Preview Background: Dot Matrix */}
-            <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25 dark:bg-[radial-gradient(#2f333a_1px,transparent_1px)]" />
+          <div
+            className={cn(
+              'relative w-full',
+              demoKind === 'control' && 'min-h-36',
+              demoKind === 'form' && 'min-h-52',
+              demoKind === 'data' && 'min-h-40',
+              demoKind === 'overlay' && 'min-h-64'
+            )}
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(hsl(var(--border))_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.35] dark:opacity-25" />
 
-            {/* Resizable Container Wrapper */}
-            <div
-              className="relative flex w-full justify-center overflow-hidden py-10"
-              style={{ minHeight: 400 }}
-            >
+            <div className="relative flex w-full justify-center px-3 py-5 sm:px-4 sm:py-6">
               <div
                 className={cn(
-                  'relative flex min-h-[350px] w-full flex-col bg-background ring-1 ring-border/30 transition-all duration-300 ease-in-out',
-                  align === 'center' && 'items-center',
+                  'relative flex w-full flex-col rounded-lg bg-background/85 ring-1 ring-border/35',
+                  demoStageClass(demoKind),
                   align === 'start' && 'items-start',
                   align === 'end' && 'items-end'
                 )}
                 style={{ maxWidth: previewWidth }}
               >
-                <div className="z-10 w-full p-8 md:p-10">
+                <div className={cn('z-10 w-full p-4 sm:p-5', demoCanvasClass(demoKind))}>
                   {effectiveFramework === 'react' && currentPreviewTarget?.componentPath ? (
                     <RuntimePreview
                       key={`react:${currentPreviewTarget.componentPath}`}
@@ -155,6 +165,7 @@ export default function ComponentPreview({
                       componentName={currentPreviewTarget.componentName || component.name}
                       componentPath={currentPreviewTarget.componentPath}
                       props={{}}
+                      className="relative w-full overflow-hidden rounded-md bg-transparent"
                     />
                   ) : effectiveFramework === 'html' && currentPreviewTarget ? (
                     <RuntimePreview
@@ -162,6 +173,7 @@ export default function ComponentPreview({
                       framework="html"
                       componentName={currentPreviewTarget.componentName}
                       code={currentPreviewTarget.code || currentPane?.code || ''}
+                      className="relative w-full overflow-hidden rounded-md bg-transparent"
                     />
                   ) : effectiveFramework === 'vue' && currentPreviewTarget ? (
                     <RuntimePreview
@@ -169,6 +181,7 @@ export default function ComponentPreview({
                       framework="vue"
                       componentName={currentPreviewTarget.componentName || component.name}
                       props={{}}
+                      className="relative w-full overflow-hidden rounded-md bg-transparent"
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
@@ -193,7 +206,9 @@ export default function ComponentPreview({
                     'p-1.5 rounded hover:bg-muted text-muted-foreground',
                     previewWidth === '100%' && 'text-foreground bg-muted'
                   )}
-                  title="Full Width"
+                  aria-label="Full width"
+                  aria-pressed={previewWidth === '100%'}
+                  title="Full width"
                 >
                   <div className="h-3 w-5 border border-current rounded-sm" />
                 </button>
@@ -204,7 +219,9 @@ export default function ComponentPreview({
                     'p-1.5 rounded hover:bg-muted text-muted-foreground',
                     previewWidth === 375 && 'text-foreground bg-muted'
                   )}
-                  title="Mobile (375px)"
+                  aria-label="Mobile width"
+                  aria-pressed={previewWidth === 375}
+                  title="Mobile width"
                 >
                   <div className="h-4 w-2.5 border border-current rounded-[1px]" />
                 </button>

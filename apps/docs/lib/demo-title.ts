@@ -284,3 +284,21 @@ export const resolveDemoDisplayTitle = (
   files: RegistryItem['files'] = [],
   explicitTitle?: string
 ): string => resolveDemoDisplayTitleDetail(componentSlug, demoName, files, explicitTitle).title
+
+/** 同一页里重复的示例标题加上文件序号，目录和正文才能区分。 */
+export function disambiguateDemoTitles<T extends { title?: string; sourceName?: string }>(
+  items: T[]
+): T[] {
+  const counts = new Map<string, number>()
+  for (const item of items) {
+    const title = item.title || ''
+    counts.set(title, (counts.get(title) ?? 0) + 1)
+  }
+  return items.map((item) => {
+    const title = item.title || ''
+    if ((counts.get(title) ?? 0) < 2) return item
+    const suffix = item.sourceName?.match(/-(\d{1,3})$/)?.[1]
+    if (!suffix) return item
+    return { ...item, title: `${title} · ${suffix.padStart(2, '0')}` }
+  })
+}

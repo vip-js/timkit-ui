@@ -6,13 +6,14 @@ import { notFound } from 'next/navigation'
 import type { JsonValue } from '@timui/core'
 
 import { getCategoryBySlug, getSectionBySlug, getSections } from '@/lib/catalog'
-import { resolveDemoDisplayTitle } from '@/lib/demo-title'
+import { disambiguateDemoTitles, resolveDemoDisplayTitle } from '@/lib/demo-title'
 import { getDocsFrameworkPreviewHints } from '@/lib/framework-preview-server'
 import { adaptRegistryItemToComponentData } from '@/lib/registry-adapter'
 import { getRegistryIndexItems, loadRegistryItemFromData } from '@/lib/registry-index'
 import { extractSectionCode } from '@/lib/sections'
 import { ComponentApiReference } from '@/components/component-api-reference'
 import { ContractNote, KeyboardNote, contractNote, keyboardNote } from '@/components/keyboard-note'
+import { DocsSectionHeader } from '@/components/docs-section'
 import { ComponentPageHeader } from '@/components/component-page-header'
 import ComponentPreviewLazy from '@/components/component-preview-lazy'
 // ...
@@ -204,7 +205,9 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     markEnd('components-page:load-components')
 
     markStart('components-page:mdx-components')
-    const sectionComponents = components.filter((component) => component.isActive !== false)
+    const sectionComponents = disambiguateDemoTitles(
+      components.filter((component) => component.isActive !== false)
+    )
     markEnd('components-page:mdx-components')
 
     const apiRegistryItem =
@@ -227,19 +230,19 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     // 4. Render Page
     /* 4. Construct TOC */
     const toc = [
-      { title: 'Installation', url: '#installation' },
-      { title: 'Usage', url: '#usage' },
+      { title: '安装', url: '#installation' },
+      { title: '用法', url: '#usage' },
       {
-        title: 'Examples',
+        title: '示例',
         url: '#examples',
         items: sectionComponents.map((component) => ({
           title: component.title || '',
           url: `#example-${component.id}`,
         })),
       },
-      { title: 'API Reference', url: '#api-reference' },
-      ...(keyboardNote(slug) ? [{ title: 'Keyboard', url: '#keyboard' }] : []),
-      ...(contractNote(slug) ? [{ title: 'Contract', url: '#contract' }] : []),
+      { title: 'API', url: '#api-reference' },
+      ...(keyboardNote(slug) ? [{ title: '键盘', url: '#keyboard' }] : []),
+      ...(contractNote(slug) ? [{ title: '契约', url: '#contract' }] : []),
     ]
 
     const pageTitle = pageDetails.section_name || pageDetails.name || slug
@@ -247,7 +250,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     // 5. Render Page
     return (
       <main className="relative lg:gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_180px]">
-        <div className="mx-auto w-full min-w-0">
+        <div className="mx-auto w-full min-w-0 max-w-[46rem] xl:max-w-none">
           <ComponentPageHeader
             title={pageTitle}
             description={pageDetails.description}
@@ -255,12 +258,13 @@ export default async function Page({ params }: { params: Promise<Params> }) {
           />
 
           {/* 2. Middle Section: Examples Grid */}
-          <div id="examples" className="mt-10 scroll-m-20">
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-base font-semibold tracking-tight text-foreground">Examples</h2>
-              <div className="h-[1px] flex-1 bg-border/20" />
-            </div>
-            <div className="divide-y divide-border/15">
+          <section id="examples" className="mt-12 space-y-6">
+            <DocsSectionHeader
+              title="Examples"
+              kicker="示例"
+              subtitle="每个示例均可切换预览与源码，并支持 React、Vue、HTML 与小程序（若已提供）。"
+            />
+            <div className="space-y-8">
               {sectionComponents.map((component) => {
                 const fallbackFromId =
                   typeof component.id === 'string' && component.id.startsWith(`${slug}-`)
@@ -272,37 +276,32 @@ export default async function Page({ params }: { params: Promise<Params> }) {
                   previewName || component.id || component.title || slug
                 )
                 return (
-                  <div
+                  <article
                     key={component.id}
                     id={`example-${component.id}`}
-                    className="flex flex-col gap-3 min-w-0 scroll-mt-24 py-6 first:pt-0"
+                    className="min-w-0 scroll-mt-24"
                   >
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/70">
-                      {component.title}
-                    </span>
+                    <h3 className="mb-3 text-sm font-medium text-foreground">{component.title}</h3>
                     <ComponentPreviewLazy
                       componentName={resolvedPreviewName}
                       previewHints={getDocsFrameworkPreviewHints(resolvedPreviewName)}
-                      className="my-0 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(15,23,42,0.15)] dark:hover:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.2)]"
+                      className="my-0 gap-3"
                     />
-                  </div>
+                  </article>
                 )
               })}
             </div>
-          </div>
-
-          <KeyboardNote slug={slug} />
-          <ContractNote slug={slug} />
+          </section>
 
           {/* 3. Bottom Section: API Reference */}
-          <div id="api-reference" className="mt-12 border-t border-border/20 pt-8">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-5">
-                <h2 className="text-base font-semibold tracking-tight text-foreground">
-                  Structured API
-                </h2>
-                <div className="h-[1px] flex-1 bg-border/20" />
-              </div>
+          <section id="api-reference" className="mt-16 border-t border-border/40 pt-10 space-y-8">
+            <div>
+              <DocsSectionHeader
+                title="Structured API"
+                kicker="结构化 API"
+                subtitle="与 UCS schema 对齐的 props、逻辑机与多框架运行时。"
+                className="mb-6"
+              />
               <ComponentApiReference
                 slug={slug}
                 sectionComponents={sectionComponents}
@@ -312,24 +311,20 @@ export default async function Page({ params }: { params: Promise<Params> }) {
 
             {sectionComponents[0]?.mdxSource ? (
               <>
-                <div className="flex items-center gap-3 mb-5">
-                  <h2 className="text-base font-semibold tracking-tight text-foreground">
-                    Extended Notes
-                  </h2>
-                  <div className="h-[1px] flex-1 bg-border/20" />
-                </div>
-                <div className="mdx prose prose-slate max-w-none prose-headings:font-semibold prose-code:font-mono prose-code:bg-muted/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-[12px] prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-950/98 prose-pre:border prose-pre:border-border/15 prose-pre:shadow-[0_2px_8px_-2px_rgba(15,23,42,0.25)]">
+                <DocsSectionHeader title="Extended Notes" kicker="扩展说明" className="mb-5" />
+                <div className="mdx prose prose-slate max-w-none prose-headings:scroll-m-20 prose-headings:font-semibold prose-p:leading-relaxed prose-li:leading-relaxed prose-code:font-mono prose-code:bg-muted/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-[12px] prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-950/98 prose-pre:border prose-pre:border-border/15 prose-pre:rounded-xl">
                   {apiReferenceDoc}
                 </div>
               </>
             ) : (
-              <div className="scroll-m-20">
-                <p className="text-[13px] text-muted-foreground/80 mb-5">
-                  Extended notes are not available for this component yet.
-                </p>
-              </div>
+              <p className="text-[13px] leading-relaxed text-muted-foreground">
+                该组件尚无扩展说明文档。
+              </p>
             )}
-          </div>
+          </section>
+
+          <KeyboardNote slug={slug} />
+          <ContractNote slug={slug} />
         </div>
 
         {/* Right Sidebar TOC - Should be dynamic based on MDX? For now static is fine */}

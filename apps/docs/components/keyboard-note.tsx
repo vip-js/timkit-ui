@@ -1,5 +1,7 @@
 import { widgetKeyContract } from '@timui/core'
 
+import { DocsProsePanel, DocsSectionHeader } from '@/components/docs-section'
+
 type Widget = keyof typeof widgetKeyContract
 
 const noteAlias: Record<string, string> = {
@@ -215,17 +217,32 @@ export function keyboardNote(slug: string) {
   return extra[key] ?? null
 }
 
+function noteItems(note: string) {
+  return note
+    .split(/(?<=\.)\s+(?=[A-Z0-9])/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+}
+
 export function KeyboardNote({ slug }: { slug: string }) {
   const note = keyboardNote(slug)
   if (!note) return null
+  const items = noteItems(note)
   return (
-    <div id="keyboard" className="mt-12 scroll-m-20">
-      <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">Keyboard</h2>
-        <div className="h-[1px] flex-1 bg-border/20" />
-      </div>
-      <p className="text-[13px] text-muted-foreground">{note}</p>
-    </div>
+    <section id="keyboard" className="mt-14 space-y-4">
+      <DocsSectionHeader
+        title="Keyboard"
+        kicker="键盘与焦点"
+        subtitle="跨 React、Vue 与小程序共享的交互与可读名称约定。"
+      />
+      <DocsProsePanel>
+        <ul className="m-0 list-disc space-y-2 pl-4">
+          {items.map((item, index) => (
+            <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>
+          ))}
+        </ul>
+      </DocsProsePanel>
+    </section>
   )
 }
 
@@ -233,12 +250,19 @@ export function ContractNote({ slug }: { slug: string }) {
   const note = contractNote(slug)
   if (!note) return null
   return (
-    <div id="contract" className="mt-12 scroll-m-20">
-      <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">Contract</h2>
-        <div className="h-[1px] flex-1 bg-border/20" />
-      </div>
-      <p className="text-[13px] text-muted-foreground">{note}</p>
-    </div>
+    <section id="contract" className="mt-14 space-y-4">
+      <DocsSectionHeader
+        title="Contract"
+        kicker="行为契约"
+        subtitle="inspect 与运行时应对齐的 props、状态与无障碍语义。"
+      />
+      <DocsProsePanel>
+        <ul className="m-0 list-disc space-y-2 pl-4">
+          {noteItems(note).map((item, index) => (
+            <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>
+          ))}
+        </ul>
+      </DocsProsePanel>
+    </section>
   )
 }

@@ -70,9 +70,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
 
   return (
     <div className="space-y-3 rounded-2xl border border-border/60 bg-card/80 p-4 shadow-[0_6px_16px_-12px_rgba(15,23,42,0.16)]">
-      <p className="text-xs font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-        On This Page
-      </p>
+      <p className="text-[11px] font-semibold tracking-wide text-muted-foreground">本页目录</p>
       <ul className="m-0 list-none text-sm space-y-2">
         {toc.map((item, index) => (
           <li key={index} className="mt-0">

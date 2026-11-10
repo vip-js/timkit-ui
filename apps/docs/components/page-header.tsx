@@ -1,28 +1,55 @@
+import type { ReactNode } from 'react'
+
 import { cn } from '@/registry/default/lib/utils'
 
 interface PageHeaderProps {
   title: string
   eyebrow?: string
-  cta?: React.ReactNode
+  cta?: ReactNode
   className?: string
-  children: React.ReactNode
+  /** 组件文档内页使用更紧凑的标题尺度 */
+  size?: 'default' | 'compact'
+  children: ReactNode
 }
 
-export default function PageHeader({ title, eyebrow, cta, className, children }: PageHeaderProps) {
+export default function PageHeader({
+  title,
+  eyebrow,
+  cta,
+  className,
+  size = 'default',
+  children,
+}: PageHeaderProps) {
+  const compact = size === 'compact'
   return (
-    <div className={cn('mb-16 text-left animate-hero-rise', className)}>
+    <div className={cn(compact ? 'mb-10' : 'mb-16', 'text-left animate-hero-rise', className)}>
       {eyebrow && (
-        <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/80">
+        <p
+          className={cn(
+            'text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/80',
+            compact ? 'mb-2' : 'mb-4'
+          )}
+        >
           {eyebrow}
         </p>
       )}
-      <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+      <h1
+        className={cn(
+          'font-heading font-bold tracking-tight text-foreground',
+          compact ? 'mb-3 text-2xl md:text-3xl' : 'mb-4 text-4xl md:text-5xl lg:text-6xl'
+        )}
+      >
         {title}
       </h1>
-      <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground/90 md:text-xl">
+      <p
+        className={cn(
+          'max-w-2xl leading-relaxed text-muted-foreground/90',
+          compact ? 'text-[15px] md:text-base' : 'text-lg md:text-xl'
+        )}
+      >
         {children}
       </p>
-      {cta && <div className="mt-8 flex justify-start">{cta}</div>}
+      {cta && <div className={cn('flex justify-start', compact ? 'mt-5' : 'mt-8')}>{cta}</div>}
     </div>
   )
 }

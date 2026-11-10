@@ -15,6 +15,7 @@ import {
   type PreviewIncomingMessage,
 } from '@timui/core/preview-protocol'
 
+import { demoCanvasClass, demoKindFromName, demoStageClass } from '@/lib/demo-layout'
 import { registryComponentManifest } from '@/registry/registry-manifest'
 
 type RegistryComponentManifest = typeof registryComponentManifest
@@ -34,6 +35,7 @@ export default function ReactPreviewRuntimePage() {
   > | null>(null)
   const [componentProps, setComponentProps] = React.useState<Record<string, PreviewData>>({})
   const [loadMessage, setLoadMessage] = React.useState('Waiting for preview request...')
+  const [componentPath, setComponentPath] = React.useState('')
   const requestIdRef = React.useRef('')
   const allowedParentOrigins = React.useMemo(
     () => parsePreviewAllowedOrigins(process.env.NEXT_PUBLIC_PREVIEW_ALLOWED_ORIGINS),
@@ -103,6 +105,7 @@ export default function ReactPreviewRuntimePage() {
         }
 
         requestIdRef.current = message.requestId
+        setComponentPath(componentPath)
         setComponentProps(message.props || {})
         setCurrentComponent(() => mod.default as ComponentType<Record<string, PreviewData>>)
         setLoadMessage('')
@@ -191,19 +194,24 @@ export default function ReactPreviewRuntimePage() {
     window.requestAnimationFrame(emitResize)
   }, [CurrentComponent, componentProps, emitResize])
 
+  const kind = demoKindFromName(componentPath)
+
   return (
     <div
       ref={previewRootRef}
+      data-demo-kind={kind}
+      className={demoStageClass(kind)}
       style={{
-        minHeight: '100vh',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
+        width: '100%',
+        boxSizing: 'border-box',
+        padding: kind === 'data' ? '0.25rem' : '0.75rem',
       }}
     >
       {CurrentComponent ? (
-        <CurrentComponent {...componentProps} />
+        <div className={demoCanvasClass(kind)}>
+          <CurrentComponent {...componentProps} />
+        </div>
       ) : (
         <p style={{ color: '#666' }}>{loadMessage}</p>
       )}

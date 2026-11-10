@@ -41,8 +41,8 @@ const DocsLayout = (props: Props) => {
           className="hidden md:flex bg-border/40 w-[1px]"
         />
         <ResizablePanel id="docs-layout-content" defaultSize={82}>
-          <div className="h-full w-full overflow-y-auto px-4 md:px-6 lg:px-10 pt-8 pb-16">
-            <div className="mx-auto w-full">{children}</div>
+          <div className="h-full w-full overflow-y-auto px-4 md:px-6 lg:px-8 pt-6 pb-14 scroll-smooth">
+            <div className="mx-auto w-full max-w-[90rem]">{children}</div>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
